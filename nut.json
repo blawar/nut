@@ -1,0 +1,8 @@
+{
+    "paths": {
+        "titleBase": "titles/{name}[{id}].nsp",
+        "titleDLC": "titles/updates/{baseName}/{name}[{id}].nsp",
+        "titleUpdate": "titles/updates/{baseName}/{name}[{id}].nsp",
+		"scan": "."
+    }
+}
