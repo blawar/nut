@@ -36,9 +36,45 @@ class Title:
 		
 		self.isDLC = (titleIdNum & 0xFFFFFFFFFFFFE000) != (titleIdNum & 0xFFFFFFFFFFFFF000)
 		#self.isBase = self.id == titleIdNum & 0xFFFFFFFFFFFFE000
-		self.version = titleIdNum & 0x0000000000000FFF
+		self.idExt = titleIdNum & 0x0000000000000FFF
+		
+		if self.isDLC:
+			#dlc
+			self.versions = Title.getVersions(self.id)
+		elif self.idExt == 0:
+			#base
+			self.versions = Title.getVersions(self.id)
+			self.updateId = '%s800' % self.id[:-3]
+			self.updateVersions = Title.getVersions(self.updateId)
+		else:
+			#update
+			self.versions = Title.getVersions(self.id)
+		#self.versions = Title.getVersions(self.id)
 		self.path = None
 		
+	@staticmethod
+	def getVersions(id):
+		if not hasCDNSP:
+			return ['0']
+		
+		cacheFile = '_cache/versions/' + id + '.json'
+		
+		if os.path.isfile(cacheFile):
+			with open(cacheFile, "r") as f:
+				r = json.loads(f.read())
+		else:
+			r = CDNSP.get_versions(id)
+		
+			os.makedirs(os.path.dirname(cacheFile), exist_ok=True)
+			
+			with open(cacheFile, "w+") as f:
+				f.write(json.dumps(r))
+		
+		if len(r) == 0 or r[0] == 'none':
+			return ['0']
+
+		return r
+			
 	@staticmethod
 	def getBaseId(id):
 		titleIdNum = int(id, 16)
@@ -47,6 +83,7 @@ class Title:
 class Nsp:
 	def __init__(self, path):
 		self.path = path
+		self.version = '0'
 		
 		z = re.match('.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
 		if z:
@@ -56,6 +93,10 @@ class Nsp:
 				if self.titleId in titles.keys():
 					titles[self.titleId].path = path
 					self.title = titles[self.titleId]
+					
+		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
+		if z:
+			self.version = z.groups()[0]
 					
 	def move(self):
 		if not self.fileName():
@@ -97,17 +138,16 @@ class Nsp:
 		
 		if t.isDLC:
 			format = config.titleDLCPath
-		elif t.version != 0:
+		elif t.idExt != 0:
 			format = config.titleUpdatePath
 		else:
 			format = config.titleBasePath
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
 		format = format.replace('{name}', self.cleanFilename(t.name))
-		format = format.replace('{version}', str(t.version))
+		format = format.replace('{version}', str(self.version))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
 		format = format.replace('{baseName}', self.cleanFilename(bt.name))
-		format = format.replace('{baseVersion}', str(bt.version))
 		return format
 		
 		
@@ -215,4 +255,4 @@ if hasCDNSP:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
 			CDNSP.download_game(t.id.lower(), 0, t.key.lower(), True, '', True)
 
-#print(CDNSP.get_versions('01007ef00011e800'))
+#print(Title.getVersions('0100111004461002'))

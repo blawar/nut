@@ -1,13 +1,13 @@
 {
     "paths": {
-        "titleBase": "titles/{name}[{id}].nsp",
-        "titleDLC": "titles/updates/{baseName}/{name}[{id}].nsp",
-        "titleUpdate": "titles/updates/{baseName}/{name}[{id}].nsp",
+        "titleBase": "titles/{name}[{id}][v{version}].nsp",
+        "titleDLC": "titles/DLC/{baseName}/{name}[{id}][v{version}].nsp",
+        "titleUpdate": "titles/updates/{baseName}/{name}[{id}][v{version}].nsp",
 		"scan": "."
     },
 	"download": {
 		"base": true,
 		"update": false,
-		"dlc": true
+		"dlc": false
 	}
 }
