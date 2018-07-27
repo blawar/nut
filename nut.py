@@ -128,9 +128,10 @@ def removeEmptyDir(path, removeRoot=True):
 	files = os.listdir(path)
 	if len(files):
 		for f in files:
-			fullpath = os.path.join(path, f)
-			if os.path.isdir(fullpath):
-				removeEmptyDir(fullpath)
+			if not f.startswith('.'):
+				fullpath = os.path.join(path, f)
+				if os.path.isdir(fullpath):
+					removeEmptyDir(fullpath)
 
 	# if folder empty, delete it
 	files = os.listdir(path)
