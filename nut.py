@@ -38,6 +38,11 @@ class Title:
 		#self.isBase = self.id == titleIdNum & 0xFFFFFFFFFFFFE000
 		self.idExt = titleIdNum & 0x0000000000000FFF
 		
+		if re.match('.*\sDemo\s*$', self.name, re.I) or re.match('.*\sDemo\s+.*$', self.name, re.I):
+			self.isDemo = True
+		else:
+			self.isDemo = False
+		
 		if self.isDLC:
 			#dlc
 			self.versions = Title.getVersions(self.id)
@@ -124,7 +129,7 @@ class Nsp:
 		return True
 		
 	def cleanFilename(self, s):
-		return re.sub('[\/\\\:\*\?\"\<\>\|\.\s]+', ' ', s).strip()
+		return re.sub('[\/\\\:\*\?\"\<\>\|\.\s™©®()]+', ' ', s).strip()
 		
 	def fileName(self):
 		bt = None
@@ -146,6 +151,8 @@ class Nsp:
 			format = config.titleDLCPath
 		elif t.idExt != 0:
 			format = config.titleUpdatePath
+		elif t.isDemo:
+			format = config.titleDemoPath
 		else:
 			format = config.titleBasePath
 			
@@ -221,9 +228,11 @@ class Config:
 			self.titleBasePath = j['paths']['titleBase']
 			self.titleDLCPath = j['paths']['titleDLC']
 			self.titleUpdatePath = j['paths']['titleUpdate']
+			self.titleDemoPath = j['paths']['titleDemo']
 			self.scanPath = j['paths']['scan']
 			
 			self.downloadBase = j['download']['base']
+			self.downloadDemo = j['download']['demo']
 			self.downloadDLC = j['download']['dlc']
 			self.downloadUpdate = j['download']['update']
 	
@@ -257,8 +266,8 @@ removeEmptyDir('.', False)
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 if hasCDNSP:
 	for id, t in titles.items():
-		if not t.path and (not t.isDLC or config.downloadDLC)  and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+		if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
 
-#print(Title.getVersions('0100111004461002'))
+#print(CDNSP.get_info('0100a5400ac86000'))
