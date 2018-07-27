@@ -3,11 +3,13 @@
         "titleBase": "titles/{name}[{id}][v{version}].nsp",
         "titleDLC": "titles/DLC/{baseName}/{name}[{id}][v{version}].nsp",
         "titleUpdate": "titles/updates/{baseName}/{name}[{id}][v{version}].nsp",
+		"titleDemo": "titles/demos/{name}[{id}][v{version}].nsp",
 		"scan": "."
     },
 	"download": {
 		"base": true,
 		"update": false,
+		"demo": false,
 		"dlc": true
 	}
 }
