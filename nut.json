@@ -4,5 +4,10 @@
         "titleDLC": "titles/updates/{baseName}/{name}[{id}].nsp",
         "titleUpdate": "titles/updates/{baseName}/{name}[{id}].nsp",
 		"scan": "."
-    }
+    },
+	"download": {
+		"base": true,
+		"update": false,
+		"dlc": true
+	}
 }
