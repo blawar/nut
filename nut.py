@@ -7,7 +7,11 @@ import os
 import re
 import pathlib
 import urllib3
-import CDNSP
+try:
+	import CDNSP
+	hasCDNSP = True
+except:
+	hasCDNSP = False
 
 nsps = []
 titles = {}
@@ -137,14 +141,16 @@ def logMissingTitles():
 	f.close()
 
 urllib3.disable_warnings()
-CDNSP.tqdmProgBar = False
-CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
-CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout, CDNSP.autoUpdatedb = CDNSP.load_config(CDNSP.configPath)
 
-if CDNSP.keysPath != '':
-	CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
-else:
-	CDNSP.keysArg = ''
+if hasCDNSP:
+	CDNSP.tqdmProgBar = False
+	CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
+	CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout, CDNSP.autoUpdatedb = CDNSP.load_config(CDNSP.configPath)
+
+	if CDNSP.keysPath != '':
+		CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
+	else:
+		CDNSP.keysArg = ''
 
 loadTitleWhitelist()
 loadTitleBlacklist()
@@ -157,8 +163,8 @@ for f in nsps:
 logMissingTitles()
 
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
-
-for id, t in titles.items():
-	if not t.path and not t.isDLC and t.version == 0 and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
-		print('Downloading ' + t.name + ', ' + t.key.lower())
-		CDNSP.download_game(t.id.lower(), 0, t.key.lower(), True, '', True)
+if hasCDNSP:
+	for id, t in titles.items():
+		if not t.path and not t.isDLC and t.version == 0 and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+			print('Downloading ' + t.name + ', ' + t.key.lower())
+			CDNSP.download_game(t.id.lower(), 0, t.key.lower(), True, '', True)
