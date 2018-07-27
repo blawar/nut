@@ -23,3 +23,7 @@ add the following line to the top of your CDNSP.py file:
 from tqdm import tqdm
 
 run nut.py
+
+if you get an error about AutoUpdatedb, you need to add the following key value to CDNSPconfig.json:
+
+"AutoUpdatedb": false
