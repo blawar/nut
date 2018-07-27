@@ -176,6 +176,10 @@ class Config:
 			self.titleDLCPath = j['paths']['titleDLC']
 			self.titleUpdatePath = j['paths']['titleUpdate']
 			self.scanPath = j['paths']['scan']
+			
+			self.downloadBase = j['download']['base']
+			self.downloadDLC = j['download']['dlc']
+			self.downloadUpdate = j['download']['update']
 	
 
 config = Config()
@@ -207,6 +211,8 @@ removeEmptyDir('.', False)
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 if hasCDNSP:
 	for id, t in titles.items():
-		if not t.path and not t.isDLC and t.version == 0 and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+		if not t.path and (not t.isDLC or config.downloadDLC)  and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
 			CDNSP.download_game(t.id.lower(), 0, t.key.lower(), True, '', True)
+
+#print(CDNSP.get_versions('01007ef00011e800'))
