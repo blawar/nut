@@ -8,6 +8,6 @@
 	"download": {
 		"base": true,
 		"update": false,
-		"dlc": false
+		"dlc": true
 	}
 }
