@@ -103,6 +103,7 @@ class Nsp:
 					
 	def move(self):
 		if not self.fileName():
+			#print('could not get filename for ' + self.path)
 			return False
 			
 		if os.path.abspath(self.fileName()) == os.path.abspath(self.path):
@@ -129,6 +130,7 @@ class Nsp:
 		bt = None
 		if not self.titleId in titles.keys():
 			if not Title.getBaseId(self.titleId) in titles.keys():
+				print('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
 				return None
 			bt = titles[Title.getBaseId(self.titleId)]
 			t = Title(self.titleId + '0000000000000000|0000000000000000|' + bt.name)
@@ -136,6 +138,7 @@ class Nsp:
 			t = titles[self.titleId]
 		
 			if not t.baseId in titles.keys():
+				print('could not find baseId for ' + self.path)
 				return None
 			bt = titles[t.baseId]
 		
