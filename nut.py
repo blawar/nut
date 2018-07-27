@@ -52,6 +52,9 @@ class Title:
 		#self.versions = Title.getVersions(self.id)
 		self.path = None
 		
+	def lastestVersion(self):
+		return self.versions[-1]
+		
 	@staticmethod
 	def getVersions(id):
 		if not hasCDNSP:
@@ -253,6 +256,6 @@ if hasCDNSP:
 	for id, t in titles.items():
 		if not t.path and (not t.isDLC or config.downloadDLC)  and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
-			CDNSP.download_game(t.id.lower(), 0, t.key.lower(), True, '', True)
+			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
 
 #print(Title.getVersions('0100111004461002'))
