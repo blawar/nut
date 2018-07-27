@@ -7,6 +7,7 @@ import os
 import re
 import pathlib
 import urllib3
+import json
 try:
 	import CDNSP
 	hasCDNSP = True
@@ -71,11 +72,14 @@ class Nsp:
 			
 		os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 		os.rename(self.path, self.fileName())
-		#print(self.path)
+		#print(self.path + ' -> ' + self.fileName())
 		
 		if self.titleId in titles.keys():
 			titles[self.titleId].path = self.fileName()
 		return True
+		
+	def cleanFilename(self, s):
+		return re.sub('[\/\\\:\*\?\"\<\>\|\.\s]+', ' ', s).strip()
 		
 	def fileName(self):
 		bt = None
@@ -91,14 +95,20 @@ class Nsp:
 				return None
 			bt = titles[t.baseId]
 		
-		basePath = 'titles/' + re.sub('[\/\\\:\*\?\"\<\>\|\.]+', ' ', bt.name).strip() + '/'
-		
 		if t.isDLC:
-			basePath += 'DLC/'
+			format = config.titleDLCPath
 		elif t.version != 0:
-			basePath += 'updates/'
-		
-		return basePath + re.sub('[\/\\\:\*\?\"\<\>\|\.]+', ' ', t.name).strip() + '[' + t.id + '].nsp'
+			format = config.titleUpdatePath
+		else:
+			format = config.titleBasePath
+			
+		format = format.replace('{id}', self.cleanFilename(t.id))
+		format = format.replace('{name}', self.cleanFilename(t.name))
+		format = format.replace('{version}', str(t.version))
+		format = format.replace('{baseId}', self.cleanFilename(bt.id))
+		format = format.replace('{baseName}', self.cleanFilename(bt.name))
+		format = format.replace('{baseVersion}', str(bt.version))
+		return format
 		
 		
 def scanForNsp(base):
@@ -110,6 +120,23 @@ def scanForNsp(base):
 			if pathlib.Path(name).suffix == '.nsp':
 				nsps.append(Nsp(root + '/' + name))
 
+def removeEmptyDir(path, removeRoot=True):
+	if not os.path.isdir(path):
+		return
+
+	# remove empty subfolders
+	files = os.listdir(path)
+	if len(files):
+		for f in files:
+			fullpath = os.path.join(path, f)
+			if os.path.isdir(fullpath):
+				removeEmptyDir(fullpath)
+
+	# if folder empty, delete it
+	files = os.listdir(path)
+	if len(files) == 0 and removeRoot:
+		print("Removing empty folder:" + path)
+		os.rmdir(path)
 
 def loadTitles():
     with open('titlekeys.txt', encoding="utf8") as f:
@@ -140,6 +167,19 @@ def logMissingTitles():
 		
 	f.close()
 
+class Config:
+	def __init__(self):
+		with open('nut.json', encoding="utf8") as f:
+			j = json.load(f)
+			self.titleBasePath = j['paths']['titleBase']
+			self.titleDLCPath = j['paths']['titleDLC']
+			self.titleUpdatePath = j['paths']['titleUpdate']
+			self.scanPath = j['paths']['scan']
+	
+
+config = Config()
+	
+
 urllib3.disable_warnings()
 
 if hasCDNSP:
@@ -156,11 +196,12 @@ loadTitleWhitelist()
 loadTitleBlacklist()
 loadTitles()
 #scanNsp('_NSPOUT')
-scanForNsp('.')
+scanForNsp(config.scanPath)
 for f in nsps:
 	f.move()
 	
 logMissingTitles()
+removeEmptyDir('.', False)
 
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 if hasCDNSP:
