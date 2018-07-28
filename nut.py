@@ -109,6 +109,12 @@ class Title:
 			self.version = Title.getVersions(self.id)[-1]
 		return self.version
 		
+	def isValid(self):
+		if self.id:
+			return True
+		else:
+			return False
+		
 	@staticmethod
 	def getVersions(id):
 		r = CDNSP.get_versions(id)
@@ -148,6 +154,17 @@ class Titles:
 	def keys(self):
 		return self.data.keys()
 		
+	def loadTitlekeys(self, path):
+		with open(path, encoding="utf8") as f:
+			for line in f.readlines():
+				t = Title()
+				t.loadCsv(line)
+				
+				if not t.id in self.keys():
+					self[t.id] = Title()
+					
+				self[t.id].loadCsv(line)
+		
 	def load(self):
 		if not os.path.isfile("titles.json"):
 			return
@@ -165,6 +182,12 @@ class Titles:
 				self[id].setName(t['name'])
 				self[id].setKey(t['key'])
 				self[id].setVersion(t['version'])
+				
+		files = [f for f in os.listdir('.') if f.endswith('titlekeys.txt')]
+		files.sort()
+		
+		for file in files:
+			self.loadTitlekeys(file)
 		
 	def save(self):
 		j = {}
@@ -307,6 +330,9 @@ def loadTitles():
 			t = Title()
 			t.loadCsv(line)
 			
+			if not t.isValid():
+				continue
+			
 			if not t.id in titles.keys():
 				titles[t.id] = Title()
 				
@@ -381,8 +407,11 @@ removeEmptyDir('.', False)
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 for t in titles:
 	if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
-		print('Downloading ' + t.name + ', ' + t.key.lower())
-		CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
+		if not t.id:
+			print('no valid id? ' + str(t.path))
+			continue
+		print('Downloading ' + t.name + ', ' + str(t.key).lower())
+		CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 
 titles.save()
 #for t in titles:

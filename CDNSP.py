@@ -280,6 +280,9 @@ def decrypt_NCA(fPath, outDir=''):
 
 
 def verify_NCA(ncaFile, titleKey):
+    if not titleKey:
+        return False
+	
     commandLine = hactoolPath + ' "' + ncaFile + '"' + keysArg + ' --titlekey="' + titleKey + '"'
 
     try:
@@ -321,10 +324,13 @@ def download_cetk(rightsID, fPath):
     return cetk
 
 
-def download_title(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=False):
+def download_title(gameDir, tid, ver, tkey=None, nspRepack=False, n='', verify=False):
     print_('\n%s v%s:' % (tid, ver))
-    tid = tid.lower();
-    tkey = tkey.lower();
+    tid = tid.lower()
+	
+    if tkey:
+        tkey = tkey.lower()
+		
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -360,7 +366,7 @@ def download_title(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=Fal
         if CNMT.type == 'Application' or CNMT.type == 'AddOnContent':
             shutil.copy(os.path.join(os.path.dirname(__file__), 'Certificate.cert'), certPath)
 
-            if tkey != '':
+            if tkey:
                 with open(os.path.join(os.path.dirname(__file__), 'Ticket.tik'), 'rb') as intik:
                     data = bytearray(intik.read())
                     data[0x180:0x190] = uhx(tkey)
@@ -406,7 +412,7 @@ def download_title(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=Fal
     if nspRepack == True:
         files = []
         files.append(certPath)
-        if tkey != '':
+        if tkey:
             files.append(tikPath)
         for key in [1, 5, 2, 4, 6]:
             try:
@@ -423,14 +429,15 @@ def download_title(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=Fal
         return files
 
 
-def get_tik(tid, ver, tkey='', nspRepack=True, n='n'):
+def get_tik(tid, ver, tkey=None, nspRepack=True, n='n'):
     print_('\n%s v%s:' % (tid, ver))
     gameDir = os.path.join(os.path.dirname(__file__), tid)
     tikDir = os.path.join(os.path.dirname(__file__), '_TIKOUT')
     os.makedirs(gameDir, exist_ok=True)
     os.makedirs(tikDir, exist_ok=True)
     tid = tid.lower()
-    tkey = tkey.lower()
+    if tkey:
+        tkey = tkey.lower()
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -475,14 +482,14 @@ def get_tik(tid, ver, tkey='', nspRepack=True, n='n'):
         else:
             print_("Can't get tik without titlekey")
 
-def get_rid(tid, ver=0, tkey='',n='n'):
+def get_rid(tid, ver=0, tkey=None,n='n'):
     global quiet
     quiet = True
     print_('\n%s v%s:' % (tid, ver))
     gameDir = os.path.join(os.path.dirname(__file__), tid)
     os.makedirs(gameDir, exist_ok=True)
     tid = tid.lower()
-    tkey = tkey.lower()
+		
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -508,14 +515,13 @@ def get_rid(tid, ver=0, tkey='',n='n'):
     quiet = False
     return rightsID
 
-def get_control_nca(tid, ver, tkey='', n='n'):
+def get_control_nca(tid, ver, tkey=None, n='n'):
     tempDir = '_TEMP'
     os.makedirs(tempDir, exist_ok=True)
     controlDir = '_CONTROLOUT'
     os.makedirs(controlDir, exist_ok=True)
-    tid = tid.lower();
-    if tkey != '' and tkey != None:
-        tkey = tkey.lower();
+    tid = tid.lower()
+		
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -597,11 +603,11 @@ def get_name_control(tid):
 def get_titlekey(tid):
     for line in titlekey_list:
         if tid in line:
-            return line.split('|')[1].strip()
-    return ''
+            return line.split('|')[1].strip().lower()
+    return None
 
 
-def download_game(tid, ver, tkey='', nspRepack=False, name='', verify=False):
+def download_game(tid, ver, tkey=None, nspRepack=False, name='', verify=False):
     name = get_name(tid)
     gameType = ''
 
@@ -647,7 +653,10 @@ def download_game(tid, ver, tkey='', nspRepack=False, name='', verify=False):
         outf = os.path.join(outputDir, '%s%sv%s' % (name,tid,ver))
 
 
-    outf = outf + '.nsp'
+    if tkey:
+        outf = outf + '.nsp'
+    else:
+        outf = outf + '.nsx'
 
     for item in os.listdir(outputDir):
         if item.find('%s' % tid) != -1:
@@ -660,12 +669,13 @@ def download_game(tid, ver, tkey='', nspRepack=False, name='', verify=False):
     files = download_title(gameDir, tid, ver, tkey, nspRepack, verify=verify)
 
     if gameType != 'UPD':
-        verified = verify_NCA(get_biggest_file(gameDir), tkey)
+        if tkey:
+            verified = verify_NCA(get_biggest_file(gameDir), tkey)
 
-        if not verified:
-            shutil.rmtree(gameDir)
-            print_('\ncleaned up downloaded content')
-            return
+            if not verified:
+                shutil.rmtree(gameDir)
+                print_('\ncleaned up downloaded content')
+                return
 
     if nspRepack == True:
         if files == None:
@@ -908,7 +918,7 @@ def load_titlekeys():
         for line in lines:
             temp = line.split('|')
             tid = temp[0][0:16]
-            tkey = temp[1]
+            tkey = temp[1].lower()
             name = temp[2]
             line = '%s|%s|%s' % (tid,tkey,name)
             titlekey_list.append(line)
@@ -945,7 +955,7 @@ def update_db():
                 if line != '':
                     temp = line.split('|')
                     tid = temp[0][0:16]
-                    tkey = temp[1]
+                    tkey = temp[1].lower()
                     name = temp[2]
                     line = '%s|%s|%s' % (tid,tkey,name)
                     if line not in currdb and line != None :
