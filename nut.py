@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 # place this file in your CDNSP directory
 # add the following line to the top of your CDNSP.py file:
 # from tqdm import tqdm
@@ -277,4 +278,4 @@ if hasCDNSP:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
 
-#print(CDNSP.get_info('0100a5400ac86000'))
+#print(Title.getVersions('010034500641b02c'))
