@@ -7,9 +7,13 @@ It will also download any titles you do not have a key for (for archiving), by e
 It saves the titles in the following format by default:
 
 base games:  titles/{name}[{id}][v{version}].nsp
+
 DLC:         titles/DLC/{baseName}/{name}[{id}][v{version}].nsp
+
 updates:     titles/updates/{baseName}/{name}[{id}][v{version}].nsp
+
 demos:       titles/demos/{name}[{id}][v{version}].nsp
+
 demo upd:    titles/demos/updates/{baseName}/{name}[{id}][v{version}].nsp
 
 # Titlelist
