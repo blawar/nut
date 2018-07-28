@@ -16,22 +16,49 @@ except:
 	hasCDNSP = False
 
 nsps = []
-titles = {}
 titleWhitelist = []
 titleBlacklist = []
 
 class Title:
-	def __init__(self, line):
+	def __init__(self):
+		self.id = None
+		self.rightsId = None
+		self.isDLC = None
+		self.idExt = None
+		self.updateId = None
+		self.path = None
+		self.version = None
+		
+	def loadCsv(self, line):
 		split = line.split('|')
-		self.id = split[0][:16]
-		self.unknown = split[0][-16:]
-		self.key = split[1]
-		self.name = split[2].strip()
+		self.setId(split[0].strip())
+		self.setName(split[2].strip())
+		self.setKey(split[1].strip())
+
+		
+	def setId(self, id):
+		if not id or self.id:
+			return
+			
+		id = id.upper();
+		
+		try:
+			i = int(id, 16)
+		except:
+			return
+		
+		if len(id) == 32:
+			self.id = id[:16]
+			self.rightsId = id
+		elif len(id) == 16:
+			self.id = id[:16]
+		else:
+			return
 		
 		titleIdNum = int(self.id, 16)
 		
 		if self.id:
-			self.baseId = '{:02x}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+			self.baseId = '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
 		else:
 			self.baseId = None
 		
@@ -39,45 +66,58 @@ class Title:
 		#self.isBase = self.id == titleIdNum & 0xFFFFFFFFFFFFE000
 		self.idExt = titleIdNum & 0x0000000000000FFF
 		
+		if self.isDLC:
+			# dlc
+			pass
+		elif self.idExt == 0:
+			# base
+			self.updateId = '%s800' % self.id[:-3]
+		else:
+			# update
+			pass
+			
+	def setName(self, name):
+		self.name = name
+		
 		if re.match('.*\sDemo\s*$', self.name, re.I) or re.match('.*\sDemo\s+.*$', self.name, re.I):
 			self.isDemo = True
 		else:
 			self.isDemo = False
+			
+	def setKey(self, key):
+		if not hasattr(self, 'key'):
+			self.key = None
+			
+		key = key.upper()
 		
-		if self.isDLC:
-			#dlc
-			self.versions = Title.getVersions(self.id)
-		elif self.idExt == 0:
-			#base
-			self.versions = Title.getVersions(self.id)
-			self.updateId = '%s800' % self.id[:-3]
-			self.updateVersions = Title.getVersions(self.updateId)
-		else:
-			#update
-			self.versions = Title.getVersions(self.id)
-		#self.versions = Title.getVersions(self.id)
-		self.path = None
+		if len(key) != 32:
+			return
+			
+		try:
+			i = int(key, 16)
+			
+			if i <= 0:
+				return
+		except:
+			return
+			
+		self.key = key
+		
+	def setVersion(self, version):
+		if version:
+			self.version = version
 		
 	def lastestVersion(self):
-		return self.versions[-1]
+		if not self.version:
+			self.version = Title.getVersions(self.id)[-1]
+		return self.version
 		
 	@staticmethod
 	def getVersions(id):
 		if not hasCDNSP:
 			return ['0']
 		
-		cacheFile = '_cache/versions/' + id + '.json'
-		
-		if os.path.isfile(cacheFile):
-			with open(cacheFile, "r") as f:
-				r = json.loads(f.read())
-		else:
-			r = CDNSP.get_versions(id)
-		
-			os.makedirs(os.path.dirname(cacheFile), exist_ok=True)
-			
-			with open(cacheFile, "w+") as f:
-				f.write(json.dumps(r))
+		r = CDNSP.get_versions(id)
 		
 		if len(r) == 0 or r[0] == 'none':
 			return ['0']
@@ -87,8 +127,72 @@ class Title:
 	@staticmethod
 	def getBaseId(id):
 		titleIdNum = int(id, 16)
-		return '{:02x}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+		return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+
+class Titles:
+	def __init__(self):
+		self.data = {}
+	
+	def __getitem__(self, key):
+		return self.data[key]
 		
+	def __setitem__(self, key, value):
+		self.data[key] = value
+		
+	def __iter__(self):
+		self.it = 0
+		return self
+		
+	def __next__(self):
+		try:
+			r = self.data[list(self.data)[self.it]]
+		except IndexError:
+			raise StopIteration()
+		self.it += 1
+		return r
+		
+	def keys(self):
+		return self.data.keys()
+		
+	def load(self):
+		if not os.path.isfile("titles.json"):
+			return
+			
+		with open("titles.json", "r") as f:
+			j = json.load(f)
+			for id, t in j.items():
+				self[id] = Title()
+				
+				if t['rightsId']:
+					self[id].setId(t['rightsId'])
+				else:
+					self[id].setId(id)
+					
+				self[id].setName(t['name'])
+				self[id].setKey(t['key'])
+				self[id].setVersion(t['version'])
+		
+	def save(self):
+		j = {}
+		for t in self:
+			if not t.id in j.keys():
+				j[t.id] = {}
+			
+			j[t.id]['name'] = t.name
+			
+			j[t.id]['key'] = t.key
+			
+			j[t.id]['rightsId'] = t.rightsId
+				
+			j[t.id]['version'] = t.version
+				
+		with open("titles.json", "w+") as f:
+			f.write(json.dumps(j))
+	
+	
+titles = Titles()
+titles.load()
+	
 class Nsp:
 	def __init__(self, path):
 		self.path = path
@@ -96,13 +200,16 @@ class Nsp:
 		
 		z = re.match('.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
 		if z:
-			self.titleId = z.groups()[0]
+			self.titleId = z.groups()[0].upper()
 			
 			if self.titleId:
 				if self.titleId in titles.keys():
 					titles[self.titleId].path = path
 					self.title = titles[self.titleId]
-					
+		else:
+			print('could not get title id from filename, name needs to contain [titleId] : ' + self.path)
+			self.titleId = None
+
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
 		if z:
 			self.version = z.groups()[0]
@@ -115,7 +222,7 @@ class Nsp:
 		if os.path.abspath(self.fileName()) == os.path.abspath(self.path):
 			return False
 			
-		if os.path.isfile(self.fileName()):
+		if os.path.isfile(self.fileName()) and os.path.abspath(self.path) == os.path.abspath(self.fileName()):
 			print('duplicate title: ')
 			print(os.path.abspath(self.path))
 			print(os.path.abspath(self.fileName()))
@@ -142,7 +249,8 @@ class Nsp:
 				print('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
 				return None
 			bt = titles[Title.getBaseId(self.titleId)]
-			t = Title(self.titleId + '0000000000000000|0000000000000000|' + bt.name)
+			t = Title()
+			t.loadCsv(self.titleId + '0000000000000000|0000000000000000|' + bt.name)
 		else:
 			t = titles[self.titleId]
 		
@@ -200,29 +308,34 @@ def removeEmptyDir(path, removeRoot=True):
 		os.rmdir(path)
 
 def loadTitles():
-    with open('titlekeys.txt', encoding="utf8") as f:
-        for line in f.readlines():
-            t = Title(line)
-            titles[t.id] = t
+	with open('titlekeys.txt', encoding="utf8") as f:
+		for line in f.readlines():
+			t = Title()
+			t.loadCsv(line)
+			
+			if not t.id in titles.keys():
+				titles[t.id] = Title()
+				
+			titles[t.id].loadCsv(line)
 				
 def loadTitleWhitelist():
     global titleWhitelist
     titleWhitelist = []
     with open('whitelist.txt', encoding="utf8") as f:
         for line in f.readlines():
-            titleWhitelist.append(line.strip())
+            titleWhitelist.append(line.strip().upper())
 			
 def loadTitleBlacklist():
     global titleBlacklist
     titleBlacklist = []
     with open('blacklist.txt', encoding="utf8") as f:
         for line in f.readlines():
-            titleBlacklist.append(line.strip())
+            titleBlacklist.append(line.strip().upper())
 			
 def logMissingTitles():
 	f = open("missing.txt","w+b")
 	
-	for id, t in titles.items():
+	for t in titles:
 		if not t.path:
 			f.write((t.name + "\r\n").encode("utf-8"))
 		
@@ -263,8 +376,8 @@ if hasCDNSP:
 loadTitleWhitelist()
 loadTitleBlacklist()
 loadTitles()
-#scanNsp('_NSPOUT')
 scanForNsp(config.scanPath)
+
 for f in nsps:
 	f.move()
 	
@@ -273,9 +386,12 @@ removeEmptyDir('.', False)
 
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 if hasCDNSP:
-	for id, t in titles.items():
+	for t in titles:
 		if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			print('Downloading ' + t.name + ', ' + t.key.lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
 
+titles.save()
+#for t in titles:
+#	print(t.id + ': ' + t.name + ", " + str(t.path))
 #print(Title.getVersions('010034500641b02c'))
