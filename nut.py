@@ -302,7 +302,7 @@ def scanForNsp(base):
 			scanForNsp(base + '/' + name)
 			
 		for name in files:
-			if pathlib.Path(name).suffix == '.nsp':
+			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
 				nsps.append(Nsp(root + '/' + name))
 
 def removeEmptyDir(path, removeRoot=True):
