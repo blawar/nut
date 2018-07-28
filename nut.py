@@ -25,6 +25,7 @@ class Title:
 		self.updateId = None
 		self.path = None
 		self.version = None
+		self.key = None
 		
 	def loadCsv(self, line):
 		split = line.split('|')
@@ -82,8 +83,8 @@ class Title:
 			self.isDemo = False
 			
 	def setKey(self, key):
-		if not hasattr(self, 'key'):
-			self.key = None
+		if not key:
+			return
 			
 		key = key.upper()
 		
@@ -212,6 +213,15 @@ titles.load()
 	
 class Nsp:
 	def __init__(self, path):
+		ext = pathlib.Path(path).suffix
+		if ext == '.nsp':
+			self.hasValidTicket = True
+		elif ext == '.nsx':
+			self.hasValidTicket = False
+		else:
+			return
+			
+			
 		self.path = path
 		self.version = '0'
 		
@@ -293,6 +303,10 @@ class Nsp:
 		format = format.replace('{version}', str(self.version))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
 		format = format.replace('{baseName}', self.cleanFilename(bt.name))
+		
+		if not self.hasValidTicket:
+			format = os.path.splitext(format)[0] + '.nsx'
+		
 		return format
 		
 		
