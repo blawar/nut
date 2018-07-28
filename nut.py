@@ -129,7 +129,10 @@ class Nsp:
 		return True
 		
 	def cleanFilename(self, s):
-		return re.sub('[\/\\\:\*\?\"\<\>\|\.\s™©®()]+', ' ', s).strip()
+		s = re.sub('\s+\Demo\s*', ' ', s, re.I)
+		s = re.sub('\s*\[DLC\]\s*', '', s, re.I)
+		s = re.sub('[\/\\\:\*\?\"\<\>\|\.\s™©®()]+', ' ', s)
+		return s.strip()
 		
 	def fileName(self):
 		bt = None
@@ -149,10 +152,13 @@ class Nsp:
 		
 		if t.isDLC:
 			format = config.titleDLCPath
+		elif t.isDemo:
+			if t.idExt != 0:
+				format = config.titleDemoUpdatePath
+			else:
+				format = config.titleDemoPath
 		elif t.idExt != 0:
 			format = config.titleUpdatePath
-		elif t.isDemo:
-			format = config.titleDemoPath
 		else:
 			format = config.titleBasePath
 			
@@ -229,6 +235,7 @@ class Config:
 			self.titleDLCPath = j['paths']['titleDLC']
 			self.titleUpdatePath = j['paths']['titleUpdate']
 			self.titleDemoPath = j['paths']['titleDemo']
+			self.titleDemoUpdatePath = j['paths']['titleDemoUpdate']
 			self.scanPath = j['paths']['scan']
 			
 			self.downloadBase = j['download']['base']
