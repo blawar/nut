@@ -337,20 +337,6 @@ def removeEmptyDir(path, removeRoot=True):
 	if len(files) == 0 and removeRoot:
 		print("Removing empty folder:" + path)
 		os.rmdir(path)
-
-def loadTitles():
-	with open('titlekeys.txt', encoding="utf8") as f:
-		for line in f.readlines():
-			t = Title()
-			t.loadCsv(line)
-			
-			if not t.isValid():
-				continue
-			
-			if not t.id in titles.keys():
-				titles[t.id] = Title()
-				
-			titles[t.id].loadCsv(line)
 				
 def loadTitleWhitelist():
     global titleWhitelist
@@ -416,7 +402,6 @@ else:
 
 loadTitleWhitelist()
 loadTitleBlacklist()
-loadTitles()
 scanForNsp(config.scanPath)
 
 for f in nsps:
