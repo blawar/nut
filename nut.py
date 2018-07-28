@@ -255,8 +255,11 @@ class Nsp:
 			print(os.path.abspath(self.fileName()))
 			return False
 			
-		os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
-		os.rename(self.path, self.fileName())
+		try:
+			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
+			os.rename(self.path, self.fileName())
+		except:
+			print('failed to rename file! ' + self.path + ' -> ' + self.fileName())
 		#print(self.path + ' -> ' + self.fileName())
 		
 		if self.titleId in titles.keys():
@@ -339,18 +342,18 @@ def removeEmptyDir(path, removeRoot=True):
 		os.rmdir(path)
 				
 def loadTitleWhitelist():
-    global titleWhitelist
-    titleWhitelist = []
-    with open('whitelist.txt', encoding="utf8") as f:
-        for line in f.readlines():
-            titleWhitelist.append(line.strip().upper())
+	global titleWhitelist
+	titleWhitelist = []
+	with open('whitelist.txt', encoding="utf8") as f:
+		for line in f.readlines():
+			titleWhitelist.append(line.strip().upper())
 			
 def loadTitleBlacklist():
-    global titleBlacklist
-    titleBlacklist = []
-    with open('blacklist.txt', encoding="utf8") as f:
-        for line in f.readlines():
-            titleBlacklist.append(line.strip().upper())
+	global titleBlacklist
+	titleBlacklist = []
+	with open('blacklist.txt', encoding="utf8") as f:
+		for line in f.readlines():
+			titleBlacklist.append(line.strip().upper())
 			
 def logMissingTitles():
 	f = open("missing.txt","w+b")
@@ -382,7 +385,9 @@ class Config:
 			self.downloadDemo = j['download']['demo']
 			self.downloadDLC = j['download']['dlc']
 			self.downloadUpdate = j['download']['update']
-			self.downloadSansTitleKey = j['download']['sansTitleKey']
+			
+			if 'sansTitleKey' in j['download']:
+				self.downloadSansTitleKey = j['download']['sansTitleKey']
 	
 
 config = Config()
@@ -395,9 +400,9 @@ CDNSP.tqdmProgBar = False
 CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
 
 if os.path.isfile(CDNSP.configPath):
-    CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
+	CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
 else:
-    config.downloadBase = False
+	config.downloadBase = False
 	config.downloadDLC = False
 	config.downloadDemo = False
 	config.downloadSansTitleKey = False
