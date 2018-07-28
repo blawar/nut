@@ -282,7 +282,7 @@ def decrypt_NCA(fPath, outDir=''):
 def verify_NCA(ncaFile, titleKey):
     if not titleKey:
         return False
-	
+    
     commandLine = hactoolPath + ' "' + ncaFile + '"' + keysArg + ' --titlekey="' + titleKey + '"'
 
     try:
@@ -327,10 +327,10 @@ def download_cetk(rightsID, fPath):
 def download_title(gameDir, tid, ver, tkey=None, nspRepack=False, n='', verify=False):
     print_('\n%s v%s:' % (tid, ver))
     tid = tid.lower()
-	
+    
     if tkey:
         tkey = tkey.lower()
-		
+        
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -375,9 +375,17 @@ def download_title(gameDir, tid, ver, tkey=None, nspRepack=False, n='', verify=F
 
                     with open(tikPath, 'wb') as outtik:
                         outtik.write(data)
-                print_('\nGenerated %s and %s!' % (os.path.basename(certPath), os.path.basename(tikPath)))
             else:
-                print_('\nGenerated %s!' % os.path.basename(certPath))
+                with open(os.path.join(os.path.dirname(__file__), 'Ticket.tik'), 'rb') as intik:
+                    data = bytearray(intik.read())
+                    data[0x180:0x190] = uhx('00000000000000000000000000000000')
+                    data[0x286] = int(CNMT.mkeyrev)
+                    data[0x2A0:0x2B0] = uhx(rightsID)
+
+                    with open(tikPath, 'wb') as outtik:
+                        outtik.write(data)
+
+            print_('\nGenerated %s and %s!' % (os.path.basename(certPath), os.path.basename(tikPath)))
         elif CNMT.type == 'Patch':
             print_('\nDownloading cetk...')
 
@@ -412,8 +420,7 @@ def download_title(gameDir, tid, ver, tkey=None, nspRepack=False, n='', verify=F
     if nspRepack == True:
         files = []
         files.append(certPath)
-        if tkey:
-            files.append(tikPath)
+        files.append(tikPath)
         for key in [1, 5, 2, 4, 6]:
             try:
                 files.append(NCAs[key])
@@ -489,7 +496,7 @@ def get_rid(tid, ver=0, tkey=None,n='n'):
     gameDir = os.path.join(os.path.dirname(__file__), tid)
     os.makedirs(gameDir, exist_ok=True)
     tid = tid.lower()
-		
+        
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
@@ -521,7 +528,7 @@ def get_control_nca(tid, ver, tkey=None, n='n'):
     controlDir = '_CONTROLOUT'
     os.makedirs(controlDir, exist_ok=True)
     tid = tid.lower()
-		
+        
     if len(tid) != 16:
         tid = (16 - len(tid)) * '0' + tid
 
