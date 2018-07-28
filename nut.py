@@ -393,7 +393,9 @@ urllib3.disable_warnings()
 
 CDNSP.tqdmProgBar = False
 CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
-CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
+
+if os.path.isfile(CDNSP.configPath):
+    CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
 
 if CDNSP.keysPath != '':
 	CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
