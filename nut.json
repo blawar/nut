@@ -11,6 +11,7 @@
 		"base": true,
 		"update": false,
 		"demo": false,
-		"dlc": true
+		"dlc": true,
+		"sansTitleKey": false
 	}
 }

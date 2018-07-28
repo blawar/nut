@@ -363,6 +363,12 @@ def logMissingTitles():
 
 class Config:
 	def __init__(self):
+		self.downloadBase = True
+		self.downloadDemo = False
+		self.downloadDLC = True
+		self.downloadUpdate = False
+		self.downloadSansTitleKey = False
+		
 		with open('nut.json', encoding="utf8") as f:
 			j = json.load(f)
 			self.titleBasePath = j['paths']['titleBase']
@@ -376,6 +382,7 @@ class Config:
 			self.downloadDemo = j['download']['demo']
 			self.downloadDLC = j['download']['dlc']
 			self.downloadUpdate = j['download']['update']
+			self.downloadSansTitleKey = j['download']['sansTitleKey']
 	
 
 config = Config()
@@ -406,7 +413,7 @@ removeEmptyDir('.', False)
 
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 for t in titles:
-	if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+	if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (t.key or config.downloadSansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 		if not t.id:
 			print('no valid id? ' + str(t.path))
 			continue
