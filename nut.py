@@ -9,11 +9,8 @@ import re
 import pathlib
 import urllib3
 import json
-try:
-	import CDNSP
-	hasCDNSP = True
-except:
-	hasCDNSP = False
+import CDNSP
+
 
 nsps = []
 titleWhitelist = []
@@ -114,9 +111,6 @@ class Title:
 		
 	@staticmethod
 	def getVersions(id):
-		if not hasCDNSP:
-			return ['0']
-		
 		r = CDNSP.get_versions(id)
 		
 		if len(r) == 0 or r[0] == 'none':
@@ -363,15 +357,15 @@ config = Config()
 
 urllib3.disable_warnings()
 
-if hasCDNSP:
-	CDNSP.tqdmProgBar = False
-	CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
-	CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
 
-	if CDNSP.keysPath != '':
-		CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
-	else:
-		CDNSP.keysArg = ''
+CDNSP.tqdmProgBar = False
+CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
+CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.did, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
+
+if CDNSP.keysPath != '':
+	CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
+else:
+	CDNSP.keysArg = ''
 
 loadTitleWhitelist()
 loadTitleBlacklist()
@@ -385,11 +379,10 @@ logMissingTitles()
 removeEmptyDir('.', False)
 
 #setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
-if hasCDNSP:
-	for t in titles:
-		if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
-			print('Downloading ' + t.name + ', ' + t.key.lower())
-			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
+for t in titles:
+	if not t.path and (not t.isDLC or config.downloadDLC) and (not t.isDemo or config.downloadDemo) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+		print('Downloading ' + t.name + ', ' + t.key.lower())
+		CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key.lower(), True, '', True)
 
 titles.save()
 #for t in titles:

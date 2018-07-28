@@ -24,7 +24,6 @@ import unidecode
 import urllib3
 
 #Global Vars
-noaria = False
 titlekey_list = []
 quiet = False
 truncateName = False
@@ -107,8 +106,7 @@ def load_config(fPath):
             'DeviceID': '0000000000000000',
             'Environment': 'lp1',
             'TitleKeysURL': '',
-            'NspOut': '_NSPOUT',
-            'AutoUpdatedb': 'False'}}
+            'NspOut': '_NSPOUT'}}
     try:
         f = open(fPath, 'r')
     except FileNotFoundError:
@@ -130,7 +128,6 @@ def load_config(fPath):
     env = j['Values']['Environment']
     dbURL = j['Values']['TitleKeysURL']
     nspout = j['Values']['NspOut']
-    autoUpdatedb = j['Values']['AutoUpdatedb']
 
     if platform.system() == 'Linux':
         hactoolPath = './' + hactoolPath + '_linux'
@@ -138,7 +135,7 @@ def load_config(fPath):
     if platform.system() == 'Darwin':
         hactoolPath = './' + hactoolPath + '_mac'
 
-    return hactoolPath, keysPath, NXclientPath, ShopNPath, reg, fw, did, env, dbURL, nspout, autoUpdatedb
+    return hactoolPath, keysPath, NXclientPath, ShopNPath, reg, fw, did, env, dbURL, nspout
 
 
 def make_request(method, url, certificate='', hdArgs={}):
@@ -158,33 +155,6 @@ def make_request(method, url, certificate='', hdArgs={}):
         return r
 
     return r
-
-
-def get_info(tid, silent=False):
-    info = ''
-    name = get_name(tid)
-    if tid.endswith('000'):
-        baseTid = tid
-        updateTid = '%s800' % tid[:-3]
-    elif tid.endswith('800'):
-        baseTid = '%s000' % tid[:-3]
-        updateTid = tid
-    elif not tid.endswith('00'):
-        baseTid = '%016x' % (int(tid, 16) - 0x1000 & 0xFFFFFFFFFFFFF000)
-        updateTid = '%s800' % baseTid[:-3]
-    else:
-        info = 'Not a valid title'
-        return info
-
-    rid = get_rid(tid)
-
-    info = '\nName: ' + name + '\n' + 'Titleid: ' + tid + '\n'  + 'Rightsid: ' + rid + '\n' + 'Versions: ' + ' '.join(
-        get_versions(tid)) + '\n' + 'Update Titleid: ' + updateTid + '\n' + 'Versions: ' + ' '.join(
-        get_versions(updateTid)) + '\n'
-
-    if not silent:
-        print_(info)
-    return info
 
 
 def get_versions(tid):
@@ -210,7 +180,7 @@ def get_versions(tid):
     except Exception as e:
         return ['none']
 
-def get_name_old(tid):
+def get_name(tid):
     tid = tid.lower()
     lines = titlekey_list
     for line in lines:
@@ -222,54 +192,6 @@ def get_name_old(tid):
         if tid.strip() == temp[0].strip():
             return re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(temp[2].strip()))
     return 'Unknown Title'
-
-def get_name(tid):
-    tid = tid.lower()
-    name = get_name_control(tid)
-    if name == "":
-        name = get_name_old(tid)
-
-    return re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(name)) 
-
-
-
-def download_file_aria(url, fPath):
-    # Adds a new sub function to do the actual downloading with aria2c
-    # Certain config values are hardcoded
-    def _dl(cmd):
-        popen = subprocess.Popen(shlex.split(cmd), universal_newlines=True,
-                                 cwd=os.path.dirname(os.path.realpath(__file__)))
-        return_code = popen.wait()
-
-
-    dlheaders = {
-        'User-Agent': 'NintendoSDK Firmware/%s (platform:NX; eid:%s)' % (fw,env),
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept': '*/*',
-        'Connection': 'keep-alive'}
-    dlheaders_list = list(map(lambda a: "--header=\"%s: %s\"" % (a, dlheaders[a]), dlheaders))
-    dlheaders_args = " ".join(dlheaders_list)
-
-    #quiet aria output if needed
-    q = ''
-    if quiet:
-        q = '-q'
-
-    ariaBin = 'aria2c'
-  
-    dlcommand = '%s --file-allocation=none --auto-file-renaming=false --check-certificate=false ' \
-                '--certificate=nx_tls_client_cert.pem %s --private-key=nx_tls_client_cert.pem -x16 -s16 -k5M %s "%s" ' \
-                '--dir="%s" -o "%s"' % (ariaBin,q,
-                    dlheaders_args, url, os.path.dirname(fPath), os.path.basename(fPath))
-
-    if platform.system() == 'Windows' and platform.architecture() == '32bit':
-        pass #ariaBin = 'aria2c_win32'
-
-    if platform.system() != 'Windows':
-        dlcommand = "./" + dlcommand
-
-    _dl(dlcommand)
-    return fPath
 
 
 def download_file(url, fPath):
@@ -730,9 +652,9 @@ def download_game(tid, ver, tkey='', nspRepack=False, name='', verify=False):
     for item in os.listdir(outputDir):
         if item.find('%s' % tid) != -1:
             if item.find('v%s' % ver) != -1:
-				print_('%s already exists, skipping download' % outf)
-				shutil.rmtree(gameDir)
-				return
+                print_('%s already exists, skipping download' % outf)
+                shutil.rmtree(gameDir)
+                return
 
 
     files = download_title(gameDir, tid, ver, tkey, nspRepack, verify=verify)
