@@ -28,7 +28,6 @@ noaria = False
 titlekey_list = []
 quiet = False
 truncateName = False
-tinfoil = False
 enxhop = False
 
 def print_(*info):
@@ -501,101 +500,6 @@ def download_title(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=Fal
 
         return files
 
-def download_title_tinfoil(gameDir, tid, ver, tkey='', nspRepack=False, n='', verify=False):
-    print_('\n%s v%s:' % (tid, ver))
-    tid = tid.lower();
-    tkey = tkey.lower();
-    if len(tid) != 16:
-        tid = (16 - len(tid)) * '0' + tid
-
-    url = 'https://atum%s.hac.%s.d4c.nintendo.net/t/a/%s/%s?device_id=%s' % (n, env, tid, ver, did)
-    print_(url)
-    try:
-        r = make_request('HEAD', url)
-    except Exception as e:
-        print_("Error downloading title. Check for incorrect titleid or version.")
-        return
-    CNMTid = r.headers.get('X-Nintendo-Content-ID')
-
-    if CNMTid == None:
-        print_('title not available on CDN')
-        return
-
-    print_('\nDownloading CNMT (%s.cnmt.nca)...' % CNMTid)
-    url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/a/%s?device_id=%s' % (n, env, CNMTid, did)
-    fPath = os.path.join(gameDir, CNMTid + '.cnmt.nca')
-    cnmtNCA = download_file(url, fPath)
-    cnmtDir = decrypt_NCA(cnmtNCA)
-    CNMT = cnmt(os.path.join(cnmtDir, 'section0', os.listdir(os.path.join(cnmtDir, 'section0'))[0]),
-                os.path.join(cnmtDir, 'Header.bin'))
-
-    if nspRepack == True:
-        outf = os.path.join(gameDir, '%s.xml' % os.path.basename(cnmtNCA.strip('.nca')))
-        cnmtXML = CNMT.gen_xml_tinfoil(cnmtNCA, outf)
-
-        rightsID = '%s%s%s' % (tid, (16 - len(CNMT.mkeyrev)) * '0', CNMT.mkeyrev)
-
-        tikPath = os.path.join(gameDir, '%s.tik' % rightsID)
-        certPath = os.path.join(gameDir, '%s.cert' % rightsID)
-        if CNMT.type == 'Application' or CNMT.type == 'AddOnContent':
-            shutil.copy(os.path.join(os.path.dirname(__file__), 'Certificate.cert'), certPath)
-
-            if tkey != '':
-                with open(os.path.join(os.path.dirname(__file__), 'Ticket.tik'), 'rb') as intik:
-                    data = bytearray(intik.read())
-                    data[0x180:0x190] = uhx(tkey)
-                    data[0x286] = int(CNMT.mkeyrev)
-                    data[0x2A0:0x2B0] = uhx(rightsID)
-
-                    with open(tikPath, 'wb') as outtik:
-                        outtik.write(data)
-                print_('\nGenerated %s and %s!' % (os.path.basename(certPath), os.path.basename(tikPath)))
-            else:
-                print_('\nGenerated %s!' % os.path.basename(certPath))
-        elif CNMT.type == 'Patch':
-            print_('\nDownloading cetk...')
-
-            with open(download_cetk(rightsID, os.path.join(gameDir, '%s.cetk' % rightsID)), 'rb') as cetk:
-                cetk.seek(0x180)
-                tkey = hx(cetk.read(0x10)).decode()
-                print_('\nTitlekey: %s' % tkey)
-
-                with open(tikPath, 'wb') as tik:
-                    cetk.seek(0x0)
-                    tik.write(cetk.read(0x2C0))
-
-                with open(certPath, 'wb') as cert:
-                    cetk.seek(0x2C0)
-                    cert.write(cetk.read(0x700))
-
-            print_('\nExtracted %s and %s from cetk!' % (os.path.basename(certPath), os.path.basename(tikPath)))
-
-    NCAs = {}
-    for type in [3]:  # Download smaller files first
-        for ncaID in CNMT.parse(CNMT.ncaTypes[type]):
-            print_('\nDownloading %s entry (%s.nca)...' % (CNMT.ncaTypes[type], ncaID))
-            url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/c/%s?device_id=%s' % (n, env, ncaID, did)
-            fPath = os.path.join(gameDir, ncaID + '.nca')
-            NCAs.update({type: download_file(url, fPath)})
-            if verify:
-                if calc_sha256(fPath) != CNMT.parse(CNMT.ncaTypes[type])[ncaID][2]:
-                    print_('\n\n%s is corrupted, hashes don\'t match!' % os.path.basename(fPath))
-                else:
-                    print_('\nVerified %s...' % os.path.basename(fPath))
-
-    if nspRepack == True:
-        files = []
-        files.append(certPath)
-        if tkey != '':
-            files.append(tikPath)
-        files.append(cnmtXML)
-        try:
-            files.append(NCAs[3])
-        except KeyError:
-            pass
-
-        return files
-
 
 def get_tik(tid, ver, tkey='', nspRepack=True, n='n'):
     print_('\n%s v%s:' % (tid, ver))
@@ -820,23 +724,18 @@ def download_game(tid, ver, tkey='', nspRepack=False, name='', verify=False):
         name = name.replace(' ','')[0:20]
         outf = os.path.join(outputDir, '%s%sv%s' % (name,tid,ver))
 
-    if tinfoil:
-        outf = outf + '[tf]'
 
     outf = outf + '.nsp'
 
     for item in os.listdir(outputDir):
         if item.find('%s' % tid) != -1:
             if item.find('v%s' % ver) != -1:
-                if not tinfoil:
-                    print_('%s already exists, skipping download' % outf)
-                    shutil.rmtree(gameDir)
-                    return
+				print_('%s already exists, skipping download' % outf)
+				shutil.rmtree(gameDir)
+				return
 
-    if tinfoil:
-        files = download_title_tinfoil(gameDir, tid, ver, tkey, nspRepack, verify=verify)
-    else:
-        files = download_title(gameDir, tid, ver, tkey, nspRepack, verify=verify)
+
+    files = download_title(gameDir, tid, ver, tkey, nspRepack, verify=verify)
 
     if gameType != 'UPD':
         verified = verify_NCA(get_biggest_file(gameDir), tkey)
@@ -1008,52 +907,6 @@ class cnmt:
         print_('\nGenerated %s!' % os.path.basename(outf))
         return outf
 
-    def gen_xml_tinfoil(self, ncaPath, outf):
-        data = self.parse()
-        hdPath = os.path.join(os.path.dirname(ncaPath),
-                              '%s.cnmt' % os.path.basename(ncaPath).split('.')[0], 'Header.bin')
-        with open(hdPath, 'rb') as ncaHd:
-            mKeyRev = str(read_u8(ncaHd, 0x220))
-
-        ContentMeta = ET.Element('ContentMeta')
-
-        ET.SubElement(ContentMeta, 'Type').text = self.type
-        ET.SubElement(ContentMeta, 'Id').text = '0x%s' % self.id
-        ET.SubElement(ContentMeta, 'Version').text = self.ver
-        ET.SubElement(ContentMeta, 'RequiredDownloadSystemVersion').text = self.dlsysver
-
-        n = 1
-        for tid in data:
-            if data[tid][0] == 'Control':
-                locals()["Content" + str(n)] = ET.SubElement(ContentMeta, 'Content')
-                ET.SubElement(locals()["Content" + str(n)], 'Type').text = data[tid][0]
-                ET.SubElement(locals()["Content" + str(n)], 'Id').text = tid
-                ET.SubElement(locals()["Content" + str(n)], 'Size').text = data[tid][1]
-                ET.SubElement(locals()["Content" + str(n)], 'Hash').text = data[tid][2]
-                ET.SubElement(locals()["Content" + str(n)], 'KeyGeneration').text = mKeyRev
-                n += 1
-
-        # cnmt.nca itself
-        hash = sha256()
-        with open(ncaPath, 'rb') as nca:
-            hash.update(nca.read())  # Buffer not needed
-        ET.SubElement(ContentMeta, 'Digest').text = self.digest
-        ET.SubElement(ContentMeta, 'KeyGenerationMin').text = self.mkeyrev
-        ET.SubElement(ContentMeta, 'RequiredSystemVersion').text = self.sysver
-        if self.id.endswith('800'):
-            ET.SubElement(ContentMeta, 'PatchId').text = '0x%s000' % self.id[:-3]
-        else:
-            ET.SubElement(ContentMeta, 'PatchId').text = '0x%s800' % self.id[:-3]
-
-        string = ET.tostring(ContentMeta, encoding='utf-8')
-        reparsed = minidom.parseString(string)
-        with open(outf, 'w') as f:
-            f.write(reparsed.toprettyxml(encoding='utf-8', indent='  ').decode()[:-1])
-
-        print_('\nGenerated %s!' % os.path.basename(outf))
-        return outf
-
-
 class nsp:
     def __init__(self, outf, files):
         self.path = outf
@@ -1204,248 +1057,5 @@ def title_in_keylist(tid):
     return False
 
 
-def main():
-    formatter = lambda prog: argparse.RawTextHelpFormatter(prog, max_help_position=40)
-    parser = argparse.ArgumentParser(formatter_class=formatter)
-
-    parser.add_argument('-i', dest='info', default=[], metavar='TID', nargs='+', help='''\
-print_ info about a title:
-   - name from titlekeys.txt
-   - available updates from versionlist''')
-
-    parser.add_argument('-infodump', dest='infodump', default=[], metavar='TID', nargs='+', help='''\
-dumps info to infodump.txt info about a title:
-   - name from titlekeys.txt
-   - available updates from versionlist''')
-
-    parser.add_argument('-title', dest='title', default=[], metavar='TID', nargs='+', help='''\
-Downloads game only passing in titleid. Uses titlekeys.txt to lookup titlekey.
-	You need to have titlekeys.txt in root of folder.
-	usage:
-	 -title titleid (...titleid titleid titleid): this will download latest version for this title or base version/"license" of a dlc (not updates)''')
-
-    parser.add_argument('-alldlc', dest='alldlc', action='store_true', default=False, help='''\
-Used with -title. lets you download all dlc for current game in the tid list.''')
-
-    parser.add_argument('-justupdate', dest='justupdate', action='store_true', default=False, help='''\
-Used with -title. lets you download just the update for a game. Will get latest version''')
-
-    parser.add_argument('-update', dest='update', action='store_true', default=False, help='''\
-Used with -title. lets you downloads update along with games.''')
-
-    parser.add_argument('-n', dest='name', default=[], metavar='TID', nargs='+', help='''\
-print_ name of title''')
-
-    parser.add_argument('-g', dest='games', default=[], metavar='TID-VER-TKEY', nargs='+', help='''\
-[LEGACY DONT USE] download games/updates/DLC's:
-   - titlekey argument is optional
-   - format TitleID-Version(-Titlekey)
-   - update TitleID's are the same as the base game's,
-	 with the three last digits replaced with '800'
-   - version is 0 for base games, multiple of 65536 (0x10000) for updates''')
-
-    parser.add_argument('-s', dest='sysupdates', default=[], metavar='VER', nargs='+', help='''\
-download system updates:
-   - version is computed as follows (credit goes to SocraticBliss):
-   - X.Y.Z-B (all decimal integers)
-	 => VER = X*67108864 + Y*1048576 + Z*65536 + B
-		   (= X*0x4000000 + Y*0x100000 + Z*0x10000 + B)
-   - 0 will download the lastest update''')
-
-    parser.add_argument('-r', dest='repack', action='store_true', default=False, help='''\
-[ONLY NEEDED WITH -g] repack the downloaded games to nsp format
-   - for non-update titles, titlekey is required to generate tik
-   - will generate/download cert, tik and cnmt.xml''')
-
-    parser.add_argument('-verify', dest='verify', action='store_true', default=False, help='''\
-verifies the downloaded files (this is NOT the same thing as titlekey verification)
-   - computes hashes of downloaded files and compares them against the CNMT
-   - processing can take a while for big files
-   - if a file is corrupted, delete it and restart the download''')
-
-    parser.add_argument('-trunc', dest='trunc', action='store_true', default=False, help='''\
-repacked nsp name will be truncated''')
-
-    parser.add_argument('-updatedb', dest='updatedb', action='store_true', default=False, help='''\
-download the latest titlekeys.txt file''')
-
-    parser.add_argument('-tinfoil', dest='tinfoil', action='store_true', default=False, help='''\
-download the latest titlekeys.txt file''')
-
-    parser.add_argument('-enxhop', dest='enxhop', action='store_true', default=False, help='''\
-download the latest titlekeys.txt file''')
-
-    parser.add_argument('-searchdb', dest='searchdb', default=[], metavar='Name', nargs='+', help='''\
-search the titlekey db by game name
-uses basic contains search
-usage -searchdb zelda''')
-
-    args = parser.parse_args()
-
-    if args.games == [] and args.sysupdates == [] and args.info == [] and args.name == [] and args.title == [] and args.infodump == [] and not args.updatedb and args.searchdb == [] and not args.alldlc and not args.justupdate and not args.trunc and not args.tinfoil and not args.enxhop:
-        parser.print_help()
-        return 1
- 
-    load_titlekeys()
-
-    global tinfoil
-
-    if autoUpdatedb == 'True':
-        update_db()
-
-    if args.tinfoil:
-        tinfoil = True
-
-    if args.enxhop:
-        global enxhop
-        enxhop = True
-        tinfoil = True
-
-        enxhopDir = os.path.join(nspout,'switch')
-        if os.path.exists(enxhopDir):
-            shutil.rmtree(enxhopDir)
-        
-    if args.trunc:
-        global truncateName
-        truncateName = True
-
-    def setup_download(tid, ver, tkey, nspRepack, name=''):
-        tid = tid.lower()
-        try:
-            if len(tid) != 16:
-                raise ValueError('TitleID %s is not a 16-digits hexadecimal number!' % tid)
-            if len(tkey) != 32 and len(tkey) != 0:
-                raise ValueError('Titlekey %s is not a 32-digits hexadecimal number!' % tkey)
-        except ValueError as e:
-            print_(e)
-            return
-
-        download_game(tid.lower(), ver, tkey.lower(), nspRepack, name, args.verify)
-
-    if args.title:
-        for title in args.title:
-            tid = title.strip().lower()[0:16]
-            updateVer = 'none'
-            updateTid = ''
-
-            if (args.update or args.justupdate) and tid.endswith("000"):
-                updateTid = '%s%s' % (tid[0:13], '800')
-                updateVersions = get_versions(updateTid)
-                if 'none' not in updateVersions:
-                    updateVer = updateVersions[-1]
-                else:
-                    print_("no updates available for the game")
-
-            try:
-                for line in titlekey_list:
-                    if line.strip() == '':
-                        continue
-                    temp = line.split("|")
-                    if len(temp) < 3:
-                        continue
-                    listTid = temp[0].strip()
-                    listTkey = temp[1].strip()
-                    if tid == listTid:
-                        if not args.justupdate:
-                            if tid.endswith("000"): #base 
-                                setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
-                            else: #dlc
-                                # set dlc ver to 0 becaus that seems the only way we can get it to work all the time
-                                setup_download(listTid,'0', listTkey, True)
-                        if tid.endswith("000") and updateVer != 'none':
-                            # update
-                            setup_download(updateTid, updateVer, '', True)
-                        if args.alldlc:
-                            searchdlctid = listTid[0:12]
-                            for title in titlekey_list:
-                                if searchdlctid in title:
-                                    split = title.split('|')
-                                    dlctkey = split[1]
-                                    dlctid = split[0]
-                                    if dlctkey != listTkey:
-                                        # set dlc ver to 0 becaus that seems the only way we can get it to work all the time
-                                        setup_download(dlctid,'0',dlctkey, True)
-                            
-            except Exception as e:
-                print_('Error:', e)
-
-    for tid in args.info:
-        get_info(tid)
-
-    if args.infodump:
-        if os.path.isfile('infodump.txt'):
-            os.remove("infodump.txt")
-            print_('removed old infodump.txt')
-
-        for tid in args.infodump:
-            silent = True
-            if os.path.isfile('infodump.txt'):
-                with open('infodump.txt', 'a', encoding="utf8") as f:
-                    f.write(get_info(tid, silent))
-                    f.close()
-            else:
-                f = open('infodump.txt', 'w', encoding="utf8")
-                f.write(get_info(tid, silent))
-                f.close()
-        print_('info written to infodump.txt')
-
-    if args.updatedb:
-        update_db()
-        
-    if args.searchdb != []:
-        search = ' '.join(args.searchdb)
-        print_('')
-        print_('Search Results:\n')
-        for line in titlekey_list:
-            line = line.strip()
-            if line != '' and line != None:
-                name = line.split('|')[2]
-                if search.lower() in name.lower():
-                    temp = line.split('|')
-                    tid = temp[0]
-                    tkey = temp[1]
-                    name = temp[2]
-                    print_(tid,tkey,name)
-
-    for tid in args.name:
-        get_name(tid)
-
-    for game in args.games:
-        try:
-            tid, ver, tkey = game.split('-')
-        except ValueError:
-            try:
-                tid, ver = game.split('-')
-                tkey = ''
-            except ValueError:
-                print_('Incorrect game argument (%s): should be formatted this way: TID-VER(-TKEY)!' % game)
-                return 1
-        setup_download(tid[0:16], ver, tkey, args.repack, get_name(tid))
-
-    for ver in args.sysupdates:
-        download_sysupdate(ver)
-
-    # print_('Done!')
-    return 0
 
 
-if __name__ == '__main__':
-    urllib3.disable_warnings()
-
-    try:
-        from tqdm import tqdm
-
-        tqdmProgBar = True
-    except ImportError:
-        tqdmProgBar = False
-        print_('Install the tqdm library for better-looking progress bars! (pip install tqdm)')
-
-    configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
-    hactoolPath, keysPath, NXclientPath, ShopNPath, reg, fw, did, env, dbURL, nspout, autoUpdatedb = load_config(configPath)
-
-    if keysPath != '':
-        keysArg = ' -k "%s"' % keysPath
-    else:
-        keysArg = ''
-
-    sys.exit(main())
