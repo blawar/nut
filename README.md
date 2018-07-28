@@ -3,6 +3,8 @@ This is a program  that automatically downloads all games from the CDN, and orga
 
 It will also download any titles you do not have a key for (for archiving), by enabling sansTitleKey in nut.json.  These titles are saved with the .nsx file extension, and can be unlocked at a later time when a title key is found.
 
+If you only wish to rename / organize files, and not download anything, edit nut.json and set all downloading options to false.
+
 # Organization
 It saves the titles in the following format by default:
 
