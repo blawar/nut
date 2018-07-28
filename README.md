@@ -6,15 +6,15 @@ It will also download any titles you do not have a key for (for archiving), by e
 # Organization
 It saves the titles in the following format by default:
 
-base games:  titles/{name}[{id}][v{version}].nsp
+base games:		titles/{name}[{id}][v{version}].nsp
 
-DLC:         titles/DLC/{baseName}/{name}[{id}][v{version}].nsp
+DLC:			titles/DLC/{baseName}/{name}[{id}][v{version}].nsp
 
-updates:     titles/updates/{baseName}/{name}[{id}][v{version}].nsp
+Updates:		titles/updates/{baseName}/{name}[{id}][v{version}].nsp
 
-demos:       titles/demos/{name}[{id}][v{version}].nsp
+Demos:			titles/demos/{name}[{id}][v{version}].nsp
 
-demo upd:    titles/demos/updates/{baseName}/{name}[{id}][v{version}].nsp
+Demo Updates:	titles/demos/updates/{baseName}/{name}[{id}][v{version}].nsp
 
 # Titlelist
 This program will load any titlekeys files named \*.titlekeys.txt including titlekeys.txt
