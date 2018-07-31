@@ -20,7 +20,7 @@ class AESCBC:
 		'''Encrypts some data in CBC mode.'''
 		if iv is None:
 			iv = self.iv
-		out = ''
+		out = b''
 		while data:
 			encb = self.aes.encrypt_block_ecb(sxor(data[:0x10], iv))
 			out += encb
@@ -34,7 +34,7 @@ class AESCBC:
 			raise ValueError('Data is not aligned to block size!')
 		if iv is None:
 			iv = self.iv
-		out = ''
+		out = b''
 		while data:
 			decb = sxor(self.aes.decrypt_block_ecb(data[:0x10]), iv)
 			out += decb
@@ -62,7 +62,7 @@ class AESCTR:
 			ctr = self.ctr
 		elif type(ctr) is not int:
 			ctr = int(hx(ctr), 16)
-		out = ''
+		out = b''
 		ln = len(data)
 		while ln:
 			xorpad = self.aes.encrypt_block_ecb(uhx('%032X' % ctr))
@@ -186,7 +186,7 @@ class AESXTSN:
 			sector = self.sector
 		if len(data) % self.block_size:
 			raise ValueError('Data is not aligned to block size!')
-		out = ''
+		out = b''
 		while data:
 			tweak = self.get_tweak(sector)
 			out += self.encrypt_sector(data[:self.sector_size], tweak)
@@ -197,7 +197,7 @@ class AESXTSN:
 	def encrypt_sector(self, data, tweak):
 		if len(data) % self.block_size:
 			raise ValueError('Data is not aligned to block size!')
-		out = ''
+		out = b''
 		tweak = self.K2.encrypt(uhx('%032X' % tweak))
 		while data:
 			out += sxor(tweak, self.K1.encrypt_block_ecb(sxor(data[:0x10], tweak)))
@@ -214,7 +214,7 @@ class AESXTSN:
 			sector = self.sector
 		if len(data) % self.block_size:
 			raise ValueError('Data is not aligned to block size!')
-		out = ''
+		out = b''
 		while data:
 			tweak = self.get_tweak(sector)
 			out += self.decrypt_sector(data[:self.sector_size], tweak)
@@ -225,7 +225,7 @@ class AESXTSN:
 	def decrypt_sector(self, data, tweak):
 		if len(data) % self.block_size:
 			raise ValueError('Data is not aligned to block size!')
-		out = ''
+		out = b''
 		tweak = self.K2.encrypt(uhx('%032X' % tweak))
 		while data:
 			out += sxor(tweak, self.K1.decrypt_block_ecb(sxor(data[:0x10], tweak)))
@@ -432,6 +432,6 @@ class AESECB:
 		assert(len(block) <= self.block_size)
 		num_pad = self.block_size - len(block)
 		right = (chr(num_pad) * num_pad).encode()
-		print('block type: ' + type(block).__name__)
-		print('right type: ' + type(right).__name__)
+		#print('block type: ' + type(block).__name__)
+		#print('right type: ' + type(right).__name__)
 		return block + right
