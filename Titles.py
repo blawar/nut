@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
+import re
 import json
 from Title import Title
 
@@ -26,33 +27,43 @@ def keys():
 	return titles.keys()
 	
 def loadTitlekeys(path):
-	with open(path, encoding="utf8") as f:
+	with open(path, encoding="utf-8-sig") as f:
+		firstLine = True
+		map = ['id', 'key', 'name']
 		for line in f.readlines():
+			line = line.strip()
+			if firstLine:
+				firstLine = False
+				if re.match('[A-Za-z\|\s]+', line, re.I):
+					map = line.split('|')
+					print('map found: ')
+					print(map)
+					continue
+			
 			t = Title()
-			t.loadCsv(line)
+			t.loadCsv(line, map)
 			
 			if not t.id in keys():
 				titles[t.id] = Title()
 				
-			titles[t.id].loadCsv(line)
+			titles[t.id].loadCsv(line, map)
 	
 def load():
-	if not os.path.isfile("titles.json"):
-		return
-		
-	with open("titles.json", "r") as f:
-		j = json.load(f)
-		for id, t in j.items():
-			titles[id] = Title()
-			
-			if t['rightsId']:
-				titles[id].setId(t['rightsId'])
-			else:
-				titles[id].setId(id)
+	if os.path.isfile("titles.json"):	
+		with open("titles.json", "r") as f:
+			j = json.load(f)
+			for id, t in j.items():
+				titles[id] = Title()
 				
-			titles[id].setName(t['name'])
-			titles[id].setKey(t['key'])
-			titles[id].setVersion(t['version'])
+				if t['rightsId']:
+					titles[id].setId(t['rightsId'])
+				else:
+					titles[id].setId(id)
+					
+				titles[id].setName(t['name'])
+				titles[id].setKey(t['key'])
+				titles[id].setVersion(t['version'])
+
 			
 	files = [f for f in os.listdir('.') if f.endswith('titlekeys.txt')]
 	files.sort()
