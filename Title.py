@@ -9,20 +9,37 @@ class Title:
 	def __init__(self):
 		self.id = None
 		self.rightsId = None
+		self.name = None
 		self.isDLC = None
 		self.idExt = None
 		self.updateId = None
 		self.path = None
 		self.version = None
 		self.key = None
+		self.isDemo = None
+		self.region = None
 		
-	def loadCsv(self, line):
+	def loadCsv(self, line, map = ['id', 'key', 'name']):
 		split = line.split('|')
-		self.setId(split[0].strip())
-		self.setName(split[2].strip())
-		self.setKey(split[1].strip())
+		for i, value in enumerate(split):
+			if i >= len(map):
+				print('invalid map index')
+				continue
+				
+			methodName = 'set' + str(map[i]).capitalize()
+			method = getattr(self, methodName, lambda x: None)
+			method(value.strip())
+			
+		#self.setId(split[0].strip())
+		#self.setName(split[2].strip())
+		#self.setKey(split[1].strip())
 
-		
+	def setRightsId(self, rightsId):
+		if not id:
+			self.setId(rightsId)
+		elif not self.rightsId:
+			self.rightsId = self.rightsId
+			
 	def setId(self, id):
 		if not id or self.id:
 			return
@@ -62,6 +79,9 @@ class Title:
 		else:
 			# update
 			pass
+			
+	def setRegion(self, region):
+		self.region = region
 			
 	def setName(self, name):
 		self.name = name
