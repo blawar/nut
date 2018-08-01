@@ -38,14 +38,21 @@ class SectionTableEntry:
 
 		
 class SectionFilesystem:
-	def __init__(self, buffer):
+	def __init__(self, buffer = None):
+		self.filePath = None
 		self.buffer = buffer
-		self.fsType = buffer[0x3]
-		self.cryptoType = buffer[0x4]
+		self.fsType = None
+		self.cryptoType = None
 		self.size = -1
-		self.sectionCtr = bytearray((b"\x00"*8) + buffer[0x140:0x148])
-		self.sectionCtr = self.sectionCtr[::-1]
-		#self.currentCtr = self.calcCtr(0)
+		self.sectionCtr = None
+		self.files = []
+		
+		if buffer:
+			self.buffer = buffer
+			self.fsType = buffer[0x3]
+			self.cryptoType = buffer[0x4]
+			self.sectionCtr = bytearray((b"\x00"*8) + buffer[0x140:0x148])
+			self.sectionCtr = self.sectionCtr[::-1]
 		
 	def calcCtr(self, ofs):
 		ctr = self.sectionCtr.copy()
@@ -54,21 +61,60 @@ class SectionFilesystem:
 			ctr[0x10-j-1] = ofs & 0xFF
 			ofs >>= 8
 		return bytes(ctr)
-
-class PFS0(SectionFilesystem):
-	def __init__(self, buffer):
-		super(PFS0, self).__init__(buffer)
-		#self.size = int.from_bytes(buffer[0x28:0x2C], byteorder='little', signed=False)
-		self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
-		self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
-		#self.sectionStart = buffer[0x40:0x48]
 		
-		#print('fs size: ' + str(self.size))
-		#print('crypto: ' + str(self.cryptoType))
-		#print('section start: ' + str(self.sectionStart))
+	def openFile(path = None):
+		if path:
+			self.path = path
+			
+		if not self.path:
+			return False
+
+class PFS0File:
+	def __init__():
+		self.name = None
+		self.offset = None
+		self.size = None
+		self.path = None
+		
+class PFS0(SectionFilesystem):
+	def __init__(self, buffer = None):
+		super(PFS0, self).__init__(buffer)
+		
+		if buffer:
+			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
+			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
+
+		
+		def getHeader():
+			stringTable = '\x00'.join(file.name for file in self.files)
+			
+			headerSize = 0x10 + len(self.files) * 0x18 + len(stringTable)
+			remainder = 0x10 - headerSize % 0x10
+			headerSize += remainder
+		
+			h = b''
+			h += b'PFS0'
+			h += len(self.files).to_bytes(4, byteorder='little')
+			h += (len(stringTable)+remainder).to_bytes(4, byteorder='little')
+			h += b'\x00\x00\x00\x00'
+			
+			stringOffset = 0
+			
+			for f in range(len(self.files)):
+				header += f.offset.to_bytes(8, byteorder='little')
+				header += f.size.to_bytes(8, byteorder='little')
+				header += stringOffset.to_bytes(4, byteorder='little')
+				header += b'\x00\x00\x00\x00'
+				
+				stringOffset += len(f.name) + 1
+				
+			h += stringTable.encode()
+			h += remainder * b'\x00'
+			
+			return h
 		
 class ROMFS(SectionFilesystem):
-	def __init__(self, buffer):
+	def __init__(self, buffer = None):
 		super(ROMFS, self).__init__(buffer)
 		
 def GetSectionFilesystem(buffer):	
