@@ -7,10 +7,12 @@ from Title import Title
 import Titles
 import Nut
 import Config
+import Nca
 
-class Nsp:
+class Nsp(Nca.PFS0):
 		
 	def __init__(self, path = None, files = None):
+		super(Nsp, self).__init__(None)
 		self.path = None
 		if path:
 			self.setPath(path)

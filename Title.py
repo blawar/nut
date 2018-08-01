@@ -18,6 +18,7 @@ class Title:
 		self.key = None
 		self.isDemo = None
 		self.region = None
+		self.isModified = False
 		
 	def loadCsv(self, line, map = ['id', 'key', 'name']):
 		split = line.split('|')
