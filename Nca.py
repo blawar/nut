@@ -7,6 +7,7 @@ from struct import pack as pk, unpack as upk
 from enum import IntEnum
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
+import Keys
 
 header_key = 'AEAAB1CA08ADF9BEF12991F369E3C567D6881E4E4A6A47A51F6E4877062D542D'
 key = '3aa8e6d97c620e57a92ce77c9527f766'
@@ -90,11 +91,14 @@ class Nca:
 		self.f = open(self.fileName, "rb")
 		self.readHeader()
 		
-		crypto = aes128.AESCTR(uhx(key), uhx('000000000000000000000000000000C0'))
+		#ctr = Counter.new(nbits=128, initial_value=0x000000000000000000000000000000C0)
+		#crypto = AES.new(uhx(key), AES.MODE_CTR, counter=ctr)
+		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(key), 0), uhx('000000000000000000000000000000c0'))
 		self.f.seek(0x1c000)
 		body = self.f.read(0x300)
 
-		Hex.dump((body))
+		Hex.dump(crypto.decrypt(body))
+		print(Keys.get('titlekek_source'))
 		
 	def readHeader(self):
 		self.sectionTables = []
@@ -140,3 +144,4 @@ class Nca:
 		print('title id ' + str(self.titleId))
 		print('size ' + str(self.size))
 		print('magic: ' + self.magic)
+		print('nca crypto type: ' + str(self.cryptoType))
