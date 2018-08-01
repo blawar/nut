@@ -9,9 +9,6 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 import Keys
 
-header_key = 'AEAAB1CA08ADF9BEF12991F369E3C567D6881E4E4A6A47A51F6E4877062D542D'
-key = '3aa8e6d97c620e57a92ce77c9527f766'
-
 MEDIA_SIZE = 0x200
 
 class FsType(IntEnum):
@@ -104,7 +101,10 @@ class Nca:
 		self.f = open(self.fileName, "rb")
 		self.readHeader()
 		
-		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(key), 0), self.sectionFilesystems[1].calcCtr(self.sectionTables[1].offset))
+		if not self.titleId.upper() in Titles.keys():
+			print('could not find title key!!! ' + self.titleId)
+		
+		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0), self.sectionFilesystems[1].calcCtr(self.sectionTables[1].offset))
 		self.f.seek(self.sectionTables[1].offset)
 		body = self.f.read(0x300)
 
@@ -115,7 +115,7 @@ class Nca:
 		self.sectionFilesystems = []
 		
 		self.header = self.f.read(0x0C00)
-		cipher = aes128.AESXTS(uhx(header_key))
+		cipher = aes128.AESXTS(uhx(Keys.get('header_key')))
 		
 		try:
 			if self.header[0x200:0x204].decode("utf-8") not in ['NCA3', 'NCA2']:
