@@ -27,6 +27,12 @@ class File:
 	def read(self, size):
 		return self.f.read(size)
 		
+	def readInt32(self, byteorder='little', signed = False):
+		return int.from_bytes(self.f.read(4), byteorder=byteorder, signed=signed)
+		
+	def readInt64(self, byteorder='little', signed = False):
+		return int.from_bytes(self.f.read(8), byteorder=byteorder, signed=signed)
+		
 	def write(self, buffer):
 		return self.f.write(buffer)
 	

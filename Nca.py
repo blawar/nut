@@ -7,6 +7,7 @@ from struct import pack as pk, unpack as upk
 from enum import IntEnum
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
+from File import File
 import Keys
 
 MEDIA_SIZE = 0x200
@@ -45,6 +46,7 @@ class SectionFilesystem:
 		self.cryptoType = None
 		self.size = -1
 		self.sectionCtr = None
+		self.f = None
 		self.files = []
 		
 		if buffer:
@@ -62,15 +64,19 @@ class SectionFilesystem:
 			ofs >>= 8
 		return bytes(ctr)
 		
-	def openFile(path = None):
+	def openFile(self, path = None):
 		if path:
 			self.path = path
 			
 		if not self.path:
 			return False
+			
+		self.f = File(self.path, 'rb')
+		
+		return True
 
 class PFS0File:
-	def __init__():
+	def __init__(self):
 		self.name = None
 		self.offset = None
 		self.size = None
@@ -79,39 +85,69 @@ class PFS0File:
 class PFS0(SectionFilesystem):
 	def __init__(self, buffer = None):
 		super(PFS0, self).__init__(buffer)
-		
 		if buffer:
 			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
 			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
+		
+	def getHeader():
+		stringTable = '\x00'.join(file.name for file in self.files)
+		
+		headerSize = 0x10 + len(self.files) * 0x18 + len(stringTable)
+		remainder = 0x10 - headerSize % 0x10
+		headerSize += remainder
+	
+		h = b''
+		h += b'PFS0'
+		h += len(self.files).to_bytes(4, byteorder='little')
+		h += (len(stringTable)+remainder).to_bytes(4, byteorder='little')
+		h += b'\x00\x00\x00\x00'
+		
+		stringOffset = 0
+		
+		for f in range(len(self.files)):
+			header += f.offset.to_bytes(8, byteorder='little')
+			header += f.size.to_bytes(8, byteorder='little')
+			header += stringOffset.to_bytes(4, byteorder='little')
+			header += b'\x00\x00\x00\x00'
+			
+			stringOffset += len(f.name) + 1
+			
+		h += stringTable.encode()
+		h += remainder * b'\x00'
+		
+		return h
+		
+	def openFile(self, path = None):
+		r = super(PFS0, self).openFile(path)
+		
+		if not r:
+			raise IOError('Could not open file ' + self.path)
+			
+		if self.f.read(4) != b'PFS0':
+			raise IOError('Not a valid PFS0 partition')
 
+		fileCount = self.f.readInt32()
+		stringTableSize = self.f.readInt32()
+		self.f.readInt32() # junk data
 		
-		def getHeader():
-			stringTable = '\x00'.join(file.name for file in self.files)
+		self.files = []
+		for i in range(fileCount):
+			f = PFS0File()
+			f.offset = self.f.readInt64()
+			f.size = self.f.readInt64()
+			f.name = ''
+			f.nameOffset = self.f.readInt32() # just the offset
+			self.f.readInt32() # junk data
 			
-			headerSize = 0x10 + len(self.files) * 0x18 + len(stringTable)
-			remainder = 0x10 - headerSize % 0x10
-			headerSize += remainder
+			self.files.append(f)
+
+		stringTable = self.f.read(stringTableSize)
 		
-			h = b''
-			h += b'PFS0'
-			h += len(self.files).to_bytes(4, byteorder='little')
-			h += (len(stringTable)+remainder).to_bytes(4, byteorder='little')
-			h += b'\x00\x00\x00\x00'
-			
-			stringOffset = 0
-			
-			for f in range(len(self.files)):
-				header += f.offset.to_bytes(8, byteorder='little')
-				header += f.size.to_bytes(8, byteorder='little')
-				header += stringOffset.to_bytes(4, byteorder='little')
-				header += b'\x00\x00\x00\x00'
-				
-				stringOffset += len(f.name) + 1
-				
-			h += stringTable.encode()
-			h += remainder * b'\x00'
-			
-			return h
+		for i in range(fileCount):
+			if i == fileCount - 1:
+				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').strip()
+			else:
+				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').strip()
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer = None):
