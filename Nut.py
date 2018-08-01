@@ -85,6 +85,11 @@ if __name__ == '__main__':
 			if not t.id:
 				print('no valid id? ' + str(t.path))
 				continue
+				
+			if not t.lastestVersion():
+				print('Could not get version for ' + t.name)
+				continue
+				
 			print('Downloading ' + t.name + ', ' + str(t.key).lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 

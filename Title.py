@@ -118,6 +118,9 @@ class Title:
 	def lastestVersion(self):
 		if self.isDLC:
 			return '0'
+			
+		if self.version and self.version.lower() == 'none':
+			self.version = None
 		
 		if not self.version:
 			self.version = Title.getVersions(self.id)[-1]
