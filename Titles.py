@@ -36,8 +36,6 @@ def loadTitlekeys(path):
 				firstLine = False
 				if re.match('[A-Za-z\|\s]+', line, re.I):
 					map = line.split('|')
-					print('map found: ')
-					print(map)
 					continue
 			
 			t = Title()

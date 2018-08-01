@@ -40,5 +40,5 @@ def load(fileName):
 				
 load('Keys.txt')
 
-for k in titleKeks:
-	print('titleKek = ' + k)
+#for k in titleKeks:
+#	print('titleKek = ' + k)
