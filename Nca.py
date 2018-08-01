@@ -37,7 +37,7 @@ class SectionTableEntry:
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = sha1
 		
-		print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
+		#print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
 
 		
 class SectionFilesystem:
@@ -66,9 +66,9 @@ class PFS0(SectionFilesystem):
 		self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
 		#self.sectionStart = buffer[0x40:0x48]
 		
-		print('fs size: ' + str(self.size))
-		print('crypto: ' + str(self.cryptoType))
-		print('section start: ' + str(self.sectionStart))
+		#print('fs size: ' + str(self.size))
+		#print('crypto: ' + str(self.cryptoType))
+		#print('section start: ' + str(self.sectionStart))
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer):
