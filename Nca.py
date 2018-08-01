@@ -29,40 +29,52 @@ class SectionTableEntry:
 	def __init__(self, d, sha1):
 		self.mediaOffset = int.from_bytes(d[0x0:0x4], byteorder='little', signed=False)
 		self.mediaEndOffset = int.from_bytes(d[0x4:0x8], byteorder='little', signed=False)
+		
+		self.offset = self.mediaOffset * MEDIA_SIZE
+		self.endOffset = self.mediaEndOffset * MEDIA_SIZE
+		
 		self.unknown1 = int.from_bytes(d[0x8:0xc], byteorder='little', signed=False)
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = sha1
 		
 		print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
 
-class SectionHeaderBlock:
+		
+class SectionFilesystem:
 	def __init__(self, buffer):
 		self.buffer = buffer
 		self.fsType = buffer[0x3]
 		self.cryptoType = buffer[0x4]
 		self.size = -1
+		self.sectionCtr = bytearray((b"\x00"*8) + buffer[0x140:0x148])
+		self.sectionCtr = self.sectionCtr[::-1]
+		#self.currentCtr = self.calcCtr(0)
+		
+	def calcCtr(self, ofs):
+		ctr = self.sectionCtr.copy()
+		ofs >>= 4
+		for j in range(8):
+			ctr[0x10-j-1] = ofs & 0xFF
+			ofs >>= 8
+		return bytes(ctr)
 
-class PFS0:
+class PFS0(SectionFilesystem):
 	def __init__(self, buffer):
-		self.buffer = buffer
-		self.fsType = buffer[0x3]
-		self.cryptoType = buffer[0x4]
+		super(PFS0, self).__init__(buffer)
 		#self.size = int.from_bytes(buffer[0x28:0x2C], byteorder='little', signed=False)
 		self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
 		self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
+		#self.sectionStart = buffer[0x40:0x48]
 		
 		print('fs size: ' + str(self.size))
 		print('crypto: ' + str(self.cryptoType))
 		print('section start: ' + str(self.sectionStart))
 		
-class ROMFS:
+class ROMFS(SectionFilesystem):
 	def __init__(self, buffer):
-		self.buffer = buffer
-		self.fsType = buffer[0x3]
-		self.cryptoType = buffer[0x4]
-		self.size = -1
+		super(ROMFS, self).__init__(buffer)
 		
-def GetSectionHeaderBlock(buffer):	
+def GetSectionFilesystem(buffer):	
 	fsType = buffer[0x3]
 	if fsType == FsType.PFS0:
 		return PFS0(buffer)
@@ -70,7 +82,8 @@ def GetSectionHeaderBlock(buffer):
 	if fsType == FsType.ROMFS:
 		return ROMFS(buffer)
 		
-	return SectionHeaderBlock(buffer)
+	return SectionFilesystem(buffer)
+
 class Nca:
 	def __init__(self, fileName = None):
 		self.fileName = fileName
@@ -78,7 +91,7 @@ class Nca:
 		self.header = None
 		self.titleId = None
 		self.sectionTables = []
-		self.sectionHeaderBlocks = []
+		self.sectionFilesystems = []
 		
 		if fileName:
 			self.open()
@@ -91,18 +104,15 @@ class Nca:
 		self.f = open(self.fileName, "rb")
 		self.readHeader()
 		
-		#ctr = Counter.new(nbits=128, initial_value=0x000000000000000000000000000000C0)
-		#crypto = AES.new(uhx(key), AES.MODE_CTR, counter=ctr)
-		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(key), 0), uhx('000000000000000000000000000000c0'))
-		self.f.seek(0x1c000)
+		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(key), 0), self.sectionFilesystems[1].calcCtr(self.sectionTables[1].offset))
+		self.f.seek(self.sectionTables[1].offset)
 		body = self.f.read(0x300)
 
-		Hex.dump(crypto.decrypt(body))
-		print(Keys.get('titlekek_source'))
+		Hex.dump(crypto.decrypt(body))		
 		
 	def readHeader(self):
 		self.sectionTables = []
-		self.sectionHeaderBlocks = []
+		self.sectionFilesystems = []
 		
 		self.header = self.f.read(0x0C00)
 		cipher = aes128.AESXTS(uhx(header_key))
@@ -138,7 +148,7 @@ class Nca:
 			
 			start = 0x400 + i * 0x200
 			end = start + 0x200
-			self.sectionHeaderBlocks.append(GetSectionHeaderBlock(self.header[start:end]))
+			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end]))
 		
 		print('')
 		print('title id ' + str(self.titleId))
