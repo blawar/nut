@@ -35,7 +35,7 @@ class SectionTableEntry:
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = sha1
 		
-		print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
+		#print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
 
 		
 class SectionFilesystem(File):
@@ -48,7 +48,7 @@ class SectionFilesystem(File):
 		self.size = 0
 		self.sectionCtr = None
 		if f:
-			self.f = f.partition(offset, size, self)
+			f.partition(offset, size, self)
 		else:
 			self.f = None
 			
@@ -69,14 +69,13 @@ class SectionFilesystem(File):
 			ofs >>= 8
 		return bytes(ctr)
 		
-	def openFile(self, path = None):
-		if path:
-			self.path = path
-			
-		if not self.path:
-			return False
-			
-		self.f = File(self.path, 'rb')
+	def open(self, file = None):			
+		if type(file) is str:
+			self.f = File(self.path, 'rb')
+		elif type(file) is File:
+			self.f = file
+		else:
+			raise IOError('SFS:open invalid file')
 		
 		return True
 
@@ -122,8 +121,8 @@ class PFS0(SectionFilesystem):
 		
 		return h
 		
-	def openFile(self, path = None):
-		r = super(PFS0, self).openFile(path)
+	def open(self, path = None):
+		r = super(PFS0, self).open(path)
 		
 		if not r:
 			raise IOError('Could not open file ' + self.path)
@@ -192,10 +191,11 @@ class Nca:
 			print('could not find title key!!! ' + self.titleId)
 		
 		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0), self.sectionFilesystems[1].setCounter(self.sectionTables[1].offset))
-		self.f.seek(self.sectionTables[1].offset)
-		body = self.f.read(0x300)
+		
+		self.sectionFilesystems[1].seek(0)
+		body = self.sectionFilesystems[1].read(0x300)
 
-		Hex.dump(crypto.decrypt(body))		
+		Hex.dump(crypto.decrypt(body))
 		
 	def readHeader(self):
 		self.sectionTables = []
@@ -237,7 +237,6 @@ class Nca:
 			start = 0x400 + i * 0x200
 			end = start + 0x200
 			
-			fs = GetSectionFilesystem(self.header[start:end], self.f, st.offset)
 			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end], self.f, st.offset))
 		
 		print('')

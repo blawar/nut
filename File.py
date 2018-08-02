@@ -10,6 +10,7 @@ class File:
 	def partition(self, offset = 0, size = None, n = None):
 		if not n:
 			n = File()
+		#print('partition: ' + str(self) + ', ' + str(n))
 			
 		n.offset = self.offset + offset
 		
@@ -40,6 +41,7 @@ class File:
 		return self.f.write(buffer)
 	
 	def seek(self, offset, from_what = 0):
+		#print('seeking: ' + str(self.f) + ', ' + str(self))
 		if not self.isOpen():
 			raise IOError('Trying to seek on closed file')
 		#if self.parent:
