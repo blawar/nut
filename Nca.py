@@ -66,17 +66,18 @@ class SectionFilesystem(File):
 		return bytes(ctr)
 		
 	def open(self, file = None):			
-		if type(file) is str:
+		if isinstance(file, str):
 			self.f = File(self.path, 'rb')
-		elif type(file) is File:
+		elif isinstance(file, File):
 			self.f = file
 		else:
 			raise IOError('SFS:open invalid file')
 		
 		return True
 
-class PFS0File:
+class PFS0File(File):
 	def __init__(self):
+		super(PFS0File, self).__init__()
 		self.name = None
 		self.offset = None
 		self.size = None
@@ -130,6 +131,8 @@ class PFS0(SectionFilesystem):
 		stringTableSize = self.f.readInt32()
 		self.f.readInt32() # junk data
 		
+		headerSize = 0x10 + 0x18 * fileCount + stringTableSize
+		
 		self.files = []
 		for i in range(fileCount):
 			f = PFS0File()
@@ -138,6 +141,7 @@ class PFS0(SectionFilesystem):
 			f.name = ''
 			f.nameOffset = self.f.readInt32() # just the offset
 			self.f.readInt32() # junk data
+			self.f.partition(f.offset + headerSize, f.size, f)
 			
 			self.files.append(f)
 
@@ -148,6 +152,7 @@ class PFS0(SectionFilesystem):
 				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').strip()
 			else:
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').strip()
+
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
@@ -174,9 +179,9 @@ class Nca:
 			self.open(file)
 
 	def open(self, file = None):
-		if type(file) is str:
+		if isinstance(file, str):
 			self.f = File(file, "rb")
-		elif type(file) is File:
+		elif isinstance(file, File):
 			self.f = file
 		else:
 			raise IOError('NCA:open invalid file')

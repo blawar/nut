@@ -100,7 +100,7 @@ class File:
 		self.f.close()
 		self.f = None
 		
-	def tell():
+	def tell(self):
 		return self.f.tell()
 		
 	def isOpen(self):
