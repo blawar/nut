@@ -65,9 +65,9 @@ class SectionFilesystem(File):
 			ofs >>= 8
 		return bytes(ctr)
 		
-	def open(self, file = None):			
+	def open(self, file = None, mode = 'rb'):			
 		if isinstance(file, str):
-			self.f = File(self.path, 'rb')
+			self.f = File(self.path, mode)
 		elif isinstance(file, File):
 			self.f = file
 		else:
@@ -128,8 +128,8 @@ class PFS0(SectionFilesystem):
 		
 		return h
 		
-	def open(self, path = None):
-		r = super(PFS0, self).open(path)
+	def open(self, path = None, mode = 'rb'):
+		r = super(PFS0, self).open(path, mode)
 		
 		if not r:
 			raise IOError('Could not open file ' + self.path)

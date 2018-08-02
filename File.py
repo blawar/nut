@@ -11,6 +11,7 @@ class File:
 		self.cryptoKey = None
 		self.cryptoType = Type.Crypto.NONE
 		self.cryptoCounter = None
+		self.isPartition = False
 		
 		if path:
 			self.open(path, mode)
@@ -37,6 +38,7 @@ class File:
 			
 		n.size = size
 		n.f = self
+		n.isPartition = True
 		
 		return n
 		
@@ -76,9 +78,14 @@ class File:
 				self.crypto.set_ctr(self.setCounter(self.offset + offset))
 				
 			return f.seek(self.offset + offset)
-		#elif from_what == 1:
+		elif from_what == 1:
 			# seek from current position
-		#	pass
+			r = f.seek(self.offset + offset)
+			
+			if self.crypto:
+				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+				
+			return r
 		elif from_what == 2:
 			# see from end
 			if offset > 0:
@@ -87,6 +94,12 @@ class File:
 			return f.seek(self.offset + offset + self.size)
 			
 		raise Exception('Invalid seek type')
+		
+	def rewind(self, offset = None):
+		if offset:
+			self.seek(-offset, 1)
+		else:
+			self.seek(0)
 		
 	def open(self, path, mode):
 		if self.isOpen():
@@ -103,7 +116,7 @@ class File:
 		self.f = None
 		
 	def tell(self):
-		return self.f.tell()
+		return self.f.tell() - self.offset
 		
 	def isOpen(self):
 		return self.f != None

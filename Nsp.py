@@ -7,6 +7,7 @@ from Title import Title
 import Titles
 import Nut
 import Config
+from binascii import hexlify as hx, unhexlify as uhx
 from Nca import PFS0
 
 class Nsp(PFS0):
@@ -50,8 +51,8 @@ class Nsp(PFS0):
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
 		if z:
 			self.version = z.groups()[0]
-	def open(self):
-		super(Nsp, self).open(self.path)
+	def open(self, mode = 'rb'):
+		super(Nsp, self).open(self.path, mode)
 					
 	def move(self):
 		if not self.path:
@@ -126,6 +127,32 @@ class Nsp(PFS0):
 			format = os.path.splitext(format)[0] + '.nsx'
 		
 		return format
+	
+	def readTikTitleKey(self):
+		for f in (f for f in self if pathlib.Path(f.name).suffix == '.tik'):
+			f.seek(0x180)
+			return f.read(0x10)
+			
+		raise IOError('no ticket in NSP')
+		
+	def writeTikTitleKey(self, titleKey):
+		for f in (f for f in self if pathlib.Path(f.name).suffix == '.tik'):
+			f.seek(0x180)
+			
+			if f.read(0x10) != b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
+				raise IOError('Ticket Title Key has already been set')
+			
+			f.seek(0x180)
+			
+			binTitleKey = uhx(titleKey)
+			
+			if len(binTitleKey) != 16:
+				raise IOError('incorrect title key size')
+			
+			f.write(binTitleKey)
+			return True
+			
+		raise IOError('no ticket in NSP')
 		
 	def pack(self, files):
 		if not self.path:
