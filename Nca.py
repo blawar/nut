@@ -29,7 +29,7 @@ class SectionTableEntry:
 
 		
 class SectionFilesystem(File):
-	def __init__(self, buffer = None, f = None, offset = None, size = None):
+	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
 		super(SectionFilesystem, self).__init__()
 		
 		self.buffer = buffer
@@ -37,6 +37,8 @@ class SectionFilesystem(File):
 		self.cryptoType = None
 		self.size = 0
 		self.cryptoCounter = None
+		self.cryptoKey = titleKeyDec
+		
 		if f:
 			f.partition(offset, size, self)
 		else:
@@ -48,8 +50,12 @@ class SectionFilesystem(File):
 			self.buffer = buffer
 			self.fsType = buffer[0x3]
 			self.cryptoType = buffer[0x4]
+			
 			self.cryptoCounter = bytearray((b"\x00"*8) + buffer[0x140:0x148])
 			self.cryptoCounter = self.cryptoCounter[::-1]
+			
+			if self.cryptoType == Type.Crypto.CTR:
+				self.setAESCTR()
 		
 	def setCounter(self, ofs):
 		ctr = self.cryptoCounter.copy()
@@ -77,8 +83,8 @@ class PFS0File:
 		self.path = None
 		
 class PFS0(SectionFilesystem):
-	def __init__(self, buffer = None, f = None, offset = None, size = None):
-		super(PFS0, self).__init__(buffer, f, offset, size)
+	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
+		super(PFS0, self).__init__(buffer, f, offset, size, titleKeyDec)
 		if buffer:
 			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
 			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
@@ -144,18 +150,18 @@ class PFS0(SectionFilesystem):
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').strip()
 		
 class ROMFS(SectionFilesystem):
-	def __init__(self, buffer = None, f = None, offset = None, size = None):
-		super(ROMFS, self).__init__(buffer, f, offset, size)
+	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
+		super(ROMFS, self).__init__(buffer, f, offset, size, titleKeyDec)
 		
-def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None):	
+def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
 	fsType = buffer[0x3]
 	if fsType == Type.Fs.PFS0:
-		return PFS0(buffer, f, offset, size)
+		return PFS0(buffer, f, offset, size, titleKeyDec)
 		
 	if fsType == Type.Fs.ROMFS:
-		return ROMFS(buffer, f, offset, size)
+		return ROMFS(buffer, f, offset, size, titleKeyDec)
 		
-	return SectionFilesystem(buffer, f, offset, size)
+	return SectionFilesystem(buffer, f, offset, size, titleKeyDec)
 
 class Nca:
 	def __init__(self, file= None):			
@@ -181,10 +187,8 @@ class Nca:
 			print('could not find title key!!! ' + self.titleId)
 		
 		self.sectionFilesystems[1].seek(0)
-		self.sectionFilesystems[1].setAESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0))
-		body = self.sectionFilesystems[1].read(0x300)
 
-		Hex.dump(body)
+		#Hex.dump(self.sectionFilesystems[1].read(0x300))
 		
 	def readHeader(self):
 		self.sectionTables = []
@@ -213,6 +217,10 @@ class Nca:
 		self.sdkVersion = int.from_bytes(self.header[0x21c:0x220], byteorder='little', signed=False)
 		self.cryptoType2 = self.header[0x220]
 		self.rightsId = self.header[0x230:0x240][::-1].hex()
+		self.titleKeyDec = None
+		
+		if self.titleId.upper() in Titles.keys():
+			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0)
 		
 		for i in range(4):
 			start = 0x240 + i * 0x10
@@ -225,11 +233,11 @@ class Nca:
 			
 			start = 0x400 + i * 0x200
 			end = start + 0x200
-			
-			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end], self.f, st.offset))
+
+			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end], self.f, st.offset, None, self.titleKeyDec))
 		
-		print('')
-		print('title id ' + str(self.titleId))
-		print('size ' + str(self.size))
-		print('magic: ' + self.magic)
-		print('nca crypto type: ' + str(self.cryptoType))
+		#print('')
+		#print('title id ' + str(self.titleId))
+		#print('size ' + str(self.size))
+		#print('magic: ' + self.magic)
+		#print('nca crypto type: ' + str(self.cryptoType))

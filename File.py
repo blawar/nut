@@ -21,7 +21,7 @@ class File:
 			
 		if counter:
 			self.cryptoCounter = counter
-			
+
 		self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
 		self.cryptoType = Type.Crypto.CTR
 			
@@ -42,7 +42,8 @@ class File:
 		
 	def read(self, size):
 		if self.crypto:
-			return self.crypto.decrypt(self.f.read(size))
+			r = self.crypto.decrypt(self.f.read(size))
+			return r
 		return self.f.read(size)
 		
 	def readInt8(self, byteorder='little', signed = False):
@@ -70,7 +71,7 @@ class File:
 		if from_what == 0:
 			# seek from begining
 			if self.crypto:
-				self.setCounter(self.offset + offset)
+				self.crypto.set_ctr(self.setCounter(self.offset + offset))
 				
 			return f.seek(self.offset + offset)
 		#elif from_what == 1:
