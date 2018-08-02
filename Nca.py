@@ -149,9 +149,9 @@ class PFS0(SectionFilesystem):
 		
 		for i in range(fileCount):
 			if i == fileCount - 1:
-				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').strip()
+				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').rstrip(' \t\r\n\0')
 			else:
-				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').strip()
+				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').rstrip(' \t\r\n\0')
 
 		
 class ROMFS(SectionFilesystem):
