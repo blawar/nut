@@ -35,18 +35,23 @@ class SectionTableEntry:
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = sha1
 		
-		#print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
+		print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
 
 		
-class SectionFilesystem:
-	def __init__(self, buffer = None):
-		self.filePath = None
+class SectionFilesystem(File):
+	def __init__(self, buffer = None, f = None, offset = None, size = None):
+		super(SectionFilesystem, self).__init__()
+		
 		self.buffer = buffer
 		self.fsType = None
 		self.cryptoType = None
-		self.size = -1
+		self.size = 0
 		self.sectionCtr = None
-		self.f = None
+		if f:
+			self.f = f.partition(offset, size, self)
+		else:
+			self.f = None
+			
 		self.files = []
 		
 		if buffer:
@@ -56,7 +61,7 @@ class SectionFilesystem:
 			self.sectionCtr = bytearray((b"\x00"*8) + buffer[0x140:0x148])
 			self.sectionCtr = self.sectionCtr[::-1]
 		
-	def calcCtr(self, ofs):
+	def setCounter(self, ofs):
 		ctr = self.sectionCtr.copy()
 		ofs >>= 4
 		for j in range(8):
@@ -83,8 +88,8 @@ class PFS0File:
 		self.path = None
 		
 class PFS0(SectionFilesystem):
-	def __init__(self, buffer = None):
-		super(PFS0, self).__init__(buffer)
+	def __init__(self, buffer = None, f = None, offset = None, size = None):
+		super(PFS0, self).__init__(buffer, f, offset, size)
 		if buffer:
 			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
 			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
@@ -150,43 +155,43 @@ class PFS0(SectionFilesystem):
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').strip()
 		
 class ROMFS(SectionFilesystem):
-	def __init__(self, buffer = None):
-		super(ROMFS, self).__init__(buffer)
+	def __init__(self, buffer = None, f = None, offset = None, size = None):
+		super(ROMFS, self).__init__(buffer, f, offset, size)
 		
-def GetSectionFilesystem(buffer):	
+def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None):	
 	fsType = buffer[0x3]
 	if fsType == FsType.PFS0:
-		return PFS0(buffer)
+		return PFS0(buffer, f, offset, size)
 		
 	if fsType == FsType.ROMFS:
-		return ROMFS(buffer)
+		return ROMFS(buffer, f, offset, size)
 		
-	return SectionFilesystem(buffer)
+	return SectionFilesystem(buffer, f, offset, size)
 
 class Nca:
-	def __init__(self, fileName = None):
-		self.fileName = fileName
-			
+	def __init__(self, file= None):			
 		self.header = None
 		self.titleId = None
 		self.sectionTables = []
 		self.sectionFilesystems = []
 		
-		if fileName:
-			self.open()
+		if file:
+			self.open(file)
 
-	def open(self, fileName = None):
-		if fileName:
-			self.fileName = fileName
+	def open(self, file = None):
+		if type(file) is str:
+			self.f = File(file, "rb")
+		elif type(file) is File:
+			self.f = file
+		else:
+			raise IOError('NCA:open invalid file')
 			
-		print('opening ' + self.fileName)
-		self.f = open(self.fileName, "rb")
 		self.readHeader()
 		
 		if not self.titleId.upper() in Titles.keys():
 			print('could not find title key!!! ' + self.titleId)
 		
-		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0), self.sectionFilesystems[1].calcCtr(self.sectionTables[1].offset))
+		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0), self.sectionFilesystems[1].setCounter(self.sectionTables[1].offset))
 		self.f.seek(self.sectionTables[1].offset)
 		body = self.f.read(0x300)
 
@@ -226,11 +231,14 @@ class Nca:
 			
 			hashStart = 0x280 + i * 0x20
 			hashEnd = hashStart + 0x20
-			self.sectionTables.append(SectionTableEntry(self.header[start:end], self.header[hashStart:hashEnd]))
+			st = SectionTableEntry(self.header[start:end], self.header[hashStart:hashEnd])
+			self.sectionTables.append(st)
 			
 			start = 0x400 + i * 0x200
 			end = start + 0x200
-			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end]))
+			
+			fs = GetSectionFilesystem(self.header[start:end], self.f, st.offset)
+			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end], self.f, st.offset))
 		
 		print('')
 		print('title id ' + str(self.titleId))
