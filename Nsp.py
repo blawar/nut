@@ -47,6 +47,8 @@ class Nsp(PFS0):
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
 		if z:
 			self.version = z.groups()[0]
+	def open(self):
+		super(Nsp, self).open(self.path)
 					
 	def move(self):
 		if not self.path:
