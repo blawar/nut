@@ -4,8 +4,6 @@ import Titles
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
-from Crypto.Cipher import AES
-from Crypto.Util import Counter
 from File import File
 import Type
 
