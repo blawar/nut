@@ -4,24 +4,14 @@ import Titles
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
-from enum import IntEnum
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from File import File
+import Type
+
 import Keys
 
 MEDIA_SIZE = 0x200
-
-class FsType(IntEnum):
-	PFS0 = 0x2
-	ROMFS = 0x3
-	
-class CrypoType(IntEnum):
-	NONE = 1
-	XTS = 2
-	CTR = 3
-	BKTR = 4
-	NCA0 = 0x3041434
 
 class SectionTableEntry:
 	def __init__(self, d, sha1):
@@ -46,7 +36,7 @@ class SectionFilesystem(File):
 		self.fsType = None
 		self.cryptoType = None
 		self.size = 0
-		self.sectionCtr = None
+		self.cryptoCounter = None
 		if f:
 			f.partition(offset, size, self)
 		else:
@@ -58,11 +48,11 @@ class SectionFilesystem(File):
 			self.buffer = buffer
 			self.fsType = buffer[0x3]
 			self.cryptoType = buffer[0x4]
-			self.sectionCtr = bytearray((b"\x00"*8) + buffer[0x140:0x148])
-			self.sectionCtr = self.sectionCtr[::-1]
+			self.cryptoCounter = bytearray((b"\x00"*8) + buffer[0x140:0x148])
+			self.cryptoCounter = self.cryptoCounter[::-1]
 		
 	def setCounter(self, ofs):
-		ctr = self.sectionCtr.copy()
+		ctr = self.cryptoCounter.copy()
 		ofs >>= 4
 		for j in range(8):
 			ctr[0x10-j-1] = ofs & 0xFF
@@ -159,10 +149,10 @@ class ROMFS(SectionFilesystem):
 		
 def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None):	
 	fsType = buffer[0x3]
-	if fsType == FsType.PFS0:
+	if fsType == Type.Fs.PFS0:
 		return PFS0(buffer, f, offset, size)
 		
-	if fsType == FsType.ROMFS:
+	if fsType == Type.Fs.ROMFS:
 		return ROMFS(buffer, f, offset, size)
 		
 	return SectionFilesystem(buffer, f, offset, size)
@@ -190,12 +180,11 @@ class Nca:
 		if not self.titleId.upper() in Titles.keys():
 			print('could not find title key!!! ' + self.titleId)
 		
-		crypto = aes128.AESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0), self.sectionFilesystems[1].setCounter(self.sectionTables[1].offset))
-		
 		self.sectionFilesystems[1].seek(0)
+		self.sectionFilesystems[1].setAESCTR(Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0))
 		body = self.sectionFilesystems[1].read(0x300)
 
-		Hex.dump(crypto.decrypt(body))
+		Hex.dump(body)
 		
 	def readHeader(self):
 		self.sectionTables = []
