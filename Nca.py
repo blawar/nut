@@ -169,7 +169,7 @@ def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None, ti
 	return SectionFilesystem(buffer, f, offset, size, titleKeyDec)
 
 class Nca:
-	def __init__(self, file= None):			
+	def __init__(self, file = None):			
 		self.header = None
 		self.titleId = None
 		self.sectionTables = []
@@ -179,6 +179,7 @@ class Nca:
 			self.open(file)
 
 	def open(self, file = None):
+		#print('nca open')
 		if isinstance(file, str):
 			self.f = File(file, "rb")
 		elif isinstance(file, File):
@@ -198,6 +199,7 @@ class Nca:
 	def readHeader(self):
 		self.sectionTables = []
 		self.sectionFilesystems = []
+		self.f.seek(0)
 		
 		self.header = self.f.read(0x0C00)
 		cipher = aes128.AESXTS(uhx(Keys.get('header_key')))
@@ -221,7 +223,7 @@ class Nca:
 		self.titleId = self.header[0x210:0x218][::-1].hex()
 		self.sdkVersion = int.from_bytes(self.header[0x21c:0x220], byteorder='little', signed=False)
 		self.cryptoType2 = self.header[0x220]
-		self.rightsId = self.header[0x230:0x240][::-1].hex()
+		self.rightsId = self.header[0x230:0x240].hex()
 		self.titleKeyDec = None
 		
 		if self.titleId.upper() in Titles.keys():

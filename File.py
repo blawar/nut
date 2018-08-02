@@ -30,7 +30,7 @@ class File:
 			n = File()
 		#print('partition: ' + str(self) + ', ' + str(n))
 			
-		n.offset = self.offset + offset
+		n.offset = offset
 		
 		if not size:
 			size = self.size - n.offset - self.offset
