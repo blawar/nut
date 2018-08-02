@@ -90,10 +90,13 @@ if __name__ == '__main__':
 				print('Could not get version for ' + t.name)
 				continue
 				
-			print('Downloading ' + t.name + ', ' + str(t.key).lower())
+			print('Downloading ' + t.name + ', ' + str(t.version).lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 
 	Titles.save()
 	#for t in titles:
 	#	print(t.id + ': ' + t.name + ", " + str(t.path))
 	#print(Title.getVersions('010034500641b02c'))
+	
+	#print(str(Title.getVersion('010034500641a000')))
+	#print(str(Title.getVersion('0100e67008d84000')))

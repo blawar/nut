@@ -17,6 +17,9 @@ def items():
 def get(key):
 	return titles[key]
 	
+def contains(key):
+	return key in titles
+	
 def set(key, value):
 	titles[key] = value
 	

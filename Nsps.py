@@ -12,9 +12,11 @@ def list():
 	return files
 	
 def scan(base):
+	print('scanning ' + base)
 	for root, dirs, _files in os.walk(base, topdown=False):
-		for name in dirs:
-			scan(base + '/' + name)
+		#for name in dirs:
+		#	if name[0] != '.':
+		#		scan(root + '/' + name)
 			
 		for name in _files:
 			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':

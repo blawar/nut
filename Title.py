@@ -116,14 +116,14 @@ class Title:
 			self.version = version
 		
 	def lastestVersion(self):
-		if self.isDLC:
-			return '0'
+		#if self.isDLC:
+		#	return '0'
 			
 		if self.version and self.version.lower() == 'none':
 			self.version = None
 		
 		if not self.version:
-			self.version = Title.getVersions(self.id)[-1]
+			self.version = Title.getVersion(self.id)
 		return self.version
 		
 	def isValid(self):
@@ -133,11 +133,11 @@ class Title:
 			return False
 		
 	@staticmethod
-	def getVersions(id):
-		r = CDNSP.get_versions(id)
+	def getVersion(id):
+		r = CDNSP.get_version(id)
 		
-		if len(r) == 0 or r[0] == 'none':
-			return ['0']
+		#if len(r) == 0 or r[0] == 'none':
+		#	return ['0']
 
 		return r
 			
