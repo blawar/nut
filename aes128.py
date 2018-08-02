@@ -71,6 +71,7 @@ class AESCTR:
 			data = data[l:]
 			ln -= l
 			ctr += 1
+		self.ctr = ctr
 		return out
 
 	def decrypt(self, data, ctr=None):
@@ -82,7 +83,7 @@ class AESCTR:
 	def set_ctr(self, ctr):
 		if len(ctr) != self.aes.block_size:
 			raise ValueError('CTR must be of size %X!' % self.aes.block_size)
-		self.ctr = int(ctr, 0x10)
+		self.ctr = int(hx(ctr), 0x10)
 
 class AESXTS:
 	'''Class for performing AES XTS cipher operations'''
