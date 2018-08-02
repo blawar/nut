@@ -40,7 +40,9 @@ class File:
 		
 		return n
 		
-	def read(self, size):
+	def read(self, size = None):
+		if not size:
+			size = self.size
 		if self.crypto:
 			r = self.crypto.decrypt(self.f.read(size))
 			return r

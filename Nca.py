@@ -89,6 +89,16 @@ class PFS0(SectionFilesystem):
 		if buffer:
 			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
 			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
+			
+	def __getitem__(self, key):
+		if isinstance(key, str):
+			for f in self.files:
+				if f.name == key:
+					return f
+		elif isinstance(key, int):
+			return self.files[key]
+				
+		raise IOError('PFSO File Not Found')
 		
 	def getHeader():
 		stringTable = '\x00'.join(file.name for file in self.files)
