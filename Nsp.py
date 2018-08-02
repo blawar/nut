@@ -18,6 +18,9 @@ class Nsp(PFS0):
 			self.setPath(path)
 			if files:
 				self.pack(files)
+				
+	def __iter__(self):
+		return self.files.__iter__()
 			
 	def setPath(self, path):
 		ext = pathlib.Path(path).suffix

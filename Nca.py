@@ -187,6 +187,12 @@ class Nca:
 		
 		if file:
 			self.open(file)
+			
+	def __iter__(self):
+		return self.sectionFilesystems.__iter__()
+		
+	def __getitem__(self, key):
+		return self.sectionFilesystems[key]
 
 	def open(self, file = None):
 		#print('nca open')
