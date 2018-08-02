@@ -15,10 +15,17 @@ class Nsp(PFS0):
 	def __init__(self, path = None, files = None):
 		super(Nsp, self).__init__()
 		self.path = None
+		self.titleId = None
+		self.hasValidTicket = None
+		
 		if path:
 			self.setPath(path)
 			if files:
 				self.pack(files)
+				
+		if self.titleId and self.isUnlockable():
+			print('unlocking ' + self.path)
+			self.unlock()
 				
 	def __iter__(self):
 		return self.files.__iter__()
@@ -123,7 +130,9 @@ class Nsp(PFS0):
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
 		format = format.replace('{baseName}', self.cleanFilename(bt.name))
 		
-		if not self.hasValidTicket:
+		if self.hasValidTicket:
+			format = os.path.splitext(format)[0] + '.nsp'
+		else:
 			format = os.path.splitext(format)[0] + '.nsx'
 		
 		return format
@@ -153,6 +162,19 @@ class Nsp(PFS0):
 			return True
 			
 		raise IOError('no ticket in NSP')
+		
+	def isUnlockable(self):
+		return (not self.hasValidTicket) and self.titleId and Titles.contains(self.titleId) and Titles.get(self.titleId).key
+		
+	def unlock(self):
+		if not self.isOpen():
+			self.open('r+b')
+
+		self.writeTikTitleKey(Titles.get(self.titleId).key)
+		self.close()
+		self.hasValidTicket = True
+		self.move()
+			
 		
 	def pack(self, files):
 		if not self.path:

@@ -147,7 +147,7 @@ def get_versions(titleId):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
 	r = make_request('GET', url)
 	j = r.json()
-
+	print('v: ' + str(j))
 	try:
 		if j['error']:
 			return ['none']
@@ -164,6 +164,22 @@ def get_versions(titleId):
 			return [versionList[0]]
 	except Exception as e:
 		return ['none']
+		
+def get_version(titleId):
+	# url = 'https://tagaya.hac.%s.eshop.nintendo.net/tagaya/hac_versionlist' % env
+	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
+	r = make_request('GET', url)
+	j = r.json()
+
+	try:
+		if j['error']:
+			return None
+	except Exception as e:
+		pass
+	try:
+		lastestVer = str(j['version'])
+	except Exception as e:
+		return None
 
 def get_name(titleId):
 	titleId = titleId.lower()
