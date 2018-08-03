@@ -59,7 +59,7 @@ def downloadAll():
 			
 def export(file):
 	with open(file, 'w', encoding='utf-8') as csv:
-		csv.write('id|rightsId|key|isUpdate|isDLC|isDemo|name|version')
+		csv.write('id|rightsId|key|isUpdate|isDLC|isDemo|name|version\n')
 		for k,t in Titles.items():
 			csv.write(str(t.id or '0000000000000000') + '|' + str(t.rightsId or '00000000000000000000000000000000') + '|' + str(t.key or '00000000000000000000000000000000') + '|' + str((t.updateId == t.id)*1) + '|' + str(t.isDLC*1) + '|' + str(t.isDemo*1)+ '|' + str(t.name or '') + '|' + str(t.version or '') + '\n')
 
