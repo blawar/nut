@@ -48,13 +48,16 @@ def loadTitlekeys(path):
 				titles[t.id] = Title()
 				
 			titles[t.id].loadCsv(line, map)
+			#print(str(titles[t.id].id) + ' version ' + str(titles[t.id].version))
+
 	
 def load():
 	if os.path.isfile("titles.json"):	
 		with open("titles.json", "r") as f:
 			j = json.load(f)
 			for id, t in j.items():
-				titles[id] = Title()
+				if id not in titles:
+					titles[id] = Title()
 				
 				if t['rightsId']:
 					titles[id].setId(t['rightsId'])

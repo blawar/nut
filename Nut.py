@@ -59,16 +59,26 @@ def downloadAll():
 			
 def export(file):
 	with open(file, 'w', encoding='utf-8') as csv:
+		csv.write('id|rightsId|key|isUpdate|isDLC|isDemo|name|version')
 		for k,t in Titles.items():
-			csv.write(str(t.id or '0000000000000000') + '|' + str(t.rightsId or '00000000000000000000000000000000') + '|' + str(t.key or '00000000000000000000000000000000') + '|' + str((t.updateId == t.id)*1) + '|' + str(t.isDLC*1) + '|' + str(t.isDemo*1)+ '|' + str(t.name) + '|' + str(t.version or '') + '\n')
+			csv.write(str(t.id or '0000000000000000') + '|' + str(t.rightsId or '00000000000000000000000000000000') + '|' + str(t.key or '00000000000000000000000000000000') + '|' + str((t.updateId == t.id)*1) + '|' + str(t.isDLC*1) + '|' + str(t.isDemo*1)+ '|' + str(t.name or '') + '|' + str(t.version or '') + '\n')
 
 def scan():
 	Nsps.scan(Config.scanPath)
+	Titles.save()
 	
 def organize():
 	for f in Nsps.files:
 		f.move()
 		Nsps.removeEmptyDir('.', False)
+		
+def refresh():
+	for f in Nsps.files:
+		try:
+			f.readMeta()
+		except:
+			pass
+	Titles.save()
 			
 if __name__ == '__main__':
 	titleWhitelist = []
@@ -110,6 +120,7 @@ if __name__ == '__main__':
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
+	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 	parser.add_argument('-x', '--export', help='export title database in csv format')
 	
 	args = parser.parse_args()
@@ -123,6 +134,9 @@ if __name__ == '__main__':
 	
 	if args.scan:
 		scan()
+		
+	if args.refresh:
+		refresh()
 	
 	if args.organize:
 		organize()
