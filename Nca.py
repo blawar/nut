@@ -179,7 +179,18 @@ def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None, ti
 class Nca:
 	def __init__(self, file = None):			
 		self.header = None
+		self.magic = None
+		self.isGameCard = None
+		self.contentType = None
+		self.cryptoType = None
+		self.keyIndex = None
+		self.size = None
 		self.titleId = None
+		self.sdkVersion = None
+		self.cryptoType2 = None
+		self.rightsId = None
+		self.titleKeyDec = None
+		self.keyBlobIndex = None
 		self.sectionTables = []
 		self.sectionFilesystems = []
 		
@@ -205,10 +216,7 @@ class Nca:
 		
 		if not self.titleId.upper() in Titles.keys():
 			print('could not find title key!!! ' + self.titleId)
-		
-		self.sectionFilesystems[1].seek(0)
 
-		#Hex.dump(self.sectionFilesystems[1].read(0x300))
 		
 	def readHeader(self):
 		self.sectionTables = []
@@ -239,9 +247,10 @@ class Nca:
 		self.cryptoType2 = self.header[0x220]
 		self.rightsId = self.header[0x230:0x240].hex()
 		self.titleKeyDec = None
+		self.keyBlobIndex = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
 		if self.titleId.upper() in Titles.keys():
-			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0)
+			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.keyBlobIndex)
 		else:
 			print('could not find title key!')
 		
@@ -257,7 +266,10 @@ class Nca:
 			start = 0x400 + i * 0x200
 			end = start + 0x200
 
-			self.sectionFilesystems.append(GetSectionFilesystem(self.header[start:end], self.f, st.offset, None, self.titleKeyDec))
+			fs = GetSectionFilesystem(self.header[start:end], self.f, st.offset, None, self.titleKeyDec)
+			
+			if fs.fsType:
+				self.sectionFilesystems.append(fs)
 		
 		#print('')
 		#print('title id ' + str(self.titleId))

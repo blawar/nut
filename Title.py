@@ -10,13 +10,13 @@ class Title:
 		self.id = None
 		self.rightsId = None
 		self.name = None
-		self.isDLC = None
+		self.isDLC = False
 		self.idExt = None
 		self.updateId = None
 		self.path = None
 		self.version = None
 		self.key = None
-		self.isDemo = None
+		self.isDemo = False
 		self.region = None
 		self.isModified = False
 		
