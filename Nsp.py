@@ -150,10 +150,10 @@ class Nsp(PFS0):
 			format = Config.titleBasePath
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
-		format = format.replace('{name}', self.cleanFilename(t.name))
-		format = format.replace('{version}', str(self.version))
+		format = format.replace('{name}', self.cleanFilename(t.name or ''))
+		format = format.replace('{version}', str(self.version or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
-		format = format.replace('{baseName}', self.cleanFilename(bt.name))
+		format = format.replace('{baseName}', self.cleanFilename(bt.name or ''))
 		
 		if self.hasValidTicket:
 			format = os.path.splitext(format)[0] + '.nsp'
