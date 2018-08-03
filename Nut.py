@@ -68,9 +68,12 @@ def scan():
 	Titles.save()
 	
 def organize():
+	scan()
 	for f in Nsps.files:
+		#print('')
 		f.move()
-		Nsps.removeEmptyDir('.', False)
+	print('removing empty directories')
+	Nsps.removeEmptyDir('.', False)
 		
 def refresh():
 	for f in Nsps.files:
