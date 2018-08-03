@@ -19,10 +19,9 @@ def bufferToAscii(buffer, start, count):
             accumulator += '.'
     return accumulator
 
-def dump(data):
+def dump(data, size = 16):
 	bytesRead = len(data)
 	index = 0
-	size = 16
 	hexFormat = '{:'+str(size*3)+'}'
 	asciiFormat = '{:'+str(size)+'}'
 

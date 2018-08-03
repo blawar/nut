@@ -29,6 +29,25 @@ class Nsp(PFS0):
 				
 	def __iter__(self):
 		return self.files.__iter__()
+		
+	def title():
+		if not self.titleId:
+			raise IOError('NSP no titleId set')
+			
+		if self.titleId in Titles.keys():
+			return Titles.list()[self.titleId]
+			
+		self.title = Title()
+		self.title.setId(self.titleId)
+		Titles.list()[self.titleId] = self.title
+		return self.title
+		
+	def readMeta(self):
+		self.open()
+		a = self.application()
+		if a.titleId:
+			self.titleId = a.titleId
+			title().setRightsId(a.rightsId)
 			
 	def setPath(self, path):
 		ext = pathlib.Path(path).suffix
@@ -48,9 +67,7 @@ class Nsp(PFS0):
 			self.titleId = z.groups()[0].upper()
 			
 			if self.titleId:
-				if self.titleId in Titles.keys():
-					Titles.list()[self.titleId].path = path
-					self.title = Titles.get(self.titleId)
+				title().path = path
 		else:
 			print('could not get title id from filename, name needs to contain [titleId] : ' + path)
 			self.titleId = None
@@ -58,6 +75,7 @@ class Nsp(PFS0):
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
 		if z:
 			self.version = z.groups()[0]
+			
 	def open(self, mode = 'rb'):
 		super(Nsp, self).open(self.path, mode)
 					
@@ -136,32 +154,45 @@ class Nsp(PFS0):
 			format = os.path.splitext(format)[0] + '.nsx'
 		
 		return format
-	
-	def readTikTitleKey(self):
+		
+	def ticket(self):
 		for f in (f for f in self if pathlib.Path(f.name).suffix == '.tik'):
-			f.seek(0x180)
-			return f.read(0x10)
-			
+			return f
 		raise IOError('no ticket in NSP')
 		
+	def cnmt(self):
+		for f in (f for f in self if f.name.endswith('.cnmt.nca')):
+			return f
+		raise IOError('no cnmt in NSP')
+		
+	def application(self):
+		f = self[-1]
+		if not f.name.endswith('.nca'):
+			raise IOError('no application in NSP')
+		return f
+	
+	def readTikTitleKey(self):
+		t = self.ticket()
+		t.seek(0x180)
+		return t.read(0x10)
+		
 	def writeTikTitleKey(self, titleKey):
-		for f in (f for f in self if pathlib.Path(f.name).suffix == '.tik'):
-			f.seek(0x180)
-			
-			if f.read(0x10) != b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
-				raise IOError('Ticket Title Key has already been set')
-			
-			f.seek(0x180)
-			
-			binTitleKey = uhx(titleKey)
-			
-			if len(binTitleKey) != 16:
-				raise IOError('incorrect title key size')
-			
-			f.write(binTitleKey)
-			return True
-			
-		raise IOError('no ticket in NSP')
+		t = self.ticket()
+		t.seek(0x180)
+		
+		if t.read(0x10) != b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
+			raise IOError('Ticket Title Key has already been set')
+		
+		t.seek(0x180)
+		
+		binTitleKey = uhx(titleKey)
+		
+		if len(binTitleKey) != 16:
+			raise IOError('incorrect title key size')
+		
+		t.write(binTitleKey)
+		return True
+
 		
 	def isUnlockable(self):
 		return (not self.hasValidTicket) and self.titleId and Titles.contains(self.titleId) and Titles.get(self.titleId).key
