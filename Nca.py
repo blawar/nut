@@ -242,6 +242,8 @@ class Nca:
 		
 		if self.titleId.upper() in Titles.keys():
 			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), 0)
+		else:
+			print('could not find title key!')
 		
 		for i in range(4):
 			start = 0x240 + i * 0x10

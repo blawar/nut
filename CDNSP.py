@@ -147,7 +147,7 @@ def get_versions(titleId):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
 	r = make_request('GET', url)
 	j = r.json()
-	print('v: ' + str(j))
+
 	try:
 		if j['error']:
 			return ['none']
@@ -170,14 +170,14 @@ def get_version(titleId):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
 	r = make_request('GET', url)
 	j = r.json()
-
+	#print('v: ' + str(j))
 	try:
 		if j['error']:
 			return None
 	except Exception as e:
 		pass
 	try:
-		lastestVer = str(j['version'])
+		return str(j['version'])
 	except Exception as e:
 		return None
 

@@ -124,6 +124,8 @@ class Title:
 		
 		if not self.version:
 			self.version = Title.getVersion(self.id)
+			
+		#print('version: ' + str(self.version))
 		return self.version
 		
 	def isValid(self):
