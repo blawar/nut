@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
 
 	CDNSP.tqdmProgBar = False
-	CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPConfig.json')
+	CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
 
 	if os.path.isfile(CDNSP.configPath):
 		CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.deviceId, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
@@ -78,6 +78,13 @@ if __name__ == '__main__':
 		
 	logMissingTitles()
 	Nsps.removeEmptyDir('.', False)
+	
+	#with open('out.csv', 'w') as csv:
+	#	for k,t in Titles.items():
+	#		t.lastestVersion()
+	#		csv.write(str(t.id) + '|' + str(t.version) + '\n')
+		
+	
 
 	#setup_download(listTid, get_versions(listTid)[-1], listTkey, True)
 	for k,t in Titles.items():
