@@ -39,7 +39,7 @@ class Title:
 		if not id:
 			self.setId(rightsId)
 		elif not self.rightsId:
-			self.rightsId = self.rightsId
+			self.rightsId = rightsId.upper()
 			
 	def setId(self, id):
 		if not id or self.id:
@@ -85,6 +85,8 @@ class Title:
 		self.region = region
 			
 	def setName(self, name):
+		if not name:
+			return
 		self.name = name
 		
 		if re.match('.*\sDemo\s*$', self.name, re.I) or re.match('.*\sDemo\s+.*$', self.name, re.I):
@@ -112,7 +114,7 @@ class Title:
 		self.key = key
 		
 	def setVersion(self, version):
-		if version:
+		if version != None:
 			self.version = version
 		
 	def lastestVersion(self):

@@ -30,7 +30,7 @@ class Nsp(PFS0):
 	def __iter__(self):
 		return self.files.__iter__()
 		
-	def title():
+	def title(self):
 		if not self.titleId:
 			raise IOError('NSP no titleId set')
 			
@@ -44,10 +44,14 @@ class Nsp(PFS0):
 		
 	def readMeta(self):
 		self.open()
-		a = self.application()
-		if a.titleId:
-			self.titleId = a.titleId
-			title().setRightsId(a.rightsId)
+		try:
+			a = self.application()
+			if a.titleId:
+				self.titleId = a.titleId
+				self.title().setRightsId(a.rightsId)
+		except:
+			pass
+		self.close()
 			
 	def setPath(self, path):
 		ext = pathlib.Path(path).suffix
@@ -67,7 +71,7 @@ class Nsp(PFS0):
 			self.titleId = z.groups()[0].upper()
 			
 			if self.titleId:
-				title().path = path
+				self.title().path = path
 		else:
 			print('could not get title id from filename, name needs to contain [titleId] : ' + path)
 			self.titleId = None
