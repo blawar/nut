@@ -9,6 +9,7 @@ import Nut
 import Config
 from binascii import hexlify as hx, unhexlify as uhx
 from Nca import PFS0
+from Nca import Nca
 
 class Nsp(PFS0):
 		
@@ -43,14 +44,16 @@ class Nsp(PFS0):
 		return self.title
 		
 	def readMeta(self):
+		print(self.path)
 		self.open()
 		try:
-			a = self.application()
+			a = Nca(self.application())
 			if a.titleId:
 				self.titleId = a.titleId
 				self.title().setRightsId(a.rightsId)
-		except:
-			pass
+		except BaseException as e:
+			print('readMeta filed ' + self.path + ", " + str(e))
+			raise
 		self.close()
 			
 	def setPath(self, path):
@@ -170,10 +173,9 @@ class Nsp(PFS0):
 		raise IOError('no cnmt in NSP')
 		
 	def application(self):
-		f = self[-1]
-		if not f.name.endswith('.nca'):
-			raise IOError('no application in NSP')
-		return f
+		for f in (f for f in self if f.name.endswith('.nca') and not f.name.endswith('.cnmt.nca')):
+			return f
+		raise IOError('no application in NSP')
 	
 	def readTikTitleKey(self):
 		t = self.ticket()

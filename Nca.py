@@ -249,10 +249,11 @@ class Nca:
 		self.titleKeyDec = None
 		self.keyBlobIndex = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
-		if self.titleId.upper() in Titles.keys():
+		if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
 			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.keyBlobIndex)
 		else:
-			print('could not find title key!')
+			pass
+			#print('could not find title key!')
 		
 		for i in range(4):
 			start = 0x240 + i * 0x10

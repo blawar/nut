@@ -23,8 +23,9 @@ class File:
 		if counter:
 			self.cryptoCounter = counter
 
-		self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
-		self.cryptoType = Type.Crypto.CTR
+		if self.cryptoKey:
+			self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
+			self.cryptoType = Type.Crypto.CTR
 			
 	def partition(self, offset = 0, size = None, n = None):
 		if not n:

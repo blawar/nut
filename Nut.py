@@ -77,6 +77,7 @@ def refresh():
 		try:
 			f.readMeta()
 		except:
+			raise
 			pass
 	Titles.save()
 			
