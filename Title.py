@@ -11,6 +11,7 @@ class Title:
 		self.rightsId = None
 		self.name = None
 		self.isDLC = False
+		self.isUpdate = False
 		self.idExt = None
 		self.updateId = None
 		self.path = None
@@ -19,6 +20,9 @@ class Title:
 		self.isDemo = False
 		self.region = None
 		self.isModified = False
+	
+	def __lt__(self, other):
+		return str(self.name) < str(other.name)
 		
 	def loadCsv(self, line, map = ['id', 'key', 'name']):
 		split = line.split('|')
@@ -26,20 +30,43 @@ class Title:
 			if i >= len(map):
 				print('invalid map index')
 				continue
-				
-			methodName = 'set' + str(map[i]).capitalize()
+			
+			i = str(map[i])
+			methodName = 'set' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
 			
 		#self.setId(split[0].strip())
 		#self.setName(split[2].strip())
 		#self.setKey(split[1].strip())
+		
+	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+		r = []
+		for i in map:
+				
+			methodName = 'get' + i[0].capitalize() + i[1:]
+			method = getattr(self, methodName, lambda: methodName)
+			r.append(str(method()))
+		return '|'.join(r)
+		
+	def getIsDLC(self):
+		return self.isDLC*1
+		
+	def getIsUpdate(self):
+		return self.isUpdate*1
+		
+	def getIsDemo(self):
+		return self.isDemo*1
 
 	def setRightsId(self, rightsId):
 		if not id:
 			self.setId(rightsId)
-		elif not self.rightsId:
+			
+		if rightsId and len(rightsId) == 32 and rightsId != '00000000000000000000000000000000':
 			self.rightsId = rightsId.upper()
+			
+	def getRightsId(self):
+		return self.rightsId or '00000000000000000000000000000000'
 			
 	def setId(self, id):
 		if not id or self.id:
@@ -54,7 +81,7 @@ class Title:
 		
 		if len(id) == 32:
 			self.id = id[:16]
-			self.rightsId = id
+			self.setRightsId(id)
 		elif len(id) == 16:
 			self.id = id[:16]
 		else:
@@ -79,10 +106,17 @@ class Title:
 			self.updateId = '%s800' % self.id[:-3]
 		else:
 			# update
+			self.isUpdate = True
 			pass
+			
+	def getId(self):
+		return self.id or '0000000000000000'
 			
 	def setRegion(self, region):
 		self.region = region
+		
+	def getRegion(self):
+		return self.region or ''
 			
 	def setName(self, name):
 		if not name:
@@ -93,6 +127,9 @@ class Title:
 			self.isDemo = True
 		else:
 			self.isDemo = False
+	
+	def getName(self):
+		return self.name or ''
 			
 	def setKey(self, key):
 		if not key:
@@ -113,9 +150,15 @@ class Title:
 			
 		self.key = key
 		
+	def getKey(self):
+		return self.key or '00000000000000000000000000000000'
+		
 	def setVersion(self, version):
 		if version != None:
 			self.version = version
+			
+	def getVersion(self):
+		return self.version or ''
 		
 	def lastestVersion(self):
 		#if self.isDLC:
@@ -137,7 +180,7 @@ class Title:
 			return False
 		
 	@staticmethod
-	def getVersion(id):
+	def getVersion2(id):
 		r = CDNSP.get_version(id)
 		
 		#if len(r) == 0 or r[0] == 'none':
