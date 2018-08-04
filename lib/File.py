@@ -3,7 +3,7 @@ import Type
 import aes128
 
 class File:
-	def __init__(self, path = None, mode = None):
+	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		self.offset = 0
 		self.size = None
 		self.f = None
@@ -16,6 +16,8 @@ class File:
 		
 		if path:
 			self.open(path, mode)
+			
+		self.setupCrypto(cryptoType, cryptoKey, cryptoCounter)
 			
 	def setAESCTR(self, key = None, counter = None):
 		if key:
@@ -102,9 +104,22 @@ class File:
 			self.seek(-offset, 1)
 		else:
 			self.seek(0)
+			
+	def setupCrypto(self, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		if cryptoType != -1:
+			self.cryptoType = cryptoType
+			
+		if cryptoKey != -1:
+			self.cryptoKey = cryptoKey
+			
+		if cryptoCounter != -1:
+			self.cryptoCounter = cryptoCounter
+			
+		if self.cryptoType == Type.Crypto.CTR:
+			setAESCTR(self, key = None, counter = None)
 
 		
-	def open(self, path, mode = 'rb'):
+	def open(self, path, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		if self.isOpen():
 			self.close()
 			
@@ -119,6 +134,8 @@ class File:
 			self.f = path
 		else:
 			raise IOError('Invalid file parameter')
+		
+		self.setupCrypto(cryptoType, cryptoKey, cryptoCounter)
 		
 	def close(self):
 		self.f.close()

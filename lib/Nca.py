@@ -63,9 +63,9 @@ class SectionFilesystem(File):
 			ofs >>= 8
 		return bytes(ctr)
 		
-	def open(self, file = None, mode = 'rb'):			
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):			
 		if isinstance(file, str):
-			super(SectionFilesystem, self).open(self.path, mode)
+			super(SectionFilesystem, self).open(self.path, mode, cryptoType, cryptoKey, cryptoCounter)
 		elif isinstance(file, File):
 			self.f = file
 		else:
@@ -126,8 +126,8 @@ class PFS0(SectionFilesystem):
 		
 		return h
 		
-	def open(self, path = None, mode = 'rb'):
-		r = super(PFS0, self).open(path, mode)
+	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		r = super(PFS0, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		
 		if not r:
 			raise IOError('Could not open file ' + self.path)
@@ -204,9 +204,9 @@ class Nca(File):
 	def __getitem__(self, key):
 		return self.sectionFilesystems[key]
 
-	def open(self, file = None):
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		if isinstance(file, str):
-			super(Nca, self).open(file, "rb")
+			super(Nca, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		elif isinstance(file, File):
 			self.f = file
 		else:
@@ -307,8 +307,8 @@ class GamecardInfo(File):
 		if file:
 			self.open(file)
 	
-	def open(self, file):
-		super(GamecardInfo, self).open(file)
+	def open(self, file, mode='rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(GamecardInfo, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 		self.firmwareVersion = self.readInt64()
 		self.accessControlFlags = self.readInt32()
@@ -335,8 +335,8 @@ class GamecardCertificate(File):
 		if file:
 			self.open(file)
 			
-	def open(self, file):
-		super(GamecardCertificate, self).open(file)
+	def open(self, file, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(GamecardCertificate, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 		self.signature = self.read(0x100)
 		self.magic = self.read(0x4)
@@ -404,8 +404,8 @@ class Xci(File):
 		self.gamecardInfo = GamecardInfo(self.partition(self.tell(), 0x70))
 		self.gamecardCert = GamecardCertificate(self.partition(0x7000, 0x200))
 		
-	def open(self, file = None):
-		super(Xci, self).open(file)
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Xci, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.readHeader()
 		
 	def printInfo(self, indent = 0):
