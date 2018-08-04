@@ -270,6 +270,7 @@ def decrypt_NCA(fPath, outDir=''):
 				  + ' --header="' + outDir + os.sep + 'Header.bin"'
 
 	try:
+		print(commandLine)
 		subprocess.check_output(commandLine, shell=True)
 		if os.listdir(outDir) == []:
 			raise subprocess.CalledProcessError('\nDecryption failed, output folder %s is empty!' % outDir)

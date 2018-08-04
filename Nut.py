@@ -174,6 +174,7 @@ if __name__ == '__main__':
 	parser.add_argument('--update', type=bool, choices=[0, 1], default=Config.download.update*1, help='download title updates')
 	parser.add_argument('--dlc', type=bool, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
 	parser.add_argument('--nsx', type=bool, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
+	parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
@@ -183,6 +184,7 @@ if __name__ == '__main__':
 	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 	parser.add_argument('-x', '--export', help='export title database in csv format')
+	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	
 	args = parser.parse_args()
 	
@@ -197,6 +199,17 @@ if __name__ == '__main__':
 		for url in Config.titleUrls:
 			updateDb(url)
 		Titles.save()
+		
+	if args.download:
+		id = args.download.upper()
+		if len(id) != 16:
+			raise IOError('Invalid title id format')
+
+		if Titles.contains(id):
+			title = Titles.get(id)
+			CDNSP.download_game(title.id.lower(), title.lastestVersion(), title.key, True, '', True)
+		else:
+			CDNSP.download_game(id.lower(), Title.getCdnVersion(id.lower()), None, True, '', True)
 	
 	if args.scan:
 		scan()
@@ -213,7 +226,7 @@ if __name__ == '__main__':
 	if args.z:
 		updateVersions(False)
 		
-	if args.download:
+	if args.download_all:
 		downloadAll()
 		
 	if args.export:
