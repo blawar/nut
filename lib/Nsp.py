@@ -138,16 +138,16 @@ class Nsp(PFS0):
 			bt = Titles.get(t.baseId)
 		
 		if t.isDLC:
-			format = Config.titleDLCPath
+			format = Config.paths.titleDLC
 		elif t.isDemo:
 			if t.idExt != 0:
-				format = Config.titleDemoUpdatePath
+				format = Config.paths.titleDemoUpdate
 			else:
-				format = Config.titleDemoPath
+				format = Config.paths.titleDemo
 		elif t.idExt != 0:
-			format = Config.titleUpdatePath
+			format = Config.paths.titleUpdate
 		else:
-			format = Config.titleBasePath
+			format = Config.paths.titleBase
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
 		format = format.replace('{name}', self.cleanFilename(t.name or ''))
