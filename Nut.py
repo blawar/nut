@@ -17,6 +17,7 @@ import Nsp
 import Nsps
 import CDNSP
 import Config
+import requests
 #import blockchain
 
 				
@@ -43,13 +44,10 @@ def logMissingTitles():
 		
 	f.close()
 	
-def update_db(dbURL):
-	global titlekey_list
-	print("\nDownloading new titlekey database...\n")
+def updateDb(url):
+	print("Downloading new title database " + url)
 	try:
-		url = dbURL
-		if url == '':
-			print('\nDatabase url is empty. Check the CDNSPconfig')
+		if url == '' or not url:
 			return
 		if "http://" not in url and "https://" not in url:
 			try:
@@ -62,40 +60,12 @@ def update_db(dbURL):
 		r.encoding = 'utf-8'
 
 		if r.status_code == 200:
-			newdb = r.text.split('\r')
-
-			currdb = [x.strip() for x in titlekey_list]
-			print('The following games have either been added or updated:\n')
-			for line in newdb:
-				line = line.strip()
-				if line != '':
-					temp = line.split('|')
-					titleId = temp[0][0:16]
-					tkey = temp[1].lower()
-					name = temp[2]
-					line = '%s|%s|%s' % (titleId,tkey,name)
-					if line not in currdb and line != None :
-						print(line.split('|')[-1])
-
-			try:
-				print('\nSaving new database...')
-				f = open('titlekeys.txt', 'w', encoding="utf8")
-				for line in newdb:
-					f.write(line)
-				f.close()
-				print('\nDatabase update complete')
-				titlekey_list = []
-				load_titlekeys()
-			except Exception as e:
-				print(e)
-				return
+			Titles.loadTitleBuffer(r.text, False)
 		else:
 			print('Error updating database: ', repr(r))
-			return
 			
 	except Exception as e:
-		print('\nError updating database:', e)
-		return
+		print('Error downloading:', e)
 	
 def downloadAll():
 	for k,t in Titles.items():
@@ -178,6 +148,7 @@ if __name__ == '__main__':
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
+	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 	parser.add_argument('-x', '--export', help='export title database in csv format')
 	
@@ -189,6 +160,10 @@ if __name__ == '__main__':
 	Config.downloadDemo = args.demo
 	Config.downloadSansTitleKey = args.nsx
 	Config.downloadUpdate = args.update
+	
+	if args.update_titles:
+		for url in Config.titleUrls:
+			updateDb(url)
 	
 	if args.scan:
 		scan()

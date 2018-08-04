@@ -30,38 +30,46 @@ def set(key, value):
 def keys():
 	return titles.keys()
 	
-def loadTitlekeys(path):
+def loadTitleFile(path, silent = True):
 	with open(path, encoding="utf-8-sig") as f:
-		firstLine = True
-		map = ['id', 'key', 'name']
-		for line in f.readlines():
-			line = line.strip()
-			if firstLine:
-				firstLine = False
-				if re.match('[A-Za-z\|\s]+', line, re.I):
-					map = line.split('|')
-					continue
+		loadTitleBuffer(f.read(), silent)
+	
+def loadTitleBuffer(buffer, silent = True):
+	firstLine = True
+	map = ['id', 'key', 'name']
+	for line in buffer.split('\n'):
+		line = line.strip()
+		if firstLine:
+			firstLine = False
+			if re.match('[A-Za-z\|\s]+', line, re.I):
+				map = line.split('|')
+				continue
+		
+		t = Title()
+		t.loadCsv(line, map)
+		
+		if not t.id in keys():
+			titles[t.id] = Title()
 			
-			t = Title()
-			t.loadCsv(line, map)
-			
-			if not t.id in keys():
-				titles[t.id] = Title()
-				
-			titles[t.id].loadCsv(line, map)
-			#print(str(titles[t.id].id) + ' version ' + str(titles[t.id].version))
+		titleKey = titles[t.id].key
+		titles[t.id].loadCsv(line, map)
+		if not silent and titleKey and titleKey != titles[t.id].key:
+			print('Added new title key for ' + str(titles[t.id].name) + '[' + t.id + ']')
 
 	
 def load():
 	if os.path.isfile("titles.txt"):	
-		loadTitlekeys('titles.txt')
+		loadTitleFile('titles.txt')
+		silent = False
+	else:
+		silent = True
 
 			
 	files = [f for f in os.listdir('.') if f.endswith('titlekeys.txt')]
 	files.sort()
 	
 	for file in files:
-		loadTitlekeys(file)
+		loadTitleFile(file, silent)
 	
 def save():
 	map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']
