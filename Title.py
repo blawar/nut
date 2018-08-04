@@ -160,15 +160,18 @@ class Title:
 	def getVersion(self):
 		return self.version or ''
 		
-	def lastestVersion(self):
+	def lastestVersion(self, force = False):
 		#if self.isDLC:
 		#	return '0'
+		
+		if not self.id:
+			return None
 			
 		if self.version and self.version.lower() == 'none':
 			self.version = None
 		
-		if not self.version:
-			self.version = Title.getVersion(self.id)
+		if not self.version or force:
+			self.version = Title.getCdnVersion(self.id)
 			
 		#print('version: ' + str(self.version))
 		return self.version
@@ -180,7 +183,7 @@ class Title:
 			return False
 		
 	@staticmethod
-	def getVersion2(id):
+	def getCdnVersion(id):
 		r = CDNSP.get_version(id)
 		
 		#if len(r) == 0 or r[0] == 'none':
