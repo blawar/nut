@@ -115,6 +115,26 @@ def updateVersions(force = True):
 			v = t.lastestVersion(True)
 			print("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
 			
+			i = i + 1
+			if i % 20 == 0:
+				Titles.save()
+			
+	for t in list(Titles.data().values()):
+		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
+			u = Title()
+			u.setId(t.updateId)
+			
+			if u.lastestVersion():
+				Titles.set(t.updateId, u)
+				
+				print("%s[%s] FOUND" % (str(t.name), str(u.id)) )
+				
+				i = i + 1
+				if i % 20 == 0:
+					Titles.save()
+					
+	Titles.save()
+			
 if __name__ == '__main__':
 	titleWhitelist = []
 	titleBlacklist = []
