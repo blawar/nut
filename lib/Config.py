@@ -28,10 +28,10 @@ class Paths:
 		self.nspOut = '_NSPOUT'
 		
 		if platform.system() == 'Linux':
-			self.hactool = './' + hactoolPath + '_linux'
+			self.hactool = './' + self.hactool + '_linux'
 
 		if platform.system() == 'Darwin':
-			self.hactool = './' + hactoolPath + '_mac'
+			self.hactool = './' + self.hactool + '_mac'
 			
 		self.hactool = os.path.normpath(self.hactool)
 		
