@@ -71,13 +71,12 @@ def load():
 	for file in files:
 		loadTitleFile(file, silent)
 	
-def save():
-	map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']
+def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 	buffer = ''
 	
 	buffer += '|'.join(map) + '\n'
 	for t in sorted(list(titles.values())):
-		buffer += t.serialize() + '\n'
+		buffer += t.serialize(map) + '\n'
 		
-	with open('titles.txt', 'w', encoding='utf-8') as csv:
+	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
