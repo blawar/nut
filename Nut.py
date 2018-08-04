@@ -11,6 +11,9 @@ import re
 import pathlib
 import urllib3
 import json
+
+sys.path.insert(0, 'lib')
+
 from Title import Title
 import Titles
 import Nsp
@@ -82,11 +85,8 @@ def downloadAll():
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 			
 def export(file):
-	with open(file, 'w', encoding='utf-8') as csv:
-		csv.write('id|rightsId|key|isUpdate|isDLC|isDemo|name|version\n')
-		for k,t in Titles.items():
-			csv.write(str(t.id or '0000000000000000') + '|' + str(t.rightsId or '00000000000000000000000000000000') + '|' + str(t.key or '00000000000000000000000000000000') + '|' + str((t.updateId == t.id)*1) + '|' + str(t.isDLC*1) + '|' + str(t.isDemo*1)+ '|' + str(t.name or '') + '|' + str(t.version or '') + '\n')
-
+	Titles.save(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region'])
+	
 def scan():
 	Nsps.scan(Config.scanPath)
 	Titles.save()
