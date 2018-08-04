@@ -1,17 +1,18 @@
 {
     "paths": {
         "titleBase": "titles/{name}[{id}][v{version}].nsp",
-        "titleDLC": "titles/DLC/{baseName}/{name}[{id}][v{version}].nsp",
-        "titleUpdate": "titles/updates/{baseName}/{name}[{id}][v{version}].nsp",
+        "titleDLC": "titles/DLC/{name}[{id}][v{version}].nsp",
+        "titleUpdate": "titles/updates/{name}[{id}][v{version}].nsp",
 		"titleDemo": "titles/demos/{name}[{id}][v{version}].nsp",
-		"titleDemoUpdate": "titles/demos/updates/{baseName}/{name}[{id}][v{version}].nsp",
+		"titleDemoUpdate": "titles/demos/updates/{name}[{id}][v{version}].nsp",
 		"scan": "."
     },
+	"titleUrls": [ ],
 	"download": {
 		"base": true,
 		"update": false,
 		"demo": false,
 		"dlc": true,
-		"sansTitleKey": false
+		"sansTitleKey": true
 	}
 }
