@@ -65,7 +65,7 @@ class SectionFilesystem(File):
 		
 	def open(self, file = None, mode = 'rb'):			
 		if isinstance(file, str):
-			self.f = File(self.path, mode)
+			super(SectionFilesystem, self).open(self.path, mode)
 		elif isinstance(file, File):
 			self.f = file
 		else:
@@ -132,28 +132,28 @@ class PFS0(SectionFilesystem):
 		if not r:
 			raise IOError('Could not open file ' + self.path)
 			
-		if self.f.read(4) != b'PFS0':
+		if self.read(4) != b'PFS0':
 			raise IOError('Not a valid PFS0 partition')
 
-		fileCount = self.f.readInt32()
-		stringTableSize = self.f.readInt32()
-		self.f.readInt32() # junk data
+		fileCount = self.readInt32()
+		stringTableSize = self.readInt32()
+		self.readInt32() # junk data
 		
 		headerSize = 0x10 + 0x18 * fileCount + stringTableSize
 		
 		self.files = []
 		for i in range(fileCount):
 			f = PFS0File()
-			f.offset = self.f.readInt64()
-			f.size = self.f.readInt64()
+			f.offset = self.readInt64()
+			f.size = self.readInt64()
 			f.name = ''
-			f.nameOffset = self.f.readInt32() # just the offset
-			self.f.readInt32() # junk data
-			self.f.partition(f.offset + headerSize, f.size, f)
+			f.nameOffset = self.readInt32() # just the offset
+			self.readInt32() # junk data
+			self.partition(f.offset + headerSize, f.size, f)
 			
 			self.files.append(f)
 
-		stringTable = self.f.read(stringTableSize)
+		stringTable = self.read(stringTableSize)
 		
 		for i in range(fileCount):
 			if i == fileCount - 1:
