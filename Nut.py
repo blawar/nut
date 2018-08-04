@@ -72,7 +72,7 @@ def updateDb(url):
 	
 def downloadAll():
 	for k,t in Titles.items():
-		if not t.path and (not t.isDLC or Config.downloadDLC) and (not t.isDemo or Config.downloadDemo) and (t.key or Config.downloadSansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			if not t.id:
 				print('no valid id? ' + str(t.path))
 				continue
@@ -88,7 +88,7 @@ def export(file):
 	Titles.save(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region'])
 	
 def scan():
-	Nsps.scan(Config.scanPath)
+	Nsps.scan(Config.paths.scan)
 	Titles.save()
 	
 def organize():
@@ -146,16 +146,19 @@ if __name__ == '__main__':
 
 
 	CDNSP.tqdmProgBar = False
-	CDNSP.configPath = os.path.join(os.path.dirname(__file__), 'CDNSPconfig.json')
 
-	if os.path.isfile(CDNSP.configPath):
-		CDNSP.hactoolPath, CDNSP.keysPath, CDNSP.NXclientPath, CDNSP.ShopNPath, CDNSP.reg, CDNSP.fw, CDNSP.deviceId, CDNSP.env, CDNSP.dbURL, CDNSP.nspout = CDNSP.load_config(CDNSP.configPath)
-	else:
-		Config.downloadBase = False
-		Config.downloadDLC = False
-		Config.downloadDemo = False
-		Config.downloadSansTitleKey = False
-		Config.downloadUpdate = False
+
+	CDNSP.hactoolPath = Config.paths.hactool
+	CDNSP.keysPath = Config.paths.keys
+	CDNSP.NXclientPath = Config.paths.NXclientCert
+	CDNSP.ShopNPath = Config.paths.shopNCert
+	CDNSP.reg = Config.cdn.region
+	CDNSP.fw = Config.cdn.firmware
+	CDNSP.deviceId = Config.cdn.deviceId
+	CDNSP.env = Config.cdn.environment
+	CDNSP.dbURL = 'titles.txt'
+	CDNSP.nspout = Config.paths.nspOut
+
 
 	if CDNSP.keysPath != '':
 		CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
@@ -166,11 +169,11 @@ if __name__ == '__main__':
 	loadTitleBlacklist()
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.downloadBase*1, help='download base titles')
-	parser.add_argument('--demo', type=bool, choices=[0, 1], default=Config.downloadDemo*1, help='download demo titles')
-	parser.add_argument('--update', type=bool, choices=[0, 1], default=Config.downloadUpdate*1, help='download title updates')
-	parser.add_argument('--dlc', type=bool, choices=[0, 1], default=Config.downloadDLC*1, help='download DLC titles')
-	parser.add_argument('--nsx', type=bool, choices=[0, 1], default=Config.downloadSansTitleKey*1, help='download titles without the title key')
+	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.download.base*1, help='download base titles')
+	parser.add_argument('--demo', type=bool, choices=[0, 1], default=Config.download.demo*1, help='download demo titles')
+	parser.add_argument('--update', type=bool, choices=[0, 1], default=Config.download.update*1, help='download title updates')
+	parser.add_argument('--dlc', type=bool, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
+	parser.add_argument('--nsx', type=bool, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
@@ -184,11 +187,11 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	
 
-	Config.downloadBase = args.base
-	Config.downloadDLC = args.dlc
-	Config.downloadDemo = args.demo
-	Config.downloadSansTitleKey = args.nsx
-	Config.downloadUpdate = args.update
+	Config.download.base = args.base
+	Config.download.DLC = args.dlc
+	Config.download.demo = args.demo
+	Config.download.sansTitleKey = args.nsx
+	Config.download.update = args.update
 	
 	if args.update_titles:
 		for url in Config.titleUrls:

@@ -66,11 +66,11 @@ def load():
 		silent = True
 
 			
-	files = [f for f in os.listdir(Config.titleDatabasePath) if f.endswith('.txt')]
+	files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
 	files.sort()
 	
 	for file in files:
-		loadTitleFile(Config.titleDatabasePath + '/' + file, silent)
+		loadTitleFile(Config.paths.titleDatabase + '/' + file, silent)
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 	buffer = ''
