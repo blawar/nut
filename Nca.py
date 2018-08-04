@@ -176,8 +176,9 @@ def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None, ti
 		
 	return SectionFilesystem(buffer, f, offset, size, titleKeyDec)
 
-class Nca:
-	def __init__(self, file = None):			
+class Nca(File):
+	def __init__(self, file = None):
+		super(Nca, self).__init__()
 		self.header = None
 		self.magic = None
 		self.isGameCard = None
@@ -206,7 +207,7 @@ class Nca:
 	def open(self, file = None):
 		#print('nca open')
 		if isinstance(file, str):
-			self.f = File(file, "rb")
+			super(Nca, self).open(file, "rb")
 		elif isinstance(file, File):
 			self.f = file
 		else:
@@ -221,9 +222,9 @@ class Nca:
 	def readHeader(self):
 		self.sectionTables = []
 		self.sectionFilesystems = []
-		self.f.seek(0)
+		self.seek(0)
 		
-		self.header = self.f.read(0x0C00)
+		self.header = self.read(0x0C00)
 		cipher = aes128.AESXTS(uhx(Keys.get('header_key')))
 		
 		try:
@@ -267,7 +268,7 @@ class Nca:
 			start = 0x400 + i * 0x200
 			end = start + 0x200
 
-			fs = GetSectionFilesystem(self.header[start:end], self.f, st.offset, None, self.titleKeyDec)
+			fs = GetSectionFilesystem(self.header[start:end], self, st.offset, None, self.titleKeyDec)
 			
 			if fs.fsType:
 				self.sectionFilesystems.append(fs)
@@ -277,3 +278,26 @@ class Nca:
 		#print('size ' + str(self.size))
 		#print('magic: ' + self.magic)
 		#print('nca crypto type: ' + str(self.cryptoType))
+		
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		print('\n%sNCA Archive\n' % (tabs))
+		super(Nca, self).printInfo(indent)
+		
+		print(tabs + 'titleId = ' + str(self.titleId))
+		print(tabs + 'rightsId = ' + str(self.rightsId))
+		print(tabs + 'NCA crypto master key: ' + str(self.cryptoType))
+		print(tabs + 'NCA crypto master key: ' + str(self.cryptoType2))
+		
+		print('\n%sPartitions:' % (tabs))
+		
+		for s in self:
+			s.printInfo(indent+1)
+			print(tabs + 'fsType = ' + str(s.fsType))
+			print(tabs + 'cryptoType = ' + str(s.cryptoType))
+			print(tabs + 'size = ' + str(s.size))
+			print(tabs + 'offset = ' + str(s.offset))
+			print(tabs + 'cryptoCounter = ' + str(hx(s.cryptoCounter)))
+			print(tabs + 'cryptoKey = ' + str(hx(s.cryptoKey)))
+			
+			print('\n%s\t%s\n' % (tabs, '*' * 64))

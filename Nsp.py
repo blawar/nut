@@ -283,7 +283,11 @@ class Nsp(PFS0):
 		print('\n%sNSP Archive\n\nFiles:' % (tabs))
 		
 		for f in self:
-			print('%s\t%s' % (tabs, f.name))
-			f.printInfo(indent+1)
+			print('%s%s' % (tabs, f.name))
 			
-			print('\n%s\t%s\n' % (tabs, '*' * 64))
+			if f.name.endswith('.nca'):
+				Nca(f).printInfo(indent+1)
+			else:
+				f.printInfo(indent+1)
+			
+			print('\n%s%s\n' % (tabs, '*' * 64))
