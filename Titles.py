@@ -4,11 +4,12 @@ import os
 import re
 import json
 from Title import Title
+import operator
 
 global titles
 titles = {}
 
-def list():
+def data():
 	return titles
 
 def items():
@@ -52,21 +53,8 @@ def loadTitlekeys(path):
 
 	
 def load():
-	if os.path.isfile("titles.json"):	
-		with open("titles.json", "r") as f:
-			j = json.load(f)
-			for id, t in j.items():
-				if id not in titles:
-					titles[id] = Title()
-				
-				if t['rightsId']:
-					titles[id].setId(t['rightsId'])
-				else:
-					titles[id].setId(id)
-					
-				titles[id].setName(t['name'])
-				titles[id].setKey(t['key'])
-				titles[id].setVersion(t['version'])
+	if os.path.isfile("titles.txt"):	
+		loadTitlekeys('titles.txt')
 
 			
 	files = [f for f in os.listdir('.') if f.endswith('titlekeys.txt')]
@@ -76,18 +64,12 @@ def load():
 		loadTitlekeys(file)
 	
 def save():
-	j = {}
-	for k,t in items():
-		if not t.id in j.keys():
-			j[t.id] = {}
+	map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']
+	buffer = ''
+	
+	buffer += '|'.join(map) + '\n'
+	for t in sorted(list(titles.values())):
+		buffer += t.serialize() + '\n'
 		
-		j[t.id]['name'] = t.name
-		
-		j[t.id]['key'] = t.key
-		
-		j[t.id]['rightsId'] = t.rightsId
-			
-		j[t.id]['version'] = t.version
-			
-	with open("titles.json", "w+") as f:
-		f.write(json.dumps(j))
+	with open('titles.txt', 'w', encoding='utf-8') as csv:
+		csv.write(buffer)

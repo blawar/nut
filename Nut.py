@@ -43,6 +43,60 @@ def logMissingTitles():
 		
 	f.close()
 	
+def update_db(dbURL):
+	global titlekey_list
+	print("\nDownloading new titlekey database...\n")
+	try:
+		url = dbURL
+		if url == '':
+			print('\nDatabase url is empty. Check the CDNSPconfig')
+			return
+		if "http://" not in url and "https://" not in url:
+			try:
+				url = base64.b64decode(url)
+			except Exception as e:
+				print("\nError decoding url: ", e)
+				return
+
+		r = requests.get(url)
+		r.encoding = 'utf-8'
+
+		if r.status_code == 200:
+			newdb = r.text.split('\r')
+
+			currdb = [x.strip() for x in titlekey_list]
+			print('The following games have either been added or updated:\n')
+			for line in newdb:
+				line = line.strip()
+				if line != '':
+					temp = line.split('|')
+					titleId = temp[0][0:16]
+					tkey = temp[1].lower()
+					name = temp[2]
+					line = '%s|%s|%s' % (titleId,tkey,name)
+					if line not in currdb and line != None :
+						print(line.split('|')[-1])
+
+			try:
+				print('\nSaving new database...')
+				f = open('titlekeys.txt', 'w', encoding="utf8")
+				for line in newdb:
+					f.write(line)
+				f.close()
+				print('\nDatabase update complete')
+				titlekey_list = []
+				load_titlekeys()
+			except Exception as e:
+				print(e)
+				return
+		else:
+			print('Error updating database: ', repr(r))
+			return
+			
+	except Exception as e:
+		print('\nError updating database:', e)
+		return
+	
 def downloadAll():
 	for k,t in Titles.items():
 		if not t.path and (not t.isDLC or Config.downloadDLC) and (not t.isDemo or Config.downloadDemo) and (t.key or Config.downloadSansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
@@ -155,7 +209,6 @@ if __name__ == '__main__':
 		scan()
 		organize()
 		downloadAll()
-	
 	
 	#scan()
 		

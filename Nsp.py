@@ -36,7 +36,7 @@ class Nsp(PFS0):
 			raise IOError('NSP no titleId set')
 			
 		if self.titleId in Titles.keys():
-			return Titles.list()[self.titleId]
+			return Titles.get(self.titleId)
 			
 		self.title = Title()
 		self.title.setId(self.titleId)
