@@ -5,6 +5,7 @@ import re
 import json
 import Title
 import operator
+import Config
 
 global titles
 titles = {}
@@ -65,11 +66,11 @@ def load():
 		silent = True
 
 			
-	files = [f for f in os.listdir('.') if f.endswith('titlekeys.txt')]
+	files = [f for f in os.listdir(Config.titleDatabasePath) if f.endswith('.txt')]
 	files.sort()
 	
 	for file in files:
-		loadTitleFile(file, silent)
+		loadTitleFile(Config.titleDatabasePath + '/' + file, silent)
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 	buffer = ''
