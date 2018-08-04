@@ -4,6 +4,7 @@ import os
 import re
 import json
 import CDNSP
+import Titles
 
 class Title:
 	def __init__(self):
@@ -129,6 +130,9 @@ class Title:
 			self.isDemo = False
 	
 	def getName(self):
+		baseId = Title.getBaseId(self.id)
+		if self.isUpdate and Titles.get(baseId):
+			return Titles.get(baseId).name
 		return self.name or ''
 			
 	def setKey(self, key):
@@ -193,5 +197,7 @@ class Title:
 			
 	@staticmethod
 	def getBaseId(id):
+		if not id:
+			return None
 		titleIdNum = int(id, 16)
 		return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)

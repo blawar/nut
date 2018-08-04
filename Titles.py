@@ -3,7 +3,7 @@
 import os
 import re
 import json
-from Title import Title
+import Title
 import operator
 
 global titles
@@ -45,11 +45,11 @@ def loadTitleBuffer(buffer, silent = True):
 				map = line.split('|')
 				continue
 		
-		t = Title()
+		t = Title.Title()
 		t.loadCsv(line, map)
 		
 		if not t.id in keys():
-			titles[t.id] = Title()
+			titles[t.id] = Title.Title()
 			
 		titleKey = titles[t.id].key
 		titles[t.id].loadCsv(line, map)
