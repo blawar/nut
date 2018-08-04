@@ -12,6 +12,7 @@ class File:
 		self.cryptoType = Type.Crypto.NONE
 		self.cryptoCounter = None
 		self.isPartition = False
+		self._path = None
 		
 		if path:
 			self.open(path, mode)
@@ -105,8 +106,9 @@ class File:
 	def open(self, path, mode):
 		if self.isOpen():
 			self.close()
-			
+
 		self.f = open(path, mode)
+		self._path = path
 		
 		self.f.seek(0,2)
 		self.size = self.f.tell()
@@ -129,3 +131,10 @@ class File:
 			ctr[0x10-j-1] = ofs & 0xFF
 			ofs >>= 8
 		return bytes(ctr)
+		
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		if self._path:
+			print('%sFile Path: %s' % (tabs, self._path))
+		print('%sFile Size: %s' % (tabs, self.size))
+		

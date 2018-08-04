@@ -17,6 +17,15 @@ def decryptTitleKey(key, i):
 	crypto = aes128.AESECB(uhx(kek))
 	return crypto.decrypt(key)
 	
+def encryptTitleKey(key, i):
+	kek = getTitleKek(i)
+	
+	crypto = aes128.AESECB(uhx(kek))
+	return crypto.encrypt(key)
+	
+def changeTitleKeyMasterKey(key, currentMasterKeyIndex, newMasterKeyIndex):
+	return encryptTitleKey(decryptTitleKey(key, currentMasterKeyIndex), newMasterKeyIndex)
+	
 	
 
 def load(fileName):

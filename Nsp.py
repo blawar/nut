@@ -275,3 +275,15 @@ class Nsp(PFS0):
 		header += remainder * b'\x00'
 		
 		return header
+		
+	def printInfo(self, indent = 0):
+		super(Nsp, self).printInfo(indent)
+		tabs = '\t' * indent
+		
+		print('\n%sNSP Archive\n\nFiles:' % (tabs))
+		
+		for f in self:
+			print('%s\t%s' % (tabs, f.name))
+			f.printInfo(indent+1)
+			
+			print('\n%s\t%s\n' % (tabs, '*' * 64))
