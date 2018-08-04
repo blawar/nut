@@ -40,7 +40,7 @@ class Nsp(PFS0):
 			
 		self.title = Title()
 		self.title.setId(self.titleId)
-		Titles.list()[self.titleId] = self.title
+		Titles.data()[self.titleId] = self.title
 		return self.title
 		
 	def readMeta(self):
