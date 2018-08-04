@@ -107,6 +107,13 @@ def refresh():
 			raise
 			pass
 	Titles.save()
+	
+def updateVersions(force = True):
+	i = 0
+	for k,t in Titles.items():
+		if force or t.version == None:
+			v = t.lastestVersion(True)
+			print("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
 			
 if __name__ == '__main__':
 	titleWhitelist = []
@@ -147,6 +154,8 @@ if __name__ == '__main__':
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
+	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
+	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
@@ -164,6 +173,7 @@ if __name__ == '__main__':
 	if args.update_titles:
 		for url in Config.titleUrls:
 			updateDb(url)
+		Titles.save()
 	
 	if args.scan:
 		scan()
@@ -173,6 +183,12 @@ if __name__ == '__main__':
 	
 	if args.organize:
 		organize()
+		
+	if args.Z:
+		updateVersions(True)
+		
+	if args.z:
+		updateVersions(False)
 		
 	if args.download:
 		downloadAll()
