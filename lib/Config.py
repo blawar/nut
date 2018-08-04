@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import platform
 
 
 class Cdn:
@@ -25,6 +26,14 @@ class Paths:
 		self.NXclientCert = 'nx_tls_client_cert.pem'
 		self.shopNCert = 'ShopN.pem'
 		self.nspOut = '_NSPOUT'
+		
+		if platform.system() == 'Linux':
+			self.hactool = './' + hactoolPath + '_linux'
+
+		if platform.system() == 'Darwin':
+			self.hactool = './' + hactoolPath + '_mac'
+			
+		self.hactool = os.path.normpath(self.hactool)
 		
 class Download:
 	def __init(self):
