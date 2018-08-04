@@ -19,6 +19,7 @@ import Titles
 import Nsp
 import Nsps
 import CDNSP
+import Nca
 import Config
 import requests
 #import blockchain
@@ -220,6 +221,18 @@ if __name__ == '__main__':
 	if args.organize:
 		organize()
 		
+	if args.info:
+		if args.info.endswith('.xci'):
+			f = Nca.Xci(args.info)
+		elif args.info.endswith('.nsp'):
+			f = Nsp(args.info)
+		elif args.info.endswith('.nca'):
+			f = Nca.Nca(args.info)
+		else:
+			f = File(args.info)
+		f.printInfo()
+			
+	
 	if args.Z:
 		updateVersions(True)
 		

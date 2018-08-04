@@ -102,17 +102,23 @@ class File:
 			self.seek(-offset, 1)
 		else:
 			self.seek(0)
+
 		
-	def open(self, path, mode):
+	def open(self, path, mode = 'rb'):
 		if self.isOpen():
 			self.close()
-
-		self.f = open(path, mode)
-		self._path = path
-		
-		self.f.seek(0,2)
-		self.size = self.f.tell()
-		self.f.seek(0,0)
+			
+		if isinstance(path, str):
+			self.f = open(path, mode)
+			self._path = path
+			
+			self.f.seek(0,2)
+			self.size = self.f.tell()
+			self.f.seek(0,0)
+		elif isinstance(path, File):
+			self.f = path
+		else:
+			raise IOError('Invalid file parameter')
 		
 	def close(self):
 		self.f.close()
