@@ -4,12 +4,39 @@ import json
 import os
 
 
-downloadBase = True
-downloadDemo = False
-downloadDLC = True
-downloadUpdate = False
-downloadSansTitleKey = False
-titleDatabasePath = None
+class Cdn:
+	def __init__(self):
+		self.region = 'US'
+		self.firmware = '5.1.0-0'
+		self.deviceId = '0000000000000000'
+		self.environment = 'lp1'
+		
+class Paths:
+	def __init__(self):
+		self.titleBase = "titles/{name}[{id}][v{version}].nsp"
+		self.titleDLC = "titles/DLC/{name}[{id}][v{version}].nsp"
+		self.titleUpdate = "titles/updates/{name}[{id}][v{version}].nsp"
+		self.titleDemo = "titles/demos/{name}[{id}][v{version}].nsp"
+		self.titleDemoUpdate = "titles/demos/updates/{name}[{id}][v{version}].nsp"
+		self.scan = '.'
+		self.titleDatabase = 'titledb'
+		self.hactool = 'bin/hactool'
+		self.keys = 'keys.txt'
+		self.NXclientCert = 'nx_tls_client_cert.pem'
+		self.shopNCert = 'ShopN.pem'
+		self.nspOut = '_NSPOUT'
+		
+class Download:
+	def __init(self):
+		self.downloadBase = True
+		self.demo = False
+		self.DLC = True
+		self.update = False
+		self.sansTitleKey = False
+		
+cdn = Cdn()
+paths = Paths()
+download = Download()
 
 titleUrls = []
 
@@ -17,59 +44,59 @@ with open('nut.json', encoding="utf8") as f:
 	j = json.load(f)
 	
 	try:
-		titleBasePath = j['paths']['titleBase']
+		paths.titleBase = j['paths']['titleBase']
 	except:
-		titleBasePath = "titles/{name}[{id}][v{version}].nsp"
+		pass
 		
 	try:
-		titleDLCPath = j['paths']['titleDLC']
+		paths.titleDLC = j['paths']['titleDLC']
 	except:
-		titleDLCPath = "titles/DLC/{name}[{id}][v{version}].nsp"
+		pass
 		
 	try:
-		titleUpdatePath = j['paths']['titleUpdate']
+		paths.titleUpdate = j['paths']['titleUpdate']
 	except:
-		titleUpdatePath = "titles/updates/{name}[{id}][v{version}].nsp"
+		pass
 		
 	try:
-		titleDemoPath = j['paths']['titleDemo']
+		paths.titleDemo = j['paths']['titleDemo']
 	except:
-		titleDemoPath = "titles/demos/{name}[{id}][v{version}].nsp"
+		pass
 		
 	try:
-		titleDemoUpdatePath = j['paths']['titleDemoUpdate']
+		paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
 	except: 
-		titleDemoUpdatePath = "titles/demos/updates/{name}[{id}][v{version}].nsp"
+		pass
 	
 	try:
-		scanPath = j['paths']['scan']
+		paths.scan = j['paths']['scan']
 	except:
-		scanPath = '.'
+		pass
 		
 	try:
-		titleDatabasePath = ['paths']['titledb']
+		paths.titleDatabase = ['paths']['titledb']
 	except:
-		titleDatabasePath = "titledb"
+		pass
 	
 	try:
-		downloadBase = j['download']['base']
+		download.base = j['download']['base']
 	except:
-		downloadBase = True
+		pass
 		
 	try:
-		downloadDemo = j['download']['demo']
+		download.demo = j['download']['demo']
 	except:
-		downloadDemo = False
+		pass
 		
 	try:
-		downloadDLC = j['download']['dlc']
+		download.DLC = j['download']['dlc']
 	except:
-		downloadDLC = True
+		pass
 		
 	try:
-		downloadUpdate = j['download']['update']
+		download.update = j['download']['update']
 	except:
-		downloadUpdate = False
+		pass
 	
 	try:
 		for url in j['titleUrls']:
@@ -79,9 +106,9 @@ with open('nut.json', encoding="utf8") as f:
 		titleUrls = []
 	
 	try:
-		downloadSansTitleKey = j['download']['sansTitleKey']
+		download.sansTitleKey = j['download']['sansTitleKey']
 	except:
-		downloadSansTitleKey = False
+		pass
 
 if os.path.isfile('CDNSPconfig.json'):	
 		with open('CDNSPconfig.json', encoding="utf8") as f:
