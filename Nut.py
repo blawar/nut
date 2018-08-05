@@ -73,7 +73,7 @@ def updateDb(url):
 	
 def downloadAll():
 	for k,t in Titles.items():
-		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			if not t.id:
 				print('no valid id? ' + str(t.path))
 				continue
@@ -141,7 +141,6 @@ if __name__ == '__main__':
 	titleBlacklist = []
 
 	Titles.load()
-		
 
 	urllib3.disable_warnings()
 

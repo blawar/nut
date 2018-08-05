@@ -124,7 +124,7 @@ class Title:
 			return
 		self.name = name
 		
-		if re.match('.*\sDemo\s*$', self.name, re.I) or re.match('.*\sDemo\s+.*$', self.name, re.I):
+		if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
 			self.isDemo = True
 		else:
 			self.isDemo = False
