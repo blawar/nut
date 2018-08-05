@@ -225,7 +225,7 @@ if __name__ == '__main__':
 		if args.info.endswith('.xci'):
 			f = Nca.Xci(args.info)
 		elif args.info.endswith('.nsp'):
-			f = Nsp(args.info)
+			f = Nsp.Nsp(args.info)
 		elif args.info.endswith('.nca'):
 			f = Nca.Nca(args.info)
 		else:
