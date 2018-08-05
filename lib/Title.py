@@ -159,7 +159,11 @@ class Title:
 		
 	def setVersion(self, version):
 		if version != None:
-			self.version = version
+			try:
+				i = int(version, 10)
+				self.version = version
+			except:
+				return
 			
 	def getVersion(self):
 		return self.version or ''
