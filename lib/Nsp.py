@@ -13,20 +13,21 @@ from Nca import Nca
 
 class Nsp(PFS0):
 		
-	def __init__(self, path = None, files = None):
-		super(Nsp, self).__init__()
+	def __init__(self, path = None, mode = 'rb'):
 		self.path = None
 		self.titleId = None
 		self.hasValidTicket = None
 		
 		if path:
 			self.setPath(path)
-			if files:
-				self.pack(files)
+			#if files:
+			#	self.pack(files)
+			
+		super(Nsp, self).__init__(None, path, mode)
 				
 		if self.titleId and self.isUnlockable():
 			print('unlocking ' + self.path)
-			self.unlock()
+			#self.unlock()
 				
 	def __iter__(self):
 		return self.files.__iter__()
@@ -83,8 +84,8 @@ class Nsp(PFS0):
 		if z:
 			self.version = z.groups()[0]
 			
-	def open(self, mode = 'rb'):
-		super(Nsp, self).open(self.path, mode)
+	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Nsp, self).open(path or self.path, mode, cryptoType, cryptoKey, cryptoCounter)
 					
 	def move(self):
 		if not self.path:

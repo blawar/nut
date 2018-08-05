@@ -12,7 +12,7 @@ import Keys
 MEDIA_SIZE = 0x200
 
 class SectionTableEntry:
-	def __init__(self, d, sha1):
+	def __init__(self, d):
 		self.mediaOffset = int.from_bytes(d[0x0:0x4], byteorder='little', signed=False)
 		self.mediaEndOffset = int.from_bytes(d[0x4:0x8], byteorder='little', signed=False)
 		
@@ -21,26 +21,20 @@ class SectionTableEntry:
 		
 		self.unknown1 = int.from_bytes(d[0x8:0xc], byteorder='little', signed=False)
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
-		self.sha1 = sha1
-		
-		#print('media offset: ' + str(self.mediaOffset * MEDIA_SIZE) + ', end offset: ' + str(self.mediaEndOffset * MEDIA_SIZE))
+		self.sha1 = None
 
 		
 class SectionFilesystem(File):
-	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
-		super(SectionFilesystem, self).__init__()
-		
+	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):		
 		self.buffer = buffer
+		self.sectionStart = 0
 		self.fsType = None
 		self.cryptoType = None
 		self.size = 0
 		self.cryptoCounter = None
-		self.cryptoKey = titleKeyDec
 		
-		if f:
-			f.partition(offset, size, self)
-		else:
-			self.f = None
+		if buffer:
+			Hex.dump(buffer)
 			
 		self.files = []
 		
@@ -52,42 +46,13 @@ class SectionFilesystem(File):
 			self.cryptoCounter = bytearray((b"\x00"*8) + buffer[0x140:0x148])
 			self.cryptoCounter = self.cryptoCounter[::-1]
 			
-			if self.cryptoType == Type.Crypto.CTR:
-				self.setAESCTR()
-		
-	def setCounter(self, ofs):
-		ctr = self.cryptoCounter.copy()
-		ofs >>= 4
-		for j in range(8):
-			ctr[0x10-j-1] = ofs & 0xFF
-			ofs >>= 8
-		return bytes(ctr)
-		
-	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):			
-		if isinstance(file, str):
-			super(SectionFilesystem, self).open(self.path, mode, cryptoType, cryptoKey, cryptoCounter)
-		elif isinstance(file, File):
-			self.f = file
-		else:
-			raise IOError('SFS:open invalid file')
-		
-		return True
-
-class PFS0File(File):
-	def __init__(self):
-		super(PFS0File, self).__init__()
-		self.name = None
-		self.offset = None
-		self.size = None
-		self.path = None
-		
-class PFS0(SectionFilesystem):
-	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
-		super(PFS0, self).__init__(buffer, f, offset, size, titleKeyDec)
-		if buffer:
-			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
-			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
+			cryptoType = self.cryptoType
+			cryptoCounter = self.cryptoCounter
+		#else:
+		#	print('no sfs buffer')
 			
+		super(SectionFilesystem, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
+		
 	def __getitem__(self, key):
 		if isinstance(key, str):
 			for f in self.files:
@@ -96,7 +61,49 @@ class PFS0(SectionFilesystem):
 		elif isinstance(key, int):
 			return self.files[key]
 				
-		raise IOError('PFSO File Not Found')
+		raise IOError('FS File Not Found')
+		
+	def printInfo(self, indent):
+		tabs = '\t' * indent
+		print(tabs + 'magic = ' + str(self.magic))
+		print(tabs + 'fsType = ' + str(self.fsType))
+		print(tabs + 'cryptoType = ' + str(self.cryptoType))
+		print(tabs + 'size = ' + str(self.size))
+		print(tabs + 'offset = ' + str(self.offset))
+		if self.cryptoCounter:
+			print(tabs + 'cryptoCounter = ' + str(hx(self.cryptoCounter)))
+			
+		if self.cryptoKey:
+			print(tabs + 'cryptoKey = ' + str(hx(self.cryptoKey)))
+		
+		print('\n%s\t%s\n' % (tabs, '*' * 64))
+		print('\n%s\tFiles:\n' % (tabs))
+		
+		for f in self:
+			f.printInfo(indent+1)
+			print('\n%s\t%s\n' % (tabs, '*' * 64))
+
+
+class PFS0File(File):
+	def __init__(self):
+		super(PFS0File, self).__init__()
+		self.name = None
+		self.offset = None
+		self.size = None
+		self.path = None
+	
+	def printInfo(self, indent):
+		tabs = '\t' * indent
+		print(tabs + 'name = ' + str(self.name))
+		super(PFS0File, self).printInfo(indent)
+		
+class PFS0(SectionFilesystem):
+	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(PFS0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		
+		if buffer:
+			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)
+			self.sectionStart = int.from_bytes(buffer[0x40:0x48], byteorder='little', signed=False)
 		
 	def getHeader():
 		stringTable = '\x00'.join(file.name for file in self.files)
@@ -128,25 +135,31 @@ class PFS0(SectionFilesystem):
 		
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		r = super(PFS0, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
-		
-		if not r:
-			raise IOError('Could not open file ' + self.path)
+		self.rewind()
+		#self.setupCrypto()
+		#print('cryptoType = ' + hex(self.cryptoType))
+		#print('titleKey = ' + (self.cryptoKey.hex()))
+		#print('cryptoCounter = ' + (self.cryptoCounter.hex()))
+
+		self.magic = self.read(4)
+		if self.magic != b'PFS0':
+			raise IOError('Not a valid PFS0 partition ' + str(self.magic))
 			
-		if self.read(4) != b'PFS0':
-			raise IOError('Not a valid PFS0 partition')
 
 		fileCount = self.readInt32()
 		stringTableSize = self.readInt32()
 		self.readInt32() # junk data
 		
 		headerSize = 0x10 + 0x18 * fileCount + stringTableSize
-		
 		self.files = []
+		print('starting file scan')
 		for i in range(fileCount):
+			self.seek(0x10 + i * 0x18)
+			print('file offset = ' + hex(self.tell()) + ', should be ' + hex(0x10 + i * 0x18))
 			f = PFS0File()
 			f.offset = self.readInt64()
 			f.size = self.readInt64()
-			f.name = ''
+			f.name = 'NULL'
 			f.nameOffset = self.readInt32() # just the offset
 			self.readInt32() # junk data
 			self.partition(f.offset + headerSize, f.size, f)
@@ -160,26 +173,55 @@ class PFS0(SectionFilesystem):
 				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').rstrip(' \t\r\n\0')
 			else:
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').rstrip(' \t\r\n\0')
+				
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		print('\n%sPFS0\n' % (tabs))
+		super(PFS0, self).printInfo(indent)
+		'''
+		print(tabs + 'titleId = ' + str(self.header.titleId))
+		print(tabs + 'rightsId = ' + str(self.header.rightsId))
+		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
+		print(tabs + 'contentType = ' + hex(self.header.contentType))
+		print(tabs + 'NCA Size: ' + str(self.header.size))
+		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
+		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType2))
+		
+		print('\n%sPartitions:' % (tabs))
+		
+		for s in self:
+			s.printInfo(indent+1)
+			print(tabs + 'magic = ' + str(s.magic))
+			print(tabs + 'fsType = ' + str(s.fsType))
+			print(tabs + 'cryptoType = ' + str(s.cryptoType))
+			print(tabs + 'size = ' + str(s.size))
+			print(tabs + 'offset = ' + str(s.offset))
+			print(tabs + 'cryptoCounter = ' + str(hx(s.cryptoCounter)))
+			print(tabs + 'cryptoKey = ' + str(hx(s.cryptoKey)))
+			
+			print('\n%s\t%s\n' % (tabs, '*' * 64))
+			'''
 
 		
 class ROMFS(SectionFilesystem):
-	def __init__(self, buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
-		super(ROMFS, self).__init__(buffer, f, offset, size, titleKeyDec)
+	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(ROMFS, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.magic = None
 		
-def GetSectionFilesystem(buffer = None, f = None, offset = None, size = None, titleKeyDec = None):
+def GetSectionFilesystem(buffer, cryptoKey):
 	fsType = buffer[0x3]
 	if fsType == Type.Fs.PFS0:
-		return PFS0(buffer, f, offset, size, titleKeyDec)
+		return PFS0(buffer, cryptoKey = cryptoKey)
 		
 	if fsType == Type.Fs.ROMFS:
-		return ROMFS(buffer, f, offset, size, titleKeyDec)
+		return ROMFS(buffer, cryptoKey = cryptoKey)
 		
-	return SectionFilesystem(buffer, f, offset, size, titleKeyDec)
-
-class Nca(File):
-	def __init__(self, file = None):
-		super(Nca, self).__init__()
-		self.header = None
+	return SectionFilesystem(buffer, cryptoKey = cryptoKey)
+	
+class NcaHeader(File):
+	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		self.signature1 = None
+		self.signature2 = None
 		self.magic = None
 		self.isGameCard = None
 		self.contentType = None
@@ -193,10 +235,58 @@ class Nca(File):
 		self.titleKeyDec = None
 		self.keyBlobIndex = None
 		self.sectionTables = []
-		self.sectionFilesystems = []
 		
-		if file:
-			self.open(file)
+		super(NcaHeader, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
+		
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(NcaHeader, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+		self.signature1 = self.read(0x100)
+		self.signature2 = self.read(0x100)
+		self.magic = self.read(0x4)
+		self.isGameCard = self.readInt8()
+		self.contentType = self.readInt8()
+		self.cryptoType = self.readInt8()
+		self.keyIndex = self.readInt8()
+		self.size = self.readInt64()
+		self.titleId = hx(self.read(8)[::-1]).decode('utf-8').upper()
+		
+		self.readInt32() # padding
+		
+
+		self.sdkVersion = self.readInt32()
+		self.cryptoType2 = self.readInt8()
+		
+		self.read(0xF) # padding
+		
+		self.rightsId = hx(self.read(0x10))
+		
+		if self.magic not in [b'NCA3', b'NCA2']:
+			raise Exception('Failed to decrypt NCA header: ' + str(self.magic))
+		
+		self.sectionHashes = []
+		
+		for i in range(4):
+			self.sectionTables.append(SectionTableEntry(self.read(0x10)))
+			
+		for i in range(4):
+			self.sectionHashes.append(self.sectionTables[i])
+			
+		self.keyArea = self.read(0x40)
+		
+		self.keyBlobIndex = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
+		
+		if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
+			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.keyBlobIndex)
+		else:
+			pass
+
+
+class Nca(File):
+	def __init__(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		self.header = None
+		self.sectionFilesystems = []
+		super(Nca, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 			
 	def __iter__(self):
 		return self.sectionFilesystems.__iter__()
@@ -205,101 +295,50 @@ class Nca(File):
 		return self.sectionFilesystems[key]
 
 	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
-		if isinstance(file, str):
-			super(Nca, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
-		elif isinstance(file, File):
-			self.f = file
-		else:
-			raise IOError('NCA:open invalid file')
-			
-		self.readHeader()
-		
-		if not self.titleId.upper() in Titles.keys():
-			print('could not find title key!!! ' + self.titleId)
 
+		super(Nca, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+
+		self.header = NcaHeader()
+		self.partition(0x0, 0xC00, self.header, Type.Crypto.XTS, uhx(Keys.get('header_key')))
 		
-	def readHeader(self):
-		self.sectionTables = []
-		self.sectionFilesystems = []
-		self.seek(0)
-		
-		self.header = self.read(0x0C00)
-		cipher = aes128.AESXTS(uhx(Keys.get('header_key')))
-		
-		try:
-			if self.header[0x200:0x204].decode("utf-8") not in ['NCA3', 'NCA2']:
-				self.header = cipher.decrypt(self.header)
-		except:
-			self.header = cipher.decrypt(self.header)
-		
-		self.magic = self.header[0x200:0x204].decode("utf-8")
-		
-		if self.magic not in ['NCA3', 'NCA2']:
-			raise Exception('Failed to decrypt NCA header: ' + self.magic)
-			
-		self.isGameCard = self.header[0x204]
-		self.contentType = self.header[0x205]
-		self.cryptoType = self.header[0x206]
-		self.keyIndex = self.header[0x207]
-		self.size = int.from_bytes(self.header[0x208:0x210], byteorder='little', signed=False)
-		self.titleId = self.header[0x210:0x218][::-1].hex()
-		self.sdkVersion = int.from_bytes(self.header[0x21c:0x220], byteorder='little', signed=False)
-		self.cryptoType2 = self.header[0x220]
-		self.rightsId = self.header[0x230:0x240].hex()
-		self.titleKeyDec = None
-		self.keyBlobIndex = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
-		
-		if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
-			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.keyBlobIndex)
-		else:
-			pass
-			#print('could not find title key!')
-		
+		self.header.seek(0x400)
+
 		for i in range(4):
-			start = 0x240 + i * 0x10
-			end = start + 4
-			
-			hashStart = 0x280 + i * 0x20
-			hashEnd = hashStart + 0x20
-			st = SectionTableEntry(self.header[start:end], self.header[hashStart:hashEnd])
-			self.sectionTables.append(st)
-			
-			start = 0x400 + i * 0x200
-			end = start + 0x200
+			fs = GetSectionFilesystem(self.header.read(0x200), cryptoKey = self.header.titleKeyDec)
 
-			fs = GetSectionFilesystem(self.header[start:end], self, st.offset, None, self.titleKeyDec)
-			
+			#print('st end offset = ' + str(self.sectionTables[i].endOffset - self.sectionTables[i].offset))
+			#print('offset = ' + hex(self.header.sectionTables[i].offset))
+			#print('titleKey = ' + hex(self.header.titleKeyDec))
+			try:
+				self.partition(self.header.sectionTables[i].offset + fs.sectionStart, self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset, fs, cryptoKey = self.header.titleKeyDec)
+			except BaseException as e:
+				print(e)
+
 			if fs.fsType:
 				self.sectionFilesystems.append(fs)
 		
-		#print('')
-		#print('title id ' + str(self.titleId))
-		#print('size ' + str(self.size))
-		#print('magic: ' + self.magic)
-		#print('nca crypto type: ' + str(self.cryptoType))
+		
+		self.titleKeyDec = None
+		self.keyBlobIndex = None
+
 		
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
 		print('\n%sNCA Archive\n' % (tabs))
 		super(Nca, self).printInfo(indent)
 		
-		print(tabs + 'titleId = ' + str(self.titleId))
-		print(tabs + 'rightsId = ' + str(self.rightsId))
-		print(tabs + 'NCA crypto master key: ' + str(self.cryptoType))
-		print(tabs + 'NCA crypto master key: ' + str(self.cryptoType2))
+		print(tabs + 'titleId = ' + str(self.header.titleId))
+		print(tabs + 'rightsId = ' + str(self.header.rightsId))
+		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
+		print(tabs + 'contentType = ' + hex(self.header.contentType))
+		print(tabs + 'NCA Size: ' + str(self.header.size))
+		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
+		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType2))
 		
 		print('\n%sPartitions:' % (tabs))
 		
 		for s in self:
 			s.printInfo(indent+1)
-			print(tabs + 'fsType = ' + str(s.fsType))
-			print(tabs + 'cryptoType = ' + str(s.cryptoType))
-			print(tabs + 'size = ' + str(s.size))
-			print(tabs + 'offset = ' + str(s.offset))
-			print(tabs + 'cryptoCounter = ' + str(hx(s.cryptoCounter)))
-			print(tabs + 'cryptoKey = ' + str(hx(s.cryptoKey)))
-			
-			print('\n%s\t%s\n' % (tabs, '*' * 64))
 			
 class GamecardInfo(File):
 	def __init__(self, file = None):

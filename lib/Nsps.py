@@ -20,7 +20,7 @@ def scan(base):
 			
 		for name in _files:
 			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
-				files.append(Nsp.Nsp(root + '/' + name))
+				files.append(Nsp.Nsp(root + '/' + name, None))
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):
