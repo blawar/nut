@@ -39,12 +39,12 @@ def loadTitleBlacklist():
 		for line in f.readlines():
 			titleBlacklist.append(line.strip().upper())
 			
-def logMissingTitles():
-	f = open("missing.txt","w+b")
+def logMissingTitles(file):
+	f = open(file,"w", encoding="utf-8-sig")
 	
 	for k,t in Titles.items():
 		if not t.path:
-			f.write((t.name + "\r\n").encode("utf-8"))
+			f.write(((t.name or '') + "\r\n"))
 		
 	f.close()
 	
@@ -244,6 +244,10 @@ if __name__ == '__main__':
 		
 	if args.export:
 		export(args.export)
+		
+	if args.missing:
+		scan()
+		logMissingTitles(args.missing)
 		
 	if len(sys.argv)==1:
 		scan()
