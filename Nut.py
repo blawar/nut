@@ -93,14 +93,14 @@ def scan():
 	
 def organize():
 	scan()
-	for f in Nsps.files:
+	for k, f in Nsps.files.items():
 		#print('')
 		f.move()
 	print('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
 		
 def refresh():
-	for f in Nsps.files:
+	for k, f in Nsps.files.items():
 		try:
 			f.readMeta()
 		except:
@@ -187,8 +187,6 @@ if __name__ == '__main__':
 
 	loadTitleWhitelist()
 	loadTitleBlacklist()
-	
-	CDNSP.get_versionUpdates()
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.download.base*1, help='download base titles')
@@ -210,6 +208,8 @@ if __name__ == '__main__':
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	
 	args = parser.parse_args()
+
+	Nsps.load()
 	
 
 	Config.download.base = args.base
@@ -244,7 +244,7 @@ if __name__ == '__main__':
 		organize()
 		#0100CA6009888800
 	if args.info:
-		if re.match('[A-Z0-9]+', args.info, re.I):
+		if re.match('[A-Z0-9][16]', args.info, re.I):
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			if args.info.endswith('.xci'):
@@ -274,7 +274,6 @@ if __name__ == '__main__':
 		export(args.export)
 		
 	if args.missing:
-		scan()
 		logMissingTitles(args.missing)
 		
 	if len(sys.argv)==1:

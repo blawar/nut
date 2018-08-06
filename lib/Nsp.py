@@ -10,6 +10,7 @@ import Config
 from binascii import hexlify as hx, unhexlify as uhx
 from Nca import PFS0
 from Nca import Nca
+import time
 
 class Nsp(PFS0):
 		
@@ -17,6 +18,8 @@ class Nsp(PFS0):
 		self.path = None
 		self.titleId = None
 		self.hasValidTicket = None
+		self.timestamp = None
+		self.version = None
 		
 		if path:
 			self.setPath(path)
@@ -28,6 +31,30 @@ class Nsp(PFS0):
 		if self.titleId and self.isUnlockable():
 			print('unlocking ' + self.path)
 			#self.unlock()
+
+	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp']):
+		split = line.split('|')
+		for i, value in enumerate(split):
+			if i >= len(map):
+				print('invalid map index: ' + str(i) + ', ' + str(len(map)))
+				continue
+			
+			i = str(map[i])
+			methodName = 'set' + i[0].capitalize() + i[1:]
+			method = getattr(self, methodName, lambda x: None)
+			method(value.strip())
+
+	def serialize(self, map = ['id', 'path', 'version', 'timestamp']):
+		r = []
+		for i in map:
+				
+			methodName = 'get' + i[0].capitalize() + i[1:]
+			method = getattr(self, methodName, lambda: methodName)
+			r.append(str(method()))
+		return '|'.join(r)
+
+	def __lt__(self, other):
+		return str(self.path) < str(other.path)
 				
 	def __iter__(self):
 		return self.files.__iter__()
@@ -45,7 +72,7 @@ class Nsp(PFS0):
 		return self.title
 		
 	def readMeta(self):
-		print(self.path)
+		#print(self.path)
 		self.open()
 		try:
 			a = Nca(self.application())
@@ -56,6 +83,29 @@ class Nsp(PFS0):
 			print('readMeta filed ' + self.path + ", " + str(e))
 			raise
 		self.close()
+
+	def setId(self, id):
+		if re.match('[A-F0-9]{16}', id, re.I):
+			self.titleId = id
+
+	def getId(self):
+			return self.titleId or ('0' * 16)
+
+	def setTimestamp(self, timestamp):
+		try:
+			self.timestamp = int(str(timestamp), 10)
+		except:
+			pass
+
+	def getTimestamp(self):
+		return str(self.timestamp or '')
+
+	def setVersion(self, version):
+		if version and len(version) > 0:
+			self.version = version
+
+	def getVersion(self):
+		return self.version or ''
 			
 	def setPath(self, path):
 		ext = pathlib.Path(path).suffix
@@ -83,6 +133,9 @@ class Nsp(PFS0):
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
 		if z:
 			self.version = z.groups()[0]
+
+	def getPath(self):
+		return self.path or ''
 			
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(Nsp, self).open(path or self.path, mode, cryptoType, cryptoKey, cryptoCounter)
@@ -277,7 +330,7 @@ class Nsp(PFS0):
 		
 		return header
 		
-	def printInfo(self, indent = 0):
+	def printInfo2(self, indent = 0):
 		super(Nsp, self).printInfo(indent)
 		tabs = '\t' * indent
 		
