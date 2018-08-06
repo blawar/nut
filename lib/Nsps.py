@@ -72,8 +72,8 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
 					continue
 
 				path = os.path.abspath(t.path)
-
-				files[path] = Nsp.Nsp(path, None)
+				if os.path.isfile(path): 
+					files[path] = Nsp.Nsp(path, None)
 	except:
 		pass
 
