@@ -177,29 +177,16 @@ class PFS0(SectionFilesystem):
 		tabs = '\t' * indent
 		print('\n%sPFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
-		'''
-		print(tabs + 'titleId = ' + str(self.header.titleId))
-		print(tabs + 'rightsId = ' + str(self.header.rightsId))
-		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
-		print(tabs + 'contentType = ' + hex(self.header.contentType))
-		print(tabs + 'NCA Size: ' + str(self.header.size))
-		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
-		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType2))
-		
-		print('\n%sPartitions:' % (tabs))
-		
-		for s in self:
-			s.printInfo(indent+1)
-			print(tabs + 'magic = ' + str(s.magic))
-			print(tabs + 'fsType = ' + str(s.fsType))
-			print(tabs + 'cryptoType = ' + str(s.cryptoType))
-			print(tabs + 'size = ' + str(s.size))
-			print(tabs + 'offset = ' + str(s.offset))
-			print(tabs + 'cryptoCounter = ' + str(hx(s.cryptoCounter)))
-			print(tabs + 'cryptoKey = ' + str(hx(s.cryptoKey)))
+
+		for f in self:
+			print('%s%s' % (tabs, f.name))
 			
-			print('\n%s\t%s\n' % (tabs, '*' * 64))
-			'''
+			if f.name.endswith('.nca'):
+				Nca(f).printInfo(indent+1)
+			else:
+				f.printInfo(indent+1)
+			
+			print('\n%s%s\n' % (tabs, '*' * 64))
 
 		
 class ROMFS(SectionFilesystem):
