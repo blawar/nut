@@ -44,7 +44,7 @@ def logMissingTitles(file):
 	
 	for k,t in Titles.items():
 		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
-			f.write((t.id or ('0'*16)) + '|' + (t.name or '') + "\r\n")
+			f.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
 		
 	f.close()
 	
