@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
-import Nsp
+import Fs
 import pathlib
 import re
 
@@ -32,7 +32,7 @@ def scan(base):
 				path = os.path.abspath(root + '/' + name)
 				if not path in files:
 					print('new file found: ' + path)
-					files[path] = Nsp.Nsp(path, None)
+					files[path] = Fs.Nsp(path, None)
 		save()
 
 def removeEmptyDir(path, removeRoot=True):
@@ -65,7 +65,7 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
 					if re.match('[A-Za-z\|\s]+', line, re.I):
 						map = line.split('|')
 						continue
-				t = Nsp.Nsp()
+				t = Fs.Nsp()
 				t.loadCsv(line, map)
 
 				if not t.path:
@@ -73,7 +73,7 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
 
 				path = os.path.abspath(t.path)
 				if os.path.isfile(path): 
-					files[path] = Nsp.Nsp(path, None)
+					files[path] = Fs.Nsp(path, None)
 	except:
 		pass
 
