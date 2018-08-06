@@ -4,12 +4,15 @@ import os
 import Nsp
 import pathlib
 
+global files2
+files2 = []
+
 global files
-files = []
+files = {}
 
 
 def list():
-	return files
+	return files2
 	
 def scan(base):
 	print('scanning ' + base)
@@ -20,7 +23,7 @@ def scan(base):
 			
 		for name in _files:
 			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
-				files.append(Nsp.Nsp(root + '/' + name, None))
+				files2.append(Nsp.Nsp(root + '/' + name, None))
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):
