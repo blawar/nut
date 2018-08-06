@@ -43,8 +43,8 @@ def logMissingTitles(file):
 	f = open(file,"w", encoding="utf-8-sig")
 	
 	for k,t in Titles.items():
-		if not t.path:
-			f.write(((t.name or '') + "\r\n"))
+		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+			f.write((t.id or ('0'*16)) + '|' + (t.name or '') + "\r\n")
 		
 	f.close()
 	
@@ -109,6 +109,27 @@ def refresh():
 			pass
 	Titles.save()
 	
+def scanLatestTitleUpdates():
+	for k,i in CDNSP.get_versionUpdates().items():
+		id = str(k).upper()
+		version = str(i)
+		
+		if not Titles.contains(id):
+			if len(id) != 16:
+				print('invalid title id: ' + id)
+				continue
+			continue
+			t = Title()
+			t.setId(id)
+			Titles.set(id, t)
+			
+		t = Titles.get(id)
+		if str(t.version) != str(version):
+			print('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
+			t.setVersion(version, True)
+			
+	Titles.save()
+	
 def updateVersions(force = True):
 	i = 0
 	for k,t in Titles.items():
@@ -167,6 +188,8 @@ if __name__ == '__main__':
 
 	loadTitleWhitelist()
 	loadTitleBlacklist()
+	
+	CDNSP.get_versionUpdates()
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.download.base*1, help='download base titles')
@@ -180,6 +203,7 @@ if __name__ == '__main__':
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
+	parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
@@ -219,17 +243,20 @@ if __name__ == '__main__':
 	
 	if args.organize:
 		organize()
-		
+		#0100CA6009888800
 	if args.info:
-		if args.info.endswith('.xci'):
-			f = Nca.Xci(args.info)
-		elif args.info.endswith('.nsp'):
-			f = Nsp.Nsp(args.info)
-		elif args.info.endswith('.nca'):
-			f = Nca.Nca(args.info)
+		if re.match('[A-Z0-9]+', args.info, re.I):
+			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
-			f = File(args.info)
-		f.printInfo()
+			if args.info.endswith('.xci'):
+				f = Nca.Xci(args.info)
+			elif args.info.endswith('.nsp'):
+				f = Nsp.Nsp(args.info)
+			elif args.info.endswith('.nca'):
+				f = Nca.Nca(args.info)
+			else:
+				f = File(args.info)
+			f.printInfo()
 			
 	
 	if args.Z:
@@ -237,6 +264,9 @@ if __name__ == '__main__':
 		
 	if args.z:
 		updateVersions(False)
+		
+	if args.V:
+		scanLatestTitleUpdates()
 		
 	if args.download_all:
 		downloadAll()

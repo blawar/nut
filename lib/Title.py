@@ -29,7 +29,7 @@ class Title:
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
-				print('invalid map index')
+				print('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
 			
 			i = str(map[i])
@@ -114,7 +114,8 @@ class Title:
 		return self.id or '0000000000000000'
 			
 	def setRegion(self, region):
-		self.region = region
+		if re.match('[A-Z]{2}', region):
+			self.region = region
 		
 	def getRegion(self):
 		return self.region or ''
@@ -157,13 +158,20 @@ class Title:
 	def getKey(self):
 		return self.key or '00000000000000000000000000000000'
 		
-	def setVersion(self, version):
+	def setVersion(self, version, force = False):
 		if version != None:
 			try:
-				i = int(version, 10)
-				self.version = version
+				n = int(str(version), 10)
 			except:
 				return
+				
+			try:
+				o = int(str(self.version), 10)
+			except:
+				o = None
+				
+			if not o or n > o or force:
+				self.version = version
 			
 	def getVersion(self):
 		return self.version or ''
