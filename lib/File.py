@@ -57,11 +57,11 @@ class File:
 		if self._bufferSize and not direct:
 			if self._bufferOffset == None or self._pos < self._bufferOffset or (self._pos + size)  > self._bufferOffset + len(self._buffer) or self._buffer == None:
 				#self._bufferOffset = self._pos & ~(self._bufferAlign-1)
-				self._bufferOffset = int((self._pos * self._bufferAlign) / self._bufferAlign)
+				self._bufferOffset = (int(self._pos / self._bufferAlign) * self._bufferAlign)
 				l = self._bufferOffset + self._bufferSize
 				
 				if size > self._bufferSize - self._bufferOffset:
-					l = int((((self._pos + size) * self._bufferAlign) / self._bufferAlign) + self._bufferAlign)
+					l = ((int((self._pos + size) / self._bufferAlign) * self._bufferAlign) + self._bufferAlign)
 				
 				self.seek(self._bufferOffset)
 				self._buffer = self.read(l, True)

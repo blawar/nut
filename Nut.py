@@ -23,7 +23,6 @@ import Nca
 import Config
 import requests
 #import blockchain
-
 				
 def loadTitleWhitelist():
 	global titleWhitelist

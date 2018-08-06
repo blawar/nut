@@ -33,8 +33,8 @@ class SectionFilesystem(File):
 		self.size = 0
 		self.cryptoCounter = None
 		
-		if buffer:
-			Hex.dump(buffer)
+		#if buffer:
+		#	Hex.dump(buffer)
 			
 		self.files = []
 		
@@ -152,10 +152,9 @@ class PFS0(SectionFilesystem):
 		
 		headerSize = 0x10 + 0x18 * fileCount + stringTableSize
 		self.files = []
-		print('starting file scan')
+
 		for i in range(fileCount):
 			self.seek(0x10 + i * 0x18)
-			print('file offset = ' + hex(self.tell()) + ', should be ' + hex(0x10 + i * 0x18))
 			f = PFS0File()
 			f.offset = self.readInt64()
 			f.size = self.readInt64()
