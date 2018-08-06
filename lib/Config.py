@@ -81,6 +81,11 @@ with open('nut.json', encoding="utf8") as f:
 		paths.scan = j['paths']['scan']
 	except:
 		pass
+
+	try:
+		paths.nspOut = j['paths']['nspOut']
+	except:
+		pass
 		
 	try:
 		paths.titleDatabase = ['paths']['titledb']
