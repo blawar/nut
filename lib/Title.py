@@ -52,12 +52,42 @@ class Title:
 		
 	def getIsDLC(self):
 		return self.isDLC*1
+
+	def setIsDLC(self, v):
+		try:
+			v = int(v, 10)
+			if v == 1:
+				self.isDLC = True
+			elif v == 0:
+				self.isDLC = False
+		except:
+			pass
 		
 	def getIsUpdate(self):
 		return self.isUpdate*1
+
+	def setIsUpdate(self, v):
+		try:
+			v = int(v, 10)
+			if v == 1:
+				self.isUpdate = True
+			elif v == 0:
+				self.isUpdate = False
+		except:
+			pass
 		
 	def getIsDemo(self):
 		return self.isDemo*1
+
+	def setIsDemo(self, v):
+		try:
+			v = int(v, 10)
+			if v == 1:
+				self.isDemo = True
+			elif v == 0:
+				self.isDemo = False
+		except:
+			pass
 
 	def setRightsId(self, rightsId):
 		if not id:
