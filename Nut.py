@@ -16,10 +16,9 @@ sys.path.insert(0, 'lib')
 
 from Title import Title
 import Titles
-import Nsp
 import Nsps
 import CDNSP
-import Nca
+import Fs
 import Config
 import requests
 #import blockchain
@@ -248,11 +247,11 @@ if __name__ == '__main__':
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			if args.info.endswith('.xci'):
-				f = Nca.Xci(args.info)
+				f = Fs.Xci(args.info)
 			elif args.info.endswith('.nsp'):
-				f = Nsp.Nsp(args.info)
+				f = Fs.Nsp(args.info)
 			elif args.info.endswith('.nca'):
-				f = Nca.Nca(args.info)
+				f = Fs.Nca(args.info)
 			else:
 				f = File(args.info)
 			f.printInfo()
