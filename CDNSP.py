@@ -180,6 +180,24 @@ def get_version(titleId):
 		return str(j['version'])
 	except Exception as e:
 		return None
+		
+def get_versionUpdates():
+	url = 'https://tagaya.hac.%s.eshop.nintendo.net/tagaya/hac_versionlist' % env
+	r = make_request('GET', url)
+	j = r.json()
+	r = {}
+	try:
+		if j['error']:
+			return r
+	except Exception as e:
+		pass
+		
+	for i in j['titles']:
+		try:
+			r[i['id']] = i['version']
+		except Exception as e:
+			pass
+	return r
 
 def get_name(titleId):
 	titleId = titleId.lower()
