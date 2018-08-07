@@ -22,6 +22,8 @@ def factory(name):
 		f = Nsp()
 	elif name.endswith('.nca'):
 		f =  Nca()
+	elif name.endswith('.tik'):
+		f =  Ticket()
 	else:
 		f = File()
 
@@ -56,8 +58,15 @@ class SectionFilesystem(File):
 		
 		if buffer:
 			self.buffer = buffer
-			self.fsType = buffer[0x3]
-			self.cryptoType = buffer[0x4]
+			try:
+				self.fsType = Type.Fs(buffer[0x3])
+			except:
+				self.fsType = buffer[0x3]
+
+			try:
+				self.cryptoType = Type.Crypto(buffer[0x4])
+			except:
+				self.cryptoType = buffer[0x4]
 			
 			self.cryptoCounter = bytearray((b"\x00"*8) + buffer[0x140:0x148])
 			self.cryptoCounter = self.cryptoCounter[::-1]
@@ -265,6 +274,12 @@ class NcaHeader(File):
 		self.magic = self.read(0x4)
 		self.isGameCard = self.readInt8()
 		self.contentType = self.readInt8()
+
+		try:
+			self.contentType = Type.Content(self.contentType)
+		except:
+			pass
+
 		self.cryptoType = self.readInt8()
 		self.keyIndex = self.readInt8()
 		self.size = self.readInt64()
@@ -366,7 +381,7 @@ class Nca(File):
 		print(tabs + 'titleId = ' + str(self.header.titleId))
 		print(tabs + 'rightsId = ' + str(self.header.rightsId))
 		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
-		print(tabs + 'contentType = ' + hex(self.header.contentType))
+		print(tabs + 'contentType = ' + str(self.header.contentType))
 		print(tabs + 'cryptoType = ' + str(self.cryptoType))
 		print(tabs + 'NCA Size: ' + str(self.header.size))
 		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
@@ -816,19 +831,68 @@ class Nsp(PFS0):
 		return header
 
 class Ticket(File):
-	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
-		super(Ticket, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Ticket, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		self.signatureType = None
 		self.signature = None
+		self.signaturePadding = None
+
+		self.issuer = None
+		self.TitleKeyBlock = None
+		self.keyType = None
+		self.masterKeyRevision = None
+		self.ticketId = None
+		self.deviceId = None
+		self.rightsId = None
+		self.accountId = None
 
 		self.signatureSizes = {}
-		self.signatureSizes[RSA_4096_SHA1] = 0x200
-		self.signatureSizes[RSA_2048_SHA] = 0x100
-		self.signatureSizes[ECDSA_SHA1] = 0x3C
-		self.signatureSizes[RSA_4096_SHA256] = 0x200
-		self.signatureSizes[RSA_2048_SHA256] = 0x100
-		self.signatureSizes[ECDSA_SHA256] = 0x3C
+		self.signatureSizes[Type.TicketSignature.RSA_4096_SHA1] = 0x200
+		self.signatureSizes[Type.TicketSignature.RSA_2048_SHA1] = 0x100
+		self.signatureSizes[Type.TicketSignature.ECDSA_SHA1] = 0x3C
+		self.signatureSizes[Type.TicketSignature.RSA_4096_SHA256] = 0x200
+		self.signatureSizes[Type.TicketSignature.RSA_2048_SHA256] = 0x100
+		self.signatureSizes[Type.TicketSignature.ECDSA_SHA256] = 0x3C
 
 	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(Ticket, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+		self.signatureType = self.readInt32()
+		try:
+			self.signatureType = Type.TicketSignature(self.signatureType)
+		except:
+			raise IOError('Invalid ticket format')
+
+		self.signaturePadding = 0x40 - ((self.signatureSizes[self.signatureType] + 4) % 0x40)
+
+		self.seek(0x4 + self.signatureSizes[self.signatureType] + self.signaturePadding)
+
+		self.issuer = self.read(0x40)
+		self.TitleKeyBlock = self.read(0x100)
+		self.readInt8() # unknown
+		self.keyType = self.readInt8()
+		self.read(0x4) # unknown
+		self.masterKeyRevision = self.readInt8()
+		self.read(0x9) # unknown
+		self.ticketId = hx(self.read(0x8)).decode('utf-8')
+		self.deviceId = hx(self.read(0x8)).decode('utf-8')
+		self.rightsId = hx(self.read(0x10)).decode('utf-8')
+		self.accountId = hx(self.read(0x4)).decode('utf-8')
+		self.seek(0x286)
+		#self.masterKeyRevision = self.readInt8()
+
+
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		print('\n%sTicket\n' % (tabs))
+		super(Ticket, self).printInfo(indent)
+		print(tabs + 'signatureType = ' + str(self.signatureType))
+		print(tabs + 'keyType = ' + str(self.keyType))
+		print(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
+		print(tabs + 'ticketId = ' + str(self.ticketId))
+		print(tabs + 'deviceId = ' + str(self.deviceId))
+		print(tabs + 'rightsId = ' + str(self.rightsId))
+		print(tabs + 'accountId = ' + str(self.accountId))
+		#print(tabs + 'magic = ' + str(self.magic))
+		#print(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
