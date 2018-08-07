@@ -71,8 +71,8 @@ class SectionFilesystem(File):
 	def printInfo(self, indent):
 		tabs = '\t' * indent
 		print(tabs + 'magic = ' + str(self.magic))
-		#print(tabs + 'fsType = ' + str(self.fsType))
-		#print(tabs + 'cryptoType = ' + str(self.cryptoType))
+		print(tabs + 'fsType = ' + str(self.fsType))
+		print(tabs + 'cryptoType = ' + str(self.cryptoType))
 		print(tabs + 'size = ' + str(self.size))
 		print(tabs + 'offset = ' + str(self.offset))
 		if self.cryptoCounter:
@@ -85,7 +85,11 @@ class SectionFilesystem(File):
 		print('\n%s\tFiles:\n' % (tabs))
 		
 		for f in self:
-			f.printInfo(indent+1)
+			#f.printInfo(indent+1)
+			if f.name.endswith('.nca'):
+				Nca(f).printInfo(indent+1)
+			else:
+				f.printInfo(indent+1)
 			print('\n%s\t%s\n' % (tabs, '*' * 64))
 
 
@@ -182,7 +186,7 @@ class PFS0(SectionFilesystem):
 		tabs = '\t' * indent
 		print('\n%sPFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
-
+		'''
 		for f in self:
 			print('%s%s' % (tabs, f.name))
 			
@@ -192,12 +196,16 @@ class PFS0(SectionFilesystem):
 				f.printInfo(indent+1)
 			
 			print('\n%s%s\n' % (tabs, '*' * 64))
+		'''
 
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(ROMFS, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
-		self.magic = None
+		self.magic = buffer[0x8:0xC]
+
+	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		r = super(ROMFS, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		
 def GetSectionFilesystem(buffer, cryptoKey):
 	fsType = buffer[0x3]
@@ -269,15 +277,20 @@ class NcaHeader(File):
 			self.keys.append(self.read(0x10))
 		
 		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
-		
-		if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
-			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.masterKey)
+
+		if self.hasTitleRights():
+			if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
+				self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.masterKey)
+			else:
+				print('could not find title key!')
 		else:
-			pass
-			#self.titleKeyDec = self.key()
+			self.titleKeyDec = self.key()
 
 	def key(self):
 		return self.keys[self.keyIndex]
+
+	def hasTitleRights(self):
+		return self.rightsId != (b'0' * 32)
 
 
 class Nca(File):
