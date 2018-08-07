@@ -15,6 +15,12 @@ import Config
 
 MEDIA_SIZE = 0x200
 
+def getFileInstance(f):
+	if f.name.endswith('.nca'):
+		return Nca(f)
+	else:
+		return f
+
 class SectionTableEntry:
 	def __init__(self, d):
 		self.mediaOffset = int.from_bytes(d[0x0:0x4], byteorder='little', signed=False)
@@ -26,7 +32,6 @@ class SectionTableEntry:
 		self.unknown1 = int.from_bytes(d[0x8:0xc], byteorder='little', signed=False)
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = None
-
 		
 class SectionFilesystem(File):
 	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):		
@@ -85,11 +90,7 @@ class SectionFilesystem(File):
 		print('\n%s\tFiles:\n' % (tabs))
 		
 		for f in self:
-			#f.printInfo(indent+1)
-			if f.name.endswith('.nca'):
-				Nca(f).printInfo(indent+1)
-			else:
-				f.printInfo(indent+1)
+			f.printInfo(indent+1)
 			print('\n%s\t%s\n' % (tabs, '*' * 64))
 
 
@@ -158,22 +159,41 @@ class PFS0(SectionFilesystem):
 		fileCount = self.readInt32()
 		stringTableSize = self.readInt32()
 		self.readInt32() # junk data
+
+		self.seek(0x10 + fileCount * 0x18)
+		stringTable = self.read(stringTableSize)
+		stringEndOffset = stringTableSize
 		
 		headerSize = 0x10 + 0x18 * fileCount + stringTableSize
 		self.files = []
 
 		for i in range(fileCount):
+			i = fileCount - i - 1
 			self.seek(0x10 + i * 0x18)
 			f = PFS0File()
-			f.offset = self.readInt64()
-			f.size = self.readInt64()
-			f.name = 'NULL'
-			f.nameOffset = self.readInt32() # just the offset
-			self.readInt32() # junk data
-			self.partition(f.offset + headerSize, f.size, f)
-			
-			self.files.append(f)
+			offset = self.readInt64()
+			size = self.readInt64()
+			nameOffset = self.readInt32() # just the offset
+			name = stringTable[nameOffset:stringEndOffset].decode('utf-8').rstrip(' \t\r\n\0')
+			stringEndOffset = nameOffset
 
+			self.readInt32() # junk data
+
+			if name.endswith('.nca'):
+				f = Nca()
+			else:
+				f = File()
+
+			f._path = name
+			f.offset = offset
+			f.size = size
+			
+			self.files.append(self.partition(offset + headerSize, f.size, f))
+
+		self.files.reverse()
+
+		'''
+		self.seek(0x10 + fileCount * 0x18)
 		stringTable = self.read(stringTableSize)
 		
 		for i in range(fileCount):
@@ -181,22 +201,12 @@ class PFS0(SectionFilesystem):
 				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').rstrip(' \t\r\n\0')
 			else:
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').rstrip(' \t\r\n\0')
+		'''
 				
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
 		print('\n%sPFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
-		'''
-		for f in self:
-			print('%s%s' % (tabs, f.name))
-			
-			if f.name.endswith('.nca'):
-				Nca(f).printInfo(indent+1)
-			else:
-				f.printInfo(indent+1)
-			
-			print('\n%s%s\n' % (tabs, '*' * 64))
-		'''
 
 		
 class ROMFS(SectionFilesystem):
@@ -795,19 +805,21 @@ class Nsp(PFS0):
 		header += remainder * b'\x00'
 		
 		return header
-		
-	def printInfo2(self, indent = 0):
-		super(Nsp, self).printInfo(indent)
-		tabs = '\t' * indent
-		
-		print('\n%sNSP Archive\n\nFiles:' % (tabs))
-		
-		for f in self:
-			print('%s%s' % (tabs, f.name))
-			
-			if f.name.endswith('.nca'):
-				Nca(f).printInfo(indent+1)
-			else:
-				f.printInfo(indent+1)
-			
-			print('\n%s%s\n' % (tabs, '*' * 64))
+
+class Ticket(File):
+	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Ticket, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+
+		self.signatureType = None
+		self.signature = None
+
+		self.signatureSizes = {}
+		self.signatureSizes[RSA_4096_SHA1] = 0x200
+		self.signatureSizes[RSA_2048_SHA] = 0x100
+		self.signatureSizes[ECDSA_SHA1] = 0x3C
+		self.signatureSizes[RSA_4096_SHA256] = 0x200
+		self.signatureSizes[RSA_2048_SHA256] = 0x100
+		self.signatureSizes[ECDSA_SHA256] = 0x3C
+
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Ticket, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
