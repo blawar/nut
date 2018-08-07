@@ -17,7 +17,7 @@ class BaseFile:
 		self.isPartition = False
 		self._path = None
 		self._buffer = None
-		self._pos = 0x0
+		self._relativePos = 0x0
 		self._bufferOffset = 0x0
 		self._bufferSize = 0x1000
 		self._bufferAlign = 0x1000
@@ -31,7 +31,7 @@ class BaseFile:
 		self._bufferSize = size
 		self._bufferAlign = align
 		self._bufferOffset = None
-		self._pos = 0x0
+		self._relativePos = 0x0
 			
 	def partition(self, offset = 0x0, size = None, n = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		if not n:
@@ -47,6 +47,7 @@ class BaseFile:
 		n.f = self
 		n.isPartition = True
 		
+		#print('created partition for %s %x, size = %d' % (n.__class__.__name__, offset, size))
 		n.open(None, None, cryptoType, cryptoKey, cryptoCounter)
 		
 		return n
@@ -79,15 +80,15 @@ class BaseFile:
 		if from_what == 0:
 			# seek from begining				
 			self.f.seek(self.offset + offset)
-			if self.cryptoType == Type.Crypto.CTR:
-				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			#if self.cryptoType == Type.Crypto.CTR:
+			#	self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
 			return
 		elif from_what == 1:
 			# seek from current position
 			self.f.seek(self.offset + offset)
 
-			if self.cryptoType == Type.Crypto.CTR:
-				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			#if self.cryptoType == Type.Crypto.CTR:
+			#	self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
 			return
 		elif from_what == 2:
 			# see from end
@@ -96,8 +97,8 @@ class BaseFile:
 
 			self.f.seek(self.offset + offset + self.size)
 
-			if self.cryptoType == Type.Crypto.CTR:
-				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			#if self.cryptoType == Type.Crypto.CTR:
+			#	self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
 			return
 			
 		raise Exception('Invalid seek type')
@@ -119,6 +120,8 @@ class BaseFile:
 			self.cryptoCounter = cryptoCounter
 			
 		if self.cryptoType == Type.Crypto.CTR:
+			#print('setting up ctr')
+			#self.rewind()
 			self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
 			self.cryptoType = Type.Crypto.CTR
 			
@@ -126,6 +129,7 @@ class BaseFile:
 
 			#self.__class__ = AesCtrFile
 		elif self.cryptoType == Type.Crypto.XTS:
+			#print('setting up xts')
 			self.crypto = aes128.AESXTS(self.cryptoKey)
 			self.cryptoType = Type.Crypto.XTS
 			
@@ -155,8 +159,9 @@ class BaseFile:
 				self.f.seek(0,2)
 				self.size = self.f.tell()
 				self.f.seek(0,0)
-			elif isinstance(path, File):
+			elif isinstance(path, BaseFile):
 				self.f = path
+				self.size = path.size
 			else:
 				raise IOError('Invalid file parameter')
 
@@ -196,25 +201,33 @@ class BufferedFile(BaseFile):
 		if not size:
 			size = self.size
 
-		if self._bufferOffset == None or self._buffer == None or self._pos < self._bufferOffset or (self._pos + size)  > self._bufferOffset + len(self._buffer):
-			#self._bufferOffset = self._pos & ~(self._bufferAlign-1)
-			self._bufferOffset = (int(self._pos / self._bufferAlign) * self._bufferAlign)
-			l = self._bufferOffset + self._bufferSize
-				
-			if size > self._bufferSize - self._bufferOffset:
-				l = ((int((self._pos + size) / self._bufferAlign) * self._bufferAlign) + self._bufferAlign)
-				
+		if self._bufferOffset == None or self._buffer == None or self._relativePos < self._bufferOffset or (self._relativePos + size)  > self._bufferOffset + len(self._buffer):
+			#self._bufferOffset = self._relativePos & ~(self._bufferAlign-1)
+			self._bufferOffset = (int(self._relativePos / self._bufferAlign) * self._bufferAlign)
+
+			pageReadSize = self._bufferSize
+
+			while self._relativePos + size > self._bufferOffset + pageReadSize:
+				pageReadSize += self._bufferSize
+
+			#print('disk read %s\t\t: relativePos = %x, bufferOffset = %x, align = %x, size = %x, pageReadSize = %x, bufferSize = %x' % (self.__class__.__name__, self._relativePos, self._bufferOffset, self._bufferAlign, size, pageReadSize, self._bufferSize))
 			super(BufferedFile, self).seek(self._bufferOffset)
-			self._buffer = super(BufferedFile, self).read(l)
+			#self.seek(self._bufferOffset)
+			self._buffer = super(BufferedFile, self).read(pageReadSize)
 			self.pageRefreshed()
+			if len(self._buffer) == 0:
+				raise IOError('read returned empty ' + hex(self.offset))
 				
-		offset = self._pos - self._bufferOffset
+		offset = self._relativePos - self._bufferOffset
 		r = self._buffer[offset:offset+size]
-		self._pos += size
+		self._relativePos += size
 		return r
 
 	def pageRefreshed(self):
 		pass
+
+	def tell(self):
+		return self._relativePos
 
 	def seek(self, offset, from_what = 0):
 		if not self.isOpen():
@@ -225,13 +238,13 @@ class BufferedFile(BaseFile):
 
 		if from_what == 0:
 			# seek from begining
-			self._pos = offset
+			self._relativePos = offset
 			return
 
 		elif from_what == 1:
 			# seek from current position
 			if self._buffer:
-				self._pos += offset
+				self._relativePos += offset
 				return
 			
 			r = f.seek(self.offset + offset)				
@@ -241,7 +254,7 @@ class BufferedFile(BaseFile):
 			# see from end
 			if offset > 0:
 				raise Exception('Invalid seek offset')
-			self._pos = self.size + offset
+			self._relativePos = self.size + offset
 			return
 			
 		raise Exception('Invalid seek type')
@@ -252,6 +265,12 @@ class File(BufferedFile):
 
 	def pageRefreshed(self):
 		if self.crypto:
+			if self.cryptoType == Type.Crypto.CTR:
+				#print('reading ctr from ' + hex(self._bufferOffset))
+				self.crypto.set_ctr(self.setCounter(self.offset + self._bufferOffset))
+			else:
+				pass
+				#print('reading from ' + hex(self._bufferOffset))
 			self._buffer = self.crypto.decrypt(self._buffer)
 		return self._buffer
 		
