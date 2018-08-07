@@ -4,7 +4,8 @@ import aes128
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
-class File:
+
+class BaseFile:
 	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		self.offset = 0x0
 		self.size = None
@@ -18,8 +19,8 @@ class File:
 		self._buffer = None
 		self._pos = 0x0
 		self._bufferOffset = 0x0
-		self._bufferSize = None
-		self._bufferAlign = None
+		self._bufferSize = 0x1000
+		self._bufferAlign = 0x1000
 		
 		if path and mode != None:
 			self.open(path, mode, cryptoType, cryptoKey, cryptoCounter)
@@ -77,16 +78,27 @@ class File:
 
 		if from_what == 0:
 			# seek from begining				
-			return self.f.seek(self.offset + offset)
+			self.f.seek(self.offset + offset)
+			if self.cryptoType == Type.Crypto.CTR:
+				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			return
 		elif from_what == 1:
 			# seek from current position
-			return self.f.seek(self.offset + offset)
+			self.f.seek(self.offset + offset)
+
+			if self.cryptoType == Type.Crypto.CTR:
+				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			return
 		elif from_what == 2:
 			# see from end
 			if offset > 0:
 				raise Exception('Invalid seek offset')
 
-			return self.f.seek(self.offset + offset + self.size)
+			self.f.seek(self.offset + offset + self.size)
+
+			if self.cryptoType == Type.Crypto.CTR:
+				self.crypto.set_ctr(self.setCounter(self.offset + self.tell()))
+			return
 			
 		raise Exception('Invalid seek type')
 		
@@ -112,11 +124,7 @@ class File:
 			
 			self.enableBufferedIO(0x10, 0x10)
 
-			self.__class__ = AesCtrFile
-			
-			#print('cryptoType = ' + hex(self.cryptoType))
-			#print('titleKey = ' + (self.cryptoKey.hex()))
-			#print('cryptoCounter = ' + (self.cryptoCounter.hex()))
+			#self.__class__ = AesCtrFile
 		elif self.cryptoType == Type.Crypto.XTS:
 			self.crypto = aes128.AESXTS(self.cryptoKey)
 			self.cryptoType = Type.Crypto.XTS
@@ -125,11 +133,14 @@ class File:
 				raise IOError('AESXTS Block too large or small')
 			
 			self.rewind()
-			#self._buffer = self.f.read(self.size)
-			#self._buffer = self.crypto.decrypt(self._buffer)
-			#self._pos = 0
 			self.enableBufferedIO(self.size, 0x10)
-			self.__class__ = AesXtsFile
+			#self.__class__ = AesXtsFile
+		elif self.cryptoType == Type.Crypto.BKTR:
+			self.cryptoType = Type.Crypto.BKTR
+		elif self.cryptoType == Type.Crypto.NCA0:
+			self.cryptoType = Type.Crypto.NCA0
+		elif self.cryptoType == Type.Crypto.NONE:
+			self.cryptoType = Type.Crypto.NONE
 
 
 	def open(self, path, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
@@ -176,7 +187,8 @@ class File:
 			print('%sFile Path: %s' % (tabs, self._path))
 		print('%sFile Size: %s' % (tabs, self.size))
 
-class BufferedFile(File):
+
+class BufferedFile(BaseFile):
 	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(BufferedFile, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
@@ -184,7 +196,7 @@ class BufferedFile(File):
 		if not size:
 			size = self.size
 
-		if self._bufferOffset == None or self._pos < self._bufferOffset or (self._pos + size)  > self._bufferOffset + len(self._buffer) or self._buffer == None:
+		if self._bufferOffset == None or self._buffer == None or self._pos < self._bufferOffset or (self._pos + size)  > self._bufferOffset + len(self._buffer):
 			#self._bufferOffset = self._pos & ~(self._bufferAlign-1)
 			self._bufferOffset = (int(self._pos / self._bufferAlign) * self._bufferAlign)
 			l = self._bufferOffset + self._bufferSize
@@ -192,7 +204,7 @@ class BufferedFile(File):
 			if size > self._bufferSize - self._bufferOffset:
 				l = ((int((self._pos + size) / self._bufferAlign) * self._bufferAlign) + self._bufferAlign)
 				
-			self.seek(self._bufferOffset)
+			super(BufferedFile, self).seek(self._bufferOffset)
 			self._buffer = super(BufferedFile, self).read(l)
 			self.pageRefreshed()
 				
@@ -233,6 +245,15 @@ class BufferedFile(File):
 			return
 			
 		raise Exception('Invalid seek type')
+
+class File(BufferedFile):
+	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(File, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
+
+	def pageRefreshed(self):
+		if self.crypto:
+			self._buffer = self.crypto.decrypt(self._buffer)
+		return self._buffer
 		
 class CryptoFile(BufferedFile):
 	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
