@@ -5,6 +5,7 @@ import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from File import File
+from File import BufferedFile
 import Type
 import os
 import re
@@ -222,8 +223,9 @@ class NcaHeader(File):
 		self.cryptoType2 = None
 		self.rightsId = None
 		self.titleKeyDec = None
-		self.keyBlobIndex = None
+		self.masterKey = None
 		self.sectionTables = []
+		self.keys = []
 		
 		super(NcaHeader, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		
@@ -260,15 +262,21 @@ class NcaHeader(File):
 			
 		for i in range(4):
 			self.sectionHashes.append(self.sectionTables[i])
-			
-		self.keyArea = self.read(0x40)
 		
-		self.keyBlobIndex = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
+		self.keys = []
+		#for i in range(4):
+		#	self.key.append(self.read(0x10))
+		
+		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
 		if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
-			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.keyBlobIndex)
+			self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.masterKey)
 		else:
 			pass
+			#self.titleKeyDec = self.key()
+
+	def key(self):
+		return self.keys[self.keyIndex]
 
 
 class Nca(File):
@@ -308,7 +316,7 @@ class Nca(File):
 		
 		
 		self.titleKeyDec = None
-		self.keyBlobIndex = None
+		self.masterKey = None
 
 		
 	def printInfo(self, indent = 0):
@@ -320,6 +328,7 @@ class Nca(File):
 		print(tabs + 'rightsId = ' + str(self.header.rightsId))
 		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
 		print(tabs + 'contentType = ' + hex(self.header.contentType))
+		print(tabs + 'cryptoType = ' + str(self.cryptoType))
 		print(tabs + 'NCA Size: ' + str(self.header.size))
 		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
 		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType2))
