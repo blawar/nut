@@ -10,6 +10,7 @@
 		"scan": "."
     },
 	"titleUrls": [
+		"http://snip.li/newkeydb"
 	],
 	"cdn": {
 		"region": "US",
