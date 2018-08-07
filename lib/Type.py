@@ -1,10 +1,19 @@
 from enum import IntEnum
 
+class Content(IntEnum):
+	PROGRAM = 0x0
+	META = 0x1
+	CONTROL = 0x2
+	MANUAL = 0x3
+	DATA = 0x4
+
 class Fs(IntEnum):
+	NONE = 0x0
 	PFS0 = 0x2
 	ROMFS = 0x3
 	
 class Crypto(IntEnum):
+	ERR = 0
 	NONE = 1
 	XTS = 2
 	CTR = 3
