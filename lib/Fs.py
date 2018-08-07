@@ -36,6 +36,7 @@ class SectionFilesystem(File):
 		self.cryptoType = None
 		self.size = 0
 		self.cryptoCounter = None
+		self.magic = None
 		
 		#if buffer:
 		#	Hex.dump(buffer)
@@ -70,8 +71,8 @@ class SectionFilesystem(File):
 	def printInfo(self, indent):
 		tabs = '\t' * indent
 		print(tabs + 'magic = ' + str(self.magic))
-		print(tabs + 'fsType = ' + str(self.fsType))
-		print(tabs + 'cryptoType = ' + str(self.cryptoType))
+		#print(tabs + 'fsType = ' + str(self.fsType))
+		#print(tabs + 'cryptoType = ' + str(self.cryptoType))
 		print(tabs + 'size = ' + str(self.size))
 		print(tabs + 'offset = ' + str(self.offset))
 		if self.cryptoCounter:
@@ -264,8 +265,8 @@ class NcaHeader(File):
 			self.sectionHashes.append(self.sectionTables[i])
 		
 		self.keys = []
-		#for i in range(4):
-		#	self.key.append(self.read(0x10))
+		for i in range(4):
+			self.keys.append(self.read(0x10))
 		
 		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
@@ -297,19 +298,25 @@ class Nca(File):
 
 		self.header = NcaHeader()
 		self.partition(0x0, 0xC00, self.header, Type.Crypto.XTS, uhx(Keys.get('header_key')))
-		
+		#print('partition complete, seeking')
 		self.header.seek(0x400)
+		#print('reading')
+		#Hex.dump(self.header.read(0x200))
+		#exit()
 
 		for i in range(4):
 			fs = GetSectionFilesystem(self.header.read(0x200), cryptoKey = self.header.titleKeyDec)
-
-			#print('st end offset = ' + str(self.sectionTables[i].endOffset - self.sectionTables[i].offset))
-			#print('offset = ' + hex(self.header.sectionTables[i].offset))
+			#print('fs type = ' + hex(fs.fsType))
+			#print('fs crypto = ' + hex(fs.cryptoType))
+			#print('st end offset = ' + str(self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset))
+			#print('fs offset = ' + hex(self.header.sectionTables[i].offset))
+			#print('fs section start = ' + hex(fs.sectionStart))
 			#print('titleKey = ' + hex(self.header.titleKeyDec))
 			try:
 				self.partition(self.header.sectionTables[i].offset + fs.sectionStart, self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset, fs, cryptoKey = self.header.titleKeyDec)
 			except BaseException as e:
 				print(e)
+				#raise
 
 			if fs.fsType:
 				self.sectionFilesystems.append(fs)
