@@ -69,9 +69,29 @@ class BaseFile:
 		
 	def readInt64(self, byteorder='little', signed = False):
 		return int.from_bytes(self.read(8), byteorder=byteorder, signed=signed)
+
+	def readInt128(self, byteorder='little', signed = False):
+		return int.from_bytes(self.read(16), byteorder=byteorder, signed=signed)
 		
-	def write(self, buffer):
-		return self.f.write(buffer)
+	def write(self, value, size = None):
+		if size != None:
+			value = value + '\0x00' * (size - len(value))
+		return self.f.write(value)
+
+	def writeInt8(self, value, byteorder='little', signed = False):
+		return self.write(value.to_bytes(1, byteorder))
+		
+	def writeInt16(self, value, byteorder='little', signed = False):
+		return self.write(value.to_bytes(2, byteorder))
+		
+	def writeInt32(self, value, byteorder='little', signed = False):
+		return self.write(value.to_bytes(4, byteorder))
+		
+	def writeInt64(self, value, byteorder='little', signed = False):
+		return self.write(value.to_bytes(8, byteorder))
+
+	def writeInt128(self, value, byteorder='little', signed = False):
+		return self.write(value.to_bytes(16, byteorder))
 	
 	def seek(self, offset, from_what = 0):
 		if not self.isOpen():

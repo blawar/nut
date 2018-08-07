@@ -839,7 +839,7 @@ class Ticket(File):
 		self.signaturePadding = None
 
 		self.issuer = None
-		self.TitleKeyBlock = None
+		self.titleKeyBlock = None
 		self.keyType = None
 		self.masterKeyRevision = None
 		self.ticketId = None
@@ -869,7 +869,7 @@ class Ticket(File):
 		self.seek(0x4 + self.signatureSizes[self.signatureType] + self.signaturePadding)
 
 		self.issuer = self.read(0x40)
-		self.TitleKeyBlock = self.read(0x100)
+		self.titleKeyBlock = self.read(0x100)
 		self.readInt8() # unknown
 		self.keyType = self.readInt8()
 		self.read(0x4) # unknown
@@ -880,7 +880,137 @@ class Ticket(File):
 		self.rightsId = hx(self.read(0x10)).decode('utf-8')
 		self.accountId = hx(self.read(0x4)).decode('utf-8')
 		self.seek(0x286)
-		#self.masterKeyRevision = self.readInt8()
+		self.masterKeyRevision = self.readInt8()
+
+	def seekStart(self, offset):
+		self.seek(0x4 + self.signatureSizes[self.signatureType] + self.signaturePadding + offset)
+
+	def getSignatureType(self):
+		self.seek(0x0)
+		self.signatureType = self.readInt32()
+		return self.signatureType
+
+	def setSignatureType(self, value):
+		self.seek(0x0)
+		self.signatureType = value
+		self.writeInt32(value)
+		return self.signatureType
+
+
+	def getSignature(self):
+		self.seek(0x4)
+		self.signature = self.read(self.signatureSizes[self.getSignatureType()])
+		return self.signature
+
+	def setSignature(self, value):
+		self.seek(0x4)
+		self.signature = value
+		self.write(value, self.signatureSizes[self.getSignatureType()])
+		return self.signature
+
+
+	def getSignaturePadding(self):
+		self.signaturePadding = 0x40 - ((self.signatureSizes[self.signatureType] + 4) % 0x40)
+		return self.signaturePadding
+
+
+	def getIssuer(self):
+		self.seekStart(0x0)
+		self.issuer = self.read(0x40)
+		return self.issuer
+
+	def setIssuer(self, value):
+		self.seekStart(0x0)
+		self.issuer = value
+		self.write(value, 0x40)
+		return self.issuer
+
+
+	def getTitleKeyBlock(self):
+		self.seekStart(0x40)
+		self.titleKeyBlock = self.read(0x100)
+		return self.titleKeyBlock
+
+	def setTitleKeyBlock(self, value):
+		self.seekStart(0x40)
+		self.titleKeyBlock = value
+		self.write(value, 0x100)
+		return self.titleKeyBlock
+
+
+	def getKeyType(self):
+		self.seekStart(0x141)
+		self.keyType = self.readInt8()
+		return self.keyType
+
+	def setKeyType(self, value):
+		self.seekStart(0x141)
+		self.keyType = value
+		self.writeInt8(value, 0x1)
+		return self.keyType
+
+
+	def getMasterKeyRevision(self):
+		self.seekStart(0x146)
+		self.masterKeyRevision = self.readInt8()
+		return self.masterKeyRevision
+
+	def setMasterKeyRevision(self, value):
+		self.seekStart(0x146)
+		self.masterKeyRevision = value
+		self.writeInt8(value)
+		return self.masterKeyRevision
+
+
+	def getTicketId(self):
+		self.seekStart(0x150)
+		self.ticketId = self.readInt64('big')
+		return self.ticketId
+
+	def setTicketId(self, value):
+		self.seekStart(0x150)
+		self.ticketId = value
+		self.writeInt64(value, 'big')
+		return self.ticketId
+
+
+	def getDeviceId(self):
+		self.seekStart(0x158)
+		self.deviceId = self.readInt64('big')
+		return self.deviceId
+
+	def setDeviceId(self, value):
+		self.seekStart(0x158)
+		self.deviceId = value
+		self.writeInt64(value, 'big')
+		return self.deviceId
+
+
+	def getRightsId(self):
+		self.seekStart(0x160)
+		self.rightsId = self.readInt128('big')
+		return self.rightsId
+
+	def setRightsId(self, value):
+		self.seekStart(0x160)
+		self.rightsId = value
+		self.writeInt128(value, 'big')
+		return self.rightsId
+
+
+	def getAccountId(self):
+		self.seekStart(0x170)
+		self.accountId = self.readInt32('big')
+		return self.accountId
+
+	def setAccountId(self, value):
+		self.seekStart(0x170)
+		self.accountId = value
+		self.writeInt32(value, 'big')
+		return self.accountId
+
+
+
 
 
 	def printInfo(self, indent = 0):
@@ -892,7 +1022,7 @@ class Ticket(File):
 		print(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
 		print(tabs + 'ticketId = ' + str(self.ticketId))
 		print(tabs + 'deviceId = ' + str(self.deviceId))
-		print(tabs + 'rightsId = ' + str(self.rightsId))
+		print(tabs + 'rightsId = ' + hex(self.getRightsId()))
 		print(tabs + 'accountId = ' + str(self.accountId))
 		#print(tabs + 'magic = ' + str(self.magic))
 		#print(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
