@@ -15,11 +15,17 @@ import Config
 
 MEDIA_SIZE = 0x200
 
-def getFileInstance(f):
-	if f.name.endswith('.nca'):
-		return Nca(f)
+def factory(name):
+	if name.endswith('.xci'):
+		f = Xci()
+	elif name.endswith('.nsp'):
+		f = Nsp()
+	elif name.endswith('.nca'):
+		f =  Nca()
 	else:
-		return f
+		f = File()
+
+	return f
 
 class SectionTableEntry:
 	def __init__(self, d):
@@ -179,10 +185,13 @@ class PFS0(SectionFilesystem):
 
 			self.readInt32() # junk data
 
+			'''
 			if name.endswith('.nca'):
 				f = Nca()
 			else:
 				f = File()
+			'''
+			f = factory(name)
 
 			f._path = name
 			f.offset = offset

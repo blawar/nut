@@ -246,14 +246,8 @@ if __name__ == '__main__':
 		if re.match('[A-Z0-9][16]', args.info, re.I):
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
-			if args.info.endswith('.xci'):
-				f = Fs.Xci(args.info)
-			elif args.info.endswith('.nsp'):
-				f = Fs.Nsp(args.info)
-			elif args.info.endswith('.nca'):
-				f = Fs.Nca(args.info)
-			else:
-				f = File(args.info)
+			f = Fs.factory(args.info)
+			f.open(args.info)
 			f.printInfo()
 			
 	
