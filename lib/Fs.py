@@ -704,7 +704,7 @@ class Nsp(PFS0):
 			format = Config.paths.titleBase
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
-		format = format.replace('{region}', self.cleanFilename(t.region))
+		format = format.replace('{region}', self.cleanFilename(t.region or ''))
 		format = format.replace('{name}', self.cleanFilename(t.name or ''))
 		format = format.replace('{version}', str(self.version or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
