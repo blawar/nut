@@ -15,17 +15,28 @@ class BaseFile:
 		self.cryptoType = Type.Crypto.NONE
 		self.cryptoCounter = None
 		self.isPartition = False
+		self._children = []
 		self._path = None
 		self._buffer = None
 		self._relativePos = 0x0
 		self._bufferOffset = 0x0
 		self._bufferSize = 0x1000
 		self._bufferAlign = 0x1000
+		self._bufferDirty = False
 		
 		if path and mode != None:
 			self.open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		
 		self.setupCrypto(cryptoType, cryptoKey, cryptoCounter)
+
+	def __enter__(self):
+		return self
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		self.close()
+
+	def __del__(self):
+		self.close()
 			
 	def enableBufferedIO(self, size, align = 0):
 		self._bufferSize = size
@@ -46,11 +57,22 @@ class BaseFile:
 		n.size = size
 		n.f = self
 		n.isPartition = True
+
+		self._children.append(n)
 		
 		#print('created partition for %s %x, size = %d' % (n.__class__.__name__, offset, size))
 		n.open(None, None, cryptoType, cryptoKey, cryptoCounter)
 		
 		return n
+
+	def removeChild(self, child):
+		a = []
+
+		for i in self._children:
+			if i != child:
+				a.append(i)
+
+		self._children = a
 		
 	def read(self, size = None, direct = False):
 		if not size:
@@ -72,10 +94,15 @@ class BaseFile:
 
 	def readInt128(self, byteorder='little', signed = False):
 		return int.from_bytes(self.read(16), byteorder=byteorder, signed=signed)
+
+	def readInt(self, size, byteorder='little', signed = False):
+		return int.from_bytes(self.read(size), byteorder=byteorder, signed=signed)
 		
 	def write(self, value, size = None):
 		if size != None:
 			value = value + '\0x00' * (size - len(value))
+		#print('writing to ' + hex(self.f.tell()) + ' ' + self.f.__class__.__name__)
+		#Hex.dump(value)
 		return self.f.write(value)
 
 	def writeInt8(self, value, byteorder='little', signed = False):
@@ -92,6 +119,9 @@ class BaseFile:
 
 	def writeInt128(self, value, byteorder='little', signed = False):
 		return self.write(value.to_bytes(16, byteorder))
+
+	def writeInt(self, value, size, byteorder='little', signed = False):
+		return self.write(value.to_bytes(size, byteorder))
 	
 	def seek(self, offset, from_what = 0):
 		if not self.isOpen():
@@ -189,8 +219,20 @@ class BaseFile:
 		self.setupCrypto(cryptoType, cryptoKey, cryptoCounter)
 		
 	def close(self):
-		self.f.close()
-		self.f = None
+		if self.f:
+			for i in self._children:
+				i.close()
+			self._children = []
+
+			if not isinstance(self.f, BaseFile):
+				self.f.close()
+			else:
+				self.f.removeChild(self)
+			self.f = None
+
+	def flush(self):
+		if self.f:
+			self.f.flush()
 		
 	def tell(self):
 		return self.f.tell() - self.offset
@@ -222,6 +264,7 @@ class BufferedFile(BaseFile):
 			size = self.size
 
 		if self._bufferOffset == None or self._buffer == None or self._relativePos < self._bufferOffset or (self._relativePos + size)  > self._bufferOffset + len(self._buffer):
+			self.flushBuffer()
 			#self._bufferOffset = self._relativePos & ~(self._bufferAlign-1)
 			self._bufferOffset = (int(self._relativePos / self._bufferAlign) * self._bufferAlign)
 
@@ -232,7 +275,6 @@ class BufferedFile(BaseFile):
 
 			#print('disk read %s\t\t: relativePos = %x, bufferOffset = %x, align = %x, size = %x, pageReadSize = %x, bufferSize = %x' % (self.__class__.__name__, self._relativePos, self._bufferOffset, self._bufferAlign, size, pageReadSize, self._bufferSize))
 			super(BufferedFile, self).seek(self._bufferOffset)
-			#self.seek(self._bufferOffset)
 			self._buffer = super(BufferedFile, self).read(pageReadSize)
 			self.pageRefreshed()
 			if len(self._buffer) == 0:
@@ -243,11 +285,48 @@ class BufferedFile(BaseFile):
 		self._relativePos += size
 		return r
 
+	def write(self, value, size = None):
+		#if not size:
+		#	size = len(value)
+		size = len(value)
+
+		if self._bufferOffset == None or self._buffer == None or self._relativePos < self._bufferOffset or (self._relativePos + size)  > self._bufferOffset + len(self._buffer):
+			self.flushBuffer()
+
+			# read page into memory
+			pos = self.tell()
+			self.read(size)
+			self.seek(pos)
+				
+		offset = self._relativePos - self._bufferOffset
+		self._buffer = self._buffer[:offset] + (value) + self._buffer[offset+size:]
+		self._relativePos += size
+		self._bufferDirty = True
+		
+		return
+
+	def flushBuffer(self):
+		if self.f != None and self._buffer != None and self._bufferDirty == True:
+			#print('writing dirty page')
+			#Hex.dump(self._buffer)
+			super(BufferedFile, self).seek(self._bufferOffset)
+			super(BufferedFile, self).write(self._buffer)
+			self._bufferDirty = False
+
+	def flush(self):
+		if self.f:
+			self.flushBuffer()
+			super(BufferedFile, self).flush()
+
 	def pageRefreshed(self):
 		pass
 
 	def tell(self):
 		return self._relativePos
+
+	def close(self):
+		self.flushBuffer()
+		super(BufferedFile, self).close()
 
 	def seek(self, offset, from_what = 0):
 		if not self.isOpen():
