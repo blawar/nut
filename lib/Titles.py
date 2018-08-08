@@ -40,6 +40,8 @@ def loadTitleBuffer(buffer, silent = True):
 	map = ['id', 'key', 'name']
 	for line in buffer.split('\n'):
 		line = line.strip()
+		if len(line) == 0 or line[0] == '#':
+			continue
 		if firstLine:
 			firstLine = False
 			if re.match('[A-Za-z\|\s]+', line, re.I):
