@@ -19,7 +19,7 @@ def factory(name):
 	if name.endswith('.xci'):
 		f = Xci()
 	elif name.endswith('.nsp'):
-		f = Nsp
+		f = Nsp()
 	elif name.endswith('.nsx'):
 		f = Nsp()
 	elif name.endswith('.nca'):
