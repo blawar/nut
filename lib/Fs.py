@@ -1027,5 +1027,6 @@ class Ticket(File):
 		print(tabs + 'deviceId = ' + str(self.deviceId))
 		print(tabs + 'rightsId = ' + hex(self.getRightsId()))
 		print(tabs + 'accountId = ' + str(self.accountId))
+		print(tabs + 'titleKey = ' + hex(self.getTitleKeyBlock()))
 		#print(tabs + 'magic = ' + str(self.magic))
 		#print(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
