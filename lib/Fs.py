@@ -717,12 +717,12 @@ class Nsp(PFS0):
 		return format
 		
 	def ticket(self):
-		for f in (f for f in self if pathlib.Path(f.name).suffix == '.tik'):
+		for f in (f for f in self if type(f) == Ticket):
 			return f
 		raise IOError('no ticket in NSP')
 		
 	def cnmt(self):
-		for f in (f for f in self if f.name.endswith('.cnmt.nca')):
+		for f in (f for f in self if f._path.endswith('.cnmt.nca')):
 			return f
 		raise IOError('no cnmt in NSP')
 		
@@ -928,13 +928,15 @@ class Ticket(File):
 
 	def getTitleKeyBlock(self):
 		self.seekStart(0x40)
-		self.titleKeyBlock = self.read(0x100)
+		#self.titleKeyBlock = self.readInt(0x100, 'big')
+		self.titleKeyBlock = self.readInt(0x10, 'big')
 		return self.titleKeyBlock
 
 	def setTitleKeyBlock(self, value):
 		self.seekStart(0x40)
 		self.titleKeyBlock = value
-		self.write(value, 0x100)
+		#self.writeInt(value, 0x100, 'big')
+		self.writeInt(value, 0x10, 'big')
 		return self.titleKeyBlock
 
 
@@ -946,7 +948,7 @@ class Ticket(File):
 	def setKeyType(self, value):
 		self.seekStart(0x141)
 		self.keyType = value
-		self.writeInt8(value, 0x1)
+		self.writeInt8(value)
 		return self.keyType
 
 
