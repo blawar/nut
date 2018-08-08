@@ -19,6 +19,8 @@ def factory(name):
 	if name.endswith('.xci'):
 		f = Xci()
 	elif name.endswith('.nsp'):
+		f = Nsp
+	elif name.endswith('.nsx'):
 		f = Nsp()
 	elif name.endswith('.nca'):
 		f =  Nca()
@@ -529,8 +531,8 @@ class Nsp(PFS0):
 		super(Nsp, self).__init__(None, path, mode)
 				
 		if self.titleId and self.isUnlockable():
-			print('unlocking ' + self.path)
-			#self.unlock()
+			print('unlockable title found ' + self.path)
+		#	self.unlock()
 
 	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp']):
 		split = line.split('|')
@@ -660,8 +662,8 @@ class Nsp(PFS0):
 		try:
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 			os.rename(self.path, self.fileName())
-		except:
-			print('failed to rename file! ' + self.path + ' -> ' + self.fileName())
+		except BaseException as e:
+			print('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
 		#print(self.path + ' -> ' + self.fileName())
 		
 		if self.titleId in Titles.keys():
@@ -731,41 +733,31 @@ class Nsp(PFS0):
 		for f in (f for f in self if f.name.endswith('.nca') and not f.name.endswith('.cnmt.nca')):
 			return f
 		raise IOError('no application in NSP')
-	
-	def readTikTitleKey(self):
-		t = self.ticket()
-		t.seek(0x180)
-		return t.read(0x10)
-		
-	def writeTikTitleKey(self, titleKey):
-		t = self.ticket()
-		t.seek(0x180)
-		
-		if t.read(0x10) != b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
-			raise IOError('Ticket Title Key has already been set')
-		
-		t.seek(0x180)
-		
-		binTitleKey = uhx(titleKey)
-		
-		if len(binTitleKey) != 16:
-			raise IOError('incorrect title key size')
-		
-		t.write(binTitleKey)
-		return True
-
 		
 	def isUnlockable(self):
 		return (not self.hasValidTicket) and self.titleId and Titles.contains(self.titleId) and Titles.get(self.titleId).key
 		
 	def unlock(self):
-		if not self.isOpen():
-			self.open('r+b')
+		#if not self.isOpen():
+		#	self.open('r+b')
 
-		self.writeTikTitleKey(Titles.get(self.titleId).key)
+		if not Titles.contains(self.titleId):
+			raise IOError('No title key found in database!')
+
+		self.ticket().setTitleKeyBlock(int(Titles.get(self.titleId).key, 16))
+		print('setting title key to ' + Titles.get(self.titleId).key)
+		self.ticket().flush()
 		self.close()
 		self.hasValidTicket = True
 		self.move()
+
+	def setMasterKeyRev(self, masterKeyRev):
+		if not Titles.contains(self.titleId):
+			raise IOError('No title key found in database!')
+
+		for f in self:
+			if type(f) == Nca:
+				pass
 			
 		
 	def pack(self, files):

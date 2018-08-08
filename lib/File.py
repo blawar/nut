@@ -220,6 +220,7 @@ class BaseFile:
 		
 	def close(self):
 		if self.f:
+			self.flush()
 			for i in self._children:
 				i.close()
 			self._children = []

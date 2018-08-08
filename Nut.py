@@ -196,6 +196,8 @@ if __name__ == '__main__':
 	parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
+	parser.add_argument('-u', '--unlock', help='install title key into NSX / NSP')
+	parser.add_argument('-K', '--set-master-key', type=int, choices=[3, 4, 5], help='Changes the master key encryption for NSP.')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
@@ -241,7 +243,10 @@ if __name__ == '__main__':
 	
 	if args.organize:
 		organize()
-		#0100CA6009888800
+
+	if args.set_master_key:
+		pass
+
 	if args.info:
 		if re.match('[A-Z0-9][16]', args.info, re.I):
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
@@ -259,6 +264,19 @@ if __name__ == '__main__':
 		
 	if args.V:
 		scanLatestTitleUpdates()
+
+	if args.unlock:
+		print('opening ' + args.unlock)
+		f = Fs.Nsp(args.unlock, 'r+b')
+		f.unlock()
+		#print(hex(int(f.titleId, 16)))
+		#f.ticket().setTitleKeyBlock(0x3F4E5ADCAECFB0A25C9FCABD37E68ECE)
+		#f.ticket().flush()
+		#print(hex(f.ticket().getTitleKeyBlock()))
+		#print(hex(f.ticket().getTitleKeyBlock()))
+		#f.close()
+
+
 		
 	if args.download_all:
 		downloadAll()
