@@ -32,11 +32,12 @@ def scan(base):
 				if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
 					path = os.path.abspath(root + '/' + name)
 					if not path in files:
-						print('new file found: ' + path)
 						nsp = Fs.Nsp(path, None)
-						#nsp.move()
+						
 						files[nsp.path] = nsp
 						files[nsp.path].readMeta()
+
+						nsp.move()
 
 						i = i + 1
 						if i % 20 == 0:

@@ -243,7 +243,10 @@ if __name__ == '__main__':
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-u', '--unlock', help='install title key into NSX / NSP')
-	parser.add_argument('--set-master-key3', help='Changes the master key encryption for NSP.')
+	parser.add_argument('--set-masterkey2', help='Changes the master key encryption for NSP.')
+	parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
+	parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
+	parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
@@ -291,9 +294,30 @@ if __name__ == '__main__':
 	if args.organize:
 		organize()
 
-	if args.set_master_key3:
-		f = Fs.Nsp(args.set_master_key3, 'r+b')
+	if args.set_masterkey2:
+		f = Fs.Nsp(args.set_masterkey2, 'r+b')
+		f.setMasterKeyRev(2)
+		f.flush()
+		f.close()
+		pass
+
+	if args.set_masterkey3:
+		f = Fs.Nsp(args.set_masterkey3, 'r+b')
 		f.setMasterKeyRev(3)
+		f.flush()
+		f.close()
+		pass
+
+	if args.set_masterkey4:
+		f = Fs.Nsp(args.set_masterkey4, 'r+b')
+		f.setMasterKeyRev(4)
+		f.flush()
+		f.close()
+		pass
+
+	if args.set_masterkey5:
+		f = Fs.Nsp(args.set_masterkey5, 'r+b')
+		f.setMasterKeyRev(5)
 		f.flush()
 		f.close()
 		pass
