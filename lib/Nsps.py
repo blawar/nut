@@ -31,6 +31,7 @@ def scan(base):
 			try:
 				if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
 					path = os.path.abspath(root + '/' + name)
+
 					if not path in files:
 						nsp = Fs.Nsp(path, None)
 						
@@ -42,6 +43,8 @@ def scan(base):
 						i = i + 1
 						if i % 20 == 0:
 							save()
+			#except KeyboardInterrupt:
+			#	raise
 			except BaseException as e:
 				print('An error occurred processing file: ' + str(e))
 		save()

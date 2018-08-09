@@ -561,13 +561,13 @@ class Nsp(PFS0):
 		self.hasValidTicket = None
 		self.timestamp = None
 		self.version = None
+
+		super(Nsp, self).__init__(None, path, mode)
 		
 		if path:
 			self.setPath(path)
 			#if files:
 			#	self.pack(files)
-			
-		super(Nsp, self).__init__(None, path, mode)
 				
 		if self.titleId and self.isUnlockable():
 			print('unlockable title found ' + self.path)
@@ -626,20 +626,26 @@ class Nsp(PFS0):
 			self.title().setRightsId(rightsId)
 			#print('rightsId = ' + rightsId)
 			#print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
-			self.hasValidTicket = t.getTitleKeyBlock() != 0
+			self.setHasValidTicket(t.getTitleKeyBlock() != 0)
 		except BaseException as e:
 			print('readMeta filed ' + self.path + ", " + str(e))
 			raise
 		self.close()
 
 	def setHasValidTicket(self, value):
+		if self.title().isUpdate:
+			self.hasValidTicket = True
+			return
+
 		try:
-			self.hasValidTicket = True if value and int(value) != 0 else False
+			self.hasValidTicket = (True if value and int(value) != 0 else False) or self.title().isUpdate
 		except:
 			pass
 
 	def getHasValidTicket(self):
-		return 1 if self.hasValidTicket and self.hasValidTicket == True else 0
+		if self.title().isUpdate:
+			return 1
+		return (1 if self.hasValidTicket and self.hasValidTicket == True else 0)
 
 	def setId(self, id):
 		if re.match('[A-F0-9]{16}', id, re.I):
@@ -664,16 +670,7 @@ class Nsp(PFS0):
 	def getVersion(self):
 		return self.version or ''
 			
-	def setPath(self, path):
-		ext = pathlib.Path(path).suffix
-		if ext == '.nsp':
-			self.hasValidTicket = True
-		elif ext == '.nsx':
-			self.hasValidTicket = False
-		else:
-			return
-			
-			
+	def setPath(self, path):			
 		self.path = path
 		self.version = '0'
 		
@@ -691,6 +688,16 @@ class Nsp(PFS0):
 		if z:
 			self.version = z.groups()[0]
 
+		ext = pathlib.Path(path).suffix
+		if ext == '.nsp':
+			if self.hasValidTicket == None:
+				self.setHasValidTicket(True)
+		elif ext == '.nsx':
+			if self.hasValidTicket == None:
+				self.setHasValidTicket(False)
+		else:
+			return
+
 	def getPath(self):
 		return self.path or ''
 			
@@ -700,20 +707,19 @@ class Nsp(PFS0):
 	def move(self):
 		if not self.path:
 			return False
-			
+		
 		if not self.fileName():
 			#print('could not get filename for ' + self.path)
 			return False
-			
+
 		if os.path.abspath(self.fileName()) == os.path.abspath(self.path):
 			return False
-			
 		if os.path.isfile(self.fileName()) and os.path.abspath(self.path) == os.path.abspath(self.fileName()):
 			print('duplicate title: ')
 			print(os.path.abspath(self.path))
 			print(os.path.abspath(self.fileName()))
 			return False
-			
+
 		try:
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 			newPath = self.fileName()
@@ -829,6 +835,7 @@ class Nsp(PFS0):
 					#raise IOError('Mismatched masterKeyRevs!')
 
 		ticket.setMasterKeyRevision(newMasterKeyRev)
+		ticket.setRightsId((ticket.getRightsId() & 0xFFFFFFFFFFFFFFFF0000000000000000) + newMasterKeyRev)
 		ticket.setTitleKeyBlock(int.from_bytes(newTitleKey, 'big'))
 
 		for nca in self:
@@ -838,44 +845,19 @@ class Nsp(PFS0):
 
 					encKeyBlock = nca.header.getKeyBlock()
 
-					key = Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex)
-					print('decrypting with %s (%d, %d)' % (str(hx(key)), nca.header.getCryptoType2()-1, nca.header.keyIndex))
-					crypto = aes128.AESECB(key)
-					decKeyBlock = crypto.decrypt(encKeyBlock)
+					if int.from_bytes(encKeyBlock) != 0:
+						key = Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex)
+						print('decrypting with %s (%d, %d)' % (str(hx(key)), nca.header.getCryptoType2()-1, nca.header.keyIndex))
+						crypto = aes128.AESECB(key)
+						decKeyBlock = crypto.decrypt(encKeyBlock)
 
-					key = Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex)
-					print('encrypting with %s (%d, %d)' % (str(hx(key)), newMasterKeyRev-1, nca.header.keyIndex))
-					crypto = aes128.AESECB(key)
-					#crypto2 = aes128.AESECB(Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex))
-					reEncKeyBlock = crypto.encrypt(decKeyBlock)
-					nca.header.setKeyBlock(reEncKeyBlock)
+						key = Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex)
+						print('encrypting with %s (%d, %d)' % (str(hx(key)), newMasterKeyRev-1, nca.header.keyIndex))
+						crypto = aes128.AESECB(key)
 
-					crypto = aes128.AESECB(Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex))
-					decKeyBlock2 = crypto.decrypt(reEncKeyBlock)
+						reEncKeyBlock = crypto.encrypt(decKeyBlock)
+						nca.header.setKeyBlock(reEncKeyBlock)
 
-					for i in range(4):
-						offset = i * 0x10
-						key = encKeyBlock[offset:offset+0x10]
-						print('enc %d:\t%s' % (i, hx(key)))
-					print('')
-
-					for i in range(4):
-						offset = i * 0x10
-						key = decKeyBlock[offset:offset+0x10]
-						print('dec %d:\t%s' % (i, hx(key)))
-					print('')
-
-					for i in range(4):
-						offset = i * 0x10
-						key = reEncKeyBlock[offset:offset+0x10]
-						print('reEnc %d:\t%s' % (i, hx(key)))
-					print('')
-
-					for i in range(4):
-						offset = i * 0x10
-						key = decKeyBlock2[offset:offset+0x10]
-						print('dec2 %d:\t%s' % (i, hx(key)))
-					print('')
 
 					nca.header.setCryptoType2(newMasterKeyRev)
 			
