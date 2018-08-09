@@ -307,12 +307,26 @@ class NcaHeader(File):
 			
 		for i in range(4):
 			self.sectionHashes.append(self.sectionTables[i])
+
+		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
+		self.seek(0x300)
+		self.encKeyBlock = self.read(0x40)
+		#for i in range(4):
+		#	offset = i * 0x10
+		#	key = encKeyBlock[offset:offset+0x10]
+		#	print('enc %d: %s' % (i, hx(key)))
+
+
+		crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, self.keyIndex))
+		self.keyBlock = crypto.decrypt(self.encKeyBlock)
 		self.keys = []
 		for i in range(4):
-			self.keys.append(self.read(0x10))
+			offset = i * 0x10
+			key = self.keyBlock[offset:offset+0x10]
+			#print('dec %d: %s' % (i, hx(key)))
+			self.keys.append(key)
 		
-		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 
 		if self.hasTitleRights():
 			if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
@@ -323,7 +337,8 @@ class NcaHeader(File):
 			self.titleKeyDec = self.key()
 
 	def key(self):
-		return self.keys[self.keyIndex]
+		#return self.keys[2]
+		return self.keys[self.cryptoType]
 
 	def hasTitleRights(self):
 		return self.rightsId != (b'0' * 32)
@@ -380,14 +395,16 @@ class Nca(File):
 		print('\n%sNCA Archive\n' % (tabs))
 		super(Nca, self).printInfo(indent)
 		
+		print(tabs + 'magic = ' + str(self.header.magic))
 		print(tabs + 'titleId = ' + str(self.header.titleId))
 		print(tabs + 'rightsId = ' + str(self.header.rightsId))
 		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
 		print(tabs + 'contentType = ' + str(self.header.contentType))
 		print(tabs + 'cryptoType = ' + str(self.cryptoType))
-		print(tabs + 'NCA Size: ' + str(self.header.size))
-		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType))
-		print(tabs + 'NCA crypto master key: ' + str(self.header.cryptoType2))
+		print(tabs + 'Size: ' + str(self.header.size))
+		print(tabs + 'crypto master key: ' + str(self.header.cryptoType))
+		print(tabs + 'crypto master key: ' + str(self.header.cryptoType2))
+		print(tabs + 'key Index: ' + str(self.header.keyIndex))
 		
 		print('\n%sPartitions:' % (tabs))
 		
