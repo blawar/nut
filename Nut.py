@@ -38,6 +38,9 @@ def loadTitleBlacklist():
 			titleBlacklist.append(line.strip().upper())
 			
 def logMissingTitles(file):
+	initTitles()
+	initFiles()
+
 	f = open(file,"w", encoding="utf-8-sig")
 	
 	for k,t in Titles.items():
@@ -47,6 +50,8 @@ def logMissingTitles(file):
 	f.close()
 	
 def updateDb(url):
+	initTitles()
+
 	print("Downloading new title database " + url)
 	try:
 		if url == '' or not url:
@@ -70,6 +75,9 @@ def updateDb(url):
 		print('Error downloading:', e)
 	
 def downloadAll():
+	initTitles()
+	initFiles()
+
 	for k,t in Titles.items():
 		if not t.path and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			if not t.id:
@@ -87,10 +95,16 @@ def export(file):
 	Titles.save(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region'])
 	
 def scan():
+	initTitles()
+	initFiles()
+
 	Nsps.scan(Config.paths.scan)
 	Titles.save()
 	
 def organize():
+	initTitles()
+	initFiles()
+
 	scan()
 	for k, f in Nsps.files.items():
 		#print('')
@@ -100,6 +114,9 @@ def organize():
 	Nsps.save()
 		
 def refresh():
+	initTitles()
+	initFiles()
+
 	for k, f in Nsps.files.items():
 		try:
 			f.open()
@@ -111,6 +128,8 @@ def refresh():
 	Titles.save()
 	
 def scanLatestTitleUpdates():
+	initTitles()
+
 	for k,i in CDNSP.get_versionUpdates().items():
 		id = str(k).upper()
 		version = str(i)
@@ -132,6 +151,8 @@ def scanLatestTitleUpdates():
 	Titles.save()
 	
 def updateVersions(force = True):
+	initTitles()
+
 	i = 0
 	for k,t in Titles.items():
 		if force or t.version == None:
@@ -157,12 +178,36 @@ def updateVersions(force = True):
 					Titles.save()
 					
 	Titles.save()
+
+isInitTitles = False
+
+def initTitles():
+	global isInitTitles
+	if isInitTitles:
+		return
+
+	isInitTitles = True
+
+	Titles.load()
+
+	loadTitleWhitelist()
+	loadTitleBlacklist()
+
+	Nsps.load()
+
+isInitFiles = False
+def initFiles():
+	global isInitFiles
+	if isInitFiles:
+		return
+
+	isInitFiles = True
+
+	Nsps.load()
 			
 if __name__ == '__main__':
 	titleWhitelist = []
 	titleBlacklist = []
-
-	Titles.load()
 
 	urllib3.disable_warnings()
 
@@ -187,8 +232,6 @@ if __name__ == '__main__':
 	else:
 		CDNSP.keysArg = ''
 
-	loadTitleWhitelist()
-	loadTitleBlacklist()
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.download.base*1, help='download base titles')
@@ -200,7 +243,7 @@ if __name__ == '__main__':
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-u', '--unlock', help='install title key into NSX / NSP')
-	parser.add_argument('-K', '--set-master-key', type=int, choices=[3, 4, 5], help='Changes the master key encryption for NSP.')
+	parser.add_argument('--set-master-key3', help='Changes the master key encryption for NSP.')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
@@ -211,10 +254,7 @@ if __name__ == '__main__':
 	parser.add_argument('-x', '--export', help='export title database in csv format')
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	
-	args = parser.parse_args()
-
-	Nsps.load()
-	
+	args = parser.parse_args()	
 
 	Config.download.base = args.base
 	Config.download.DLC = args.dlc
@@ -228,6 +268,8 @@ if __name__ == '__main__':
 		Titles.save()
 		
 	if args.download:
+		initTitles()
+		initFiles()
 		id = args.download.upper()
 		if len(id) != 16:
 			raise IOError('Invalid title id format')
@@ -239,6 +281,8 @@ if __name__ == '__main__':
 			CDNSP.download_game(id.lower(), Title.getCdnVersion(id.lower()), None, True, '', True)
 	
 	if args.scan:
+		initTitles()
+		initFiles()
 		scan()
 		
 	if args.refresh:
@@ -247,10 +291,17 @@ if __name__ == '__main__':
 	if args.organize:
 		organize()
 
-	if args.set_master_key:
+	if args.set_master_key3:
+		f = Fs.Nsp(args.set_master_key3, 'r+b')
+		f.setMasterKeyRev(3)
+		f.flush()
+		f.close()
 		pass
 
 	if args.info:
+		initTitles()
+		initFiles()
+
 		if re.match('[A-Z0-9][16]', args.info, re.I):
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
@@ -269,6 +320,8 @@ if __name__ == '__main__':
 		scanLatestTitleUpdates()
 
 	if args.unlock:
+		initTitles()
+		initFiles()
 		print('opening ' + args.unlock)
 		f = Fs.Nsp(args.unlock, 'r+b')
 		f.unlock()

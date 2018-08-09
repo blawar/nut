@@ -346,6 +346,14 @@ class NcaHeader(File):
 	def hasTitleRights(self):
 		return self.rightsId != (b'0' * 32)
 
+	def getCryptoType2(self):
+		self.seek(0x220)
+		return self.readInt8()
+
+	def setCryptoType2(self, value):
+		self.seek(0x220)
+		self.writeInt8(value)
+
 
 class Nca(File):
 	def __init__(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
@@ -589,7 +597,7 @@ class Nsp(PFS0):
 		if self.titleId in Titles.keys():
 			return Titles.get(self.titleId)
 			
-		self.title = Title()
+		self.title = Title.Title()
 		self.title.setId(self.titleId)
 		Titles.data()[self.titleId] = self.title
 		return self.title
@@ -784,13 +792,32 @@ class Nsp(PFS0):
 		self.hasValidTicket = True
 		self.move()
 
-	def setMasterKeyRev(self, masterKeyRev):
+	def setMasterKeyRev(self, newMasterKeyRev):
+		return
 		if not Titles.contains(self.titleId):
 			raise IOError('No title key found in database!')
 
-		for f in self:
-			if type(f) == Nca:
-				pass
+		ticket = self.ticket()
+		masterKeyRev = ticket.getMasterKeyRevision()
+		titleKey = ticket.getTitleKeyBlock()
+		newTitleKey = Keys.changeTitleKeyMasterKey(titleKey.to_bytes(16, byteorder='big'), masterKeyRev, newMasterKeyRev)
+
+		print('rightsId =\t' + hex(ticket.getRightsId()))
+		print('titleKey =\t' + str(hx(titleKey.to_bytes(16, byteorder='big'))))
+		print('newTitleKey =\t' + str(hx(newTitleKey)))
+		print('masterKeyRev =\t' + hex(masterKeyRev))
+
+		for nca in self:
+			if type(nca) == Nca:
+				if nca.header.getCryptoType2() != masterKeyRev:
+					raise IOError('Mismatched masterKeyRevs!')
+
+		ticket.setMasterKeyRevision(newMasterKeyRev)
+		ticket.setTitleKeyBlock(int.from_bytes(newTitleKey, 'big'))
+
+		for nca in self:
+			if type(nca) == Nca:
+				nca.header.setCryptoType2(newMasterKeyRev)
 			
 		
 	def pack(self, files):
