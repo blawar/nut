@@ -170,25 +170,23 @@ class BaseFile:
 			self.cryptoCounter = cryptoCounter
 			
 		if self.cryptoType == Type.Crypto.CTR:
-			#print('setting up ctr')
-			#self.rewind()
-			self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
-			self.cryptoType = Type.Crypto.CTR
+			if self.cryptoKey:
+				self.crypto = aes128.AESCTR(self.cryptoKey, self.setCounter(self.offset))
+				self.cryptoType = Type.Crypto.CTR
 			
-			self.enableBufferedIO(0x10, 0x10)
+				self.enableBufferedIO(0x10, 0x10)
 
-			#self.__class__ = AesCtrFile
 		elif self.cryptoType == Type.Crypto.XTS:
-			#print('setting up xts')
-			self.crypto = aes128.AESXTS(self.cryptoKey)
-			self.cryptoType = Type.Crypto.XTS
+			if self.cryptoKey:
+				self.crypto = aes128.AESXTS(self.cryptoKey)
+				self.cryptoType = Type.Crypto.XTS
 			
-			if self.size < 1 or self.size > 0xFFFFFF:
-				raise IOError('AESXTS Block too large or small')
+				if self.size < 1 or self.size > 0xFFFFFF:
+					raise IOError('AESXTS Block too large or small')
 			
-			self.rewind()
-			self.enableBufferedIO(self.size, 0x10)
-			#self.__class__ = AesXtsFile
+				self.rewind()
+				self.enableBufferedIO(self.size, 0x10)
+
 		elif self.cryptoType == Type.Crypto.BKTR:
 			self.cryptoType = Type.Crypto.BKTR
 		elif self.cryptoType == Type.Crypto.NCA0:

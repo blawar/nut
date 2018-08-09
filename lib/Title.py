@@ -18,7 +18,7 @@ class Title:
 		self.path = None
 		self.version = None
 		self.key = None
-		self.isDemo = False
+		self.isDemo = None
 		self.region = None
 		self.isModified = False
 	
@@ -77,7 +77,10 @@ class Title:
 			pass
 		
 	def getIsDemo(self):
-		return self.isDemo*1
+		try:
+			return self.isDemo*1
+		except:
+			return 0
 
 	def setIsDemo(self, v):
 		try:
@@ -155,10 +158,11 @@ class Title:
 			return
 		self.name = name
 		
-		if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
-			self.isDemo = True
-		else:
-			self.isDemo = False
+		if self.isDemo == None:
+			if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
+				self.isDemo = True
+			else:
+				self.isDemo = False
 	
 	def getName(self):
 		baseId = Title.getBaseId(self.id)
