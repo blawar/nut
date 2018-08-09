@@ -64,7 +64,7 @@ def updateDb(url):
 				return
 
 		r = requests.get(url)
-		r.encoding = 'utf-8'
+		r.encoding = 'utf-8-sig'
 
 		if r.status_code == 200:
 			Titles.loadTitleBuffer(r.text, False)
