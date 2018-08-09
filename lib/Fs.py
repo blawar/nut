@@ -712,7 +712,7 @@ class Nsp(PFS0):
 			#print('could not get filename for ' + self.path)
 			return False
 
-		if os.path.abspath(self.fileName()) == os.path.abspath(self.path):
+		if os.path.abspath(self.fileName()).lower() == os.path.abspath(self.path).lower():
 			return False
 		if os.path.isfile(self.fileName()) and os.path.abspath(self.path) == os.path.abspath(self.fileName()):
 			print('duplicate title: ')
