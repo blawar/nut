@@ -93,8 +93,16 @@ def downloadAll():
 			
 def export(file):
 	Titles.save(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region'])
-	
+
+global hasScanned
+hasScanned = False
+
 def scan():
+	global hasScanned
+
+	if hasScanned:
+		return
+	hasScanned = True
 	initTitles()
 	initFiles()
 
@@ -105,9 +113,10 @@ def organize():
 	initTitles()
 	initFiles()
 
-	scan()
+	#scan()
+	print('organizing')
 	for k, f in Nsps.files.items():
-		#print('')
+		#print(str(f.hasValidTicket) +' = ' + f.path)
 		f.move()
 	print('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
