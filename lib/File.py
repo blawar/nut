@@ -309,8 +309,19 @@ class BufferedFile(BaseFile):
 			#print('writing dirty page')
 			#Hex.dump(self._buffer)
 			super(BufferedFile, self).seek(self._bufferOffset)
-			super(BufferedFile, self).write(self._buffer)
+			super(BufferedFile, self).write(self.getPageFlushBuffer(self._buffer))
 			self._bufferDirty = False
+
+	def getPageFlushBuffer(self, buffer):
+		if self.crypto:
+			if self.cryptoType == Type.Crypto.CTR:
+				#print('reading ctr from ' + hex(self._bufferOffset))
+				self.crypto.set_ctr(self.setCounter(self.offset + self._bufferOffset))
+			else:
+				pass
+				#print('reading from ' + hex(self._bufferOffset))
+			return self.crypto.encrypt(buffer)
+		return buffer
 
 	def flush(self):
 		if self.f:

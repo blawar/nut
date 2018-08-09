@@ -605,12 +605,16 @@ class Nsp(PFS0):
 	def readMeta(self):
 		self.open()
 		try:
-			a = self.application()
-			if a.header.titleId:
-				self.titleId = a.header.titleId
-				self.title().setRightsId(a.header.rightsId)
+			#a = self.application()
+			#if a.header.titleId:
+			#	self.titleId = a.header.titleId
+			#	self.title().setRightsId(a.header.rightsId)
 
 			t = self.ticket()
+			rightsId = hx(t.getRightsId().to_bytes(0x10, byteorder='big')).decode('utf-8').upper()
+			self.titleId = rightsId[0:16]
+			self.title().setRightsId(rightsId)
+			#print('rightsId = ' + rightsId)
 			#print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
 			self.hasValidTicket = t.getTitleKeyBlock() != 0
 		except BaseException as e:
@@ -702,7 +706,9 @@ class Nsp(PFS0):
 			
 		try:
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
-			os.rename(self.path, self.fileName())
+			newPath = self.fileName()
+			os.rename(self.path, newPath)
+			self.path = newPath
 		except BaseException as e:
 			print('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
 		#print(self.path + ' -> ' + self.fileName())
@@ -793,7 +799,6 @@ class Nsp(PFS0):
 		self.move()
 
 	def setMasterKeyRev(self, newMasterKeyRev):
-		return
 		if not Titles.contains(self.titleId):
 			raise IOError('No title key found in database!')
 
@@ -810,14 +815,17 @@ class Nsp(PFS0):
 		for nca in self:
 			if type(nca) == Nca:
 				if nca.header.getCryptoType2() != masterKeyRev:
-					raise IOError('Mismatched masterKeyRevs!')
+					pass
+					#raise IOError('Mismatched masterKeyRevs!')
 
 		ticket.setMasterKeyRevision(newMasterKeyRev)
 		ticket.setTitleKeyBlock(int.from_bytes(newTitleKey, 'big'))
 
 		for nca in self:
 			if type(nca) == Nca:
-				nca.header.setCryptoType2(newMasterKeyRev)
+				if nca.header.getCryptoType2() != masterKeyRev:
+					print('writing masterKeyRev for ' + str(nca._path))
+					nca.header.setCryptoType2(newMasterKeyRev)
 			
 		
 	def pack(self, files):
