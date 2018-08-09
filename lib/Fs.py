@@ -317,22 +317,25 @@ class NcaHeader(File):
 		#	key = encKeyBlock[offset:offset+0x10]
 		#	print('enc %d: %s' % (i, hx(key)))
 
-
-		crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, self.keyIndex))
-		self.keyBlock = crypto.decrypt(self.encKeyBlock)
-		self.keys = []
-		for i in range(4):
-			offset = i * 0x10
-			key = self.keyBlock[offset:offset+0x10]
-			#print('dec %d: %s' % (i, hx(key)))
-			self.keys.append(key)
+		if Keys.keyAreaKey(self.masterKey, self.keyIndex):
+			crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, self.keyIndex))
+			self.keyBlock = crypto.decrypt(self.encKeyBlock)
+			self.keys = []
+			for i in range(4):
+				offset = i * 0x10
+				key = self.keyBlock[offset:offset+0x10]
+				#print('dec %d: %s' % (i, hx(key)))
+				self.keys.append(key)
+		else:
+			self.keys = [None, None, None, None, None, None, None]
 		
 
 		if self.hasTitleRights():
 			if self.titleId.upper() in Titles.keys() and Titles.get(self.titleId.upper()).key:
 				self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.masterKey)
 			else:
-				print('could not find title key!')
+				pass
+				#print('could not find title key!')
 		else:
 			self.titleKeyDec = self.key()
 
@@ -379,7 +382,8 @@ class Nca(File):
 			try:
 				self.partition(self.header.sectionTables[i].offset + fs.sectionStart, self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset, fs, cryptoKey = self.header.titleKeyDec)
 			except BaseException as e:
-				print(e)
+				pass
+				#print(e)
 				#raise
 
 			if fs.fsType:
@@ -551,7 +555,7 @@ class Nsp(PFS0):
 			print('unlockable title found ' + self.path)
 		#	self.unlock()
 
-	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp']):
+	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
@@ -563,7 +567,7 @@ class Nsp(PFS0):
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
 
-	def serialize(self, map = ['id', 'path', 'version', 'timestamp']):
+	def serialize(self, map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 		r = []
 		for i in map:
 				
@@ -591,17 +595,29 @@ class Nsp(PFS0):
 		return self.title
 		
 	def readMeta(self):
-		#print(self.path)
 		self.open()
 		try:
-			a = Nca(self.application())
-			if a.titleId:
-				self.titleId = a.titleId
-				self.title().setRightsId(a.rightsId)
+			a = self.application()
+			if a.header.titleId:
+				self.titleId = a.header.titleId
+				self.title().setRightsId(a.header.rightsId)
+
+			t = self.ticket()
+			#print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
+			self.hasValidTicket = t.getTitleKeyBlock() != 0
 		except BaseException as e:
 			print('readMeta filed ' + self.path + ", " + str(e))
 			raise
 		self.close()
+
+	def setHasValidTicket(self, value):
+		try:
+			self.hasValidTicket = True if value and int(value) != 0 else False
+		except:
+			pass
+
+	def getHasValidTicket(self):
+		return 1 if self.hasValidTicket and self.hasValidTicket == True else 0
 
 	def setId(self, id):
 		if re.match('[A-F0-9]{16}', id, re.I):
@@ -747,7 +763,7 @@ class Nsp(PFS0):
 		raise IOError('no cnmt in NSP')
 		
 	def application(self):
-		for f in (f for f in self if f.name.endswith('.nca') and not f.name.endswith('.cnmt.nca')):
+		for f in (f for f in self if f._path.endswith('.nca') and not f._path.endswith('.cnmt.nca')):
 			return f
 		raise IOError('no application in NSP')
 		

@@ -97,11 +97,14 @@ def organize():
 		f.move()
 	print('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
+	Nsps.save()
 		
 def refresh():
 	for k, f in Nsps.files.items():
 		try:
+			f.open()
 			f.readMeta()
+			f.close()
 		except:
 			raise
 			pass

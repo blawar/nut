@@ -20,7 +20,7 @@ def scan(base):
 		return
 
 	hasScanned = True
-
+	i = 0
 	print('scanning ' + base)
 	for root, dirs, _files in os.walk(base, topdown=False):
 		#for name in dirs:
@@ -28,11 +28,19 @@ def scan(base):
 		#		scan(root + '/' + name)
 			
 		for name in _files:
-			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
-				path = os.path.abspath(root + '/' + name)
-				if not path in files:
-					print('new file found: ' + path)
-					files[path] = Fs.Nsp(path, None)
+			try:
+				if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
+					path = os.path.abspath(root + '/' + name)
+					if not path in files:
+						print('new file found: ' + path)
+						files[path] = Fs.Nsp(path, 'rb')
+						files[path].readMeta()
+
+						i = i + 1
+						if i % 20 == 0:
+							save()
+			except BaseException as e:
+				print('An error occurred processing file: ' + str(e))
 		save()
 
 def removeEmptyDir(path, removeRoot=True):
@@ -54,7 +62,7 @@ def removeEmptyDir(path, removeRoot=True):
 		print("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
+def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	try:
 		with open(fileName , encoding="utf-8-sig") as f:
 			firstLine = True
@@ -77,7 +85,7 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
 	except:
 		pass
 
-def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp']):
+def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	buffer = ''
 	
 	buffer += '|'.join(map) + '\n'
