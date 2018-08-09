@@ -216,6 +216,20 @@ def initFiles():
 	isInitFiles = True
 
 	Nsps.load()
+
+def unlockAll():
+	initTitles()
+	initFiles()
+
+	for k,f in Nsps.files.items():
+		if f.isUnlockable():
+			try:
+				print('unlocking ' + f.path)
+				f.open(f.path, 'r+b')
+				f.unlock()
+				f.close()
+			except BaseException as e:
+				print('error unlocking: ' + str(e))
 			
 if __name__ == '__main__':
 	titleWhitelist = []
@@ -254,7 +268,8 @@ if __name__ == '__main__':
 	parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
-	parser.add_argument('-u', '--unlock', help='install title key into NSX / NSP')
+	parser.add_argument('-u', '--unlock', help='install available title key into NSX / NSP')
+	parser.add_argument('--unlock-all', action="store_true", help='install available title keys into all NSX files')
 	parser.add_argument('--set-masterkey2', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
@@ -354,6 +369,10 @@ if __name__ == '__main__':
 		
 	if args.V:
 		scanLatestTitleUpdates()
+
+	if args.unlock_all:
+		unlockAll()
+		pass
 
 	if args.unlock:
 		initTitles()
