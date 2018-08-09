@@ -823,7 +823,7 @@ class Nsp(PFS0):
 
 		for nca in self:
 			if type(nca) == Nca:
-				if nca.header.getCryptoType2() != masterKeyRev:
+				if nca.header.getCryptoType2() != newMasterKeyRev:
 					print('writing masterKeyRev for ' + str(nca._path))
 					nca.header.setCryptoType2(newMasterKeyRev)
 			
