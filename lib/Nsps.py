@@ -33,8 +33,8 @@ def scan(base):
 					path = os.path.abspath(root + '/' + name)
 					if not path in files:
 						print('new file found: ' + path)
-						files[path] = Fs.Nsp(path, 'rb')
-						files[path].readMeta()
+						files[path] = Fs.Nsp(path, None)
+						#files[path].readMeta()
 
 						i = i + 1
 						if i % 20 == 0:
