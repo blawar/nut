@@ -310,8 +310,7 @@ class NcaHeader(File):
 
 		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 		
-		self.seek(0x300)
-		self.encKeyBlock = self.read(0x40)
+		self.encKeyBlock = self.getKeyBlock()
 		#for i in range(4):
 		#	offset = i * 0x10
 		#	key = encKeyBlock[offset:offset+0x10]
@@ -345,6 +344,17 @@ class NcaHeader(File):
 
 	def hasTitleRights(self):
 		return self.rightsId != (b'0' * 32)
+
+	def getKeyBlock(self):
+		self.seek(0x300)
+		return self.read(0x40)
+
+	def setKeyBlock(self, value):
+		if len(value) != 0x40:
+			raise IOError('invalid keyblock size')
+
+		self.seek(0x300)
+		return self.write(value)
 
 	def getCryptoType2(self):
 		self.seek(0x220)
@@ -824,7 +834,49 @@ class Nsp(PFS0):
 		for nca in self:
 			if type(nca) == Nca:
 				if nca.header.getCryptoType2() != newMasterKeyRev:
-					print('writing masterKeyRev for ' + str(nca._path))
+					print('writing masterKeyRev for %s, %d -> %d' % (str(nca._path),  nca.header.getCryptoType2(), newMasterKeyRev))
+
+					encKeyBlock = nca.header.getKeyBlock()
+
+					key = Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex)
+					print('decrypting with %s (%d, %d)' % (str(hx(key)), nca.header.getCryptoType2()-1, nca.header.keyIndex))
+					crypto = aes128.AESECB(key)
+					decKeyBlock = crypto.decrypt(encKeyBlock)
+
+					key = Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex)
+					print('encrypting with %s (%d, %d)' % (str(hx(key)), newMasterKeyRev-1, nca.header.keyIndex))
+					crypto = aes128.AESECB(key)
+					#crypto2 = aes128.AESECB(Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex))
+					reEncKeyBlock = crypto.encrypt(decKeyBlock)
+					nca.header.setKeyBlock(reEncKeyBlock)
+
+					crypto = aes128.AESECB(Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex))
+					decKeyBlock2 = crypto.decrypt(reEncKeyBlock)
+
+					for i in range(4):
+						offset = i * 0x10
+						key = encKeyBlock[offset:offset+0x10]
+						print('enc %d:\t%s' % (i, hx(key)))
+					print('')
+
+					for i in range(4):
+						offset = i * 0x10
+						key = decKeyBlock[offset:offset+0x10]
+						print('dec %d:\t%s' % (i, hx(key)))
+					print('')
+
+					for i in range(4):
+						offset = i * 0x10
+						key = reEncKeyBlock[offset:offset+0x10]
+						print('reEnc %d:\t%s' % (i, hx(key)))
+					print('')
+
+					for i in range(4):
+						offset = i * 0x10
+						key = decKeyBlock2[offset:offset+0x10]
+						print('dec2 %d:\t%s' % (i, hx(key)))
+					print('')
+
 					nca.header.setCryptoType2(newMasterKeyRev)
 			
 		
