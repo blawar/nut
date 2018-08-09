@@ -234,11 +234,11 @@ if __name__ == '__main__':
 
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--base', type=bool, choices=[0, 1], default=Config.download.base*1, help='download base titles')
-	parser.add_argument('--demo', type=bool, choices=[0, 1], default=Config.download.demo*1, help='download demo titles')
-	parser.add_argument('--update', type=bool, choices=[0, 1], default=Config.download.update*1, help='download title updates')
-	parser.add_argument('--dlc', type=bool, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
-	parser.add_argument('--nsx', type=bool, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
+	parser.add_argument('--base', type=int, choices=[0, 1], default=Config.download.base*1, help='download base titles')
+	parser.add_argument('--demo', type=int, choices=[0, 1], default=Config.download.demo*1, help='download demo titles')
+	parser.add_argument('--update', type=int, choices=[0, 1], default=Config.download.update*1, help='download title updates')
+	parser.add_argument('--dlc', type=int, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
+	parser.add_argument('--nsx', type=int, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
 	parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 	parser.add_argument('-d', '--download', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
@@ -259,11 +259,11 @@ if __name__ == '__main__':
 	
 	args = parser.parse_args()	
 
-	Config.download.base = args.base
-	Config.download.DLC = args.dlc
-	Config.download.demo = args.demo
-	Config.download.sansTitleKey = args.nsx
-	Config.download.update = args.update
+	Config.download.base = bool(args.base)
+	Config.download.DLC = bool(args.dlc)
+	Config.download.demo = bool(args.demo)
+	Config.download.sansTitleKey = bool(args.nsx)
+	Config.download.update = bool(args.update)
 	
 	if args.update_titles:
 		for url in Config.titleUrls:
@@ -379,3 +379,4 @@ if __name__ == '__main__':
 	#downloadAll()
 
 	#Titles.save()
+
