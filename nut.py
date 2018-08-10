@@ -48,6 +48,28 @@ def logMissingTitles(file):
 			f.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
 		
 	f.close()
+
+def logNcaDeltas(file):
+	initTitles()
+	initFiles()
+
+	x = open(file,"w", encoding="utf-8-sig")
+	
+	for k,f in Nsps.files.items():
+		try:
+			t = f.title()
+			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+				f.open(f.path)
+				if f.hasDeltas():
+					print('found ' + (t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or ''))
+					x.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
+				f.close()
+		except KeyboardInterrupt:
+			raise
+		except BaseException as e:
+			print('error: ' + str(e))
+		
+	x.close()
 	
 def updateDb(url):
 	initTitles()
@@ -283,6 +305,7 @@ if __name__ == '__main__':
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 	parser.add_argument('-x', '--export', help='export title database in csv format')
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
+	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 	
 	args = parser.parse_args()	
 
@@ -348,6 +371,9 @@ if __name__ == '__main__':
 		f.flush()
 		f.close()
 		pass
+
+	if args.nca_deltas:
+		logNcaDeltas(args.nca_deltas)
 
 	if args.info:
 		initTitles()
