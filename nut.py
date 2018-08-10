@@ -61,8 +61,8 @@ def logNcaDeltas(file):
 			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 				f.open(f.path)
 				if f.hasDeltas():
-					print('found ' + t.path)
-					x.write(t.path + "\r\n")
+					print(f.path)
+					x.write(f.path + "\r\n")
 				f.close()
 		except KeyboardInterrupt:
 			raise
