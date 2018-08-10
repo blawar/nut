@@ -31,11 +31,11 @@ def set(key, value):
 def keys():
 	return titles.keys()
 	
-def loadTitleFile(path, silent = True):
+def loadTitleFile(path, silent = False):
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
 	
-def loadTitleBuffer(buffer, silent = True):
+def loadTitleBuffer(buffer, silent = False):
 	firstLine = True
 	map = ['id', 'key', 'name']
 	for line in buffer.split('\n'):
@@ -50,7 +50,7 @@ def loadTitleBuffer(buffer, silent = True):
 		
 		t = Title.Title()
 		t.loadCsv(line, map)
-		
+
 		if not t.id in keys():
 			titles[t.id] = Title.Title()
 			
@@ -62,18 +62,15 @@ def loadTitleBuffer(buffer, silent = True):
 
 	
 def load():
-	if os.path.isfile("titles.txt"):	
-		loadTitleFile('titles.txt')
-		silent = False
-	else:
-		silent = True
+	if os.path.isfile("titles.txt"):
+		loadTitleFile('titles.txt', True)
 
 			
 	files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
 	files.sort()
 	
 	for file in files:
-		loadTitleFile(Config.paths.titleDatabase + '/' + file, silent)
+		loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''
