@@ -791,6 +791,17 @@ class Nsp(PFS0):
 		for f in (f for f in self if f._path.endswith('.cnmt.nca')):
 			return f
 		raise IOError('no cnmt in NSP')
+
+	def xml(self):
+		for f in (f for f in self if f._path.endswith('.xml')):
+			return f
+		raise IOError('no XML in NSP')
+
+	def hasDeltas(self):
+		#print(self.xml().read().decode('utf-8'))
+		#exit()
+		return b'Meta' in self.xml().read()
+		return b'DeltaFragment' in self.xml().read()
 		
 	def application(self):
 		for f in (f for f in self if f._path.endswith('.nca') and not f._path.endswith('.cnmt.nca')):

@@ -43,8 +43,8 @@ def scan(base):
 						i = i + 1
 						if i % 20 == 0:
 							save()
-			#except KeyboardInterrupt:
-			#	raise
+			except KeyboardInterrupt:
+				raise
 			except BaseException as e:
 				print('An error occurred processing file: ' + str(e))
 		save()
