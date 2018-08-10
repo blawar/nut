@@ -18,7 +18,7 @@ from hashlib import sha256
 from struct import pack as pk, unpack as upk
 from io import TextIOWrapper
 from tqdm import tqdm
-
+import Titles
 import requests
 import unidecode
 import urllib3
@@ -200,16 +200,14 @@ def get_versionUpdates():
 	return r
 
 def get_name(titleId):
-	titleId = titleId.lower()
+	titleId = titleId.upper()
 	lines = titlekey_list
-	for line in lines:
-		if line == None:
-			return
-		temp = line.split("|")
-		if titleId.endswith('800'):
-			titleId = '%s000' % titleId[:-3]
-		if titleId.strip() == temp[0].strip():
-			return re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(temp[2].strip()))
+	if Titles.contains(titleId):
+			try:
+				t = Titles.get(titleId)
+				return re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(t.name.strip()))
+			except:
+				pass
 	return 'Unknown Title'
 
 
