@@ -111,6 +111,26 @@ with open('nut.json', encoding="utf8") as f:
 		download.update = j['download']['update']
 	except:
 		pass
+
+	try:
+		cdn.deviceId = j['cdn']['deviceId']
+	except:
+		pass
+
+	try:
+		cdn.region = j['cdn']['region']
+	except:
+		pass
+
+	try:
+		cdn.environment = j['cdn']['environment']
+	except:
+		pass
+
+	try:
+		cdn.firmware = j['cdn']['firmware']
+	except:
+		pass
 	
 	try:
 		for url in j['titleUrls']:
