@@ -82,7 +82,7 @@ def load(fileName):
 			titleKeks.append('0' * 32) 
 
 				
-load('Keys.txt')
+load('keys.txt')
 
 #for k in titleKeks:
 #	print('titleKek = ' + k)
