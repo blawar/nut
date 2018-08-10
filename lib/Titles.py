@@ -74,7 +74,7 @@ def load():
 	for file in files:
 		loadTitleFile(Config.paths.titleDatabase + '/' + file, silent)
 	
-def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''
 	
 	buffer += '|'.join(map) + '\n'

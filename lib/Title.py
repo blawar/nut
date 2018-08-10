@@ -21,6 +21,7 @@ class Title:
 		self.isDemo = None
 		self.region = None
 		self.isModified = False
+		self.retailOnly = None
 	
 	def __lt__(self, other):
 		return str(self.name) < str(other.name)
@@ -41,7 +42,7 @@ class Title:
 		#self.setName(split[2].strip())
 		#self.setKey(split[1].strip())
 		
-	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 		r = []
 		for i in map:
 				
@@ -73,6 +74,18 @@ class Title:
 				self.isUpdate = True
 			elif v == 0:
 				self.isUpdate = False
+		except:
+			pass
+
+	def getRetailOnly(self):
+		try:
+			return self.retailOnly*1
+		except:
+			return 0
+
+	def setRetailOnly(self, v):
+		try:
+			self.retailOnly = bool(int(v, 10))
 		except:
 			pass
 		
