@@ -798,9 +798,6 @@ class Nsp(PFS0):
 		raise IOError('no XML in NSP')
 
 	def hasDeltas(self):
-		#print(self.xml().read().decode('utf-8'))
-		#exit()
-		return b'Meta' in self.xml().read()
 		return b'DeltaFragment' in self.xml().read()
 		
 	def application(self):
