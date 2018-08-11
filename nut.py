@@ -23,6 +23,7 @@ import Config
 import requests
 #import blockchain
 import Hex
+import Print
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -62,20 +63,20 @@ def logNcaDeltas(file):
 			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 				f.open(f.path)
 				if f.hasDeltas():
-					print(f.path)
+					Print.info(f.path)
 					x.write(f.path + "\r\n")
 				f.close()
 		except KeyboardInterrupt:
 			raise
 		except BaseException as e:
-			print('error: ' + str(e))
+			Print.info('error: ' + str(e))
 		
 	x.close()
 	
 def updateDb(url):
 	initTitles()
 
-	print("Downloading new title database " + url)
+	Print.info("Downloading new title database " + url)
 	try:
 		if url == '' or not url:
 			return
@@ -83,7 +84,7 @@ def updateDb(url):
 			try:
 				url = base64.b64decode(url)
 			except Exception as e:
-				print("\nError decoding url: ", e)
+				Print.info("\nError decoding url: ", e)
 				return
 
 		r = requests.get(url)
@@ -92,10 +93,10 @@ def updateDb(url):
 		if r.status_code == 200:
 			Titles.loadTitleBuffer(r.text, False)
 		else:
-			print('Error updating database: ', repr(r))
+			Print.info('Error updating database: ', repr(r))
 			
 	except Exception as e:
-		print('Error downloading:', e)
+		Print.info('Error downloading:', e)
 	
 def downloadAll():
 	initTitles()
@@ -104,14 +105,14 @@ def downloadAll():
 	for k,t in Titles.items():
 		if not t.path and not t.retailOnly and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 			if not t.id:
-				print('no valid id? ' + str(t.path))
+				Print.info('no valid id? ' + str(t.path))
 				continue
 				
 			if not t.lastestVersion():
-				print('Could not get version for ' + t.name)
+				Print.info('Could not get version for ' + t.name)
 				continue
 				
-			print('Downloading ' + t.name + ', ' + str(t.version).lower())
+			Print.info('Downloading ' + t.name + ', ' + str(t.version).lower())
 			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 			
 def export(file):
@@ -138,11 +139,11 @@ def organize():
 	initFiles()
 
 	#scan()
-	print('organizing')
+	Print.info('organizing')
 	for k, f in Nsps.files.items():
-		#print(str(f.hasValidTicket) +' = ' + f.path)
+		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
 		f.move()
-	print('removing empty directories')
+	Print.info('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
 	Nsps.save()
 		
@@ -170,7 +171,7 @@ def scanLatestTitleUpdates():
 		
 		if not Titles.contains(id):
 			if len(id) != 16:
-				print('invalid title id: ' + id)
+				Print.info('invalid title id: ' + id)
 				continue
 			continue
 			t = Title()
@@ -179,7 +180,7 @@ def scanLatestTitleUpdates():
 			
 		t = Titles.get(id)
 		if str(t.version) != str(version):
-			print('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
+			Print.info('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
 			t.setVersion(version, True)
 			
 	Titles.save()
@@ -193,7 +194,7 @@ def updateVersions(force = True):
 		if force or t.version == None:
 			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
 				v = t.lastestVersion(True)
-				print("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
+				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
 			
 				i = i + 1
 				if i % 20 == 0:
@@ -207,7 +208,7 @@ def updateVersions(force = True):
 			if u.lastestVersion():
 				Titles.set(t.updateId, u)
 				
-				print("%s[%s] FOUND" % (str(t.name), str(u.id)) )
+				Print.info("%s[%s] FOUND" % (str(t.name), str(u.id)) )
 				
 				i = i + 1
 				if i % 20 == 0:
@@ -248,15 +249,15 @@ def unlockAll():
 	for k,f in Nsps.files.items():
 		if f.isUnlockable():
 			try:
-				print('unlocking ' + f.path)
+				Print.info('unlocking ' + f.path)
 				f.open(f.path, 'r+b')
 				f.unlock()
 				f.close()
 			except BaseException as e:
-				print('error unlocking: ' + str(e))
+				Print.info('error unlocking: ' + str(e))
 			
 if __name__ == '__main__':
-	print('initializinng')
+	Print.info('initializinng')
 	titleWhitelist = []
 	titleBlacklist = []
 
@@ -317,7 +318,7 @@ if __name__ == '__main__':
 	
 	args = parser.parse_args()	
 
-	print('processing args')
+	Print.info('processing args')
 
 	Config.download.base = bool(args.base)
 	Config.download.DLC = bool(args.dlc)
@@ -333,12 +334,12 @@ if __name__ == '__main__':
 			f.close()
 
 	if args.create:
-		print('creating ' + args.create)
+		Print.info('creating ' + args.create)
 		nsp = Fs.Nsp(None, None)
 		nsp.path = args.create
 		nsp.pack(args.file)
 		#for filePath in args.file:
-		#	print(filePath)
+		#	Print.info(filePath)
 
 	
 	if args.update_titles:
@@ -365,7 +366,7 @@ if __name__ == '__main__':
 				key = bits[1].strip()
 				version = bits[2].strip()
 			else:
-				print('invalid args: ' + download)
+				Print.info('invalid args: ' + download)
 				continue
 
 			if key == '':
@@ -445,7 +446,7 @@ if __name__ == '__main__':
 		initFiles()
 
 		if re.match('[A-Z0-9][16]', args.info, re.I):
-			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
+			Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			f = Fs.factory(args.info)
 			f.open(args.info, 'r+b')
@@ -453,13 +454,13 @@ if __name__ == '__main__':
 			'''
 			for i in f.cnmt():
 				for j in i:
-					print(j._path)
+					Print.info(j._path)
 					j.rewind()
 					buf = j.read()
 					Hex.dump(buf)
 					j.seek(0x28)
 					#j.writeInt64(0)
-					print('min: ' + str(j.readInt64()))
+					Print.info('min: ' + str(j.readInt64()))
 			#f.flush()
 			#f.close()
 			'''
@@ -481,14 +482,14 @@ if __name__ == '__main__':
 	if args.unlock:
 		initTitles()
 		initFiles()
-		print('opening ' + args.unlock)
+		Print.info('opening ' + args.unlock)
 		f = Fs.Nsp(args.unlock, 'r+b')
 		f.unlock()
-		#print(hex(int(f.titleId, 16)))
+		#Print.info(hex(int(f.titleId, 16)))
 		#f.ticket().setTitleKeyBlock(0x3F4E5ADCAECFB0A25C9FCABD37E68ECE)
 		#f.ticket().flush()
-		#print(hex(f.ticket().getTitleKeyBlock()))
-		#print(hex(f.ticket().getTitleKeyBlock()))
+		#Print.info(hex(f.ticket().getTitleKeyBlock()))
+		#Print.info(hex(f.ticket().getTitleKeyBlock()))
 		#f.close()
 
 

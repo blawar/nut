@@ -433,6 +433,4 @@ class AESECB:
 		assert(len(block) <= self.block_size)
 		num_pad = self.block_size - len(block)
 		right = (chr(num_pad) * num_pad).encode()
-		#print('block type: ' + type(block).__name__)
-		#print('right type: ' + type(right).__name__)
 		return block + right

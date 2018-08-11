@@ -6,6 +6,7 @@ import pathlib
 import re
 import Status
 import time
+import Print
 
 global files
 files = {}
@@ -28,7 +29,7 @@ def scan(base):
 
 	fileList = {}
 
-	print('scanning ' + base)
+	Print.info('scanning ' + base)
 	for root, dirs, _files in os.walk(base, topdown=False):
 		for name in _files:
 			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
@@ -43,7 +44,7 @@ def scan(base):
 			status.add(1)
 
 			if not path in files:
-				print('scanning ' + name)
+				Print.info('scanning ' + name)
 				nsp = Fs.Nsp(path, None)
 						
 				files[nsp.path] = nsp
@@ -55,7 +56,7 @@ def scan(base):
 		except KeyboardInterrupt:
 			raise
 		except BaseException as e:
-			print('An error occurred processing file: ' + str(e))
+			Print.info('An error occurred processing file: ' + str(e))
 	save()
 	status.close()
 
@@ -75,7 +76,7 @@ def removeEmptyDir(path, removeRoot=True):
 	# if folder empty, delete it
 	_files = os.listdir(path)
 	if len(_files) == 0 and removeRoot:
-		print("Removing empty folder:" + path)
+		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
 def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
@@ -108,7 +109,7 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'h
 					files[path] = Fs.Nsp(path, None)
 	except:
 		pass
-	print('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
+	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
 def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	buffer = ''

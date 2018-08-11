@@ -22,6 +22,7 @@ import Titles
 import requests
 import unidecode
 import urllib3
+import Print
 
 #Global Vars
 titlekey_list = []
@@ -47,10 +48,6 @@ def sha256_file(fPath):
 		hash.update(f.read())
 	f.close()
 	return hash.hexdigest()
-
-def print_(*info):
-	if not quiet:
-		print(' '.join(map(str,info)))
 
 def read_at(f, off, len):
 	f.seek(off)
@@ -155,7 +152,7 @@ def make_request(method, url, certificate='', hdArgs={}):
 	r = requests.request(method, url, cert=certificate, headers=reqHd, verify=False, stream=True)
 
 	if r.status_code == 403:
-		print_('Request rejected by server! Check your cert.')
+		Print.error('Request rejected by server! Check your cert.')
 		return r
 
 	return r
@@ -189,7 +186,7 @@ def get_version(titleId):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
 	r = make_request('GET', url)
 	j = r.json()
-	#print('v: ' + str(j))
+	#Print.info('v: ' + str(j))
 	try:
 		if j['error']:
 			return None
@@ -238,7 +235,7 @@ def download_file(url, fPath):
 		r = make_request('GET', url, hdArgs={'Range': 'bytes=%s-' % dlded})
 
 		if r.headers.get('Server') != 'openresty/1.9.7.4':
-			print_('\nDownload is already complete, skipping!')
+			Print.info('\nDownload is already complete, skipping!')
 			return fPath
 		elif r.headers.get('Content-Range') == None:  # CDN doesn't return a range if request >= filesize
 			fSize = int(r.headers.get('Content-Length'))
@@ -246,13 +243,13 @@ def download_file(url, fPath):
 			fSize = dlded + int(r.headers.get('Content-Length'))
 
 		if dlded == fSize:
-			print_('\nDownload is already complete, skipping!')
+			Print.info('\nDownload is already complete, skipping!')
 			return fPath
 		elif dlded < fSize:
-			print_('\nResuming download...')
+			Print.info('\nResuming download...')
 			f = open(fPath, 'ab')
 		else:
-			print_('\nExisting file is bigger than expected (%s/%s), restarting download...' % (dlded, fSize))
+			Print.error('\nExisting file is bigger than expected (%s/%s), restarting download...' % (dlded, fSize))
 			dlded = 0
 			f = open(fPath, "wb")
 	else:
@@ -284,7 +281,7 @@ def download_file(url, fPath):
 		raise ValueError('Downloaded data is not as big as expected (%s/%s)!' % (dlded, fSize))
 
 	f.close()
-	print_('\r\nSaved to %s!' % f.name)
+	Print.info('\r\nSaved to %s!' % f.name)
 	return fPath
 
 
@@ -305,12 +302,12 @@ def decrypt_NCA(fPath, outDir=''):
 				  + ' --header="' + outDir + os.sep + 'Header.bin"'
 
 	try:
-		print(commandLine)
+		Print.info(commandLine)
 		subprocess.check_output(commandLine, shell=True)
 		if os.listdir(outDir) == []:
 			raise subprocess.CalledProcessError('\nDecryption failed, output folder %s is empty!' % outDir)
 	except subprocess.CalledProcessError:
-		print_('\nDecryption failed!')
+		Print.error('\nDecryption failed!')
 		raise
 
 	return outDir
@@ -325,13 +322,13 @@ def verify_NCA(ncaFile, titleKey):
 	try:
 		output = str(subprocess.check_output(commandLine, stderr=subprocess.STDOUT, shell=True))
 	except subprocess.CalledProcessError as exc:
-		print_("Status : FAIL", exc.returncode, exc.output)
+		Print.error("Status : FAIL", exc.returncode, exc.output)
 		return False
 	else:
 		if "Error: section 0 is corrupted!" in output or "Error: section 1 is corrupted!" in output:
-			print_("\nNCA Verification failed. Probably a bad titlekey.")
+			Print.error("\nNCA Verification failed. Probably a bad titlekey.")
 			return False
-	print_("\nTitlekey verification successful.")
+	Print.info("\nTitlekey verification successful.")
 	return True
 
 
@@ -347,7 +344,7 @@ def get_biggest_file(path):
 				name = item
 		return os.path.join(path, name)
 	except Exception as e:
-		print_(e)
+		Print.error(e)
 
 
 def download_cetk(rightsID, fPath):
@@ -362,7 +359,7 @@ def download_cetk(rightsID, fPath):
 
 
 def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', verify=False):
-	print_('\n%s v%s:' % (titleId, ver))
+	Print.info('\n%s v%s:' % (titleId, ver))
 	titleId = titleId.lower()
 	isNsx = False
 	
@@ -373,19 +370,19 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 		titleId = (16 - len(titleId)) * '0' + titleId
 
 	url = 'https://atum%s.hac.%s.d4c.nintendo.net/t/a/%s/%s?device_id=%s' % (n, env, titleId, ver, deviceId)
-	print_(url)
+	Print.info(url)
 	try:
 		r = make_request('HEAD', url)
 	except Exception as e:
-		print_("Error downloading title. Check for incorrect titleid or version.")
+		Print.info("Error downloading title. Check for incorrect titleid or version.")
 		return
 	CNMTid = r.headers.get('X-Nintendo-Content-ID')
 
 	if CNMTid == None:
-		print_('title not available on CDN')
+		Print.info('title not available on CDN')
 		return
 
-	print_('\nDownloading CNMT (%s.cnmt.nca)...' % CNMTid)
+	Print.info('\nDownloading CNMT (%s.cnmt.nca)...' % CNMTid)
 	url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/a/%s?device_id=%s' % (n, env, CNMTid, deviceId)
 	fPath = os.path.join(gameDir, CNMTid + '.cnmt.nca')
 	cnmtNCA = download_file(url, fPath)
@@ -424,14 +421,14 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 					with open(tikPath, 'wb') as outtik:
 						outtik.write(data)
 
-			print_('\nGenerated %s and %s!' % (os.path.basename(certPath), os.path.basename(tikPath)))
+			Print.info('\nGenerated %s and %s!' % (os.path.basename(certPath), os.path.basename(tikPath)))
 		elif CNMT.type == 'Patch':
-			print_('\nDownloading cetk...')
+			Print.info('\nDownloading cetk...')
 
 			with open(download_cetk(rightsID, os.path.join(gameDir, '%s.cetk' % rightsID)), 'rb') as cetk:
 				cetk.seek(0x180)
 				tkey = hx(cetk.read(0x10)).decode()
-				print_('\nTitlekey: %s' % tkey)
+				Print.info('\nTitlekey: %s' % tkey)
 
 				with open(tikPath, 'wb') as tik:
 					cetk.seek(0x0)
@@ -441,7 +438,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 					cetk.seek(0x2C0)
 					cert.write(cetk.read(0x700))
 
-			print_('\nExtracted %s and %s from cetk!' % (os.path.basename(certPath), os.path.basename(tikPath)))
+			Print.info('\nExtracted %s and %s from cetk!' % (os.path.basename(certPath), os.path.basename(tikPath)))
 
 	NCAs = {
 		0: [],
@@ -454,15 +451,15 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 	}
 	for type in [0, 3, 4, 5, 1, 2, 6]:  # Download smaller files first
 		for ncaID in CNMT.parse(CNMT.ncaTypes[type]):
-			print_('\nDownloading %s entry (%s.nca)...' % (CNMT.ncaTypes[type], ncaID))
+			Print.info('\nDownloading %s entry (%s.nca)...' % (CNMT.ncaTypes[type], ncaID))
 			url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/c/%s?device_id=%s' % (n, env, ncaID, deviceId)
 			fPath = os.path.join(gameDir, ncaID + '.nca')
 			NCAs[type].append(download_file(url, fPath))
 			if verify:
 				if calc_sha256(fPath) != CNMT.parse(CNMT.ncaTypes[type])[ncaID][2]:
-					print_('\n\n%s is corrupted, hashes don\'t match!' % os.path.basename(fPath))
+					Print.info('\n\n%s is corrupted, hashes don\'t match!' % os.path.basename(fPath))
 				else:
-					print_('\nVerified %s...' % os.path.basename(fPath))
+					Print.info('\nVerified %s...' % os.path.basename(fPath))
 
 	if nspRepack == True:
 		files = []
@@ -530,7 +527,7 @@ def download_game(titleId, ver, tkey=None, nspRepack=False, name='', verify=Fals
 	for item in os.listdir(outputDir):
 		if item.find('%s' % titleId) != -1:
 			if item.find('v%s' % ver) != -1:
-				print_('%s already exists, skipping download' % outf)
+				Print.info('%s already exists, skipping download' % outf)
 				shutil.rmtree(gameDir)
 				return
 
@@ -543,17 +540,17 @@ def download_game(titleId, ver, tkey=None, nspRepack=False, name='', verify=Fals
 
 			if not verified:
 				shutil.rmtree(gameDir)
-				print_('\ncleaned up downloaded content')
+				Print.info('\ncleaned up downloaded content')
 				return
 
 	if nspRepack == True:
 		if files == None:
 			return
 		NSP = nsp(outf, files)
-		print_('\nstarting repack, This may take a while')
+		Print.info('\nstarting repack, This may take a while')
 		NSP.repack()
 		shutil.rmtree(gameDir)
-		print_('\ncleaned up downloaded content')
+		Print.info('\ncleaned up downloaded content')
 
 		if enxhop:
 			enxhopDir = os.path.join(outputDir,'switch')
@@ -670,7 +667,7 @@ class cnmt:
 		with open(outf, 'wb') as f:
 			f.write(reparsed.toprettyxml(encoding='utf-8', indent='  ')[:-1])
 			
-		print('\t\tGenerated %s!' % os.path.basename(outf))
+		Print.info('\t\tGenerated %s!' % os.path.basename(outf))
 		return outf
 
 class nsp:
@@ -679,13 +676,13 @@ class nsp:
 		self.files = files
 
 	def repack(self):
-		print_('\tRepacking to NSP...')
+		Print.info('\tRepacking to NSP...')
 		
 		hd = self.gen_header()
 		
 		totSize = len(hd) + sum(os.path.getsize(file) for file in self.files)
 		if os.path.exists(self.path) and os.path.getsize(self.path) == totSize:
-			print_('\t\tRepack %s is already complete!' % self.path)
+			Print.info('\t\tRepack %s is already complete!' % self.path)
 			return
 			
 		t = tqdm(total=totSize, unit='B', unit_scale=True, desc=os.path.basename(self.path), leave=False)
@@ -707,7 +704,7 @@ class nsp:
 					t.update(len(buf))
 		t.close()
 		
-		print_('\t\tRepacked to %s!' % outf.name)
+		Print.info('\t\tRepacked to %s!' % outf.name)
 		outf.close()
 
 	def gen_header(self):
