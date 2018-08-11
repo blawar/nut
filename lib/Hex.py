@@ -1,4 +1,5 @@
 from string import ascii_letters, digits, punctuation
+import Print
 
 def bufferToHex(buffer, start, count):
     accumulator = ''
@@ -25,14 +26,14 @@ def dump(data, size = 16):
 	hexFormat = '{:'+str(size*3)+'}'
 	asciiFormat = '{:'+str(size)+'}'
 
-	print()
+	Print.info()
 	while index < bytesRead:
 		
 		hex = bufferToHex(data, index, size)
 		ascii = bufferToAscii(data, index, size)
 
-		print(hexFormat.format(hex), end='')
-		print('|',asciiFormat.format(ascii),'|')
+		Print.info(hexFormat.format(hex), end='')
+		Print.info('|',asciiFormat.format(ascii),'|')
 		
 		index += size
 		if bytesRead - index < size:

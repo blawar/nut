@@ -5,6 +5,7 @@ import re
 import json
 import CDNSP
 import Titles
+import Print
 
 class Title:
 	def __init__(self):
@@ -30,7 +31,7 @@ class Title:
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
-				print('invalid map index: ' + str(i) + ', ' + str(len(map)))
+				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
 			
 			i = str(map[i])
@@ -236,7 +237,7 @@ class Title:
 		if not self.version or force:
 			self.version = Title.getCdnVersion(self.id)
 			
-		#print('version: ' + str(self.version))
+		#Print.info('version: ' + str(self.version))
 		return self.version
 		
 	def isValid(self):

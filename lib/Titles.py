@@ -7,6 +7,7 @@ import json
 import Title
 import operator
 import Config
+import Print
 
 global titles
 titles = {}
@@ -36,7 +37,7 @@ def loadTitleFile(path, silent = False):
 	timestamp = time.clock()
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
-	print('loaded ' + path + ' in ' + str(time.clock() - timestamp) + ' seconds')
+	Print.info('loaded ' + path + ' in ' + str(time.clock() - timestamp) + ' seconds')
 	
 def loadTitleBuffer(buffer, silent = False):
 	firstLine = True
@@ -61,7 +62,7 @@ def loadTitleBuffer(buffer, silent = False):
 		titles[t.id].loadCsv(line, map)
 
 		if not silent and titleKey != titles[t.id].key:
-			print('Added new title key for ' + str(titles[t.id].name) + '[' + t.id + ']')
+			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + t.id + ']')
 
 	
 def load():

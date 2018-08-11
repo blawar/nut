@@ -12,6 +12,7 @@ import re
 import pathlib
 import Keys
 import Config
+import Print
 from tqdm import tqdm
 
 MEDIA_SIZE = 0x200
@@ -78,7 +79,7 @@ class SectionFilesystem(File):
 			cryptoType = self.cryptoType
 			cryptoCounter = self.cryptoCounter
 		#else:
-		#	print('no sfs buffer')
+		#	Print.info('no sfs buffer')
 			
 		super(SectionFilesystem, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		
@@ -94,23 +95,23 @@ class SectionFilesystem(File):
 		
 	def printInfo(self, indent):
 		tabs = '\t' * indent
-		print(tabs + 'magic = ' + str(self.magic))
-		print(tabs + 'fsType = ' + str(self.fsType))
-		print(tabs + 'cryptoType = ' + str(self.cryptoType))
-		print(tabs + 'size = ' + str(self.size))
-		print(tabs + 'offset = ' + str(self.offset))
+		Print.info(tabs + 'magic = ' + str(self.magic))
+		Print.info(tabs + 'fsType = ' + str(self.fsType))
+		Print.info(tabs + 'cryptoType = ' + str(self.cryptoType))
+		Print.info(tabs + 'size = ' + str(self.size))
+		Print.info(tabs + 'offset = ' + str(self.offset))
 		if self.cryptoCounter:
-			print(tabs + 'cryptoCounter = ' + str(hx(self.cryptoCounter)))
+			Print.info(tabs + 'cryptoCounter = ' + str(hx(self.cryptoCounter)))
 			
 		if self.cryptoKey:
-			print(tabs + 'cryptoKey = ' + str(hx(self.cryptoKey)))
+			Print.info(tabs + 'cryptoKey = ' + str(hx(self.cryptoKey)))
 		
-		print('\n%s\t%s\n' % (tabs, '*' * 64))
-		print('\n%s\tFiles:\n' % (tabs))
+		Print.info('\n%s\t%s\n' % (tabs, '*' * 64))
+		Print.info('\n%s\tFiles:\n' % (tabs))
 		
 		for f in self:
 			f.printInfo(indent+1)
-			print('\n%s\t%s\n' % (tabs, '*' * 64))
+			Print.info('\n%s\t%s\n' % (tabs, '*' * 64))
 
 
 class PFS0File(File):
@@ -123,7 +124,7 @@ class PFS0File(File):
 	
 	def printInfo(self, indent):
 		tabs = '\t' * indent
-		print(tabs + 'name = ' + str(self.name))
+		Print.info(tabs + 'name = ' + str(self.name))
 		super(PFS0File, self).printInfo(indent)
 		
 class PFS0(SectionFilesystem):
@@ -166,9 +167,9 @@ class PFS0(SectionFilesystem):
 		r = super(PFS0, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 		#self.setupCrypto()
-		#print('cryptoType = ' + hex(self.cryptoType))
-		#print('titleKey = ' + (self.cryptoKey.hex()))
-		#print('cryptoCounter = ' + (self.cryptoCounter.hex()))
+		#Print.info('cryptoType = ' + hex(self.cryptoType))
+		#Print.info('titleKey = ' + (self.cryptoKey.hex()))
+		#Print.info('cryptoCounter = ' + (self.cryptoCounter.hex()))
 
 		self.magic = self.read(4)
 		if self.magic != b'PFS0':
@@ -227,7 +228,7 @@ class PFS0(SectionFilesystem):
 				
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
-		print('\n%sPFS0\n' % (tabs))
+		Print.info('\n%sPFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
 
 		
@@ -320,7 +321,7 @@ class NcaHeader(File):
 		#for i in range(4):
 		#	offset = i * 0x10
 		#	key = encKeyBlock[offset:offset+0x10]
-		#	print('enc %d: %s' % (i, hx(key)))
+		#	Print.info('enc %d: %s' % (i, hx(key)))
 
 		if Keys.keyAreaKey(self.masterKey, self.keyIndex):
 			crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, self.keyIndex))
@@ -329,7 +330,7 @@ class NcaHeader(File):
 			for i in range(4):
 				offset = i * 0x10
 				key = self.keyBlock[offset:offset+0x10]
-				#print('dec %d: %s' % (i, hx(key)))
+				#Print.info('dec %d: %s' % (i, hx(key)))
 				self.keys.append(key)
 		else:
 			self.keys = [None, None, None, None, None, None, None]
@@ -340,7 +341,7 @@ class NcaHeader(File):
 				self.titleKeyDec = Keys.decryptTitleKey(uhx(Titles.get(self.titleId.upper()).key), self.masterKey)
 			else:
 				pass
-				#print('could not find title key!')
+				#Print.info('could not find title key!')
 		else:
 			self.titleKeyDec = self.key()
 
@@ -405,25 +406,25 @@ class Nca(File):
 
 		self.header = NcaHeader()
 		self.partition(0x0, 0xC00, self.header, Type.Crypto.XTS, uhx(Keys.get('header_key')))
-		#print('partition complete, seeking')
+		#Print.info('partition complete, seeking')
 		self.header.seek(0x400)
-		#print('reading')
+		#Print.info('reading')
 		#Hex.dump(self.header.read(0x200))
 		#exit()
 
 		for i in range(4):
 			fs = GetSectionFilesystem(self.header.read(0x200), cryptoKey = self.header.titleKeyDec)
-			#print('fs type = ' + hex(fs.fsType))
-			#print('fs crypto = ' + hex(fs.cryptoType))
-			#print('st end offset = ' + str(self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset))
-			#print('fs offset = ' + hex(self.header.sectionTables[i].offset))
-			#print('fs section start = ' + hex(fs.sectionStart))
-			#print('titleKey = ' + hex(self.header.titleKeyDec))
+			#Print.info('fs type = ' + hex(fs.fsType))
+			#Print.info('fs crypto = ' + hex(fs.cryptoType))
+			#Print.info('st end offset = ' + str(self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset))
+			#Print.info('fs offset = ' + hex(self.header.sectionTables[i].offset))
+			#Print.info('fs section start = ' + hex(fs.sectionStart))
+			#Print.info('titleKey = ' + hex(self.header.titleKeyDec))
 			try:
 				self.partition(self.header.sectionTables[i].offset + fs.sectionStart, self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset, fs, cryptoKey = self.header.titleKeyDec)
 			except BaseException as e:
 				pass
-				#print(e)
+				#Print.info(e)
 				#raise
 
 			if fs.fsType:
@@ -436,21 +437,21 @@ class Nca(File):
 		
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
-		print('\n%sNCA Archive\n' % (tabs))
+		Print.info('\n%sNCA Archive\n' % (tabs))
 		super(Nca, self).printInfo(indent)
 		
-		print(tabs + 'magic = ' + str(self.header.magic))
-		print(tabs + 'titleId = ' + str(self.header.titleId))
-		print(tabs + 'rightsId = ' + str(self.header.rightsId))
-		print(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
-		print(tabs + 'contentType = ' + str(self.header.contentType))
-		print(tabs + 'cryptoType = ' + str(self.cryptoType))
-		print(tabs + 'Size: ' + str(self.header.size))
-		print(tabs + 'crypto master key: ' + str(self.header.cryptoType))
-		print(tabs + 'crypto master key: ' + str(self.header.cryptoType2))
-		print(tabs + 'key Index: ' + str(self.header.keyIndex))
+		Print.info(tabs + 'magic = ' + str(self.header.magic))
+		Print.info(tabs + 'titleId = ' + str(self.header.titleId))
+		Print.info(tabs + 'rightsId = ' + str(self.header.rightsId))
+		Print.info(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
+		Print.info(tabs + 'contentType = ' + str(self.header.contentType))
+		Print.info(tabs + 'cryptoType = ' + str(self.cryptoType))
+		Print.info(tabs + 'Size: ' + str(self.header.size))
+		Print.info(tabs + 'crypto master key: ' + str(self.header.cryptoType))
+		Print.info(tabs + 'crypto master key: ' + str(self.header.cryptoType2))
+		Print.info(tabs + 'key Index: ' + str(self.header.keyIndex))
 		
-		print('\n%sPartitions:' % (tabs))
+		Print.info('\n%sPartitions:' % (tabs))
 		
 		for s in self:
 			s.printInfo(indent+1)
@@ -564,15 +565,15 @@ class Xci(File):
 		
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
-		print('\n%sXCI Archive\n' % (tabs))
+		Print.info('\n%sXCI Archive\n' % (tabs))
 		super(Xci, self).printInfo(indent)
 		
-		print(tabs + 'magic = ' + str(self.magic))
-		print(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
+		Print.info(tabs + 'magic = ' + str(self.magic))
+		Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
 		
-		print(tabs + 'gamecardCert = ' + str(hx(self.gamecardCert.magic + self.gamecardCert.unknown1 + self.gamecardCert.unknown2 + self.gamecardCert.data)))
-		#print(tabs + 'NCA crypto master key: ' + str(self.cryptoType))
-		#print(tabs + 'NCA crypto master key: ' + str(self.cryptoType2))
+		Print.info(tabs + 'gamecardCert = ' + str(hx(self.gamecardCert.magic + self.gamecardCert.unknown1 + self.gamecardCert.unknown2 + self.gamecardCert.data)))
+		#Print.info(tabs + 'NCA crypto master key: ' + str(self.cryptoType))
+		#Print.info(tabs + 'NCA crypto master key: ' + str(self.cryptoType2))
 		
 
 class Nsp(PFS0):
@@ -592,14 +593,14 @@ class Nsp(PFS0):
 			#	self.pack(files)
 				
 		if self.titleId and self.isUnlockable():
-			print('unlockable title found ' + self.path)
+			Print.info('unlockable title found ' + self.path)
 		#	self.unlock()
 
 	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
-				print('invalid map index: ' + str(i) + ', ' + str(len(map)))
+				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
 			
 			i = str(map[i])
@@ -646,11 +647,11 @@ class Nsp(PFS0):
 			rightsId = hx(t.getRightsId().to_bytes(0x10, byteorder='big')).decode('utf-8').upper()
 			self.titleId = rightsId[0:16]
 			self.title().setRightsId(rightsId)
-			print('rightsId = ' + rightsId)
-			print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
+			Print.info('rightsId = ' + rightsId)
+			Print.info(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
 			self.setHasValidTicket(t.getTitleKeyBlock() != 0)
 		except BaseException as e:
-			print('readMeta filed ' + self.path + ", " + str(e))
+			Print.info('readMeta filed ' + self.path + ", " + str(e))
 			raise
 		self.close()
 
@@ -672,7 +673,7 @@ class Nsp(PFS0):
 				i += len(buf)
 				f.write(buf)
 			f.close()
-			print(filePath)
+			Print.info(filePath)
 
 	def setHasValidTicket(self, value):
 		if self.title().isUpdate:
@@ -723,7 +724,7 @@ class Nsp(PFS0):
 			if self.titleId:
 				self.title().path = path
 		else:
-			print('could not get title id from filename, name needs to contain [titleId] : ' + path)
+			Print.info('could not get title id from filename, name needs to contain [titleId] : ' + path)
 			self.titleId = None
 
 		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
@@ -751,15 +752,15 @@ class Nsp(PFS0):
 			return False
 		
 		if not self.fileName():
-			#print('could not get filename for ' + self.path)
+			#Print.info('could not get filename for ' + self.path)
 			return False
 
 		if os.path.abspath(self.fileName()).lower() == os.path.abspath(self.path).lower():
 			return False
 		if os.path.isfile(self.fileName()) and os.path.abspath(self.path) == os.path.abspath(self.fileName()):
-			print('duplicate title: ')
-			print(os.path.abspath(self.path))
-			print(os.path.abspath(self.fileName()))
+			Print.info('duplicate title: ')
+			Print.info(os.path.abspath(self.path))
+			Print.info(os.path.abspath(self.fileName()))
 			return False
 
 		try:
@@ -768,8 +769,8 @@ class Nsp(PFS0):
 			os.rename(self.path, newPath)
 			self.path = newPath
 		except BaseException as e:
-			print('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
-		#print(self.path + ' -> ' + self.fileName())
+			Print.info('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
+		#Print.info(self.path + ' -> ' + self.fileName())
 		
 		if self.titleId in Titles.keys():
 			Titles.get(self.titleId).path = self.fileName()
@@ -785,7 +786,7 @@ class Nsp(PFS0):
 		bt = None
 		if not self.titleId in Titles.keys():
 			if not Title.getBaseId(self.titleId) in Titles.keys():
-				print('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
+				Print.info('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
 				return None
 			bt = Titles.get(Title.getBaseId(self.titleId))
 			t = Title()
@@ -794,7 +795,7 @@ class Nsp(PFS0):
 			t = Titles.get(self.titleId)
 		
 			if not t.baseId in Titles.keys():
-				print('could not find baseId for ' + self.path)
+				Print.info('could not find baseId for ' + self.path)
 				return None
 			bt = Titles.get(t.baseId)
 		
@@ -858,7 +859,7 @@ class Nsp(PFS0):
 			raise IOError('No title key found in database!')
 
 		self.ticket().setTitleKeyBlock(int(Titles.get(self.titleId).key, 16))
-		print('setting title key to ' + Titles.get(self.titleId).key)
+		Print.info('setting title key to ' + Titles.get(self.titleId).key)
 		self.ticket().flush()
 		self.close()
 		self.hasValidTicket = True
@@ -878,13 +879,13 @@ class Nsp(PFS0):
 			raise IOError('please remove titlerights first')
 
 		if (newMasterKeyRev == None and rightsId == 0) or masterKeyRev == newMasterKeyRev:
-			print('Nothing to do')
+			Print.info('Nothing to do')
 			return
 
-		print('rightsId =\t' + hex(rightsId))
-		print('titleKey =\t' + str(hx(titleKey.to_bytes(16, byteorder='big'))))
-		print('newTitleKey =\t' + str(hx(newTitleKey)))
-		print('masterKeyRev =\t' + hex(masterKeyRev))
+		Print.info('rightsId =\t' + hex(rightsId))
+		Print.info('titleKey =\t' + str(hx(titleKey.to_bytes(16, byteorder='big'))))
+		Print.info('newTitleKey =\t' + str(hx(newTitleKey)))
+		Print.info('masterKeyRev =\t' + hex(masterKeyRev))
 
 
 
@@ -901,18 +902,18 @@ class Nsp(PFS0):
 		for nca in self:
 			if type(nca) == Nca:
 				if nca.header.getCryptoType2() != newMasterKeyRev:
-					print('writing masterKeyRev for %s, %d -> %s' % (str(nca._path),  nca.header.getCryptoType2(), str(newMasterKeyRev)))
+					Print.info('writing masterKeyRev for %s, %d -> %s' % (str(nca._path),  nca.header.getCryptoType2(), str(newMasterKeyRev)))
 
 					encKeyBlock = nca.header.getKeyBlock()
 
 					if sum(encKeyBlock) != 0:
 						key = Keys.keyAreaKey(Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex)
-						print('decrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex))
+						Print.info('decrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex))
 						crypto = aes128.AESECB(key)
 						decKeyBlock = crypto.decrypt(encKeyBlock)
 
 						key = Keys.keyAreaKey(Keys.getMasterKeyIndex(newMasterKeyRev), nca.header.keyIndex)
-						print('encrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(newMasterKeyRev), nca.header.keyIndex))
+						Print.info('encrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(newMasterKeyRev), nca.header.keyIndex))
 						crypto = aes128.AESECB(key)
 
 						reEncKeyBlock = crypto.encrypt(decKeyBlock)
@@ -936,9 +937,9 @@ class Nsp(PFS0):
 		titleKeyDec = Keys.decryptTitleKey(ticket.getTitleKeyBlock().to_bytes(16, byteorder='big'), Keys.getMasterKeyIndex(masterKeyRev))
 		rightsId = ticket.getRightsId()
 
-		print('rightsId =\t' + hex(rightsId))
-		print('titleKeyDec =\t' + str(hx(titleKeyDec)))
-		print('masterKeyRev =\t' + hex(masterKeyRev))
+		Print.info('rightsId =\t' + hex(rightsId))
+		Print.info('titleKeyDec =\t' + str(hx(titleKeyDec)))
+		Print.info('masterKeyRev =\t' + hex(masterKeyRev))
 
 
 
@@ -956,7 +957,7 @@ class Nsp(PFS0):
 				if nca.header.getRightsId() == 0:
 					continue
 
-				print('writing masterKeyRev for %s, %d' % (str(nca._path),  masterKeyRev))
+				Print.info('writing masterKeyRev for %s, %d' % (str(nca._path),  masterKeyRev))
 				crypto = aes128.AESECB(Keys.keyAreaKey(Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex))
 
 				encKeyBlock = crypto.encrypt(titleKeyDec * 4)
@@ -969,13 +970,13 @@ class Nsp(PFS0):
 		if not self.path:
 			return False
 			
-		print('\tRepacking to NSP...')
+		Print.info('\tRepacking to NSP...')
 		
 		hd = self.generateHeader(files)
 		
 		totSize = len(hd) + sum(os.path.getsize(file) for file in files)
 		if os.path.exists(self.path) and os.path.getsize(self.path) == totSize:
-			print('\t\tRepack %s is already complete!' % self.path)
+			Print.info('\t\tRepack %s is already complete!' % self.path)
 			return
 			
 		t = tqdm(total=totSize, unit='B', unit_scale=True, desc=os.path.basename(self.path), leave=False)
@@ -997,7 +998,7 @@ class Nsp(PFS0):
 					t.update(len(buf))
 		t.close()
 		
-		print('\t\tRepacked to %s!' % outf.name)
+		Print.info('\t\tRepacked to %s!' % outf.name)
 		outf.close()
 
 	def generateHeader(self, files):
@@ -1215,15 +1216,15 @@ class Ticket(File):
 
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
-		print('\n%sTicket\n' % (tabs))
+		Print.info('\n%sTicket\n' % (tabs))
 		super(Ticket, self).printInfo(indent)
-		print(tabs + 'signatureType = ' + str(self.signatureType))
-		print(tabs + 'keyType = ' + str(self.keyType))
-		print(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
-		print(tabs + 'ticketId = ' + str(self.ticketId))
-		print(tabs + 'deviceId = ' + str(self.deviceId))
-		print(tabs + 'rightsId = ' + hex(self.getRightsId()))
-		print(tabs + 'accountId = ' + str(self.accountId))
-		print(tabs + 'titleKey = ' + hex(self.getTitleKeyBlock()))
-		#print(tabs + 'magic = ' + str(self.magic))
-		#print(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
+		Print.info(tabs + 'signatureType = ' + str(self.signatureType))
+		Print.info(tabs + 'keyType = ' + str(self.keyType))
+		Print.info(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
+		Print.info(tabs + 'ticketId = ' + str(self.ticketId))
+		Print.info(tabs + 'deviceId = ' + str(self.deviceId))
+		Print.info(tabs + 'rightsId = ' + hex(self.getRightsId()))
+		Print.info(tabs + 'accountId = ' + str(self.accountId))
+		Print.info(tabs + 'titleKey = ' + hex(self.getTitleKeyBlock()))
+		#Print.info(tabs + 'magic = ' + str(self.magic))
+		#Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))

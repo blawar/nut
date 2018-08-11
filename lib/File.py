@@ -1,6 +1,7 @@
 from enum import IntEnum
 import Type
 import aes128
+import Print
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
@@ -47,7 +48,7 @@ class BaseFile:
 	def partition(self, offset = 0x0, size = None, n = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		if not n:
 			n = File()
-		#print('partition: ' + str(self) + ', ' + str(n))
+		#Print.info('partition: ' + str(self) + ', ' + str(n))
 			
 		n.offset = offset
 		
@@ -60,7 +61,7 @@ class BaseFile:
 
 		self._children.append(n)
 		
-		#print('created partition for %s %x, size = %d' % (n.__class__.__name__, offset, size))
+		#Print.info('created partition for %s %x, size = %d' % (n.__class__.__name__, offset, size))
 		n.open(None, None, cryptoType, cryptoKey, cryptoCounter)
 		
 		return n
@@ -101,7 +102,7 @@ class BaseFile:
 	def write(self, value, size = None):
 		if size != None:
 			value = value + '\0x00' * (size - len(value))
-		#print('writing to ' + hex(self.f.tell()) + ' ' + self.f.__class__.__name__)
+		#Print.info('writing to ' + hex(self.f.tell()) + ' ' + self.f.__class__.__name__)
 		#Hex.dump(value)
 		return self.f.write(value)
 
@@ -250,8 +251,8 @@ class BaseFile:
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
 		if self._path:
-			print('%sFile Path: %s' % (tabs, self._path))
-		print('%sFile Size: %s' % (tabs, self.size))
+			Print.info('%sFile Path: %s' % (tabs, self._path))
+		Print.info('%sFile Size: %s' % (tabs, self.size))
 
 
 class BufferedFile(BaseFile):
@@ -281,7 +282,7 @@ class BufferedFile(BaseFile):
 			if pageReadSize > self.size - self._bufferOffset:
 				pageReadSize = self.size - self._bufferOffset
 
-			#print('disk read %s\t\t: relativePos = %x, bufferOffset = %x, align = %x, size = %x, pageReadSize = %x, bufferSize = %x' % (self.__class__.__name__, self._relativePos, self._bufferOffset, self._bufferAlign, size, pageReadSize, self._bufferSize))
+			#Print.info('disk read %s\t\t: relativePos = %x, bufferOffset = %x, align = %x, size = %x, pageReadSize = %x, bufferSize = %x' % (self.__class__.__name__, self._relativePos, self._bufferOffset, self._bufferAlign, size, pageReadSize, self._bufferSize))
 			super(BufferedFile, self).seek(self._bufferOffset)
 			self._buffer = super(BufferedFile, self).read(pageReadSize)
 			self.pageRefreshed()
@@ -315,7 +316,7 @@ class BufferedFile(BaseFile):
 
 	def flushBuffer(self):
 		if self.f != None and self._buffer != None and self._bufferDirty == True:
-			#print('writing dirty page')
+			#Print.info('writing dirty page')
 			#Hex.dump(self._buffer)
 			super(BufferedFile, self).seek(self._bufferOffset)
 			super(BufferedFile, self).write(self.getPageFlushBuffer(self._buffer))
@@ -324,11 +325,11 @@ class BufferedFile(BaseFile):
 	def getPageFlushBuffer(self, buffer):
 		if self.crypto:
 			if self.cryptoType == Type.Crypto.CTR:
-				#print('reading ctr from ' + hex(self._bufferOffset))
+				#Print.info('reading ctr from ' + hex(self._bufferOffset))
 				self.crypto.set_ctr(self.setCounter(self.offset + self._bufferOffset))
 			else:
 				pass
-				#print('reading from ' + hex(self._bufferOffset))
+				#Print.info('reading from ' + hex(self._bufferOffset))
 			return self.crypto.encrypt(buffer)
 		return buffer
 
@@ -384,11 +385,11 @@ class File(BufferedFile):
 	def pageRefreshed(self):
 		if self.crypto:
 			if self.cryptoType == Type.Crypto.CTR:
-				#print('reading ctr from ' + hex(self._bufferOffset))
+				#Print.info('reading ctr from ' + hex(self._bufferOffset))
 				self.crypto.set_ctr(self.setCounter(self.offset + self._bufferOffset))
 			else:
 				pass
-				#print('reading from ' + hex(self._bufferOffset))
+				#Print.info('reading from ' + hex(self._bufferOffset))
 			self._buffer = self.crypto.decrypt(self._buffer)
 		return self._buffer
 		

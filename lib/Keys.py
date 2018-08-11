@@ -1,6 +1,7 @@
 import re
 import aes128
 from binascii import hexlify as hx, unhexlify as uhx
+import Print
 
 keys = {}
 titleKeks = []
@@ -91,7 +92,7 @@ def load(fileName):
 load('keys.txt')
 
 #for k in titleKeks:
-#	print('titleKek = ' + k)
+#	Print.info('titleKek = ' + k)
 
 #for k in keyAreaKeys:
-#	print('%s, %s, %s' % (hex(k[0]), hex(k[1]), hex(k[2])))
+#	Print.info('%s, %s, %s' % (hex(k[0]), hex(k[1]), hex(k[2])))
