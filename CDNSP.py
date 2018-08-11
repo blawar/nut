@@ -29,6 +29,25 @@ quiet = False
 truncateName = False
 enxhop = False
 
+def sha256_file(fPath):
+	f = open(fPath, 'rb')
+	fSize = os.path.getsize(fPath)
+	hash = sha256()
+	
+	if fSize >= 10000:
+		t = tqdm(total=fSize, unit='B', unit_scale=True, desc=os.path.basename(fPath), leave=False)
+		while True:
+			buf = f.read(4096)
+			if not buf:
+				break
+			hash.update(buf)
+			t.update(len(buf))
+		t.close()
+	else:
+		hash.update(f.read())
+	f.close()
+	return hash.hexdigest()
+
 def print_(*info):
 	if not quiet:
 		print(' '.join(map(str,info)))
@@ -610,53 +629,48 @@ class cnmt:
 
 	def gen_xml(self, ncaPath, outf):
 		data = self.parse()
-		hdPath = os.path.join(os.path.dirname(ncaPath),
-							  '%s.cnmt' % os.path.basename(ncaPath).split('.')[0], 'Header.bin')
-		with open(hdPath, 'rb') as ncaHd:
-			mKeyRev = str(read_u8(ncaHd, 0x220))
 
 		ContentMeta = ET.Element('ContentMeta')
-
+		
 		ET.SubElement(ContentMeta, 'Type').text = self.type
-		ET.SubElement(ContentMeta, 'Id').text = '0x%s' % self.id
+		ET.SubElement(ContentMeta, 'Id').text = '0x' + self.id
 		ET.SubElement(ContentMeta, 'Version').text = self.ver
 		ET.SubElement(ContentMeta, 'RequiredDownloadSystemVersion').text = self.dlsysver
-
+		
 		n = 1
 		for titleId in data:
-			locals()["Content" + str(n)] = ET.SubElement(ContentMeta, 'Content')
-			ET.SubElement(locals()["Content" + str(n)], 'Type').text = data[titleId][0]
-			ET.SubElement(locals()["Content" + str(n)], 'Id').text = titleId
-			ET.SubElement(locals()["Content" + str(n)], 'Size').text = data[titleId][1]
-			ET.SubElement(locals()["Content" + str(n)], 'Hash').text = data[titleId][2]
-			ET.SubElement(locals()["Content" + str(n)], 'KeyGeneration').text = mKeyRev
+			locals()["Content"+str(n)] = ET.SubElement(ContentMeta, 'Content')
+			ET.SubElement(locals()["Content"+str(n)], 'Type').text		  = data[titleId][0]
+			ET.SubElement(locals()["Content"+str(n)], 'Id').text			= titleId
+			ET.SubElement(locals()["Content"+str(n)], 'Size').text		  = str(data[titleId][1])
+			ET.SubElement(locals()["Content"+str(n)], 'Hash').text		  = data[titleId][2]
+			ET.SubElement(locals()["Content"+str(n)], 'KeyGeneration').text = self.mkeyrev
 			n += 1
-
+			
 		# cnmt.nca itself
 		cnmt = ET.SubElement(ContentMeta, 'Content')
-		ET.SubElement(cnmt, 'Type').text = 'Meta'
-		ET.SubElement(cnmt, 'Id').text = os.path.basename(ncaPath).split('.')[0]
-		ET.SubElement(cnmt, 'Size').text = str(os.path.getsize(ncaPath))
-		hash = sha256()
-		with open(ncaPath, 'rb') as nca:
-			hash.update(nca.read())  # Buffer not needed
-		ET.SubElement(cnmt, 'Hash').text = hash.hexdigest()
-		ET.SubElement(cnmt, 'KeyGeneration').text = mKeyRev
-
-		ET.SubElement(ContentMeta, 'Digest').text = self.digest
-		ET.SubElement(ContentMeta, 'KeyGenerationMin').text = self.mkeyrev
+		ET.SubElement(cnmt, 'Type').text		  = 'Meta'
+		ET.SubElement(cnmt, 'Id').text			= os.path.basename(ncaPath).split('.')[0]
+		ET.SubElement(cnmt, 'Size').text		  = str(os.path.getsize(ncaPath))
+		ET.SubElement(cnmt, 'Hash').text		  = sha256_file(ncaPath)
+		ET.SubElement(cnmt, 'KeyGeneration').text = self.mkeyrev
+			
+		ET.SubElement(ContentMeta, 'Digest').text				= self.digest
+		ET.SubElement(ContentMeta, 'KeyGenerationMin').text	  = self.mkeyrev
 		ET.SubElement(ContentMeta, 'RequiredSystemVersion').text = self.sysver
-		if self.id.endswith('800'):
-			ET.SubElement(ContentMeta, 'PatchId').text = '0x%s000' % self.id[:-3]
-		else:
-			ET.SubElement(ContentMeta, 'PatchId').text = '0x%s800' % self.id[:-3]
-
+		if self.type == 'Application':
+			ET.SubElement(ContentMeta, 'PatchId').text = '0x%016x' % (int(self.id, 16) + 0x800)
+		elif self.type == 'Patch':
+			ET.SubElement(ContentMeta, 'OriginalId').text = '0x%016x' % (int(self.id, 16) & 0xFFFFFFFFFFFFF000)
+		elif self.type == 'AddOnContent':	
+			ET.SubElement(ContentMeta, 'ApplicationId').text = '0x%016x' % (int(self.id, 16) - 0x1000 & 0xFFFFFFFFFFFFF000)
+		
 		string = ET.tostring(ContentMeta, encoding='utf-8')
 		reparsed = minidom.parseString(string)
-		with open(outf, 'w') as f:
-			f.write(reparsed.toprettyxml(encoding='utf-8', indent='  ').decode()[:-1])
-
-		print_('\nGenerated %s!' % os.path.basename(outf))
+		with open(outf, 'wb') as f:
+			f.write(reparsed.toprettyxml(encoding='utf-8', indent='  ')[:-1])
+			
+		print('\t\tGenerated %s!' % os.path.basename(outf))
 		return outf
 
 class nsp:
