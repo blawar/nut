@@ -14,7 +14,7 @@ hasScanned = False
 def get(key):
 	return files[key]
 	
-def scan(base, deep):
+def scan(base, deep = False):
 	global hasScanned
 	if hasScanned:
 		return

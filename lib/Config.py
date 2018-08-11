@@ -83,6 +83,11 @@ with open('nut.json', encoding="utf8") as f:
 		pass
 
 	try:
+		paths.archive = j['paths']['archive']
+	except:
+		pass
+
+	try:
 		paths.nspOut = j['paths']['nspOut']
 	except:
 		pass
