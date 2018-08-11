@@ -120,7 +120,7 @@ def export(file):
 global hasScanned
 hasScanned = False
 
-def scan():
+def scan(deep = False):
 	global hasScanned
 
 	if hasScanned:
@@ -129,7 +129,7 @@ def scan():
 	initTitles()
 	initFiles()
 
-	Nsps.scan(Config.paths.scan)
+	Nsps.scan(Config.paths.scan, deep)
 	Titles.save()
 	
 def organize():
@@ -297,7 +297,8 @@ if __name__ == '__main__':
 	parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
-	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
+	parser.add_argument('-S', '--deep-scan', action="store_true", help='deep scan for new NSP files')
+	parser.add_argument('-s', '--scan', action="store_true", help='quick scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
 	parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
@@ -360,10 +361,11 @@ if __name__ == '__main__':
 				CDNSP.download_game(id.lower(), version or Title.getCdnVersion(id.lower()), key, True, '', True)
 	
 	if args.scan:
-		initTitles()
-		initFiles()
 		scan()
-		
+
+	if args.deep_scan:
+		scan(True)
+
 	if args.refresh:
 		refresh()
 	
