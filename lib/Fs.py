@@ -607,10 +607,10 @@ class Nsp(PFS0):
 		if self.titleId in Titles.keys():
 			return Titles.get(self.titleId)
 			
-		self.title = Title.Title()
-		self.title.setId(self.titleId)
-		Titles.data()[self.titleId] = self.title
-		return self.title
+		t = Title.Title()
+		t.setId(self.titleId)
+		Titles.data()[self.titleId] = t
+		return t
 		
 	def readMeta(self):
 		self.open()
@@ -624,13 +624,33 @@ class Nsp(PFS0):
 			rightsId = hx(t.getRightsId().to_bytes(0x10, byteorder='big')).decode('utf-8').upper()
 			self.titleId = rightsId[0:16]
 			self.title().setRightsId(rightsId)
-			#print('rightsId = ' + rightsId)
-			#print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
+			print('rightsId = ' + rightsId)
+			print(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
 			self.setHasValidTicket(t.getTitleKeyBlock() != 0)
 		except BaseException as e:
 			print('readMeta filed ' + self.path + ", " + str(e))
 			raise
 		self.close()
+
+	def unpack(self, path):
+		os.makedirs(path, exist_ok=True)
+
+		for nspF in self:
+			filePath = os.path.abspath(path + '/' + nspF._path)
+			f = open(filePath, 'wb')
+			nspF.rewind()
+			i = 0
+
+			pageSize = 0x10000
+
+			while True:
+				buf = nspF.read(pageSize)
+				if len(buf) == 0:
+					break
+				i += len(buf)
+				f.write(buf)
+			f.close()
+			print(filePath)
 
 	def setHasValidTicket(self, value):
 		if self.title().isUpdate:
