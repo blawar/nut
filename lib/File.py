@@ -262,6 +262,12 @@ class BufferedFile(BaseFile):
 		if not size:
 			size = self.size
 
+		if self._relativePos + size > self.size:
+			size = self.size - self._relativePos
+
+		if size < 1:
+			return b''
+
 		if self._bufferOffset == None or self._buffer == None or self._relativePos < self._bufferOffset or (self._relativePos + size)  > self._bufferOffset + len(self._buffer):
 			self.flushBuffer()
 			#self._bufferOffset = self._relativePos & ~(self._bufferAlign-1)

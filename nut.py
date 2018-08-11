@@ -304,7 +304,8 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
-	parser.add_argument('-x', '--export', help='export title database in csv format')
+	parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack NSP')
+	parser.add_argument('--export-missing', help='export title database in csv format')
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 	
@@ -315,6 +316,14 @@ if __name__ == '__main__':
 	Config.download.demo = bool(args.demo)
 	Config.download.sansTitleKey = bool(args.nsx)
 	Config.download.update = bool(args.update)
+
+	if args.extract:
+		for filePath in args.extract:
+			f = Fs.Nsp(filePath, 'rb')
+			dir = os.path.splitext(os.path.basename(filePath))[0]
+			f.unpack(dir)
+			f.close()
+
 	
 	if args.update_titles:
 		for url in Config.titleUrls:
@@ -444,8 +453,8 @@ if __name__ == '__main__':
 	if args.download_all:
 		downloadAll()
 		
-	if args.export:
-		export(args.export)
+	if args.export_missing:
+		export(args.export_missing)
 		
 	if args.missing:
 		logMissingTitles(args.missing)
