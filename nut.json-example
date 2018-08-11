@@ -11,9 +11,7 @@
 			"."
 		]
     },
-	"titleUrls": [
-		"http://snip.li/nutdb"
-	],
+	"titleUrls": [],
 	"cdn": {
 		"region": "US",
 		"firmware": "5.1.0-0",
