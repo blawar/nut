@@ -4,12 +4,16 @@ import os
 import Fs
 import pathlib
 import re
+import Status
+import time
 
 global files
 files = {}
 
 global hasScanned
+global hasLoaded
 hasScanned = False
+hasLoaded = False
 
 def get(key):
 	return files[key]
@@ -21,33 +25,39 @@ def scan(base):
 
 	hasScanned = True
 	i = 0
+
+	fileList = {}
+
 	print('scanning ' + base)
 	for root, dirs, _files in os.walk(base, topdown=False):
-		#for name in dirs:
-		#	if name[0] != '.':
-		#		scan(root + '/' + name)
-			
 		for name in _files:
-			try:
-				if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
-					path = os.path.abspath(root + '/' + name)
+			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
+				path = os.path.abspath(root + '/' + name)
+				fileList[path] = name
 
-					if not path in files:
-						nsp = Fs.Nsp(path, None)
+	status = Status.create(len(fileList))
+
+	for path, name in fileList.items():
+		try:
+			status.setDescription(name, False)
+			status.add(1)
+
+			if not path in files:
+				print('scanning ' + name)
+				nsp = Fs.Nsp(path, None)
 						
-						files[nsp.path] = nsp
-						files[nsp.path].readMeta()
+				files[nsp.path] = nsp
+				files[nsp.path].readMeta()
 
-						nsp.move()
-
-						i = i + 1
-						if i % 20 == 0:
-							save()
-			except KeyboardInterrupt:
-				raise
-			except BaseException as e:
-				print('An error occurred processing file: ' + str(e))
-		save()
+				i = i + 1
+				if i % 20 == 0:
+					save()
+		except KeyboardInterrupt:
+			raise
+		except BaseException as e:
+			print('An error occurred processing file: ' + str(e))
+	save()
+	status.close()
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):
@@ -69,7 +79,15 @@ def removeEmptyDir(path, removeRoot=True):
 		os.rmdir(path)
 
 def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+	global hasLoaded
+
+	if hasLoaded:
+		return
+
+	hasLoaded = True
+
 	try:
+		timestamp = time.clock()
 		with open(fileName , encoding="utf-8-sig") as f:
 			firstLine = True
 			for line in f.readlines():
@@ -90,6 +108,7 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'h
 					files[path] = Fs.Nsp(path, None)
 	except:
 		pass
+	print('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
 def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	buffer = ''
