@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import time
 import json
 import Title
 import operator
@@ -32,8 +33,10 @@ def keys():
 	return titles.keys()
 	
 def loadTitleFile(path, silent = False):
+	timestamp = time.clock()
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
+	print('loaded ' + path + ' in ' + str(time.clock() - timestamp) + ' seconds')
 	
 def loadTitleBuffer(buffer, silent = False):
 	firstLine = True
@@ -71,6 +74,7 @@ def load():
 	
 	for file in files:
 		loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
+
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''

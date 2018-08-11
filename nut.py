@@ -22,6 +22,7 @@ import Fs
 import Config
 import requests
 #import blockchain
+import Hex
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -255,6 +256,7 @@ def unlockAll():
 				print('error unlocking: ' + str(e))
 			
 if __name__ == '__main__':
+	print('initializinng')
 	titleWhitelist = []
 	titleBlacklist = []
 
@@ -314,6 +316,8 @@ if __name__ == '__main__':
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 	
 	args = parser.parse_args()	
+
+	print('processing args')
 
 	Config.download.base = bool(args.base)
 	Config.download.DLC = bool(args.dlc)
@@ -444,8 +448,21 @@ if __name__ == '__main__':
 			print('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			f = Fs.factory(args.info)
-			f.open(args.info)
+			f.open(args.info, 'r+b')
 			f.printInfo()
+			'''
+			for i in f.cnmt():
+				for j in i:
+					print(j._path)
+					j.rewind()
+					buf = j.read()
+					Hex.dump(buf)
+					j.seek(0x28)
+					#j.writeInt64(0)
+					print('min: ' + str(j.readInt64()))
+			#f.flush()
+			#f.close()
+			'''
 			
 	
 	if args.Z:
