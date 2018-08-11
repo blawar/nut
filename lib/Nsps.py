@@ -14,40 +14,38 @@ hasScanned = False
 def get(key):
 	return files[key]
 	
-def scan(base):
+def scan(base, deep):
 	global hasScanned
 	if hasScanned:
 		return
 
 	hasScanned = True
 	i = 0
-	print('scanning ' + base)
-	for root, dirs, _files in os.walk(base, topdown=False):
-		#for name in dirs:
-		#	if name[0] != '.':
-		#		scan(root + '/' + name)
-			
-		for name in _files:
-			try:
-				if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
-					path = os.path.abspath(root + '/' + name)
+	for base_dir in base:
+		print('scanning ' + base_dir)
+		for root, dirs, _files in os.walk(base_dir, topdown=False):				
+			for name in _files:
+				try:
+					if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
+						path = os.path.abspath(root + '/' + name)
 
-					if not path in files:
-						nsp = Fs.Nsp(path, None)
-						
-						files[nsp.path] = nsp
-						files[nsp.path].readMeta()
+						if not path in files:
+							nsp = Fs.Nsp(path, None)
+							
+							files[nsp.path] = nsp
+							if deep:
+								files[nsp.path].readMeta()
+								i = i + 1
+								if i % 20 == 0:
+									save()
 
-						nsp.move()
+							# nsp.move() # should this be here since organize should take care of moving things around?
 
-						i = i + 1
-						if i % 20 == 0:
-							save()
-			except KeyboardInterrupt:
-				raise
-			except BaseException as e:
-				print('An error occurred processing file: ' + str(e))
-		save()
+				except KeyboardInterrupt:
+					raise
+				except BaseException as e:
+					print('An error occurred processing file: ' + str(e))
+	save()
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):
