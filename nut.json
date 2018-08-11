@@ -10,13 +10,12 @@
 		"scan": "."
     },
 	"titleUrls": [
-		"http://snip.li/newkeydb"
 	],
 	"cdn": {
 		"region": "US",
 		"firmware": "5.1.0-0",
 		"deviceId": "0000000000000000",
-		"Environment": "lp1"
+		"environment": "lp1"
 	},
 	"download": {
 		"base": true,
