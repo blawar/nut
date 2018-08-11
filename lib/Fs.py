@@ -851,15 +851,17 @@ class Nsp(PFS0):
 		self.move()
 
 	def setMasterKeyRev(self, newMasterKeyRev):
-		raise IOError('not implemented')
 		if not Titles.contains(self.titleId):
 			raise IOError('No title key found in database!')
 
 		ticket = self.ticket()
 		masterKeyRev = ticket.getMasterKeyRevision()
 		titleKey = ticket.getTitleKeyBlock()
-		newTitleKey = Keys.changeTitleKeyMasterKey(titleKey.to_bytes(16, byteorder='big'), masterKeyRev, newMasterKeyRev)
+		newTitleKey = Keys.changeTitleKeyMasterKey(titleKey.to_bytes(16, byteorder='big'), masterKeyRev-1, newMasterKeyRev-1)
 		rightsId = ticket.getRightsId()
+
+		if rightsId != 0:
+			raise IOError('please remove titlerights first')
 
 		if (newMasterKeyRev == None and rightsId == 0) or masterKeyRev == newMasterKeyRev:
 			print('Nothing to do')
@@ -878,7 +880,6 @@ class Nsp(PFS0):
 					pass
 					raise IOError('Mismatched masterKeyRevs!')
 
-		return
 		ticket.setMasterKeyRevision(newMasterKeyRev)
 		ticket.setRightsId((ticket.getRightsId() & 0xFFFFFFFFFFFFFFFF0000000000000000) + newMasterKeyRev)
 		ticket.setTitleKeyBlock(int.from_bytes(newTitleKey, 'big'))
