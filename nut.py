@@ -297,6 +297,7 @@ if __name__ == '__main__':
 	parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
+	parser.add_argument('--remove-title-rights', help='Removes title rights encryption from all NCA\'s in the NSP.')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
@@ -403,6 +404,13 @@ if __name__ == '__main__':
 	if args.set_masterkey5:
 		f = Fs.Nsp(args.set_masterkey5, 'r+b')
 		f.setMasterKeyRev(5)
+		f.flush()
+		f.close()
+		pass
+
+	if args.remove_title_rights:
+		f = Fs.Nsp(args.remove_title_rights, 'r+b')
+		f.removeTitleRights()
 		f.flush()
 		f.close()
 		pass
