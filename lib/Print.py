@@ -2,7 +2,7 @@ global silent
 enableInfo = True
 enableError = True
 enableWarning = True
-enableDebug = True
+enableDebug = False
 
 silent = False
 
