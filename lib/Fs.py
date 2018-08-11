@@ -2,6 +2,7 @@ import aes128
 import Title
 import Titles
 import Hex
+import shutil
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from File import File
@@ -723,7 +724,7 @@ class Nsp(PFS0):
 		try:
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 			newPath = self.fileName()
-			os.rename(self.path, newPath)
+			shutil.move(self.path, newPath)
 			self.path = newPath
 		except BaseException as e:
 			print('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
