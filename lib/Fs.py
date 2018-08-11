@@ -12,6 +12,7 @@ import re
 import pathlib
 import Keys
 import Config
+from tqdm import tqdm
 
 MEDIA_SIZE = 0x200
 
@@ -969,13 +970,13 @@ class Nsp(PFS0):
 		if not self.path:
 			return False
 			
-		print_('\tRepacking to NSP...')
+		print('\tRepacking to NSP...')
 		
 		hd = self.generateHeader(files)
 		
 		totSize = len(hd) + sum(os.path.getsize(file) for file in files)
 		if os.path.exists(self.path) and os.path.getsize(self.path) == totSize:
-			print_('\t\tRepack %s is already complete!' % self.path)
+			print('\t\tRepack %s is already complete!' % self.path)
 			return
 			
 		t = tqdm(total=totSize, unit='B', unit_scale=True, desc=os.path.basename(self.path), leave=False)
@@ -997,7 +998,7 @@ class Nsp(PFS0):
 					t.update(len(buf))
 		t.close()
 		
-		print_('\t\tRepacked to %s!' % outf.name)
+		print('\t\tRepacked to %s!' % outf.name)
 		outf.close()
 
 	def generateHeader(self, files):

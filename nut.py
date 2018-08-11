@@ -283,6 +283,7 @@ if __name__ == '__main__':
 
 
 	parser = argparse.ArgumentParser()
+	parser.add_argument('file',nargs='*')
 	parser.add_argument('--base', type=int, choices=[0, 1], default=Config.download.base*1, help='download base titles')
 	parser.add_argument('--demo', type=int, choices=[0, 1], default=Config.download.demo*1, help='download demo titles')
 	parser.add_argument('--update', type=int, choices=[0, 1], default=Config.download.update*1, help='download title updates')
@@ -305,7 +306,8 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 	parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 	parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
-	parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack NSP')
+	parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
+	parser.add_argument('-c', '--create', help='create / pack a NSP')
 	parser.add_argument('--export-missing', help='export title database in csv format')
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
@@ -324,6 +326,14 @@ if __name__ == '__main__':
 			dir = os.path.splitext(os.path.basename(filePath))[0]
 			f.unpack(dir)
 			f.close()
+
+	if args.create:
+		print('creating ' + args.create)
+		nsp = Fs.Nsp(None, None)
+		nsp.path = args.create
+		nsp.pack(args.file)
+		#for filePath in args.file:
+		#	print(filePath)
 
 	
 	if args.update_titles:
