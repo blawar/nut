@@ -16,6 +16,7 @@ from tqdm import tqdm
 
 MEDIA_SIZE = 0x200
 
+
 def factory(name):
 	if name.endswith('.xci'):
 		f = Xci()
@@ -310,6 +311,10 @@ class NcaHeader(File):
 			self.sectionHashes.append(self.sectionTables[i])
 
 		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
+
+		if self.masterKey < 0:
+			self.masterKey = 0
+		
 		
 		self.encKeyBlock = self.getKeyBlock()
 		#for i in range(4):
@@ -356,6 +361,14 @@ class NcaHeader(File):
 
 		self.seek(0x300)
 		return self.write(value)
+
+	def getCryptoType(self):
+		self.seek(0x206)
+		return self.readInt8()
+
+	def setCryptoType(self, value):
+		self.seek(0x206)
+		self.writeInt8(value)
 
 	def getCryptoType2(self):
 		self.seek(0x220)
@@ -853,12 +866,12 @@ class Nsp(PFS0):
 
 	def setMasterKeyRev(self, newMasterKeyRev):
 		if not Titles.contains(self.titleId):
-			raise IOError('No title key found in database!')
+			raise IOError('No title key found in database! ' + self.titleId)
 
 		ticket = self.ticket()
 		masterKeyRev = ticket.getMasterKeyRevision()
 		titleKey = ticket.getTitleKeyBlock()
-		newTitleKey = Keys.changeTitleKeyMasterKey(titleKey.to_bytes(16, byteorder='big'), masterKeyRev-1, newMasterKeyRev-1)
+		newTitleKey = Keys.changeTitleKeyMasterKey(titleKey.to_bytes(16, byteorder='big'), Keys.getMasterKeyIndex(masterKeyRev), Keys.getMasterKeyIndex(newMasterKeyRev))
 		rightsId = ticket.getRightsId()
 
 		if rightsId != 0:
@@ -893,29 +906,34 @@ class Nsp(PFS0):
 					encKeyBlock = nca.header.getKeyBlock()
 
 					if sum(encKeyBlock) != 0:
-						key = Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex)
-						print('decrypting with %s (%d, %d)' % (str(hx(key)), nca.header.getCryptoType2()-1, nca.header.keyIndex))
+						key = Keys.keyAreaKey(Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex)
+						print('decrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex))
 						crypto = aes128.AESECB(key)
 						decKeyBlock = crypto.decrypt(encKeyBlock)
 
-						key = Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex)
-						print('encrypting with %s (%d, %d)' % (str(hx(key)), newMasterKeyRev-1, nca.header.keyIndex))
+						key = Keys.keyAreaKey(Keys.getMasterKeyIndex(newMasterKeyRev), nca.header.keyIndex)
+						print('encrypting with %s (%d, %d)' % (str(hx(key)), Keys.getMasterKeyIndex(newMasterKeyRev), nca.header.keyIndex))
 						crypto = aes128.AESECB(key)
 
 						reEncKeyBlock = crypto.encrypt(decKeyBlock)
 						nca.header.setKeyBlock(reEncKeyBlock)
 
 
-					nca.header.setCryptoType2(newMasterKeyRev)
+					if newMasterKeyRev >= 3:
+						nca.header.setCryptoType(2)
+						nca.header.setCryptoType2(newMasterKeyRev)
+					else:
+						nca.header.setCryptoType(newMasterKeyRev)
+						nca.header.setCryptoType2(0)
 
 
 	def removeTitleRights(self):
 		if not Titles.contains(self.titleId):
-			raise IOError('No title key found in database!')
+			raise IOError('No title key found in database! ' + self.titleId)
 
 		ticket = self.ticket()
 		masterKeyRev = ticket.getMasterKeyRevision()
-		titleKeyDec = Keys.decryptTitleKey(ticket.getTitleKeyBlock().to_bytes(16, byteorder='big'), masterKeyRev-1)
+		titleKeyDec = Keys.decryptTitleKey(ticket.getTitleKeyBlock().to_bytes(16, byteorder='big'), Keys.getMasterKeyIndex(masterKeyRev))
 		rightsId = ticket.getRightsId()
 
 		print('rightsId =\t' + hex(rightsId))
@@ -931,39 +949,20 @@ class Nsp(PFS0):
 					raise IOError('Mismatched masterKeyRevs!')
 
 
-		#ticket.setRightsId(0)
+		ticket.setRightsId(0)
 
 		for nca in self:
 			if type(nca) == Nca:
 				if nca.header.getRightsId() == 0:
 					continue
 
-				print('writing masterKeyRev for %s, %d' % (str(nca._path),  nca.header.getCryptoType2()))
-				crypto = aes128.AESECB(Keys.keyAreaKey(masterKeyRev-1, nca.header.keyIndex))
+				print('writing masterKeyRev for %s, %d' % (str(nca._path),  masterKeyRev))
+				crypto = aes128.AESECB(Keys.keyAreaKey(Keys.getMasterKeyIndex(masterKeyRev), nca.header.keyIndex))
 
 				encKeyBlock = crypto.encrypt(titleKeyDec * 4)
 				nca.header.setRightsId(0)
 				nca.header.setKeyBlock(encKeyBlock)
 				Hex.dump(encKeyBlock)
-				'''
-				encKeyBlock = nca.header.getKeyBlock()
-
-				if sum(encKeyBlock) != 0:
-					key = Keys.keyAreaKey(nca.header.getCryptoType2()-1, nca.header.keyIndex)
-					print('decrypting with %s (%d, %d)' % (str(hx(key)), nca.header.getCryptoType2()-1, nca.header.keyIndex))
-					crypto = aes128.AESECB(key)
-					decKeyBlock = crypto.decrypt(encKeyBlock)
-
-					key = Keys.keyAreaKey(newMasterKeyRev-1, nca.header.keyIndex)
-					print('encrypting with %s (%d, %d)' % (str(hx(key)), newMasterKeyRev-1, nca.header.keyIndex))
-					crypto = aes128.AESECB(key)
-
-					reEncKeyBlock = crypto.encrypt(decKeyBlock)
-					nca.header.setKeyBlock(reEncKeyBlock)
-
-
-				nca.header.setCryptoType2(newMasterKeyRev)
-				'''
 			
 		
 	def pack(self, files):

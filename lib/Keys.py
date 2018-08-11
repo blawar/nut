@@ -6,6 +6,12 @@ keys = {}
 titleKeks = []
 keyAreaKeys = []
 
+def getMasterKeyIndex(i):
+	if i > 0:
+		return i-1
+	else:
+		return 0
+
 def keyAreaKey(cryptoType, i):
 	return keyAreaKeys[cryptoType][i]
 

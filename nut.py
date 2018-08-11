@@ -294,6 +294,7 @@ if __name__ == '__main__':
 	parser.add_argument('-i', '--info', help='show info about title or file')
 	parser.add_argument('-u', '--unlock', help='install available title key into NSX / NSP')
 	parser.add_argument('--unlock-all', action="store_true", help='install available title keys into all NSX files')
+	parser.add_argument('--set-masterkey1', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey2', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
@@ -389,6 +390,13 @@ if __name__ == '__main__':
 	
 	if args.organize:
 		organize()
+
+	if args.set_masterkey1:
+		f = Fs.Nsp(args.set_masterkey1, 'r+b')
+		f.setMasterKeyRev(0)
+		f.flush()
+		f.close()
+		pass
 
 	if args.set_masterkey2:
 		f = Fs.Nsp(args.set_masterkey2, 'r+b')
