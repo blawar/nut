@@ -257,7 +257,6 @@ def unlockAll():
 				Print.info('error unlocking: ' + str(e))
 			
 if __name__ == '__main__':
-	Print.info('initializinng')
 	titleWhitelist = []
 	titleBlacklist = []
 
@@ -315,16 +314,18 @@ if __name__ == '__main__':
 	parser.add_argument('--export-missing', help='export title database in csv format')
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
+	parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
 	
-	args = parser.parse_args()	
-
-	Print.info('processing args')
+	args = parser.parse_args()
 
 	Config.download.base = bool(args.base)
 	Config.download.DLC = bool(args.dlc)
 	Config.download.demo = bool(args.demo)
 	Config.download.sansTitleKey = bool(args.nsx)
 	Config.download.update = bool(args.update)
+
+	if args.silent:
+		Print.silent = True
 
 	if args.extract:
 		for filePath in args.extract:
