@@ -749,10 +749,11 @@ class Nsp(PFS0):
 					
 	def move(self):
 		if not self.path:
+			Print.error('no path set')
 			return False
 		
 		if not self.fileName():
-			#Print.info('could not get filename for ' + self.path)
+			Print.error('could not get filename for ' + self.path)
 			return False
 
 		if os.path.abspath(self.fileName()).lower() == os.path.abspath(self.path).lower():
@@ -764,13 +765,13 @@ class Nsp(PFS0):
 			return False
 
 		try:
+			Print.info(self.path + ' -> ' + self.fileName())
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 			newPath = self.fileName()
 			os.rename(self.path, newPath)
 			self.path = newPath
 		except BaseException as e:
 			Print.info('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
-		#Print.info(self.path + ' -> ' + self.fileName())
 		
 		if self.titleId in Titles.keys():
 			Titles.get(self.titleId).path = self.fileName()
