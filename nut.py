@@ -152,7 +152,7 @@ def downloadAll():
 			for i in range(Config.threads):
 				if threads[i].isAlive():
 					count += 1
-			if count != Config.threads:
+			if count < 1:
 				Print.info('Exiting')
 				break
 	except KeyboardInterrupt:
