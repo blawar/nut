@@ -276,7 +276,7 @@ def download_file(url, fPath):
 		raise ValueError('Downloaded data is not as big as expected (%s/%s)!' % (dlded, fSize))
 
 	f.close()
-	Print.info('\r\nSaved to %s!' % f.name)
+	Print.debug('\r\nSaved to %s!' % f.name)
 	return fPath
 
 
@@ -323,7 +323,7 @@ def verify_NCA(ncaFile, titleKey):
 		if "Error: section 0 is corrupted!" in output or "Error: section 1 is corrupted!" in output:
 			Print.error("\nNCA Verification failed. Probably a bad titlekey.")
 			return False
-	Print.info("\nTitlekey verification successful.")
+	Print.debug("\nTitlekey verification successful.")
 	return True
 
 
@@ -710,7 +710,7 @@ class nsp:
 					t.update(len(buf))
 		t.close()
 		
-		Print.info('\t\tRepacked to %s!' % outf.name)
+		Print.debug('\t\tRepacked to %s!' % outf.name)
 		outf.close()
 
 	def gen_header(self):
