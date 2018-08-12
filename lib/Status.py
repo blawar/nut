@@ -9,7 +9,7 @@ global threadRun
 global lst
 lst = []
 lock = threading.Lock()
-threadRun = True
+threadRun = False
 
 def print_(s):
 	for i in lst:
@@ -115,10 +115,12 @@ class Status:
 	def isOpen(self):
 		return True if self.size != None else False
 
-global thread
-threadRun = True
-thread = threading.Thread(target = loopThread, args =[])
-thread.start()
+def start():
+	global threadRun
+	if not threadRun:
+		threadRun = True
+		thread = threading.Thread(target = loopThread, args =[])
+		thread.start()
 
 def close():
 	threadRun = False
