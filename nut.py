@@ -137,7 +137,6 @@ def downloadAll():
 		while True:
 			time.sleep(1)
 			count = 0
-			Print.info('tock')
 			for i in range(Config.threads):
 				if threads[i].isAlive():
 					count += 1

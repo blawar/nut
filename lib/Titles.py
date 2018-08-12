@@ -69,12 +69,14 @@ def load():
 	if os.path.isfile("titles.txt"):
 		loadTitleFile('titles.txt', True)
 
-			
-	files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
-	files.sort()
+	try:
+		files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
+		files.sort()
 	
-	for file in files:
-		loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
+		for file in files:
+			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
+	except BaseException as e:
+		Print.error(str(e))
 
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
