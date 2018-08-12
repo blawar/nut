@@ -26,10 +26,11 @@ import Hex
 import Print
 import threading
 import signal
+import Status
 
 def handler(signum, frame):
-	if signum == signal.SIGINT:
-		print('Signal received')
+	#if signum == signal.SIGINT:
+	print('Signal received')
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -373,6 +374,8 @@ if __name__ == '__main__':
 
 	if args.json:
 		Config.jsonOutput = True
+
+	Status.start()
 
 
 	Print.info('                        ,;:;;,')
