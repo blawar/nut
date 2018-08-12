@@ -22,6 +22,7 @@
 		"update": false,
 		"demo": false,
 		"dlc": true,
-		"sansTitleKey": true
+		"sansTitleKey": true,
+		"threads": 4
 	}
 }
