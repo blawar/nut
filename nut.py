@@ -351,6 +351,7 @@ if __name__ == '__main__':
 	parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 	parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
+	parser.add_argument('--json', action="store_true", help='JSON output')
 	
 	args = parser.parse_args()
 
@@ -362,6 +363,19 @@ if __name__ == '__main__':
 
 	if args.silent:
 		Print.silent = True
+
+	if args.json:
+		Config.jsonOutput = True
+
+
+	Print.info('                        ,;:;;,')
+	Print.info('                       ;;;;;')
+	Print.info('               .=\',    ;:;;:,')
+	Print.info('              /_\', "=. \';:;:;')
+	Print.info('              @=:__,  \,;:;:\'')
+	Print.info('                _(\.=  ;:;;\'')
+	Print.info('               `"_(  _/="`')
+	Print.info('                `"\'')
 
 	if args.extract:
 		for filePath in args.extract:

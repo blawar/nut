@@ -47,6 +47,7 @@ cdn = Cdn()
 paths = Paths()
 download = Download()
 threads = 4
+jsonOutput = False
 
 titleUrls = []
 
