@@ -525,8 +525,8 @@ if __name__ == '__main__':
 		logNcaDeltas(args.nca_deltas)
 
 	if args.info:
-		initTitles()
-		initFiles()
+		#initTitles()
+		#initFiles()
 
 		if re.match('[A-Z0-9][16]', args.info, re.I):
 			Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
