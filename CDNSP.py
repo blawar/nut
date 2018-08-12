@@ -36,7 +36,7 @@ def sha256_file(fPath):
 	hash = sha256()
 	
 	if fSize >= 10000:
-		t = Status.create(fSize, unit='B', desc=os.path.basename(fPath), leave=False)
+		t = Status.create(fSize, unit='B', desc=os.path.basename(fPath))
 		while True:
 			buf = f.read(4096)
 			if not buf:
