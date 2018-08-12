@@ -132,6 +132,11 @@ with open('nut.json', encoding="utf8") as f:
 		cdn.firmware = j['cdn']['firmware']
 	except:
 		pass
+
+	try:
+		threads = int(j['download']['threads'])
+	except:
+		pass
 	
 	try:
 		for url in j['titleUrls']:

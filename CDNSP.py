@@ -355,7 +355,7 @@ def download_cetk(rightsID, fPath):
 
 def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', verify=False, retry=0):
 	try:
-		Print.info('\n\nDownloading %s [%s] v%s:' % (get_name(titleId), titleId, ver))
+		Print.info('Downloading %s [%s] v%s:' % (get_name(titleId), titleId, ver))
 		titleId = titleId.lower()
 		isNsx = False
 	
