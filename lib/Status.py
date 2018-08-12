@@ -3,10 +3,13 @@ import time
 import threading
 import Config
 import json
+import sys
 
+global threadRun
 global lst
 lst = []
 lock = threading.Lock()
+threadRun = True
 
 def print_(s):
 	for i in lst:
@@ -23,7 +26,8 @@ def isActive():
 	return False
 
 def loopThread():
-	while True:
+	global threadRun
+	while threadRun:
 		time.sleep(1)
 		if Config.jsonOutput:
 			data = []
@@ -36,6 +40,7 @@ def loopThread():
 					except:
 						pass
 			print_(json.dumps(data))
+			sys.stdout.flush()
 
 
 def create(size, desc = None, unit='B'):
@@ -110,5 +115,11 @@ class Status:
 	def isOpen(self):
 		return True if self.size != None else False
 
+global thread
+threadRun = True
 thread = threading.Thread(target = loopThread, args =[])
 thread.start()
+
+def close():
+	threadRun = False
+	#thread.close()

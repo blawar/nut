@@ -25,6 +25,11 @@ import requests
 import Hex
 import Print
 import threading
+import signal
+
+def handler(signum, frame):
+	if signum == signal.SIGINT:
+		print('Signal received')
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -298,6 +303,8 @@ if __name__ == '__main__':
 
 	urllib3.disable_warnings()
 
+	#signal.signal(signal.SIGINT, handler)
+
 
 	CDNSP.tqdmProgBar = False
 
@@ -558,6 +565,8 @@ if __name__ == '__main__':
 		scan()
 		organize()
 		downloadAll()
+
+	Status.close()
 	
 	#scan()
 		
