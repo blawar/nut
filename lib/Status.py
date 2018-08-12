@@ -7,6 +7,12 @@ lst = []
 lock = threading.Lock()
 
 def print_(s):
+	for i in lst:
+		if i.isOpen():
+			i.tqdm.write(s)
+			return
+	print(s)
+	return
 	if isActive():
 		if lst[0].isOpen():
 			lst[0].tqdm.write(s)
@@ -78,7 +84,7 @@ class Status:
 	def setDescription(self, desc, refresh = False):
 		if self.isOpen():
 			#lock.acquire()
-			self.tqdm.set_description(str(self.position) + '> ' + desc, refresh = refresh)
+			self.tqdm.set_description(desc, refresh = refresh)
 			#lock.release()
 
 	def isOpen(self):

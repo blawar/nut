@@ -647,8 +647,8 @@ class Nsp(PFS0):
 			rightsId = hx(t.getRightsId().to_bytes(0x10, byteorder='big')).decode('utf-8').upper()
 			self.titleId = rightsId[0:16]
 			self.title().setRightsId(rightsId)
-			Print.info('rightsId = ' + rightsId)
-			Print.info(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
+			Print.debug('rightsId = ' + rightsId)
+			Print.debug(self.titleId + ' key = ' +  str(t.getTitleKeyBlock()))
 			self.setHasValidTicket(t.getTitleKeyBlock() != 0)
 		except BaseException as e:
 			Print.info('readMeta filed ' + self.path + ", " + str(e))

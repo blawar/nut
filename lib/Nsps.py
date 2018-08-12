@@ -29,18 +29,18 @@ def scan(base):
 
 	fileList = {}
 
-	Print.info('scanning ' + base)
+	Print.info(base)
 	for root, dirs, _files in os.walk(base, topdown=False):
 		for name in _files:
 			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
 				path = os.path.abspath(root + '/' + name)
 				fileList[path] = name
 
-	status = Status.create(len(fileList))
+	status = Status.create(len(fileList), desc = 'Scanning files...')
+
 
 	for path, name in fileList.items():
 		try:
-			status.setDescription(name, False)
 			status.add(1)
 
 			if not path in files:
