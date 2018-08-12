@@ -32,10 +32,10 @@ Base Games:		titles/{name}[{id}][v{version}].nsp
 DLC:			titles/DLC/{name}[{id}][v{version}].nsp
 Updates:		titles/updates/{name}[{id}][v{version}].nsp
 Demos: 			titles/demos/{name}[{id}][v{version}].nsp
-Demo Updates:	titles/demos/updates/{name}[{id}][v{version}].nsp
+Demo Updates:		titles/demos/updates/{name}[{id}][v{version}].nsp
 
 nspOut			_NSPOUT
-scan (folder)	.
+scan (folder)		.
 ```
 
 ### Title Lists
