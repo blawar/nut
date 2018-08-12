@@ -27,10 +27,7 @@ import Print
 import threading
 import signal
 import Status
-
-def handler(signum, frame):
-	#if signum == signal.SIGINT:
-	print('Signal received')
+import time
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -137,6 +134,7 @@ def downloadAll():
 
 	for i, bucket in enumerate(buckets):
 		threads[i] = threading.Thread(target=downloadThread, args=[bucket])
+		threads[i].daemon = True
 		threads[i].start()
 
 	try:
@@ -150,7 +148,11 @@ def downloadAll():
 				Print.info('Exiting')
 				break
 	except KeyboardInterrupt:
-			raise
+			#for i in range(Config.threads):
+			#	threads[i]._Thread_stop()
+			#thread.exit()
+			#raise
+			pass
 	except BaseException as e:
 		Print.error(str(e))
 
