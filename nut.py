@@ -28,6 +28,7 @@ import threading
 import signal
 import Status
 import time
+import colorama
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -102,7 +103,11 @@ def updateDb(url):
 	except Exception as e:
 		Print.info('Error downloading:', e)
 
+global status
+status = None
+
 def downloadThread(bucket):
+	global status
 	for t in bucket:
 		try:
 			path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
@@ -110,12 +115,14 @@ def downloadThread(bucket):
 				nsp = Fs.Nsp(path, None)
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
+				status.add()
 		except KeyboardInterrupt:
 			pass
 		except BaseException as e:
 			Print.error(str(e))
 	
 def downloadAll():
+	global status
 	initTitles()
 	initFiles()
 
@@ -140,6 +147,8 @@ def downloadAll():
 			buckets[i%Config.threads].append(t)
 			i += 1
 
+	status = Status.create(i, desc = 'Downloading...')
+
 	for i, bucket in enumerate(buckets):
 		threads[i] = threading.Thread(target=downloadThread, args=[bucket])
 		threads[i].daemon = True
@@ -163,6 +172,8 @@ def downloadAll():
 			pass
 	except BaseException as e:
 		Print.error(str(e))
+
+	status.close()
 
 	#for i in range(Config.threads):
 	#	threads[i].join()
