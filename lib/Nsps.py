@@ -48,7 +48,7 @@ def scan(base):
 				nsp = Fs.Nsp(path, None)
 						
 				files[nsp.path] = nsp
-				files[nsp.path].readMeta()
+				#files[nsp.path].readMeta()
 
 				i = i + 1
 				if i % 20 == 0:

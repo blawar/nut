@@ -14,9 +14,11 @@ threadRun = True
 def print_(s):
 	for i in lst:
 		if i.isOpen():
-			if i.tqdm:
+			try:
 				i.tqdm.write(s)
 				return
+			except:
+				pass
 	print(s)
 
 def isActive():
@@ -81,8 +83,10 @@ class Status:
 		if self.isOpen():
 			self.i += v
 			self.a += v
-			if self.tqdm:
+			try:
 				self.tqdm.update(v)
+			except:
+				self.close()
 		#lock.release()
 
 	def update(self, v=1):
@@ -95,8 +99,7 @@ class Status:
 		if self.isOpen():
 			#lock.acquire()
 			try:
-				if self.tqdm:
-					self.tqdm.close()
+				self.tqdm.close()
 			except:
 				pass
 			self.tqdm = None
@@ -107,8 +110,10 @@ class Status:
 		self.desc = desc
 		if self.isOpen():
 			#lock.acquire()
-			if self.tqdm:
+			try:
 				self.tqdm.set_description(desc, refresh = refresh)
+			except:
+				self.close()
 			#lock.release()
 
 	def isOpen(self):

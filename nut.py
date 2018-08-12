@@ -185,6 +185,7 @@ def organize():
 	#scan()
 	Print.info('organizing')
 	for k, f in Nsps.files.items():
+		#print('moving ' + f.path)
 		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
 		f.move()
 	Print.info('removing empty directories')
