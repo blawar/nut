@@ -46,7 +46,7 @@ class Status:
 		self.timestamp = time.clock()
 
 		#if position == 0:
-		self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position = position, desc=str(self.position) + '> ' + str(desc), leave=False, ascii = True)
+		self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position = position, desc=desc, leave=False, ascii = True)
 		#else:
 		#	self.size = None
 		#	self.tqdm = None
