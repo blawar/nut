@@ -180,7 +180,7 @@ class Title:
 	
 	def getName(self):
 		baseId = Title.getBaseId(self.id)
-		if self.isUpdate and Titles.get(baseId):
+		if self.isUpdate and Titles.contains(baseId):
 			return Titles.get(baseId).name
 		return self.name or ''
 			
