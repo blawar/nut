@@ -258,7 +258,7 @@ def download_file(url, fPath):
 		fSize = int(r.headers.get('Content-Length'))
 		f = open(fPath, 'wb')
 
-	chunkSize = 1000
+	chunkSize = 0x100000
 
 	if fSize >= 10000:
 		s = Status.create(fSize, desc=fName, unit='B')
