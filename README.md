@@ -39,7 +39,7 @@ scan (folder)	.
 ```
 
 ### Title Lists
-`nut` will download, parse, and combine titlekey lists for URLs defined in `titleUrls` and `titledb\*.titlekeys.txt`. They will be loaded preferentially: first remote lists, then local lists (in alphabetical order). This is useful in case you'd like to maintain custom title naming (ie. in a `titledb\z.titlekeys.txt`
+`nut` will download, parse, and combine titlekey lists for URLs defined in `titleUrls` and `titledb\*.txt`. They will be loaded preferentially: first local lists (in alphabetical order), then remote lists. This is useful in case you'd like to maintain custom title naming (ie. in a `titledb\z.titlekeys.txt`
 
 Acceptable formats:
 ```
@@ -50,6 +50,13 @@ or
 
 id|rightsId|key|isUpdate|isDLC|isDemo|name|version|region|retailOnly
 01000320000cc000|01000320000cc0000000000000000000|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|0|0|0|1-2-Switch™|0|US|0
+
+or
+
+id|name
+01000320000cc000|1-2-Switch™
+
+etc
 ```
 
 ### Whitelist
