@@ -488,22 +488,22 @@ def download_game(titleId, ver, tkey=None, nspRepack=False, name='', verify=Fals
 	else:
 		temp = name + " [" + titleId + "]"
 
+	outputDir = os.path.join(os.path.dirname(__file__), nspout)
+
 	basetitleId = ''
 	if titleId.endswith('000'):  # Base game
-		gameDir = os.path.join(os.path.dirname(__file__), temp)
+		gameDir = os.path.join(outputDir, temp)
 		gameType = 'BASE'
 	elif titleId.endswith('800'):  # Update
 		basetitleId = '%s000' % titleId[:-3]
-		gameDir = os.path.join(os.path.dirname(__file__), temp)
+		gameDir = os.path.join(outputDir, temp)
 		gameType = 'UPD'
 	else:  # DLC
 		basetitleId = '%s%s000' % (titleId[:-4], str(int(titleId[-4], 16) - 1))
-		gameDir = os.path.join(os.path.dirname(__file__), temp)
+		gameDir = os.path.join(outputDir, temp)
 		gameType = 'DLC'
 
 	os.makedirs(gameDir, exist_ok=True)
-
-	outputDir = os.path.join(os.path.dirname(__file__), nspout)
 
 	if not os.path.exists(outputDir):
 		os.makedirs(outputDir, exist_ok=True)

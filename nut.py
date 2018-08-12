@@ -104,8 +104,16 @@ def updateDb(url):
 
 def downloadThread(bucket):
 	for t in bucket:
-		#Print.info('downloading ' + t.name)
-		CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
+		try:
+			path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
+			if os.path.isfile(path):
+				nsp = Fs.Nsp(path, None)
+				Nsps.files[nsp.path] = nsp
+				Nsps.save()
+		except KeyboardInterrupt:
+			pass
+		except BaseException as e:
+			Print.error(str(e))
 	
 def downloadAll():
 	initTitles()

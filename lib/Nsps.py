@@ -7,9 +7,13 @@ import re
 import Status
 import time
 import Print
+import threading
 
 global files
 files = {}
+
+global lock
+lock = threading.Lock()
 
 global hasScanned
 global hasLoaded
@@ -112,11 +116,17 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'h
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
 def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
-	buffer = ''
+	lock.acquire()
+	try:
+		buffer = ''
 	
-	buffer += '|'.join(map) + '\n'
-	for t in sorted(list(files.values())):
-		buffer += t.serialize(map) + '\n'
+		buffer += '|'.join(map) + '\n'
+		for t in sorted(list(files.values())):
+			buffer += t.serialize(map) + '\n'
 		
-	with open(fileName, 'w', encoding='utf-8') as csv:
-		csv.write(buffer)
+		with open(fileName, 'w', encoding='utf-8') as csv:
+			csv.write(buffer)
+	except:
+		lock.release()
+		raise
+	lock.release()
