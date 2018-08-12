@@ -24,6 +24,7 @@ import requests
 #import blockchain
 import Hex
 import Print
+import threading
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -97,10 +98,23 @@ def updateDb(url):
 			
 	except Exception as e:
 		Print.info('Error downloading:', e)
+
+def downloadThread(bucket):
+	for t in bucket:
+		#Print.info('downloading ' + t.name)
+		CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 	
 def downloadAll():
 	initTitles()
 	initFiles()
+
+	buckets = []
+	threads = []
+	for i in range(Config.threads):
+		buckets.append([])
+		threads.append(None)
+
+	i = 0
 
 	for k,t in Titles.items():
 		if not t.path and not t.retailOnly and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
@@ -111,8 +125,32 @@ def downloadAll():
 			if not t.lastestVersion():
 				Print.info('Could not get version for ' + t.name)
 				continue
-				
-			CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
+
+			buckets[i%Config.threads].append(t)
+			i += 1
+
+	for i, bucket in enumerate(buckets):
+		threads[i] = threading.Thread(target=downloadThread, args=[bucket])
+		threads[i].start()
+
+	try:
+		while True:
+			time.sleep(1)
+			count = 0
+			Print.info('tock')
+			for i in range(Config.threads):
+				if threads[i].isAlive():
+					count += 1
+			if count != Config.threads:
+				Print.info('Exiting')
+				break
+	except KeyboardInterrupt:
+			raise
+	except BaseException as e:
+		Print.error(str(e))
+
+	#for i in range(Config.threads):
+	#	threads[i].join()
 			
 def export(file):
 	initTitles()

@@ -1,3 +1,5 @@
+import Status
+
 global silent
 enableInfo = True
 enableError = True
@@ -8,16 +10,16 @@ silent = False
 
 def info(s):
 	if not silent and enableInfo:
-		print(s)
+		Status.print_(s)
 
 def error(s):
 	if not silent and enableError:
-		print(s)
+		Status.print_(s)
 
 def warning(s):
 	if not silent and enableWarning:
-		print(s)
+		Status.print_(s)
 
 def debug(s):
 	if not silent and enableDebug:
-		print(s)
+		Status.print_(s)
