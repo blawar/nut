@@ -46,6 +46,7 @@ class Download:
 cdn = Cdn()
 paths = Paths()
 download = Download()
+threads = 4
 
 titleUrls = []
 

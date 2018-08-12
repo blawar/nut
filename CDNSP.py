@@ -473,7 +473,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 		retry += 1
 
 		if retry < 5:
-			Print.error('An error occured while downloading, retry attempt %d: ' % (retry, str(e)))
+			Print.error('An error occured while downloading, retry attempt %d: %s' % (retry, str(e)))
 			download_title(gameDir, titleId, ver, tkey, nspRepack, n, verify, retry)
 		else:
 			raise

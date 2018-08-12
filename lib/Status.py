@@ -1,11 +1,26 @@
 import tqdm
-import Print
 import time
+import threading
 
 global lst
 lst = []
+lock = threading.Lock()
+
+def print_(s):
+	if isActive():
+		if lst[0].isOpen():
+			lst[0].tqdm.write(s)
+	else:
+		print(s)
+
+def isActive():
+	for i in lst:
+		if i.isOpen():
+			return True
+	return False
 
 def create(size, desc = None, unit='B'):
+	#lock.acquire()
 	position = len(lst)
 
 	for i, s in enumerate(lst):
@@ -19,20 +34,29 @@ def create(size, desc = None, unit='B'):
 		lst.append(s)
 	else:
 		lst[position] = s
+
+	#lock.release()
 	return s
 
 class Status:
 	def __init__(self, size, position = 0, desc = None, unit='B'):
+		self.position = position
 		self.size = size
 		self.i = 0
 		self.timestamp = time.clock()
 
-		self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, desc=desc, leave=False, position = position)
+		#if position == 0:
+		self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position = position, desc=str(self.position) + '> ' + str(desc), leave=False, ascii = True)
+		#else:
+		#	self.size = None
+		#	self.tqdm = None
 
 	def add(self, v=1):
-		if self.tqdm:
+		#lock.acquire()
+		if self.isOpen():
 			self.i += v
 			self.tqdm.update(v)
+		#lock.release()
 
 	def update(self, v=1):
 		self.add(v)
@@ -41,13 +65,21 @@ class Status:
 		self.close()
 
 	def close(self):
-		if self.tqdm:
-			self.tqdm.close()
+		if self.isOpen():
+			#lock.acquire()
+			try:
+				self.tqdm.close()
+			except:
+				pass
 			self.tqdm = None
+			self.size = None
+			#lock.release()
 
 	def setDescription(self, desc, refresh = False):
-		if self.tqdm:
-			self.tqdm.set_description(desc, refresh = refresh)
+		if self.isOpen():
+			#lock.acquire()
+			self.tqdm.set_description(str(self.position) + '> ' + desc, refresh = refresh)
+			#lock.release()
 
 	def isOpen(self):
-		return True if self.tqdm else False
+		return True if self.size != None else False
