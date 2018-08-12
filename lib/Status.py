@@ -9,7 +9,7 @@ global threadRun
 global lst
 lst = []
 lock = threading.Lock()
-threadRun = False
+threadRun = True
 
 def print_(s):
 	for i in lst:
@@ -41,7 +41,6 @@ def loopThread():
 						pass
 			print_(json.dumps(data))
 			sys.stdout.flush()
-
 
 def create(size, desc = None, unit='B'):
 	#lock.acquire()
@@ -117,11 +116,12 @@ class Status:
 
 def start():
 	global threadRun
-	if not threadRun:
-		threadRun = True
-		thread = threading.Thread(target = loopThread, args =[])
-		thread.start()
+	threadRun = True
+	thread = threading.Thread(target = loopThread, args =[])
+	#thread.daemon = True
+	thread.start()
 
 def close():
+	global threadRun
 	threadRun = False
 	#thread.close()
