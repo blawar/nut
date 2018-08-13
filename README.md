@@ -1,9 +1,11 @@
 # Nut
 This is a program  that automatically downloads all games from the CDN, and organizes them on the file system.
 
-**If you only wish to rename / organize files, and not download anything, edit `nut.json` and set all downloading options to false.** Your NSP files should have the titleid as a part of the filename in brackets.
+You should copy nut.default.conf to nut.conf and make all of your local edits in nut.conf.
 
-It can download any titles you do not have a key for (for archiving), by enabling `sansTitleKey` in `nut.json`.  These titles are saved with the `.nsx` file extension, and can be unlocked at a later time when a title key is found.
+**If you only wish to rename / organize files, and not download anything, edit `nut.conf` and set all downloading options to false.** Your NSP files should have the titleid as a part of the filename in brackets.
+
+It can download any titles you do not have a key for (for archiving), by enabling `sansTitleKey` in `nut.conf`.  These titles are saved with the `.nsx` file extension, and can be unlocked at a later time when a title key is found.
 
 ---------
 
@@ -17,13 +19,13 @@ It can download any titles you do not have a key for (for archiving), by enablin
  - Install Python 3
  - Install the following modules via `pip`:
  	 - `pip3 install colorama pyopenssl requests tqdm unidecode`
- - Configure `nut.json` (see below)
+ - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
 
 ---------
 
 ## Configuration
-All configuration is done via `nut.json`.
+All configuration is done via `nut.conf`.
 
 ### Paths
 Configures how you want `nut` to store (and organize) your files. By default:
