@@ -3,23 +3,29 @@ import threading
 import socket
 import socketserver
 import time
+import Config
 import sys
-
-#sys.path.append('./lib/web')
+import os
+import Print
 
 import Web.Api
 
-HOST_NAME = 'localhost'
-PORT_NUMBER = 9000
 
 global httpd
 global sock
 global addr
+global mimes
 
+mimes = {}
 httpd = None
 sock = None
 addr = None
 threads = []
+
+mimes = {
+		'.html': 'text/html',
+		'.jpg': 'image/jpeg'
+	}
 
 class Thread(threading.Thread):
 	def __init__(self, i):
@@ -41,9 +47,9 @@ def run():
 	global sock
 	global addr
 
-	print(time.asctime(), 'Server Starts - %s:%s' % (HOST_NAME, PORT_NUMBER))
+	Print.info(time.asctime() + ' Server Starts - %s:%s' % (Config.server.hostname, Config.server.port))
 	try:
-		addr = (HOST_NAME, PORT_NUMBER)
+		addr = (Config.server.hostname, Config.server.port)
 		sock = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
 		sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 		sock.bind(addr)
@@ -55,7 +61,7 @@ def run():
 	except KeyboardInterrupt:
 		pass
 
-	print(time.asctime(), 'Server Stops - %s:%s' % (HOST_NAME, PORT_NUMBER))
+	Print.info(time.asctime() + ' Server Stops - %s:%s' % (Config.server.hostname, Config.server.port))
 
 class NutRequest:
 	def __init__(self, handler):
@@ -72,6 +78,12 @@ class NutResponse:
 
 	def setStatus(self, s):
 		self.status = s
+
+	def setMime(self, fileName):
+		name, ext = os.path.splitext(fileName)
+
+		if ext in mimes:
+			self.headers['Content-type'] = mimes[ext]
 
 	def sendHeader(self):
 		self.handler.send_response(self.status)
@@ -113,30 +125,25 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		request = NutRequest(self)
 		response = NutResponse(self)
 
-
-		if request.bits[0] in self.mappings:
-			try:
+		try:
+			if len(request.bits) > 0 and request.bits[0] in self.mappings:
 				i = request.bits[1]
 				methodName = 'get' + i[0].capitalize() + i[1:]
 				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
 				method(request, response)
-			except BaseException as e:
+			else:
+				self.handleFile(request, response)
+		except BaseException as e:
 				self.wfile.write(Response500(request, response))
-		else:
-			self.respond({'status': 500})
 
-	def handle_http(self, status_code, path):
-		self.send_response(status_code)
-		self.send_header('Content-type', 'text/html')
-		self.end_headers()
-		content = '''
-		<html><head><title>Title goes here.</title></head>
-		<body><p>This is a test.</p>
-		<p>You accessed path: {}</p>
-		</body></html>
-		'''.format(path)
-		return bytes(content, 'UTF-8')
+	def handleFile(self, request, response):
+		path = os.path.abspath('public_html' + self.path)
 
-	def respond(self, opts):
-		response = self.handle_http(opts['status'], self.path)
-		self.wfile.write(response)
+		if os.path.isdir(path):
+			path += '/index.html'
+
+		if not os.path.isfile(path):
+			return Response404(request, response)
+		response.setMime(path)
+		with open(path, 'rb') as f:
+			response.write(f.read())

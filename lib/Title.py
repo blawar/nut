@@ -42,6 +42,14 @@ class Title:
 		#self.setId(split[0].strip())
 		#self.setName(split[2].strip())
 		#self.setKey(split[1].strip())
+
+	def dict(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
+		r = {}
+		for i in map:	
+			methodName = 'get' + i[0].capitalize() + i[1:]
+			method = getattr(self, methodName, lambda: methodName)
+			r[i] = method()
+		return r
 		
 	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 		r = []

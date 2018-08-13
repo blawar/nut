@@ -190,7 +190,7 @@ class PFS0(SectionFilesystem):
 		for i in range(fileCount):
 			i = fileCount - i - 1
 			self.seek(0x10 + i * 0x18)
-			f = PFS0File()
+
 			offset = self.readInt64()
 			size = self.readInt64()
 			nameOffset = self.readInt32() # just the offset
@@ -199,12 +199,6 @@ class PFS0(SectionFilesystem):
 
 			self.readInt32() # junk data
 
-			'''
-			if name.endswith('.nca'):
-				f = Nca()
-			else:
-				f = File()
-			'''
 			f = factory(name)
 
 			f._path = name
@@ -572,8 +566,6 @@ class Xci(File):
 		Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
 		
 		Print.info(tabs + 'gamecardCert = ' + str(hx(self.gamecardCert.magic + self.gamecardCert.unknown1 + self.gamecardCert.unknown2 + self.gamecardCert.data)))
-		#Print.info(tabs + 'NCA crypto master key: ' + str(self.cryptoType))
-		#Print.info(tabs + 'NCA crypto master key: ' + str(self.cryptoType2))
 		
 
 class Nsp(PFS0):

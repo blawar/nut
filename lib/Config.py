@@ -4,6 +4,10 @@ import json
 import os
 import platform
 
+class Server:
+	def __init__(self):
+		self.hostname = 'localhost'
+		self.port = 9000
 
 class Cdn:
 	def __init__(self):
@@ -46,6 +50,7 @@ class Download:
 cdn = Cdn()
 paths = Paths()
 download = Download()
+server = Server()
 threads = 4
 jsonOutput = False
 
