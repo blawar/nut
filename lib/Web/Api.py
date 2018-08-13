@@ -38,6 +38,7 @@ def getTitleImage(request, response):
 		out.save(path, quality=100)
 
 	response.setMime(path)
+	response.headers['Cache-Control'] = 'max-age=31536000'
 
 	if os.path.isfile(path):
 		with open(path, 'rb') as f:
