@@ -1,17 +1,19 @@
-#titles > li {
-	float: left;
-	width: 10%;
-	padding-top: 10%;
-	position: relative;
+#titles md-grid-tile {
+	background-size: cover;
 }
 
-#titles > li > div {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	margin: 2px;
-	background-size: cover;
-	text-indent: -9999px;
-}
+#titles md-grid-tile md-icon {
+  padding-bottom: 32px; }
+
+#titles md-grid-tile md-grid-tile-footer {
+  background: rgba(0, 0, 0, 0.68);
+  height: 36px; }
+
+#titles md-grid-tile-footer figcaption {
+  width: 100%; }
+
+#titles md-grid-tile-footer figcaption h3 {
+  margin: 0;
+  font-weight: 700;
+  width: 100%;
+  text-align: center; }
