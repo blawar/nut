@@ -3,7 +3,9 @@ $(document).ready(function() {
 		list = $('#titles');
 		for(key in titles) {
 			title = titles[key];
-			list.append('<li><div>' + title.name + '</div></li>');
+			if(!title.isUpdate && !title.isDLC && title.key != '00000000000000000000000000000000') {
+				list.append('<li><div style="background-image: url(/api/titleImage/' + title.id + '/192)">' + title.name + '</div></li>');
+			}
 		};
 	});
 });
