@@ -1,3 +1,26 @@
+#logo {
+	height: 2em;
+	display: inline-block;
+	padding: 1em;
+}
+
+#titles header {
+}
+.right {
+	float: right;
+}
+
+#search {
+	position: relative;
+	top: 0.25em;
+	font-size: 1.25em;
+	margin-right: 1em;
+}
+
+#logo img {
+	height: 100%;
+}
+
 #titles md-grid-tile {
 	background-size: cover;
 }
@@ -22,21 +45,16 @@
 		text-align: center;
 	}
 
-#titles header {
-	height: 10em;
-}
-
 #regions {
-	float: right;
-}
-
-	#regions > li {
-		display: inline-block;
-	}
-
-#regions2 input[type=checkbox] {
 	display: inline-block;
 }
+
+#regions > li {
+	display: inline-block;
+	margin: 0;
+	padding: 1em 1em 1em 0;
+}
+
 
 #regions input {
 	display: none;
@@ -44,8 +62,8 @@
 
 #regions label {
 	display: block;
-	width: 32px;
-	height: 32px;
+	width: 2em;
+	height: 2em;
 	background-size: cover;
 }
 
@@ -77,11 +95,28 @@
 	right: 16%;
 	top: 16%;
 	bottom: 16%;
+	overflow: hidden;
 }
 
 #game > div {
 	background-size: cover;
 	height: 100%;
+}
+
+#game h3 {
+	width: auto;
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: 0 0 0 -1em;
+	padding: 1em 1em 1em 2em;
+	-webkit-transform: skew(-20deg);
+	-moz-transform: skew(-20deg);
+	-o-transform: skew(-20deg);
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.4em;
 }
 
 /* xs */
@@ -127,9 +162,9 @@
 /* lg */
 @media only screen and (min-width: 1920px) {
 	#game {
-		left: 10%;
-		right: 10%;
-		top: 10%;
-		bottom: 10%;
+		left: 20%;
+		right: 20%;
+		top: 20%;
+		bottom: 20%;
 	}
 }

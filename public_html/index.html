@@ -22,13 +22,16 @@
 <body>
 	<div id="titles" ng-controller="gridTitlesController as vm" flex ng-cloak>
 		<header>
-			<input type="text" ng-model="searchText" class="search-query" id="projects_search" placeholder="Search">
-			<ul id="regions" ng-repeat="title in titles | unique:'region'">
-				<li class="{{title.region}}">
-					<input name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" />
-					<label for="region_{{title.region}}">{{title.region}}</label>
-				</li>
-			</ul>
+			<a id="logo" href="http://github.com/blawar/nut"><img src="/images/logo.jpg" /></a>
+			<div class="right">
+				<input type="text" ng-model="searchText" id="search" placeholder="Search">
+				<ul id="regions" ng-repeat="title in titles | unique:'region'">
+					<li class="{{title.region}}">
+						<input name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" />
+						<label for="region_{{title.region}}">{{title.region}}</label>
+					</li>
+				</ul>
+			</div>
 		</header>
 		<md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-cols-gt-lg="10"
 					  md-row-height-gt-md="1:1" md-row-height="4:3"
@@ -40,7 +43,7 @@
 		</md-grid-list>
 		<div id="game" md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-cols-gt-lg="10">
 			<div md-colspan-sm="1" md-colspan-xs="1" md-cols-gt-md="4" md-cols-gt-lg="8" style="background-image: url(/images/titles/{{title.id}}/banner.jpg)">
-				<h1>{{title.name}}</h1>
+				<h3><span>{{title.name}}</span></h3>
 			</div>
 		</div>
 	</div>
