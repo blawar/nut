@@ -11,5 +11,7 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	border: 1px solid #000;
+	margin: 2px;
+	background-size: cover;
+	text-indent: -9999px;
 }

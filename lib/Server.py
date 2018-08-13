@@ -57,7 +57,7 @@ def run():
 		sock.bind(addr)
 		sock.listen(5)
 
-		[Thread(i) for i in range(4)]
+		[Thread(i) for i in range(16)]
 		for thread in threads:
 			thread.join()
 	except KeyboardInterrupt:
