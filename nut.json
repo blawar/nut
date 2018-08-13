@@ -24,5 +24,9 @@
 		"dlc": true,
 		"sansTitleKey": true,
 		"threads": 4
+	},
+	"server": {
+		"hostname": "localhost",
+		"port": 9000
 	}
 }
