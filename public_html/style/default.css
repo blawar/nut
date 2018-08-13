@@ -2,18 +2,134 @@
 	background-size: cover;
 }
 
-#titles md-grid-tile md-icon {
-  padding-bottom: 32px; }
+	#titles md-grid-tile md-icon {
+		padding-bottom: 32px;
+	}
 
-#titles md-grid-tile md-grid-tile-footer {
-  background: rgba(0, 0, 0, 0.68);
-  height: 36px; }
+	#titles md-grid-tile md-grid-tile-footer {
+		background: rgba(0, 0, 0, 0.68);
+		height: 36px;
+	}
 
 #titles md-grid-tile-footer figcaption {
-  width: 100%; }
+	width: 100%;
+}
 
-#titles md-grid-tile-footer figcaption h3 {
-  margin: 0;
-  font-weight: 700;
-  width: 100%;
-  text-align: center; }
+	#titles md-grid-tile-footer figcaption h3 {
+		margin: 0;
+		font-weight: 700;
+		width: 100%;
+		text-align: center;
+	}
+
+#titles header {
+	height: 10em;
+}
+
+#regions {
+	float: right;
+}
+
+	#regions > li {
+		display: inline-block;
+	}
+
+#regions2 input[type=checkbox] {
+	display: inline-block;
+}
+
+#regions input {
+	display: none;
+}
+
+#regions label {
+	display: block;
+	width: 32px;
+	height: 32px;
+	background-size: cover;
+}
+
+#regions .US label {
+	background-image: url(/images/flags/US.png);
+	text-indent: -9999px;
+}
+
+#regions .GB label {
+	background-image: url(/images/flags/GB.png);
+	text-indent: -9999px;
+}
+
+#regions .JP label {
+	background-image: url(/images/flags/JP.png);
+	text-indent: -9999px;
+}
+
+#regions input[type=checkbox]:checked + label {
+	webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+#game {
+	display: none;
+	background: #fff;
+	position: fixed;
+	left: 16%;
+	right: 16%;
+	top: 16%;
+	bottom: 16%;
+}
+
+#game > div {
+	background-size: cover;
+	height: 100%;
+}
+
+/* xs */
+@media only screen and (max-width: 600px) {
+	#game {
+		left: 0%;
+		right: 0%;
+		top: 0%;
+		bottom: 0%;
+	}
+}
+
+/* sm */
+@media only screen and (min-width:600px) {
+	#game {
+		left: 0%;
+		right: 0%;
+		top: 0%;
+		bottom: 0%;
+	}
+}
+
+/* md */
+@media only screen and (min-width: 960px) {
+	#game {
+		left: 0%;
+		right: 0%;
+		top: 16.667%;
+		bottom: 16.667%;
+	}
+}
+
+/* lg */
+@media only screen and (min-width: 1280px) {
+	#game {
+		left: 16.6667%;
+		right: 16.6667%;
+		top: 16.6667%;
+		bottom: 16.6667%;
+	}
+}
+
+/* lg */
+@media only screen and (min-width: 1920px) {
+	#game {
+		left: 10%;
+		right: 10%;
+		top: 10%;
+		bottom: 10%;
+	}
+}
