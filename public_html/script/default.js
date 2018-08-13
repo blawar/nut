@@ -18,8 +18,21 @@ angular
   	$scope.showTitle = function (title) {
   		$scope.title = title;
   		$('#popup').show();
+  		$('#options').hide();
   		$('#game').show();
-  	}
+  	};
+
+  	$scope.showOptions = function () {
+  		$('#popup').show();
+  		$('#game').hide();
+  		$('#options').show();
+  	};
+
+  	$scope.closePopup = function () {
+  		$('#popup').hide();
+  		$('#game').hide();
+  		$('#options').hide();
+  	};
   }).filter('unique', function () {
   	return function (collection, keyname) {
   		var output = [],
