@@ -23,6 +23,8 @@ addr = None
 threads = []
 
 mimes = {
+		'.css': 'text/css',
+		'.js': 'application/javascript',
 		'.html': 'text/html',
 		'.jpg': 'image/jpeg'
 	}
