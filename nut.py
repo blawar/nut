@@ -29,6 +29,7 @@ import signal
 import Status
 import time
 import colorama
+import Server
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -382,7 +383,10 @@ if __name__ == '__main__':
 	parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 	parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
 	parser.add_argument('--json', action="store_true", help='JSON output')
-	
+	parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
+	parser.add_argument('-m', '--hostname', action="store_true", help='Set server hostname')
+	parser.add_argument('-p', '--port', action="store_true", help='Set server port')
+		
 	args = parser.parse_args()
 
 	Config.download.base = bool(args.base)
@@ -390,6 +394,14 @@ if __name__ == '__main__':
 	Config.download.demo = bool(args.demo)
 	Config.download.sansTitleKey = bool(args.nsx)
 	Config.download.update = bool(args.update)
+
+	if args.hostname:
+		args.server = True
+		Config.server.hostname = args.hostname
+
+	if args.port:
+		args.server = True
+		Config.server.port = int(args.port)
 
 	if args.silent:
 		Print.silent = True
@@ -528,7 +540,7 @@ if __name__ == '__main__':
 		#initTitles()
 		#initFiles()
 
-		if re.match('[A-Z0-9][16]', args.info, re.I):
+		if re.match('^[A-Z0-9][16]$', args.info, re.I):
 			Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			f = Fs.factory(args.info)
@@ -585,6 +597,11 @@ if __name__ == '__main__':
 		
 	if args.missing:
 		logMissingTitles(args.missing)
+
+	if args.server:
+		initTitles()
+		initFiles()
+		Server.run()
 		
 	if len(sys.argv)==1:
 		scan()

@@ -5,9 +5,11 @@ import Config
 import json
 import sys
 
+global jsonData
 global threadRun
 global lst
 lst = []
+jsonData = []
 lock = threading.Lock()
 threadRun = True
 
@@ -29,19 +31,22 @@ def isActive():
 
 def loopThread():
 	global threadRun
+	global jsonData
+
 	while threadRun:
 		time.sleep(1)
+		jsonData = []
+		for i in lst:
+			if i.isOpen():
+				try:
+					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.clock() - i.timestamp, 'speed': i.a / (time.clock() - i.ats) })
+					i.a = 0
+					i.ats = time.clock()
+				except:
+					pass
+
 		if Config.jsonOutput:
-			data = []
-			for i in lst:
-				if i.isOpen():
-					try:
-						data.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.clock() - i.timestamp, 'speed': i.a / (time.clock() - i.ats) })
-						i.a = 0
-						i.ats = time.clock()
-					except:
-						pass
-			print_(json.dumps(data))
+			print_(json.dumps(jsonData))
 			sys.stdout.flush()
 
 def create(size, desc = None, unit='B'):
