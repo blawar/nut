@@ -1,11 +1,15 @@
-$(document).ready(function() {
-	$.getJSON('/api/titles', function(titles) {
-		list = $('#titles');
-		for(key in titles) {
-			title = titles[key];
-			if(!title.isUpdate && !title.isDLC && title.key != '00000000000000000000000000000000') {
-				list.append('<li><div style="background-image: url(/api/titleImage/' + title.id + '/192)">' + title.name + '</div></li>');
-			}
-		};
-	});
-});
+angular
+  .module('nutApp', ['ngMaterial'])
+  .controller('gridTitlesController', function ($scope, $http) {
+  	$scope.titles = [];
+  	$http.get('/api/titles').then(function (res) {
+  		titles = [];
+  		for (key in res.data) {
+  			title = res.data[key];
+  			if (!title.isUpdate && !title.isDLC && !title.isDemo && title.key != '00000000000000000000000000000000') {
+  				titles.push(title);
+  			}
+  		}
+  		$scope.titles = titles;
+  	});
+  });

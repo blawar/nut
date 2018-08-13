@@ -1,12 +1,33 @@
-<html>
-	<head>
-		<title>Nut</title>
-		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
-		<link rel="stylesheet" type="text/css" href="/style/default.css" />
-	</head>
-	<body>
-		<ul id="titles"></ul>
-		<script src="/script/jquery-3.3.1.min.js"></script>
-		<script src="/script/default.js"></script>
-	</body>
+<!doctype html>
+<html ng-app="nutApp">
+<head>
+	<title>Nut</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-resource.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+	<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js"></script>
+
+	<script src="/script/default.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css" />
+	<link rel="stylesheet" type="text/css" href="https://material.angularjs.org/1.1.10/docs.css" />
+	<link rel="stylesheet" type="text/css" href="/style/default.css" />
+</head>
+<body>
+	<div id="titles" ng-controller="gridTitlesController as vm" flex ng-cloak>
+		<md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-cols-gt-lg="10"
+					  md-row-height-gt-md="1:1" md-row-height="4:3"
+					  md-gutter="8px" md-gutter-gt-sm="4px">
+
+			<md-grid-tile ng-repeat="title in titles" md-rowspan="{{tile.span.row}}" md-colspan="{{tile.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.id }}/192)">
+				<md-grid-tile-footer><h3>{{title.name}}</h3></md-grid-tile-footer>
+			</md-grid-tile>
+		</md-grid-list>
+	</div>
+</body>
 </html>
