@@ -17,6 +17,7 @@ angular
 
   	$scope.showTitle = function (title) {
   		$scope.title = title;
+  		$('#popup').show();
   		$('#game').show();
   	}
   }).filter('unique', function () {
