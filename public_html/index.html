@@ -26,6 +26,7 @@
 			<div class="right">
 				<input type="text" ng-model="searchText" id="search" placeholder="Search">
 				<button class="queue" ng-click="showQueue()">Options</button>
+				<button class="updates" ng-click="showUpdates()">Title Updates</button>
 				<button class="gear" ng-click="showOptions()">Options</button>
 				<ul id="regions" ng-repeat="title in titles | unique:'region'">
 					<li class="{{title.region}}">
@@ -76,6 +77,31 @@
 								<td class="percent"><progress value="{{q.percent}}" max="100"></progress></td>
 								<td class="speed">{{q.speed}}</td>
 								<td>{{q.sizeFormatted}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="updates">
+				<h3>Title Updates Available</h3>
+				<div class="content">
+					<table>
+						<thead>
+							<tr>
+								<th>&nbsp;</th>
+								<th>Title</th>
+								<th>Current Version</th>
+								<th>New Version</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="t in updates">
+							<tr>
+								<td class="icon"><img style="height: 2em;" src="/api/titleImage/{{t.baseId }}/192" /></td>
+								<td>{{t.name}}</td>
+								<td>{{t.currentVersion}}</td>
+								<td>{{t.newVersion}}</td>
+								<td><button class="button" ng-click="download(t.id)">Download</button></td>
 							</tr>
 						</tbody>
 					</table>
