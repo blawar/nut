@@ -2,6 +2,7 @@ import Titles
 import json
 import Titles
 import Status
+import Nsps
 
 try:
 	from PIL import Image
@@ -60,4 +61,12 @@ def getQueue(request, response):
 	while i < len(q):
 		r.append({'id': q[i], 'i': 0, 'size': 0, 'elapsed': 0, 'speed': 0 })
 		i += 1
+	response.write(json.dumps(r))
+
+def getTitleUpdates(request, response):
+	r = {}
+	for path, nsp in Nsps.files.items():
+		data = nsp.isUpdateAvailable()
+		if data:
+			r[data['id']] = data
 	response.write(json.dumps(r))

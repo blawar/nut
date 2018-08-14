@@ -13,6 +13,7 @@ import pathlib
 import Keys
 import Config
 import Print
+import Nsps
 from tqdm import tqdm
 
 MEDIA_SIZE = 0x200
@@ -626,6 +627,37 @@ class Nsp(PFS0):
 		t.setId(self.titleId)
 		Titles.data()[self.titleId] = t
 		return t
+
+	def getUpdateFile(self):
+		title = self.title()
+
+		if title.isUpdate or title.isDLC or not title.updateId:
+			return None
+
+		for i, nsp in Nsps.files.items():
+			if nsp.titleId == title.updateId:
+				return nsp
+
+		return None
+
+	def isUpdateAvailable(self):
+		title = self.title()
+
+		if self.titleId and title.version != None and self.version < title.version and str(title.version) != '0':
+			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': self.version, 'newVersion': title.version}
+
+		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
+			updateFile = self.getUpdateFile()
+
+			if updateFile:
+				return updateFile.isUpdateAvailable()
+
+			updateTitle = Titles.get(title.updateId)
+
+			if updateTitle.version and str(updateTitle.version) != '0':
+				return {'id': updateTitle.id, 'baseId': title.baseId, 'currentVersion': None, 'newVersion': updateTitle.version}
+
+		return None
 		
 	def readMeta(self):
 		self.open()

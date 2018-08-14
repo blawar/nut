@@ -173,7 +173,12 @@
 
 #popup .content {
 	padding: 1em;
-	margin-top: 5em;
+	position: absolute;
+	top: 6em;
+	right: 0;
+	bottom: 1em;
+	left: 0;
+	overflow-y: scroll;
 }
 
 /* xs */

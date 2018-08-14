@@ -221,7 +221,7 @@ def get_name(titleId):
 	if Titles.contains(titleId):
 			try:
 				t = Titles.get(titleId)
-				return re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(t.name.strip()))
+				return (re.sub(r'[/\\:*?!"|™©®]+', "", unidecode.unidecode(t.name.strip())))[:70]
 			except:
 				pass
 	return 'Unknown Title'

@@ -42,6 +42,7 @@ angular
   .controller('gridTitlesController', function ($scope, $http) {
   	$scope.titles = [];
   	$scope.queue = [];
+  	$scope.updates = [];
   	$scope.title = null;
 
   	$http.get('/api/titles').then(function (res) {
@@ -55,20 +56,9 @@ angular
   		$scope.titles = titles;
   	});
 
-  	function getTitle(row) {
+  	function getTitle(id) {
   		for (i in $scope.titles) {
-  			if ($scope.titles[i].id == row.id) {
-  				$scope.titles[i].i = row.i;
-  				$scope.titles[i].size = row.size;
-
-  				if (row.size) {
-  					$scope.titles[i].percent = Math.round(row.i * 100 / row.size);
-  				} else {
-  					$scope.titles[i].percent = 0;
-  				}
-
-  				$scope.titles[i].sizeFormatted = formatNumber(row.size, 'b');
-  				$scope.titles[i].speed = formatNumber(row.speed, '/s');
+  			if ($scope.titles[i].id == id) {
   				return $scope.titles[i];
   			}
   		}
@@ -81,8 +71,21 @@ angular
 
   			for (key in res.data) {
   				row = res.data[key];
-  				t = getTitle(row);
-  				if(t) queue.push(t);
+  				t = getTitle(row.id);
+  				if (t) {
+  					t.i = row.i;
+  					t.size = row.size;
+
+  					if (row.size) {
+  						t.percent = Math.round(row.i * 100 / row.size);
+  					} else {
+  						t.percent = 0;
+  					}
+
+  					t.sizeFormatted = formatNumber(row.size, 'b');
+  					t.speed = formatNumber(row.speed, '/s');
+  					queue.push(t);
+  				}
   			}
   			$scope.queue = queue;
   		});
@@ -105,6 +108,26 @@ angular
   		$('#popup').show();
   		$('#popup > div').hide();
   		$('#queue').show();
+  	};
+
+  	$scope.showUpdates = function () {
+  		$('#popup').show();
+  		$('#popup > div').hide();
+  		$('#updates').show();
+
+  		$http.get('/api/titleUpdates').then(function (res) {
+  			updates = [];
+
+  			for (key in res.data) {
+  				row = res.data[key];
+  				t = getTitle(row.baseId);
+  				if (t) {
+					row.name = t.name
+  					updates.push(row);
+  				}
+  			}
+  			$scope.updates = updates;
+  		});
   	};
 
   	$scope.closePopup = function () {
