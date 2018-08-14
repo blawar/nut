@@ -193,7 +193,7 @@ def export(file):
 global hasScanned
 hasScanned = False
 
-def scan():
+def scan(archive = False):
 	global hasScanned
 
 	if hasScanned:
@@ -201,8 +201,10 @@ def scan():
 	hasScanned = True
 	initTitles()
 	initFiles()
-
-	Nsps.scan(Config.paths.scan)
+	if archive:
+		Nsps.scan(Config.paths.archive)
+	else:
+		Nsps.scan(Config.paths.scan)
 	Titles.save()
 	
 def organize():
@@ -212,9 +214,10 @@ def organize():
 	#scan()
 	Print.info('organizing')
 	for k, f in Nsps.files.items():
-		#print('moving ' + f.path)
-		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
-		f.move()
+		if Config.paths.archive not in f.path:
+			#print('moving ' + f.path)
+			#Print.info(str(f.hasValidTicket) +' = ' + f.path)
+			f.move()
 	Print.info('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
 	Nsps.save()
@@ -378,6 +381,7 @@ if __name__ == '__main__':
 	parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
 	parser.add_argument('--remove-title-rights', help='Removes title rights encryption from all NCA\'s in the NSP.')
 	parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
+	parser.add_argument('-a', '--archive-scan', action="store_true", help='scan remote achive for NSP files')
 	parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
 	parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
 	parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
@@ -492,6 +496,9 @@ if __name__ == '__main__':
 		initTitles()
 		initFiles()
 		scan()
+
+	if args.archive_scan:
+		scan(True)
 		
 	if args.refresh:
 		refresh()

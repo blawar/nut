@@ -91,6 +91,11 @@ def load(confFile):
 			pass
 
 		try:
+			paths.archive = j['paths']['archive']
+		except:
+			pass
+
+		try:
 			paths.nspOut = j['paths']['nspOut']
 		except:
 			pass
