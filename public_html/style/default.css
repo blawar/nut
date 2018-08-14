@@ -171,6 +171,11 @@
 	font-size: 2em;
 }
 
+#popup .content {
+	padding: 1em;
+	margin-top: 5em;
+}
+
 /* xs */
 @media only screen and (max-width: 600px) {
 	#popup {
@@ -259,4 +264,25 @@
 .button:hover span:after {
 	opacity: 1;
 	right: 0;
+}
+
+table {
+	width: 100%;
+}
+
+td.speed, td.size {
+	width: 7em;
+}
+
+td.icon {
+	width: 3em;
+}
+
+td.progress {
+	width: 33%;
+	padding-right: 1em;
+}
+
+td.progress progress {
+	width: 100%;
 }
