@@ -104,7 +104,7 @@ def updateDb(url):
 			Print.info('Error updating database: ', repr(r))
 			
 	except Exception as e:
-		Print.info('Error downloading:', e)
+		Print.info('Error downloading:' + e)
 
 global status
 status = None
