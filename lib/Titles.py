@@ -63,7 +63,7 @@ def loadTitleBuffer(buffer, silent = False):
 		titles[t.id].loadCsv(line, map)
 
 		if not silent and titleKey != titles[t.id].key:
-			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + t.id + ']')
+			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + str(t.id) + ']')
 
 	
 def load():
