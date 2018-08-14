@@ -8,6 +8,7 @@ import Title
 import operator
 import Config
 import Print
+import threading
 
 global titles
 titles = {}
@@ -88,3 +89,62 @@ def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'i
 		
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
+
+class Queue:
+	def __init__(self):
+		self.queue = []
+		self.lock = threading.Lock()
+		self.i = 0
+
+	def add(self, id):
+		self.lock.acquire()
+		id = id.upper()
+		if not id in self.queue and self.isValid(id):
+			self.queue.append(id)
+		self.lock.release()
+
+	def shift(self):
+		self.lock.acquire()
+		if self.i >= len(self.queue):
+			self.lock.release()
+			return None
+
+		self.i += 1
+
+		r =self.queue[self.i-1]
+		self.lock.release()
+		return r
+
+	def empty(self):
+		return bool(self.size() == 0)
+
+	def get(self):
+		return self.queue
+
+	def isValid(self, id):
+		return contains(id)
+
+	def load(self):
+		try:
+			with open('queue.txt', encoding="utf-8-sig") as f:
+				for line in f.read().split('\n'):
+					self.add(line.strip())
+		except BaseException as e:
+			Print.error(str(e))
+			pass
+
+	def size(self):
+		return len(self.queue) - self.i
+
+	def save(self):
+		self.lock.acquire()
+		try:
+			with open('queue.txt', 'w', encoding='utf-8') as f:
+				for id in self.queue:
+					f.write(id + '\n')
+		except:
+			pass
+		self.lock.release()
+
+global queue
+queue = Queue()

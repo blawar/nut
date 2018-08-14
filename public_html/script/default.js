@@ -2,6 +2,7 @@ angular
   .module('nutApp', ['ngMaterial'])
   .controller('gridTitlesController', function ($scope, $http) {
   	$scope.titles = [];
+  	$scope.queue = [];
   	$scope.title = null;
 
   	$http.get('/api/titles').then(function (res) {
@@ -13,6 +14,22 @@ angular
   			}
   		}
   		$scope.titles = titles;
+  	});
+
+  	function getTitle(id) {
+  		for (i in $scope.titles) {
+  			if ($scope.titles[i].id == id) {
+  				return $scope.titles[i];
+  			}
+  		}
+  	}
+
+  	$http.get('/api/queue').then(function (res) {
+  		queue = [];
+  		for (key in res.data) {
+  			queue.push(getTitle(res.data[key]));
+  		}
+  		$scope.queue= queue;
   	});
 
   	$scope.showTitle = function (title) {

@@ -182,5 +182,3 @@ if os.path.isfile('CDNSPconfig.json'):
 			except:
 				pass
 
-for i in titleUrls:
-	print(i)
