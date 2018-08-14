@@ -136,7 +136,7 @@ angular
 
   			for (key in res.data) {
   				row = res.data[key];
-  				t = getTitle(row.baseId);
+  				t = $scope.titlesDict[row.id];
   				if (t) {
   					row.name = t.name;
 

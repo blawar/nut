@@ -77,7 +77,7 @@ def load():
 		for file in files:
 			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
 	except BaseException as e:
-		Print.error(str(e))
+		Print.error('title load error: ' + str(e))
 
 	
 def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
@@ -132,7 +132,7 @@ class Queue:
 				for line in f.read().split('\n'):
 					self.add(line.strip())
 		except BaseException as e:
-			Print.error(str(e))
+			Print.error('Queue load error: ' + str(e))
 			pass
 
 	def size(self):
