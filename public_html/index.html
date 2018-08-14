@@ -47,7 +47,7 @@
 			<div id="game" style="background-image: url(/images/titles/{{title.id}}/banner.jpg)">
 				<h3>{{title.name}}</h3>
 				<div class="controls">
-					<button class="button">Download</button>
+					<button class="button" ng-click="download(title.id)">Download</button>
 				</div>
 			</div>
 			<div id="options">
@@ -60,9 +60,22 @@
 				<h3>Download Queue</h3>
 				<div class="content">
 					<table>
-						<tbody>
-							<tr ng-repeat="q in queue">
-								<td>{{q.name}} x</td>
+						<thead>
+							<tr>
+								<th>&nbsp;</th>
+								<th>Title</th>
+								<th>Progress</th>
+								<th>Speed</th>
+								<th>Size</th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="q in queue">
+							<tr>
+								<td class="icon"><img style="height: 2em;" src="/api/titleImage/{{q.id }}/192" /></td>
+								<td>{{q.name}}</td>
+								<td class="percent"><progress value="{{q.percent}}" max="100"></progress></td>
+								<td class="speed">{{q.speed}}</td>
+								<td>{{q.sizeFormatted}}</td>
 							</tr>
 						</tbody>
 					</table>

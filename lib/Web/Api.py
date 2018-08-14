@@ -1,6 +1,7 @@
 import Titles
 import json
 import Titles
+import Status
 
 try:
 	from PIL import Image
@@ -48,5 +49,15 @@ def getTitleImage(request, response):
 
 	return Server.Response500(request, response)
 
+def getDownload(request, response):
+	Titles.queue.add(request.bits[2])
+	response.write(json.dumps({'success': True}))
+
 def getQueue(request, response):
-	response.write(json.dumps(Titles.queue.queue))
+	r = Status.data().copy()
+	q = Titles.queue.get().copy()
+	i = Titles.queue.i
+	while i < len(q):
+		r.append({'id': q[i], 'i': 0, 'size': 0, 'elapsed': 0, 'speed': 0 })
+		i += 1
+	response.write(json.dumps(r))

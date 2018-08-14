@@ -118,8 +118,10 @@ class Queue:
 	def empty(self):
 		return bool(self.size() == 0)
 
-	def get(self):
-		return self.queue
+	def get(self, idx = None):
+		if idx == None:
+			return self.queue
+		return self.queue[idx]
 
 	def isValid(self, id):
 		return contains(id)
