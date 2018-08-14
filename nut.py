@@ -110,12 +110,16 @@ def updateDb(url):
 global status
 status = None
 
-def downloadThread():
+global activeDownloads
+activeDownloads = []
+
+def downloadThread(i):
 	global status
 	while True:
 		try:
 			id = Titles.queue.shift()
 			if id and Titles.contains(id):
+				activeDownloads[i] = 1
 				t = Titles.get(id)
 				path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
 
@@ -124,19 +128,21 @@ def downloadThread():
 					Nsps.files[nsp.path] = nsp
 					Nsps.save()
 					status.add()
+				activeDownloads[i] = 0
 			else:
 				time.sleep(1)
 		except KeyboardInterrupt:
 			pass
 		except BaseException as e:
 			Print.error(str(e))
-			raise
+	activeDownloads[i] = 0
 
 global downloadThreadsStarted
 downloadThreadsStarted = False
 
 def startDownloadThreads():
 	global downloadThreadsStarted
+	global activeDownloads
 
 	if downloadThreadsStarted:
 		return
@@ -148,12 +154,14 @@ def startDownloadThreads():
 
 	threads = []
 	for i in range(Config.threads):
-		t = threading.Thread(target=downloadThread, args=[])
+		activeDownloads.append(0)
+		t = threading.Thread(target=downloadThread, args=[i])
 		t.daemon = True
 		t.start()
 		threads.append(t)
 
 def downloadAll(wait = True):
+	global activeDownloads
 	try:
 		startDownloadThreads()
 
@@ -168,7 +176,7 @@ def downloadAll(wait = True):
 					continue
 
 				Titles.queue.add(t.id)
-		while wait and not Titles.queue.empty():
+		while wait and (not Titles.queue.empty() or sum(activeDownloads) > 0):
 			time.sleep(1)
 	except KeyboardInterrupt:
 			pass
