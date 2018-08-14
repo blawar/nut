@@ -112,7 +112,6 @@ status = None
 
 def downloadThread():
 	global status
-	return
 	while True:
 		try:
 			id = Titles.queue.shift()
