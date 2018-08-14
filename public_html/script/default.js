@@ -41,19 +41,34 @@ angular
   .module('nutApp', ['ngMaterial'])
   .controller('gridTitlesController', function ($scope, $http) {
   	$scope.titles = [];
+  	$scope.titlesDict = {};
   	$scope.queue = [];
   	$scope.updates = [];
   	$scope.title = null;
 
   	$http.get('/api/titles').then(function (res) {
   		titles = [];
+  		titlesDict = {};
   		for (key in res.data) {
   			title = res.data[key];
   			if (!title.isUpdate && !title.isDLC && !title.isDemo && title.key != '00000000000000000000000000000000') {
+  				title.children = [];
+  				titlesDict[title.id] = title;
   				titles.push(title);
   			}
   		}
+  		for (key in res.data) {
+  			title = res.data[key];
+  			if (title.isUpdate || title.isDLC) {
+  				titlesDict[title.id] = title;
+
+  				if (title.baseId != title.id && titlesDict[title.baseId] !== undefined) {
+  					titlesDict[title.baseId].children.push(title);
+  				}
+  			}
+  		}
   		$scope.titles = titles;
+  		$scope.titlesDict = titlesDict;
   	});
 
   	function getTitle(id) {
@@ -71,8 +86,8 @@ angular
 
   			for (key in res.data) {
   				row = res.data[key];
-  				t = getTitle(row.id);
-  				if (t) {
+  				t = $scope.titlesDict[row.id];
+  				if (t !== undefined) {
   					t.i = row.i;
   					t.size = row.size;
 
@@ -85,6 +100,7 @@ angular
   					t.sizeFormatted = formatNumber(row.size, 'b');
   					t.speed = formatNumber(row.speed, '/s');
   					queue.push(t);
+  				} else {
   				}
   			}
   			$scope.queue = queue;
@@ -122,7 +138,13 @@ angular
   				row = res.data[key];
   				t = getTitle(row.baseId);
   				if (t) {
-					row.name = t.name
+  					row.name = t.name;
+
+  					if (row.currentVersion) {
+  						row.currentVersion = parseInt(row.currentVersion).toString(16);
+  					}
+
+  					row.newVersion = parseInt(row.newVersion).toString(16);
   					updates.push(row);
   				}
   			}
