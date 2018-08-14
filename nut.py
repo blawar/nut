@@ -31,64 +31,6 @@ import time
 import colorama
 import Server
 
-class Queue:
-	def __init__(self):
-		self.queue = []
-		self.lock = threading.Lock()
-		self.i = 0
-
-	def add(self, id):
-		self.lock.acquire()
-		id = id.upper()
-		if not id in self.queue and self.isValid(id):
-			self.queue.append(id)
-		self.lock.release()
-
-	def shift(self):
-		self.lock.acquire()
-		if self.i >= len(self.queue):
-			self.lock.release()
-			return None
-
-		self.i += 1
-
-		r =self.queue[self.i-1]
-		self.lock.release()
-		return r
-
-	def empty(self):
-		return bool(self.size() == 0)
-
-	def get(self):
-		return self.queue.copy()
-
-	def isValid(self, id):
-		return Titles.contains(id)
-
-	def load(self):
-		try:
-			with open('queue.txt', encoding="utf-8-sig") as f:
-				for line in f.read().split('\n'):
-					self.add(line.strip())
-		except BaseException as e:
-			Print.error(str(e))
-			pass
-
-	def size(self):
-		return len(self.queue) - self.i
-
-	def save(self):
-		self.lock.acquire()
-		try:
-			with open('queue.txt', 'w', encoding='utf-8') as f:
-				for id in self.queue:
-					f.write(id + '\n')
-		except:
-			pass
-		self.lock.release()
-
-downloadQueue = Queue()
-
 
 				
 def loadTitleWhitelist():
@@ -169,9 +111,10 @@ status = None
 
 def downloadThread():
 	global status
+	return
 	while True:
 		try:
-			id = downloadQueue.shift()
+			id = Titles.queue.shift()
 			if id and Titles.contains(id):
 				t = Titles.get(id)
 				path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
@@ -224,8 +167,8 @@ def downloadAll(wait = True):
 					Print.info('Could not get version for ' + t.name)
 					continue
 
-				downloadQueue.add(t.id)
-		while wait and not downloadQueue.empty():
+				Titles.queue.add(t.id)
+		while wait and not Titles.queue.empty():
 			time.sleep(1)
 	except KeyboardInterrupt:
 			pass
@@ -350,7 +293,7 @@ def initTitles():
 	loadTitleBlacklist()
 
 	Nsps.load()
-	downloadQueue.load()
+	Titles.queue.load()
 
 isInitFiles = False
 def initFiles():
@@ -665,6 +608,8 @@ if __name__ == '__main__':
 		downloadAll()
 
 	Status.close()
+
+	Print.info('exiting')
 	
 	#scan()
 		

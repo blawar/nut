@@ -1,6 +1,6 @@
 import Titles
 import json
-import nut
+import Titles
 
 try:
 	from PIL import Image
@@ -49,4 +49,4 @@ def getTitleImage(request, response):
 	return Server.Response500(request, response)
 
 def getQueue(request, response):
-	response.write(json.dumps(nut.downloadQueue.get()))
+	response.write(json.dumps(Titles.queue.queue))

@@ -58,6 +58,15 @@
 			</div>
 			<div id="queue">
 				<h3>Download Queue</h3>
+				<div class="content">
+					<table>
+						<tbody>
+							<tr ng-repeat="q in queue">
+								<td>{{q.name}} x</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<button id="close" ng-click="closePopup()">Close</button>
 		</div>
