@@ -227,7 +227,7 @@ def get_name(titleId):
 	return 'Unknown Title'
 
 
-def download_file(url, fPath):
+def download_file(url, fPath, titleId = None):
 	fName = os.path.basename(fPath).split()[0]
 
 	if os.path.exists(fPath):
@@ -262,6 +262,7 @@ def download_file(url, fPath):
 
 	if fSize >= 10000:
 		s = Status.create(fSize, desc=fName, unit='B')
+		s.id = titleId.upper()
 		s.add(dlded)
 		for chunk in r.iter_content(chunkSize):
 			f.write(chunk)
@@ -381,7 +382,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 		Print.debug('Downloading CNMT (%s.cnmt.nca)...' % CNMTid)
 		url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/a/%s?device_id=%s' % (n, env, CNMTid, deviceId)
 		fPath = os.path.join(gameDir, CNMTid + '.cnmt.nca')
-		cnmtNCA = download_file(url, fPath)
+		cnmtNCA = download_file(url, fPath, titleId)
 		cnmtDir = decrypt_NCA(cnmtNCA)
 		CNMT = cnmt(os.path.join(cnmtDir, 'section0', os.listdir(os.path.join(cnmtDir, 'section0'))[0]),
 					os.path.join(cnmtDir, 'Header.bin'))
@@ -450,7 +451,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 				Print.debug('Downloading %s entry (%s.nca)...' % (CNMT.ncaTypes[type], ncaID))
 				url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/c/%s?device_id=%s' % (n, env, ncaID, deviceId)
 				fPath = os.path.join(gameDir, ncaID + '.nca')
-				NCAs[type].append(download_file(url, fPath))
+				NCAs[type].append(download_file(url, fPath, titleId))
 				if verify:
 					if calc_sha256(fPath) != CNMT.parse(CNMT.ncaTypes[type])[ncaID][2]:
 						Print.error('%s is corrupted, hashes don\'t match!' % os.path.basename(fPath))

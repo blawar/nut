@@ -29,6 +29,10 @@ def isActive():
 			return True
 	return False
 
+def data():
+	global jsonData
+	return jsonData
+
 def loopThread():
 	global threadRun
 	global jsonData
@@ -39,7 +43,7 @@ def loopThread():
 		for i in lst:
 			if i.isOpen():
 				try:
-					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.clock() - i.timestamp, 'speed': i.a / (time.clock() - i.ats) })
+					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.clock() - i.timestamp, 'speed': i.a / (time.clock() - i.ats), 'id': i.id })
 					i.a = 0
 					i.ats = time.clock()
 				except:
@@ -74,6 +78,7 @@ class Status:
 		self.size = size
 		self.i = 0
 		self.a = 0
+		self.id = None
 		self.ats = time.clock()
 		self.timestamp = time.clock()
 		self.desc = desc
