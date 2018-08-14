@@ -30,6 +30,66 @@ import Status
 import time
 import colorama
 import Server
+
+class Queue:
+	def __init__(self):
+		self.queue = []
+		self.lock = threading.Lock()
+		self.i = 0
+
+	def add(self, id):
+		self.lock.acquire()
+		id = id.upper()
+		if not id in self.queue and self.isValid(id):
+			self.queue.append(id)
+		self.lock.release()
+
+	def shift(self):
+		self.lock.acquire()
+		if self.i >= len(self.queue):
+			self.lock.release()
+			return None
+
+		self.i += 1
+
+		r =self.queue[self.i-1]
+		self.lock.release()
+		return r
+
+	def empty(self):
+		return bool(self.size() == 0)
+
+	def get(self):
+		return self.queue.copy()
+
+	def isValid(self, id):
+		return Titles.contains(id)
+
+	def load(self):
+		try:
+			with open('queue.txt', encoding="utf-8-sig") as f:
+				for line in f.read().split('\n'):
+					self.add(line.strip())
+		except BaseException as e:
+			Print.error(str(e))
+			pass
+
+	def size(self):
+		return len(self.queue) - self.i
+
+	def save(self):
+		self.lock.acquire()
+		try:
+			with open('queue.txt', 'w', encoding='utf-8') as f:
+				for id in self.queue:
+					f.write(id + '\n')
+		except:
+			pass
+		self.lock.release()
+
+downloadQueue = Queue()
+
+
 				
 def loadTitleWhitelist():
 	global titleWhitelist
@@ -107,77 +167,71 @@ def updateDb(url):
 global status
 status = None
 
-def downloadThread(bucket):
+def downloadThread():
 	global status
-	for t in bucket:
+	while True:
 		try:
-			path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
-			if os.path.isfile(path):
-				nsp = Fs.Nsp(path, None)
-				Nsps.files[nsp.path] = nsp
-				Nsps.save()
-				status.add()
+			id = downloadQueue.shift()
+			if id and Titles.contains(id):
+				t = Titles.get(id)
+				path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
+
+				if os.path.isfile(path):
+					nsp = Fs.Nsp(path, None)
+					Nsps.files[nsp.path] = nsp
+					Nsps.save()
+					status.add()
+			else:
+				time.sleep(1)
 		except KeyboardInterrupt:
 			pass
 		except BaseException as e:
 			Print.error(str(e))
-	
-def downloadAll():
-	global status
+			raise
+
+global downloadThreadsStarted
+downloadThreadsStarted = False
+
+def startDownloadThreads():
+	global downloadThreadsStarted
+
+	if downloadThreadsStarted:
+		return
+
+	downloadThreadsStarted = True
+
 	initTitles()
 	initFiles()
 
-	buckets = []
 	threads = []
 	for i in range(Config.threads):
-		buckets.append([])
-		threads.append(None)
+		t = threading.Thread(target=downloadThread, args=[])
+		t.daemon = True
+		t.start()
+		threads.append(t)
 
-	i = 0
-
-	for k,t in Titles.items():
-		if not t.path and not t.retailOnly and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
-			if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
-				#Print.warning('no valid id? ' + str(t.path))
-				continue
-				
-			if not t.lastestVersion():
-				Print.info('Could not get version for ' + t.name)
-				continue
-
-			buckets[i%Config.threads].append(t)
-			i += 1
-
-	status = Status.create(i, desc = 'Downloading...')
-
-	for i, bucket in enumerate(buckets):
-		threads[i] = threading.Thread(target=downloadThread, args=[bucket])
-		threads[i].daemon = True
-		threads[i].start()
-
+def downloadAll(wait = True):
 	try:
-		while True:
+		startDownloadThreads()
+
+		for k,t in Titles.items():
+			if not t.path and not t.retailOnly and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
+				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
+					#Print.warning('no valid id? ' + str(t.path))
+					continue
+				
+				if not t.lastestVersion():
+					Print.info('Could not get version for ' + t.name)
+					continue
+
+				downloadQueue.add(t.id)
+		while wait and not downloadQueue.empty():
 			time.sleep(1)
-			count = 0
-			for i in range(Config.threads):
-				if threads[i].isAlive():
-					count += 1
-			if count < 1:
-				Print.info('Exiting')
-				break
 	except KeyboardInterrupt:
-			#for i in range(Config.threads):
-			#	threads[i]._Thread_stop()
-			#thread.exit()
-			#raise
 			pass
 	except BaseException as e:
 		Print.error(str(e))
 
-	status.close()
-
-	#for i in range(Config.threads):
-	#	threads[i].join()
 			
 def export(file):
 	initTitles()
@@ -296,6 +350,7 @@ def initTitles():
 	loadTitleBlacklist()
 
 	Nsps.load()
+	downloadQueue.load()
 
 isInitFiles = False
 def initFiles():
@@ -599,6 +654,7 @@ if __name__ == '__main__':
 		logMissingTitles(args.missing)
 
 	if args.server:
+		startDownloadThreads()
 		initTitles()
 		initFiles()
 		Server.run()

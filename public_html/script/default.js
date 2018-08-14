@@ -18,20 +18,25 @@ angular
   	$scope.showTitle = function (title) {
   		$scope.title = title;
   		$('#popup').show();
-  		$('#options').hide();
+  		$$('#popup > div').hide();
   		$('#game').show();
   	};
 
   	$scope.showOptions = function () {
   		$('#popup').show();
-  		$('#game').hide();
+  		$('#popup > div').hide();
   		$('#options').show();
+  	};
+
+  	$scope.showQueue = function () {
+  		$('#popup').show();
+  		$('#popup > div').hide();
+  		$('#queue').show();
   	};
 
   	$scope.closePopup = function () {
   		$('#popup').hide();
-  		$('#game').hide();
-  		$('#options').hide();
+  		$('#popup > div').hide();
   	};
   }).filter('unique', function () {
   	return function (collection, keyname) {

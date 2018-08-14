@@ -25,7 +25,8 @@
 			<a id="logo" href="http://github.com/blawar/nut"><img src="/images/logo.jpg" /></a>
 			<div class="right">
 				<input type="text" ng-model="searchText" id="search" placeholder="Search">
-				<button id="gear" ng-click="showOptions()">Options</button>
+				<button class="queue" ng-click="showQueue()">Options</button>
+				<button class="gear" ng-click="showOptions()">Options</button>
 				<ul id="regions" ng-repeat="title in titles | unique:'region'">
 					<li class="{{title.region}}">
 						<input name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" />
@@ -54,6 +55,9 @@
 				<div class="controls">
 					<button class="button">Save</button>
 				</div>
+			</div>
+			<div id="queue">
+				<h3>Download Queue</h3>
 			</div>
 			<button id="close" ng-click="closePopup()">Close</button>
 		</div>

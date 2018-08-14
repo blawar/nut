@@ -1,5 +1,7 @@
 import Titles
 import json
+import nut
+
 try:
 	from PIL import Image
 except ImportError:
@@ -45,3 +47,6 @@ def getTitleImage(request, response):
 			response.write(f.read())
 
 	return Server.Response500(request, response)
+
+def getQueue(request, response):
+	response.write(json.dumps(nut.downloadQueue.get()))
