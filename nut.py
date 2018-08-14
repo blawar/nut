@@ -114,6 +114,7 @@ global activeDownloads
 activeDownloads = []
 
 def downloadThread(i):
+	Print.info('starting thread ' + str(i))
 	global status
 	while True:
 		try:
@@ -136,6 +137,7 @@ def downloadThread(i):
 		except BaseException as e:
 			Print.error(str(e))
 	activeDownloads[i] = 0
+	Print.info('ending thread ' + str(i))
 
 global downloadThreadsStarted
 downloadThreadsStarted = False
