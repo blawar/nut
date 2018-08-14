@@ -7,6 +7,12 @@ import CDNSP
 import Titles
 import Print
 
+def getBaseId(id):
+	if not id:
+		return None
+	titleIdNum = int(id, 16)
+	return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+
 class Title:
 	def __init__(self):
 		self.id = None
@@ -167,7 +173,10 @@ class Title:
 			
 	def getId(self):
 		return self.id or '0000000000000000'
-			
+
+	def getBaseId(self):
+		return self.baseId or '0000000000000000'
+
 	def setRegion(self, region):
 		if re.match('[A-Z]{2}', region):
 			self.region = region
@@ -187,7 +196,7 @@ class Title:
 				self.isDemo = False
 	
 	def getName(self):
-		baseId = Title.getBaseId(self.id)
+		baseId = getBaseId(self.id)
 		if self.isUpdate and Titles.contains(baseId):
 			return Titles.get(baseId).name
 		return self.name or ''
@@ -263,9 +272,3 @@ class Title:
 
 		return r
 			
-	@staticmethod
-	def getBaseId(id):
-		if not id:
-			return None
-		titleIdNum = int(id, 16)
-		return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)

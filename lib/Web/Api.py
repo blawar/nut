@@ -13,9 +13,9 @@ import os
 
 def getTitles(request, response):
 	o = []
-	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']
+	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
 	for k, t in Titles.items():
-		o.append(t.dict())
+		o.append(t.dict(map))
 	response.write(json.dumps(o))
 
 def getTitleImage(request, response):
