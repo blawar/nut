@@ -42,8 +42,8 @@ def grabCachedRedirectUrl(url, cookies = None):
 
 		urlLock.acquire()
 		# we need to slow this down so we dont get banned
-		Print.info('hitting ' + url)
-		time.sleep(0.1)
+		#Print.info('hitting ' + url)
+		#time.sleep(0.1)
 		result = requests.get(url, cookies=cookies)
 		if result.status_code == 404:
 			urlCache[url] = None
