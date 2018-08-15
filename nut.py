@@ -110,6 +110,21 @@ def updateDb(url):
 global status
 status = None
 
+global scrapeThreads
+scrapeThreads = 2
+
+def scrapeThread(id):
+	size = len(Titles.titles) // scrapeThreads
+	st = Status.create(size, 'Thread ' + str(id))
+	for i,titleId in enumerate(Titles.titles.keys()):
+		try:
+			if (i - id) % scrapeThreads == 0:
+				Titles.get(titleId).scrape()
+				st.add()
+		except BaseException as e:
+			Print.error(str(e))
+	st.close()
+
 global activeDownloads
 activeDownloads = []
 
@@ -395,6 +410,7 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--hostname', action="store_true", help='Set server hostname')
 	parser.add_argument('-p', '--port', action="store_true", help='Set server port')
 
+	parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 	parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 		
 	args = parser.parse_args()
@@ -579,6 +595,21 @@ if __name__ == '__main__':
 		else:
 			Titles.get(args.scrape_title).scrape()
 			Titles.save()
+
+	if args.scrape:
+		initTitles()
+		initFiles()
+
+		threads = []
+		for i in range(scrapeThreads):
+			t = threading.Thread(target=scrapeThread, args=[i])
+			t.start()
+			threads.append(t)
+
+		for t in threads:
+			t.join()
+		
+		Titles.save()
 			
 	
 	if args.Z:

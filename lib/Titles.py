@@ -65,8 +65,9 @@ def loadTitleBuffer(buffer, silent = False):
 		if not silent and titleKey != titles[t.id].key:
 			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + str(t.id) + ']')
 
-	
+confLock = threading.Lock()	
 def load():
+	confLock.acquire()
 	global titles
 	if os.path.isfile("titles.json"):
 		timestamp = time.clock()
@@ -88,6 +89,7 @@ def load():
 			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
 	except BaseException as e:
 		Print.error('title load error: ' + str(e))
+	confLock.release()
 
 	
 def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
@@ -101,11 +103,18 @@ def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 
 		csv.write(buffer)
 
 def save(fileName = 'titles.json'):
-	j = {}
-	for i,k in titles.items():
-		j[i] = k.__dict__
-	with open(fileName, 'w') as outfile:
-		json.dump(j, outfile)
+	confLock.acquire()
+	try:
+		j = {}
+		for i,k in titles.items():
+			j[i] = k.__dict__
+		with open(fileName, 'w') as outfile:
+			json.dump(j, outfile)
+	except:
+		confLock.release()
+		raise
+
+	confLock.release()
 
 class Queue:
 	def __init__(self):
