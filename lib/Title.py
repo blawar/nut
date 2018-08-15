@@ -14,6 +14,8 @@ import datetime
 import calendar
 import threading
 import Nsps
+import urllib.request
+import Config
 
 global grabUrlInit
 global urlCache
@@ -348,6 +350,28 @@ class Title:
 
 		return r
 
+	def download(self, base, fileName, url):
+		path = os.path.join(base, fileName)
+		if os.path.isfile(path):
+			return path
+		os.makedirs(base, exist_ok=True)
+		urllib.request.urlretrieve(url, path)
+		return path
+
+	def bannerFile(self):
+		if not self.bannerUrl or self.bannerUrl.startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.bannerUrl)
+		return self.download(Config.paths.titleImages + self.id, 'banner' + ext, self.bannerUrl)
+
+	def frontBoxArtFile(self):
+		if not self.frontBoxArt or self.frontBoxArt.startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.frontBoxArt)
+		return self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt)
+
 
 	def scrape(self, delta = True):
 		if self.isUpdate or self.isDLC or (delta and self.bannerUrl):
@@ -577,4 +601,7 @@ class Title:
 		except BaseException as e:
 			pass
 			print(repr(e) + ' ' + self.id)
+
+		self.bannerFile()
+		self.frontBoxArtFile()
 
