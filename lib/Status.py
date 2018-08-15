@@ -54,7 +54,7 @@ def loopThread():
 			sys.stdout.flush()
 
 def create(size, desc = None, unit='B'):
-	#lock.acquire()
+	lock.acquire()
 	position = len(lst)
 
 	for i, s in enumerate(lst):
@@ -69,7 +69,7 @@ def create(size, desc = None, unit='B'):
 	else:
 		lst[position] = s
 
-	#lock.release()
+	lock.release()
 	return s
 
 class Status:

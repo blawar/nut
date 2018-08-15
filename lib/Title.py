@@ -295,19 +295,25 @@ class Title:
 
 
 	def scrape(self):
+		if self.isUpdate or self.isDLC:
+			return
 		try:
 			for region in ['JP', 'AU']:
-				result = requests.get("https://ec.nintendo.com/apps/%s/AU" % self.id)
+				result = requests.get("https://ec.nintendo.com/apps/%s/%s" % (self.id, region))
 				_json = ''
 				if result.status_code != 200:
 					continue
+
 				_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';',''))
-					
-				if _json == '' or _json == None:
-					continue
 				
+				if _json == '' or _json == None:
+					Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (self.id, region))
+					continue
+
+				Print.info('getting')
 				if 'hero_banner_url' in _json:
 					self.bannerUrl = _json['hero_banner_url']
+					Print.info('banner: ' + self.bannerUrl + '\n')
 
 				if "release_date_on_eshop" in _json:
 					self.releaseDate = int(_json["release_date_on_eshop"].replace('-',''))
@@ -315,7 +321,7 @@ class Title:
 					self.nsuId = int("%s" % _json["id"])
 
 				if "formal_name" in _json:
-					self.name = _json["formal_name"]
+					self.name = _json["formal_name"].strip()
 					
 				if 'screenshots' in _json:
 					self.screenshots = []
@@ -328,7 +334,7 @@ class Title:
 							if self.id[0:12] != _json['applications'][0]['id'][0:12]:
 								self.nsuId = int(demo["id"])
 								if "name" in demo:
-									self.name = demo["name"]			
+									self.name = demo["name"].strip()	
 
 				if "languages" in _json:
 					self.languages = []
@@ -392,7 +398,7 @@ class Title:
 							self.releaseDate = int(datetime.datetime.strftime(datetime.datetime.strptime(infoJson["release_date"], "%b %d, %Y"),'%Y%m%d'))
 
 						if "name" in infoJson:
-							self.name = infoJson["name"]
+							self.name = infoJson["name"].strip()
 
 						if "nsuid" in infoJson:
 							self.nsuId = int(infoJson["nsuid"])
