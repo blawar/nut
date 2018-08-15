@@ -30,6 +30,7 @@ class Paths:
 		self.NXclientCert = 'nx_tls_client_cert.pem'
 		self.shopNCert = 'ShopN.pem'
 		self.nspOut = '_NSPOUT'
+		self.titleImages = 'titles/images/'
 		
 		if platform.system() == 'Linux':
 			self.hactool = './' + self.hactool + '_linux'
