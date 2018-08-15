@@ -12,6 +12,58 @@ import requests
 import time
 import datetime
 import calendar
+import threading
+
+global grabUrlInit
+global urlCache
+global urlLock
+
+grabUrlInit = False
+urlCache = {}
+urlLock = threading.Lock()	
+
+def grabCachedRedirectUrl(url, cookies = None):
+	global grabUrlInit
+	global urlCache
+	global urlLock
+
+	urlLock.acquire()
+	try:
+		if not grabUrlInit:
+			grabUrlInit = True
+
+			if os.path.isfile('redirectCache.json'):
+				with open('redirectCache.json', encoding="utf-8-sig") as f:
+					urlCache = json.loads(f.read())
+
+		if url in urlCache:
+			if not urlCache[url]:
+				urlLock.release()
+				return None
+			result = requests.get(urlCache[url], cookies=cookies)
+			#result.url = urlCache[url]
+			urlLock.release()
+			return result
+
+		# we need to slow this down so we dont get banned
+		#Print.info('hitting ' + url)
+		time.sleep(0.3)
+		result = requests.get(url, cookies=cookies)
+		if result.status_code == 404:
+			urlCache[url] = None
+		elif result.status_code == 200:
+			urlCache[url] = result.url
+		else:
+			#not sure but dont cache it
+			return result
+
+		with open('redirectCache.json', 'w') as outfile:
+			json.dump(urlCache, outfile)
+		urlLock.release()
+		return result
+	except:
+		urlLock.release()
+		raise
 
 def getBaseId(id):
 	if not id:
@@ -294,14 +346,15 @@ class Title:
 		return r
 
 
-	def scrape(self):
-		if self.isUpdate or self.isDLC:
+	def scrape(self, delta = True):
+		if self.isUpdate or self.isDLC or (delta and self.bannerUrl):
 			return
 		try:
+			cookies = {'esrb.verified': 'true'}
 			for region in ['JP', 'AU']:
-				result = requests.get("https://ec.nintendo.com/apps/%s/%s" % (self.id, region))
+				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/%s" % (self.id, region), cookies=cookies)
 				_json = ''
-				if result.status_code != 200:
+				if not result or result.status_code != 200:
 					continue
 
 				_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';',''))
@@ -310,10 +363,8 @@ class Title:
 					Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (self.id, region))
 					continue
 
-				Print.info('getting')
 				if 'hero_banner_url' in _json:
 					self.bannerUrl = _json['hero_banner_url']
-					Print.info('banner: ' + self.bannerUrl + '\n')
 
 				if "release_date_on_eshop" in _json:
 					self.releaseDate = int(_json["release_date_on_eshop"].replace('-',''))
@@ -334,7 +385,7 @@ class Title:
 							if self.id[0:12] != _json['applications'][0]['id'][0:12]:
 								self.nsuId = int(demo["id"])
 								if "name" in demo:
-									self.name = demo["name"].strip()	
+									self.name = demo["name"].strip()
 
 				if "languages" in _json:
 					self.languages = []
@@ -368,7 +419,10 @@ class Title:
 
 
 				if "publisher" in _json:
-					self.publisher = _json["publisher"]["name"]
+					if 'name' in _json["publisher"]:
+						self.publisher = _json["publisher"]["name"]
+					if 'title' in _json["publisher"]:
+						self.publisher = _json["publisher"]["title"]
 
 				if "applications" in _json:
 					if "image_url" in _json["applications"][0]:
@@ -386,13 +440,13 @@ class Title:
 			
 
 			#<img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
-			result = requests.get("https://ec.nintendo.com/apps/%s/US" % self.id)
-			if result.status_code == 200:
+			result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % self.id, cookies=cookies)
+			if result and result.status_code == 200:
 				if result.url != 'https://www.nintendo.com/games/':
 					soup = BeautifulSoup(result.text, "html.parser")
 					if soup.find("meta", {"property": "og:url"}) != None:
 						slug = soup.find("meta", {"property": "og:url"})["content"].split('/')[-1]
-						infoJson = json.loads(requests.get("https://www.nintendo.com/json/content/get/game/%s" % slug).text)["game"]
+						infoJson = json.loads(requests.get("https://www.nintendo.com/json/content/get/game/%s" % slug, cookies=cookies).text)["game"]
 
 						if "release_date" in infoJson:
 							self.releaseDate = int(datetime.datetime.strftime(datetime.datetime.strptime(infoJson["release_date"], "%b %d, %Y"),'%Y%m%d'))
@@ -409,10 +463,15 @@ class Title:
 							catindex = 0
 							if "name" in infoJson["game_category_ref"]:
 								catagories.append(infoJson["game_category_ref"]["name"])
+							elif "title" in infoJson["game_category_ref"]:
+								catagories.append(infoJson["game_category_ref"]["title"])
 							else:
-								for game_category in infoJson["game_category_ref"]:
-									catagories.append(infoJson["game_category_ref"][catindex]["name"])
-									catindex += 1
+								try:
+									for game_category in infoJson["game_category_ref"]:
+										catagories.append(infoJson["game_category_ref"][catindex]["name"])
+										catindex += 1
+								except:
+									pass
 							self.category = catagories
 
 						esrbcontent = []
@@ -420,19 +479,35 @@ class Title:
 							esrbindex = 0
 							if "name" in infoJson["esrb_content_descriptor_ref"]:
 								esrbcontent.append(infoJson["esrb_content_descriptor_ref"]["name"])
+							elif "title" in infoJson["esrb_content_descriptor_ref"]:
+								esrbcontent.append(infoJson["esrb_content_descriptor_ref"]["title"])
 							else:
-								for descriptor in infoJson["esrb_content_descriptor_ref"]:
-									esrbcontent.append(infoJson["esrb_content_descriptor_ref"][esrbindex]["name"])
-									esrbindex += 1
+								try:
+									for descriptor in infoJson["esrb_content_descriptor_ref"]:
+										if 'name' in descriptor:
+											esrbcontent.append(descriptor["name"])
+										if 'title' in descriptor:
+											esrbcontent.append(descriptor["title"])
+								except:
+									pass
 							self.ratingContent = esrbcontent
 
-						if "numberOfPlayers" in infoJson:
-							self.numberOfPlayers = infoJson["numberOfPlayers"]
+						if "number_of_players" in infoJson:
+							self.numberOfPlayers = re.sub('[^0-9]', '', infoJson["number_of_players"])
 
 						if "esrb_rating_ref" in infoJson:
-							if "name" in infoJson["esrb_rating_ref"]:
-								self.rating = infoJson["esrb_rating_ref"]["esrb_rating"]["short_description"]
+							if "esrb_rating" in infoJson["esrb_rating_ref"]:
+								if "short_description" in infoJson["esrb_rating_ref"]["esrb_rating"]:
+									self.rating = infoJson["esrb_rating_ref"]["esrb_rating"]["short_description"]
 
+						if not self.screenshots:
+							try:
+								ss = []
+								for s in infoJson["screenshot_gallery_ref"]["screenshot_gallery"]["screenshots"]:
+									ss.append(s['image']['large_image']['include']['src'].replace('cocoon:/', ''))
+								self.screenshots = ss
+							except:
+								pass
 
 
 						if "developer_ref" in infoJson:
@@ -442,6 +517,8 @@ class Title:
 						if "publisher_ref" in infoJson:
 							if "name" in infoJson["publisher_ref"]:
 								self.publisher = infoJson["publisher_ref"]["name"]
+							if 'title' in infoJson["publisher_ref"]:
+								self.publisher = infoJson["publisher_ref"]["title"]
 
 						if "front_box_art" in infoJson:
 							if "image" in infoJson["front_box_art"]:
@@ -486,5 +563,5 @@ class Title:
 
 		except BaseException as e:
 			pass
-			print(repr(e))
+			print(repr(e) + ' ' + self.id)
 
