@@ -23,32 +23,27 @@ grabUrlInit = False
 urlCache = {}
 urlLock = threading.Lock()	
 
+if os.path.isfile('redirectCache.json'):
+	with open('redirectCache.json', encoding="utf-8-sig") as f:
+		urlCache = json.loads(f.read())
+
 def grabCachedRedirectUrl(url, cookies = None):
 	global grabUrlInit
 	global urlCache
 	global urlLock
 
-	urlLock.acquire()
 	try:
-		if not grabUrlInit:
-			grabUrlInit = True
-
-			if os.path.isfile('redirectCache.json'):
-				with open('redirectCache.json', encoding="utf-8-sig") as f:
-					urlCache = json.loads(f.read())
-
 		if url in urlCache:
 			if not urlCache[url]:
-				urlLock.release()
 				return None
 			result = requests.get(urlCache[url], cookies=cookies)
 			#result.url = urlCache[url]
-			urlLock.release()
 			return result
 
+		urlLock.acquire()
 		# we need to slow this down so we dont get banned
 		#Print.info('hitting ' + url)
-		time.sleep(0.1)
+		#time.sleep(0.1)
 		result = requests.get(url, cookies=cookies)
 		if result.status_code == 404:
 			urlCache[url] = None
@@ -452,6 +447,16 @@ class Title:
 			if result and result.status_code == 200:
 				if result.url != 'https://www.nintendo.com/games/':
 					soup = BeautifulSoup(result.text, "html.parser")
+
+					if not self.bannerUrl:
+						m = re.search(r"#hero\s*{\s*background:\s*url\('([^)]+)'\)", result.text, re.DOTALL | re.UNICODE | re.MULTILINE | re.IGNORECASE)
+						if m:
+							banner = m.group(1)
+							if banner[0] == '/':
+								banner = 'https://www.nintendo.com' + banner
+							self.bannerUrl = banner
+
+
 					if soup.find("meta", {"property": "og:url"}) != None:
 						slug = soup.find("meta", {"property": "og:url"})["content"].split('/')[-1]
 						infoJson = json.loads(requests.get("https://www.nintendo.com/json/content/get/game/%s" % slug, cookies=cookies).text)["game"]
