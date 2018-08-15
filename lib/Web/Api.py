@@ -15,31 +15,37 @@ def getTitles(request, response):
 	o = []
 	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
 	for k, t in Titles.items():
-		o.append(t.dict(map))
+		o.append(t.__dict__)
 	response.write(json.dumps(o))
 
 def getTitleImage(request, response):
 	if len(request.bits) < 3:
 		return Server.Response404(request, response)
 
+	id = request.bits[2]
 	width = int(request.bits[3])
 
 	if width < 32 or width > 512:
 		return Server.Response404(request, response)
 
-	fileName = 'logo.jpg'
-	srcPath = os.path.abspath('public_html/images/titles/' + request.bits[2] + '/logo.jpg')
-	if not os.path.isfile(srcPath):
-		return Server.Response500(request, response)
+	path = Titles.get(id).iconFile(width)
 
-	base = os.path.abspath('public_html/images/titles/cache/' + request.bits[2] + '/')
-	path = os.path.join(base, fileName)
+	response.setMime(path)
+	response.headers['Cache-Control'] = 'max-age=31536000'
 
-	if not os.path.isfile(path):
-		os.makedirs(base, exist_ok=True)
-		im = Image.open(srcPath)
-		out = im.resize((width, width), Image.ANTIALIAS)
-		out.save(path, quality=100)
+	if os.path.isfile(path):
+		with open(path, 'rb') as f:
+			response.write(f.read())
+
+	return Server.Response500(request, response)
+
+def getBannerImage(request, response):
+	if len(request.bits) < 2:
+		return Server.Response404(request, response)
+
+	id = request.bits[2]
+
+	path = Titles.get(id).bannerFile()
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'

@@ -17,6 +17,11 @@ import Nsps
 import urllib.request
 import Config
 
+try:
+	from PIL import Image
+except ImportError:
+	import Image
+
 global grabUrlInit
 global urlCache
 global urlLock
@@ -359,21 +364,36 @@ class Title:
 		urllib.request.urlretrieve(url, path)
 		return path
 
-	def bannerFile(self):
+	def getResizedImage(self, filePath, width = None, height = None):
+		if not width and not height:
+			return filePath
+
+		base, name = os.path.split(filePath)
+		path = os.path.join(base, '.' + str(width) + 'x' + str(height) + '_' + name)
+
+		if not os.path.isfile(path):
+			os.makedirs(base, exist_ok=True)
+			im = Image.open(filePath)
+			out = im.resize((width, width), Image.ANTIALIAS)
+			out.save(path, quality=100)
+
+		return path
+
+	def bannerFile(self, width = None, height = None):
 		if not self.bannerUrl or self.bannerUrl.startswith('cocoon:/'):
 			return None
 
 		baseName, ext = os.path.splitext(self.bannerUrl)
-		return self.download(Config.paths.titleImages + self.id, 'banner' + ext, self.bannerUrl)
+		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'banner' + ext, self.bannerUrl), width, height)
 
-	def frontBoxArtFile(self):
+	def frontBoxArtFile(self, width = None, height = None):
 		if not self.frontBoxArt or self.frontBoxArt.startswith('cocoon:/'):
 			return None
 
 		baseName, ext = os.path.splitext(self.frontBoxArt)
-		return self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt)
+		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt), width, height)
 
-	def iconFile(self):
+	def iconFile(self, width = None, height = None):
 		if not 'iconUrl' in self.__dict__:
 			self.iconUrl = None
 
@@ -381,14 +401,14 @@ class Title:
 			return None
 
 		baseName, ext = os.path.splitext(self.iconUrl)
-		return self.download(Config.paths.titleImages + self.id, 'icon' + ext, self.iconUrl)
+		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'icon' + ext, self.iconUrl), width, height)
 
-	def screenshotFile(self, i):
+	def screenshotFile(self, i, width = None, height = None):
 		if not self.screenshots[i] or self.screenshots[i].startswith('cocoon:/'):
 			return None
 
 		baseName, ext = os.path.splitext(self.screenshots[i])
-		return self.download(Config.paths.titleImages + self.id, 'screenshot' + str(i) + ext, self.screenshots[i])
+		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'screenshot' + str(i) + ext, self.screenshots[i]), width, height)
 
 	def screenshotFiles(self):
 		if not self.screenshots:
