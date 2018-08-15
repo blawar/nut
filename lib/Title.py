@@ -14,6 +14,8 @@ import datetime
 import calendar
 import threading
 import Nsps
+import urllib.request
+import Config
 
 global grabUrlInit
 global urlCache
@@ -92,6 +94,7 @@ class Title:
 		self.developer = None
 		self.publisher = None
 		self.frontBoxArt = None
+		self.iconUrl = None
 		self.screenshots = None
 		self.bannerUrl = None
 		self.intro = None
@@ -348,6 +351,53 @@ class Title:
 
 		return r
 
+	def download(self, base, fileName, url):
+		path = os.path.join(base, fileName)
+		if os.path.isfile(path):
+			return path
+		os.makedirs(base, exist_ok=True)
+		urllib.request.urlretrieve(url, path)
+		return path
+
+	def bannerFile(self):
+		if not self.bannerUrl or self.bannerUrl.startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.bannerUrl)
+		return self.download(Config.paths.titleImages + self.id, 'banner' + ext, self.bannerUrl)
+
+	def frontBoxArtFile(self):
+		if not self.frontBoxArt or self.frontBoxArt.startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.frontBoxArt)
+		return self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt)
+
+	def iconFile(self):
+		if not 'iconUrl' in self.__dict__:
+			self.iconUrl = None
+
+		if not self.iconUrl or self.iconUrl.startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.iconUrl)
+		return self.download(Config.paths.titleImages + self.id, 'icon' + ext, self.iconUrl)
+
+	def screenshotFile(self, i):
+		if not self.screenshots[i] or self.screenshots[i].startswith('cocoon:/'):
+			return None
+
+		baseName, ext = os.path.splitext(self.screenshots[i])
+		return self.download(Config.paths.titleImages + self.id, 'screenshot' + str(i) + ext, self.screenshots[i])
+
+	def screenshotFiles(self):
+		if not self.screenshots:
+			return []
+		r = []
+		for i,u in enumerate(self.screenshots):
+			r.append(self.screenshotFile(i))
+		return r
+
 
 	def scrape(self, delta = True):
 		if self.isUpdate or self.isDLC or (delta and self.bannerUrl):
@@ -429,7 +479,7 @@ class Title:
 
 				if "applications" in _json:
 					if "image_url" in _json["applications"][0]:
-						self.frontBoxArt = _json["applications"][0]['image_url']
+						self.iconUrl = _json["applications"][0]['image_url']
 
 				if "catch_copy" in _json:
 					intro = re.sub('(?<!\n)\n(?!\n)', ' ',_json["catch_copy"])
@@ -449,12 +499,22 @@ class Title:
 					soup = BeautifulSoup(result.text, "html.parser")
 
 					if not self.bannerUrl:
-						m = re.search(r"#hero\s*{\s*background:\s*url\('([^)]+)'\)", result.text, re.DOTALL | re.UNICODE | re.MULTILINE | re.IGNORECASE)
+						m = re.search(r"#hero\s*{\s*background(-image)?:\s*url\('([^)]+)'\)", result.text, re.DOTALL | re.UNICODE | re.MULTILINE | re.IGNORECASE)
 						if m:
-							banner = m.group(1)
+							banner = m.group(2)
 							if banner[0] == '/':
 								banner = 'https://www.nintendo.com' + banner
 							self.bannerUrl = banner
+
+
+					rem = re.finditer('<img aria-hidden="true" data-src="([^"]+)"', result.text)
+					if rem:
+						ss = []
+						for m in rem:
+							ss.append(m.group(1))
+					
+						if len(ss) > 0:
+							self.screenshots = ss
 
 
 					if soup.find("meta", {"property": "og:url"}) != None:
@@ -513,6 +573,7 @@ class Title:
 								if "short_description" in infoJson["esrb_rating_ref"]["esrb_rating"]:
 									self.rating = infoJson["esrb_rating_ref"]["esrb_rating"]["short_description"]
 
+						'''
 						if not self.screenshots:
 							try:
 								ss = []
@@ -521,6 +582,7 @@ class Title:
 								self.screenshots = ss
 							except:
 								pass
+						'''
 
 
 						if "developer_ref" in infoJson:
@@ -577,4 +639,9 @@ class Title:
 		except BaseException as e:
 			pass
 			print(repr(e) + ' ' + self.id)
+
+		self.bannerFile()
+		self.frontBoxArtFile()
+		self.iconFile()
+		self.screenshotFiles()
 

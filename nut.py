@@ -112,7 +112,7 @@ global status
 status = None
 
 global scrapeThreads
-scrapeThreads = 8
+scrapeThreads = 10
 
 def scrapeThread(id):
 	size = len(Titles.titles) // scrapeThreads
