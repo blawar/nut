@@ -30,6 +30,7 @@ import Status
 import time
 import colorama
 import Server
+import pprint
 
 
 				
@@ -111,7 +112,7 @@ global status
 status = None
 
 global scrapeThreads
-scrapeThreads = 2
+scrapeThreads = 8
 
 def scrapeThread(id):
 	size = len(Titles.titles) // scrapeThreads
@@ -119,7 +120,7 @@ def scrapeThread(id):
 	for i,titleId in enumerate(Titles.titles.keys()):
 		try:
 			if (i - id) % scrapeThreads == 0:
-				Titles.get(titleId).scrape()
+				Titles.get(titleId).scrape(False)
 				st.add()
 		except BaseException as e:
 			Print.error(str(e))
@@ -600,8 +601,10 @@ if __name__ == '__main__':
 		if not Titles.contains(args.scrape_title):
 			Print.error('Could not find title ' + args.scrape_title)
 		else:
-			Titles.get(args.scrape_title).scrape()
+			Titles.get(args.scrape_title).scrape(False)
 			Titles.save()
+			#Print.info(repr(Titles.get(args.scrape_title).__dict__))
+			pprint.pprint(Titles.get(args.scrape_title).__dict__)
 
 	if args.scrape:
 		initTitles()
