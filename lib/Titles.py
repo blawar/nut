@@ -67,6 +67,16 @@ def loadTitleBuffer(buffer, silent = False):
 
 	
 def load():
+	global titles
+	if os.path.isfile("titles.json"):
+		timestamp = time.clock()
+		with open('titles.json', encoding="utf-8-sig") as f:
+			for i, k in json.loads(f.read()).items():
+				titles[i] = Title.Title()
+				titles[i].__dict__ = k
+
+		Print.info('loaded titles.json in ' + str(time.clock() - timestamp) + ' seconds')
+
 	if os.path.isfile("titles.txt"):
 		loadTitleFile('titles.txt', True)
 
@@ -80,7 +90,7 @@ def load():
 		Print.error('title load error: ' + str(e))
 
 	
-def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
+def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''
 	
 	buffer += '|'.join(map) + '\n'
@@ -89,6 +99,13 @@ def save(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'i
 		
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
+
+def save(fileName = 'titles.json'):
+	j = {}
+	for i,k in titles.items():
+		j[i] = k.__dict__
+	with open(fileName, 'w') as outfile:
+		json.dump(j, outfile)
 
 class Queue:
 	def __init__(self):

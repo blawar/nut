@@ -394,6 +394,8 @@ if __name__ == '__main__':
 	parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
 	parser.add_argument('-m', '--hostname', action="store_true", help='Set server hostname')
 	parser.add_argument('-p', '--port', action="store_true", help='Set server port')
+
+	parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 		
 	args = parser.parse_args()
 
@@ -567,6 +569,16 @@ if __name__ == '__main__':
 			#f.flush()
 			#f.close()
 			'''
+
+	if args.scrape_title:
+		initTitles()
+		initFiles()
+
+		if not Titles.contains(args.scrape_title):
+			Print.error('Could not find title ' + args.scrape_title)
+		else:
+			Titles.get(args.scrape_title).scrape()
+			Titles.save()
 			
 	
 	if args.Z:
