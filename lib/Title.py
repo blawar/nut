@@ -505,12 +505,14 @@ class Title:
 							self.bannerUrl = banner
 
 
-					ss = []
-					for m in re.finditer('<img aria-hidden="true" data-src="([^"]+)"', result.text):
-						ss.append(m.group(1))
+					rem = re.finditer('<img aria-hidden="true" data-src="([^"]+)"', result.text)
+					if rem:
+						ss = []
+						for m in rem:
+							ss.append(m.group(1))
 					
-					if len(ss) > 0:
-						self.screenshots = ss
+						if len(ss) > 0:
+							self.screenshots = ss
 
 
 					if soup.find("meta", {"property": "og:url"}) != None:
