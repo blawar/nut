@@ -13,6 +13,7 @@ import time
 import datetime
 import calendar
 import threading
+import Nsps
 
 global grabUrlInit
 global urlCache
@@ -138,7 +139,14 @@ class Title:
 			method = getattr(self, methodName, lambda: methodName)
 			r.append(str(method()))
 		return '|'.join(r)
-		
+
+	def getFiles(self):
+		files = []
+		for path, f in Nsps.files.items():
+			if(f.titleId == self.id):
+				files.append(f)
+
+		return files
 	def getIsDLC(self):
 		return self.isDLC*1
 
