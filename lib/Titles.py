@@ -73,6 +73,9 @@ def load():
 		timestamp = time.clock()
 		with open('titles.json', encoding="utf-8-sig") as f:
 			for i, k in json.loads(f.read()).items():
+				#if k['frontBoxArt'] and k['frontBoxArt'].endswith('.jpg'):
+				#	k['iconUrl'] = k['frontBoxArt']
+				#	k['frontBoxArt'] = None
 				titles[i] = Title.Title()
 				titles[i].__dict__ = k
 
