@@ -391,6 +391,8 @@ class Title:
 		return self.download(Config.paths.titleImages + self.id, 'screenshot' + str(i) + ext, self.screenshots[i])
 
 	def screenshotFiles(self):
+		if not self.screenshots:
+			return []
 		r = []
 		for i,u in enumerate(self.screenshots):
 			r.append(self.screenshotFile(i))
