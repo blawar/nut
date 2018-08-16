@@ -45,10 +45,11 @@ angular
   	$scope.queue = [];
   	$scope.updates = [];
   	$scope.title = null;
+  	$scope.regionFilter = {US: true};
 
   	$scope.titleFilter = function (title) {
 
-  		if (!title.region || title.region == 'US') {
+  		if (!title.region || $scope.regionFilter[title.region]) {
   			return true;
   		}
 
@@ -177,6 +178,11 @@ angular
   		$http.get('/api/download/' + id).then(function (res) {
   		});
   	};
+
+  	$scope.regionChanged = function (region) {
+  		$scope.regionFilter[region] = $scope.regionFilter[region] ? false : true;
+  	};
+
   }).filter('unique', function () {
   	return function (collection, keyname) {
   		var output = [],

@@ -99,6 +99,9 @@ figure {
 	width: 2em;
 	height: 2em;
 	background-size: cover;
+
+	webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
 }
 
 #regions .US label {
@@ -161,8 +164,8 @@ figure {
 }
 
 #regions input[type=checkbox]:checked + label {
-	webkit-filter: grayscale(100%);
-	filter: grayscale(100%);
+	webkit-filter: none;
+	filter: none;
 }
 
 #popup {
