@@ -109,6 +109,50 @@
 	text-indent: -9999px;
 }
 
+#regions .CH label {
+	background-image: url(/images/flags/CH.png);
+	text-indent: -9999px;
+}
+
+#regions .AU label {
+	background-image: url(/images/flags/AU.png);
+	text-indent: -9999px;
+}
+
+#regions .ES label {
+	background-image: url(/images/flags/ES.png);
+	text-indent: -9999px;
+}
+
+#regions .FR label {
+	background-image: url(/images/flags/FR.png);
+	text-indent: -9999px;
+}
+
+#regions .DE label {
+	background-image: url(/images/flags/DE.png);
+	text-indent: -9999px;
+}
+
+#regions .TW label {
+	background-image: url(/images/flags/TW.png);
+	text-indent: -9999px;
+}
+
+#regions .KR label {
+	background-image: url(/images/flags/KR.png);
+	text-indent: -9999px;
+}
+
+#regions .GR label {
+	background-image: url(/images/flags/GR.png);
+	text-indent: -9999px;
+}
+
+#regions li.AS, #regions li.rgn_ {
+	display: none;
+}
+
 #regions input[type=checkbox]:checked + label {
 	webkit-filter: grayscale(100%);
 	filter: grayscale(100%);

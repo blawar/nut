@@ -120,7 +120,7 @@ def scrapeThread(id):
 	for i,titleId in enumerate(Titles.titles.keys()):
 		try:
 			if (i - id) % scrapeThreads == 0:
-				Titles.get(titleId).scrape(False)
+				Titles.get(titleId).scrape(True)
 				st.add()
 		except BaseException as e:
 			Print.error(str(e))
