@@ -110,6 +110,8 @@ def save(fileName = 'titles.json'):
 	try:
 		j = {}
 		for i,k in titles.items():
+			if k.description:
+				k.description = k.description.strip()
 			j[i] = k.__dict__
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile)

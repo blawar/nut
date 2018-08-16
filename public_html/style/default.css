@@ -104,57 +104,57 @@ figure {
 	filter: grayscale(100%);
 }
 
-#regions .US label {
+.US label {
 	background-image: url(/images/flags/US.png);
 	text-indent: -9999px;
 }
 
-#regions .GB label {
+.GB label {
 	background-image: url(/images/flags/GB.png);
 	text-indent: -9999px;
 }
 
-#regions .JP label {
+.JP label {
 	background-image: url(/images/flags/JP.png);
 	text-indent: -9999px;
 }
 
-#regions .CH label {
+.CH label {
 	background-image: url(/images/flags/CH.png);
 	text-indent: -9999px;
 }
 
-#regions .AU label {
+.AU label {
 	background-image: url(/images/flags/AU.png);
 	text-indent: -9999px;
 }
 
-#regions .ES label {
+.ES label {
 	background-image: url(/images/flags/ES.png);
 	text-indent: -9999px;
 }
 
-#regions .FR label {
+.FR label {
 	background-image: url(/images/flags/FR.png);
 	text-indent: -9999px;
 }
 
-#regions .DE label {
+.DE label {
 	background-image: url(/images/flags/DE.png);
 	text-indent: -9999px;
 }
 
-#regions .TW label {
+.TW label {
 	background-image: url(/images/flags/TW.png);
 	text-indent: -9999px;
 }
 
-#regions .KR label {
+.KR label {
 	background-image: url(/images/flags/KR.png);
 	text-indent: -9999px;
 }
 
-#regions .GR label {
+.GR label {
 	background-image: url(/images/flags/GR.png);
 	text-indent: -9999px;
 }
@@ -166,6 +166,17 @@ figure {
 #regions input[type=checkbox]:checked + label {
 	webkit-filter: none;
 	filter: none;
+}
+
+#game .description {
+	background: rgba(255,255,255,0.9);
+	top: 66%;
+	right: 25%;
+	left: 25%;
+	bottom: 0;
+	position: absolute;
+	overflow-y: auto;
+	padding: 2em
 }
 
 #popup {
@@ -192,6 +203,18 @@ figure {
 	margin: 0.5em;
 }
 
+.boxart {
+	position: absolute;
+	bottom: 33%;
+	left: 25%;
+	z-index: 9999;
+	box-shadow:2px 2px 25px #000000;
+}
+
+.boxart img {
+	width: 5em;
+}
+
 #popup > div {
 	background-size: cover;
 	height: 100%;
@@ -211,6 +234,16 @@ figure {
 	color: #fff;
 	font-weight: bold;
 	font-size: 1.4em;
+}
+
+#popup h3 label {
+	display: inline-block;
+	background-size: cover;
+	vertical-align: middle;
+	height: 2em;
+	width: 2em;
+	margin-left: 0.5em;
+
 }
 
 #popup .controls {
