@@ -1,3 +1,10 @@
+body {
+	overflow-y: scroll;
+}
+
+figure {
+	cursor: pointer;
+}
 #logo {
 	height: 2em;
 	display: inline-block;

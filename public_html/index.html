@@ -40,7 +40,7 @@
 					  md-row-height-gt-md="1:1" md-row-height="4:3"
 					  md-gutter="8px" md-gutter-gt-sm="4px">
 
-			<md-grid-tile ng-repeat="title in titles | filter:searchText" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/192)" data-title-id="{{title.id}}" ng-click="showTitle(title)">
+			<md-grid-tile ng-repeat="title in titles | filter:searchText | filter:titleFilter" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/192)" data-title-id="{{title.id}}" ng-click="showTitle(title)">
 				<md-grid-tile-footer><h3>{{title.name}}</h3></md-grid-tile-footer>
 			</md-grid-tile>
 		</md-grid-list>
