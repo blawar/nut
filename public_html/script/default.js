@@ -46,6 +46,15 @@ angular
   	$scope.updates = [];
   	$scope.title = null;
 
+  	$scope.titleFilter = function (title) {
+
+  		if (!title.region || title.region == 'US') {
+  			return true;
+  		}
+
+  		return false;
+  	};
+
   	$http.get('/api/titles').then(function (res) {
   		titles = [];
   		titlesDict = {};
@@ -53,7 +62,7 @@ angular
   			title = res.data[key];
   			if (!title.isUpdate && !title.isDLC && !title.isDemo /*&& title.key != '00000000000000000000000000000000'*/) {
   				if (title.publisher == 'Nintendo') {
-  					title.span = { col: 2, row: 2 };
+  					title.span = { col: 3, row: 3 };
   				} else if (['Bethesda Softworks', 'Team Cherry', 'Capcom', 'Motion Twin', 'Ubisoft', 'Activision', 'Mojang AB', 'Shin\'en', 'NIS America'].includes(title.publisher)) {
   					title.span = { col: 2, row: 2 };
   				} else {

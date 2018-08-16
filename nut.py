@@ -114,13 +114,13 @@ status = None
 global scrapeThreads
 scrapeThreads = 10
 
-def scrapeThread(id):
+def scrapeThread(id, delta = True):
 	size = len(Titles.titles) // scrapeThreads
 	st = Status.create(size, 'Thread ' + str(id))
 	for i,titleId in enumerate(Titles.titles.keys()):
 		try:
 			if (i - id) % scrapeThreads == 0:
-				Titles.get(titleId).scrape(True)
+				Titles.get(titleId).scrape(delta)
 				st.add()
 		except BaseException as e:
 			Print.error(str(e))
@@ -416,6 +416,7 @@ if __name__ == '__main__':
 	parser.add_argument('-p', '--port', action="store_true", help='Set server port')
 
 	parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
+	parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 	parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 		
 	args = parser.parse_args()
@@ -606,13 +607,13 @@ if __name__ == '__main__':
 			#Print.info(repr(Titles.get(args.scrape_title).__dict__))
 			pprint.pprint(Titles.get(args.scrape_title).__dict__)
 
-	if args.scrape:
+	if args.scrape or args.scrape_delta:
 		initTitles()
 		initFiles()
 
 		threads = []
 		for i in range(scrapeThreads):
-			t = threading.Thread(target=scrapeThread, args=[i])
+			t = threading.Thread(target=scrapeThread, args=[i, args.scrape_delta])
 			t.start()
 			threads.append(t)
 
