@@ -30,7 +30,7 @@
 				<button class="gear" ng-click="showOptions()">Options</button>
 				<ul id="regions">
 					<li class="{{title.region}} rgn_{{title.region}}" ng-repeat="title in titles | unique:'region'">
-						<input name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" />
+						<input ng-checked="title.region == 'US'" name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" ng-click="regionChanged(title.region)" />
 						<label for="region_{{title.region}}">{{title.region}}</label>
 					</li>
 				</ul>
