@@ -28,7 +28,7 @@ def getTitleImage(request, response):
 	if width < 32 or width > 512:
 		return Server.Response404(request, response)
 
-	path = Titles.get(id).iconFile(width)
+	path = Titles.get(id).iconFile(width) or Titles.get(id).frontBoxArtFile(width)
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
