@@ -28,8 +28,8 @@
 				<button class="queue" ng-click="showQueue()">Options</button>
 				<button class="updates" ng-click="showUpdates()">Title Updates</button>
 				<button class="gear" ng-click="showOptions()">Options</button>
-				<ul id="regions" ng-repeat="title in titles | unique:'region'">
-					<li class="{{title.region}}">
+				<ul id="regions">
+					<li class="{{title.region}} rgn_{{title.region}}" ng-repeat="title in titles | unique:'region'">
 						<input name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" />
 						<label for="region_{{title.region}}">{{title.region}}</label>
 					</li>
@@ -45,7 +45,7 @@
 			</md-grid-tile>
 		</md-grid-list>
 		<div id="popup">
-			<div id="game" style="background-image: url(/images/titles/{{title.id}}/banner.jpg)">
+			<div id="game" style="background-image: url(/api/bannerImage/{{title.baseId }}/)">
 				<h3>{{title.name}}</h3>
 				<div class="controls">
 					<button class="button" ng-click="download(title.id)">Download</button>

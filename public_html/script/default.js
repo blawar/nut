@@ -51,7 +51,7 @@ angular
   		titlesDict = {};
   		for (key in res.data) {
   			title = res.data[key];
-  			if (!title.isUpdate && !title.isDLC && !title.isDemo && title.key != '00000000000000000000000000000000') {
+  			if (!title.isUpdate && !title.isDLC && !title.isDemo /*&& title.key != '00000000000000000000000000000000'*/) {
   				title.children = [];
   				titlesDict[title.id] = title;
   				titles.push(title);
