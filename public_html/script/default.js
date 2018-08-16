@@ -52,6 +52,13 @@ angular
   		for (key in res.data) {
   			title = res.data[key];
   			if (!title.isUpdate && !title.isDLC && !title.isDemo /*&& title.key != '00000000000000000000000000000000'*/) {
+  				if (title.publisher == 'Nintendo') {
+  					title.span = { col: 2, row: 2 };
+  				} else if (['Bethesda Softworks', 'Team Cherry', 'Capcom', 'Motion Twin', 'Ubisoft', 'Activision', 'Mojang AB', 'Shin\'en', 'NIS America'].includes(title.publisher)) {
+  					title.span = { col: 2, row: 2 };
+  				} else {
+  					title.span = { col: 1, row: 1 };
+  				}
   				title.children = [];
   				titlesDict[title.id] = title;
   				titles.push(title);
