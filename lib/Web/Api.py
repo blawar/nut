@@ -3,6 +3,7 @@ import json
 import Titles
 import Status
 import Nsps
+import Print
 
 try:
 	from PIL import Image
@@ -77,9 +78,25 @@ def getFrontArtBoxImage(request, response):
 
 	return Server.Response500(request, response)
 
-def getDownload(request, response):
+def getPreload(request, response):
 	Titles.queue.add(request.bits[2])
 	response.write(json.dumps({'success': True}))
+
+def getDownload(request, response):
+	nsp = Nsps.getByTitleId(request.bits[2])
+	Print.info('Downloading ' + nsp.path)
+	response.attachFile(os.path.basename(nsp.path))
+	
+	chunkSize = 0x10000
+
+	with open(nsp.path, "rb") as f:
+		while True:
+			chunk = f.read(chunkSize)
+			if chunk:
+				pass
+				response.write(chunk)
+			else:
+				break
 
 def getQueue(request, response):
 	r = Status.data().copy()

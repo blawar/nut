@@ -72,6 +72,7 @@ angular
   					title.span = { col: 1, row: 1 };
   					title.thumbSize = 192
   				}
+  				title.size = formatNumber(title.size, 'B');
   				title.children = [];
   				titlesDict[title.id] = title;
   				titles.push(title);
@@ -179,6 +180,11 @@ angular
 
   	$scope.download = function (id) {
   		$http.get('/api/download/' + id).then(function (res) {
+  		});
+  	};
+
+  	$scope.preload = function (id) {
+  		$http.get('/api/preload/' + id).then(function (res) {
   		});
   	};
 

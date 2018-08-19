@@ -7,6 +7,7 @@ import Config
 import sys
 import os
 import Print
+import urllib
 
 import Web.Api
 
@@ -27,6 +28,8 @@ mimes = {
 		'.js': 'application/javascript',
 		'.html': 'text/html',
 		'.png': 'image/png',
+		'.nsx': 'application/octet-stream',
+		'.nsp': 'application/octet-stream',
 		'.jpg': 'image/jpeg'
 	}
 
@@ -88,6 +91,11 @@ class NutResponse:
 		if ext in mimes:
 			self.headers['Content-type'] = mimes[ext]
 
+	def attachFile(self, fileName):
+		Print.info('Attaching file ' + fileName)
+		self.setMime(fileName)
+		self.headers['Content-Disposition'] = 'attachment; filename=' + fileName
+
 	def sendHeader(self):
 		self.handler.send_response(self.status)
 
@@ -102,6 +110,8 @@ class NutResponse:
 
 		if type(data) == str:
 			data = data.encode('utf-8')
+
+		self.bytesSent += len(data)
 
 		return self.handler.wfile.write(data)
 
