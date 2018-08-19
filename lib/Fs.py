@@ -801,6 +801,9 @@ class Nsp(PFS0):
 		s = re.sub('\s*\[DLC\]\s*', '', s, re.I)
 		s = re.sub('[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
+
+	def dict(self):
+		return {"titleId": self.titleId, "hasValidTicket": self.hasValidTicket, 'version': self.version, 'timestamp': self.timestamp, 'path': self.path }
 		
 	def fileName(self):
 		bt = None

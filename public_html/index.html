@@ -22,7 +22,7 @@
 <body>
 	<div id="titles" ng-controller="gridTitlesController as vm" flex ng-cloak>
 		<header>
-			<a id="logo" href="http://github.com/blawar/nut"><img src="/images/logo.jpg" /></a>
+			<a id="logo" href="/"><img src="/images/logo.jpg" /></a>
 			<div class="right">
 				<input type="text" ng-model="searchText" id="search" placeholder="Search">
 				<button class="queue" ng-click="showQueue()">Options</button>
@@ -40,14 +40,22 @@
 					  md-row-height-gt-md="1:1" md-row-height="4:3"
 					  md-gutter="8px" md-gutter-gt-sm="4px">
 
-			<md-grid-tile ng-repeat="title in titles | filter:searchText | filter:titleFilter" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/{{title.thumbSize}})" data-title-id="{{title.id}}" ng-click="showTitle(title)">
+			<md-grid-tile ng-repeat="title in titles | filter:searchText | filter:titleFilter | orderBy:'-releaseDate'" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/{{title.thumbSize}})" data-title-id="{{title.id}}" ng-click="showTitle(title)">
 				<md-grid-tile-footer><h3>{{title.name}}</h3></md-grid-tile-footer>
 			</md-grid-tile>
 		</md-grid-list>
 		<div id="popup">
 			<div id="game" style="background-image: url(/api/bannerImage/{{title.baseId }}/)">
 				<h3 class="{{title.region}}">{{title.name}} - {{title.publisher}}<label>{{title.region}}</label></h3>
-				<div class="boxart"><img src="/api/frontArtBoxImage/{{title.id}}/" /></div>
+				<header>
+					<div class="boxart"><img src="/api/frontArtBoxImage/{{title.id}}/" /></div>
+					<ul>
+						<li><label>Release Date</label><span>{{title.releaseDate}}</span></li>
+						<li><label>Version</label><span>{{title.version}}</span></li>
+						<li><label>Size</label><span>{{title.size}}</span></li>
+						<li><label>ID</label><span>{{title.id}}</span></li>
+					</ul>
+				</header>
 				<div class="description">
 					<pre>{{title.description}}</pre>
 				</div>
