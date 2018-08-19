@@ -45,7 +45,14 @@ angular
   	$scope.queue = [];
   	$scope.updates = [];
   	$scope.title = null;
-  	$scope.regionFilter = {US: true};
+  	$scope.regionFilter = { US: true };
+  	$scope.sortReverse = false;
+  	$scope.sortPropertyName = 'name';
+
+  	$scope.sortBy = function (sortPropertyName) {
+  		$scope.sortReverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.sortReverse : false;
+  		$scope.sortPropertyName = sortPropertyName;
+  	};
 
   	$scope.titleFilter = function (title) {
 
