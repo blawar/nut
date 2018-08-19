@@ -176,7 +176,8 @@ figure {
 	bottom: 0;
 	position: absolute;
 	overflow-y: auto;
-	padding: 2em
+	padding: 2em;
+	box-shadow: inset 2px 2px 20px rgba(0,0,0,0.5);
 }
 
 #popup {
@@ -203,16 +204,37 @@ figure {
 	margin: 0.5em;
 }
 
-.boxart {
+#game header {
 	position: absolute;
-	bottom: 33%;
+	bottom: 34%;
 	left: 25%;
+	right: 25%;
 	z-index: 9999;
 	box-shadow:2px 2px 25px #000000;
+	background: rgba(0,0,0,0.7);
+}
+
+#game header ul {
+	list-style-type: none;
+	display: inline-block;
+	color: #fff;
+}
+
+#game header li {
+}
+
+#game header li label {
+	display: inline-block;
+	width: 7em;
+}
+
+.boxart {
+	display: inline-block;
 }
 
 .boxart img {
 	width: 5em;
+	display: block;
 }
 
 #popup > div {
@@ -243,7 +265,9 @@ figure {
 	height: 2em;
 	width: 2em;
 	margin-left: 0.5em;
-
+	-webkit-transform: skew(20deg);
+	-moz-transform: skew(20deg);
+	-o-transform: skew(20deg);
 }
 
 #popup .controls {

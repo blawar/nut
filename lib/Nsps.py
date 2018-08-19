@@ -8,6 +8,7 @@ import Status
 import time
 import Print
 import threading
+import json
 
 global files
 files = {}
@@ -83,7 +84,7 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+def load(fileName = 'files.json'):
 	global hasLoaded
 
 	if hasLoaded:
@@ -93,39 +94,35 @@ def load(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'h
 
 	try:
 		timestamp = time.clock()
-		with open(fileName , encoding="utf-8-sig") as f:
-			firstLine = True
-			for line in f.readlines():
-				line = line.strip()
-				if firstLine:
-					firstLine = False
-					if re.match('[A-Za-z\|\s]+', line, re.I):
-						map = line.split('|')
+
+		if os.path.isfile(fileName):
+			with open(fileName, encoding="utf-8-sig") as f:
+				for k in json.loads(f.read()):
+					t = Fs.Nsp(k['path'], None)
+					t.timestamp = k['timestamp']
+					t.titleId = k['titleId']
+					t.version = k['version']
+
+					if not t.path:
 						continue
-				t = Fs.Nsp()
-				t.loadCsv(line, map)
 
-				if not t.path:
-					continue
-
-				path = os.path.abspath(t.path)
-				if os.path.isfile(path): 
-					files[path] = Fs.Nsp(path, None)
+					path = os.path.abspath(t.path)
+					if os.path.isfile(path): 
+						files[path] = t #Fs.Nsp(path, None)
+		print('could not load files file')
 	except:
-		pass
+		raise
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
-def save(fileName = 'files.txt', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+def save(fileName = 'files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	lock.acquire()
+
 	try:
-		buffer = ''
-	
-		buffer += '|'.join(map) + '\n'
-		for t in sorted(list(files.values())):
-			buffer += t.serialize(map) + '\n'
-		
-		with open(fileName, 'w', encoding='utf-8') as csv:
-			csv.write(buffer)
+		j = []
+		for i,k in files.items():
+			j.append(k.dict())
+		with open(fileName, 'w') as outfile:
+			json.dump(j, outfile, indent=4, sort_keys=True)
 	except:
 		lock.release()
 		raise
