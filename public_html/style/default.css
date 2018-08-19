@@ -228,6 +228,14 @@ figure {
 	width: 7em;
 }
 
+#sorts {
+	display: inline-block;
+}
+
+#sorts li {
+	display: inline-block;
+}
+
 .boxart {
 	display: inline-block;
 }

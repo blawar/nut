@@ -25,6 +25,17 @@
 			<a id="logo" href="/"><img src="/images/logo.jpg" /></a>
 			<div class="right">
 				<input type="text" ng-model="searchText" id="search" placeholder="Search">
+				<ul id="sorts">
+					<li>
+						<a ng-click="sortBy('name')">Name<span class="sortorder" ng-show="sortPropertyName === 'name'" ng-class="{sortReverse: sortReverse}"></span></a>
+					</li>
+					<li>
+						<a ng-click="sortBy('releaseDate')">Release Date</a>
+					</li>
+					<li>
+						<a ng-click="sortBy('publisher')">Publisher</a>
+					</li>
+				</ul>
 				<button class="queue" ng-click="showQueue()">Options</button>
 				<button class="updates" ng-click="showUpdates()">Title Updates</button>
 				<button class="gear" ng-click="showOptions()">Options</button>
@@ -40,7 +51,7 @@
 					  md-row-height-gt-md="1:1" md-row-height="4:3"
 					  md-gutter="8px" md-gutter-gt-sm="4px">
 
-			<md-grid-tile ng-repeat="title in titles | filter:searchText | filter:titleFilter | orderBy:'-releaseDate'" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/{{title.thumbSize}})" data-title-id="{{title.id}}" ng-click="showTitle(title)">
+			<md-grid-tile ng-repeat="title in titles | filter:searchText | filter:titleFilter | orderBy:sortPropertyName:sortReverse" md-rowspan="{{title.span.row}}" md-colspan="{{title.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" style="background-image: url(/api/titleImage/{{title.baseId }}/{{title.thumbSize}})" data-title-id="{{title.id}}" ng-click="showTitle(title)">
 				<md-grid-tile-footer><h3>{{title.name}}</h3></md-grid-tile-footer>
 			</md-grid-tile>
 		</md-grid-list>
