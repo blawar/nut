@@ -95,6 +95,18 @@ angular
   				}
   			}
   		}
+
+  		$http.get('/api/files').then(function (res) {
+  			for (key in res.data) {
+  				nsp = res.data[key];
+  				title = titlesDict[key];
+  				if (title) {
+  					title.base = nsp.base;
+  					title.dlc = nsp.dlc;
+  					title.update = nsp.update;
+  				}
+  			}
+  		});
   		$scope.titles = titles;
   		$scope.titlesDict = titlesDict;
   	});

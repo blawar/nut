@@ -114,3 +114,17 @@ def getTitleUpdates(request, response):
 		if data:
 			r[data['id']] = data
 	response.write(json.dumps(r))
+
+def getFiles(request, response):
+	r = {}
+	for path, nsp in Nsps.files.items():
+		title = Titles.get(nsp.titleId)
+		if not title.baseId in r:
+			r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
+		if title.isDLC:
+			r[title.baseId]['dlc'].append(nsp.dict())
+		elif title.isUpdate:
+			r[title.baseId]['update'].append(nsp.dict())
+		else:
+			r[title.baseId]['base'].append(nsp.dict())
+	response.write(json.dumps(r))
