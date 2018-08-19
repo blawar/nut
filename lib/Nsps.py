@@ -23,6 +23,12 @@ hasLoaded = False
 
 def get(key):
 	return files[key]
+
+def getByTitleId(id):
+	for k,f in files.items():
+		if f.titleId == id:
+			return f
+	return None
 	
 def scan(base):
 	global hasScanned
