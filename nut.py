@@ -575,7 +575,7 @@ if __name__ == '__main__':
 		#initTitles()
 		#initFiles()
 		print(str(len(args.info)))
-		if re.match('^[A-Fa-f0-9][16]', args.info, re.I):
+		if re.search(r'^[A-Fa-f0-9]+$', args.info.strip(), re.I | re.M | re.S):
 			Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 		else:
 			f = Fs.factory(args.info)
