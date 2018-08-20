@@ -1,5 +1,5 @@
 # Nut
-This is a program  that automatically downloads all games from the CDN, and organizes them on the file system.
+This is a program  that automatically downloads all games from the CDN, and organizes them on the file system as backups.  You can only play games that you have legally purchased / have a title key for.  Nut also provides a web interface for browsing your collection.
 
 You should copy nut.default.conf to nut.conf and make all of your local edits in nut.conf.
 
@@ -13,7 +13,6 @@ It can download any titles you do not have a key for (for archiving), by enablin
  - Download [`nut`](https://github.com/blawar/nut/archive/master.zip)
  - If you'd like to download from the CDN, place everything in your already configured CDNSP directory. Specifically, you'll need:
 	- `Certificate.cert`
-	- `Ticket.tik`
 	- `nx_tls_client_cert.pem`
 	- `keys.txt`
  - Install Python 3
@@ -21,6 +20,15 @@ It can download any titles you do not have a key for (for archiving), by enablin
  	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4`
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
+ 
+## Server GUI
+If you wish to run the server GUI, you must first download the images from nintendo.  You may do so with this command:
+nut.py -s --scrape
+
+This will take some time.  When it is complete, you can start the web server with:
+nut.py --server
+
+Then point your web browser to localhost:9000
 
 ---------
 
