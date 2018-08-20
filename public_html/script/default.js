@@ -101,6 +101,13 @@ angular
   			}
   		}
 
+  		for (key in res.data) {
+  			title = res.data[key];
+  			if (!title.isUpdate && !title.isDLC) {
+  				title.latestVersion = titlesDict[title.id.substring(0, title.id.length - 3) + '800'].version;
+  			}
+  		}
+
   		$http.get('/api/files').then(function (res) {
   			for (key in res.data) {
   				nsp = res.data[key];
@@ -112,7 +119,7 @@ angular
 
   					for (i = 0; i < title.update.length; i++) {
   						f = title.update[i];
-  						if (f.version > title.currentVersion) {
+  						if (f.currentVersion >= title.currentVersion) {
   							title.currentVersion = f.version;
   						}
   					}
