@@ -8,7 +8,8 @@ figure {
 #logo {
 	height: 2em;
 	display: inline-block;
-	padding: 1em;
+	padding: 0 1em 0 0;
+	vertical-align: middle;
 }
 
 .gear {
@@ -22,6 +23,7 @@ figure {
 	position: relative;
 	top: 0.25em;
 	margin-right: 1em;
+	vertical-align: middle;
 }
 
 .queue {
@@ -35,13 +37,31 @@ figure {
 	position: relative;
 	top: 0.25em;
 	margin-right: 1em;
+	vertical-align: middle;
 }
 
-#titles header {
+.left .update {
+	vertical-align: middle;
+}
+
+#titles > header {
+	font-size: 10px;
+}
+
+#titles>  header > ul {
+	display: flex;
+	list-style-type: none;
+}
+#titles > header > ul > li {
+	display: flex;
+	padding: 1em 0;
+	display: inline-block;
+}
+.center {
+	flex-grow: 1;
 }
 
 .right {
-	float: right;
 }
 
 #search {
@@ -49,6 +69,7 @@ figure {
 	top: 0.25em;
 	font-size: 1.25em;
 	margin-right: 1em;
+	height: 1em;
 }
 
 #logo img {
@@ -86,7 +107,7 @@ figure {
 #regions > li {
 	display: inline-block;
 	margin: 0;
-	padding: 1em 1em 1em 0;
+	padding: 0 1em 0 0;
 }
 
 
@@ -224,10 +245,10 @@ figure {
 }
 
 #game header a.update {
-	background-image: url(/images/download_white.png);
+	background-image: url(/images/update_white.png);
 	display: block;
 	position: absolute;
-	right: 2.5em;
+	right: 1.75em;
 	top: 0.5em;
 	font-size: 2em;
 }
@@ -262,6 +283,7 @@ a.update, button.update {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
+	border: 0;
 }
 
 #dlc {
@@ -277,11 +299,16 @@ a.update, button.update {
 }
 
 #sorts {
-	display: inline-block;
+	width: 100%;
+	text-align: center;
 }
 
 #sorts li {
 	display: inline-block;
+}
+
+#sorts li a {
+	cursor: pointer;
 }
 
 .boxart {
