@@ -378,7 +378,13 @@ class Title:
 		if not os.path.isfile(path):
 			os.makedirs(base, exist_ok=True)
 			im = Image.open(filePath)
-			out = im.resize((width, width), Image.ANTIALIAS)
+			ar = im.size[0] / im.size[1]
+			if height == None:
+				height = int(width / ar)
+			elif width == None:
+				width = int(height * ar)
+
+			out = im.resize((width, height), Image.ANTIALIAS)
 			out.save(path, quality=100)
 
 		return path
