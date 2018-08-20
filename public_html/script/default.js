@@ -119,7 +119,7 @@ angular
 
   					for (i = 0; i < title.update.length; i++) {
   						f = title.update[i];
-  						if (f.currentVersion >= title.currentVersion) {
+  						if (f.version >= title.currentVersion) {
   							title.currentVersion = f.version;
   						}
   					}
