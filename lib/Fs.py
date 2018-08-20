@@ -226,6 +226,60 @@ class PFS0(SectionFilesystem):
 		Print.info('\n%sPFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
 
+class HFS0(PFS0):
+	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(HFS0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+
+	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		r = super(SectionFilesystem, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+
+		self.magic = self.read(0x4);
+		if self.magic != b'HFS0':
+			raise IOError('Not a valid HFS0 partition ' + str(self.magic))
+			
+
+		fileCount = self.readInt32()
+		stringTableSize = self.readInt32()
+		self.readInt32() # junk data
+
+		self.seek(0x10 + fileCount * 0x40)
+		stringTable = self.read(stringTableSize)
+		stringEndOffset = stringTableSize
+		
+		headerSize = 0x10 + 0x40 * fileCount + stringTableSize
+		self.files = []
+
+		for i in range(fileCount):
+			i = fileCount - i - 1
+			self.seek(0x10 + i * 0x40)
+
+			offset = self.readInt64()
+			size = self.readInt64()
+			nameOffset = self.readInt32() # just the offset
+			name = stringTable[nameOffset:stringEndOffset].decode('utf-8').rstrip(' \t\r\n\0')
+			stringEndOffset = nameOffset
+
+			self.readInt32() # junk data
+
+			if name in ['update', 'secure', 'normal']:
+				f = HFS0(None)
+				#f = factory(name)
+			else:
+				f = factory(name)
+
+			f._path = name
+			f.offset = offset
+			f.size = size
+			self.files.append(self.partition(offset + headerSize, f.size, f))
+
+		self.files.reverse()
+
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		Print.info('\n%sHFS0\n' % (tabs))
+		super(PFS0, self).printInfo(indent)
+
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
@@ -523,6 +577,7 @@ class Xci(File):
 		
 		self.gamecardInfo = None
 		self.gamecardCert = None
+		self.hfs0 = None
 		
 		if file:
 			self.open(file)
@@ -553,10 +608,15 @@ class Xci(File):
 		
 		self.gamecardInfo = GamecardInfo(self.partition(self.tell(), 0x70))
 		self.gamecardCert = GamecardCertificate(self.partition(0x7000, 0x200))
+		print('xci header size:' + str(self.hfs0HeaderSize))
 		
-	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
-		super(Xci, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+
+	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		r = super(Xci, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.readHeader()
+		self.seek(0xF000)
+		self.hfs0 = HFS0(None, cryptoKey = None)
+		self.partition(0xf000, None, self.hfs0, cryptoKey = None)
 		
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
@@ -567,6 +627,8 @@ class Xci(File):
 		Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
 		
 		Print.info(tabs + 'gamecardCert = ' + str(hx(self.gamecardCert.magic + self.gamecardCert.unknown1 + self.gamecardCert.unknown2 + self.gamecardCert.data)))
+
+		self.hfs0.printInfo()
 		
 
 class Nsp(PFS0):
