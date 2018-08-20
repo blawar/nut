@@ -62,11 +62,11 @@
 					<div class="boxart"><img src="/api/frontArtBoxImage/{{title.id}}/" /></div>
 					<ul>
 						<li><label>Release Date</label><span>{{title.releaseDate}}</span></li>
-						<li><label>Version</label><span>{{title.version}}</span></li>
+						<li><label>Version</label><span>{{title.latestVersion}}</span></li>
 						<li><label>Size</label><span>{{title.size}}</span></li>
 						<li><label>ID</label><span>{{title.id}}</span></li>
 					</ul>
-					<a class="update" title="Update available" ng-show="title.currentVersion < title.version">Update</a>
+					<a class="update" title="Update available" ng-show="title.currentVersion < title.latestVersion" ng-click="preload(title.id.substring(0, title.id.length - 3) + '800')">Update</a>
 					<a class="download" href="/api/download/{{title.id}}">Download</a>
 				</header>
 				<div id="dlc">
@@ -74,7 +74,7 @@
 						<tr ng-repeat="dlc in title.dlc">
 							<td>{{getTitle(dlc.titleId).name}}</td>
 							<td>{{dlc.version}}</td>
-							<td><button class="update" title="Update available" ng-show="getTitle(dlc.titleId).version > dlc.version">Update</button></td>
+							<td><button class="update" title="Update available" ng-show="getTitle(dlc.titleId).version > dlc.version" ng-click="preload(dlc.titleId)">Update</button></td>
 							<td><a class="download" href="/api/download/{{getTitle(dlc.titleId).id}}">Download</a></td>
 						</tr>
 					</table>

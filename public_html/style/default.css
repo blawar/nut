@@ -224,10 +224,10 @@ figure {
 }
 
 #game header a.update {
-	background-image: url(/images/download_white.png);
+	background-image: url(/images/update_white.png);
 	display: block;
 	position: absolute;
-	right: 2.5em;
+	right: 1.75em;
 	top: 0.5em;
 	font-size: 2em;
 }
@@ -282,6 +282,10 @@ a.update, button.update {
 
 #sorts li {
 	display: inline-block;
+}
+
+#sorts li a {
+	cursor: pointer;
 }
 
 .boxart {
