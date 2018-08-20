@@ -214,6 +214,24 @@ figure {
 	background: rgba(0,0,0,0.7);
 }
 
+#game header a.download {
+	background-image: url(/images/download_white.png);
+	display: block;
+	position: absolute;
+	right: 0.5em;
+	top: 0.5em;
+	font-size: 2em;
+}
+
+#game header a.update {
+	background-image: url(/images/download_white.png);
+	display: block;
+	position: absolute;
+	right: 2.5em;
+	top: 0.5em;
+	font-size: 2em;
+}
+
 #game header ul {
 	list-style-type: none;
 	display: inline-block;
@@ -228,6 +246,36 @@ figure {
 	width: 7em;
 }
 
+a.download {
+	text-indent: -9999px;
+	background: url(/images/download.png) no-repeat;
+	background-size: cover;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+}
+
+a.update, button.update {
+	text-indent: -9999px;
+	background: url(/images/update.png) no-repeat;
+	background-size: cover;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+}
+
+#dlc {
+	list-style-type: none;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 5.56em;
+	overflow-y: scroll;
+	bottom: 54%;
+	background: rgba(255,255,255,0.7);
+}
+
 #sorts {
 	display: inline-block;
 }
@@ -238,6 +286,7 @@ figure {
 
 .boxart {
 	display: inline-block;
+	margin: 0.5em;
 }
 
 .boxart img {
@@ -276,18 +325,6 @@ figure {
 	-webkit-transform: skew(20deg);
 	-moz-transform: skew(20deg);
 	-o-transform: skew(20deg);
-}
-
-#popup .controls {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.7);
-	padding: 1em;
-}
-
-#popup .controls button {
-	font-size: 2em;
 }
 
 #popup .content {

@@ -49,6 +49,10 @@ angular
   	$scope.sortReverse = false;
   	$scope.sortPropertyName = 'name';
 
+  	$scope.getTitle = function (id) {
+  		return $scope.titlesDict[id];
+  	};
+
   	$scope.sortBy = function (sortPropertyName) {
   		$scope.sortReverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.sortReverse : false;
   		$scope.sortPropertyName = sortPropertyName;
@@ -79,6 +83,7 @@ angular
   					title.span = { col: 1, row: 1 };
   					title.thumbSize = 192
   				}
+  				title.currentVersion = 0;
   				title.size = formatNumber(title.size, 'B');
   				title.children = [];
   				titlesDict[title.id] = title;
@@ -104,6 +109,13 @@ angular
   					title.base = nsp.base;
   					title.dlc = nsp.dlc;
   					title.update = nsp.update;
+
+  					for (i = 0; i < title.update.length; i++) {
+  						f = title.update[i];
+  						if (f.version > title.currentVersion) {
+  							title.currentVersion = f.version;
+  						}
+  					}
   				}
   			}
   		});
