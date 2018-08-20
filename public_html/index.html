@@ -22,30 +22,36 @@
 <body>
 	<div id="titles" ng-controller="gridTitlesController as vm" flex ng-cloak>
 		<header>
-			<a id="logo" href="/"><img src="/images/logo.jpg" /></a>
-			<div class="right">
-				<input type="text" ng-model="searchText" id="search" placeholder="Search">
-				<ul id="sorts">
-					<li>
-						<a ng-click="sortBy('name')">Name<span class="sortorder" ng-show="sortPropertyName === 'name'" ng-class="{sortReverse: sortReverse}"></span></a>
-					</li>
-					<li>
-						<a ng-click="sortBy('releaseDate')">Release Date</a>
-					</li>
-					<li>
-						<a ng-click="sortBy('publisher')">Publisher</a>
-					</li>
-				</ul>
-				<button class="queue" ng-click="showQueue()">Options</button>
-				<button class="updates" ng-click="showUpdates()">Title Updates</button>
-				<button class="gear" ng-click="showOptions()">Options</button>
-				<ul id="regions">
-					<li class="{{title.region}} rgn_{{title.region}}" ng-repeat="title in titles | unique:'region'">
-						<input ng-checked="title.region == 'US'" name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" ng-click="regionChanged(title.region)" />
-						<label for="region_{{title.region}}">{{title.region}}</label>
-					</li>
-				</ul>
-			</div>
+			<ul>
+				<li class="left">
+					<a id="logo" href="/"><img src="/images/logo.jpg" /></a>
+					<input type="text" ng-model="searchText" id="search" placeholder="Search">
+					<button class="gear" ng-click="showOptions()" title="Settings">Settings</button>
+					<button class="update" ng-click="showUpdates()" title="Updates Available">Title Updates</button>
+					<button class="queue" ng-click="showQueue()" title="Download Queue">Queue</button>
+				</li>
+				<li class="center">
+					<ul id="sorts">
+						<li>
+							<a ng-click="sortBy('name')">Name<span class="sortorder" ng-show="sortPropertyName === 'name'" ng-class="{sortReverse: sortReverse}"></span></a>
+						</li>
+						<li>
+							<a ng-click="sortBy('releaseDate')">Release Date</a>
+						</li>
+						<li>
+							<a ng-click="sortBy('publisher')">Publisher</a>
+						</li>
+					</ul>
+				</li>
+				<li class="right">
+					<ul id="regions">
+						<li class="{{title.region}} rgn_{{title.region}}" ng-repeat="title in titles | unique:'region'">
+							<input ng-checked="title.region == 'US'" name="region_{{title.region}}" id="region_{{title.region}}" type="checkbox" ng-click="regionChanged(title.region)" />
+							<label for="region_{{title.region}}">{{title.region}}</label>
+						</li>
+					</ul>
+				</li>
+			</ul>
 		</header>
 		<md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-cols-gt-lg="10"
 					  md-row-height-gt-md="1:1" md-row-height="4:3"
