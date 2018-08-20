@@ -3,6 +3,7 @@ import json
 import Titles
 import Status
 import Nsps
+import Print
 
 try:
 	from PIL import Image
@@ -77,9 +78,25 @@ def getFrontArtBoxImage(request, response):
 
 	return Server.Response500(request, response)
 
-def getDownload(request, response):
+def getPreload(request, response):
 	Titles.queue.add(request.bits[2])
 	response.write(json.dumps({'success': True}))
+
+def getDownload(request, response):
+	nsp = Nsps.getByTitleId(request.bits[2])
+	Print.info('Downloading ' + nsp.path)
+	response.attachFile(os.path.basename(nsp.path))
+	
+	chunkSize = 0x10000
+
+	with open(nsp.path, "rb") as f:
+		while True:
+			chunk = f.read(chunkSize)
+			if chunk:
+				pass
+				response.write(chunk)
+			else:
+				break
 
 def getQueue(request, response):
 	r = Status.data().copy()
@@ -96,4 +113,18 @@ def getTitleUpdates(request, response):
 		data = nsp.isUpdateAvailable()
 		if data:
 			r[data['id']] = data
+	response.write(json.dumps(r))
+
+def getFiles(request, response):
+	r = {}
+	for path, nsp in Nsps.files.items():
+		title = Titles.get(nsp.titleId)
+		if not title.baseId in r:
+			r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
+		if title.isDLC:
+			r[title.baseId]['dlc'].append(nsp.dict())
+		elif title.isUpdate:
+			r[title.baseId]['update'].append(nsp.dict())
+		else:
+			r[title.baseId]['base'].append(nsp.dict())
 	response.write(json.dumps(r))

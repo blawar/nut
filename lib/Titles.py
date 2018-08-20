@@ -114,7 +114,7 @@ def save(fileName = 'titles.json'):
 				k.description = k.description.strip()
 			j[i] = k.__dict__
 		with open(fileName, 'w') as outfile:
-			json.dump(j, outfile)
+			json.dump(j, outfile, indent=4, sort_keys=True)
 	except:
 		confLock.release()
 		raise

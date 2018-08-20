@@ -45,7 +45,14 @@ angular
   	$scope.queue = [];
   	$scope.updates = [];
   	$scope.title = null;
-  	$scope.regionFilter = {US: true};
+  	$scope.regionFilter = { US: true };
+  	$scope.sortReverse = false;
+  	$scope.sortPropertyName = 'name';
+
+  	$scope.sortBy = function (sortPropertyName) {
+  		$scope.sortReverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.sortReverse : false;
+  		$scope.sortPropertyName = sortPropertyName;
+  	};
 
   	$scope.titleFilter = function (title) {
 
@@ -72,6 +79,7 @@ angular
   					title.span = { col: 1, row: 1 };
   					title.thumbSize = 192
   				}
+  				title.size = formatNumber(title.size, 'B');
   				title.children = [];
   				titlesDict[title.id] = title;
   				titles.push(title);
@@ -87,6 +95,18 @@ angular
   				}
   			}
   		}
+
+  		$http.get('/api/files').then(function (res) {
+  			for (key in res.data) {
+  				nsp = res.data[key];
+  				title = titlesDict[key];
+  				if (title) {
+  					title.base = nsp.base;
+  					title.dlc = nsp.dlc;
+  					title.update = nsp.update;
+  				}
+  			}
+  		});
   		$scope.titles = titles;
   		$scope.titlesDict = titlesDict;
   	});
@@ -179,6 +199,11 @@ angular
 
   	$scope.download = function (id) {
   		$http.get('/api/download/' + id).then(function (res) {
+  		});
+  	};
+
+  	$scope.preload = function (id) {
+  		$http.get('/api/preload/' + id).then(function (res) {
   		});
   	};
 

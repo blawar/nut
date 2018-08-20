@@ -34,6 +34,10 @@ if os.path.isfile('redirectCache.json'):
 	with open('redirectCache.json', encoding="utf-8-sig") as f:
 		urlCache = json.loads(f.read())
 
+if os.path.isfile('titleRedirects.json'):
+	with open('titleRedirects.json', encoding="utf-8-sig") as f:
+		titleRedirects = json.loads(f.read())
+
 def grabCachedRedirectUrl(url, cookies = None):
 	global grabUrlInit
 	global urlCache
@@ -423,9 +427,14 @@ class Title:
 		if self.isUpdate or self.isDLC or (delta and self.bannerUrl):
 			return
 		try:
+			id = self.id
+
+			if id in titleRedirects:
+				id = titleRedirects[id]
+
 			cookies = {'esrb.verified': 'true'}
 			for region in ['JP', 'AU']:
-				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/%s" % (self.id, region), cookies=cookies)
+				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/%s" % (id, region), cookies=cookies)
 				_json = ''
 				if not result or result.status_code != 200:
 					continue
@@ -433,7 +442,7 @@ class Title:
 				_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';',''))
 				
 				if _json == '' or _json == None:
-					Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (self.id, region))
+					Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (id, region))
 					continue
 
 				if 'hero_banner_url' in _json:
@@ -455,7 +464,7 @@ class Title:
 				if "demos" in _json:
 					for demo in _json["demos"]:
 						if "id" in demo:
-							if self.id[0:12] != _json['applications'][0]['id'][0:12]:
+							if id[0:12] != _json['applications'][0]['id'][0:12]:
 								self.nsuId = int(demo["id"])
 								if "name" in demo:
 									self.name = demo["name"].strip()
@@ -513,7 +522,7 @@ class Title:
 			
 
 			#<img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
-			result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % self.id, cookies=cookies)
+			result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % id, cookies=cookies)
 			if result and result.status_code == 200:
 				if result.url != 'https://www.nintendo.com/games/':
 					soup = BeautifulSoup(result.text, "html.parser")
