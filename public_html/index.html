@@ -41,9 +41,12 @@
 						<li>
 							<a ng-click="sortBy('publisher')">Publisher</a>
 						</li>
-						<li><input type="checkbox" name="owned" ng-click="ownedChanged()" ng-checked="true" />Purchased</li>
-						<li><input type="checkbox" name="owned" ng-click="missingChanged()" />Missing</li>
-						<li><input type="checkbox" name="owned" ng-click="preloadedChanged()" />Preloaded</li>
+						<li>
+							<select ng-model="ownedFilter" ng-options="opt.name for opt in ownedOptions"></select>
+						</li>
+						<li>
+							<select ng-model="preloadedFilter" ng-options="opt.name for opt in preloadedOptions"></select>
+						</li>
 					</ul>
 				</li>
 				<li class="right">
