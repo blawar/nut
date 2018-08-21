@@ -78,6 +78,25 @@ def getFrontArtBoxImage(request, response):
 
 	return Server.Response500(request, response)
 
+def getScreenshotImage(request, response):
+	if len(request.bits) < 3:
+		return Server.Response404(request, response)
+
+	id = request.bits[2]
+	i = int(request.bits[3])
+
+
+	path = Titles.get(id).screenshotFile(i)
+
+	response.setMime(path)
+	response.headers['Cache-Control'] = 'max-age=31536000'
+
+	if os.path.isfile(path):
+		with open(path, 'rb') as f:
+			response.write(f.read())
+
+	return Server.Response500(request, response)
+
 def getPreload(request, response):
 	Titles.queue.add(request.bits[2])
 	response.write(json.dumps({'success': True}))
