@@ -213,6 +213,16 @@ figure {
 	flex-direction: column;
 }
 
+#game .container .title {
+	text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5em;
+    display: inline-block;
+    padding: 0 0.25em 0 0.25em;
+    border-bottom: 3px solid #f00;
+    margin-bottom: 0.25em;
+}
+
 #game #screenshots {
 	position: absolute;
 	right: 0;
@@ -259,6 +269,7 @@ figure {
 #game #screenshots ul.thumb li {
 	font-size: 1em;
 	display: table-cell;
+	border: 2px solid #fff;
 }
 
 #game #screenshots ul.thumb li img {
@@ -294,6 +305,7 @@ figure {
 #game header {
 	box-shadow:2px 2px 25px #000000;
 	background: rgba(0,0,0,0.7);
+	display: flex;
 }
 
 #game header a.download {
@@ -318,6 +330,8 @@ figure {
 	list-style-type: none;
 	display: inline-block;
 	color: #fff;
+	flex: 1;
+	padding: 1em 2em 1em 0;
 }
 
 #game header li {
