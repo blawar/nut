@@ -262,7 +262,8 @@ class HFS0(PFS0):
 
 			self.readInt32() # junk data
 
-			if name in ['update', 'secure', 'normal']:
+			#if name in ['update', 'secure', 'normal']:
+			if name == 'secure':
 				f = HFS0(None)
 				#f = factory(name)
 			else:
@@ -395,7 +396,7 @@ class NcaHeader(File):
 			self.titleKeyDec = self.key()
 
 	def key(self):
-		#return self.keys[2]
+		return self.keys[2]
 		return self.keys[self.cryptoType]
 
 	def hasTitleRights(self):
@@ -497,8 +498,11 @@ class Nca(File):
 		Print.info(tabs + 'cryptoType = ' + str(self.cryptoType))
 		Print.info(tabs + 'Size: ' + str(self.header.size))
 		Print.info(tabs + 'crypto master key: ' + str(self.header.cryptoType))
-		Print.info(tabs + 'crypto master key: ' + str(self.header.cryptoType2))
+		Print.info(tabs + 'crypto master key2: ' + str(self.header.cryptoType2))
 		Print.info(tabs + 'key Index: ' + str(self.header.keyIndex))
+		#Print.info(tabs + 'key Block: ' + str(self.header.getKeyBlock()))
+		for key in self.header.keys:
+			Print.info(tabs + 'key Block: ' + str(key))
 		
 		Print.info('\n%sPartitions:' % (tabs))
 		
@@ -608,7 +612,6 @@ class Xci(File):
 		
 		self.gamecardInfo = GamecardInfo(self.partition(self.tell(), 0x70))
 		self.gamecardCert = GamecardCertificate(self.partition(0x7000, 0x200))
-		print('xci header size:' + str(self.hfs0HeaderSize))
 		
 
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
@@ -1216,6 +1219,10 @@ class Ticket(File):
 		self.titleKeyBlock = self.readInt(0x10, 'big')
 		return self.titleKeyBlock
 
+	def getTitleKey(self):
+		self.seekStart(0x40)
+		return self.read(0x10)
+
 	def setTitleKeyBlock(self, value):
 		self.seekStart(0x40)
 		self.titleKeyBlock = value
@@ -1311,5 +1318,7 @@ class Ticket(File):
 		Print.info(tabs + 'rightsId = ' + hex(self.getRightsId()))
 		Print.info(tabs + 'accountId = ' + str(self.accountId))
 		Print.info(tabs + 'titleKey = ' + hex(self.getTitleKeyBlock()))
+		Print.info(tabs + 'titleKeyDec = ' + str(hx(Keys.decryptTitleKey((self.getTitleKey()), self.masterKeyRevision))))
+
 		#Print.info(tabs + 'magic = ' + str(self.magic))
 		#Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))

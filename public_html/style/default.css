@@ -197,8 +197,12 @@ figure {
 	bottom: 0;
 	position: absolute;
 	overflow-y: auto;
-	padding: 2em;
+	padding: 2em 0;
 	box-shadow: inset 2px 2px 20px rgba(0,0,0,0.5);
+}
+
+#game .description pre {
+	padding: 0 2em;
 }
 
 #popup {
@@ -287,15 +291,28 @@ a.update, button.update {
 }
 
 #dlc {
-	list-style-type: none;
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 5.56em;
-	overflow-y: scroll;
-	bottom: 54%;
-	background: rgba(255,255,255,0.7);
+	//list-style-type: none;
+	//position: absolute;
+	//left: 0;
+	//right: 0;
+	//bottom: 0;
+	//top: 5.56em;
+	//overflow-y: scroll;
+	//bottom: 54%;
+	//background: rgba(255,255,255,0.7);
+}
+
+#dlc table {
+	border-collapse: collapse;
+}
+
+#dlc tr td {
+	padding: 1em;
+}
+
+#dlc tr:nth-child(odd) {
+	background: rgba(0,0,0,0.1);
+
 }
 
 #sorts {
