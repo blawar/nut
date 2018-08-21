@@ -46,6 +46,9 @@ angular
   	$scope.updates = [];
   	$scope.title = null;
   	$scope.regionFilter = { US: true };
+  	$scope.ownedFilter = true;
+  	$scope.missingFilter = false;
+  	$scope.preloadedFilter = false;
   	$scope.sortReverse = false;
   	$scope.sortPropertyName = 'name';
 
@@ -60,7 +63,7 @@ angular
 
   	$scope.titleFilter = function (title) {
 
-  		if (!title.region || $scope.regionFilter[title.region]) {
+  		if ((!title.region || $scope.regionFilter[title.region]) && (!$scope.ownedFilter || title.key) && (!$scope.preloadedFilter || title.base.length > 0) && (!$scope.missingFilter || !title.key )) {
   			return true;
   		}
 
@@ -228,6 +231,18 @@ angular
 
   	$scope.regionChanged = function (region) {
   		$scope.regionFilter[region] = $scope.regionFilter[region] ? false : true;
+  	};
+
+  	$scope.ownedChanged = function () {
+  		$scope.ownedFilter = !$scope.ownedFilter;
+  	};
+
+  	$scope.missingChanged = function () {
+  		$scope.missingFilter = !$scope.missingFilter;
+  	};
+
+  	$scope.preloadedChanged = function () {
+  		$scope.preloadedFilter = !$scope.preloadedFilter;
   	};
 
   }).filter('unique', function () {
