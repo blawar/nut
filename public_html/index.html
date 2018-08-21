@@ -80,8 +80,9 @@
 							<li><label>Size</label><span>{{title.size}}</span></li>
 							<li><label>ID</label><span>{{title.id}}</span></li>
 						</ul>
-						<a class="update" title="Update available" ng-show="title.currentVersion < title.latestVersion" ng-click="preload(title.id.substring(0, title.id.length - 3) + '800')">Update</a>
-						<a class="download" href="/api/download/{{title.id}}" ng-show="title.key && title.base.length > 0">Download</a>
+						<a class="update" title="Update Available" ng-show="title.currentVersion < title.latestVersion" ng-click="preload(title.id.substring(0, title.id.length - 3) + '800')">Update</a>
+						<a class="download" title="Download Game to PC" href="/api/download/{{title.id}}" ng-show="title.key && title.base.length > 0">Download</a>
+						<a class="update" title="Preload Game" ng-click="preload(title.id)" ng-show="!title.base || title.base.length < 1">Preload</a>
 					</header>
 					<div class="description">
 						<pre>{{title.description}}</pre>

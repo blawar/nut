@@ -324,6 +324,7 @@ figure {
 	right: 1.75em;
 	top: 0.5em;
 	font-size: 2em;
+	cursor: pointer;
 }
 
 #game header ul {
@@ -360,6 +361,7 @@ a.update, button.update {
 	width: 1em;
 	height: 1em;
 	border: 0;
+	cursor: pointer;
 }
 
 #dlc {
