@@ -49,6 +49,21 @@ angular
   	$scope.sortReverse = false;
   	$scope.sortPropertyName = 'name';
 
+  	$scope.ownedOptions = [
+		{ id: 0, name: '' },
+		{ id: 1, name: 'Purchased' },
+		{ id: -1, name: 'Not Purchased' }
+  	];
+
+  	$scope.preloadedOptions = [
+		{ id: 0, name: '' },
+		{ id: 1, name: 'Preloaded' },
+		{ id: -1, name: 'Not Preloaded' }
+  	];
+
+  	$scope.ownedFilter = $scope.ownedOptions[1];
+  	$scope.preloadedFilter = $scope.preloadedOptions[0];
+
   	$scope.getTitle = function (id) {
   		return $scope.titlesDict[id];
   	};
@@ -60,7 +75,7 @@ angular
 
   	$scope.titleFilter = function (title) {
 
-  		if (!title.region || $scope.regionFilter[title.region]) {
+  		if ((!title.region || $scope.regionFilter[title.region]) && ($scope.ownedFilter.id != 1 || title.key) && ($scope.preloadedFilter.id != 1 || (title.base && title.base.length > 0)) && ($scope.preloadedFilter.id != -1 || !title.base || title.base.length < 1) && ($scope.ownedFilter.id != -1 || !title.key)) {
   			return true;
   		}
 

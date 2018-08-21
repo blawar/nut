@@ -5,6 +5,7 @@ body {
 figure {
 	cursor: pointer;
 }
+
 #logo {
 	height: 2em;
 	display: inline-block;
@@ -191,14 +192,90 @@ figure {
 
 #game .description {
 	background: rgba(255,255,255,0.9);
-	top: 66%;
-	right: 25%;
-	left: 25%;
-	bottom: 0;
-	position: absolute;
 	overflow-y: auto;
-	padding: 2em;
+	padding: 2em 0;
 	box-shadow: inset 2px 2px 20px rgba(0,0,0,0.5);
+	flex: 1;
+}
+
+#game .description pre {
+	padding: 0 2em;
+}
+
+#game .container {
+	position: absolute;
+	top: 0;
+	right: 50%;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+#game .container .title {
+	text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5em;
+    display: inline-block;
+    padding: 0 0.25em 0 0.25em;
+    border-bottom: 3px solid #f00;
+    margin-bottom: 0.25em;
+}
+
+#game #screenshots {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 50%;
+	width: 50%;
+}
+
+#game #screenshots ul.viewer {
+	overflow: hidden;
+	position: relative;
+}
+
+#game #screenshots ul.viewer li {
+	margin: 0;
+	position: absolute;
+	top: 0;
+}
+
+#game #screenshots ul.viewer li:first-child {
+	position: relative;
+	display: block;
+}
+
+#game #screenshots ul.viewer li:target {
+	z-index: 100;
+	//display: block;
+}
+
+#game #screenshots ul.viewer li:not(:target) {
+	//display: none;
+}
+
+
+#game #screenshots ul.viewer, #game #screenshots ul.viewer li, #game #screenshots ul.viewer img {
+	width: 100%;
+	display: block;
+}
+
+#game #screenshots ul.thumb {
+	display: table;
+}
+
+#game #screenshots ul.thumb li {
+	font-size: 1em;
+	display: table-cell;
+	border: 2px solid #fff;
+}
+
+#game #screenshots ul.thumb li img {
+	width: 100%;
+	max-width: 9em;
+	display: block;
 }
 
 #popup {
@@ -226,13 +303,9 @@ figure {
 }
 
 #game header {
-	position: absolute;
-	bottom: 34%;
-	left: 25%;
-	right: 25%;
-	z-index: 9999;
 	box-shadow:2px 2px 25px #000000;
 	background: rgba(0,0,0,0.7);
+	display: flex;
 }
 
 #game header a.download {
@@ -251,15 +324,19 @@ figure {
 	right: 1.75em;
 	top: 0.5em;
 	font-size: 2em;
+	cursor: pointer;
 }
 
 #game header ul {
 	list-style-type: none;
 	display: inline-block;
 	color: #fff;
+	flex: 1;
+	padding: 1em 2em 1em 0;
 }
 
 #game header li {
+	font-size: 10px;
 }
 
 #game header li label {
@@ -284,18 +361,32 @@ a.update, button.update {
 	width: 1em;
 	height: 1em;
 	border: 0;
+	cursor: pointer;
 }
 
 #dlc {
-	list-style-type: none;
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 5.56em;
-	overflow-y: scroll;
-	bottom: 54%;
-	background: rgba(255,255,255,0.7);
+	//list-style-type: none;
+	//position: absolute;
+	//left: 0;
+	//right: 0;
+	//bottom: 0;
+	//top: 5.56em;
+	//overflow-y: scroll;
+	//bottom: 54%;
+	//background: rgba(255,255,255,0.7);
+}
+
+#dlc table {
+	border-collapse: collapse;
+}
+
+#dlc tr td {
+	padding: 1em;
+}
+
+#dlc tr:nth-child(odd) {
+	background: rgba(0,0,0,0.1);
+
 }
 
 #sorts {
