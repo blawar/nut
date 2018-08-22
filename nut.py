@@ -408,8 +408,8 @@ if __name__ == '__main__':
 	parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
 	parser.add_argument('--json', action="store_true", help='JSON output')
 	parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
-	parser.add_argument('-m', '--hostname', action="store_true", help='Set server hostname')
-	parser.add_argument('-p', '--port', action="store_true", help='Set server port')
+	parser.add_argument('-m', '--hostname', help='Set server hostname')
+	parser.add_argument('-p', '--port', type=int, help='Set server port')
 
 	parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 	parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
