@@ -142,6 +142,7 @@ def downloadThread(i):
 
 				if os.path.isfile(path):
 					nsp = Fs.Nsp(path, None)
+					nsp.move()
 					Nsps.files[nsp.path] = nsp
 					Nsps.save()
 					status.add()
