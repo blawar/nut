@@ -862,9 +862,9 @@ class Nsp(PFS0):
 		return True
 		
 	def cleanFilename(self, s):
-		s = re.sub('\s+\Demo\s*', ' ', s, re.I)
+		#s = re.sub('\s+\Demo\s*', ' ', s, re.I)
 		s = re.sub('\s*\[DLC\]\s*', '', s, re.I)
-		s = re.sub('[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
+		s = re.sub(r'[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
 
 	def dict(self):
