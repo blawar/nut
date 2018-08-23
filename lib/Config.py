@@ -58,6 +58,10 @@ jsonOutput = False
 titleUrls = []
 
 def load(confFile):
+	global threads
+	global jsonOutput
+	global titleUrls
+
 	with open(confFile, encoding="utf8") as f:
 		j = json.load(f)
 	

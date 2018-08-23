@@ -142,6 +142,7 @@ def downloadThread(i):
 
 				if os.path.isfile(path):
 					nsp = Fs.Nsp(path, None)
+					nsp.move()
 					Nsps.files[nsp.path] = nsp
 					Nsps.save()
 					status.add()
@@ -180,8 +181,9 @@ def startDownloadThreads():
 
 def downloadAll(wait = True):
 	global activeDownloads
+	global status
+
 	try:
-		startDownloadThreads()
 
 		for k,t in Titles.items():
 			if len(t.getFiles()) == 0 and not t.retailOnly and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in titleBlacklist:
@@ -194,12 +196,17 @@ def downloadAll(wait = True):
 					continue
 
 				Titles.queue.add(t.id)
+		status = Status.create(Titles.queue.size(), 'Total Download')
+		startDownloadThreads()
 		while wait and (not Titles.queue.empty() or sum(activeDownloads) > 0):
 			time.sleep(1)
 	except KeyboardInterrupt:
-			pass
+		pass
 	except BaseException as e:
 		Print.error(str(e))
+
+	if status:
+		status.close()
 
 			
 def export(file):
