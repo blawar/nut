@@ -250,6 +250,40 @@ class Blockchain:
 
 		return self.last_block.index + 1
 
+	def suggest(self, titleId, titleKey):
+		if not titleId or not titleKey:
+			raise IndexError('Missing values')
+
+		titleId = titleId.upper()
+		nsp = Nsps.getByTitleId(titleId)
+
+		if not nsp:
+			raise IOError('Title not found: ' + titleId)
+
+		nsp.open()
+
+		for f in nsp:
+			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						f.seek(fs.offset)
+						pfs0Header = f.read(0x10)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+
+						return True
+
+		return False
+
 	@property
 	def last_block(self):
 		return self.chain[-1]

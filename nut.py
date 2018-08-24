@@ -351,6 +351,14 @@ def unlockAll():
 				f.close()
 			except BaseException as e:
 				Print.info('error unlocking: ' + str(e))
+
+def submitKeys():
+	for id, t in Titles.items():
+		if t.key:
+			try:
+				blockchain.blockchain.suggest(t.id, t.key)
+			except BaseException as e:
+				Print.info(str(e))
 			
 if __name__ == '__main__':
 	titleWhitelist = []
@@ -419,6 +427,7 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--hostname', help='Set server hostname')
 	parser.add_argument('-p', '--port', type=int, help='Set server port')
 	parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
+	parser.add_argument('-k', '--submit-keys', action="store_true", help='Submit all title keys to blockchain')
 
 	parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 	parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
@@ -478,6 +487,11 @@ if __name__ == '__main__':
 		for url in Config.titleUrls:
 			updateDb(url)
 		Titles.save()
+
+	if args.submit_keys:
+		initTitles()
+		initFiles()
+		submitKeys()
 		
 	if args.download:
 		initTitles()
