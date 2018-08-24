@@ -8,7 +8,10 @@ import os
 import Config
 import Nsps
 import Fs
+import File
 import Type
+import Keys
+import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
 import requests
@@ -16,17 +19,41 @@ from flask import Flask, jsonify, request
 
 
 class KeyEntry:
-	def __init__(self, titleId = None, titleKey = None, ncaHeader = None, sectionHeaderBlock = None, pfs0Header = None, json = None):
+	def __init__(self, titleId = None, titleKey = None, ncaHeader = None, sectionHeaderBlock = None, pfs0Header = None, pfs0Offset = None, json = None):
 		self.titleId = titleId
 		self.titleKey = titleKey
 		self.ncaHeader = ncaHeader
 		self.sectionHeaderBlock = sectionHeaderBlock
 		self.pfs0Header = pfs0Header
+		self.pfs0Offset = pfs0Offset
 
 		if json:
 			self.deserialize(json)
 
 	def verify(self):
+		ncaHeader = Fs.NcaHeader()
+		ncaHeader.open(File.MemoryFile(self.ncaHeader, Type.Crypto.XTS, uhx(Keys.get('header_key'))))
+
+		if str(self.titleId) != str(ncaHeader.titleId):
+			raise IndexError('Title IDs do not match!  ' + str(self.titleId) + ' != ' + str(ncaHeader.titleId))
+
+		decKey = Keys.decryptTitleKey(uhx(self.titleKey), ncaHeader.masterKey)
+
+		pfs0 = Fs.PFS0(self.sectionHeaderBlock)
+
+		'''
+		print('encKey = ' + str(self.titleKey))
+		print('decKey = ' + str(hx(decKey)))
+		print('master key = ' + str(ncaHeader.masterKey))
+		print('ctr = ' + str(hx(pfs0.cryptoCounter)))
+		print('offset = ' + str(self.pfs0Offset))
+		'''
+
+		mem = File.MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
+		magic = mem.read()[0:4]
+		if magic != b'PFS0':
+			raise LookupError('Title Key is incorrect!')
+
 		return True
 
 	def serialize(self):
@@ -37,6 +64,7 @@ class KeyEntry:
 		obj['ncaHeader'] = hx(self.ncaHeader).decode()
 		obj['sectionHeaderBlock'] = hx(self.sectionHeaderBlock).decode()
 		obj['pfs0Header'] = hx(self.pfs0Header).decode()
+		obj['pfs0Offset'] = self.pfs0Offset
 		return obj
 
 	def deserialize(self, obj):
@@ -46,6 +74,7 @@ class KeyEntry:
 		self.ncaHeader = uhx(obj['ncaHeader'])
 		self.sectionHeaderBlock = uhx(obj['sectionHeaderBlock'])
 		self.pfs0Header = uhx(obj['pfs0Header'])
+		self.pfs0Offset = obj['pfs0Offset']
 		return self
 
 class Block:
@@ -110,6 +139,13 @@ class Blockchain:
 						self.chain.append(Block(json=j))
 		except:
 			pass
+
+	def hasTitle(self, id):
+		for c in self.chain:
+			for t in c.transactions:
+				if t.titleId == id:
+					return True
+		return False
 
 	def register_node(self, address):
 		"""
@@ -204,9 +240,49 @@ class Blockchain:
 
 	# ncaHeader = 0x4000 bytes, pfs0Header = 0x2000 bytes, titleKey = 0x10 bytes
 	def new_transaction(self, keyEntry):
+		if self.hasTitle(keyEntry.titleId):
+			raise LookupError('Title ID already exists')
+
+		if not keyEntry.verify():
+			raise LookupError('Verification failed: bad key')
+
 		self.current_transactions.append(keyEntry)
 
 		return self.last_block.index + 1
+
+	def suggest(self, titleId, titleKey):
+		if not titleId or not titleKey:
+			raise IndexError('Missing values')
+
+		titleId = titleId.upper()
+		nsp = Nsps.getByTitleId(titleId)
+
+		if not nsp:
+			raise IOError('Title not found: ' + titleId)
+
+		nsp.open()
+
+		for f in nsp:
+			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						f.seek(fs.offset)
+						pfs0Header = f.read(0x10)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+
+						return True
+
+		return False
 
 	@property
 	def last_block(self):
@@ -225,68 +301,70 @@ blockchain = Blockchain()
 
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
-	values = request.get_json()
+	try:
+		values = request.get_json()
 
-	# Check that the required fields are in the POST'ed data
-	required = ['titleId', 'titleKey', 'ncaHeader', 'sectionHeaderBlock', 'pfs0Header']
-	if not all(k in values for k in required):
-		return 'Missing values', 400
+		# Check that the required fields are in the POST'ed data
+		required = ['titleId', 'titleKey', 'ncaHeader', 'sectionHeaderBlock', 'pfs0Header', 'pfs0Offset']
+		if not all(k in values for k in required):
+			return 'Missing values', 400
 
-	entry = KeyEntry(values['titleId'], values['titleKey'], values['ncaHeader'], values['sectionHeaderBlock'], values['pfs0Header'])
+		entry = KeyEntry(values['titleId'], values['titleKey'], values['ncaHeader'], values['sectionHeaderBlock'], values['pfs0Header'], values['pfs0Offset'])
 
-	if not entry.verify():
-		return 'Verification failed: bad key', 400
 
-	# Create a new Transaction
-	index = blockchain.new_transaction(entry)
+		# Create a new Transaction
+		index = blockchain.new_transaction(entry)
 
-	blockchain.new_block()
+		blockchain.new_block()
 
-	response = {'message': f'Transaction will be added to Block {index}'}
-	return jsonify(response), 201
+		response = {'message': f'Transaction will be added to Block {index}'}
+		return jsonify(response), 201
+	except BaseException as e:
+		return str(e), 400
 
 @app.route('/transactions/suggest', methods=['GET'])
 def new_suggestion():
-	titleId = request.args.get('titleId')
-	titleKey = request.args.get('titleKey')
+	try:
+		titleId = request.args.get('titleId')
+		titleKey = request.args.get('titleKey')
 
-	# Check that the required fields are in the POST'ed data
-	required = ['titleId', 'titleKey']
-	if not titleId or not titleKey:
-		return 'Missing values', 400
+		# Check that the required fields are in the POST'ed data
+		required = ['titleId', 'titleKey']
+		if not titleId or not titleKey:
+			return 'Missing values', 400
 
-	titleId = titleId.upper()
-	nsp = Nsps.getByTitleId(titleId)
+		titleId = titleId.upper()
+		nsp = Nsps.getByTitleId(titleId)
 
-	if not nsp:
-		return 'Title not found', 400
+		if not nsp:
+			return 'Title not found', 400
 
-	nsp.open()
+		nsp.open()
 
-	for f in nsp:
-		if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
-			for fs in f.sectionFilesystems:
-				if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
-					f.seek(0)
-					ncaHeader = f.read(0x400)
+		for f in nsp:
+			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
 
-					sectionHeaderBlock = fs.buffer
+						sectionHeaderBlock = fs.buffer
 
-					f.seek(fs.offset)
-					pfs0Header = f.read(0x10)
+						f.seek(fs.offset)
+						pfs0Header = f.read(0x10)
 
-					entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header)
-					if not entry.verify():
-						return 'Verification failed: bad key', 400
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset)
 
-					index = blockchain.new_transaction(entry)
+						index = blockchain.new_transaction(entry)
 
-					blockchain.new_block()
+						blockchain.new_block()
 
-					response = {'message': f'Transaction will be added to Block {index}'}
-					return jsonify(response), 201
+						response = {'message': f'Transaction will be added to Block {index}'}
+						return jsonify(response), 201
 
-	return 'Verification failed: unable to locate correct title rights partition', 400
+		return 'Verification failed: unable to locate correct title rights partition', 400
+	except BaseException as e:
+		return str(e), 400
 
 
 @app.route('/chain', methods=['GET'])
