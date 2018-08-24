@@ -112,6 +112,10 @@ class Title:
 		self.size = 0
 	
 	def __lt__(self, other):
+		if not self.name:
+			return True
+		if not other.name:
+			return False
 		return str(self.name) < str(other.name)
 		
 	def loadCsv(self, line, map = ['id', 'key', 'name']):
