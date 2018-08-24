@@ -54,6 +54,7 @@ download = Download()
 server = Server()
 threads = 4
 jsonOutput = False
+isRunning = True
 
 titleUrls = []
 
