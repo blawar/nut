@@ -110,11 +110,13 @@ def save(fileName = 'titles.json'):
 	try:
 		j = {}
 		for i,k in titles.items():
+			if not k.id or k.id == '0000000000000000':
+				continue
 			if k.description:
 				k.description = k.description.strip()
-			j[i] = k.__dict__
+			j[k.id] = k.__dict__
 		with open(fileName, 'w') as outfile:
-			json.dump(j, outfile, indent=4, sort_keys=True)
+			json.dump(j, outfile, indent=4)
 	except:
 		confLock.release()
 		raise
