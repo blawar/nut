@@ -1117,6 +1117,11 @@ class Nsp(PFS0):
 		
 		return header
 
+	def verifyKey(self, key):
+		for f in self:
+			if type(f) == Nca:
+				pass
+
 class Ticket(File):
 	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(Ticket, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
