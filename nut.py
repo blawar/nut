@@ -21,7 +21,6 @@ import CDNSP
 import Fs
 import Config
 import requests
-#import blockchain
 import Hex
 import Print
 import threading
@@ -31,6 +30,7 @@ import time
 import colorama
 import Server
 import pprint
+import blockchain
 
 
 				
@@ -392,6 +392,7 @@ if __name__ == '__main__':
 	parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 	parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
 	parser.add_argument('-i', '--info', help='show info about title or file')
+	parser.add_argument('-I', '--verify', help='verify title key')
 	parser.add_argument('-u', '--unlock', help='install available title key into NSX / NSP')
 	parser.add_argument('--unlock-all', action="store_true", help='install available title keys into all NSX files')
 	parser.add_argument('--set-masterkey1', help='Changes the master key encryption for NSP.')
@@ -417,6 +418,7 @@ if __name__ == '__main__':
 	parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
 	parser.add_argument('-m', '--hostname', help='Set server hostname')
 	parser.add_argument('-p', '--port', type=int, help='Set server port')
+	parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
 
 	parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 	parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
@@ -571,6 +573,15 @@ if __name__ == '__main__':
 	if args.nca_deltas:
 		logNcaDeltas(args.nca_deltas)
 
+	if args.verify:
+		for fileName in args.file:
+			f = Fs.factory(fileName)
+			f.open(fileName, 'r+b')
+			if f.verifyKey(args.verify):
+				print('key verified for ' + fileName)
+			else:
+				print('key failure for ' + fileName)
+
 	if args.info:
 		initTitles()
 		initFiles()
@@ -665,6 +676,11 @@ if __name__ == '__main__':
 		initTitles()
 		initFiles()
 		Server.run()
+
+	if args.blockchain:
+		initTitles()
+		initFiles()
+		blockchain.run()
 		
 	if len(sys.argv)==1:
 		scan()
