@@ -37,7 +37,7 @@ def loopThread():
 	global threadRun
 	global jsonData
 
-	while threadRun:
+	while threadRun and Config.isRunning:
 		time.sleep(1)
 		jsonData = []
 		for i in lst:

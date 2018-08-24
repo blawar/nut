@@ -23,6 +23,7 @@ import unidecode
 import urllib3
 import Print
 import Status
+import Config
 
 #Global Vars
 titlekey_list = []
@@ -268,6 +269,9 @@ def download_file(url, fPath, titleId = None):
 			f.write(chunk)
 			s.add(len(chunk))
 			dlded += len(chunk)
+
+			if not Config.isRunning:
+				break
 		s.close()
 	else:
 		f.write(r.content)
