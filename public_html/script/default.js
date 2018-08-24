@@ -118,7 +118,7 @@ angular
 
   		for (key in res.data) {
   			title = res.data[key];
-  			if (!title.isUpdate && !title.isDLC) {
+  			if (!title.isUpdate && !title.isDLC && title.id) {
   				updateId = title.id.substring(0, title.id.length - 3) + '800';
   				if (titlesDict[updateId]) {
   					title.latestVersion = titlesDict[updateId].version;
