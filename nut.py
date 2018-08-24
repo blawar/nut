@@ -354,7 +354,7 @@ def unlockAll():
 
 def submitKeys():
 	for id, t in Titles.items():
-		if t.key:
+		if t.key and not t.isUpdate:
 			try:
 				blockchain.blockchain.suggest(t.id, t.key)
 			except BaseException as e:
