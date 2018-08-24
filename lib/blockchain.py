@@ -34,8 +34,9 @@ class KeyEntry:
 		ncaHeader = Fs.NcaHeader()
 		ncaHeader.open(File.MemoryFile(self.ncaHeader, Type.Crypto.XTS, uhx(Keys.get('header_key'))))
 
-		if str(self.titleId) != str(ncaHeader.titleId):
-			raise IndexError('Title IDs do not match!  ' + str(self.titleId) + ' != ' + str(ncaHeader.titleId))
+		id = ncaHeader.rightsId[0:16].decode().upper()
+		if str(self.titleId) != id:
+			raise IndexError('Title IDs do not match!  ' + str(self.titleId) + ' != ' + id)
 
 		decKey = Keys.decryptTitleKey(uhx(self.titleKey), ncaHeader.masterKey)
 
