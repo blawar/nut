@@ -95,8 +95,9 @@ class Status:
 			self.a += v
 			try:
 				self.tqdm.update(v)
-			except:
-				self.close()
+			except BaseException as e:
+				#self.close()
+				pass
 		#lock.release()
 
 	def update(self, v=1):
@@ -127,6 +128,10 @@ class Status:
 			#lock.release()
 
 	def isOpen(self):
+		if self.size:
+			return True
+		else:
+			return False
 		return True if self.size != None else False
 
 def start():
