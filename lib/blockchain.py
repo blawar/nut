@@ -283,6 +283,23 @@ class Blockchain:
 
 						return True
 
+			if type(f) == Fs.Nca and f.header.contentType == Type.Content.UNKNOWN:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						f.seek(self.ivfc.levels[0].offset)
+						pfs0Header = f.read(self.ivfc.levels[0].size)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, self.ivfc.levels[0].offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+
 		return False
 
 	@property
