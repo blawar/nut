@@ -153,8 +153,7 @@ def make_request(method, url, certificate='', hdArgs={}):
 	r = requests.request(method, url, cert=certificate, headers=reqHd, verify=False, stream=True)
 
 	if r.status_code == 403:
-		Print.error('Request rejected by server! Check your cert.')
-		return r
+		raise IOError('Request rejected by server! Check your cert')
 
 	return r
 
@@ -375,7 +374,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 		try:
 			r = make_request('HEAD', url)
 		except Exception as e:
-			Print.error("Error downloading title. Check for incorrect titleid or version.")
+			Print.error("Error downloading title. Check for incorrect titleid or version: " + str(e))
 			return
 		CNMTid = r.headers.get('X-Nintendo-Content-ID')
 
