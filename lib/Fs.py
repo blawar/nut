@@ -5,7 +5,9 @@ import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from File import File
+from File import MemoryFile
 from File import BufferedFile
+from hashlib import sha256
 import Type
 import os
 import re
@@ -281,14 +283,68 @@ class HFS0(PFS0):
 		Print.info('\n%sHFS0\n' % (tabs))
 		super(PFS0, self).printInfo(indent)
 
+class IvfcLevel:
+	def __init__(self, offset, size, blockSize, reserved):
+		self.offset = offset
+		self.size = size
+		self.blockSize = blockSize
+		self.reserved = reserved
+
+class Ivfc(File):
+	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		self.magic = None
+		self.magicNumber = None
+		self.masterHashSize = None
+		self.numberLevels = None
+		self.levels = []
+		self.hash = None
+		super(Ivfc, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
+
+	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(Ivfc, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+		self.magic = self.read(0x4)
+		self.magicNumber = self.readInt32()
+		self.masterHashSize = self.readInt32()
+		self.numberLevels = self.readInt32()
+
+		for i in range(self.numberLevels-1):
+			self.levels.append(IvfcLevel(self.readInt64(), self.readInt64(), self.readInt32(), self.readInt32()))
+
+		self.read(32)
+		self.hash = self.read(32)
 		
 class ROMFS(SectionFilesystem):
 	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(ROMFS, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
-		self.magic = buffer[0x8:0xC]
+		if buffer:
+			self.ivfc = Ivfc(MemoryFile(buffer[0x8:]), 'rb')
+			self.magic = buffer[0x8:0xC]
+		else:
+			self.ivfc = None
 
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		r = super(ROMFS, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
+
+	def printInfo(self, indent = 0):
+		tabs = '\t' * indent
+		Print.info('\n%sROMFS' % (tabs))
+		if self.ivfc:
+			Print.info('%sMagic = %s' % (tabs, self.ivfc.magic))
+			Print.info('%sLevels = %d' % (tabs, self.ivfc.numberLevels))
+			Print.info('%sHash = %s' % (tabs, hx(self.ivfc.hash).decode()))
+			if self.ivfc.numberLevels < 16:
+				for i,level in enumerate(self.ivfc.levels):
+					Print.info('%sLevel%d offset = %d' % (tabs, i, level.offset))
+					Print.info('%sLevel%d size = %d' % (tabs, i, level.size))
+					Print.info('%sLevel%d blockSize = %d' % (tabs, i, level.blockSize))
+		'''
+		self.seek(0)
+		level1 = self.read(0x4000)
+		Print.info('%ssha = %s' % (tabs, sha256(level1).hexdigest()))
+		Hex.dump(level1)
+		'''
+		super(ROMFS, self).printInfo(indent)
 		
 def GetSectionFilesystem(buffer, cryptoKey):
 	fsType = buffer[0x3]

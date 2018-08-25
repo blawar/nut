@@ -717,17 +717,15 @@ if __name__ == '__main__':
 			downloadAll()
 
 		Status.close()
-
-		Print.info('exiting')
 	
-		#scan()
-		
-		#logMissingTitles()
 
-		#downloadAll()
-
-		#Titles.save()
+	except KeyboardInterrupt:
+		Config.isRunning = False
+		Status.close()
 	except BaseException as e:
 		Config.isRunning = False
+		Status.close()
 		raise
+
+	Print.info('fin')
 
