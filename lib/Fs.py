@@ -308,7 +308,7 @@ class Ivfc(File):
 		self.masterHashSize = self.readInt32()
 		self.numberLevels = self.readInt32()
 
-		for i in range(self.numberLevels):
+		for i in range(self.numberLevels-1):
 			self.levels.append(IvfcLevel(self.readInt64(), self.readInt64(), self.readInt32(), self.readInt32()))
 
 		self.read(32)

@@ -321,7 +321,7 @@ def verify_NCA(ncaFile, titleKey):
 	try:
 		output = str(subprocess.check_output(commandLine, stderr=subprocess.STDOUT, shell=True))
 	except subprocess.CalledProcessError as exc:
-		Print.error("Status : FAIL", exc.returncode, exc.output)
+		Print.error("Status : FAIL" + str(exc.returncode) + ', ' + str(exc.output))
 		return False
 	else:
 		if "Error: section 0 is corrupted!" in output or "Error: section 1 is corrupted!" in output:
