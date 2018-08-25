@@ -338,10 +338,12 @@ class ROMFS(SectionFilesystem):
 					Print.info('%sLevel%d offset = %d' % (tabs, i, level.offset))
 					Print.info('%sLevel%d size = %d' % (tabs, i, level.size))
 					Print.info('%sLevel%d blockSize = %d' % (tabs, i, level.blockSize))
+		'''
 		self.seek(0)
 		level1 = self.read(0x4000)
 		Print.info('%ssha = %s' % (tabs, sha256(level1).hexdigest()))
 		Hex.dump(level1)
+		'''
 		super(ROMFS, self).printInfo(indent)
 		
 def GetSectionFilesystem(buffer, cryptoKey):
