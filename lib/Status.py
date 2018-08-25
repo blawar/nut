@@ -38,7 +38,7 @@ def loopThread():
 	global jsonData
 
 	while threadRun and Config.isRunning:
-		time.sleep(1)
+		time.sleep(0.5)
 		jsonData = []
 		for i in lst:
 			if i.isOpen():
