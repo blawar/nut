@@ -191,7 +191,7 @@ def downloadAll(wait = True):
 					continue
 				
 				if not t.lastestVersion():
-					Print.info('Could not get version for ' + t.name)
+					Print.info('Could not get version for ' + str(t.name))
 					continue
 
 				Titles.queue.add(t.id)
