@@ -164,11 +164,10 @@ class Queue:
 
 	def load(self):
 		try:
-			with open('queue.txt', encoding="utf-8-sig") as f:
+			with open('conf/queue.txt', encoding="utf-8-sig") as f:
 				for line in f.read().split('\n'):
 					self.add(line.strip())
 		except BaseException as e:
-			Print.error('Queue load error: ' + str(e))
 			pass
 
 	def size(self):
@@ -177,7 +176,7 @@ class Queue:
 	def save(self):
 		self.lock.acquire()
 		try:
-			with open('queue.txt', 'w', encoding='utf-8') as f:
+			with open('conf/queue.txt', 'w', encoding='utf-8') as f:
 				for id in self.queue:
 					f.write(id + '\n')
 		except:

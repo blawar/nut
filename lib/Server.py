@@ -123,6 +123,10 @@ def Response500(request, response):
 	response.setStatus(500)
 	response.write('500')
 
+def Response401(request, response):
+	response.setStatus(401)
+	response.write('401')
+
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
