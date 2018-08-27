@@ -24,12 +24,19 @@ def getTitleImage(request, response):
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
-	width = int(request.bits[3])
+	try:
+		width = int(request.bits[3])
+	except:
+		return Server.Response404()
+
 
 	if width < 32 or width > 1024:
 		return Server.Response404(request, response)
 
 	path = Titles.get(id).iconFile(width) or Titles.get(id).frontBoxArtFile(width)
+
+	if not path:
+		return Server.Response404()
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -47,6 +54,9 @@ def getBannerImage(request, response):
 	id = request.bits[2]
 
 	path = Titles.get(id).bannerFile()
+
+	if not path:
+		return Server.Response404()
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -69,6 +79,9 @@ def getFrontArtBoxImage(request, response):
 
 	path = Titles.get(id).frontBoxArtFile()
 
+	if not path:
+		return Server.Response404()
+
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
 
@@ -83,10 +96,17 @@ def getScreenshotImage(request, response):
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
-	i = int(request.bits[3])
+
+	try:
+		i = int(request.bits[3])
+	except:
+		return Server.Response404()
 
 
 	path = Titles.get(id).screenshotFile(i)
+
+	if not path:
+		return Server.Response404()
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
