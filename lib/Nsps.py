@@ -90,7 +90,7 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'files.json'):
+def load(fileName = 'titledb/files.json'):
 	global hasLoaded
 
 	if hasLoaded:
