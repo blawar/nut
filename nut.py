@@ -207,6 +207,25 @@ def downloadAll(wait = True):
 	if status:
 		status.close()
 
+def scanDLC(id):
+	id = id.upper()
+	title = Titles.get(id)
+	baseDlc = Title.baseDlcId(id)
+	for i in range(0x1FF):
+		scanId = format(baseDlc + i, 'X').zfill(16)
+		if Titles.contains(scanId):
+			continue
+		ver = CDNSP.get_version(scanId.lower())
+		if ver != None:
+			t = Title()
+			t.setId(scanId)
+			Titles.set(scanId, t)
+			Titles.save()
+			Print.info('Found new DLC ' + str(title.name) + ' : ' + scanId)
+		else:
+			Print.info('nothing found at ' + scanId + ', ' + str(ver))
+	# CDNSP.get_version(args.info.lower())
+
 			
 def export(file):
 	initTitles()
@@ -274,6 +293,7 @@ def scanLatestTitleUpdates():
 			t = Title()
 			t.setId(id)
 			Titles.set(id, t)
+			Print.info('Found new title id: ' + str(id))
 			
 		t = Titles.get(id)
 		if str(t.version) != str(version):
@@ -415,7 +435,7 @@ if __name__ == '__main__':
 		parser.add_argument('--set-masterkey3', help='Changes the master key encryption for NSP.')
 		parser.add_argument('--set-masterkey4', help='Changes the master key encryption for NSP.')
 		parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
-		parser.add_argument('--remove-title-rights', help='Removes title rights encryption from all NCA\'s in the NSP.')
+		parser.add_argument('--remove-title-rights', nargs='+', help='Removes title rights encryption from all NCA\'s in the NSP.')
 		parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 		parser.add_argument('-a', '--archive-scan', action="store_true", help='scan remote achive for NSP files')
 		parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
@@ -440,6 +460,8 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
+
+		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
 		
 		args = parser.parse_args()
 
@@ -589,11 +611,14 @@ if __name__ == '__main__':
 			pass
 
 		if args.remove_title_rights:
-			f = Fs.Nsp(args.remove_title_rights, 'r+b')
-			f.removeTitleRights()
-			f.flush()
-			f.close()
-			pass
+			for fileName in args.remove_title_rights:
+				try:
+					f = Fs.Nsp(fileName, 'r+b')
+					f.removeTitleRights()
+					f.flush()
+					f.close()
+				except BaseException as e:
+					Print.error('Exception: ' + str(e))
 
 		if args.nca_deltas:
 			logNcaDeltas(args.nca_deltas)
@@ -715,6 +740,14 @@ if __name__ == '__main__':
 			scan()
 			organize()
 			downloadAll()
+
+		if args.scan_dlc:
+			initTitles()
+			initFiles()
+			if len(args.scan_dlc) > 0:
+				for id in args.scan_dlc:
+					scanDLC(id)
+			pass
 
 		Status.close()
 	
