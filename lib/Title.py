@@ -30,12 +30,12 @@ grabUrlInit = False
 urlCache = {}
 urlLock = threading.Lock()	
 
-if os.path.isfile('redirectCache.json'):
-	with open('redirectCache.json', encoding="utf-8-sig") as f:
+if os.path.isfile('titledb/redirectCache.json'):
+	with open('titledb/redirectCache.json', encoding="utf-8-sig") as f:
 		urlCache = json.loads(f.read())
 
-if os.path.isfile('titleRedirects.json'):
-	with open('titleRedirects.json', encoding="utf-8-sig") as f:
+if os.path.isfile('titledb/titleRedirects.json'):
+	with open('titledb/titleRedirects.json', encoding="utf-8-sig") as f:
 		titleRedirects = json.loads(f.read())
 
 def grabCachedRedirectUrl(url, cookies = None):

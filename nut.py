@@ -37,14 +37,14 @@ import random
 def loadTitleWhitelist():
 	global titleWhitelist
 	titleWhitelist = []
-	with open('whitelist.txt', encoding="utf8") as f:
+	with open('conf/whitelist.txt', encoding="utf8") as f:
 		for line in f.readlines():
 			titleWhitelist.append(line.strip().upper())
 			
 def loadTitleBlacklist():
 	global titleBlacklist
 	titleBlacklist = []
-	with open('blacklist.txt', encoding="utf8") as f:
+	with open('conf/blacklist.txt', encoding="utf8") as f:
 		for line in f.readlines():
 			titleBlacklist.append(line.strip().upper())
 			
