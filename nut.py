@@ -111,7 +111,7 @@ global status
 status = None
 
 global scrapeThreads
-scrapeThreads = 10
+scrapeThreads = 16
 
 def scrapeThread(id, delta = True):
 	size = len(Titles.titles) // scrapeThreads
@@ -195,6 +195,7 @@ def downloadAll(wait = True):
 					continue
 
 				Titles.queue.add(t.id)
+		Titles.save()
 		status = Status.create(Titles.queue.size(), 'Total Download')
 		startDownloadThreads()
 		while wait and (not Titles.queue.empty() or sum(activeDownloads) > 0):
@@ -207,7 +208,7 @@ def downloadAll(wait = True):
 	if status:
 		status.close()
 
-def scanDLC(id):
+def scanDLC(id, showErr = True, dlcStatus = None):
 	id = id.upper()
 	title = Titles.get(id)
 	baseDlc = Title.baseDlcId(id)
@@ -222,14 +223,35 @@ def scanDLC(id):
 			Titles.set(scanId, t)
 			Titles.save()
 			Print.info('Found new DLC ' + str(title.name) + ' : ' + scanId)
-		else:
+		elif showErr:
 			Print.info('nothing found at ' + scanId + ', ' + str(ver))
+		if dlcStatus:
+			dlcStatus.add()
 	# CDNSP.get_version(args.info.lower())
+
+def scanDLCThread(queue, dlcStatus):
+	while queue.size() > 0 and Config.isRunning:
+		id = queue.shift()
+		if id:
+			scanDLC(id, False, dlcStatus)
+
+def startDlcScan(queue):
+	dlcStatus = Status.create(queue.size() * 0x200, 'DLC Scan')
+	#scanDLC(id)
+	threads = []
+	for i in range(scrapeThreads):
+		t = threading.Thread(target=scanDLCThread, args=[queue, dlcStatus])
+		t.start()
+		threads.append(t)
+
+	for t in threads:
+		t.join()
+	dlcStatus.close()
 
 			
 def export(file):
 	initTitles()
-	Titles.save(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly'])
+	Titles.export(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly'])
 
 global hasScanned
 hasScanned = False
@@ -442,7 +464,7 @@ if __name__ == '__main__':
 		parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 		parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
 		parser.add_argument('-c', '--create', help='create / pack a NSP')
-		parser.add_argument('--export-missing', help='export title database in csv format')
+		parser.add_argument('--export', help='export title database in csv format')
 		parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 		parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 		parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
@@ -708,8 +730,8 @@ if __name__ == '__main__':
 		if args.download_all:
 			downloadAll()
 		
-		if args.export_missing:
-			export(args.export_missing)
+		if args.export:
+			export(args.export)
 		
 		if args.missing:
 			logMissingTitles(args.missing)
@@ -734,13 +756,18 @@ if __name__ == '__main__':
 			organize()
 			downloadAll()
 
-		if args.scan_dlc:
+		if args.scan_dlc != None:
 			initTitles()
 			initFiles()
+			queue = Titles.Queue()
 			if len(args.scan_dlc) > 0:
 				for id in args.scan_dlc:
-					scanDLC(id)
-			pass
+					queue.add(id)
+			else:
+				for i,k in Titles.items():
+					if not k.isDLC and not k.isUpdate and k.id:
+						queue.add(k.id)
+			startDlcScan(queue)
 
 		Status.close()
 	

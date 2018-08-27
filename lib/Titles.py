@@ -129,10 +129,10 @@ class Queue:
 		self.lock = threading.Lock()
 		self.i = 0
 
-	def add(self, id):
+	def add(self, id, skipCheck = False):
 		self.lock.acquire()
 		id = id.upper()
-		if not id in self.queue and self.isValid(id):
+		if not id in self.queue and (skipCheck or self.isValid(id)):
 			self.queue.append(id)
 		self.lock.release()
 
