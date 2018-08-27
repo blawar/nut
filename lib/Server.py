@@ -153,8 +153,6 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		if not Users.auth(id, password, self.client_address[0]):
 			return Response401(request, response)
 
-		Print.info(self.headers['Authorization'])
-
 		try:
 			if len(request.bits) > 0 and request.bits[0] in self.mappings:
 				i = request.bits[1]
