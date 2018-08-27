@@ -262,6 +262,13 @@ class Title:
 			# update
 			self.isUpdate = True
 			pass
+
+	@staticmethod
+	def baseDlcId(id):
+		titleIdNum = int(id, 16)
+		
+		return (titleIdNum & 0xFFFFFFFFFFFFE000) + 0x1000
+		#return hex(dlcId)
 			
 	def getId(self):
 		return self.id or '0000000000000000'

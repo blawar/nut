@@ -207,6 +207,25 @@ def downloadAll(wait = True):
 	if status:
 		status.close()
 
+def scanDLC(id):
+	id = id.upper()
+	title = Titles.get(id)
+	baseDlc = Title.baseDlcId(id)
+	for i in range(0x1FF):
+		scanId = format(baseDlc + i, 'X').zfill(16)
+		if Titles.contains(scanId):
+			continue
+		ver = CDNSP.get_version(scanId.lower())
+		if ver != None:
+			t = Title()
+			t.setId(scanId)
+			Titles.set(scanId, t)
+			Titles.save()
+			Print.info('Found new DLC ' + str(title.name) + ' : ' + scanId)
+		else:
+			Print.info('nothing found at ' + scanId + ', ' + str(ver))
+	# CDNSP.get_version(args.info.lower())
+
 			
 def export(file):
 	initTitles()
@@ -271,6 +290,7 @@ def scanLatestTitleUpdates():
 			t = Title()
 			t.setId(id)
 			Titles.set(id, t)
+			Print.info('Found new title id: ' + str(id))
 			
 		t = Titles.get(id)
 		if str(t.version) != str(version):
@@ -436,6 +456,8 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
+
+		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
 		
 		args = parser.parse_args()
 
@@ -711,6 +733,14 @@ if __name__ == '__main__':
 			scan()
 			organize()
 			downloadAll()
+
+		if args.scan_dlc:
+			initTitles()
+			initFiles()
+			if len(args.scan_dlc) > 0:
+				for id in args.scan_dlc:
+					scanDLC(id)
+			pass
 
 		Status.close()
 	
