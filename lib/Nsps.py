@@ -120,7 +120,7 @@ def load(fileName = 'files.json'):
 		raise
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
-def save(fileName = 'files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	lock.acquire()
 
 	try:
@@ -133,3 +133,6 @@ def save(fileName = 'files.json', map = ['id', 'path', 'version', 'timestamp', '
 		lock.release()
 		raise
 	lock.release()
+
+if os.path.isfile('files.json'):
+	os.rename('files.json', 'titledb/files.json')

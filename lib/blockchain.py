@@ -124,7 +124,7 @@ class Blockchain:
 			self.new_block(previous_hash='1')
 
 	def save(self):
-		with open('blockchain.json', 'w') as outfile:
+		with open('titledb/blockchain.json', 'w') as outfile:
 			obj = []
 			for i in self.chain:
 				obj.append(i.serialize())
@@ -132,8 +132,8 @@ class Blockchain:
 
 	def load(self):
 		try:
-			if os.path.isfile('blockchain.json'):
-				with open('blockchain.json', encoding="utf-8-sig") as f:
+			if os.path.isfile('titledb/blockchain.json'):
+				with open('titledb/blockchain.json', encoding="utf-8-sig") as f:
 					self.chain = []
 
 					for j in json.loads(f.read()):
