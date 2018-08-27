@@ -51,7 +51,7 @@ def getTitleImage(request, response):
 	return Server.Response500(request, response)
 
 def getBannerImage(request, response):
-	if len(request.bits) < 2:
+	if len(request.bits) < 3:
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
