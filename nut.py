@@ -30,6 +30,7 @@ import time
 import colorama
 import Server
 import pprint
+import random
 
 
 				
@@ -247,6 +248,50 @@ def startDlcScan(queue):
 	for t in threads:
 		t.join()
 	dlcStatus.close()
+
+# 0100EBE002B3E000
+def getRandomTitleId():
+	n = random.randint(0, 0x10000000)
+	id = 0x100000000000000
+	id += (n & 0xFFFF) << 12
+	id += (n & 0xFFF0000) << 20
+
+	return format(id, 'X').zfill(16)
+
+def scanBaseThread(baseStatus):
+	while Config.isRunning:
+		try:
+			id = getRandomTitleId()
+
+			if Titles.contains(id):
+				continue
+
+			ver = CDNSP.get_version(id.lower())
+
+			if ver != None:
+				Print.info('Found new base ' + id)
+				t = Title()
+				t.setId(id)
+				Titles.set(id, t)
+				Titles.save()
+
+			baseStatus.add()
+		except BaseException as e:
+			print('exception: ' + str(e))
+
+def startBaseScan():
+	baseStatus = Status.create(pow(2,28), 'Base Scan')
+
+	threads = []
+	for i in range(scrapeThreads):
+		t = threading.Thread(target=scanBaseThread, args=[baseStatus])
+		t.start()
+		threads.append(t)
+
+	for t in threads:
+		t.join()
+
+	baseStatus.close()
 
 			
 def export(file):
@@ -479,6 +524,7 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 
+		parser.add_argument('--scan-base', nargs='*', help='Scan for new base Title ID\'s')
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
 		
 		args = parser.parse_args()
@@ -768,6 +814,11 @@ if __name__ == '__main__':
 					if not k.isDLC and not k.isUpdate and k.id:
 						queue.add(k.id)
 			startDlcScan(queue)
+
+		if args.scan_base != None:
+			initTitles()
+			initFiles()
+			startBaseScan()
 
 		Status.close()
 	
