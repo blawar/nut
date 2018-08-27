@@ -88,10 +88,13 @@ class NutResponse:
 		self.status = s
 
 	def setMime(self, fileName):
-		name, ext = os.path.splitext(fileName)
+		try:
+			name, ext = os.path.splitext(fileName)
 
-		if ext in mimes:
-			self.headers['Content-type'] = mimes[ext]
+			if ext in mimes:
+				self.headers['Content-type'] = mimes[ext]
+		except:
+			pass
 
 	def attachFile(self, fileName):
 		Print.info('Attaching file ' + fileName)
