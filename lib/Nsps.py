@@ -115,7 +115,6 @@ def load(fileName = 'titledb/files.json'):
 					path = os.path.abspath(t.path)
 					if os.path.isfile(path): 
 						files[path] = t #Fs.Nsp(path, None)
-		print('could not load files file')
 	except:
 		raise
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
