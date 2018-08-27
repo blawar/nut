@@ -33,6 +33,9 @@ def getTitleImage(request, response):
 	if width < 32 or width > 1024:
 		return Server.Response404(request, response)
 
+	if not Titles.contains(id):
+		return Server.Response404()
+
 	path = Titles.get(id).iconFile(width) or Titles.get(id).frontBoxArtFile(width)
 
 	if not path:
@@ -52,6 +55,9 @@ def getBannerImage(request, response):
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
+
+	if not Titles.contains(id):
+		return Server.Response404()
 
 	path = Titles.get(id).bannerFile()
 
@@ -76,6 +82,9 @@ def getFrontArtBoxImage(request, response):
 
 	#if width < 32 or width > 512:
 	#	return Server.Response404(request, response)
+
+	if not Titles.contains(id):
+		return Server.Response404()
 
 	path = Titles.get(id).frontBoxArtFile()
 
@@ -102,6 +111,8 @@ def getScreenshotImage(request, response):
 	except:
 		return Server.Response404()
 
+	if not Titles.contains(id):
+		return Server.Response404()
 
 	path = Titles.get(id).screenshotFile(i)
 
@@ -157,13 +168,14 @@ def getTitleUpdates(request, response):
 def getFiles(request, response):
 	r = {}
 	for path, nsp in Nsps.files.items():
-		title = Titles.get(nsp.titleId)
-		if not title.baseId in r:
-			r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
-		if title.isDLC:
-			r[title.baseId]['dlc'].append(nsp.dict())
-		elif title.isUpdate:
-			r[title.baseId]['update'].append(nsp.dict())
-		else:
-			r[title.baseId]['base'].append(nsp.dict())
+		if Titles.contains(nsp.titleId):
+			title = Titles.get(nsp.titleId)
+			if not title.baseId in r:
+				r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
+			if title.isDLC:
+				r[title.baseId]['dlc'].append(nsp.dict())
+			elif title.isUpdate:
+				r[title.baseId]['update'].append(nsp.dict())
+			else:
+				r[title.baseId]['base'].append(nsp.dict())
 	response.write(json.dumps(r))
