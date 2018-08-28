@@ -8,6 +8,8 @@ import sys
 import os
 import Print
 import urllib
+import Users
+import base64
 
 import Web.Api
 
@@ -86,10 +88,13 @@ class NutResponse:
 		self.status = s
 
 	def setMime(self, fileName):
-		name, ext = os.path.splitext(fileName)
+		try:
+			name, ext = os.path.splitext(fileName)
 
-		if ext in mimes:
-			self.headers['Content-type'] = mimes[ext]
+			if ext in mimes:
+				self.headers['Content-type'] = mimes[ext]
+		except:
+			pass
 
 	def attachFile(self, fileName):
 		Print.info('Attaching file ' + fileName)
@@ -123,6 +128,11 @@ def Response500(request, response):
 	response.setStatus(500)
 	response.write('500')
 
+def Response401(request, response):
+	response.setStatus(401)
+	response.headers['WWW-Authenticate'] = 'Basic realm=\"Nut\"'
+	response.write('401')
+
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
@@ -137,6 +147,14 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(self):
 		request = NutRequest(self)
 		response = NutResponse(self)
+
+		if self.headers['Authorization'] == None:
+			return Response401(request, response)
+
+		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+
+		if not Users.auth(id, password, self.client_address[0]):
+			return Response401(request, response)
 
 		try:
 			if len(request.bits) > 0 and request.bits[0] in self.mappings:

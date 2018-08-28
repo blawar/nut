@@ -90,7 +90,7 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'files.json'):
+def load(fileName = 'titledb/files.json'):
 	global hasLoaded
 
 	if hasLoaded:
@@ -115,12 +115,11 @@ def load(fileName = 'files.json'):
 					path = os.path.abspath(t.path)
 					if os.path.isfile(path): 
 						files[path] = t #Fs.Nsp(path, None)
-		print('could not load files file')
 	except:
 		raise
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
-def save(fileName = 'files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
 	lock.acquire()
 
 	try:
@@ -133,3 +132,6 @@ def save(fileName = 'files.json', map = ['id', 'path', 'version', 'timestamp', '
 		lock.release()
 		raise
 	lock.release()
+
+if os.path.isfile('files.json'):
+	os.rename('files.json', 'titledb/files.json')

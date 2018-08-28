@@ -24,12 +24,22 @@ def getTitleImage(request, response):
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
-	width = int(request.bits[3])
+	try:
+		width = int(request.bits[3])
+	except:
+		return Server.Response404(request, response)
+
 
 	if width < 32 or width > 1024:
 		return Server.Response404(request, response)
 
+	if not Titles.contains(id):
+		return Server.Response404(request, response)
+
 	path = Titles.get(id).iconFile(width) or Titles.get(id).frontBoxArtFile(width)
+
+	if not path:
+		return Server.Response404(request, response)
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -41,12 +51,18 @@ def getTitleImage(request, response):
 	return Server.Response500(request, response)
 
 def getBannerImage(request, response):
-	if len(request.bits) < 2:
+	if len(request.bits) < 3:
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
 
+	if not Titles.contains(id):
+		return Server.Response404(request, response)
+
 	path = Titles.get(id).bannerFile()
+
+	if not path:
+		return Server.Response404(request, response)
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -67,7 +83,13 @@ def getFrontArtBoxImage(request, response):
 	#if width < 32 or width > 512:
 	#	return Server.Response404(request, response)
 
+	if not Titles.contains(id):
+		return Server.Response404(request, response)
+
 	path = Titles.get(id).frontBoxArtFile()
+
+	if not path:
+		return Server.Response404(request, response)
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -83,10 +105,19 @@ def getScreenshotImage(request, response):
 		return Server.Response404(request, response)
 
 	id = request.bits[2]
-	i = int(request.bits[3])
 
+	try:
+		i = int(request.bits[3])
+	except:
+		return Server.Response404(request, response)
+
+	if not Titles.contains(id):
+		return Server.Response404(request, response)
 
 	path = Titles.get(id).screenshotFile(i)
+
+	if not path:
+		return Server.Response404(request, response)
 
 	response.setMime(path)
 	response.headers['Cache-Control'] = 'max-age=31536000'
@@ -137,13 +168,14 @@ def getTitleUpdates(request, response):
 def getFiles(request, response):
 	r = {}
 	for path, nsp in Nsps.files.items():
-		title = Titles.get(nsp.titleId)
-		if not title.baseId in r:
-			r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
-		if title.isDLC:
-			r[title.baseId]['dlc'].append(nsp.dict())
-		elif title.isUpdate:
-			r[title.baseId]['update'].append(nsp.dict())
-		else:
-			r[title.baseId]['base'].append(nsp.dict())
+		if Titles.contains(nsp.titleId):
+			title = Titles.get(nsp.titleId)
+			if not title.baseId in r:
+				r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
+			if title.isDLC:
+				r[title.baseId]['dlc'].append(nsp.dict())
+			elif title.isUpdate:
+				r[title.baseId]['update'].append(nsp.dict())
+			else:
+				r[title.baseId]['base'].append(nsp.dict())
 	response.write(json.dumps(r))

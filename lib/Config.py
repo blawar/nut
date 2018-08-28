@@ -178,18 +178,14 @@ def load(confFile):
 		except:
 			pass
 
-if os.path.isfile('nut.default.conf'):
-	load('nut.default.conf')
-
 if os.path.isfile('nut.conf'):
-	load('nut.conf')
+	os.rename('nut.conf', 'conf/nut.conf')
 
-if os.path.isfile('CDNSPconfig.json'):	
-		with open('CDNSPconfig.json', encoding="utf8") as f:
-			j = json.load(f)
-			try:
-				if j['Values']['TitleKeysURL'] not in titleUrls:
-					titleUrls.append(j['Values']['TitleKeysURL'])
-			except:
-				pass
+
+if os.path.isfile('conf/nut.default.conf'):
+	load('conf/nut.default.conf')
+
+if os.path.isfile('conf/nut.conf'):
+	load('conf/nut.conf')
+
 
