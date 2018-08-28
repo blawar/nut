@@ -944,16 +944,16 @@ class Nsp(PFS0):
 			bt = Titles.get(t.baseId)
 		
 		if t.isDLC:
-			format = Config.paths.titleDLC
+			format = Config.paths.getTitleDLC(not self.hasValidTicket)
 		elif t.isDemo:
 			if t.idExt != 0:
-				format = Config.paths.titleDemoUpdate
+				format = Config.paths.getTitleDemoUpdate(not self.hasValidTicket)
 			else:
-				format = Config.paths.titleDemo
+				format = Config.paths.getTitleDemo(not self.hasValidTicket)
 		elif t.idExt != 0:
-			format = Config.paths.titleUpdate
+			format = Config.paths.getTitleUpdate(not self.hasValidTicket)
 		else:
-			format = Config.paths.titleBase
+			format = Config.paths.getTitleBase(not self.hasValidTicket)
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
 		format = format.replace('{region}', self.cleanFilename(t.region or ''))
@@ -962,10 +962,12 @@ class Nsp(PFS0):
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
 		format = format.replace('{baseName}', self.cleanFilename(bt.name or ''))
 		
+		'''
 		if self.hasValidTicket:
 			format = os.path.splitext(format)[0] + '.nsp'
 		else:
 			format = os.path.splitext(format)[0] + '.nsx'
+		'''
 		
 		return format
 		

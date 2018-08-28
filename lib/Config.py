@@ -23,6 +23,13 @@ class Paths:
 		self.titleUpdate = "titles/updates/{name}[{id}][v{version}].nsp"
 		self.titleDemo = "titles/demos/{name}[{id}][v{version}].nsp"
 		self.titleDemoUpdate = "titles/demos/updates/{name}[{id}][v{version}].nsp"
+
+		self.nsxTitleBase = None
+		self.nsxTitleDLC = None
+		self.nsxTitleUpdate = None
+		self.nsxTitleDemo = None
+		self.nsxTitleDemoUpdate = None
+
 		self.scan = '.'
 		self.titleDatabase = 'titledb'
 		self.hactool = 'bin/hactool'
@@ -39,6 +46,46 @@ class Paths:
 			self.hactool = './' + self.hactool + '_mac'
 			
 		self.hactool = os.path.normpath(self.hactool)
+
+	def getTitleBase(self, nsx):
+		if nsx:
+			f = self.nsxTitleBase or self.titleBase
+			f = os.path.splitext(f)[0] + '.nsx'
+		else:
+			f = self.titleBase
+		return f
+
+	def getTitleDLC(self, nsx):
+		if nsx:
+			f = self.nsxTitleDLC or self.titleDLC
+			f = os.path.splitext(f)[0] + '.nsx'
+		else:
+			f = self.titleDLC
+		return f
+
+	def getTitleUpdate(self, nsx):
+		if nsx:
+			f = self.nsxTitleUpdate or self.titleUpdate
+			f = os.path.splitext(f)[0] + '.nsx'
+		else:
+			f = self.titleUpdate
+		return f
+
+	def getTitleDemo(self, nsx):
+		if nsx:
+			f = self.nsxTitleDemo or self.titleDemo
+			f = os.path.splitext(f)[0] + '.nsx'
+		else:
+			f = self.titleDemo
+		return f
+
+	def getTitleDemoUpdate(self, nsx):
+		if nsx:
+			f = self.nsxTitleDemoUpdate or self.titleDemoUpdate
+			f = os.path.splitext(f)[0] + '.nsx'
+		else:
+			f = self.titleDemoUpdate
+		return f
 		
 class Download:
 	def __init(self):
@@ -90,6 +137,34 @@ def load(confFile):
 			paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
 		except: 
 			pass
+
+
+		try:
+			paths.nsxTitleBase = j['paths']['nsxTitleBase']
+		except:
+			pass
+		
+		try:
+			paths.nsxTitleDLC = j['paths']['nsxTitleDLC']
+		except:
+			pass
+		
+		try:
+			paths.nsxTitleUpdate = j['paths']['nsxTitleUpdate']
+		except:
+			pass
+		
+		try:
+			paths.nsxTitleDemo = j['paths']['nsxTitleDemo']
+		except:
+			pass
+		
+		try:
+			paths.nsxTitleDemoUpdate = j['paths']['nsxTitleDemoUpdate']
+		except: 
+			pass
+
+
 	
 		try:
 			paths.scan = j['paths']['scan']
