@@ -111,6 +111,9 @@ angular
   				titlesDict[title.id] = title;
 
   				if (title.baseId != title.id && titlesDict[title.baseId] !== undefined) {
+  					if (!titlesDict[title.baseId].children) {
+  						titlesDict[title.baseId].children = [];
+  					}
   					titlesDict[title.baseId].children.push(title);
   				}
   			}
