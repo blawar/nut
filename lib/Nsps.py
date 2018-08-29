@@ -49,27 +49,31 @@ def scan(base):
 
 	status = Status.create(len(fileList), desc = 'Scanning files...')
 
+	try:
+		for path, name in fileList.items():
+			try:
+				status.add(1)
 
-	for path, name in fileList.items():
-		try:
-			status.add(1)
-
-			if not path in files:
-				Print.info('scanning ' + name)
-				nsp = Fs.Nsp(path, None)
+				if not path in files:
+					Print.info('scanning ' + name)
+					nsp = Fs.Nsp(path, None)
 						
-				files[nsp.path] = nsp
-				#files[nsp.path].readMeta()
+					files[nsp.path] = nsp
+					#files[nsp.path].readMeta()
 
-				i = i + 1
-				if i % 20 == 0:
-					save()
-		except KeyboardInterrupt:
-			raise
-		except BaseException as e:
-			Print.info('An error occurred processing file: ' + str(e))
-	save()
-	status.close()
+					i = i + 1
+					if i % 20 == 0:
+						save()
+			except KeyboardInterrupt:
+				status.close()
+				raise
+			except BaseException as e:
+				Print.info('An error occurred processing file: ' + str(e))
+				status.close()
+		save()
+		status.close()
+	except BaseException as e:
+		Print.info('An error occurred scanning files: ' + str(e))
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):
