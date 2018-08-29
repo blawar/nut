@@ -64,7 +64,7 @@ def grabCachedRedirectUrl(url, cookies = None):
 			#not sure but dont cache it
 			return result
 
-		with open('redirectCache.json', 'w') as outfile:
+		with open('titledb/redirectCache.json', 'w') as outfile:
 			json.dump(urlCache, outfile)
 		urlLock.release()
 		return result
