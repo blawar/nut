@@ -54,6 +54,16 @@ def loadTitleBuffer(buffer, silent = False):
 			firstLine = False
 			if re.match('[A-Za-z\|\s]+', line, re.I):
 				map = line.split('|')
+				
+				i = 0
+				while i < len(map):
+					if map[i] == 'RightsID':
+						map[i] = 'id'
+					if map[i] == 'TitleKey':
+						map[i] = 'key'
+					if map[i] == 'Name':
+						map[i] = 'name'
+					i += 1
 				continue
 		
 		t = Title.Title()
