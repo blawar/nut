@@ -1,10 +1,10 @@
 #!/bin/bash
 # */5 * * * * $HOME/nut/cron
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR=$(dirname "$0")
 (
-		flock -n 200 || exit 1
+		flock -n 9 || exit 1
 		$DIR/nut.py -UV > /dev/null 2>&1
 		$DIR/nut.py > /dev/null 2>&1
 		$DIR/nut.py -so --unlock-all > /dev/null 2>&1
 		$DIR/nut.py --scrape-delta
-) 200>$DIR/.lock
+) 9>$DIR/.lock
