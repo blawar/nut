@@ -11,7 +11,7 @@ import urllib
 import Users
 import base64
 
-import Web.Api
+import Server.Controller.Api
 
 
 global httpd
@@ -136,7 +136,7 @@ def Response401(request, response):
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
-		self.mappings = {'api': Web.Api}
+		self.mappings = {'api': Server.Controller.Api}
 		super(NutHandler, self).__init__(*args)
 
 	def do_HEAD(self):
