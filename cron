@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # */5 * * * * $HOME/nut/cron
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 (
