@@ -12,9 +12,11 @@ class User:
 		self.isAdmin = False
 		self.remoteAddr = None
 		self.requireAuth = True
+		self.switchHost = None
+		self.switchPort = None
 		pass
 
-	def loadCsv(self, line, map = ['id', 'key', 'name']):
+	def loadCsv(self, line, map = []):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
@@ -55,6 +57,18 @@ class User:
 	def getRequireAuth(self):
 		return str(self.requireAuth)
 
+	def setSwitchHost(self, host):
+		self.switchHost = host
+
+	def getSwitchHost(self):
+		return self.switchHost
+
+	def setSwitchPort(self, port):
+		self.switchPort = port
+
+	def getSwitchPort(self):
+		return self.switchPort
+
 def auth(id, password, address):
 	#print('Authing: ' + str(id) + ' - ' + str(password) + ', ' + str(address))
 
@@ -80,7 +94,7 @@ def load(path = 'conf/users.conf'):
 
 	global users
 	firstLine = True
-	map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth']
+	map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth', 'switchHost', 'switchPort']
 	with open(path, encoding="utf-8-sig") as f:
 		for line in f.readlines():
 			line = line.strip()
@@ -102,7 +116,7 @@ def load(path = 'conf/users.conf'):
 def save():
 	pass
 
-def export(fileName = 'conf/users.conf', map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth']):
+def export(fileName = 'conf/users.conf', map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth', 'switchHost', 'switchPort']):
 	global users
 	buffer = ''
 	
