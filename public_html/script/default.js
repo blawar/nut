@@ -48,6 +48,7 @@ angular
   	$scope.regionFilter = { US: true };
   	$scope.sortReverse = false;
   	$scope.sortPropertyName = 'name';
+  	$scope.user = null;
 
   	$scope.ownedOptions = [
 		{ id: 0, name: '' },
@@ -81,6 +82,10 @@ angular
 
   		return false;
   	};
+
+  	$http.get('/api/user').then(function (res) {
+  		$scope.user = res.data;
+  	});
 
   	$http.get('/api/titles').then(function (res) {
   		titles = [];

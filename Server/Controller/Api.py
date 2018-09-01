@@ -5,7 +5,11 @@ import Status
 import Nsps
 import Print
 import Server
+import Config
 import Hex
+import socket
+import struct
+import time
 
 try:
 	from PIL import Image
@@ -13,6 +17,9 @@ except ImportError:
 	import Image
 import Server
 import os
+
+def getUser(request, response):
+	response.write(json.dumps(request.user.__dict__))
 
 def getTitles(request, response):
 	o = []
@@ -134,9 +141,30 @@ def getPreload(request, response):
 	Titles.queue.add(request.bits[2])
 	response.write(json.dumps({'success': True}))
 
+def getInstall(request, response):
+	nsp = Nsps.getByTitleId(request.bits[2])
+
+	try:
+		url = ('%s:%s@%s:%d/api/download/%s/title.nsp' % (request.user.id, request.user.password, Config.server.hostname, Config.server.port, request.bits[2]))
+		Print.info('Installing ' + url)
+		file_list_payloadBytes = url.encode('ascii')
+
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		#sock.settimeout(1)
+		sock.connect((request.user.switchHost, request.user.switchPort))
+		#sock.settimeout(99999)
+
+		sock.sendall(struct.pack('!L', len(file_list_payloadBytes)) + file_list_payloadBytes)
+		while len(sock.recv(1)) < 1:
+			time.sleep(0.05)
+		sock.close()
+		response.write(json.dumps({'success': True, 'message': 'install successful'}))
+	except BaseException as e:
+		response.write(json.dumps({'success': False, 'message': str(e)}))
+
 def getDownload(request, response):
 	nsp = Nsps.getByTitleId(request.bits[2])
-	Print.info('Downloading ' + nsp.path)
+	#Print.info('Downloading ' + nsp.path)
 	response.attachFile(os.path.basename(nsp.path))
 	
 	chunkSize = 0x10000
@@ -172,7 +200,7 @@ def getDownload(request, response):
 		response.setHeader('Accept-Ranges', 'bytes')
 		response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
 		response.setHeader('Content-Length', str(end - start))
-		Print.info(response.headers['Content-Range'])
+		#Print.info(response.headers['Content-Range'])
 		response.sendHeader()
 
 		if not response.head:
