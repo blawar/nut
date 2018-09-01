@@ -6,6 +6,7 @@ import time
 import Config
 import sys
 import os
+import re
 import Print
 import urllib
 import Users
@@ -74,18 +75,31 @@ def run():
 class NutRequest:
 	def __init__(self, handler):
 		self.handler = handler
+		self.headers = handler.headers
 		self.path = handler.path
+		self.head = False
 		self.bits = [x for x in self.path.split('/') if x]
+
+	def setHead(self, h):
+		self.head = h
 
 class NutResponse:
 	def __init__(self, handler):
 		self.handler = handler
 		self.bytesSent = 0
 		self.status = 200
+		self.head = False
+		self.headersSent = False
 		self.headers = {'Content-type': 'text/html'}
+
+	def setHead(self, h):
+		self.head = h
 
 	def setStatus(self, s):
 		self.status = s
+
+	def setHeader(self, k, v):
+		self.headers[k] = v
 
 	def setMime(self, fileName):
 		try:
@@ -93,6 +107,8 @@ class NutResponse:
 
 			if ext in mimes:
 				self.headers['Content-type'] = mimes[ext]
+			else:
+				raise IOError('Mime not found')
 		except:
 			pass
 
@@ -108,9 +124,10 @@ class NutResponse:
 			self.handler.send_header(k, v)
 
 		self.handler.end_headers()
+		self.headersSent = True
 
 	def write(self, data):
-		if self.bytesSent == 0:
+		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
 
 		if type(data) == str:
@@ -119,6 +136,10 @@ class NutResponse:
 		self.bytesSent += len(data)
 
 		return self.handler.wfile.write(data)
+
+def Response400(request, response, error='400'):
+	response.setStatus(400)
+	response.write(error)
 
 def Response404(request, response):
 	response.setStatus(404)
@@ -136,18 +157,16 @@ def Response401(request, response):
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
+		self.basePath = os.path.abspath('.')
 		self.mappings = {'api': Server.Controller.Api}
 		super(NutHandler, self).__init__(*args)
 
 	def do_HEAD(self):
-		self.send_response(200)
-		self.send_header('Content-type', 'text/html')
-		self.end_headers()
-
-	def do_GET(self):
 		request = NutRequest(self)
 		response = NutResponse(self)
-
+		request.setHead(True)
+		response.setHead(True)
+		
 		if self.headers['Authorization'] == None:
 			return Response401(request, response)
 
@@ -155,7 +174,30 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 		if not Users.auth(id, password, self.client_address[0]):
 			return Response401(request, response)
+		
+		try:
+			if len(request.bits) > 0 and request.bits[0] in self.mappings:
+				i = request.bits[1]
+				methodName = 'get' + i[0].capitalize() + i[1:]
+				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
+				method(request, response)
+			else:
+				self.handleFile(request, response)
+		except BaseException as e:
+				self.wfile.write(Response500(request, response))
 
+	def do_GET(self):
+		request = NutRequest(self)
+		response = NutResponse(self)
+		
+		if self.headers['Authorization'] == None:
+			return Response401(request, response)
+
+		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+
+		if not Users.auth(id, password, self.client_address[0]):
+			return Response401(request, response)
+		
 		try:
 			if len(request.bits) > 0 and request.bits[0] in self.mappings:
 				i = request.bits[1]
@@ -169,6 +211,8 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 	def handleFile(self, request, response):
 		path = os.path.abspath('public_html' + self.path)
+		if not path.startswith(self.basePath):
+			raise IOError('invalid path requested: ' + self.basePath + ' vs ' + path)
 
 		if os.path.isdir(path):
 			path += '/index.html'

@@ -4,6 +4,8 @@ import Titles
 import Status
 import Nsps
 import Print
+import Server
+import Hex
 
 try:
 	from PIL import Image
@@ -140,13 +142,53 @@ def getDownload(request, response):
 	chunkSize = 0x10000
 
 	with open(nsp.path, "rb") as f:
-		while True:
-			chunk = f.read(chunkSize)
-			if chunk:
-				pass
-				response.write(chunk)
+		f.seek(0, 2)
+		size = f.tell()
+		if 'Range' in request.headers:
+			start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
+
+			if end == '':
+				end = size - 1
 			else:
-				break
+				end = int(end) + 1
+
+			if start == '':
+				start = size - end
+			else:
+				start = int(start)
+
+			if start >= size or end > size or start < 0 or end <= 0:
+				return Server.Response400(request, response, 'Invalid range request')
+
+			response.setStatus(206)
+
+		else:
+			start = 0
+			end = size
+
+		f.seek(start, 0)
+
+		response.setMime(nsp.path)
+		response.setHeader('Accept-Ranges', 'bytes')
+		response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
+		response.setHeader('Content-Length', str(end - start))
+		Print.info(response.headers['Content-Range'])
+		response.sendHeader()
+
+		if not response.head:
+			size = end - start
+
+			i = 0
+
+			while i < size:
+				chunk = f.read(min(size-i, chunkSize))
+				i += len(chunk)
+
+				if chunk:
+					pass
+					response.write(chunk)
+				else:
+					break
 
 def getQueue(request, response):
 	r = Status.data().copy()
