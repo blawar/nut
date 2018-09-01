@@ -64,7 +64,10 @@ class User:
 		return self.switchHost
 
 	def setSwitchPort(self, port):
-		self.switchPort = port
+		try:
+			self.switchPort = int(port)
+		except:
+			pass
 
 	def getSwitchPort(self):
 		return self.switchPort
@@ -73,20 +76,20 @@ def auth(id, password, address):
 	#print('Authing: ' + str(id) + ' - ' + str(password) + ', ' + str(address))
 
 	if not id in users:
-		return False
+		return None
 
 	user = users[id]
 
 	if user.requireAuth == 0 and address == user.remoteAddr:
-		return True
+		return user
 
 	if user.remoteAddr and user.remoteAddr != address:
-		return False
+		return None
 
 	if user.password != password:
-		return False
+		return None
 
-	return True
+	return user
 
 def load(path = 'conf/users.conf'):
 	if not os.path.isfile(path):

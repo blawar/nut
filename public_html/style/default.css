@@ -308,8 +308,7 @@ figure {
 	display: flex;
 }
 
-#game header a.download {
-	background-image: url(/images/download_white.png);
+#game header .controls {
 	display: block;
 	position: absolute;
 	right: 0.5em;
@@ -317,14 +316,19 @@ figure {
 	font-size: 2em;
 }
 
+#game header .controls a {
+	cursor: pointer;
+	display: block;
+}
+
+#game header a.download {
+	background-image: url(/images/download_white.png);
+	display: block;
+}
+
 #game header a.update {
 	background-image: url(/images/update_white.png);
 	display: block;
-	position: absolute;
-	right: 1.75em;
-	top: 0.5em;
-	font-size: 2em;
-	cursor: pointer;
 }
 
 #game header ul {
@@ -345,6 +349,15 @@ figure {
 }
 
 a.download {
+	text-indent: -9999px;
+	background: url(/images/download.png) no-repeat;
+	background-size: cover;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+}
+
+a.install {
 	text-indent: -9999px;
 	background: url(/images/download.png) no-repeat;
 	background-size: cover;

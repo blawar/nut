@@ -79,6 +79,7 @@ class NutRequest:
 		self.path = handler.path
 		self.head = False
 		self.bits = [x for x in self.path.split('/') if x]
+		self.user = None
 
 	def setHead(self, h):
 		self.head = h
@@ -172,7 +173,9 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-		if not Users.auth(id, password, self.client_address[0]):
+		request.user = Users.auth(id, password, self.client_address[0])
+
+		if not request.user:
 			return Response401(request, response)
 		
 		try:
@@ -195,7 +198,9 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-		if not Users.auth(id, password, self.client_address[0]):
+		request.user = Users.auth(id, password, self.client_address[0])
+
+		if not request.user:
 			return Response401(request, response)
 		
 		try:
