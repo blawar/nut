@@ -17,6 +17,7 @@ import Nsps
 from tqdm import tqdm
 from Fs.Pfs0 import Pfs0
 from Fs.Ticket import Ticket
+from Fs.Nca import Nca
 
 MEDIA_SIZE = 0x200
 
