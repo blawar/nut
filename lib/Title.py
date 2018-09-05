@@ -158,6 +158,26 @@ class Title:
 				files.append(f)
 
 		return files
+
+	def getLatestFile(self):
+		highest = None
+
+		for nsp in self.getFiles():
+			if not highest or nsp.version > highest.version:
+				highest = nsp
+
+		return highest
+
+	def isUpdateAvailable(self):
+		nsp = self.getLatestFile()
+		if not nsp:
+			return False
+
+		if nsp.version < self.lastestVersion():
+			return True
+
+		return False
+
 	def getIsDLC(self):
 		return self.isDLC*1
 
