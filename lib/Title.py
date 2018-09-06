@@ -171,7 +171,7 @@ class Title:
 	def isUpdateAvailable(self):
 		nsp = self.getLatestFile()
 		if not nsp:
-			return False
+			return True
 
 		if nsp.version < self.lastestVersion():
 			return True
