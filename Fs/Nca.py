@@ -248,7 +248,7 @@ class Nca(File):
 		Print.info(tabs + 'key Index: ' + str(self.header.keyIndex))
 		#Print.info(tabs + 'key Block: ' + str(self.header.getKeyBlock()))
 		for key in self.header.keys:
-			Print.info(tabs + 'key Block: ' + str(key))
+			Print.info(tabs + 'key Block: ' + str(hx(key)))
 		
 		Print.info('\n%sPartitions:' % (tabs))
 		
