@@ -405,7 +405,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 					with open(os.path.join(os.path.dirname(__file__), 'Ticket.tik'), 'rb') as intik:
 						data = bytearray(intik.read())
 						data[0x180:0x190] = uhx(tkey)
-						data[0x286] = int(CNMT.mkeyrev)
+						data[0x285] = int(CNMT.mkeyrev)
 						data[0x2A0:0x2B0] = uhx(rightsID)
 
 						with open(tikPath, 'wb') as outtik:
@@ -415,7 +415,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 					with open(os.path.join(os.path.dirname(__file__), 'Ticket.tik'), 'rb') as intik:
 						data = bytearray(intik.read())
 						data[0x180:0x190] = uhx('00000000000000000000000000000000')
-						data[0x286] = int(CNMT.mkeyrev)
+						data[0x285] = int(CNMT.mkeyrev)
 						data[0x2A0:0x2B0] = uhx(rightsID)
 
 						with open(tikPath, 'wb') as outtik:

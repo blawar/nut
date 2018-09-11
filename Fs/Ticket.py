@@ -132,12 +132,12 @@ class Ticket(File):
 
 
 	def getMasterKeyRevision(self):
-		self.seekStart(0x146)
-		self.masterKeyRevision = self.readInt8()
+		self.seekStart(0x145)
+		self.masterKeyRevision = self.readInt8() | self.readInt8()
 		return self.masterKeyRevision
 
 	def setMasterKeyRevision(self, value):
-		self.seekStart(0x146)
+		self.seekStart(0x145)
 		self.masterKeyRevision = value
 		self.writeInt8(value)
 		return self.masterKeyRevision
