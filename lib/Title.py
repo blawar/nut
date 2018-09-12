@@ -173,8 +173,11 @@ class Title:
 		if not nsp:
 			return True
 
-		if nsp.version < self.lastestVersion():
-			return True
+		try:
+			if int(nsp.version) < int(self.lastestVersion()):
+				return True
+		except:
+			pass
 
 		return False
 
