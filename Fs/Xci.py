@@ -1,9 +1,53 @@
 from binascii import hexlify as hx, unhexlify as uhx
 from Fs.File import File
+from Fs.Hfs0 import Hfs0
 import Print
 
 
 MEDIA_SIZE = 0x200
+
+class GamecardInfo(File):
+	def __init__(self, file = None):
+		super(GamecardInfo, self).__init__()
+		if file:
+			self.open(file)
+	
+	def open(self, file, mode='rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(GamecardInfo, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+		self.firmwareVersion = self.readInt64()
+		self.accessControlFlags = self.readInt32()
+		self.readWaitTime = self.readInt32()
+		self.readWaitTime2 = self.readInt32()
+		self.writeWaitTime = self.readInt32()
+		self.writeWaitTime2 = self.readInt32()
+		self.firmwareMode = self.readInt32()
+		self.cupVersion = self.readInt32()
+		self.empty1 = self.readInt32()
+		self.updatePartitionHash = self.readInt64()
+		self.cupId = self.readInt64()
+		self.empty2 = self.read(0x38)
+		
+class GamecardCertificate(File):
+	def __init__(self, file = None):
+		super(GamecardCertificate, self).__init__()
+		self.signature = None
+		self.magic = None
+		self.unknown1 = None
+		self.unknown2 = None
+		self.data = None
+		
+		if file:
+			self.open(file)
+			
+	def open(self, file, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		super(GamecardCertificate, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
+		self.rewind()
+		self.signature = self.read(0x100)
+		self.magic = self.read(0x4)
+		self.unknown1 = self.read(0x10)
+		self.unknown2 = self.read(0xA)
+		self.data = self.read(0xD6)
 			
 class Xci(File):
 	def __init__(self, file = None):
@@ -70,7 +114,7 @@ class Xci(File):
 		r = super(Xci, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.readHeader()
 		self.seek(0xF000)
-		self.hfs0 = HFS0(None, cryptoKey = None)
+		self.hfs0 = Hfs0(None, cryptoKey = None)
 		self.partition(0xf000, None, self.hfs0, cryptoKey = None)
 		
 	def printInfo(self, indent = 0):
