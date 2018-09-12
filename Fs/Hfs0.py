@@ -6,7 +6,9 @@ from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from Fs.File import File
 from hashlib import sha256
-import Type
+import Fs.Type
+from Fs.Pfs0 import Pfs0
+from Fs.BaseFs import BaseFs
 import os
 import re
 import pathlib
@@ -14,17 +16,18 @@ import Keys
 import Config
 import Print
 import Nsps
+import Fs
 from tqdm import tqdm
 
 MEDIA_SIZE = 0x200
 
 
-class HFS0(PFS0):
+class Hfs0(Pfs0):
 	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
-		super(HFS0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		super(Hfs0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
-		r = super(SectionFilesystem, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
+		r = super(BaseFs, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 
 		self.magic = self.read(0x4);
@@ -57,10 +60,10 @@ class HFS0(PFS0):
 
 			#if name in ['update', 'secure', 'normal']:
 			if name == 'secure':
-				f = HFS0(None)
+				f = Hfs0(None)
 				#f = factory(name)
 			else:
-				f = factory(name)
+				f = Fs.factory(name)
 
 			f._path = name
 			f.offset = offset
@@ -72,4 +75,4 @@ class HFS0(PFS0):
 	def printInfo(self, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sHFS0\n' % (tabs))
-		super(PFS0, self).printInfo(indent)
+		super(Pfs0, self).printInfo(indent)
