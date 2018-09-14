@@ -163,8 +163,11 @@ class Title:
 		highest = None
 
 		for nsp in self.getFiles():
-			if not highest or nsp.version > highest.version:
-				highest = nsp
+			try:
+				if not highest or int(nsp.version) > int(highest.version):
+					highest = nsp
+			except:
+				pass
 
 		return highest
 
