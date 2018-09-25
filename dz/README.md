@@ -1,4 +1,4 @@
-Homebrew network title installer.
+Homebrew network title installer, and title key dumper.
 
 # Installation
 
