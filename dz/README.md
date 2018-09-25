@@ -1,4 +1,6 @@
-Homebrew network title installer, and title key dumper.  Only  supports ftp for network locations currently.  Regular FTP, not FTPS, not SFTP, normal plain jane FTP.
+Homebrew network title installer, and title key dumper.  Only  supports ftp for network locations currently.  Regular FTP, not FTPS, not SFTP, normal plain jane FTP.  If the app hangs when you launch it, it means you didnt edit the junk info out of locations.conf
+
+![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/ss.jpg)
 
 # Installation
 
