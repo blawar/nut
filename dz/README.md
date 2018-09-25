@@ -12,7 +12,11 @@ Homebrew network title installer.
 
 # Disclaimer
 
-Use at your own risk, and always have a NAND backup.
+Use at your own risk, and always have a NAND backup.'
+
+# Dumping Title Keys
+
+Title keys are saved to sdmc:/switch/dz/titlekeys.txt when dumped.
 
 # Backing up title keys
 
