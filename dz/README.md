@@ -1,4 +1,4 @@
-Homebrew network title installer, and title key dumper.
+Homebrew network title installer, and title key dumper.  Only  supports ftp for network locations currently.  Regular FTP, not FTPS, not SFTP, normal plain jane FTP.
 
 # Installation
 
