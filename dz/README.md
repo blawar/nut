@@ -33,9 +33,14 @@ Title keys are saved to sdmc:/switch/dz/titlekeys.txt when dumped.
 
 You can place a single http url into /switch/dz/titlekeys.url.txt , to automatically submit your keys to that url to back them up.
 
+# Changelog
+
+- Added CURL error logging to console window for troublshooting network issues.
+
+
 # Credits
 
-Tinfoil source code was reverse-engineered with plenty of help from Adubbz answering questions:
+Based on Tinfoil by Adubbz:
 https://github.com/Adubbz/Tinfoil
 
 HACTOOL source code was reverse-engineered, with small bits of code lifted here and there:
