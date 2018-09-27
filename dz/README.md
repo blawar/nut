@@ -36,6 +36,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 # Changelog
 
 - Added CURL error logging to console window for troublshooting network issues.
+- Added scroll bars to the menu, for those souls who add a million locations.
 
 
 # Credits
