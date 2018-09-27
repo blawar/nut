@@ -37,6 +37,11 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 
 - Added CURL error logging to console window for troublshooting network issues.
 - Added scroll bars to the menu, for those souls who add a million locations.
+- Added colored background to finished queue entries.
+- Fixed issue installing updates above 0x1000 / 65536
+- Added scrollbars to console
+- Removed Pepe icon.
+- Fixed minor scrollbar graphical glitches.
 
 
 # Credits
