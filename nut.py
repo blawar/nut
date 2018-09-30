@@ -582,6 +582,7 @@ if __name__ == '__main__':
 
 	
 		if args.update_titles:
+			initTitles()
 			for url in Config.titleUrls:
 				updateDb(url)
 			Titles.save()
