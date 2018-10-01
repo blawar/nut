@@ -266,7 +266,7 @@ if os.path.isfile('conf/nut.conf'):
 
 if os.path.isfile('edge.token'):
 	with open('edge.token', encoding="utf8") as f:
-		edgeToken.token = f.read()
+		edgeToken.token = f.read().strip()
 
 
 
