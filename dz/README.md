@@ -46,6 +46,8 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added icons / tiled layout option and a switchable view for games.
 - Added collapsable menu when browsing the panels.
 - Fixed a few memory leaks
+- Removed system version check for installs
+- Fixed data corruption error when checking through the OS.
 
 
 # Credits
