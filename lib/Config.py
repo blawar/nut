@@ -94,7 +94,13 @@ class Download:
 		self.DLC = True
 		self.update = False
 		self.sansTitleKey = False
-		
+
+class EdgeToken:
+	def __init__(self):
+		self.token = None
+		self.expires = None
+
+edgeToken = EdgeToken()
 cdn = Cdn()
 paths = Paths()
 download = Download()
@@ -257,5 +263,11 @@ if os.path.isfile('conf/nut.default.conf'):
 
 if os.path.isfile('conf/nut.conf'):
 	load('conf/nut.conf')
+
+if os.path.isfile('edge.token'):
+	with open('edge.token', encoding="utf8") as f:
+		edgeToken.token = f.read()
+
+
 
 
