@@ -144,10 +144,15 @@ def make_request(method, url, certificate='', hdArgs={}):
 	if certificate == '':  # Workaround for defining errors
 		certificate = NXclientPath
 
-	reqHd = {'User-Agent': 'NintendoSDK Firmware/%s (platform:NX; eid:%s)' % (fw, env),
-			 'Accept-Encoding': 'gzip, deflate',
-			 'Accept': '*/*',
-			 'Connection': 'keep-alive'}
+	fw = '6.0.0-5.0' #hard coding this incase newbs forget to update
+
+	reqHd = {
+		'X-Nintendo-DenebEdgeToken': Config.edgeToken.token,
+		'User-Agent': 'NintendoSDK Firmware/%s (platform:NX; eid:%s)' % (fw, env),
+		'Accept-Encoding': 'gzip, deflate',
+		'Accept': '*/*',
+		'Connection': 'keep-alive'
+	}
 	reqHd.update(hdArgs)
 
 	r = requests.request(method, url, cert=certificate, headers=reqHd, verify=False, stream=True)
