@@ -53,6 +53,8 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Optimized opening of certain file types.
 - Improved download speed a little.
 - Added icons for DLC and updates.
+- Fixed issue downloading small DLC.
+- Added window for deleting application records.
 
 
 # Credits
