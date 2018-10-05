@@ -55,6 +55,8 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added icons for DLC and updates.
 - Fixed issue downloading small DLC.
 - Added window for deleting application records.
+- UI Tweaks
+- Added sorting for network directories.
 
 
 # Credits
