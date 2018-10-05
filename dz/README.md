@@ -57,6 +57,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added window for deleting application records.
 - UI Tweaks
 - Added sorting for network directories.
+- Added file size and modified date for FTP locations.
 
 
 # Credits
