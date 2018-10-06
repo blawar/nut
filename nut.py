@@ -446,13 +446,18 @@ def submitKeys():
 	try:
 		import blockchain
 	except:
-		pass
+		raise
 	for id, t in Titles.items():
 		if t.key: #and not t.isUpdate:
 			try:
 				blockchain.blockchain.suggest(t.id, t.key)
+			except LookupError as e:
+				Print.info(str(e))
+			except OSError as e:
+				Print.info(str(e))
 			except BaseException as e:
 				Print.info(str(e))
+				raise
 			
 if __name__ == '__main__':
 	try:

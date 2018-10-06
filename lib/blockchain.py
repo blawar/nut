@@ -8,8 +8,13 @@ import os
 import Config
 import Nsps
 import Fs
-import File
-import Type
+import Fs.File
+from Fs import File
+from Fs.File import MemoryFile
+from Fs import Nca
+from Fs import Pfs0
+from Fs.Nca import NcaHeader
+from Fs import Type
 import Keys
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
@@ -31,8 +36,8 @@ class KeyEntry:
 			self.deserialize(json)
 
 	def verify(self):
-		ncaHeader = Fs.NcaHeader()
-		ncaHeader.open(File.MemoryFile(self.ncaHeader, Type.Crypto.XTS, uhx(Keys.get('header_key'))))
+		ncaHeader = NcaHeader()
+		ncaHeader.open(MemoryFile(self.ncaHeader, Type.Crypto.XTS, uhx(Keys.get('header_key'))))
 
 		id = ncaHeader.rightsId[0:16].decode().upper()
 		if str(self.titleId) != id:
@@ -40,7 +45,7 @@ class KeyEntry:
 
 		decKey = Keys.decryptTitleKey(uhx(self.titleKey), ncaHeader.masterKey)
 
-		pfs0 = Fs.PFS0(self.sectionHeaderBlock)
+		pfs0 = Fs.Pfs0(self.sectionHeaderBlock)
 
 		'''
 		print('encKey = ' + str(self.titleKey))
@@ -50,7 +55,7 @@ class KeyEntry:
 		print('offset = ' + str(self.pfs0Offset))
 		'''
 
-		mem = File.MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
+		mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
 		magic = mem.read()[0:4]
 		if magic != b'PFS0':
 			raise LookupError('Title Key is incorrect!')
@@ -283,24 +288,8 @@ class Blockchain:
 
 						return True
 
-			if type(f) == Fs.Nca and f.header.contentType == Type.Content.UNKNOWN:
-				for fs in f.sectionFilesystems:
-					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
-						f.seek(0)
-						ncaHeader = f.read(0x400)
-
-						sectionHeaderBlock = fs.buffer
-
-						f.seek(self.ivfc.levels[0].offset)
-						pfs0Header = f.read(self.ivfc.levels[0].size)
-
-						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, self.ivfc.levels[0].offset)
-
-						index = blockchain.new_transaction(entry)
-
-						blockchain.new_block()
-
 		return False
+
 
 	@property
 	def last_block(self):
