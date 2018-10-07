@@ -58,6 +58,9 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - UI Tweaks
 - Added sorting for network directories.
 - Added file size and modified date for FTP locations.
+- Added free space indicators.
+- Moved progress bar to stop
+- Added version and language to title list, and cleaned up the names
 
 
 # Credits
