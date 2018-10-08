@@ -27,7 +27,7 @@ class Rom(BaseFs):
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		r = super(Rom, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sRom' % (tabs))
 		if self.ivfc:
@@ -45,6 +45,6 @@ class Rom(BaseFs):
 		Print.info('%ssha = %s' % (tabs, sha256(level1).hexdigest()))
 		Hex.dump(level1)
 		'''
-		super(Rom, self).printInfo(indent)
+		super(Rom, self).printInfo(maxDepth, indent)
 
 

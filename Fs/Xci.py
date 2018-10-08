@@ -1,6 +1,7 @@
 from binascii import hexlify as hx, unhexlify as uhx
 from Fs.File import File
 from Fs.Hfs0 import Hfs0
+import os
 import Print
 
 
@@ -116,16 +117,36 @@ class Xci(File):
 		self.seek(0xF000)
 		self.hfs0 = Hfs0(None, cryptoKey = None)
 		self.partition(0xf000, None, self.hfs0, cryptoKey = None)
+
+	def unpack(self, path):
+		os.makedirs(path, exist_ok=True)
+
+		for nspF in self.hfs0:
+			filePath = os.path.abspath(path + '/' + nspF._path)
+			f = open(filePath, 'wb')
+			nspF.rewind()
+			i = 0
+
+			pageSize = 0x10000
+
+			while True:
+				buf = nspF.read(pageSize)
+				if len(buf) == 0:
+					break
+				i += len(buf)
+				f.write(buf)
+			f.close()
+			Print.info(filePath)
 		
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sXCI Archive\n' % (tabs))
-		super(Xci, self).printInfo(indent)
+		super(Xci, self).printInfo(maxDepth, indent)
 		
 		Print.info(tabs + 'magic = ' + str(self.magic))
 		Print.info(tabs + 'titleKekIndex = ' + str(self.titleKekIndex))
 		
 		Print.info(tabs + 'gamecardCert = ' + str(hx(self.gamecardCert.magic + self.gamecardCert.unknown1 + self.gamecardCert.unknown2 + self.gamecardCert.data)))
 
-		self.hfs0.printInfo()
+		self.hfs0.printInfo(maxDepth, indent)
 

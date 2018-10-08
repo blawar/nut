@@ -49,7 +49,7 @@ class BaseFs(File):
 				
 		raise IOError('FS File Not Found')
 		
-	def printInfo(self, indent):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info(tabs + 'magic = ' + str(self.magic))
 		Print.info(tabs + 'fsType = ' + str(self.fsType))
@@ -65,6 +65,7 @@ class BaseFs(File):
 		Print.info('\n%s\t%s\n' % (tabs, '*' * 64))
 		Print.info('\n%s\tFiles:\n' % (tabs))
 		
-		for f in self:
-			f.printInfo(indent+1)
-			Print.info('\n%s\t%s\n' % (tabs, '*' * 64))
+		if(indent+1 < maxDepth):
+			for f in self:
+				f.printInfo(maxDepth, indent+1)
+				Print.info('\n%s\t%s\n' % (tabs, '*' * 64))

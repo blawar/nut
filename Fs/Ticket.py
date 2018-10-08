@@ -3,6 +3,7 @@ import Fs.Type
 from binascii import hexlify as hx, unhexlify as uhx
 import Print
 import Keys
+import blockchain
 
 
 class Ticket(File):
@@ -194,18 +195,34 @@ class Ticket(File):
 
 
 
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
+
+		titleId = format(self.getRightsId(), 'X')[0:16]
+		titleKey = format(self.getTitleKeyBlock(), 'X')
+
 		Print.info('\n%sTicket\n' % (tabs))
-		super(Ticket, self).printInfo(indent)
+		super(Ticket, self).printInfo(maxDepth, indent)
 		Print.info(tabs + 'signatureType = ' + str(self.signatureType))
 		Print.info(tabs + 'keyType = ' + str(self.keyType))
 		Print.info(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
 		Print.info(tabs + 'ticketId = ' + str(self.ticketId))
 		Print.info(tabs + 'deviceId = ' + str(self.deviceId))
-		Print.info(tabs + 'rightsId = ' + hex(self.getRightsId()))
+		Print.info(tabs + 'rightsId = ' + format(self.getRightsId(), 'X'))
 		Print.info(tabs + 'accountId = ' + str(self.accountId))
-		Print.info(tabs + 'titleKey = ' + hex(self.getTitleKeyBlock()))
+		Print.info(tabs + 'titleId = ' + titleId)
+		Print.info(tabs + 'titleKey = ' + titleKey)
 		Print.info(tabs + 'titleKeyDec = ' + str(hx(Keys.decryptTitleKey((self.getTitleKey()), self.masterKeyRevision))))
+
+		try:
+			if blockchain.verifyKey(titleId, titleKey):
+				tkeyStatus = 'VERIFIED'
+			else:
+				tkeyStatus = 'BAD KEY'
+		except BaseException as e:
+			tkeyStatus = 'UNKNOWN - ' + str(e)
+			raise
+
+		Print.info(tabs + 'titleKeyStatus = ' + tkeyStatus)
 
 
