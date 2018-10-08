@@ -12,7 +12,7 @@ class Server:
 class Cdn:
 	def __init__(self):
 		self.region = 'US'
-		self.firmware = '5.1.0-0'
+		self.firmware = '6.0.0-5.0'
 		self.deviceId = '0000000000000000'
 		self.environment = 'lp1'
 		
@@ -100,7 +100,13 @@ class EdgeToken:
 		self.token = None
 		self.expires = None
 
+class DAuthToken:
+	def __init__(self):
+		self.token = None
+		self.expires = None
+
 edgeToken = EdgeToken()
+dauthToken = DAuthToken()
 cdn = Cdn()
 paths = Paths()
 download = Download()
@@ -222,10 +228,12 @@ def load(confFile):
 		except:
 			pass
 
+		'''
 		try:
 			cdn.firmware = j['cdn']['firmware']
 		except:
 			pass
+		'''
 
 		try:
 			threads = int(j['download']['threads'])
@@ -269,5 +277,7 @@ if os.path.isfile('edge.token'):
 		edgeToken.token = f.read().strip()
 
 
-
+if os.path.isfile('dauth.token'):
+	with open('dauth.token', encoding="utf8") as f:
+		dauthToken.token = f.read().strip()
 
