@@ -33,6 +33,7 @@ import colorama
 import Server
 import pprint
 import random
+import cdn.Shogun
 
 
 				
@@ -534,6 +535,8 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 
+		parser.add_argument('--scrape-shogun', action="store_true", help='Scrape ALL titles from shogun')
+
 		parser.add_argument('--scan-base', nargs='*', help='Scan for new base Title ID\'s')
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
 		
@@ -729,6 +732,11 @@ if __name__ == '__main__':
 				#f.flush()
 				#f.close()
 				'''
+
+		if args.scrape_shogun:
+			initTitles()
+			initFiles()
+			cdn.Shogun.scrapeTitles()
 
 		if args.scrape_title:
 			initTitles()

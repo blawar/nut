@@ -24,6 +24,13 @@ def items():
 
 def get(key):
 	return titles[key]
+
+def getNsuid(id):
+	id = int(id)
+	for t in titles:
+		if titles[t].nsuId == id:
+			return titles[t]
+	return None
 	
 def contains(key):
 	return key in titles
