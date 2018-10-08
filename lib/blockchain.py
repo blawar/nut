@@ -329,6 +329,51 @@ def new_transaction():
 	except BaseException as e:
 		return str(e), 400
 
+def verifyKey(titleId = None, titleKey = None):
+	try:
+		if not titleId:
+			titleId = request.args.get('titleId')
+
+		if not titleKey:
+			titleKey = request.args.get('titleKey')
+
+		# Check that the required fields are in the POST'ed data
+		required = ['titleId', 'titleKey']
+		if not titleId or not titleKey:
+			return false
+
+		titleId = titleId.upper()
+		nsp = Nsps.getByTitleId(titleId)
+
+		if not nsp:
+			return false
+
+		nsp.open()
+
+		for f in nsp:
+			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						f.seek(fs.offset)
+						pfs0Header = f.read(0x10)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+
+						return true
+
+		return false
+	except BaseException as e:
+		return str(e), 400
+
 @app.route('/transactions/suggest', methods=['GET'])
 def new_suggestion():
 	try:

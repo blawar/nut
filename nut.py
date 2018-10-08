@@ -500,6 +500,7 @@ if __name__ == '__main__':
 		parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 		parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
 		parser.add_argument('-i', '--info', help='show info about title or file')
+		parser.add_argument('--depth', type=int, default=1, help='max depth for file info and extraction')
 		parser.add_argument('-I', '--verify', help='verify title key')
 		parser.add_argument('-u', '--unlock', help='install available title key into NSX / NSP')
 		parser.add_argument('--unlock-all', action="store_true", help='install available title keys into all NSX files')
@@ -572,7 +573,9 @@ if __name__ == '__main__':
 
 		if args.extract:
 			for filePath in args.extract:
-				f = Fs.Nsp(filePath, 'rb')
+				#f = Fs.Nsp(filePath, 'rb')
+				f = Fs.factory(filePath)
+				f.open(filePath, 'rb')
 				dir = os.path.splitext(os.path.basename(filePath))[0]
 				f.unpack(dir)
 				f.close()
@@ -712,7 +715,7 @@ if __name__ == '__main__':
 			else:
 				f = Fs.factory(args.info)
 				f.open(args.info, 'r+b')
-				f.printInfo()
+				f.printInfo(args.depth+1)
 				'''
 				for i in f.cnmt():
 					for j in i:

@@ -72,7 +72,7 @@ class Hfs0(Pfs0):
 
 		self.files.reverse()
 
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sHFS0\n' % (tabs))
-		super(Pfs0, self).printInfo(indent)
+		super(Pfs0, self).printInfo(maxDepth, indent)

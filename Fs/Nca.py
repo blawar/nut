@@ -231,10 +231,10 @@ class Nca(File):
 		self.masterKey = None
 
 		
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sNCA Archive\n' % (tabs))
-		super(Nca, self).printInfo(indent)
+		super(Nca, self).printInfo(maxDepth, indent)
 		
 		Print.info(tabs + 'magic = ' + str(self.header.magic))
 		Print.info(tabs + 'titleId = ' + str(self.header.titleId))
@@ -250,7 +250,8 @@ class Nca(File):
 		for key in self.header.keys:
 			Print.info(tabs + 'key Block: ' + str(hx(key)))
 		
-		Print.info('\n%sPartitions:' % (tabs))
+		if(indent+1 < maxDepth):
+			Print.info('\n%sPartitions:' % (tabs))
 		
-		for s in self:
-			s.printInfo(indent+1)
+			for s in self:
+				s.printInfo(maxDepth, indent+1)

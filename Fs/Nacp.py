@@ -76,10 +76,10 @@ class Nacp(File):
 		return self.startupUserAccount
 		
 		
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sNacp\n' % (tabs))
-		super(Nacp, self).printInfo(indent)
+		super(Nacp, self).printInfo(maxDepth, indent)
 		Print.info(tabs + 'Application Id = ' + hex(self.getApplicationId()))
 
 		for i in range(15):

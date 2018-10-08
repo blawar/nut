@@ -112,7 +112,7 @@ class Pfs0(BaseFs):
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').rstrip(' \t\r\n\0')
 		'''
 				
-	def printInfo(self, indent = 0):
+	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 		Print.info('\n%sPFS0\n' % (tabs))
-		super(Pfs0, self).printInfo(indent)
+		super(Pfs0, self).printInfo(maxDepth, indent)
