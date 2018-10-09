@@ -474,9 +474,16 @@ class Title:
 			self.bannerUrl = _json['hero_banner_url']
 
 		if "release_date_on_eshop" in _json:
-			self.releaseDate = int(_json["release_date_on_eshop"].replace('-',''))
+			try:
+				self.releaseDate = int(_json["release_date_on_eshop"].replace('-',''))
+			except:
+				pass
+
 		if "id" in _json:
-			self.nsuId = int("%s" % _json["id"])
+			try:
+				self.nsuId = int("%s" % _json["id"])
+			except:
+				pass
 
 		if "formal_name" in _json:
 			self.name = _json["formal_name"].strip()
