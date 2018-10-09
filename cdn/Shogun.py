@@ -54,14 +54,14 @@ def makeJsonRequest(method, url, hdArgs={}):
 	cacheFileName = 'cache/bugyo/' + hashlib.md5(url.encode()).hexdigest()
 	if os.path.isfile(cacheFileName):
 		with open(cacheFileName, encoding="utf-8-sig") as f:
-			return json.loads(f.read())
+			j = json.loads(f.read())
+	else:
+		r = makeRequest(method, url, hdArgs)
 
-	r = makeRequest(method, url, hdArgs)
+		with open(cacheFileName, 'wb') as f:
+			f.write(r.text.encode('utf-8'))
 
-	with open(cacheFileName, 'wb') as f:
-		f.write(r.text.encode('utf-8'))
-
-	j = r.json()
+		j = r.json()
 
 	try:
 		if j['error']:
@@ -71,11 +71,17 @@ def makeJsonRequest(method, url, hdArgs={}):
 
 	return j
 
+def country(region = 'US', shop_id=4):
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/country?shop_id=%d&country=%s' % (Config.cdn.environment, shop_id, region)
+	j = makeJsonRequest('GET', url)
+	return j
 
 def scrapeTitles(region = 'US', shop_id = 4):
+	Print.info('Scraping %s' % region)
 	pageSize = 50
 	offset = 0
 	total = 1
+	c = 0
 	while offset < total:
 		#url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
 		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles?shop_id=%d&lang=en&country=%s&sort=new&limit=%d&offset=%d' % (Config.cdn.environment, shop_id, region, pageSize, offset)
@@ -94,6 +100,7 @@ def scrapeTitles(region = 'US', shop_id = 4):
 
 				if title:
 					title.parseShogunJson(n)
+					scrapeDlc(i['id'], region)
 				else:
 					try:
 						if n and len(n["applications"]) > 0:
@@ -101,14 +108,79 @@ def scrapeTitles(region = 'US', shop_id = 4):
 							if titleId:
 								if Titles.contains(titleId):
 									title = Titles.get(titleId)
+									title.setId(titleId)
 									title.parseShogunJson(n)
 									#print('existing title found!')
 								else:
 									title = Title.Title()
-									title.id = titleId
+									title.setId(titleId)
 									title.parseShogunJson(n)
 									Titles.set(titleId, title)
 									print('added new title %s %s' % (title.id, title.name))
+								scrapeDlc(i['id'], region)
+							else:
+								print('Could not get title json!')
+						else:
+							#print('no title id found in json!')
+							pass
+					except Exception as e:
+						#print(str(e))
+						pass
+
+		except Exception as e:
+			print(str(e))
+			raise
+			break
+
+		offset = offset + len(j['contents'])
+
+		c = c + 1
+		if c % 20 == 0:
+			Print.info('.')
+			Titles.save()
+
+def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
+
+	pageSize = 50
+	offset = 0
+	total = 1
+	while offset < total:
+		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d/aocs?shop_id=%d&lang=en&country=%s' % (Config.cdn.environment, baseNsuid, shop_id, region)
+		#print(url)
+		#exit(0)
+		j = makeJsonRequest('GET', url)
+
+		if not j:
+			break
+
+		total = int(j['total'])
+
+		if total == 0:
+			break
+
+		try:
+			for i in j['contents']:
+				title = Titles.getNsuid(i['id'])
+				n = getDlcByNsuid(i['id'])
+
+				if title:
+					title.parseShogunJson(n, region)
+				else:
+					try:
+						if n and len(n["applications"]) > 0:
+							titleId = n["applications"][0]["id"].upper()
+							if titleId:
+								if Titles.contains(titleId):
+									title = Titles.get(titleId)
+									title.setId(titleId)
+									title.parseShogunJson(n, region)
+									#print('existing title found!')
+								else:
+									title = Title.Title()
+									title.setId(titleId)
+									title.parseShogunJson(n, region)
+									Titles.set(titleId, title)
+									print('added new DLC %s %s' % (title.id, title.name))
 							else:
 								print('Could not get title json!')
 						else:
@@ -125,7 +197,6 @@ def scrapeTitles(region = 'US', shop_id = 4):
 
 		offset = offset + len(j['contents'])
 		Titles.save()
-		#break
 		
 def getTitleByNsuid(nsuId, region = 'US', shop_id = 3):
 
@@ -133,3 +204,24 @@ def getTitleByNsuid(nsuId, region = 'US', shop_id = 3):
 	j = makeJsonRequest('GET', url)
 
 	return j
+
+def getDlcByNsuid(nsuId, region = 'US', shop_id = 3):
+
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/aocs/%d?shop_id=%d&lang=en&country=%s' % (Config.cdn.environment, nsuId, shop_id, region)
+	j = makeJsonRequest('GET', url)
+	return j
+
+
+def ids(titleId, region = 'US', shop_id = 4):
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=en&country=%s&type=title&title_ids=%s' % (Config.cdn.environment, shop_id, region, titleId)
+	j = makeJsonRequest('GET', url)
+	return j
+
+def getNsuid(titleId, region = 'US', shop_id = 4):
+	j = ids(titleId, region, shop_id)
+	try:
+		for i in j['id_pairs']:
+			pass
+	except:
+		pass
+	return None

@@ -268,9 +268,17 @@ class Nsp(Pfs0):
 			t.loadCsv(self.titleId + '0000000000000000|0000000000000000|' + bt.name)
 		else:
 			t = Titles.get(self.titleId)
+
+			if not t:
+				Print.error('could not find title id ' + str(self.titleId))
+				return None
 		
-			if not t.baseId in Titles.keys():
-				Print.info('could not find baseId for ' + self.path)
+			try:
+				if not t.baseId in Titles.keys():
+					Print.info('could not find baseId for ' + self.path)
+					return None
+			except BaseException as e:
+				print('could not find title id ' + str(self.titleId))
 				return None
 			bt = Titles.get(t.baseId)
 		

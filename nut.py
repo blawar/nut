@@ -34,6 +34,7 @@ import Server
 import pprint
 import random
 import cdn.Shogun
+import cdn.Superfly
 
 
 				
@@ -736,7 +737,19 @@ if __name__ == '__main__':
 		if args.scrape_shogun:
 			initTitles()
 			initFiles()
-			cdn.Shogun.scrapeTitles()
+
+			for region in cdn.regions():
+				'''
+				r = cdn.Shogun.country(region)
+				if not r:
+					print('could not get region ' + region)
+				else:
+					print(r['name'])
+				'''
+				#cdn.Shogun.scrapeTitles(region)
+				#cdn.Shogun.ids('010034500641a000')
+			for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
+				print(str(i))
 
 		if args.scrape_title:
 			initTitles()
