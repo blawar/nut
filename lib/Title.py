@@ -370,19 +370,23 @@ class Title:
 	def lastestVersion(self, force = False):
 		#if self.isDLC:
 		#	return '0'
+
+		try:
 		
-		if not self.id:
+			if not self.id:
+				return None
+			
+			if self.version and self.version.lower() == 'none':
+				self.version = None
+		
+			if not self.version or force:
+				self.version = Title.getCdnVersion(self.id)
+				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
+			
+			#Print.info('version: ' + str(self.version))
+			return self.version
+		except:
 			return None
-			
-		if self.version and self.version.lower() == 'none':
-			self.version = None
-		
-		if not self.version or force:
-			self.version = Title.getCdnVersion(self.id)
-			Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
-			
-		#Print.info('version: ' + str(self.version))
-		return self.version
 		
 	def isValid(self):
 		if self.id:
