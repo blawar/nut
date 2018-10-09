@@ -106,6 +106,13 @@ def scrapeTitles(region = 'US', shop_id = 4):
 						getNsuIds(x, 'aoc', region)
 
 					title.parseShogunJson(n)
+
+					rt = Title.Title()
+					rt.setId(title.id)
+					rt.setRegion(region)
+					rt.parseShogunJson(n)
+					Titles.set(title.id, rt, region)
+
 					scrapeDlc(i['id'], region)
 				else:
 					try:
@@ -127,6 +134,13 @@ def scrapeTitles(region = 'US', shop_id = 4):
 									title.parseShogunJson(n)
 									Titles.set(titleId, title)
 									print('added new title %s %s' % (title.id, title.name))
+
+								rt = Title.Title()
+								rt.setId(titleId)
+								rt.setRegion(region)
+								rt.parseShogunJson(n)
+								Titles.set(titleId, rt, region)
+
 								scrapeDlc(i['id'], region)
 							else:
 								print('Could not get title json!')
@@ -145,9 +159,10 @@ def scrapeTitles(region = 'US', shop_id = 4):
 		offset = offset + len(j['contents'])
 
 		c = c + 1
-		if c % 20 == 0:
+		if c % 100 == 0:
 			Print.info('.')
 			Titles.save()
+	Titles.save()
 
 def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 
@@ -175,6 +190,13 @@ def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 
 				if title:
 					title.parseShogunJson(n, region)
+
+					rt = Title.Title()
+					rt.setId(title.id)
+					rt.setRegion(region)
+					rt.parseShogunJson(n)
+					Titles.set(title.id, rt, region)
+
 				else:
 					try:
 						if n and len(n["applications"]) > 0:
@@ -191,6 +213,12 @@ def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 									title.parseShogunJson(n, region)
 									Titles.set(titleId, title)
 									print('added new DLC %s %s' % (title.id, title.name))
+
+								rt = Title.Title()
+								rt.setId(titleId)
+								rt.setRegion(region)
+								rt.parseShogunJson(n, region)
+								Titles.set(titleId, rt, region)
 							else:
 								print('Could not get title json!')
 						else:
@@ -243,6 +271,7 @@ def getNsuIds(titleIds, type='title', region = 'US', shop_id = 4):
 				title.setId(titleId)
 				title.nsuId = nsuId
 				Titles.set(titleId, title)
+
 	except BaseException as e:
 		pass
 	return lst

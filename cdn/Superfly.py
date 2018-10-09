@@ -77,6 +77,9 @@ def getAddOns(titleId):
 	j = makeJsonRequest('GET', url)
 	lst = []
 
+	if not j:
+		return lst
+
 	for i in j:
 		id = i['title_id'].upper()
 
