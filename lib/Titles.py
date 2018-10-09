@@ -9,39 +9,59 @@ import operator
 import Config
 import Print
 import threading
+import cdn
 
 global titles
 titles = {}
 
+global regionTitles
+regionTitles = {}
+
 if os.path.isfile('titles.json'):
 	os.rename('titles.json', 'titledb/titles.json')
 
-def data():
+def data(region = None):
+	if region:
+		return regionTitles[region]
+
 	return titles
 
-def items():
+def items(region = None):
+	if region:
+		return regionTitles[region].items()
+
 	return titles.items()
 
-def get(key):
+def get(key, region = None):
+	if region:
+		return regionTitles[region][key]
+
 	return titles[key]
 
-def getNsuid(id):
+def getNsuid(id, region = None):
 	id = int(id)
-	for t in titles:
-		if titles[t].nsuId == id:
-			return titles[t]
+
+	map = data(region)
+
+	for t in map:
+		if map[t].nsuId == id:
+			return map[t]
 	return None
 	
-def contains(key):
+def contains(key, region = None):
 	return key in titles
 	
-def set(key, value):
-	titles[key] = value
+def set(key, value, region = None):
+	if region:
+		regionTitles[region][key] = value
+	else:
+		titles[key] = value
 	
-#def titles():
-#	return titles
 	
-def keys():
+def keys(region = None):
+	if region:
+		return regionTitles[region].keys()
+
 	return titles.keys()
 	
 def loadTitleFile(path, silent = False):
@@ -85,17 +105,39 @@ def loadTitleBuffer(buffer, silent = False):
 		if not silent and titleKey != titles[t.id].key:
 			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + str(t.id) + ']')
 
-confLock = threading.Lock()	
+confLock = threading.Lock()
+
+def loadTitlesJson(filePath = 'titledb/titles.json'):
+	newTitles = {}
+	confLock.acquire()
+	if os.path.isfile(filePath):
+		timestamp = time.clock()
+		with open(filePath, encoding="utf-8-sig") as f:
+			for i, k in json.loads(f.read()).items():
+				newTitles[i] = Title.Title()
+				newTitles[i].__dict__ = k
+
+		Print.info('loaded ' + filePath + ' in ' + str(time.clock() - timestamp) + ' seconds')
+
+	confLock.release()
+	return newTitles
+
 def load():
+	global regionTitles
+
+	for region in cdn.regions():
+		filePath = 'titledb/%s.json' % region
+		if os.path.isfile(filePath):
+			regionTitles[region] = loadTitlesJson(filePath)
+		else:
+			regionTitles[region] = {}
+
 	confLock.acquire()
 	global titles
 	if os.path.isfile("titledb/titles.json"):
 		timestamp = time.clock()
 		with open('titledb/titles.json', encoding="utf-8-sig") as f:
 			for i, k in json.loads(f.read()).items():
-				#if k['frontBoxArt'] and k['frontBoxArt'].endswith('.jpg'):
-				#	k['iconUrl'] = k['frontBoxArt']
-				#	k['frontBoxArt'] = None
 				titles[i] = Title.Title()
 				titles[i].__dict__ = k
 
@@ -125,7 +167,28 @@ def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
 
+def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
+	confLock.acquire()
+	try:
+		j = {}
+		for i,k in newTitles.items():
+			if not k.id or k.id == '0000000000000000':
+				continue
+			if k.description:
+				k.description = k.description.strip()
+			j[k.id] = k.__dict__
+		with open(fileName, 'w') as outfile:
+			json.dump(j, outfile, indent=4)
+	except:
+		confLock.release()
+		raise
+
+	confLock.release()
+
 def save(fileName = 'titledb/titles.json'):
+	for region in cdn.regions():
+		saveTitlesJson(data(region), 'titledb/%s.json' % region)
+
 	confLock.acquire()
 	try:
 		j = {}
