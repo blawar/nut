@@ -78,6 +78,13 @@ def country(region = 'US', shop_id=4):
 	j = makeJsonRequest('GET', url)
 	return j
 
+def countryLanguage(region = 'US'):
+	try:
+		j = country(region)
+		return j['default_language_code']
+	except:
+		return 'en'
+
 def scrapeTitles(region = 'US', shop_id = 4):
 	Print.info('Scraping %s' % region)
 	pageSize = 50
@@ -86,7 +93,7 @@ def scrapeTitles(region = 'US', shop_id = 4):
 	c = 0
 	while offset < total:
 		#url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/t/%s/dv' % (env, titleId)
-		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles?shop_id=%d&lang=en&country=%s&sort=new&limit=%d&offset=%d' % (Config.cdn.environment, shop_id, region, pageSize, offset)
+		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles?shop_id=%d&lang=%s&country=%s&sort=new&limit=%d&offset=%d' % (Config.cdn.environment, shop_id, countryLanguage(region), region, pageSize, offset)
 		#print(url)
 		j = makeJsonRequest('GET', url)
 
@@ -98,7 +105,7 @@ def scrapeTitles(region = 'US', shop_id = 4):
 		try:
 			for i in j['contents']:
 				title = Titles.getNsuid(i['id'])
-				n = getTitleByNsuid(i['id'])
+				n = getTitleByNsuid(i['id'], region)
 
 				if title:
 
@@ -158,10 +165,10 @@ def scrapeTitles(region = 'US', shop_id = 4):
 
 		offset = offset + len(j['contents'])
 
-		c = c + 1
-		if c % 100 == 0:
-			Print.info('.')
-			Titles.save()
+		#c = c + 1
+		#if c % 100 == 0:
+		#	Print.info('.')
+		#	Titles.save()
 	Titles.save()
 
 def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
@@ -170,7 +177,7 @@ def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 	offset = 0
 	total = 1
 	while offset < total:
-		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d/aocs?shop_id=%d&lang=en&country=%s' % (Config.cdn.environment, baseNsuid, shop_id, region)
+		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d/aocs?shop_id=%d&lang=%s&country=%s' % (Config.cdn.environment, baseNsuid, shop_id, countryLanguage(region), region)
 		#print(url)
 		#exit(0)
 		j = makeJsonRequest('GET', url)
@@ -234,24 +241,23 @@ def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 			break
 
 		offset = offset + len(j['contents'])
-		Titles.save()
 		
 def getTitleByNsuid(nsuId, region = 'US', shop_id = 3):
 
-	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d?shop_id=%d&lang=en&country=%s' % (Config.cdn.environment, nsuId, shop_id, region)
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d?shop_id=%d&lang=%s&country=%s' % (Config.cdn.environment, nsuId, shop_id, countryLanguage(region), region)
 	j = makeJsonRequest('GET', url)
 
 	return j
 
 def getDlcByNsuid(nsuId, region = 'US', shop_id = 3):
 
-	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/aocs/%d?shop_id=%d&lang=en&country=%s' % (Config.cdn.environment, nsuId, shop_id, region)
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/aocs/%d?shop_id=%d&lang=%s&country=%s' % (Config.cdn.environment, nsuId, shop_id, countryLanguage(region), region)
 	j = makeJsonRequest('GET', url)
 	return j
 
 
 def ids(titleIds, type='title', region = 'US', shop_id = 4):
-	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=en&country=%s&type=%s&title_ids=%s' % (Config.cdn.environment, shop_id, region, type, titleIds)
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=%s&country=%s&type=%s&title_ids=%s' % (Config.cdn.environment, shop_id, countryLanguage(region), region, type, titleIds)
 	j = makeJsonRequest('GET', url)
 	return j
 

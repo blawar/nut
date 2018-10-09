@@ -1,5 +1,5 @@
 def regions():
-	return ['US', 'CA', 'MX', 'CO', 'AR', 'CL', 'PE', 'JP', 'KR', 'HK', 'AU', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'DE', 'ES', 'FI', 'FR', 'GR', 'HU', 'IT', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'GB']
+	return ['CA', 'MX', 'CO', 'AR', 'CL', 'PE', 'JP', 'KR', 'HK', 'AU', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'DE', 'ES', 'FI', 'FR', 'GR', 'HU', 'IT', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'GB', 'US']
 
 def calc_sha256(fPath):
 	f = open(fPath, 'rb')
