@@ -48,14 +48,30 @@ def makeRequest(method, url, hdArgs={}):
 
 	return r
 
-def makeJsonRequest(method, url, hdArgs={}):
+def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	os.makedirs('cache/superfly/', exist_ok=True)
 	cacheFileName = 'cache/superfly/' + hashlib.md5(url.encode()).hexdigest()
+
+	if key:
+		key = 'cache/superfly/' + Config.cdn.environment + '/' + key
+
+	j = None
+
 	if os.path.isfile(cacheFileName):
-		with open(cacheFileName, encoding="utf-8-sig") as f:
+		if not key:
+			with open(cacheFileName, encoding="utf-8-sig") as f:
+				j = json.loads(f.read())
+		else:
+			os.makedirs(os.path.dirname(key), exist_ok=True)
+			os.rename(cacheFileName, key)
+
+	if key:
+		print('opening key ' + key)
+		with open(key, encoding="utf-8-sig") as f:
 			j = json.loads(f.read())
-	else:
+
+	if not j:
 		r = makeRequest(method, url, hdArgs)
 
 		with open(cacheFileName, 'wb') as f:
@@ -74,7 +90,7 @@ def makeJsonRequest(method, url, hdArgs={}):
 
 def getAddOns(titleId):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/a/%s/dv' % (Config.cdn.environment, titleId)
-	j = makeJsonRequest('GET', url)
+	j = makeJsonRequest('GET', url, {}, '%d/a/%s/dv.json' % (shop_id, titleId))
 	lst = []
 
 	if not j:
