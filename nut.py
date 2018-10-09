@@ -739,18 +739,20 @@ if __name__ == '__main__':
 			initFiles()
 
 			for region in cdn.regions():
+				pass
 				'''
 				r = cdn.Shogun.country(region)
 				if not r:
 					print('could not get region ' + region)
 				else:
-					print(r['name'])
+					print(str(r['default_language_code']))
 				'''
+
 				cdn.Shogun.scrapeTitles(region)
 			#cdn.Shogun.ids('01005EE0036ED001,01005EE0036ED002', 'aoc')
 			#for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
 			#	print(str(i))
-			#cdn.Shogun.scrapeTitles('US')
+			#cdn.Shogun.scrapeTitles('JP')
 
 		if args.scrape_title:
 			initTitles()
