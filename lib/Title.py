@@ -94,6 +94,7 @@ class Title:
 		self.isModified = False
 		self.retailOnly = None
 
+		self.baseId = None
 		self.releaseDate = None
 		self.nsuId = None
 		self.category = None
@@ -467,7 +468,7 @@ class Title:
 		return r
 
 
-	def parseShogunJson(self, _json):
+	def parseShogunJson(self, _json, region = None):
 
 		if 'hero_banner_url' in _json:
 			self.bannerUrl = _json['hero_banner_url']
@@ -485,6 +486,7 @@ class Title:
 			for i, k in enumerate(_json["screenshots"]):
 				self.screenshots.append(k["images"][0]["url"])
 
+		'''
 		if "demos" in _json:
 			for demo in _json["demos"]:
 				if "id" in demo:
@@ -492,6 +494,7 @@ class Title:
 						self.nsuId = int(demo["id"])
 						if "name" in demo:
 							self.name = demo["name"].strip()
+		'''
 
 		if "languages" in _json:
 			self.languages = []
@@ -567,7 +570,7 @@ class Title:
 						Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (id, region))
 						continue
 
-					self.parseShogunJson(_json)
+					self.parseShogunJson(_json, region)
 				
 					
 			
