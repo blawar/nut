@@ -67,9 +67,11 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 			os.rename(cacheFileName, key)
 
 	if key:
-		print('opening key ' + key)
-		with open(key, encoding="utf-8-sig") as f:
-			j = json.loads(f.read())
+		cacheFileName = key
+		if os.path.isfile(cacheFileName):
+			print('opening key ' + key)
+			with open(key, encoding="utf-8-sig") as f:
+				j = json.loads(f.read())
 
 	if not j:
 		r = makeRequest(method, url, hdArgs)
