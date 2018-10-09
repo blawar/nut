@@ -75,6 +75,8 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 	if not j:
 		r = makeRequest(method, url, hdArgs)
 
+		os.makedirs(os.path.dirname(cacheFileName), exist_ok=True)
+
 		with open(cacheFileName, 'wb') as f:
 			f.write(r.text.encode('utf-8'))
 
