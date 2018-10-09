@@ -65,6 +65,7 @@ def makeJsonRequest(method, url, hdArgs={}):
 
 	try:
 		if j['error']:
+			print('error: ' + url)
 			return None
 	except Exception as e:
 		pass
@@ -82,9 +83,11 @@ def getAddOns(titleId):
 		if Titles.contains(id):
 			Titles.get(id).setVersion(int(i['version']))
 		else:
-			title = Title()
+			Print.info('New DLC found: ' + id)
+			title = Title.Title()
 			title.setId(id)
 			title.setVersion(int(i['version']))
+			Titles.set(id, title)
 
 		lst.append(id)
 

@@ -746,10 +746,11 @@ if __name__ == '__main__':
 				else:
 					print(r['name'])
 				'''
-				#cdn.Shogun.scrapeTitles(region)
-				#cdn.Shogun.ids('010034500641a000')
-			for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
-				print(str(i))
+				cdn.Shogun.scrapeTitles(region)
+			#cdn.Shogun.ids('01005EE0036ED001,01005EE0036ED002', 'aoc')
+			#for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
+			#	print(str(i))
+			#cdn.Shogun.scrapeTitles('US')
 
 		if args.scrape_title:
 			initTitles()
