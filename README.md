@@ -157,3 +157,8 @@ optional arguments:
   --scrape-title SCRAPE_TITLE
                         Scrape title from Nintendo servers
 ```
+
+# Credits
+- Original CDNSP
+- Hactool by SciresM (https://github.com/SciresM/)
+- Simon (https://github.com/simonmkwii/) for his seemingly endless CDN knowledge and help.
