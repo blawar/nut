@@ -27,6 +27,7 @@ import Config
 import os
 import hashlib
 import Title
+import cdn.Superfly
 
 
 def makeRequest(method, url, hdArgs={}):
@@ -65,6 +66,7 @@ def makeJsonRequest(method, url, hdArgs={}):
 
 	try:
 		if j['error']:
+			print('error: ' + url)
 			return None
 	except Exception as e:
 		pass
@@ -99,12 +101,20 @@ def scrapeTitles(region = 'US', shop_id = 4):
 				n = getTitleByNsuid(i['id'])
 
 				if title:
+
+					for x in cdn.Superfly.getAddOns(title.id):
+						getNsuIds(x, 'aoc', region)
+
 					title.parseShogunJson(n)
 					scrapeDlc(i['id'], region)
 				else:
 					try:
 						if n and len(n["applications"]) > 0:
 							titleId = n["applications"][0]["id"].upper()
+
+							for x in cdn.Superfly.getAddOns(titleId):
+								getNsuIds(x, 'aoc', region)
+
 							if titleId:
 								if Titles.contains(titleId):
 									title = Titles.get(titleId)
@@ -212,16 +222,27 @@ def getDlcByNsuid(nsuId, region = 'US', shop_id = 3):
 	return j
 
 
-def ids(titleId, region = 'US', shop_id = 4):
-	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=en&country=%s&type=title&title_ids=%s' % (Config.cdn.environment, shop_id, region, titleId)
+def ids(titleIds, type='title', region = 'US', shop_id = 4):
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=en&country=%s&type=%s&title_ids=%s' % (Config.cdn.environment, shop_id, region, type, titleIds)
 	j = makeJsonRequest('GET', url)
 	return j
 
-def getNsuid(titleId, region = 'US', shop_id = 4):
-	j = ids(titleId, region, shop_id)
+def getNsuIds(titleIds, type='title', region = 'US', shop_id = 4):
+	j = ids(titleIds, type, region, shop_id)
+	lst = {}
 	try:
 		for i in j['id_pairs']:
-			pass
-	except:
+			titleId = i['title_id'].upper()
+			nsuId = int(['id'])
+			lst[titleId] = nsuId
+
+			if Titles.contains(titleId):
+				Titles.get(titleId).nsuId = nsuId
+			else:
+				title = Title.Title()
+				title.setId(titleId)
+				title.nsuId = nsuId
+				Titles.set(titleId, title)
+	except BaseException as e:
 		pass
-	return None
+	return lst
