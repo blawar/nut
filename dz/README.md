@@ -1,4 +1,4 @@
-Homebrew network title installer, and title key dumper.
+Homebrew game, update, and DLC installer, and title key dumper.
 
 If the app hangs when you launch it, it means you didnt edit the junk info out of locations.conf and its hung up waiting for timeout.
 
@@ -19,7 +19,7 @@ Http requires directory listing / browsing be enabled!
  
  - Obtain or generate a keys.txt file and place it in /switch/dz/keys.txt .  keys.txt is a text file containing various switch encryption keys.  If you plan to generate it yourself, you can find instructions here:  https://gbatemp.net/threads/how-to-get-switch-keys-for-hactool-xci-decrypting.506978/
  
- - Copy locations.conf to /switch/dz/locations.conf .  You should edit this file, it is only an example, and points to the various local and network locations hosting your switch content.
+ - Copy locations.conf to /switch/dz/locations.conf .  You should edit this file, it is only an example, and points to the various local and network locations hosting your switch content.  You can view an example of how ot add network install locations by looking at locations.conf.example
 
 # Disclaimer
 
@@ -63,12 +63,12 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added version and language to title list, and cleaned up the names
 - Fixed early failed install bug from last commit, caused by slow SD cards.
 - Fixed small DLC installs
-
+- Added example location for SD installs
 
 # Credits
 
-Based on Tinfoil by Adubbz:
-https://github.com/Adubbz/Tinfoil
+Ideas from Adubbz:
+https://github.com/Adubbz/
 
 HACTOOL source code was reverse-engineered, with small bits of code lifted here and there:
 https://github.com/SciresM/hactool
