@@ -62,6 +62,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Moved progress bar to stop
 - Added version and language to title list, and cleaned up the names
 - Fixed early failed install bug from last commit, caused by slow SD cards.
+- Fixed small DLC installs
 
 
 # Credits
