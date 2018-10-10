@@ -1,10 +1,13 @@
 Homebrew game, update, and DLC installer, and title key dumper.
 
-If the app hangs when you launch it, it means you didnt edit the junk info out of locations.conf and its hung up waiting for timeout.
+Note that all directory paths must end in a forward slash.
 
 ![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/ss.jpg)
 
 # Supported Protocols #
+### SD CARD###
+Supports installing from the local SD  card.  Use the url sdmc:// to point to the SD card.  you can point to sub-directories too such as smdc://nsps/
+
 ### FTP ###
 Regular FTP, not FTPS, not SFTP, normal plain jane FTP.
 
