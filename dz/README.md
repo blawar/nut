@@ -5,7 +5,7 @@ Note that all directory paths must end in a forward slash.
 ![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/ss.jpg)
 
 # Supported Protocols #
-### SD CARD###
+### SD CARD ###
 Supports installing from the local SD  card.  Use the url sdmc:// to point to the SD card.  you can point to sub-directories too such as smdc://nsps/
 
 ### FTP ###
