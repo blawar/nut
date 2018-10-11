@@ -6,7 +6,7 @@ Note that all directory paths must end in a forward slash.
 
 # Supported Protocols #
 ### SD CARD ###
-Supports installing from the local SD  card.  Use the url sdmc:/ to point to the SD card.  you can point to sub-directories too such as smdc://nsps/
+Supports installing from the local SD  card.  Use the url sdmc:/ to point to the SD card.  you can point to sub-directories too such as sdmc://nsps/
 
 ### FTP ###
 Regular FTP, not FTPS, not SFTP, normal plain jane FTP.
