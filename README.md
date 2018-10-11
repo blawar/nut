@@ -17,9 +17,9 @@ It can download any titles you do not have a key for (for archiving), by enablin
 	- `Certificate.cert`
 	- `nx_tls_client_cert.pem`
 	- `keys.txt`
- - Install Python 3
+ - Install Python 3.6+
  - Install the following modules via `pip`:
- 	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4`
+ 	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4 urllib3 flask`
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
  
