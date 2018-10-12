@@ -52,6 +52,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	os.makedirs('cache/superfly/', exist_ok=True)
 	cacheFileName = 'cache/superfly/' + hashlib.md5(url.encode()).hexdigest()
+	print(url)
 
 	if key:
 		key = 'cache/superfly/' + Config.cdn.environment + '/' + key
