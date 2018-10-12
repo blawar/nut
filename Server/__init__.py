@@ -180,7 +180,11 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		
 		try:
 			if len(request.bits) > 0 and request.bits[0] in self.mappings:
-				i = request.bits[1]
+				if len(request.bits) > 1:
+					i = request.bits[1]
+				else:
+					i = 'Index'
+
 				methodName = 'get' + i[0].capitalize() + i[1:]
 				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
 				method(request, response)
