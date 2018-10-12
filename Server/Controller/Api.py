@@ -21,7 +21,21 @@ import os
 def getUser(request, response):
 	response.write(json.dumps(request.user.__dict__))
 
+def getSearch(request, response):
+	o = []
+	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
+	for k, t in Titles.items():
+		o.append({'id': t.get(id), 'name': t.get('name')})
+	response.write(json.dumps(o))
+
 def getTitles(request, response):
+	o = []
+	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
+	for k, t in Titles.items():
+		o.append(t.__dict__)
+	response.write(json.dumps(o))
+	
+def getTitles2(request, response):
 	o = []
 	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
 	for k, t in Titles.items():
