@@ -75,6 +75,8 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added error message when the entire NCA is not downloaded.
 - Fixed bug with some SD installs failing.
 - Added free space refresh after installation.
+- Added beginnings of sorting.  Still buggy, do not report.
+- Added light box for dialogs.
 
 # Credits
 
