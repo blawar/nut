@@ -67,6 +67,12 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Fixed early failed install bug from last commit, caused by slow SD cards.
 - Fixed small DLC installs
 - Added example location for SD installs
+- Added NAND install option
+- Added Nut server support
+- Fixed some tile mode navigation wonkiness
+- Increased write timeouts for people with slow SD cards.
+- Moved installed applications to top.
+
 
 # Credits
 
