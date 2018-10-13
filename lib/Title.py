@@ -25,6 +25,9 @@ except ImportError:
 global grabUrlInit
 global urlCache
 global urlLock
+global fileLUT
+
+fileLUT = {}
 
 grabUrlInit = False
 urlCache = {}
@@ -153,12 +156,15 @@ class Title:
 		return '|'.join(r)
 
 	def getFiles(self):
-		files = []
+		if self.id in fileLUT:
+			return fileLUT[self.id]
+
+		fileLUT[self.id] = []
 		for path, f in Nsps.files.items():
 			if(f.titleId == self.id):
-				files.append(f)
+				fileLUT[self.id].append(f)
 
-		return files
+		return fileLUT[self.id]
 
 	def getLatestFile(self):
 		highest = None
