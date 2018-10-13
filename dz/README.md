@@ -72,6 +72,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Fixed some tile mode navigation wonkiness
 - Increased write timeouts for people with slow SD cards.
 - Moved installed applications to top.
+- Added error message when the entire NCA is not downloaded.
 
 
 # Credits
