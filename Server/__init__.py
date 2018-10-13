@@ -11,6 +11,8 @@ import Print
 import urllib
 import Users
 import base64
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 import Server.Controller.Api
 
@@ -78,7 +80,10 @@ class NutRequest:
 		self.headers = handler.headers
 		self.path = handler.path
 		self.head = False
-		self.bits = [x for x in self.path.split('/') if x]
+		self.url = urlparse(self.path)
+
+		self.bits = [x for x in self.url.path.split('/') if x]
+		self.query = parse_qs(self.url.query)
 		self.user = None
 
 	def setHead(self, h):
@@ -114,7 +119,7 @@ class NutResponse:
 			pass
 
 	def attachFile(self, fileName):
-		Print.info('Attaching file ' + fileName)
+		#Print.info('Attaching file ' + fileName)
 		self.setMime(fileName)
 		self.headers['Content-Disposition'] = 'attachment; filename=' + fileName
 
@@ -180,11 +185,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		
 		try:
 			if len(request.bits) > 0 and request.bits[0] in self.mappings:
-				if len(request.bits) > 1:
-					i = request.bits[1]
-				else:
-					i = 'Index'
-
+				i = request.bits[1]
 				methodName = 'get' + i[0].capitalize() + i[1:]
 				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
 				method(request, response)
