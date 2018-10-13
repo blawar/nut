@@ -73,7 +73,8 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Increased write timeouts for people with slow SD cards.
 - Moved installed applications to top.
 - Added error message when the entire NCA is not downloaded.
-
+- Fixed bug with some SD installs failing.
+- Added free space refresh after installation.
 
 # Credits
 
