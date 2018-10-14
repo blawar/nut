@@ -77,6 +77,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added free space refresh after installation.
 - Added beginnings of sorting.  Still buggy, do not report.
 - Added light box for dialogs.
+- Significantly improved icon loading.
 
 # Credits
 
