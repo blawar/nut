@@ -116,6 +116,7 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 			for i, k in json.loads(f.read()).items():
 				newTitles[i] = Title.Title()
 				newTitles[i].__dict__ = k
+				newTitles[i].setId(newTitles[i].id)
 
 		Print.info('loaded ' + filePath + ' in ' + str(time.clock() - timestamp) + ' seconds')
 
