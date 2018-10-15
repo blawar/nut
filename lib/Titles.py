@@ -141,6 +141,7 @@ def load():
 			for i, k in json.loads(f.read()).items():
 				titles[i] = Title.Title()
 				titles[i].__dict__ = k
+				titles[i].setId(titles[i].id)
 
 		Print.info('loaded titledb/titles.json in ' + str(time.clock() - timestamp) + ' seconds')
 

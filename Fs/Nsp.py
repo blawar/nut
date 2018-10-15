@@ -307,11 +307,11 @@ class Nsp(Pfs0):
 			format = Config.paths.getTitleBase(not self.hasValidTicket)
 			
 		format = format.replace('{id}', self.cleanFilename(t.id))
-		format = format.replace('{region}', self.cleanFilename(t.region or ''))
-		format = format.replace('{name}', self.cleanFilename(t.name or ''))
-		format = format.replace('{version}', str(self.version or 0))
+		format = format.replace('{region}', self.cleanFilename(t.getRegion() or ''))
+		format = format.replace('{name}', self.cleanFilename(t.getName() or ''))
+		format = format.replace('{version}', str(self.getVersion() or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
-		format = format.replace('{baseName}', self.cleanFilename(bt.name or ''))
+		format = format.replace('{baseName}', self.cleanFilename(bt.getName() or ''))
 		
 		'''
 		if self.hasValidTicket:
