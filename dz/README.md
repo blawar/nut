@@ -3,6 +3,7 @@ Homebrew game, update, and DLC installer, and title key dumper.
 Note that all directory paths must end in a forward slash.
 
 ![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/ss.jpg)
+![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/install.jpg)
 
 # Supported Protocols #
 ### SD CARD ###
@@ -79,6 +80,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added light box for dialogs.
 - Significantly improved icon loading.
 - Fixed icon loading on applications home screen.
+- Added install options.  Only location and includeDlc are currently functional.
 
 # Credits
 
