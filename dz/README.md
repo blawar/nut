@@ -78,6 +78,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added beginnings of sorting.  Still buggy, do not report.
 - Added light box for dialogs.
 - Significantly improved icon loading.
+- Fixed icon loading on applications home screen.
 
 # Credits
 
