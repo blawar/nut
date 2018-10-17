@@ -186,62 +186,85 @@ def getInstall(request, response):
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
-def getDownload(request, response):
-	nsp = Nsps.getByTitleId(request.bits[2])
-	#Print.info('Downloading ' + nsp.path)
-	#response.attachFile(os.path.basename(nsp.path))
-	response.attachFile(nsp.titleId + '.nsp')
+def getInfo(request, response):
+	try:
+		nsp = Nsps.getByTitleId(request.bits[2])
+		t = Titles.get(request.bits[2]).__dict__
+		t['size'] = nsp.getFileSize();
+		t['mtime'] = nsp.getFileModified();
+		response.write(json.dumps(t))
+	except BaseException as e:
+		response.write(json.dumps({'success': False, 'message': str(e)}))
+
+def getDownload(request, response, start = None, end = None):
+	try:
+		nsp = Nsps.getByTitleId(request.bits[2])
+		response.attachFile(nsp.titleId + '.nsp')
+
+		if len(request.bits) >= 5:
+			start = int(request.bits[3])
+			end = int(request.bits[4])
 	
-	chunkSize = 0x10000
+		chunkSize = 0x1000000
 
-	with open(nsp.path, "rb") as f:
-		f.seek(0, 2)
-		size = f.tell()
-		if 'Range' in request.headers:
-			start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
+		with open(nsp.path, "rb") as f:
+			f.seek(0, 2)
+			size = f.tell()
+			if 'Range' in request.headers:
+				start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
 
-			if end == '':
-				end = size - 1
-			else:
-				end = int(end) + 1
-
-			if start == '':
-				start = size - end
-			else:
-				start = int(start)
-
-			if start >= size or end > size or start < 0 or end <= 0:
-				return Server.Response400(request, response, 'Invalid range request')
-
-			response.setStatus(206)
-
-		else:
-			start = 0
-			end = size
-
-		f.seek(start, 0)
-
-		response.setMime(nsp.path)
-		response.setHeader('Accept-Ranges', 'bytes')
-		response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
-		response.setHeader('Content-Length', str(end - start))
-		#Print.info(response.headers['Content-Range'])
-		response.sendHeader()
-
-		if not response.head:
-			size = end - start
-
-			i = 0
-
-			while i < size:
-				chunk = f.read(min(size-i, chunkSize))
-				i += len(chunk)
-
-				if chunk:
-					pass
-					response.write(chunk)
+				if end == '':
+					end = size - 1
 				else:
-					break
+					end = int(end) + 1
+
+				if start == '':
+					start = size - end
+				else:
+					start = int(start)
+
+				if start >= size or end > size or start < 0 or end <= 0:
+					return Server.Response400(request, response, 'Invalid range request')
+
+				response.setStatus(206)
+
+			else:
+				if start == None:
+					start = 0
+				if end == None:
+					end = size
+
+			if end > size:
+				end = size
+
+			print('ranged request for %d - %d' % (start, end))
+			f.seek(start, 0)
+
+			response.setMime(nsp.path)
+			response.setHeader('Accept-Ranges', 'bytes')
+			response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
+			response.setHeader('Content-Length', str(end - start))
+			#Print.info(response.headers['Content-Range'])
+			response.sendHeader()
+
+			if not response.head:
+				size = end - start
+
+				i = 0
+
+				while i < size:
+					chunk = f.read(min(size-i, chunkSize))
+					i += len(chunk)
+
+					if chunk:
+						pass
+						response.write(chunk)
+					else:
+						break
+	except BaseException as e:
+		Print.error('NSP download exception: ' + str(e))
+	if response.bytesSent == 0:
+		response.write(b'')
 
 def getQueue(request, response):
 	r = Status.data().copy()

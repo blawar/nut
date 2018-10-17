@@ -28,6 +28,8 @@ sock = None
 addr = None
 threads = []
 
+mappings = {'api': Server.Controller.Api}
+
 mimes = {
 		'.css': 'text/css',
 		'.js': 'application/javascript',
@@ -160,11 +162,24 @@ def Response401(request, response):
 	response.headers['WWW-Authenticate'] = 'Basic realm=\"Nut\"'
 	response.write('401')
 
+def route(request, response):
+	try:
+		print('routing')
+		if len(request.bits) > 0 and request.bits[0] in mappings:
+			i = request.bits[1]
+			methodName = 'get' + i[0].capitalize() + i[1:]
+			print('routing to ' + methodName)
+			method = getattr(mappings[request.bits[0]], methodName, Response404)
+			method(request, response)
+			return True
+	except BaseException as e:
+		print(str(e))
+		return None
+	return False
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
 		self.basePath = os.path.abspath('.')
-		self.mappings = {'api': Server.Controller.Api}
 		super(NutHandler, self).__init__(*args)
 
 	def do_HEAD(self):
@@ -207,17 +222,13 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 		if not request.user:
 			return Response401(request, response)
-		
+
 		try:
-			if len(request.bits) > 0 and request.bits[0] in self.mappings:
-				i = request.bits[1]
-				methodName = 'get' + i[0].capitalize() + i[1:]
-				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
-				method(request, response)
-			else:
+			if not route(request, response):
 				self.handleFile(request, response)
 		except BaseException as e:
 				self.wfile.write(Response500(request, response))
+
 
 	def handleFile(self, request, response):
 		path = os.path.abspath('public_html' + self.path)
