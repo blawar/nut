@@ -35,6 +35,10 @@ import pprint
 import random
 import cdn.Shogun
 import cdn.Superfly
+try:
+	import Usb
+except:
+	Print.error('pip3 install pyusb, required for USB coms')
 
 
 				
@@ -526,6 +530,7 @@ if __name__ == '__main__':
 		parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 		parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
 		parser.add_argument('--json', action="store_true", help='JSON output')
+		parser.add_argument('--usb', action="store_true", help='Run usb daemon')
 		parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
 		parser.add_argument('-m', '--hostname', help='Set server hostname')
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
@@ -540,6 +545,7 @@ if __name__ == '__main__':
 
 		parser.add_argument('--scan-base', nargs='*', help='Scan for new base Title ID\'s')
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
+
 		
 		args = parser.parse_args()
 
@@ -603,6 +609,12 @@ if __name__ == '__main__':
 			initTitles()
 			initFiles()
 			submitKeys()
+
+		initTitles()
+		initFiles()
+
+		if args.usb:
+			Usb.daemon();
 		
 		if args.download:
 			initTitles()
