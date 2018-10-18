@@ -205,7 +205,7 @@ def getDownload(request, response, start = None, end = None):
 			start = int(request.bits[3])
 			end = int(request.bits[4])
 	
-		chunkSize = 0x1000000
+		chunkSize = 0x1000000 * 2
 
 		with open(nsp.path, "rb") as f:
 			f.seek(0, 2)
@@ -234,8 +234,12 @@ def getDownload(request, response, start = None, end = None):
 				if end == None:
 					end = size
 
-			if end > size:
+			if end >= size:
 				end = size
+
+				if end <= start:
+					response.write(b'')
+					return
 
 			print('ranged request for %d - %d' % (start, end))
 			f.seek(start, 0)

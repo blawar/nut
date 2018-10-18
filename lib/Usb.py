@@ -110,16 +110,24 @@ class Packet:
 		self.size = 0
 		self.payload = b''
 		self.command = 0
+		self.threadId = 0
+		self.packetIndex = 0
+		self.packetCount = 0
+		self.timestamp = 0
 		self.i = i
 		self.o = o
 		
 	def recv(self):
 		print('begin recv')
-		header = bytes(self.i.read(16, timeout=0))
+		header = bytes(self.i.read(32, timeout=0))
 		print('read complete')
 		magic = header[:4]
 		self.command = int.from_bytes(header[4:8], byteorder='little')
 		self.size = int.from_bytes(header[8:16], byteorder='little')
+		self.threadId = int.from_bytes(header[16:20], byteorder='little')
+		self.packetIndex = int.from_bytes(header[20:22], byteorder='little')
+		self.packetCount = int.from_bytes(header[22:24], byteorder='little')
+		self.timestamp = int.from_bytes(header[24:32], byteorder='little')
 		
 		if magic != b'\x12\x12\x12\x12':
 			print('invalid magic! ' + str(magic));
@@ -133,7 +141,11 @@ class Packet:
 		print('sending %d bytes' % len(self.payload))
 		self.o.write(b'\x12\x12\x12\x12')
 		self.o.write(struct.pack('<I', self.command))
-		self.o.write(struct.pack('<Q', len(self.payload)))
+		self.o.write(struct.pack('<Q', len(self.payload))) # size
+		self.o.write(struct.pack('<I', 0)) # threadId
+		self.o.write(struct.pack('<H', 0)) # packetIndex
+		self.o.write(struct.pack('<H', 0)) # packetCount
+		self.o.write(struct.pack('<Q', 0)) # timestamp
 		self.o.write(self.payload)
 
 def poll_commands(in_ep, out_ep):
@@ -145,16 +157,6 @@ def poll_commands(in_ep, out_ep):
 				resp = UsbResponse(p)
 
 				Server.route(req, resp)
-			elif p.command == 2:
-				#req = UsbRequest('/api/download/' + p.payload[8:].decode('utf-8')) #01000320000CC000
-				req = UsbRequest('/api/download/0100000000010000')
-				resp = UsbResponse(p)
-
-				start = int.from_bytes(p.payload[0:8], byteorder='little')
-				size = int.from_bytes(p.payload[8:16], byteorder='little')
-				end = start + size
-				print('%d - %d' % (start, end))
-				Server.Controller.Api.getDownload(req, resp, start, end)
 			else:
 				print('Unknown command! %d' % p.command)
 		else:
