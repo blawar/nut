@@ -1,3 +1,25 @@
+'''
+Copyright (c) 2018 Blake Warner
+
+Copyright (c) 2017-2018 Adubbz	                    GNU GENERAL PUBLIC LICENSE
+                        Version 3, 29 June 2007
+Permission is hereby granted, free of charge, to any person obtaining a copy	
+of this software and associated documentation files (the "Software"), to deal	 Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+in the Software without restriction, including without limitation the rights	 Everyone is permitted to copy and distribute verbatim copies
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell	 of this license document, but changing it is not allowed.
+copies of the Software, and to permit persons to whom the Software is	
+furnished to do so, subject to the following conditions:	                            Preamble
+ The above copyright notice and this permission notice shall be included in all	  The GNU General Public License is a free, copyleft license for
+copies or substantial portions of the Software.	software and other kinds of works.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR	  The licenses for most software and other practical works are designed
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,	to take away your freedom to share and change the works.  By contrast,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE	the GNU General Public License is intended to guarantee your freedom to
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER	share and change all versions of a program--to make sure it remains free
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,	software for all its users.  We, the Free Software Foundation, use the
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	GNU General Public License for most of our software; it applies also to
+SOFTWARE.
+'''
+
 # This script depends on PyUSB. You can get it with pip install pyusb.
 # You will also need libusb installed
 
@@ -5,7 +27,7 @@
 # aren't very friendly :(
 # Windows Instructions:
 # 1. Download Zadig from https://zadig.akeo.ie/.
-# 2. With your switch plugged in and on the Tinfoil USB install menu, 
+# 2. With your switch plugged in and DZ running, 
 #	choose "List All Devices" under the options menu in Zadig, and select libnx USB comms. 
 # 3. Choose libusbK from the driver list and click the "Replace Driver" button.
 # 4. Run this script
@@ -20,9 +42,7 @@
 #	  pip3 install pyusb
 # 4. Install libusb
 #	  brew install libusb
-# 5. Plug in your Switch and go to Tinfoil > Title Management > USB Install NSP
-# 6. Run this script
-#	  python3 usb_install_pc.py <path/to/nsp_folder>
+
 
 import usb.core
 import usb.util
