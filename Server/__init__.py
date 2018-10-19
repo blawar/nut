@@ -199,10 +199,10 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 			return Response401(request, response)
 		
 		try:
-			if len(request.bits) > 0 and request.bits[0] in self.mappings:
+			if len(request.bits) > 0 and request.bits[0] in mappings:
 				i = request.bits[1]
 				methodName = 'get' + i[0].capitalize() + i[1:]
-				method = getattr(self.mappings[request.bits[0]], methodName, Response404)
+				method = getattr(mappings[request.bits[0]], methodName, Response404)
 				method(request, response)
 			else:
 				self.handleFile(request, response)
