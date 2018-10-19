@@ -47,26 +47,50 @@
     "70010000009423": {
         "id": null,
         "rightsId": null,
-        "name": null,
+        "name": "Warframe",
         "version": null,
         "key": null,
         "isDemo": null,
         "region": null,
-        "releaseDate": null,
+        "releaseDate": 20181120,
         "nsuId": 70010000009423,
-        "category": null,
-        "ratingContent": null,
-        "numberOfPlayers": null,
-        "rating": null,
+        "category": [
+            "Action",
+            "Shooter",
+            "RPG"
+        ],
+        "ratingContent": [
+            "Gaming experience may change online",
+            "Strong science fiction violence"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 15,
         "developer": null,
-        "publisher": null,
+        "publisher": "Digital Extremes",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
-        "bannerUrl": null,
-        "intro": null,
-        "description": null,
-        "languages": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/9f28b0a090781c5df4629c14aad5d6f34df53e4d8189e4830c1c0dba73f10cc0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/987ac53cf1790678429585b524c5777f7b1547c5e2813f4c66cfd9ef44da18ea.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/68012b7a7b2befde7d21eb634af805adc4e8ee34cacb2df78d589b4440886335.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d62502362d6f455eed10b37685075099231abc48f836c3ca9d9c1ed9ec92bfe8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f0ae2fd926dd0ecc71c0fdccee7ca2b7e6904fb71381ec795ae40905fde513c9.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/29dd172c1cc3871fc0ef51a56c58e80b893675b4da67eb4468ee407c5b513aec.jpg",
+        "intro": "Ninjas Play Free!",
+        "description": "\"They were called Tenno. Warriors of blade and gun \u2013 Masters of the Warframe armor. Those that survived the Old War were left drifting among the ruins. Now they are needed once more.\n\nThe Grineer, with their vast armies, are spreading throughout the solar system. A call echoes across the stars summoning the Tenno to an ancient place. They summon you.\n\nCome, Tenno, you must join the war.\"",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
         "size": 0
     },
     "70010000006932": {
