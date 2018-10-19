@@ -1,45 +1,76 @@
-Homebrew game, update, and DLC installer, and title key dumper.
+# DZ
 
-Note that all directory paths must end in a forward slash.
+A homebrew game, update, and DLC installer, and title key dumper.
 
-![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/ss.jpg)
-![alt text](https://raw.githubusercontent.com/blawar/nut/master/dz/install.jpg)
 
-# Supported Protocols #
-### SD CARD ###
-Supports installing from the local SD  card.  Use the url sdmc:/ to point to the SD card.  you can point to sub-directories too such as sdmc://nsps/
+## Screenshots
+![tile view](ss.jpg)
+![install options](install.jpg)
 
-### FTP ###
+
+## Installation
+
+ - Create the directory `/switch/dz/` on your switch's SD card.
+ - Copy `dz.nro` to `/switch/dz/dz.nro`.
+ - Obtain or generate a `keys.txt` file and place it in `/switch/dz/keys.txt`. `keys.txt` is a text file containing various Switch encryption keys. If you plan to generate it yourself, you can find instructions here:  https://gbatemp.net/threads/how-to-get-switch-keys-for-hactool-xci-decrypting.506978/ or use [`kezplez-nx`](https://github.com/shchmue/kezplez-nx)
+ - Copy `locations.conf` to `/switch/dz/locations.conf`. You should edit this file, it is only an example. It points to the various local and network locations hosting your Switch content. You can view an example of how to add the various [supported protocols](#supported-protocols) by looking at the `locations.conf.example`s.
+
+
+## Supported Protocols
+Edit `locations.conf` to configure your install sources - you can mix and match.  Only ip's can be used the the URL's, no hostnames.
+*Note that all directory paths must end in a forward slash.*
+
+#### SD CARD
+Supports installing from the local SD  card.  Use the URI `sdmc:/` to point to the SD card. Subdirectories also work, for example `sdmc://nsps/`.
+
+#### FTP
 Regular FTP, not FTPS, not SFTP, normal plain jane FTP.
 
-### HTTP ###
-Http requires directory listing / browsing be enabled!
+#### HTTP
+HTTP requires directory listing / browsing be enabled.
 
-# Installation
+#### USB
+Requires a configured `nut` server. See [here](https://github.com/blawar/nut/#usb-server-for-dz) for details.
 
- - Create the directory /switch/dz/ on your switch's SD card.
- 
- - Copy dz.nro to /switch/dz/dz.nro .
- 
- - Obtain or generate a keys.txt file and place it in /switch/dz/keys.txt .  keys.txt is a text file containing various switch encryption keys.  If you plan to generate it yourself, you can find instructions here:  https://gbatemp.net/threads/how-to-get-switch-keys-for-hactool-xci-decrypting.506978/
- 
- - Copy locations.conf to /switch/dz/locations.conf .  You should edit this file, it is only an example, and points to the various local and network locations hosting your switch content.  You can view an example of how ot add network install locations by looking at locations.conf.example
+#### NUT SERVER
+Requires a configured `nut` server. See [here](https://github.com/blawar/nut/#server-gui) for details.  Always ensure you are running the latest NUT server with DZ.
 
-# Disclaimer
 
-Use at your own risk, and always have a NAND backup.'
+## Trouble shooting
 
-# Dumping Title Keys
+#### Only SD is listed in your locations in the application
+Either your locations.conf is not located at /switch/dz/locations.conf, it is invalid JSON, or you saved the file as unicode.
+- Ensure /switch/dz/locations.conf exists on your SD card.
+- Ensure your locations.conf passes validation at https://jsonlint.com/ .
+- Ensure you did not save your locations.conf file as unicode, the hidden BOM bytes will break parsing.
 
-Title keys are saved to sdmc:/switch/dz/titlekeys.txt when dumped.
+#### I see my network locations, however no files are listed
+Either DZ cannot cannot connect with the network settings provided, you are using http and did not enable directory browsing, your firewall is blocking the connection.
+- Ensure that you can connect to the FTP/HTTP/NUT server using the provided settings from a *different* PC than the one running the server.
+- DZ does not support sub directories, so each directory must point to the exact directory the NSP's are located in.
+- Ensure your firewall is allowing external connections.  Configure or disable your firewall.
+- If using HTTP, ensure that directory listing / browsing is enabled.  This must be manually enabled with IIS.
 
-# Backing up title keys
+#### I can see the files, but cannot download them.
+- Ensure the url in your locations.conf ends with a forward slash.
+- If using HTTP, verify that you can download the file using a web browser.  IIS requires you to add a MIME type for NSP (application/octet-stream) before you can download.
 
-You can place a single http url into /switch/dz/titlekeys.url.txt , to automatically submit your keys to that url to back them up.
+#### DZ Hangs at a black screen when I launch it
+Ensure the network settings (specifcally the IP) are correct.
+
+## Dumping Title Keys ##
+
+Title keys are saved to `sdmc:/switch/dz/titlekeys.txt` when dumped. Additionally, you can place a single HTTP URL into `/switch/dz/titlekeys.url.txt` , to automatically submit your keys to that URL to back them up.
+
+
+## Disclaimer
+
+Use at your own risk, and [always have a NAND backup](https://gbatemp.net/threads/rcm-payload-hekate-ctcaer-mod.502604/).
+
 
 # Changelog
 
-- Added CURL error logging to console window for troublshooting network issues.
+- Added CURL error logging to console window for troubleshooting network issues.
 - Added scroll bars to the menu, for those souls who add a million locations.
 - Added colored background to finished queue entries.
 - Fixed issue installing updates above 0x1000 / 65536
@@ -48,7 +79,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Fixed minor scrollbar graphical glitches.
 - Fixed naming issues with apostrophes and ampersands.
 - Added icons / tiled layout option and a switchable view for games.
-- Added collapsable menu when browsing the panels.
+- Added collapsible menu when browsing the panels.
 - Fixed a few memory leaks
 - Removed system version check for installs
 - Fixed data corruption error when checking through the OS.
@@ -76,14 +107,14 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Added error message when the entire NCA is not downloaded.
 - Fixed bug with some SD installs failing.
 - Added free space refresh after installation.
-- Added beginnings of sorting.  Still buggy, do not report.
+- Added beginnings of sorting. Still buggy, do not report.
 - Added light box for dialogs.
 - Significantly improved icon loading.
 - Fixed icon loading on applications home screen.
-- Added install options.  Only location and includeDlc are currently functional.
-- Added USB experimental install.  server command (make sure nut can see your NSP's): nut.py --usb
+- Added install options. Only location and includeDlc are currently functional.
+- Added USB experimental install. Server command (make sure nut can see your NSP's): `nut.py --usb`
 
-# Credits
+## Credits
 
 Ideas from Adubbz:
 https://github.com/Adubbz/
