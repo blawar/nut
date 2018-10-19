@@ -113,6 +113,7 @@ Use at your own risk, and [always have a NAND backup](https://gbatemp.net/thread
 - Fixed icon loading on applications home screen.
 - Added install options. Only location and includeDlc are currently functional.
 - Added USB experimental install. Server command (make sure nut can see your NSP's): `nut.py --usb`
+- Added title type column, and region column now populates with NUT server.
 
 ## Credits
 
