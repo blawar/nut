@@ -42,7 +42,7 @@ def getSearch(request, response):
 	for k, t in Titles.items():
 		f = t.getLatestFile()
 		if f and f.hasValidTicket and (region == None or t.region in region) and (dlc == None or t.isDLC == dlc) and (update == None or t.isUpdate == update) and (demo == None or t.isDemo == demo) and (publisher == None or t.publisher in publisher):
-			o.append({'id': t.id, 'name': t.name, 'version': int(f.version) if f.version else None , 'size': f.getFileSize(), 'mtime': f.getFileModified() })
+			o.append({'id': t.id, 'name': t.name, 'version': int(f.version) if f.version else None , 'region': t.region,'size': f.getFileSize(), 'mtime': f.getFileModified() })
 	response.write(json.dumps(o))
 
 def getTitles(request, response):
