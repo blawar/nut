@@ -81,6 +81,7 @@ You can place a single http url into /switch/dz/titlekeys.url.txt , to automatic
 - Significantly improved icon loading.
 - Fixed icon loading on applications home screen.
 - Added install options.  Only location and includeDlc are currently functional.
+- Added USB experimental install.  server command (make sure nut can see your NSP's): nut.py --usb
 
 # Credits
 
