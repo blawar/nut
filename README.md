@@ -23,6 +23,9 @@ It can download any titles you do not have a key for (for archiving), by enablin
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
  
+## USB Server for DZ
+Ensure nut is configured correctly to see your NSP's, and run this command to enter USB server mode: nut.py --usb
+ 
 ## Server GUI
 If you wish to run the server GUI, you must first download the images from nintendo.  You may do so with this command:
 nut.py -s --scrape

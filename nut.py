@@ -614,7 +614,8 @@ if __name__ == '__main__':
 		initFiles()
 
 		if args.usb:
-			Usb.daemon();
+			scan()
+			Usb.daemon()
 		
 		if args.download:
 			initTitles()
