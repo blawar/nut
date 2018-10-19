@@ -205,7 +205,7 @@ def getDownload(request, response, start = None, end = None):
 			start = int(request.bits[3])
 			end = int(request.bits[4])
 	
-		chunkSize = 0x1000000 * 2
+		chunkSize = 0x400000
 
 		with open(nsp.path, "rb") as f:
 			f.seek(0, 2)
