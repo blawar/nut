@@ -464,6 +464,71 @@ def submitKeys():
 			except BaseException as e:
 				Print.info(str(e))
 				raise
+
+def refreshRegions():
+	for region in Config.regionLanguages():
+		for language in Config.regionLanguages()[region]:
+			for i in Titles.data(region, language):
+				regionTitle = Titles.data(region, language)[i]
+
+				if regionTitle.id:
+					title = Titles.get(regionTitle.id, None, None)
+
+					if not title.regions:
+						title.regions = []
+
+					if not title.languages:
+						title.languages = []
+
+					if not region in title.regions:
+						title.regions.append(region)
+
+					if not language in title.languages:
+						title.languages.append(language)
+	Titles.save()
+
+def importRegion(region = 'US', language = 'en'):
+	if not region in Config.regionLanguages() or language not in Config.regionLanguages()[region]:
+		Print.error('Could not locate %s/%s !' % (region, language))
+		return False
+
+	for region2 in Config.regionLanguages():
+		for language2 in Config.regionLanguages()[region]:
+			for nsuId, regionTitle in Titles.data(region2, language2).items():
+				if not regionTitle.id:
+					continue
+				title = Titles.get(regionTitle.id, None, None)
+				title.importFrom(regionTitle, region2, language2)
+
+	for region2 in Config.regionLanguages():
+		for language2 in Config.regionLanguages()[region]:
+			if language2 != language:
+				continue
+			for nsuId, regionTitle in Titles.data(region2, language2).items():
+				if not regionTitle.id:
+					continue
+				title = Titles.get(regionTitle.id, None, None)
+				title.importFrom(regionTitle, region2, language2)
+
+	for nsuId, regionTitle in Titles.data(region, language).items():
+		if not regionTitle.id:
+			continue
+
+		title = Titles.get(regionTitle.id, None, None)
+		title.importFrom(regionTitle, region, language)
+		'''
+		for k,v in regionTitle.__dict__.items():
+			if k in ('id', 'version', 'regions', 'languages', 'nsuId', 'key'):
+				continue
+			setattr(title, k, v)
+			title.setId(title.id)
+			title.setVersion(regionTitle.version)
+			title.region = region
+			title.language = language
+		'''
+
+	Titles.save()
+
 			
 if __name__ == '__main__':
 	try:
@@ -542,6 +607,11 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 
 		parser.add_argument('--scrape-shogun', action="store_true", help='Scrape ALL titles from shogun')
+		parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
+
+		parser.add_argument('--refresh-regions', action="store_true", help='Refreshes the region and language mappings in Nut\'s DB')
+		parser.add_argument('--import-region', help='Localizes Nut\'s DB to the specified region')
+		parser.add_argument('--language', help='Specify language to be used with region')
 
 		parser.add_argument('--scan-base', nargs='*', help='Scan for new base Title ID\'s')
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
@@ -609,6 +679,24 @@ if __name__ == '__main__':
 			initTitles()
 			initFiles()
 			submitKeys()
+
+		if args.scrape_languages:
+			cdn.Shogun.saveLanguages()
+			exit(0)
+
+		if args.refresh_regions:
+			refreshRegions()
+			exit(0)
+
+		if args.import_region:
+			region = args.import_region.upper()
+			if not args.language:
+				args.language = 'en'
+
+			args.language = args.language.lower()
+
+			importRegion(region, args.language)
+			exit(0)
 
 		initTitles()
 		initFiles()

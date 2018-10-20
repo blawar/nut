@@ -94,6 +94,7 @@ class Title:
 		self.key = None
 		self.isDemo = None
 		self.region = None
+		self.regions = None
 
 		self.baseId = None
 		self.releaseDate = None
@@ -150,6 +151,18 @@ class Title:
 			method = getattr(self, methodName, lambda: methodName)
 			r[i] = method()
 		return r
+
+	def importFrom(self, regionTitle, region, language):
+		if not regionTitle.name or not regionTitle.id:
+			return
+		for k,v in regionTitle.__dict__.items():
+			if k in ('id', 'version', 'regions', 'languages', 'nsuId', 'key'):
+				continue
+			setattr(self, k, v)
+			self.setId(self.id)
+			self.setVersion(regionTitle.version)
+			self.region = region
+			self.language = language
 		
 	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 		r = []
@@ -322,7 +335,7 @@ class Title:
 		return self.region or ''
 			
 	def setName(self, name):
-		if not name:
+		if not name or self.name:
 			return
 		self.name = name
 		
@@ -558,6 +571,9 @@ class Title:
 		if "applications" in _json and 0 in _json["applications"]:
 			if "image_url" in _json["applications"][0]:
 				self.iconUrl = _json["applications"][0]['image_url']
+
+		if "applications" in _json and "image_url" in _json["applications"]:
+			self.iconUrl = _json["applications"]['image_url']
 
 		if "catch_copy" in _json:
 			intro = re.sub('(?<!\n)\n(?!\n)', ' ',_json["catch_copy"])

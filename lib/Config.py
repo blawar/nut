@@ -281,3 +281,17 @@ if os.path.isfile('dauth.token'):
 	with open('dauth.token', encoding="utf8") as f:
 		dauthToken.token = f.read().strip()
 
+
+
+g_regionLanguages = None
+
+def regionLanguages(fileName = 'titledb/languages.json'):
+	global g_regionLanguages
+
+	if g_regionLanguages:
+		return g_regionLanguages
+
+	with open(fileName, encoding="utf-8-sig") as f:
+			g_regionLanguages = json.loads(f.read())
+
+	return g_regionLanguages
