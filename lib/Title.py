@@ -144,7 +144,7 @@ class Title:
 		#self.setName(split[2].strip())
 		#self.setKey(split[1].strip())
 
-	def dict(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
+	def dict(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = {}
 		for i in map:	
 			methodName = 'get' + i[0].capitalize() + i[1:]
@@ -164,7 +164,7 @@ class Title:
 			self.region = region
 			self.language = language
 		
-	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
+	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = []
 		for i in map:
 				
@@ -232,18 +232,6 @@ class Title:
 				self.isUpdate = True
 			elif v == 0:
 				self.isUpdate = False
-		except:
-			pass
-
-	def getRetailOnly(self):
-		try:
-			return self.retailOnly*1
-		except:
-			return 0
-
-	def setRetailOnly(self, v):
-		try:
-			self.retailOnly = bool(int(v, 10))
 		except:
 			pass
 		
