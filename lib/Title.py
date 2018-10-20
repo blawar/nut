@@ -279,7 +279,7 @@ class Title:
 		return self.rightsId or '00000000000000000000000000000000'
 			
 	def setId(self, id):
-		self.isUpdate = None
+		self.isUpdate = False
 		self.baseId = None
 		if not id:
 			return
