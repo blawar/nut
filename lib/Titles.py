@@ -228,6 +228,9 @@ def save(fileName = 'titledb/titles.json'):
 
 	confLock.release()
 
+def saveRegion(region, language):
+	saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
+
 def saveAll(fileName = 'titledb/titles.json'):
 	for region in cdn.regions():
 		for language in cdn.Shogun.countryLanguages(region):
