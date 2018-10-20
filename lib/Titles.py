@@ -22,6 +22,8 @@ if os.path.isfile('titles.json'):
 
 def data(region, language):
 	global regionTitles
+	global titles
+
 	if region:
 		if not region in regionTitles:
 			regionTitles[region] = {}
@@ -45,7 +47,7 @@ def items(region, language):
 
 	return titles.items()
 
-def get(key, region , language):
+def get(key, region = None, language = None):
 	key = key.upper()
 	if not key in data(region, language):
 		t = Title.Title()
@@ -75,7 +77,7 @@ def set(key, value):
 	titles[key] = value
 	
 	
-def keys(region, language):
+def keys(region = None, language = None):
 	if region:
 		return regionTitles[region][language].keys()
 
@@ -113,7 +115,7 @@ def loadTitleBuffer(buffer, silent = False):
 		t = Title.Title()
 		t.loadCsv(line, map)
 
-		if not t.id in keys():
+		if not t.id in keys(None, None):
 			titles[t.id] = Title.Title()
 			
 		titleKey = titles[t.id].key
@@ -166,6 +168,7 @@ def load():
 
 		Print.info('loaded titledb/titles.json in ' + str(time.clock() - timestamp) + ' seconds')
 
+		'''
 	if os.path.isfile("titles.txt"):
 		loadTitleFile('titles.txt', True)
 
@@ -177,6 +180,7 @@ def load():
 			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
 	except BaseException as e:
 		Print.error('title load error: ' + str(e))
+		'''
 	confLock.release()
 
 	

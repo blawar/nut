@@ -164,7 +164,7 @@ class Nsp(Pfs0):
 			Print.info(filePath)
 
 	def setHasValidTicket(self, value):
-		if self.title().isUpdate:
+		if hasattr(self.title(), 'isUpdate') and self.title().isUpdate:
 			self.hasValidTicket = True
 			return
 
@@ -290,7 +290,7 @@ class Nsp(Pfs0):
 					Print.info('could not find baseId for ' + self.path)
 					return None
 			except BaseException as e:
-				print('could not find title id ' + str(self.titleId))
+				print('exception: could not find title id ' + str(self.titleId) + ' ' + str(e))
 				return None
 			bt = Titles.get(t.baseId)
 		

@@ -274,7 +274,9 @@ class Title:
 		return self.rightsId or '00000000000000000000000000000000'
 			
 	def setId(self, id):
-		if not id or (hasattr(self, 'id') and self.id):
+		if not id:
+			self.baseId = None
+			self.isUpdate = None
 			return
 			
 		id = id.upper();
@@ -282,6 +284,8 @@ class Title:
 		try:
 			i = int(id, 16)
 		except:
+			self.baseId = None
+			self.isUpdate = None
 			return
 		
 		if len(id) == 32:
@@ -290,6 +294,8 @@ class Title:
 		elif len(id) == 16:
 			self.id = id[:16]
 		else:
+			self.baseId = None
+			self.isUpdate = None
 			return
 		
 		titleIdNum = int(self.id, 16)
@@ -305,7 +311,7 @@ class Title:
 		
 		if self.isDLC:
 			# dlc
-			pass
+			self.isUpdate = False
 		elif self.idExt == 0:
 			# base
 			self.updateId = '%s800' % self.id[:-3]
@@ -347,7 +353,7 @@ class Title:
 	
 	def getName(self):
 		baseId = getBaseId(self.id)
-		if self.isUpdate and Titles.contains(baseId):
+		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
 			return Titles.get(baseId).name
 		return self.name or ''
 			
