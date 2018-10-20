@@ -190,6 +190,9 @@ def startDownloadThreads():
 		threads.append(t)
 
 def downloadAll(wait = True):
+	initTitles()
+	initFiles()
+
 	global activeDownloads
 	global status
 
@@ -304,9 +307,9 @@ def startBaseScan():
 	baseStatus.close()
 
 			
-def export(file):
+def export(file, cols = ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	initTitles()
-	Titles.export(file, ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly'])
+	Titles.export(file, cols)
 
 global hasScanned
 hasScanned = False
@@ -595,6 +598,7 @@ if __name__ == '__main__':
 		parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
 		parser.add_argument('-c', '--create', help='create / pack a NSP')
 		parser.add_argument('--export', help='export title database in csv format')
+		parser.add_argument('--export-versions', help='export title version database in csv format')
 		parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
 		parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 		parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
@@ -677,6 +681,7 @@ if __name__ == '__main__':
 			initTitles()
 			for url in Config.titleUrls:
 				updateDb(url)
+			Titles.loadTxtDatabases()
 			Titles.save()
 
 		if args.submit_keys:
@@ -701,9 +706,6 @@ if __name__ == '__main__':
 
 			importRegion(region, args.language)
 			exit(0)
-
-		initTitles()
-		initFiles()
 
 		if args.usb:
 			scan()
@@ -753,9 +755,13 @@ if __name__ == '__main__':
 			scan()
 		
 		if args.refresh:
+			initTitles()
+			initFiles()
 			refresh()
 	
 		if args.organize:
+			initTitles()
+			initFiles()
 			organize()
 
 		if args.set_masterkey1:
@@ -794,6 +800,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.remove_title_rights:
+			initTitles()
+			initFiles()
 			for fileName in args.remove_title_rights:
 				try:
 					f = Fs.Nsp(fileName, 'r+b')
@@ -919,7 +927,14 @@ if __name__ == '__main__':
 			downloadAll()
 		
 		if args.export:
+			initTitles()
+			initFiles()
 			export(args.export)
+
+		if args.export_versions:
+			initTitles()
+			initFiles()
+			export(args.export, ['id', 'version'])
 		
 		if args.missing:
 			logMissingTitles(args.missing)

@@ -526,15 +526,6 @@ class Title:
 			for i, k in enumerate(_json["screenshots"]):
 				self.screenshots.append(k["images"][0]["url"])
 
-		'''
-		if "demos" in _json:
-			for demo in _json["demos"]:
-				if "id" in demo:
-					if id[0:12] != _json['applications'][0]['id'][0:12]:
-						self.nsuId = int(demo["id"])
-						if "name" in demo:
-							self.name = demo["name"].strip()
-		'''
 
 		if "languages" in _json:
 			self.languages = []
@@ -573,9 +564,14 @@ class Title:
 			if 'title' in _json["publisher"]:
 				self.publisher = _json["publisher"]["title"]
 
-		if "applications" in _json and 0 in _json["applications"]:
-			if "image_url" in _json["applications"][0]:
-				self.iconUrl = _json["applications"][0]['image_url']
+		if "applications" in _json and isinstance(_json["applications"], collections.Sequence):
+			for a in _json["applications"]:
+				if "id" in a:
+					self.setId(a['id'])
+
+				if "image_url" in a:
+					self.iconUrl = a['image_url']
+				break
 
 		if "applications" in _json and "image_url" in _json["applications"]:
 			self.iconUrl = _json["applications"]['image_url']
