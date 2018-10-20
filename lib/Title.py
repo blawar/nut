@@ -334,7 +334,7 @@ class Title:
 		return self.baseId or '0000000000000000'
 
 	def setRegion(self, region):
-		if re.match('[A-Z]{2}', region):
+		if not self.region and re.match('[A-Z]{2}', region):
 			self.region = region
 		
 	def getRegion(self):
