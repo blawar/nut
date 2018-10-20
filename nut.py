@@ -500,7 +500,7 @@ def importRegion(region = 'US', language = 'en'):
 		return False
 
 	for region2 in Config.regionLanguages():
-		for language2 in Config.regionLanguages()[region]:
+		for language2 in Config.regionLanguages()[region2]:
 			for nsuId, regionTitle in Titles.data(region2, language2).items():
 				if not regionTitle.id:
 					continue
@@ -508,7 +508,7 @@ def importRegion(region = 'US', language = 'en'):
 				title.importFrom(regionTitle, region2, language2)
 
 	for region2 in Config.regionLanguages():
-		for language2 in Config.regionLanguages()[region]:
+		for language2 in Config.regionLanguages()[region2]:
 			if language2 != language:
 				continue
 			for nsuId, regionTitle in Titles.data(region2, language2).items():
