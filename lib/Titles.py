@@ -20,7 +20,7 @@ regionTitles = {}
 if os.path.isfile('titles.json'):
 	os.rename('titles.json', 'titledb/titles.json')
 
-def data(region, language):
+def data(region = None, language = None):
 	global regionTitles
 	global titles
 
@@ -41,7 +41,7 @@ def data(region, language):
 		load()
 	return titles
 
-def items(region, language):
+def items(region = None, language = None):
 	if region:
 		return regionTitles[region][language].items()
 

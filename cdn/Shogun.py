@@ -59,7 +59,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	j = None
 
-	if os.path.isfile(cacheFileName):
+	if cdn.isValidCache(cacheFileName):
 		if not key:
 			with open(cacheFileName, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
@@ -69,7 +69,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	if key:
 		cacheFileName = key
-		if os.path.isfile(cacheFileName):
+		if cdn.isValidCache(cacheFileName):
 			with open(key, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
 
