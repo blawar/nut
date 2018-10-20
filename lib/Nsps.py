@@ -47,6 +47,10 @@ def scan(base):
 				path = os.path.abspath(root + '/' + name)
 				fileList[path] = name
 
+	if len(fileList) == 0:
+		save()
+		return
+
 	status = Status.create(len(fileList), desc = 'Scanning files...')
 
 	try:
