@@ -279,9 +279,9 @@ class Title:
 		return self.rightsId or '00000000000000000000000000000000'
 			
 	def setId(self, id):
+		self.isUpdate = None
+		self.baseId = None
 		if not id:
-			self.baseId = None
-			self.isUpdate = None
 			return
 			
 		id = id.upper();
@@ -289,8 +289,6 @@ class Title:
 		try:
 			i = int(id, 16)
 		except:
-			self.baseId = None
-			self.isUpdate = None
 			return
 		
 		if len(id) == 32:
@@ -299,16 +297,12 @@ class Title:
 		elif len(id) == 16:
 			self.id = id[:16]
 		else:
-			self.baseId = None
-			self.isUpdate = None
 			return
 		
 		titleIdNum = int(self.id, 16)
 		
 		if self.id:
 			self.baseId = '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
-		else:
-			self.baseId = None
 		
 		self.isDLC = (titleIdNum & 0xFFFFFFFFFFFFE000) != (titleIdNum & 0xFFFFFFFFFFFFF000)
 		#self.isBase = self.id == titleIdNum & 0xFFFFFFFFFFFFE000
