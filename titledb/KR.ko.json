@@ -80,7 +80,7 @@
             "ko",
             "zh"
         ],
-        "size": 13012828160
+        "size": 13279166464
     },
     "70050000007542": {
         "id": "0100E8500AD59001",
@@ -904,7 +904,7 @@
             "ko",
             "zh"
         ],
-        "size": 14046724096
+        "size": 14552137728
     },
     "70050000007581": {
         "id": "0100D6000B52D001",
@@ -984,7 +984,7 @@
             "ko",
             "zh"
         ],
-        "size": 3538944000
+        "size": 3554672640
     },
     "70010000012752": {
         "id": "010037600B61C000",
@@ -1529,7 +1529,7 @@
             "ko",
             "zh"
         ],
-        "size": 553648128
+        "size": 602931200
     },
     "70010000013556": {
         "id": "01004C200100E000",
@@ -1864,7 +1864,7 @@
             "ko",
             "zh"
         ],
-        "size": 3767533568
+        "size": 3798990848
     },
     "70050000006381": {
         "id": "0100D9A005ED7001",
@@ -4930,7 +4930,7 @@
             "de",
             "it"
         ],
-        "size": 14153678848
+        "size": 14150533120
     },
     "70050000004148": {
         "id": "0100E95004039001",
@@ -5413,5 +5413,64 @@
             "zh"
         ],
         "size": 2589982720
+    },
+    "70050000008141": {
+        "id": "0100D6000B52D002",
+        "rightsId": null,
+        "name": "SNK \ud788\ub85c\uc778\uc988 : \ucd94\uac00 \uce90\ub9ad\ud130 \"\uc2a4\uceec\ub85c \ub9e4\ub2c8\uc544\"",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000008141,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/28b7a671de22e015027abad7af31d2f71064b2666524650c8c6ade50163b7bbe.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/475a3814bd6af9c893ae65e678497e21ac05f1c075641ecb9929bfa91e0a4971.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/efed9c7440aeed8324b9ef9b7262a0e125442fa3190c7186638494cbaa53ca89.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0e6c8fe9f9f68923eca443929b04bb1e9d2f0366e24fa3d65a890cb4ef1258d8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/00dce4ff471f136ba485c2a8ca1aa222c99218e3eef0323dbe12d9d9e3f391a8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0d1db50938ed4c2bc13bf424bed5943f596b68151e4ce5eae4ead91b9c241f8a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2a7a2cc4ca5f3375bc93fb7c41019bcd667d08dfa6630717487b9563a8ac92bc.jpg",
+        "intro": null,
+        "description": "\uc774 \uc0c1\ud488\uc744 \uad6c\uc785\ud558\uc2dc\uba74 \uac8c\uc784 \ubcf8\ud3b8 \u300cSNK \ud788\ub85c\uc778\uc988 Tag Team Frenzy\u300d\uc5d0\uc11c \ucd94\uac00 \uce90\ub9ad\ud130 \u300c\uc2a4\uceec\ub85c \ub9e4\ub2c8\uc544\u300d\uac00 \uc0ac\uc6a9 \uac00\ub2a5\ud574\uc9d1\ub2c8\ub2e4.\n\n\u00a9ARIKA CO.,LTD. ALL RIGHTS RESERVED.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008163": {
+        "id": "0100D9A005ED701B",
+        "rightsId": null,
+        "name": "\uff34\uff4f\uff48\uff4f \uff30\uff52\uff4f\uff4a\uff45\uff43\uff54 \uff21\uff52\uff52\uff41\uff4e\uff47\uff45\uff4d\uff45\uff4e\uff54\uff53 \uff30\uff41\uff43\uff4b",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000008163,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3f21b531398026fc81549cbbba229350fad0a42fbca47c2db28c9df3fea3f2b0.jpg",
+        "intro": null,
+        "description": "\uc5f0\uc8fc \uac8c\uc784\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1\u300cNight of Knights / Knight of Nights\u300d \uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26056\u3000\uc5b4\ub824\uc6c0\u26057\u3000\uadc0\uc2e0\u26059 \u25a0\uace1 \u300c\uce20\ud0a4\ub2c8 \ubb34\ub77c\ucfe0\ubaa8 \ud558\ub098\ub2c8 \uce74\uc81c\u300d \uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26055\u3000\uc5b4\ub824\uc6c0\u26056\u3000\uadc0\uc2e0\u26058 \u25a0\uace1 \u300c\ucf00\ub85c\u2468destiny\u300d \uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26056\u3000\uc5b4\ub824\uc6c0\u26056\u3000\uadc0\uc2e0\u26059",
+        "languages": null,
+        "size": 12582912
     }
 }

@@ -115,15 +115,35 @@ threads = 4
 jsonOutput = False
 isRunning = True
 
+region = 'US'
+language = 'en'
+
 titleUrls = []
 
 def load(confFile):
 	global threads
 	global jsonOutput
 	global titleUrls
+	global region
+	global language
 
 	with open(confFile, encoding="utf8") as f:
 		j = json.load(f)
+
+		try:
+			region = j['region']
+		except:
+			pass
+
+		try:
+			language = j['language']
+		except:
+			pass
+
+		try:
+			paths.titleImages = j['paths']['titleImages']
+		except:
+			pass
 	
 		try:
 			paths.titleBase = j['paths']['titleBase']

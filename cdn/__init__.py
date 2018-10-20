@@ -1,5 +1,16 @@
+import time
+import os
+
 def regions():
 	return ['CA', 'MX', 'CO', 'AR', 'CL', 'PE', 'JP', 'KR', 'HK', 'AU', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'DE', 'ES', 'FI', 'FR', 'GR', 'HU', 'IT', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'GB', 'US']
+
+def isValidCache(cacheFileName):
+	if not os.path.isfile(cacheFileName):
+		return False
+
+	if time.time() - os.path.getmtime(cacheFileName) < 604800:
+		return True
+	return False
 
 def calc_sha256(fPath):
 	f = open(fPath, 'rb')

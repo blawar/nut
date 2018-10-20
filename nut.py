@@ -320,6 +320,10 @@ def scan():
 	initTitles()
 	initFiles()
 
+	
+	refreshRegions()
+	importRegion(Config.region, Config.language)
+
 	Nsps.scan(Config.paths.scan)
 	Titles.save()
 	
@@ -691,7 +695,7 @@ if __name__ == '__main__':
 		if args.import_region:
 			region = args.import_region.upper()
 			if not args.language:
-				args.language = 'en'
+				args.language = Config.language
 
 			args.language = args.language.lower()
 

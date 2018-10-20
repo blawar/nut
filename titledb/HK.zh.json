@@ -37,7 +37,7 @@
             "ko",
             "zh"
         ],
-        "size": 14046724096
+        "size": 14552137728
     },
     "70050000007581": {
         "id": "0100D6000B52D001",
@@ -183,7 +183,7 @@
             "ko",
             "zh"
         ],
-        "size": 13012828160
+        "size": 13279166464
     },
     "70050000007542": {
         "id": "0100E8500AD59001",
@@ -1134,9 +1134,10 @@
             "es",
             "fr",
             "de",
-            "it"
+            "it",
+            "zh"
         ],
-        "size": 2293235712
+        "size": 2405433344
     },
     "70010000010203": {
         "id": "0100FC000AEF0000",
@@ -1182,7 +1183,7 @@
             "ko",
             "zh"
         ],
-        "size": 553648128
+        "size": 602931200
     },
     "70010000012137": {
         "id": "01000E600B05C000",
@@ -1640,7 +1641,7 @@
             "ko",
             "zh"
         ],
-        "size": 3767533568
+        "size": 3798990848
     },
     "70050000006381": {
         "id": "0100D9A005ED7001",
@@ -3839,7 +3840,7 @@
             "ja",
             "zh"
         ],
-        "size": 14162067456
+        "size": 14157873152
     },
     "70050000004210": {
         "id": "0100F3400332D001",
@@ -4647,5 +4648,64 @@
             "zh"
         ],
         "size": 1151336448
+    },
+    "70050000008141": {
+        "id": "0100D6000B52D002",
+        "rightsId": null,
+        "name": "SNK HEROINES\uff1a\u65b0\u589e\u89d2\u8272 \"\u9ab7\u9acf\u4fe0\"",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000008141,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/28b7a671de22e015027abad7af31d2f71064b2666524650c8c6ade50163b7bbe.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/475a3814bd6af9c893ae65e678497e21ac05f1c075641ecb9929bfa91e0a4971.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/efed9c7440aeed8324b9ef9b7262a0e125442fa3190c7186638494cbaa53ca89.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0e6c8fe9f9f68923eca443929b04bb1e9d2f0366e24fa3d65a890cb4ef1258d8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/00dce4ff471f136ba485c2a8ca1aa222c99218e3eef0323dbe12d9d9e3f391a8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0d1db50938ed4c2bc13bf424bed5943f596b68151e4ce5eae4ead91b9c241f8a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2a7a2cc4ca5f3375bc93fb7c41019bcd667d08dfa6630717487b9563a8ac92bc.jpg",
+        "intro": null,
+        "description": "\u8cfc\u8cb7\u672c\u5546\u54c1\u5f8c\u53ef\u5728\u300cSNK HEROINES Tag Team Frenzy\u300d\u904a\u6232\u6b63\u7bc7\u5167 \u4f7f\u7528\u65b0\u589e\u89d2\u8272\u300c\u9ab7\u9acf\u4fe0\u300d\u3002\n\n\u00a9ARIKA CO.,LTD. ALL RIGHTS RESERVED.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008163": {
+        "id": "0100D9A005ED701B",
+        "rightsId": null,
+        "name": "\u6771\u65b9\uff30\uff52\uff4f\uff4a\uff45\uff43\uff54 \uff21\uff52\uff52\uff41\uff4e\uff47\uff45\uff4d\uff45\uff4e\uff54\uff53 \uff30\uff41\uff43\uff4b",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000008163,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/29a1c68bf60d8eb87a9bf57d61a0828d26c15e471657efc24aa10bc3838938a7.jpg",
+        "intro": null,
+        "description": "\u662f\u80fd\u5728\u6f14\u594f\u904a\u6232\u88e1\u904a\u73a9\u7684\u8ffd\u52a0\u9805\u76ee\u3002\n\n\u25a0\u6a02\u66f2\u300c\uff2e\uff49\uff47\uff48\uff54 \uff4f\uff46 \uff2b\uff4e\uff49\uff47\uff48\uff54\uff53 \uff0f \uff2b\uff4e\uff49\uff47\uff48\uff54 \uff4f\uff46 \uff2e\uff49\uff47\uff48\uff54\uff53\u300d \u7c21\u55ae\u26054\u3000\u666e\u901a\u26056\u3000\u56f0\u96e3\u26057\u3000\u9b54\u738b\u26059 \u25a0\u6a02\u66f2\u300c\u6708\u96b1\u65bc\u53e2\u96f2\u82b1\u6563\u65bc\u98a8\u300d \u7c21\u55ae\u26054\u3000\u666e\u901a\u26055\u3000\u56f0\u96e3\u26056\u3000\u9b54\u738b\u26058 \u25a0\u6a02\u66f2\u300c\u5471\u5471\u2468\uff44\uff45\uff53\uff54\uff49\uff4e\uff59\u300d \u7c21\u55ae\u26054\u3000\u666e\u901a\u26056\u3000\u56f0\u96e3\u26056\u3000\u9b54\u738b\u26059",
+        "languages": null,
+        "size": 12582912
     }
 }

@@ -448,7 +448,7 @@
             "ko",
             "zh"
         ],
-        "size": 3352297472
+        "size": 3768582144
     },
     "70010000012754": {
         "id": "0100CB900B498000",
@@ -611,7 +611,7 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": [
-            "https://img-eshop.cdn.nintendo.net/i/5d4f9a962ffbfd0e42273d675569458af9cf3c26c7d5d00590b17810c3a24675.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/46dc19d5a5ffa57e90cd9c0f05f3207aaa9b1c12921d5254ffe606f3ab8da64c.jpg",
             "https://img-eshop.cdn.nintendo.net/i/581d26c68ad53d36d62108004cf199c5e7182598e4904a7cff267901971ca130.jpg",
             "https://img-eshop.cdn.nintendo.net/i/e2f74a52de23f89276859e91b08a677433b5d15a1e82a2e84249ed4a7dce70c5.jpg",
             "https://img-eshop.cdn.nintendo.net/i/0a32eb76bafa10304616ddae5ad2f75a5df96f403df05b4bdba98233c4f5ad9d.jpg",
@@ -619,7 +619,7 @@
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/96d0bee8bc12ceff18ba572976da07ba14db82a27c0be4285bb1d762291d0647.jpg",
         "intro": null,
-        "description": "Fight for control of the light or the dark in multiple arenas, hiding from your foes and seizing objectives. Pick up items and use them to surprise, maim and trap your opponents in a way only a true warrior can.\n\nThe unique combat system allows you to cut through the air and clash with your foes.\n\n- 1-4 Local Multiplayer - Seven exciting and dynamically changing arenas - 2 compelling modes of combat - Team Deathmatch & Capture The Flag - Set high scores and challenge yourself against AI opponents in Practice mode - Unlockable achievements and levels",
+        "description": "The ultimate bushido arena battle has landed! Black and White Bushido is the stealth \u2018em multiplayer fighting game, perfect for couch co-op. \n\nFight for control of the light or the dark in multiple arenas, hiding from your foes and seizing objectives. Pick up items and use them to surprise, maim and trap your opponents in a way only a true warrior can.\n\nThe unique combat system allows you to cut through the air and clash with your foes.\n\n- 1-4 Local Multiplayer - Seven exciting and dynamically changing arenas - 2 compelling modes of combat - Team Deathmatch & Capture The Flag - Set high scores and challenge yourself against AI opponents in Practice mode - Unlockable achievements and levels",
         "languages": [
             "ja",
             "en",
@@ -773,7 +773,7 @@
             "ko",
             "zh"
         ],
-        "size": 4282384384
+        "size": 4284481536
     },
     "70010000010262": {
         "id": "010016A00AEC0000",
@@ -1445,7 +1445,7 @@
             "en",
             "fr"
         ],
-        "size": 3447717888
+        "size": 3480223744
     },
     "70070000003363": {
         "id": null,
@@ -1513,7 +1513,7 @@
             "ru",
             "ko"
         ],
-        "size": 439353344
+        "size": 498073600
     },
     "70010000000793": {
         "id": "01004BB00421E000",
@@ -1523,7 +1523,7 @@
         "key": null,
         "isDemo": null,
         "region": null,
-        "releaseDate": 20181018,
+        "releaseDate": 20181108,
         "nsuId": 70010000000793,
         "category": [
             "Adventure",
@@ -2508,18 +2508,29 @@
             "Sexual references",
             "Coarse language"
         ],
-        "numberOfPlayers": null,
+        "numberOfPlayers": 2,
         "rating": 14,
         "developer": null,
         "publisher": "Nintendo",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/5d8043dc83802f5ba14b014616e16805de931ac936b4e0c93aa9b85a125ca127.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7d9eb50cbe3c404fd6bfde108604771dab0c7440b947b7dfdf8db4bb124e9bfb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b51bbb208b8ea129405add1ac76018fa1ff973e67e0a5206793b9dbf5dc0c27b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e33d70f43039b7bf6d367ca50112088938806bda4bfa9289c5a8b49660280819.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9c12bf67ab2e8923ccb19e220114ccf325fc09d02125460f822bad4b27c5a65d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1ce8a43176d4bf19d033c3d75a6d862645b07fac5f519c3a04de698a580efd66.jpg"
+        ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f7251d02fb10414b9f4212717922a3038c0292ceb3c3af9b9a76ec0620e426d7.jpg",
         "intro": null,
         "description": "The highly stylised and critically acclaimed Nintendo DS game \u201cThe World Ends With You\u201d is coming to Nintendo Switch.\n\nWhen the main character, Neku, suddenly encounters the mysterious girl Shiki, he gets caught up in a deadly game \u2013 he\u2019ll be erased from existence if he can\u2019t complete a series of twisted tasks.\n\nTear into each rhythmic battle using the game\u2019s traditional touch controls or Joy-Con controllers for a fresh style of combat! The action-RPG will also include a sizeable new scenario that gets right to the heart of the story.",
         "languages": [
-            "en"
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
         ],
         "size": 2589982720
     },
@@ -2550,11 +2561,11 @@
         "iconUrl": null,
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/0aa5ea091e6416485eafa291d85ff2eeedc3d3074c363712215c81bd0dadf90c.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/b8c30ac239f14f6819d209ceff30a837c77f0063dfb0a46d19f71a17184af716.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9883d0bd65637d2fef8145cdc66c685806ce43a5beecfacb515daaba69a4503f.jpg",
             "https://img-eshop.cdn.nintendo.net/i/07d1c5aaf1e6d5b2215443ad2eb08e7bbd0ecb77247e609ccfc190c30596383d.jpg",
             "https://img-eshop.cdn.nintendo.net/i/f875f57b5947e078f3e6effa85e35568ecaffecaa95b520a56bebf3683ab28aa.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/4a61dcbde08980be0c47a4f8a7e8e246c2195637bf1014b9bd8dd3acf84b7592.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/ec9b5878d1921bd1f2aabd7ee226b4957006718125b44c0a9ad3d1a330c01050.jpg"
+            "https://img-eshop.cdn.nintendo.net/i/c6e78f071f8c6d5571f985ac912deb9d73ce53d6e3e52c67a7f3cdcc7771e9c8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/09d0cce76ab9355249ec2a35d6f820b531cf91e5f5f0ab1fa0f641a831720f43.jpg"
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f6c61cf048047211c3ceb491323ae0e97c97ae48471b9f56f28370a338325747.jpg",
         "intro": "The Swindle is a steampunk cybercrime caper about breaking into buildings, hacking their systems, stealing all their cash, and quickly running away again before the police show up.",
@@ -2607,7 +2618,7 @@
         "languages": [
             "en"
         ],
-        "size": 807403520
+        "size": 856686592
     },
     "70010000010015": {
         "id": "010097E00ADC2000",
@@ -2666,11 +2677,10 @@
             "Strategy"
         ],
         "ratingContent": [
-            "Mild Violence",
-            "Scary Scenes"
+            "Very Mild Violence"
         ],
         "numberOfPlayers": 1,
-        "rating": 7,
+        "rating": 0,
         "developer": null,
         "publisher": "Merge Games",
         "frontBoxArt": null,
@@ -2738,7 +2748,7 @@
             "ko",
             "zh"
         ],
-        "size": 154140672
+        "size": 198180864
     },
     "70010000009988": {
         "id": "01007D000AD8A000",
@@ -2955,7 +2965,7 @@
             "ja",
             "en"
         ],
-        "size": 735051776
+        "size": 895483904
     },
     "70010000012139": {
         "id": "01009FA00A570000",
@@ -3039,7 +3049,7 @@
             "en",
             "zh"
         ],
-        "size": 156237824
+        "size": 230686720
     },
     "70010000009772": {
         "id": "0100B1000AC3A000",
@@ -3119,7 +3129,7 @@
             "https://img-eshop.cdn.nintendo.net/i/b82a5248fc2a60b5622358004ca1c8c2a721ff6f552b6afc6680ff196e2863da.jpg",
             "https://img-eshop.cdn.nintendo.net/i/8be2309245a7ac1f87d40e7e66dcc0ef6f915ed624797dad31d04e000a930da6.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1a0a3cd976e3b87afbcb0dfae913644b224caa475be18091658460fd9d4c2176.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/82caeddd252b7f99bd6f037d486d86d77d783fa31a544e3e0329bb8d8a9a20ec.jpg",
         "intro": "Evil chose the wrong day to double-dip.",
         "description": "Guacamelee! Super Turbo Championship Edition is a Metroidvania-style action-platformer set in a magical world inspired by traditional Mexican culture and folklore. Get ready for...\n\n- Non-Stop Fighting Action: An extensive move list, including 'Intenso' and The Rooster Uppercut - Multi-dimensional Platforming. Swap between the Worlds of the Living and the Dead - Combat moves that double as movement - A diverse world featuring lively towns, dark forests and fiery volcanoes - Drop in/out 4-Player local co-op - Multiple boss characters, a wide range of foes, and new elite-class enemies - Vibrant costumes that change both player appearance and attributes",
         "languages": [
@@ -3478,7 +3488,7 @@
             "ja",
             "en"
         ],
-        "size": 103809024
+        "size": 137363456
     },
     "70050000008006": {
         "id": "0100BE400BEC9001",
@@ -4159,7 +4169,7 @@
             "ko",
             "zh"
         ],
-        "size": 2495610880
+        "size": 2560622592
     },
     "70010000013483": {
         "id": "010091400B596000",
@@ -4347,7 +4357,7 @@
             "Fighting"
         ],
         "ratingContent": [
-            "Horror Themes"
+            "Violence"
         ],
         "numberOfPlayers": 4,
         "rating": 14,
@@ -5117,7 +5127,7 @@
             "ko",
             "zh"
         ],
-        "size": 1304428544
+        "size": 1626341376
     },
     "70050000005921": {
         "id": "010070A00A5F5001",
@@ -5233,7 +5243,7 @@
         "languages": [
             "en"
         ],
-        "size": 2074083328
+        "size": 2081423360
     },
     "70010000013260": {
         "id": "01009CC00BD6E000",
@@ -5327,7 +5337,7 @@
             "pt",
             "ru"
         ],
-        "size": 238026752
+        "size": 309329920
     },
     "70010000013801": {
         "id": "0100ED100B634000",
@@ -5636,7 +5646,7 @@
             "ru",
             "zh"
         ],
-        "size": 657457152
+        "size": 744488960
     },
     "70010000011801": {
         "id": "01003B900AE12000",
@@ -6079,7 +6089,7 @@
         "languages": [
             "en"
         ],
-        "size": 576716800
+        "size": 643825664
     },
     "70010000012430": {
         "id": "01001B700BA7C000",
@@ -6340,7 +6350,7 @@
             "de",
             "it"
         ],
-        "size": 726663168
+        "size": 728760320
     },
     "70010000012981": {
         "id": "010086E00BCB2000",
@@ -6390,7 +6400,7 @@
             "ko",
             "zh"
         ],
-        "size": 212860928
+        "size": 311427072
     },
     "70010000010214": {
         "id": "0100D6800AC5C000",
@@ -6408,10 +6418,10 @@
             "Arcade"
         ],
         "ratingContent": [
-            "Scary Scenes"
+            "Very Mild Violence"
         ],
         "numberOfPlayers": 1,
-        "rating": 7,
+        "rating": 0,
         "developer": null,
         "publisher": "SEGA",
         "frontBoxArt": null,
@@ -6655,7 +6665,7 @@
             "de",
             "it"
         ],
-        "size": 93323264
+        "size": 114294784
     },
     "70010000003141": {
         "id": "0100B13007A6A000",
@@ -7003,7 +7013,7 @@
             "pt",
             "ru"
         ],
-        "size": 58720256
+        "size": 91226112
     },
     "70010000009919": {
         "id": "010080B00AD66000",
@@ -7455,10 +7465,10 @@
             "Arcade"
         ],
         "ratingContent": [
-            "Mild Violence"
+            "Very Mild Violence"
         ],
         "numberOfPlayers": 2,
-        "rating": 7,
+        "rating": 0,
         "developer": null,
         "publisher": "HAMSTER",
         "frontBoxArt": null,
@@ -8544,7 +8554,7 @@
             "de",
             "pt"
         ],
-        "size": 148897792
+        "size": 158334976
     },
     "70010000010102": {
         "id": "01008D800AE4A000",
@@ -8682,7 +8692,7 @@
             "it",
             "ru"
         ],
-        "size": 889192448
+        "size": 896532480
     },
     "70010000011536": {
         "id": "010060A00B53C000",
@@ -8776,7 +8786,7 @@
             "de",
             "it"
         ],
-        "size": 14046724096
+        "size": 14552137728
     },
     "70050000007781": {
         "id": "010007C00B509001",
@@ -8988,7 +8998,7 @@
             "ru",
             "zh"
         ],
-        "size": 3244294144
+        "size": 3246391296
     },
     "70010000003436": {
         "id": "01005B6008132000",
@@ -9199,7 +9209,7 @@
             "https://img-eshop.cdn.nintendo.net/i/41889c992949e4b8250d684988d146d9b21285623bdf5e26e50027b1e0097acc.jpg",
             "https://img-eshop.cdn.nintendo.net/i/451bbcd59cd4607a815bb6856b097f0298ca7f230ca27c5d0f820cdac384ca2b.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ed2b4bc50633cc9be454ab205b4acb89c3e08f84067ea15b2a7708f7f74c41fb.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/bc032f0ee1f9c1230daf4c623f2f49c83bb931d5db0cacd0ed2b7e537778e33e.jpg",
         "intro": null,
         "description": "Ninjin: Clash of Carrots is an anime-inspired beat-\u2018em-up with a gaggle of varied enemies, deep customization\u2026and ninjas! Play through side-scrolling worlds consisting of multiple stages and collect carrots stolen by the evil Shogun Moe! Carrots act as currency which can be redeemed in the Corgi Store for new equipment, or the Shady Shop for special weapons, masks and other customization items. Grab a friend to join you in 2-player online or local co-op. \n\nFeaturing over 150 weapons, projectiles, upgrades, and more to modify the experience to each player\u2019s preference, Ninjin: Clash of Carrots is an action-packed thrill-fest with a unique and immersive storyline, stylish environments, and exciting and frenetic gameplay! Ninjin also features a unique survival mode called \u201cOni TV Show\u201d where players will fight endless waves of enemies for rare rewards. This mode also supports local and online co-op. ",
         "languages": [
@@ -9797,7 +9807,7 @@
             "en",
             "zh"
         ],
-        "size": 3577741312
+        "size": 3588227072
     },
     "70010000013265": {
         "id": "01003CD00BE22000",
@@ -10653,10 +10663,10 @@
             "Arcade"
         ],
         "ratingContent": [
-            "Violence"
+            "Mild Violence"
         ],
         "numberOfPlayers": 2,
-        "rating": 14,
+        "rating": 7,
         "developer": null,
         "publisher": "HAMSTER",
         "frontBoxArt": null,
@@ -10680,7 +10690,7 @@
             "de",
             "it"
         ],
-        "size": 101711872
+        "size": 108003328
     },
     "70010000007781": {
         "id": "0100DA200A09A000",
@@ -10866,7 +10876,7 @@
             "ru",
             "zh"
         ],
-        "size": 530579456
+        "size": 593494016
     },
     "70050000006921": {
         "id": "010029200AB1D001",
@@ -10947,7 +10957,7 @@
             "ru",
             "zh"
         ],
-        "size": 1097859072
+        "size": 1137704960
     },
     "70010000008650": {
         "id": "01008B000A5AE000",
@@ -10987,7 +10997,7 @@
         "languages": [
             "en"
         ],
-        "size": 462422016
+        "size": 545259520
     },
     "70010000011841": {
         "id": "01009C0009842000",
@@ -11155,7 +11165,7 @@
             "de",
             "ru"
         ],
-        "size": 361758720
+        "size": 368050176
     },
     "70010000004106": {
         "id": "0100CF3008798000",
@@ -11522,7 +11532,7 @@
             "de",
             "it"
         ],
-        "size": 1386217472
+        "size": 1391460352
     },
     "70010000012147": {
         "id": "01004F400B978000",
@@ -11764,7 +11774,7 @@
             "https://img-eshop.cdn.nintendo.net/i/e45fb01b8c4d39b8d9422d79acf738c6f1f8dc4ed7ad169f2ae0572ce04977cd.jpg",
             "https://img-eshop.cdn.nintendo.net/i/51f78a543e53ae93ea7c546667de20937907939a204f637797c2eef1d9dec4b8.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/429961a6b2f252174ebcc570b59e2ba9c71452a2819ab2711f8cc05033a478d2.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/6a6b712ad6c1aa2dcbd9fb83d4445179045c47e8fa4213d4acedba7a1672dc42.jpg",
         "intro": "TETRA\u2019s Escape is a platforming puzzle-game all about blocks. ",
         "description": "Blocks named Tetras and it is down to the players to all that they can, to save them and make the most out of their special ability. Via the means of shape-shifting, Tetras can turn into different Tetrominos and used to fill holes and master puzzles, in an attempt to reach the portal on the other side of the level.\n\nBut, don\u2019t just go expecting a linear adventure, as sometimes crafting a staircase to the heavens is the only way to make it to the end, so if you dare to dream big and go block mad, you might just have what it takes to bring all the Tetra\u2019s back home!\n\nFeatures: - 7 hours\u2019 worth of content, which includes 64 levels to beat - Increasing difficulty - Conventional 3 star system with Bonus Trophy - Explanatory images to walk you through Tetra\u2019s abilities, which includes: Block Jumps, rotations, mirror effects, transformations, bombs for undoing transformations and more! - Original Soundtrack by Levi Bond",
         "languages": [
@@ -11867,7 +11877,9 @@
             "de",
             "it",
             "pt",
-            "ru"
+            "ru",
+            "ko",
+            "zh"
         ],
         "size": 187695104
     },
@@ -12406,7 +12418,7 @@
             "ko",
             "zh"
         ],
-        "size": 3369074688
+        "size": 3378511872
     },
     "70050000005643": {
         "id": "01006FD0080B3001",
@@ -12819,7 +12831,7 @@
             "ko",
             "zh"
         ],
-        "size": 229638144
+        "size": 235929600
     },
     "70010000011241": {
         "id": "010021800B6C0000",
@@ -16150,7 +16162,7 @@
             "it",
             "pt"
         ],
-        "size": 2517630976
+        "size": 2891972608
     },
     "70010000011665": {
         "id": "0100A0E00B7A4000",
@@ -18532,7 +18544,7 @@
             "en",
             "es"
         ],
-        "size": 487587840
+        "size": 493879296
     },
     "70010000010536": {
         "id": "0100C7600AF00000",
@@ -21130,7 +21142,7 @@
             "pt",
             "ru"
         ],
-        "size": 1559232512
+        "size": 1564475392
     },
     "70010000004359": {
         "id": "0100766008ADE000",
@@ -21411,7 +21423,7 @@
             "pt",
             "ru"
         ],
-        "size": 122683392
+        "size": 128974848
     },
     "70010000007274": {
         "id": "0100118009C68000",
@@ -21709,7 +21721,7 @@
             "de",
             "it"
         ],
-        "size": 294649856
+        "size": 299892736
     },
     "70010000010800": {
         "id": "01009AB00B186000",
@@ -22898,7 +22910,7 @@
             "ko",
             "zh"
         ],
-        "size": 926941184
+        "size": 927989760
     },
     "70010000002828": {
         "id": "01005CC007616000",
@@ -23802,7 +23814,7 @@
             "ru",
             "ko"
         ],
-        "size": 2754609152
+        "size": 2797600768
     },
     "70010000010234": {
         "id": "010023900AEE0000",
@@ -23932,19 +23944,28 @@
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/beaeccdc2a990f739556ee0bf62191d98f34ccb16762f10d18ee5d7b87cdd83a.jpg",
             "https://img-eshop.cdn.nintendo.net/i/0ae26ebffa7983af006a3375199b1482dae432397cc24e9253626c3696d8c77d.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/388c874aafac7aac9d81fcaafe1aaa4e2e3bd5a439d5173b5185103463c98813.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/fff5eadf56d38134ef122ddaba2c66a2ec5db184733abff85651d2a512300e72.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/37b4e3f1c485280cd32f07eb02978ef60198241b2c26a95d2928e55291763df5.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/36e3f547fb76a0855d941df9dffe2f53d077707bdd5063eaaa3cdd574c51de18.jpg"
+            "https://img-eshop.cdn.nintendo.net/i/9b1af1353dcb86c4eb5c818c8bc666c7c520431b2e3f7ba5ac004d92533a403f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ca7472e9a15599ca0f5185ecf8bd9d80e133153f87eedd4d347d5dc1340efcba.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8081acbc4829ad36725f77c9736ab94d53dd4df14db2d985924e0535e560c8b2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d3c0fbf6b23e7ef3e4849306496785aff2b9e1306ad5d2e5893e384b539a6957.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3c2ab84937f0fa22f5370101cdfaea138976355d69620dc225102ae51e3e1dfa.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/c2e4da4f89a2af9bc93ad2419e5d0fcd2876c83980f33940db55f1c83aa89d3d.jpg",
         "intro": "Relaxing puzzle with beautiful graphics and unique rules inspired by Sudoku",
-        "description": "Immerse yourself in the beautiful world of Hexologic. Solve challenging, yet rewarding puzzles, listen to relaxing music, dive deep in the game\u2019s atmosphere and fall in love in sudoku again!\n\nHexologic is very easy to learn and in the same time a highly addictive language-independent logic puzzle game. Based on hexagonal grids, the game reinvents sudoku rules and brings it to a whole new level. Combining the dots inside the hexes in three possible directions, so that their sum matches the one given at the edge, will be a rewarding experience for both puzzle games\u2019 veterans and newcomers. A simple gameplay mechanics adorned with a beautiful graphic design, relaxing music and challenging yet not unbeatable puzzles, will guarantee long hours of fun for gamers of all ages.\n\nIN HEXOLOGIC YOU\u2019LL FIND: \u2022\t4 completely different game worlds \u2022\tOver 60 beautiful levels \u2022\tChallenging yet not unbeatable puzzles \u2022\tAdditional time-challenge levels for more advanced players \u2022\tRelaxing, putting one\u2019s mind to ease atmosphere \u2022\tAtmospheric soundtrack emphasizing the game\u2019s ambience \u2022\tSudoku-inspired puzzles that will put your mind to ease!\n\nJump in the world of Hexologic and show who\u2019s the true master of hexagons!",
+        "description": "Immerse yourself in the beautiful world of Hexologic. Solve challenging, yet rewarding puzzles, listen to relaxing music, dive deep in the game\u2019s atmosphere and fall in love in sudoku again!\n\nHexologic is very easy to learn and in the same time a highly addictive language-independent logic puzzle game. Based on hexagonal grids, the game reinvents sudoku rules and brings it to a whole new level. Combining the dots inside the hexes in three possible directions, so that their sum matches the one given at the edge, will be a rewarding experience for both puzzle games\u2019 veterans and newcomers. A simple gameplay mechanics adorned with a beautiful graphic design, relaxing music and challenging yet not unbeatable puzzles, will guarantee long hours of fun for gamers of all ages.\n\nIN HEXOLOGIC YOU\u2019LL FIND: \u2022\t6 completely different game worlds \u2022\tOver 90 beautiful levels \u2022\tChallenging yet not unbeatable puzzles \u2022\tRelaxing, putting one\u2019s mind to ease atmosphere \u2022\tAtmospheric soundtrack emphasizing the game\u2019s ambience \u2022\tSudoku-inspired puzzles that will put your mind to ease!\n\nJump in the world of Hexologic and show who\u2019s the true master of hexagons!",
         "languages": [
             "ja",
-            "en"
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
         ],
-        "size": 116391936
+        "size": 267386880
     },
     "70010000009681": {
         "id": "0100F5400AB6C000",
@@ -26228,7 +26249,7 @@
             "ko",
             "zh"
         ],
-        "size": 5378146304
+        "size": 5383389184
     },
     "70010000009021": {
         "id": "0100CE100A826000",
@@ -28123,7 +28144,7 @@
             "ko",
             "zh"
         ],
-        "size": 3421503488
+        "size": 4290772992
     },
     "70010000008024": {
         "id": "01008A100A028000",
@@ -28828,7 +28849,7 @@
             "ru",
             "zh"
         ],
-        "size": 2324692992
+        "size": 3867148288
     },
     "70010000010358": {
         "id": "01002DD00AF9E000",
@@ -29476,7 +29497,7 @@
         "languages": [
             "en"
         ],
-        "size": 176160768
+        "size": 182452224
     },
     "70010000008654": {
         "id": "0100340009736000",
@@ -29955,7 +29976,7 @@
             "en",
             "fr"
         ],
-        "size": 1885339648
+        "size": 2186280960
     },
     "70010000008212": {
         "id": "01005D700A2F8000",
@@ -33120,7 +33141,7 @@
         "languages": [
             "en"
         ],
-        "size": 11542724608
+        "size": 11550064640
     },
     "70050000004221": {
         "id": "010009900947B001",
@@ -34099,7 +34120,7 @@
             "ko",
             "zh"
         ],
-        "size": 1058013184
+        "size": 1064304640
     },
     "70010000008205": {
         "id": "0100DB300A026000",
@@ -34277,7 +34298,7 @@
             "de",
             "it"
         ],
-        "size": 189792256
+        "size": 195035136
     },
     "70010000006247": {
         "id": "01003000097FE000",
@@ -36235,7 +36256,7 @@
             "de",
             "it"
         ],
-        "size": 387973120
+        "size": 502267904
     },
     "70010000000788": {
         "id": "01001E40041BE000",
@@ -41421,9 +41442,10 @@
             "it",
             "pt",
             "ru",
+            "ko",
             "zh"
         ],
-        "size": 2650800128
+        "size": 2954887168
     },
     "70050000002901": {
         "id": "01008F1008DA7001",
@@ -46493,14 +46515,16 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/70e9b17de9e0572c3b4a78e4fefbf9095c3197162d84db4d52f0e0b1051fd1a7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d24b276dbaccf2dc6ff85a4b23931761aa72423faddf22907738aed9ee8a8824.jpg",
             "https://img-eshop.cdn.nintendo.net/i/fc29a3cea918ff067aa82c894c195371ad0fe238b9dedea619cdc1d97afe1f9c.jpg",
             "https://img-eshop.cdn.nintendo.net/i/d2fdc0eee8b5c0de046fffe593204ab9acd809c6319633d73bcc80481e242fb3.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/5fcd034dc4fb3a9286baf8de50889e1d42844ad466c7d6d5a8d3ac618218e7b5.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/482a671abcec2c3ac24c01d9b464f3eba5b1bb981c9a8608fdbb65c15fd890ef.jpg"
+            "https://img-eshop.cdn.nintendo.net/i/482a671abcec2c3ac24c01d9b464f3eba5b1bb981c9a8608fdbb65c15fd890ef.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5fcd034dc4fb3a9286baf8de50889e1d42844ad466c7d6d5a8d3ac618218e7b5.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2a5a480d4630d9585fcfbe3491ec5660da26de06e14415e4e29cb380ed398489.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/18f624415aba993124a6003998b7ba8b20e7761e59abe48517b6628d533840e6.jpg",
         "intro": null,
-        "description": "Pinball FX3 is the BIGGEST, most COMMUNITY focused pinball game ever created. Multiplayer matchups, user generated tournaments and league play create endless opportunity for pinball competition.\n\n- Not so hot with the flippers? Pinball FX3 features new single player modes that will help you become a better player! - All tables have received graphics updates including real-time lighting and shadow projection. - All tables feature challenging new game modes, table upgrades and power-ups, unlockable bonus items and more!\n\nZen Studios will continue to support Pinball FX3 with frequent content releases and new features!\n\nPinball FX3 is home to the most exciting pinball library, with tables based on the biggest brands in entertainment including Aliens\u2122, Family Guy, TellTale's The Walking Dead, Portal\u00ae and more!",
+        "description": "Williams\u2122 Pinball classics are now available -- and Fish Tales\u2122 is yours for FREE! Zen is proud to bring these amazing games to players around the world. Enjoy!\n\nPinball FX3 is the BIGGEST, most COMMUNITY focused pinball game ever created. Multiplayer matchups, user generated tournaments and league play create endless opportunity for pinball competition.\n\n- Not so hot with the flippers? Pinball FX3 features new single player modes that will help you become a better player! - All tables have received graphics updates including real-time lighting and shadow projection. - All tables feature challenging new game modes, table upgrades and power-ups, unlockable bonus items and more!\n\nZen Studios will continue to support Pinball FX3 with frequent content releases and new features!\n\nPinball FX3 is home to the most exciting pinball library, with tables based on the biggest brands in entertainment including Aliens\u2122, Family Guy, TellTale's The Walking Dead, Portal\u00ae and more!",
         "languages": [
             "en",
             "es",
@@ -46508,7 +46532,7 @@
             "de",
             "it"
         ],
-        "size": 313524224
+        "size": 383778816
     },
     "70050000001361": {
         "id": "0100DB7003829001",
@@ -48583,7 +48607,7 @@
             "de",
             "it"
         ],
-        "size": 14153678848
+        "size": 14150533120
     },
     "70050000001945": {
         "id": "0100E95004039001",
@@ -51002,7 +51026,7 @@
             "pt",
             "ru"
         ],
-        "size": 3666870272
+        "size": 4143972352
     },
     "70010000001219": {
         "id": "010009F004E66000",
@@ -51260,7 +51284,7 @@
         "languages": [
             "en"
         ],
-        "size": 92274688
+        "size": 149946368
     },
     "70010000001325": {
         "id": "01001AE005166000",
@@ -53144,8 +53168,7 @@
             "Action"
         ],
         "ratingContent": [
-            "Violence",
-            "Mild fantasy themes"
+            "Mild fantasy themes and violence"
         ],
         "numberOfPlayers": 1,
         "rating": 7,
@@ -53162,8 +53185,8 @@
             "https://img-eshop.cdn.nintendo.net/i/dc68f880e00036a66734b789f501d9fd2d3f7805b1eba4bd25680b5ffc0e3d8d.jpg"
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9be10909a155d6e9f6fb23f60bf716642a02805f56feeafb394f970612435720.jpg",
-        "intro": "Cat Quest is an open world RPG set in the pawsome world of cats! In search of your catnapped sister you pounce into the massive continent of Felingard - a world crafted in the style of overworld maps of yore and purring with cat-tastic characters, stories, and puns!",
-        "description": "Leap into a grand adventure in purrsuit of the evil Drakoth and your catnapped sister! Explore Felingard's huge overworld map, risk life and limb delving into dungeons for epic loot, and lend a paw to a furry cast of characters in a flurry of side quests. Combat in Cat Quest takes place entirely in real time, allowing you to get close to enemies with a slash of your blade, dodge roll to avoid a counter-attack, and then finish them off with powerful magic! Wield the ancient spells of Lightnyan, Flamepurr, and Healpaw to vanquish your foes! (Fur real!) Outfit your catventurer with a whole basket of equipment! Prefurr casting spells? Don an arcane hood, robes, and a staff to bolster your mana reserves! Want to protect yourself from attack? Deck out your catventurer with chainmail armor to increase your health and provide an extra level of protection. Weapons, armor, and spells can be mixed and matched to create the purrfect combinations for your playstyle! The world of Felingard is littered with interesting places and people! Discover a possessed town whose residents lust for obscene amounts of meat, assist the mages Mewlin and Meowgan in their search to break a magic seal, and locate someone's missing delivery of \"House of Parchments\" and \"The Pouncing Dead\". Exploration is one of the main scratching posts of Cat Quest, and with locations such as Bermewda's Triangle, the Furbidden Fields, and Pawt City to explore, it's time to get pawing!",
+        "intro": "Cat Quest is an open world RPG set in the pawsome world of cats!",
+        "description": "Leap into a grand adventure in purrsuit of the evil Drakoth and your catnapped sister! Explore Felingard's huge overworld map, risk life and limb delving into dungeons for epic loot, and lend a paw to a furry cast of characters in a flurry of side quests.\n\n- Combat in Cat Quest takes place entirely in real time, allowing you to get close to enemies with a slash of your blade, dodge roll to avoid a counter-attack, and then finish them off with powerful magic! Wield the ancient spells of Lightnyan, Flamepurr, and Healpaw to vanquish your foes! (Fur real!)\n\n- Outfit your catventurer with a whole basket of equipment! Prefurr casting spells? Don an arcane hood, robes, and a staff to bolster your mana reserves! Want to protect yourself from attack? Deck out your catventurer with chainmail armor to increase your health and provide an extra level of protection. Weapons, armor, and spells can be mixed and matched to create the purrfect combinations for your playstyle!\n\n- The world of Felingard is littered with interesting places and people! Discover a possessed town whose residents lust for obscene amounts of meat, assist the mages Mewlin and Meowgan in their search to break a magic seal, and locate someone's missing delivery of \"House of Parchments\" and \"The Pouncing Dead\". Exploration is one of the main scratching posts of Cat Quest, and with locations such as Bermewda's Triangle, the Furbidden Fields, and Pawt City to explore, it's time to get pawing!",
         "languages": [
             "ja",
             "en",
@@ -53174,7 +53197,7 @@
             "ru",
             "zh"
         ],
-        "size": 399507456
+        "size": 405798912
     },
     "70010000001393": {
         "id": "0100513005AF4000",
@@ -56869,7 +56892,7 @@
             "ko",
             "zh"
         ],
-        "size": 443547648
+        "size": 448790528
     },
     "70010000000775": {
         "id": "0100779004172000",
@@ -57007,7 +57030,7 @@
             "ko",
             "zh"
         ],
-        "size": 88080384
+        "size": 97517568
     },
     "70010000000877": {
         "id": "0100BA0003EEA000",
@@ -60526,7 +60549,7 @@
             "https://img-eshop.cdn.nintendo.net/i/d1c51886b2fc74e56b98ecf3fa22aaee6c5d8c1116905c359386fbadab7de9b0.jpg",
             "https://img-eshop.cdn.nintendo.net/i/77842d08f62de046a5b1ec9c14c286c4d39a871c1113d0be08212f2f17d5bbcf.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a7844230ae1150b430d2a15a2b9da536d23d6df08c89975b024261225bd6e0d1.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/394ea8f8fa0146249e1289a5bbaa7cd993bcbd25941d68e228e3d4aa8f377920.jpg",
         "intro": "Cut through the nightmare",
         "description": "Take control of a one-armed warrior named Sasha, wielding a living sword on her journey through a nightmare world in search of her family. Swipe-based touch controls will let you solve puzzles, find secrets, and do battle with a host of disturbing monsters. As the journey goes on, you\u2019ll unlock new abilities, ascend an RPG-style upgrade tree, and tease apart the mysteries of the dark fantasy universe Sasha finds herself in.  \u2022 Dungeon Combat: Master offensive and defensive touch combat techniques to survive intense battles against a menagerie of enemies.  \u2022 Severing: Best enemies in combat for a chance at severing their body parts -- then wear them to gain new powers or consume them to upgrade your equipment and abilities.  \u2022 Exploration: Follow branching routes through the unknown, using your wits to avoid hazards and solve puzzles.   \u2022 Music: Original soundtrack from Juno-nominated band YAMANTAKA // SONIC TITAN featuring Pantayo.\n\n\nPLEASE NOTE: Severed is played using touch screen controls. TV mode is not supported.",
         "languages": [
@@ -60538,7 +60561,7 @@
             "pt",
             "ru"
         ],
-        "size": 155189248
+        "size": 160432128
     },
     "70010000000771": {
         "id": "0100F17004156000",
@@ -60959,7 +60982,7 @@
             "it",
             "ru"
         ],
-        "size": 1924136960
+        "size": 1929379840
     },
     "70050000000981": {
         "id": "010039C001297001",
@@ -68955,5 +68978,1186 @@
             "zh"
         ],
         "size": 142606336
+    },
+    "70050000007183": {
+        "id": "010039000B68F008",
+        "rightsId": null,
+        "name": "MY HERO ONE'S JUSTICE Playable Character: Endeavor",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181026,
+        "nsuId": 70050000007183,
+        "category": null,
+        "ratingContent": [
+            "Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4d6e026f7e307a97dd23020fbc1e9a0895e67b0cb5a65d674eb8af95ca1eb8c2.jpg",
+        "intro": "Fight For Your Justice!",
+        "description": "Unlocks Endeavor as a playable fighter.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008144": {
+        "id": "010016A00AEC1013",
+        "rightsId": null,
+        "name": "Legendary Costumes Wei Pack 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008144,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/53b451ab169be402824f9cd804f31bd9d20cc8fc316414c98b7b3abe2d5c7624.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bbd56224900e7cc4157a3bdb375dd059ca0db01d239c8f7b0fa120b7fbb46628.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6c94d91e5a6dd52214a12e85f0fb50355ef1923b6a679c5da72d2390a216be92.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/7f7e0e47f45703f9837c5d521ef325b8f1f5fa68c4402fe6cd1ac28f66fa6535.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Wei officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Xiahou Dun, Dian Wei, Cao Cao, Xu Zhu, Xiahou Yuan, Cao Ren, Cai Wenji, Jia Xu, Guo Jia, and Xun Yu\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 56623104
+    },
+    "70050000008145": {
+        "id": "010016A00AEC1014",
+        "rightsId": null,
+        "name": "Legendary Costumes Wei Pack 2",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008145,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/4acbfca00842ca8a218e395e2393c3b7df7a03b00e3591bf590cd65177974ec0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2adb804927c4583fff89dcf060ad56db4340c94fa63a917f12dc88bdcbcc9fd8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0ed07b2dc43bfc49523545df32d778f2d43d9b9fd3fd5780c5fa8b9f4672af3a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/826565d7305a7ce3c23b603aa27bb4c74a6974d40ef35b469fad1761e6b76380.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Wei officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Zhang Liao, Xu Huang, Zhang He, Cao Pi, Zhenji, Pang De, Wang Yi, Yue Jin, Li Dian, and Yu Jin\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 57671680
+    },
+    "70050000008148": {
+        "id": "010016A00AEC1015",
+        "rightsId": null,
+        "name": "Legendary Costumes Wu Pack 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008148,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/544450699a2afb2c717ef13b5f13757463a7eb55fb1270006da0e8c6c6a8390b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/da2fc024e17ae912fc5b79a34f93dd36ea0e2ca7c5469b37a34f25343fa99064.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5198a2c476fdc13e4d3ef719694ba3636f1f10f0d809eb6006e663ebbd70762e.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0b39e3ba9b8305f78e012289a6d6ee321c73b362a5b96f6b3454726e7393d17a.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Wu officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Zhou Yu, Sun Shangxiang, Sun Jian, Taishi Ci, Huang Gai, Sun Ce, Xiaoqiao, Daqiao, and Han Dang\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 52428800
+    },
+    "70050000008149": {
+        "id": "010016A00AEC1016",
+        "rightsId": null,
+        "name": "Legendary Costumes Wu Pack 2",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008149,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/d9dda8c283861ceaaadd3ad0664a9333c3a540d2e3446ca05f14b90b1fe48780.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7a3d49d27da6305100a6e2656c0ffbb5d763704c1ddf2f13a2f92956b75f579e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ef0fbfea7c1737c7a0b53cddbeec70e08a76854d0399a56d14c49334cc08d0fb.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2f13ce974c8f051695adda351f88f6a708a537c5e6bcd6b8aabfb4d5481d4fd9.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Wu officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Lu Xun, Gan Ning, Lu Meng, Zhou Tai, Ling Tong, Sun Quan, Ding Feng, Lianshi, Lu Su, and Zhu Ran.\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 57671680
+    },
+    "70050000008146": {
+        "id": "010016A00AEC1017",
+        "rightsId": null,
+        "name": "Legendary Costumes Shu Pack 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008146,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/f6276d7fcd8c41e045d82887da403c777e3876689578579727409d649938d809.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e125a079f16d2940a81c44c517da9be3e4f34e578e9e02d40334ecc1a60042ca.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6ce3c508633241aa9f8fc789e31c42d1f32a3a7df21d0e3b2d2cd4227a5c1b6a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2f610ac4150945fc678a2894dc385b86e3e7416fd2099de9eb0895e8bbae9dfd.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Shu officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Zhao Yun, Guan Yu, Zhang Fei, Zhuge Liang, Liu Bei, Ma Chao, Huang Zhong, Pang Tong, Yueying, Xu Shu, and Fa Zheng\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 61865984
+    },
+    "70050000008147": {
+        "id": "010016A00AEC1018",
+        "rightsId": null,
+        "name": "Legendary Costumes Shu Pack 2",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008147,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8024fb577c814919d659220345738e93a647a2143bab70902071792f01535aa0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6393e54a50281bcac21641293f334a76bd29eccb98fbc29e4cd1a5ff67c8f671.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4aaffd048749d62c54b151d766533414c997390a39ef8549a447f43e7db290e3.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5ea087c1e5f6679af35d08199f9a0bc45672cb94eae3b8d6a14dc1dc19d2c4bf.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Shu officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Wei Yan, Guan Ping, Jiang Wei, Liu Shan, Xingcai, Ma Dai, Guan Suo, Bao Sanniang, Guan Xing, Zhang Bao, and Guan Yinping\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 60817408
+    },
+    "70050000008150": {
+        "id": "010016A00AEC1019",
+        "rightsId": null,
+        "name": "Legendary Costumes Jin Pack",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008150,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/01b94ef04872c5f4ca1cd0cc7662265b6a99bf9b09825989d47a92bb9c025c72.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/acf7a6d6b2d7c0bcd43756ef15cb5e130723ca3ba362701590346e910f23784a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/61be5c1b8125a27bf43fb9e193d4ae04d1c1dc3df8346e892e13147ae4d75056.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fd7af619ab9ef53d0628e52e210976f09a8dd0ca52d5724c61be4faf0efa7e39.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your Jin officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Sima Yi, Sima Shi, Sima Zhao, Deng Ai, Wang Yuanji, Zhong Hui, Zhuge Dan, Xiahou Ba, Guo Huai, Jia Chong, Wen Yang, and Zhang Chunhua\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 67108864
+    },
+    "70050000008151": {
+        "id": "010016A00AEC101A",
+        "rightsId": null,
+        "name": "Legendary Costumes Others Pack",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008151,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/7331894e1b495353dae406dad2fc7d273f7b398205d1f8042d10a45a97ab19cb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3394e36a855d404a3babd4bfc34955677dde5f333bb048388747eefcc64f529c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9982f725f60aad1118eecdb90fb988e34e022607e3ab4e221205df9cc102d1e9.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f39db7fc8233083ecd2db0bc83baefca05ea02f1408ff22110add1e33204aae5.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your officers from other DYNASTY WARRIORS forces will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Diaochan, Lu Bu, Dong Zhuo, Yuan Shao, Zhang Jiao, Meng Huo, Zhurong, Zuo Ci, Chen Gong, and Lu Lingqi\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 57671680
+    },
+    "70050000008152": {
+        "id": "010016A00AEC101B",
+        "rightsId": null,
+        "name": "Legendary Costumes Samurai Warriors Pack 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008152,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8478103572a8692783af3b8b387ca2fa8ec318055ca52ba9ed9ef6f671043b31.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8f8652239913dcf33c37c114933f17da3cc02d9ab7f7ff7680c863f64f31c4a8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ee504657a02c71fa046a0913e8ca8fc57a413bb9e8da1469dbda1c483553b158.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1512687a4301317bc0cee867c12f74901e7fd03c3e6cb092a8d53ca7541aabb2.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your SAMURAI WARRIORS officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Keiji Maeda, Nobunaga Oda, Mitsuhide Akechi, Oichi, N\u014d, Ranmaru Mori, Nagamasa Azai, Toshiie Maeda, Gracia, Katsuie Shibata, and Hisahide Matsunaga\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 62914560
+    },
+    "70050000008153": {
+        "id": "010016A00AEC101C",
+        "rightsId": null,
+        "name": "Legendary Costumes Samurai Warriors Pack 2",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008153,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/0bfc17df7ad3b975df2f64252b71307f7faa2ee8b01c728878d971ed0ec8579e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8b06665f2e19657a72a93ee9dbaea02f52f47bfd3ce3320956321ebcc0524bf4.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2ac9175c6c1ba56f6a9141ca60868cc8bbdd2171a595c7a1cbe31fc0e5c7ceb0.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/598ec5b33f398c83cd5d8352a7a037acf351caa46ad090056829098d7b00a9ca.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your SAMURAI WARRIORS officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Hanz\u014d Hattori, Yoshimoto Imagawa, Tadakatsu Honda, Ina, Ieyasu Tokugawa, Musashi Miyamoto, Kojir\u014d Sasaki, Takatora T\u014dd\u014d, Naotora Ii, Munenori Yagy\u016b, and Naomasa Ii\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 62914560
+    },
+    "70050000008154": {
+        "id": "010016A00AEC101D",
+        "rightsId": null,
+        "name": "Legendary Costumes Samurai Warriors Pack 3",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008154,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/4f603c588e756fe4488495b46a34ad18ae5cc36308c6900cd81a0740b4590bed.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bc34b0234ae7eaec9a124f79259cb24ff18b736d991d88e8aa0db278e77dad16.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dbc1be058d7b5dd5d871138e667b507ff461817939f6f13caa097a816a570a3d.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3274d2d4cf8e62c0be946cd1120b6cae47edd585257b87d8062faf26fac69db0.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your SAMURAI WARRIORS officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Goemon Ishikawa, Okuni, Hideyoshi Toyotomi, Mitsunari Ishida, Sakon Shima, Nene, Kiyomasa Kat\u014d, Kanbei Kuroda, Hanbei Takenaka, Masanori Fukushima, and Yoshitsugu \u014ctani\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 62914560
+    },
+    "70050000008155": {
+        "id": "010016A00AEC101E",
+        "rightsId": null,
+        "name": "Legendary Costumes Samurai Warriors Pack 4",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008155,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/adf3ea82b80cd14492d47110c5a460280808364f4ba104f859b1da75bd3877f3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4d58072c52de6a2c2c3768442c561a0f12c9759d65f4947c131723f9c05179fb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a196187601f171777009573c8ed6cd5411099303a9006332107619a3697f6f27.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3274d2d4cf8e62c0be946cd1120b6cae47edd585257b87d8062faf26fac69db0.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your SAMURAI WARRIORS officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Yukimura Sanada, Kenshin Uesugi, Kunoichi, Shingen Takeda, Kanetsugu Naoe, Kotar\u014d F\u016bma, Kai, Ujiyasu H\u014dj\u014d, Aya, Nobuyuki Sanada, Kagekatsu Uesugi, and Lady Hayakawa\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 68157440
+    },
+    "70050000008156": {
+        "id": "010016A00AEC101F",
+        "rightsId": null,
+        "name": "Legendary Costumes Samurai Warriors Pack 5",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008156,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/925bea1714b2057ea37ba1f483f1f062064fc613dafb72173b57f9c84bad2843.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7cd510bd01851f0de58a60bd13e13e1f23742d05bbe1bc464510434868d6af87.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bd2a486cc474a82a00e05e7d04651ab2e973b6fdc48827288bd2f89dbc893daf.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b27d3621a3d0d40046f162e2295728125dd726491bd3a63ac6b9ba8a3a19b879.jpg",
+        "intro": null,
+        "description": "Legendary costumes for your SAMURAI WARRIORS officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Magoichi Saika, Masamune Date, Yoshihiro Shimazu, Ginchiyo Tachibana, Motochika Ch\u014dsokabe, Muneshige Tachibana, Motonari M\u014dri, Koj\u016br\u014d Katakura, Takakage Kobayakawa, Kosh\u014dsh\u014d, and Toyohisa Shimazu\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 62914560
+    },
+    "70050000008157": {
+        "id": "010016A00AEC1020",
+        "rightsId": null,
+        "name": "Legendary Costumes OROCHI Pack 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008157,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2815f8ecc4877ca3b44bdd230dadcc8ce3833b02c9f202f9c53d00a3a303f227.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9f84d5653bf66527336163f301316a4136dbcc0b6345a076b338a9713a2ab907.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/203817a1b310fc9ce615cf1e31a24dff8007eb8b06da6c7b277d84377c068fe9.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/99feac202edaae510053959cb5f8900dc844435b02f04949433ad0a1345410bc.jpg",
+        "intro": null,
+        "description": "Legendary costumes for original WARRIORS OROCHI officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Taigong Wang, Fu Xi, Nuwa, Sanzang, Kaguya, Nezha, Susano'o, Shennong, Yinglong, and Nezha (Human)\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 54525952
+    },
+    "70050000008158": {
+        "id": "010016A00AEC1021",
+        "rightsId": null,
+        "name": "Legendary Costumes OROCHI Pack 2",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008158,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/78f0de26d84449b662fb7330b7c07cd530b30c048fd6a5aeb14a62e4baebe0f8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a04982b6413dd2a58f6af0a503a2048f890d742400f336e44ed8571d645515cf.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/36fea858d07dac8ddc750127233b5044a98db1199a60fc01ced0c8e2545e8c01.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4a9de12ee9455cff28ceb0253e0798743d0658b5520428be9f565b4c93cea2bb.jpg",
+        "intro": null,
+        "description": "Legendary costumes for original WARRIORS OROCHI officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Orochi, Da Ji, Kiyomori Taira, Yoshitsune Minamoto, Sun Wukong, Himiko, Orochi X, Benkei, Shuten D\u014dji, Seimei Abe, Tamamo, and Ky\u016bbi\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 56623104
+    },
+    "70050000008159": {
+        "id": "010016A00AEC1022",
+        "rightsId": null,
+        "name": "Legendary Costumes OROCHI Pack 3",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000008159,
+        "category": null,
+        "ratingContent": [
+            "Fantasy Violence",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "KOEI TECMO EUROPE",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8fd423596d96731496c5d6a3c04e5a298da74aecec2d32884962b71d4c642510.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/17527d069f958889887ff0b19ff74b8196ff1d211655c9d34bab6ba69baa1885.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b9298e6cf3457e6b318316204c5017b8f680d855db78e52bdef5d57593cf0736.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0b10957238560af5bb45c48b2400d0fc5f6c444438f739cb88b8d5557adecf71.jpg",
+        "intro": null,
+        "description": "Legendary costumes for original WARRIORS OROCHI officers will be added. Enjoy fighting battles in an all-new way.\n\n\u25a0Content Legendary Costumes for: Dodomeki, Gy\u016bki, Hundun, Diamondback, Zeus, Athena, Ares, Odin, and Perseus\n\n\u25a0How to use You can change costumes from camp by selecting \"Party\" - \"Select Costume\".",
+        "languages": null,
+        "size": 70254592
+    },
+    "70070000003453": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003453,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003454": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003454,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003455": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003455,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003456": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003456,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003185": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003185,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003322": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": null,
+        "nsuId": 70070000003322,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70050000005823": {
+        "id": "010015F005C8F001",
+        "rightsId": null,
+        "name": "Candy Bricks",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000005823,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "WeirdBeard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/7a6412d5b4b4ae9264528f8fb562663c5e4073897f9a054fbe1c6ef00bb9db8b.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d976c712fa7fbe1cf28dc947854f9286ac5baff66a8db7ccb7848ee07b411466.jpg",
+        "intro": "Have you heard about this trick? It's time to decorate your brick.",
+        "description": "This adds the following bricks: * Candy Bricks",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005901": {
+        "id": "010015F005C8F002",
+        "rightsId": null,
+        "name": "Galaxy Bricks",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000005901,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "WeirdBeard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/3f91c897fc1a6dee27daf7209e2ce3e4b7431d7428d753734c10b0faf85dc325.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f50680a9d1219537fcea7016504a1477e20a0e6ed3219e31fe68d65ac6d771d3.jpg",
+        "intro": "Have you heard about this trick? It's time to decorate your brick.",
+        "description": "This adds the following bricks: * Galaxy Bricks",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005824": {
+        "id": "010015F005C8F004",
+        "rightsId": null,
+        "name": "Holographic Bricks",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000005824,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "WeirdBeard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/c35dd1941e7c4d6db087035eddecb41b4015f1d6bf30c903ded475aa8b369b22.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/adb75aa5a187645be63637f486c118f3bafc36cbebf183abe4658ee6006ff9ee.jpg",
+        "intro": "Have you heard about this trick? It's time to decorate your brick.",
+        "description": "This adds the following bricks: * Holographic Bricks",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005822": {
+        "id": "010015F005C8F005",
+        "rightsId": null,
+        "name": "Indie Friends Pack",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000005822,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "WeirdBeard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ebb4a5d5275361b8335d0355faded099dcc9061fc6c4b53fc6fefa02bd27cad6.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9ca6819c47b9e278a239bf98b6cd65a758f2470afc325f4f12f3113fa3ce2a01.jpg",
+        "intro": "You can now play with your favourite characters from our friends in the indie community!",
+        "description": "With a little help from our friends\u2026 You can now play with your favourite characters from our friends in the indie community!  * Rock some tunes playing as Fish from Nuclear Throne! * Show that your bite is in fact worse than your bark with Thane from Armello! * Shoot magic instead of rockets for a change with Clunk from Awesomenauts! * The other wizards are probably lucky that Octodad isn\u2019t using all his arms for building! * Have the last laugh with Lethal League's Candy Man! * And last but not least, The Last of the Order from TowerFall puts aside her bow to build some magical towers!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005821": {
+        "id": "010015F005C8F006",
+        "rightsId": null,
+        "name": "Spirit Animal Pack",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000005821,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "WeirdBeard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/7c1e0c673d368aece976cbfbe9ee4d0f5bfbb8c2b3dfde5999d42917477ae192.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9f67ee54eef6b93203f5bf684f78ba28a6479a7913590bda83eb210716536fc2.jpg",
+        "intro": null,
+        "description": "Wild vibes with the all-new Spirit Animal Pack! Play with your wizard dressed up as a platypus, toucan, raccoon or a fabulous fish!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008261": {
+        "id": "010007C00B509002",
+        "rightsId": null,
+        "name": "SNK Heroines: New Character \"SKULLO MANIA\"",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181011,
+        "nsuId": 70050000008261,
+        "category": null,
+        "ratingContent": [
+            "Violence",
+            "Sexualised imagery",
+            "Online interactivity"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "NIS America",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/005b92b38f6b946c6b6cba4aeecbcca1e4947e56c70866a74df541727e7d546c.jpg",
+        "intro": null,
+        "description": "This content adds SKULLO MANIA from Fighting EX Layer. Download the v1.20 patch to unlock her as a playable character.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007824": {
+        "id": "01008E9007065012",
+        "rightsId": null,
+        "name": "Forester's Garb",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181012,
+        "nsuId": 70050000007824,
+        "category": null,
+        "ratingContent": [
+            "Coarse Language",
+            "Mature Themes"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "althi",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/01b8b82e17c6545ecc54abb026301927047963945ffff36547e0fc11349a5deb.jpg",
+        "intro": null,
+        "description": "Slightly thicker citizen's clothing for use in the fall. *You can buy it at any time in the game shop (Clothing Store in Castle St.) when you purchase it.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007825": {
+        "id": "01008E9007065029",
+        "rightsId": null,
+        "name": "Dark Rose Sweater Set",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000007825,
+        "category": null,
+        "ratingContent": [
+            "Coarse Language",
+            "Mature Themes"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "althi",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/74a5c9c0f7ee38d294b7ce371fed4d10d8cb53eec5a24bc4cb73cdcf14596690.jpg",
+        "intro": null,
+        "description": "A sweater from the Nuit region in the far north, stitched with Rudder fur (Color: Dark Rose). Set for adults and children. *You can buy it at any time in the game shop (Clothing Store in Castle St.) when you purchase it.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007831": {
+        "id": "01008E900706502A",
+        "rightsId": null,
+        "name": "Moss Green Sweater Set",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000007831,
+        "category": null,
+        "ratingContent": [
+            "Coarse Language",
+            "Mature Themes"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "althi",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cc4f81f0f3c266056eaf30c0c2f1d561be8199cc8e6f2faddca386a0d5757ba8.jpg",
+        "intro": null,
+        "description": "A sweater from the Nuit region in the far north, stitched with Rudder fur (Color: Moss Green). Set for adults and children. *You can buy it at any time in the game shop (Clothing Store in Castle St.) when you purchase it.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007484": {
+        "id": "01008F1008DA7003",
+        "rightsId": null,
+        "name": "Darkest Dungeon\u00ae: The Musketeer",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181012,
+        "nsuId": 70050000007484,
+        "category": null,
+        "ratingContent": [
+            "Mature themes",
+            "Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "Red Hook Studios",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/05ab49698afd472312dd1083b450fe23e0a291643aa0dc806915ef20b37f55a4.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/42980d1e59556883713523af003126f8567ffa7c6ab06b41e00b5b5406b0b5e3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e49e5642f84c93ba099046c7e9adc7b009b47266e7bbc90d93dfa9e895dc7fcc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0fe7c3f496c7db4f6db7afb8de4079d6c0f9a9edbe560585b2b483b55c57bcf9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2c06261d7410a8491eab62665076a391081a26d6f225ce2bcb7ff9d55b563c14.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9f0c06de6c5b755d0ffc7685fd86510f4c91c756ce287703034f4cbe009ebb82.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/00d1c6723f49c37d56ca7fbc494a49fd71c6deb1ada529ab0bb246cc59abaeda.jpg",
+        "intro": null,
+        "description": "A celebrated competitive sharpshooter, The Musketeer arrives in the Hamlet, determined to prove her skill after a disappointing tournament. She aims to become a legend in hunting circles by putting her skills to the test against the terrifying beasts and unnameable abominations that roam the Ancestor's Estate!\n\nFeatures * New hero class: The Musketeer (mechanically identical to Arbalest) * Musketeer class-specific trinkets.\n\nOnce exclusive to a select group of our Kickstarter backers, the Musketeer is now FREE DLC for all Darkest Dungeon\u00ae owners! She is a complete, studio quality, re-skin of the Arbalest class. The Musketeer has access to her own set of class trinkets and will be available in the Stagecoach like the other Darkest Dungeon\u00ae heroes!",
+        "languages": null,
+        "size": 50331648
+    },
+    "70050000007483": {
+        "id": "01008F1008DA7004",
+        "rightsId": null,
+        "name": "Darkest Dungeon\u00ae: The Color of Madness",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181012,
+        "nsuId": 70050000007483,
+        "category": null,
+        "ratingContent": [
+            "Mature themes",
+            "Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 14,
+        "developer": null,
+        "publisher": "Red Hook Studios",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/f3037ddd5d15bfec593214e796210bab8cb84b327ce9a095037d1bfe28f0d3f0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4e4d2b78d5f65b893b9ee31cbef4c125c9ad017968cdcc5a9eb49a3421344f07.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b7cd157825daa647a63e255772382c088fe34ab4eee7db52b7326a76d9b1cafb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/686eef9fe09d0957556337cc5bc79e361c633600630c190fd7d43296fb30566e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f085f42883c8d457e9da2fe718e847eecb15251f479d4817eda81bf8b283a8ea.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b16e189621858ba5e933dd6c2fd845fbe25c9c84a92a6c18162bb256ca39cc1.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/52e4a911e5d77798becb02ac6cc5833a7a45a9f73a4ffc09ac1c5a9652509743.jpg",
+        "intro": null,
+        "description": "The Color of Madness DLC opens the Farmstead region which has become the site of a fallen comet! What madness awaits those who venture forward to find out the fate of The Miller and his farmhands? Battle your way towards the crash site and venture between time and space to find what lies at the epicenter of this new creeping crystalline aberration! \n\nSome hateful shard of alien origin has streaked through the night sky, crashing into the old Miller\u2019s farm on the outskirts of the Hamlet! Those unfortunate enough to witness the Comet\u2019s arrival have been blinded by what they can only describe as a shifting, ephemeral hue of damnably abrasive intensity. There has been no word from the farm in a fortnight, save for the unearthly groaning that echoes from the ruin of the mill\u2026\n\n\u201cWhen men shake hands with time, time crushes them like tumblers; little pieces of glass.\u201d \u2015 Abu al-Ala al-Ma'arri\n\nFeatures * New region: The Farmstead! * Endless Quest: Survive as long as you can while getting lost in time and space, confronted by unending waves of enemies new and old, pushing ever closer to the crash site of the Comet. * Twisted new trinkets, available for purchase from the Jeweler. Put your gold away\u2014he trades only in Comet Shards! \"* All-New Enemy Faction: The Miller and his loyal workmen have become eerie husks of their former selves. \" * 3 new bosses - The Miller, The Thing From the Stars, and the Comet itself! * New Curios help keep your party in fighting shape as you face the endless hordes! * Expand your Hamlet with 4 new District buildings and reap their benefits. * New Quirks, with unique and powerful effects! * Our biggest soundtrack addition yet from Stuart Chatwood",
+        "languages": null,
+        "size": 724566016
+    },
+    "70050000007621": {
+        "id": "01005F900416F0D1",
+        "rightsId": null,
+        "name": "Small Puzzles 10",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000007621,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Lightwood Games",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1604bc0dc211ee95572b2b861f51b3c1d1793ea0516170955c61d05f16333097.jpg",
+        "intro": null,
+        "description": "An additional pack of 45 new puzzles in smaller sizes.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007622": {
+        "id": "01005F900416F135",
+        "rightsId": null,
+        "name": "Mixed Puzzles 10",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000007622,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Lightwood Games",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/49dee780b1e4b6f12c0c116b915417e53e0bcc978f4c191d8492cfa518ea1a16.jpg",
+        "intro": null,
+        "description": "An additional pack of 30 new puzzles across all sizes.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000007623": {
+        "id": "01005F900416F199",
+        "rightsId": null,
+        "name": "Large Puzzles 10",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181019,
+        "nsuId": 70050000007623,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Lightwood Games",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/c44fdc688fd4e651c5c05f743ee93ec692930fa4b544db6fda6967a66ad525c3.jpg",
+        "intro": null,
+        "description": "An additional pack of 30 new puzzles in larger sizes.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000003962": {
+        "id": "0100DB700382900E",
+        "rightsId": null,
+        "name": "Pinball FX3 - Williams\u2122 Pinball: Volume 1",
+        "version": null,
+        "key": null,
+        "isDemo": null,
+        "region": null,
+        "regions": null,
+        "releaseDate": 20181009,
+        "nsuId": 70050000003962,
+        "category": null,
+        "ratingContent": [
+            "Online Interactivity",
+            "Mild Coarse Language",
+            "Digital Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 7,
+        "developer": null,
+        "publisher": "Zen Studios",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/7748483b21884fed3298367d2876e559c0c7a28b7c763638f7cd8b669ca3cbe7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/59ae599aac18ad58d509eda2d74b05a05d97433f1b2284bde476dd7ab432ccb6.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/50c123a5b5fd9d07bef650b51c945ac1163e53b98401d8807c135d21c4bc1cac.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9b76df98a1590fae915ab40288c2f402333e85af49071cc928d791a7d954d69e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c71a22c25e4f4b99c7d95a4a38f72003d909858029072739cb2ea1183e5927c6.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/59f0a3d93c3a4294071f79977be4deedc4865db0c819cd493876104e2cc1e988.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f33c10080d73ceb70062a4a7f873d6338d9d2bac79d1ce4940c6da7b27a3eb3e.jpg",
+        "intro": "Three classic tables to experience perfectly simulated or fully remastered!",
+        "description": "Pinball FX3 - Williams\u2122 Pinball: Volume 1 is a dazzling collection of three authentic classics. Play THE GETAWAY: HIGH SPEED II\u2122, JUNK YARD\u2122 and MEDIEVAL MADNESS\u2122 in two exciting ways -- as arcade-perfect simulations in their original form or as remastered video game experiences enhanced with updated graphics, animated toys, and a host of new features.\n\n- THE GETAWAY: HIGH SPEED II\u2122: \"Okay, buddy... Pull over... Pull over NOW!!!\" Time to press pedal to the metal and shift into high gear! - JUNK YARD\u2122: The meanest game in the whole darn town! Sneak in and rummage through Crazy Bob's Cosmic Salvage. Collect junk and pick up fireworks to build your flying jalopy! - MEDIEVAL MADNESS\u2122: Behold the Renaissance of Pinball! Defeat the king and all his men to stop the madness and restore order to this great land. ",
+        "languages": null,
+        "size": 245366784
     }
 }

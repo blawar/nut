@@ -263,6 +263,11 @@ class Title:
 		except:
 			pass
 
+	def setNsuId(nsuId):
+		self.nsuId = nsuId
+		if nsuId:
+			self.isDemo = str(nsuId)[0:4] == '7003'
+
 	def setRightsId(self, rightsId):
 		if not id:
 			self.setId(rightsId)
@@ -515,7 +520,7 @@ class Title:
 
 		if "id" in _json:
 			try:
-				self.nsuId = int("%s" % _json["id"])
+				self.setNsuId("%s" % _json["id"])
 			except:
 				pass
 
@@ -655,7 +660,7 @@ class Title:
 								self.name = infoJson["name"].strip()
 
 							if "nsuid" in infoJson:
-								self.nsuId = int(infoJson["nsuid"])
+								self.setNsuId(int(infoJson["nsuid"]))
 
 
 							catagories = []
