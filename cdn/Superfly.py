@@ -93,7 +93,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	return j
 
-def getAddOns(titleId):
+def getAddOns(titleId, shop_id=3):
 	url = 'https://superfly.hac.%s.d4c.nintendo.net/v1/a/%s/dv' % (Config.cdn.environment, titleId)
 	j = makeJsonRequest('GET', url, {}, '%d/a/%s/dv.json' % (shop_id, titleId))
 	lst = []
@@ -104,14 +104,12 @@ def getAddOns(titleId):
 	for i in j:
 		id = i['title_id'].upper()
 
-		if Titles.contains(id):
-			Titles.get(id).setVersion(int(i['version']))
-		else:
+		if not Titles.contains(id):
 			Print.info('New DLC found: ' + id)
-			title = Title.Title()
-			title.setId(id)
-			title.setVersion(int(i['version']))
-			Titles.set(id, title)
+
+		title = Titles.get(id)
+		title.setVersion(int(i['version']))
+
 
 		lst.append(id)
 

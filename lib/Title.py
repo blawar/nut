@@ -94,8 +94,6 @@ class Title:
 		self.key = None
 		self.isDemo = None
 		self.region = None
-		self.isModified = False
-		self.retailOnly = None
 
 		self.baseId = None
 		self.releaseDate = None
@@ -121,6 +119,13 @@ class Title:
 		if not other.name:
 			return False
 		return str(self.name) < str(other.name)
+
+	def exportDict(self):
+		r = {}
+		for i in self.__dict__.keys():
+			if i not in ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId'):
+				r[i] = self.__dict__[i]
+		return r
 		
 	def loadCsv(self, line, map = ['id', 'key', 'name']):
 		split = line.split('|')
@@ -256,7 +261,7 @@ class Title:
 		return self.rightsId or '00000000000000000000000000000000'
 			
 	def setId(self, id):
-		if not id or self.id:
+		if not id or (hasattr(self, 'id') and self.id):
 			return
 			
 		id = id.upper();
@@ -550,7 +555,7 @@ class Title:
 			if 'title' in _json["publisher"]:
 				self.publisher = _json["publisher"]["title"]
 
-		if "applications" in _json:
+		if "applications" in _json and 0 in _json["applications"]:
 			if "image_url" in _json["applications"][0]:
 				self.iconUrl = _json["applications"][0]['image_url']
 

@@ -33,9 +33,13 @@ def items(region = None):
 	return titles.items()
 
 def get(key, region = None):
+	key = key.upper()
 	if region:
 		return regionTitles[region][key]
 
+	if not key in titles:
+		titles[key] = Title.Title()
+		titles[key].setId(key)
 	return titles[key]
 
 def getNsuid(id, region = None):
@@ -46,7 +50,12 @@ def getNsuid(id, region = None):
 	for t in map:
 		if map[t].nsuId == id:
 			return map[t]
-	return None
+
+	title = Title.Title()
+	title.nsuId = id
+
+	map[id] = title
+	return title
 	
 def contains(key, region = None):
 	return key in titles
@@ -116,7 +125,7 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 			for i, k in json.loads(f.read()).items():
 				newTitles[i] = Title.Title()
 				newTitles[i].__dict__ = k
-				newTitles[i].setId(newTitles[i].id)
+				newTitles[i].setId(i)
 
 		Print.info('loaded ' + filePath + ' in ' + str(time.clock() - timestamp) + ' seconds')
 
@@ -141,7 +150,7 @@ def load():
 			for i, k in json.loads(f.read()).items():
 				titles[i] = Title.Title()
 				titles[i].__dict__ = k
-				titles[i].setId(titles[i].id)
+				titles[i].setId(i)
 
 		Print.info('loaded titledb/titles.json in ' + str(time.clock() - timestamp) + ' seconds')
 
@@ -174,11 +183,10 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 	try:
 		j = {}
 		for i,k in newTitles.items():
-			if not k.id or k.id == '0000000000000000':
+			if not k.nsuId:
 				continue
-			if k.description:
-				k.description = k.description.strip()
-			j[k.id] = k.__dict__
+
+			j[k.nsuId] = k.exportDict()
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
 	except:
@@ -197,9 +205,8 @@ def save(fileName = 'titledb/titles.json'):
 		for i,k in titles.items():
 			if not k.id or k.id == '0000000000000000':
 				continue
-			if k.description:
-				k.description = k.description.strip()
-			j[k.id] = k.__dict__
+
+			j[k.id] = k.exportDict()
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
 	except:

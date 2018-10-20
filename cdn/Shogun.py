@@ -121,59 +121,32 @@ def scrapeTitles(region = 'US', shop_id = 4):
 
 		try:
 			for i in j['contents']:
-				title = Titles.getNsuid(i['id'])
+				title = Titles.getNsuid(i['id'], region)
 				n = getTitleByNsuid(i['id'], region)
 
-				if title:
+				title.parseShogunJson(n)
 
-					for x in cdn.Superfly.getAddOns(title.id):
-						getNsuIds(x, 'aoc', region)
+				try:
+					if n and "applications" in n and len(n["applications"]) > 0:
+						titleId = n["applications"][0]["id"].upper()
 
-					title.parseShogunJson(n)
-
-					rt = Title.Title()
-					rt.setId(title.id)
-					rt.setRegion(region)
-					rt.parseShogunJson(n)
-					Titles.set(title.id, rt, region)
-
-					scrapeDlc(i['id'], region)
-				else:
-					try:
-						if n and len(n["applications"]) > 0:
-							titleId = n["applications"][0]["id"].upper()
+						if titleId:
+							title.setId(titleId)
 
 							for x in cdn.Superfly.getAddOns(titleId):
 								getNsuIds(x, 'aoc', region)
 
-							if titleId:
-								if Titles.contains(titleId):
-									title = Titles.get(titleId)
-									title.setId(titleId)
-									title.parseShogunJson(n)
-									#print('existing title found!')
-								else:
-									title = Title.Title()
-									title.setId(titleId)
-									title.parseShogunJson(n)
-									Titles.set(titleId, title)
-									print('added new title %s %s' % (title.id, title.name))
 
-								rt = Title.Title()
-								rt.setId(titleId)
-								rt.setRegion(region)
-								rt.parseShogunJson(n)
-								Titles.set(titleId, rt, region)
-
-								scrapeDlc(i['id'], region)
-							else:
-								print('Could not get title json!')
+							scrapeDlc(i['id'], region)
 						else:
-							#print('no title id found in json!')
-							pass
-					except Exception as e:
-						#print(str(e))
+							print('Could not get title json!')
+					else:
+						#print('no title id found in json!')
 						pass
+				except Exception as e:
+					print(str(e))
+					raise
+					pass
 
 		except Exception as e:
 			print(str(e))
@@ -209,48 +182,14 @@ def scrapeDlc(baseNsuid, region = 'US', shop_id = 3):
 
 		try:
 			for i in j['contents']:
-				title = Titles.getNsuid(i['id'])
-				n = getDlcByNsuid(i['id'])
+				title = Titles.getNsuid(i['id'], region)
+				n = getDlcByNsuid(i['id'], region)
 
-				if title:
-					title.parseShogunJson(n, region)
+				if n and "applications" in n and len(n["applications"]) > 0:
+					title.setId(n["applications"][0]["id"].upper())
 
-					rt = Title.Title()
-					rt.setId(title.id)
-					rt.setRegion(region)
-					rt.parseShogunJson(n)
-					Titles.set(title.id, rt, region)
+				title.parseShogunJson(n, region)
 
-				else:
-					try:
-						if n and len(n["applications"]) > 0:
-							titleId = n["applications"][0]["id"].upper()
-							if titleId:
-								if Titles.contains(titleId):
-									title = Titles.get(titleId)
-									title.setId(titleId)
-									title.parseShogunJson(n, region)
-									#print('existing title found!')
-								else:
-									title = Title.Title()
-									title.setId(titleId)
-									title.parseShogunJson(n, region)
-									Titles.set(titleId, title)
-									print('added new DLC %s %s' % (title.id, title.name))
-
-								rt = Title.Title()
-								rt.setId(titleId)
-								rt.setRegion(region)
-								rt.parseShogunJson(n, region)
-								Titles.set(titleId, rt, region)
-							else:
-								print('Could not get title json!')
-						else:
-							#print('no title id found in json!')
-							pass
-					except Exception as e:
-						#print(str(e))
-						pass
 
 		except Exception as e:
 			print(str(e))
@@ -284,17 +223,13 @@ def getNsuIds(titleIds, type='title', region = 'US', shop_id = 4):
 	try:
 		for i in j['id_pairs']:
 			titleId = i['title_id'].upper()
-			nsuId = int(['id'])
+			nsuId = int(i['id'])
 			lst[titleId] = nsuId
 
-			if Titles.contains(titleId):
-				Titles.get(titleId).nsuId = nsuId
-			else:
-				title = Title.Title()
-				title.setId(titleId)
-				title.nsuId = nsuId
-				Titles.set(titleId, title)
+			title = Titles.getNsuid(nsuId, region)
+			title.setId(titleId)
+
 
 	except BaseException as e:
-		pass
+		Print.error(str(e))
 	return lst
