@@ -307,7 +307,7 @@ def startBaseScan():
 	baseStatus.close()
 
 			
-def export(file, cols = ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+def export(file, cols = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 	initTitles()
 	Titles.export(file, cols)
 
