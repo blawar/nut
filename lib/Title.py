@@ -343,6 +343,13 @@ class Title:
 		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
 			return Titles.get(baseId).name
 		return self.name or ''
+
+	def getBaseName(self):
+		if self.isDLC:
+			baseId = getBaseId(self.id)
+			if Titles.contains(baseId):
+				return Titles.get(baseId).name
+		return ''
 			
 	def setKey(self, key):
 		if not key:
