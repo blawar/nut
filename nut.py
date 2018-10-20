@@ -517,22 +517,14 @@ def importRegion(region = 'US', language = 'en'):
 				title = Titles.get(regionTitle.id, None, None)
 				title.importFrom(regionTitle, region2, language2)
 
+
 	for nsuId, regionTitle in Titles.data(region, language).items():
 		if not regionTitle.id:
 			continue
 
 		title = Titles.get(regionTitle.id, None, None)
 		title.importFrom(regionTitle, region, language)
-		'''
-		for k,v in regionTitle.__dict__.items():
-			if k in ('id', 'version', 'regions', 'languages', 'nsuId', 'key'):
-				continue
-			setattr(title, k, v)
-			title.setId(title.id)
-			title.setVersion(regionTitle.version)
-			title.region = region
-			title.language = language
-		'''
+		Print.info(str(title.id) + ' ' + title.name)
 
 	Titles.save()
 
