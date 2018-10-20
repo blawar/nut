@@ -474,10 +474,10 @@ def refreshRegions():
 				if regionTitle.id:
 					title = Titles.get(regionTitle.id, None, None)
 
-					if not title.regions:
+					if not hasattr(title, 'regions') or not title.regions:
 						title.regions = []
 
-					if not title.languages:
+					if not hasattr(title, 'languages') or not title.languages:
 						title.languages = []
 
 					if not region in title.regions:
