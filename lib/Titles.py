@@ -143,17 +143,6 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 	return newTitles
 
 def load():
-	'''
-	global regionTitles
-
-	for region in cdn.regions():
-		filePath = 'titledb/%s.json' % region
-		if os.path.isfile(filePath):
-			regionTitles[region] = loadTitlesJson(filePath)
-		else:
-			regionTitles[region] = {}
-	'''
-
 	confLock.acquire()
 	global titles
 	titles = {}
@@ -181,6 +170,22 @@ def load():
 	except BaseException as e:
 		Print.error('title load error: ' + str(e))
 		'''
+	confLock.release()
+
+def loadTxtDatabases():
+	confLock.acquire()
+
+	if os.path.isfile("titles.txt"):
+		loadTitleFile('titles.txt', True)
+
+	try:
+		files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
+		files.sort()
+	
+		for file in files:
+			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
+	except BaseException as e:
+		Print.error('title load error: ' + str(e))
 	confLock.release()
 
 	
