@@ -251,7 +251,7 @@ class Title:
 		except:
 			pass
 
-	def setNsuId(nsuId):
+	def setNsuId(self, nsuId):
 		self.nsuId = nsuId
 		if nsuId:
 			self.isDemo = str(nsuId)[0:4] == '7003'
