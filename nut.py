@@ -524,7 +524,6 @@ def importRegion(region = 'US', language = 'en'):
 
 		title = Titles.get(regionTitle.id, None, None)
 		title.importFrom(regionTitle, region, language)
-		Print.info(str(title.id) + ' ' + title.name)
 
 	Titles.save()
 
