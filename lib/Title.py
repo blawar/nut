@@ -552,7 +552,7 @@ class Title:
 			if 'title' in _json["publisher"]:
 				self.publisher = _json["publisher"]["title"]
 
-		if "applications" in _json and isinstance(_json["applications"], collections.Sequence):
+		if "applications" in _json and isinstance(_json["applications"], list):
 			for a in _json["applications"]:
 				if "id" in a:
 					self.setId(a['id'])
