@@ -124,6 +124,7 @@ def countryLanguages(region = 'US'):
 def scrapeTitles(region = 'US', shop_id = 4):
 	for language in countryLanguages(region):
 		scrapeLangTitles(region, language, shop_id)
+	Titles.save()
 
 def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4):
 	Print.info('Scraping %s %s' % (region, language))
@@ -177,11 +178,7 @@ def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4):
 
 		offset = offset + len(j['contents'])
 
-		#c = c + 1
-		#if c % 100 == 0:
-		#	Print.info('.')
-		#	Titles.save()
-	Titles.saveAll()
+	Titles.saveRegion(region, language)
 
 def scrapeDlc(baseNsuid, region = 'US', language = 'en', shop_id = 3):
 
@@ -251,12 +248,14 @@ def getNsuIds(titleIds, type='title', region = 'US', language = 'en', shop_id = 
 			title = Titles.getNsuid(nsuId, region, language)
 			title.setId(titleId)
 
+
 			try:
 				if title.isDLC:
 					title.parseShogunJson(getDlcByNsuid(nsuId, region, language))
 				elif not title.isUpdate:
 					title.parseShogunJson(getTitleByNsuid(nsuId, region, language))
 			except:
+				Print.error(str(e))
 				pass
 
 
