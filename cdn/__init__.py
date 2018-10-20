@@ -2,7 +2,7 @@ import time
 import os
 
 def regions():
-	return ['CA', 'MX', 'CO', 'AR', 'CL', 'PE', 'JP', 'KR', 'HK', 'AU', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'DE', 'ES', 'FI', 'FR', 'GR', 'HU', 'IT', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'GB', 'US']
+	return ['CO', 'AR', 'CL', 'PE', 'KR', 'HK', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'ES', 'FI', 'GR', 'HU', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'MX', 'IT', 'CA', 'FR', 'DE', 'JP', 'AU', 'GB', 'US']
 
 def isValidCache(cacheFileName):
 	if not os.path.isfile(cacheFileName):
