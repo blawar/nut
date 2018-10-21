@@ -341,13 +341,13 @@ class Title:
 	def getName(self):
 		baseId = getBaseId(self.id)
 		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
-			return Titles.get(baseId).name.replace('\n', ' ')
-		return self.name.replace('\n', ' ') or ''
+			return (Titles.get(baseId).name or '').replace('\n', ' ')
+		return (self.name or '').replace('\n', ' ')
 
 	def getBaseName(self):
 		baseId = getBaseId(self.id)
 		if Titles.contains(baseId):
-			return Titles.get(baseId).name.replace('\n', ' ')
+			return (Titles.get(baseId).name or '').replace('\n', ' ')
 		return ''
 			
 	def setKey(self, key):
