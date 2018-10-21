@@ -342,7 +342,7 @@ class Title:
 		baseId = getBaseId(self.id)
 		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
 			return Titles.get(baseId).name.replace('\n', ' ')
-		return self.name or ''
+		return self.name.replace('\n', ' ') or ''
 
 	def getBaseName(self):
 		baseId = getBaseId(self.id)
