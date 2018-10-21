@@ -345,10 +345,9 @@ class Title:
 		return self.name or ''
 
 	def getBaseName(self):
-		if self.isDLC:
-			baseId = getBaseId(self.id)
-			if Titles.contains(baseId):
-				return Titles.get(baseId).name
+		baseId = getBaseId(self.id)
+		if Titles.contains(baseId):
+			return Titles.get(baseId).name
 		return ''
 			
 	def setKey(self, key):
