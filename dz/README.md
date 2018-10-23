@@ -115,6 +115,15 @@ Use at your own risk, and [always have a NAND backup](https://gbatemp.net/thread
 - Added USB experimental install. Server command (make sure nut can see your NSP's): `nut.py --usb`
 - Added title type column, and region column now populates with NUT server.
 - Added DLC info back into the name so you can differentiate them in the list.
+- Added smoother tile scrolling.
+- Added automatic merged lists of games, dlc, and updates, and hides titles you already have installed.  These sections merge all of the titles from all of your locations into one unique list.
+- Merged updates section only shows updates higher than what you have installed.
+- Added list of DLC and updates to the install dialog.
+- Included Latest Update on the install dialog now works.
+- Added support for loading titles.US.en.json to load names / metadata for all titles.  Place this file at /switch/dz/titles.US.en.json
+- "Modified Date" is now "Release Date"
+- Changed name to Tinfoil.
+
 
 ## Credits
 
