@@ -123,6 +123,8 @@ Use at your own risk, and [always have a NAND backup](https://gbatemp.net/thread
 - Added support for loading titles.US.en.json to load names / metadata for all titles.  Place this file at /switch/dz/titles.US.en.json
 - "Modified Date" is now "Release Date"
 - Changed name to Tinfoil.
+- Disbaled b-button exit.
+- Fixed "Unknown" name display.
 
 
 ## Credits
