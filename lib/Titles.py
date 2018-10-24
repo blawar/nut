@@ -181,8 +181,8 @@ def load():
 	except BaseException as e:
 		Print.error('title load error: ' + str(e))
 		'''
-	loadTxtDatabases()
 	confLock.release()
+	loadTxtDatabases()
 
 def loadTxtDatabases():
 	confLock.acquire()
