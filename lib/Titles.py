@@ -207,7 +207,7 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 			if not k.nsuId:
 				continue
 
-			j[k.nsuId] = k.exportDict()
+			j[k.nsuId] = k.exportDict(True)
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
 	except:

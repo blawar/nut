@@ -121,10 +121,16 @@ class Title:
 			return False
 		return str(self.name) < str(other.name)
 
-	def exportDict(self):
+	def exportDict(self, isRegion = False):
 		r = {}
+
+		if isRegion:
+			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId', 'regions')
+		else:
+			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId')
+
 		for i in self.__dict__.keys():
-			if i not in ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId'):
+			if i not in blacklist:
 				r[i] = self.__dict__[i]
 		return r
 		
