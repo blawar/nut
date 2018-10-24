@@ -16,6 +16,7 @@ import threading
 import Nsps
 import urllib.request
 import Config
+import cdn.Shogun
 
 try:
 	from PIL import Image
@@ -501,7 +502,7 @@ class Title:
 		return r
 
 
-	def parseShogunJson(self, _json, region = None):
+	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
 
 		if 'hero_banner_url' in _json:
 			self.bannerUrl = _json['hero_banner_url']
@@ -585,6 +586,26 @@ class Title:
 			desc = re.sub('(?<!\n)\n(?!\n)', ' ',_json["description"])
 			desc = re.sub('  ', ' ', desc)
 			self.description = desc
+
+		try:
+			if "target_titles" in _json:
+				for nsu in _json["target_titles"]:
+					if not Titles.hasNsuid(nsu["id"], region, language):
+						if canGrabFromShogun:
+							baseTitle = Titles.getNsuid(nsu["id"], region, language)
+							baseTitle.parseShogunJson(cdn.Shogun.getTitleByNsuid(nsu["id"], region, language), region, language, True)
+							#Titles.saveRegion(region, language)
+					else:
+						baseTitle = Titles.getNsuid(nsu["id"], region, language)
+						if baseTitle.id:
+							pass
+							#self.setId(baseTitle.id)
+							#Print.info("setting appid " + str(baseTitle.id))
+						#else:
+						#	Print.error("Could not find title for " + str(nsu["id"]))
+		except:
+			Print.error('target titles error')
+			raise
 
 	def scrape(self, delta = True):
 		if self.isUpdate or self.isDLC:
