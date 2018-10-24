@@ -67,6 +67,13 @@ Title keys are saved to `sdmc:/switch/dz/titlekeys.txt` when dumped. Additionall
 
 Use at your own risk, and [always have a NAND backup](https://gbatemp.net/threads/rcm-payload-hekate-ctcaer-mod.502604/).
 
+## Additional Info
+
+## FAQ
+
+#### What does each icon on the left mean?
+On the left, you will see icons that indicate what is not yet installed on your Switch (the game controller), and what is currently on your PC/server (PC icon). Anything that is listed under Games, DLC, and Updates, with the game controller icon next to it, is what is currently on your PC but not on your Switch.
+You can go to the Home tab to see everything that you have installed on your Switch.
 
 # Changelog
 
