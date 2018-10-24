@@ -69,6 +69,17 @@ def getNsuid(id, region, language):
 
 	map[id] = title
 	return title
+
+def hasNsuid(id, region, language):
+	id = int(id)
+
+	map = data(region, language)
+
+	for t in map:
+		if map[t].nsuId == id:
+			return True
+
+	return False
 	
 def contains(key, region = None):
 	return key in titles
@@ -170,6 +181,7 @@ def load():
 	except BaseException as e:
 		Print.error('title load error: ' + str(e))
 		'''
+	loadTxtDatabases()
 	confLock.release()
 
 def loadTxtDatabases():

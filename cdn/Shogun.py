@@ -147,7 +147,7 @@ def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4):
 				title = Titles.getNsuid(i['id'], region, language)
 				n = getTitleByNsuid(i['id'], region, language)
 
-				title.parseShogunJson(n)
+				title.parseShogunJson(n, region, language, True)
 
 				try:
 					if n and "applications" in n and len(n["applications"]) > 0:
@@ -207,7 +207,7 @@ def scrapeDlc(baseNsuid, region = 'US', language = 'en', shop_id = 3):
 				if n and "applications" in n and len(n["applications"]) > 0:
 					title.setId(n["applications"][0]["id"].upper())
 
-				title.parseShogunJson(n, region)
+				title.parseShogunJson(n, region, language, True)
 
 
 		except Exception as e:
@@ -233,7 +233,7 @@ def getDlcByNsuid(nsuId, region = 'US', language = 'en', shop_id = 3):
 
 def ids(titleIds, type='title', region = 'US', language = 'en', shop_id = 4):
 	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=%s&country=%s&type=%s&title_ids=%s' % (Config.cdn.environment, shop_id, language, region, type, titleIds)
-	j = makeJsonRequest('GET', url, {},  '%d/%s/%s/contents/ids/%s.json' % (shop_id, language, region, titleIds))
+	j = makeJsonRequest('GET', url, {},  '%d/%s/%s/contents/ids/%s.%s.json' % (shop_id, language, region, titleIds, type))
 	return j
 
 def getNsuIds(titleIds, type='title', region = 'US', language = 'en', shop_id = 4):
@@ -251,9 +251,9 @@ def getNsuIds(titleIds, type='title', region = 'US', language = 'en', shop_id = 
 
 			try:
 				if title.isDLC:
-					title.parseShogunJson(getDlcByNsuid(nsuId, region, language))
+					title.parseShogunJson(getDlcByNsuid(nsuId, region, language), region, language, True)
 				elif not title.isUpdate:
-					title.parseShogunJson(getTitleByNsuid(nsuId, region, language))
+					title.parseShogunJson(getTitleByNsuid(nsuId, region, language), region, language, True)
 			except:
 				Print.error(str(e))
 				pass

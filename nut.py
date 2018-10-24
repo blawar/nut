@@ -853,6 +853,7 @@ if __name__ == '__main__':
 				'''
 				
 				cdn.Shogun.scrapeTitles(region)
+			Titles.saveAll()
 			#cdn.Shogun.ids('01005EE0036ED001,01005EE0036ED002', 'aoc')
 			#for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
 			#	print(str(i))
