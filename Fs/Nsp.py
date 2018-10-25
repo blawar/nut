@@ -18,6 +18,7 @@ from tqdm import tqdm
 from Fs.Pfs0 import Pfs0
 from Fs.Ticket import Ticket
 from Fs.Nca import Nca
+import shutil
 
 MEDIA_SIZE = 0x200
 
@@ -253,7 +254,7 @@ class Nsp(Pfs0):
 			Print.info(self.path + ' -> ' + self.fileName())
 			os.makedirs(os.path.dirname(self.fileName()), exist_ok=True)
 			newPath = self.fileName()
-			os.rename(self.path, newPath)
+			shutil.move(self.path, newPath)
 			self.path = newPath
 		except BaseException as e:
 			Print.info('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
