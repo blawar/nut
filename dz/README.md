@@ -132,6 +132,9 @@ You can go to the Home tab to see everything that you have installed on your Swi
 - Changed name to Tinfoil.
 - Disbaled b-button exit.
 - Fixed "Unknown" name display.
+- Improved icon loading performance.
+- Added small icon mode.
+- Added smooth scrolling to regular lists.
 
 
 ## Credits
