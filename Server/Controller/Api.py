@@ -10,6 +10,9 @@ import Hex
 import socket
 import struct
 import time
+import nut
+import cdn
+import blockchain
 
 try:
 	from PIL import Image
@@ -17,6 +20,12 @@ except ImportError:
 	import Image
 import Server
 import os
+
+def success(request, response, s):
+	response.write(json.dumps({'success': True, 'result': s}))
+
+def error(request, response, s):
+	response.write(json.dumps({'success': False, 'result': s}))
 
 def getUser(request, response):
 	response.write(json.dumps(request.user.__dict__))
@@ -301,3 +310,77 @@ def getFiles(request, response):
 			else:
 				r[title.baseId]['base'].append(nsp.dict())
 	response.write(json.dumps(r))
+
+def getScan(request, response):
+	success(request, response, nut.scan())
+
+def getOrganize(request, response):
+	nut.organize()
+	success(request, response, "fin")
+
+def getUpdateDb(request, response):
+	for url in Config.titleUrls:
+		nut.updateDb(url)
+	Titles.loadTxtDatabases()
+	Titles.save()
+	return success(request, response, "Fin")
+
+def getCdnDownloadAll(request, response):
+	nut.downloadAll()
+	return success(request, response, "Fin")
+
+def getCdnDownload(request, response):
+	for id in request.bits[2:]:
+		nut.download(id)
+	return success(request, response, "Fin")
+
+def getExport(request, response):
+	if len(request.bits) < 3:
+		return Server.Response500(request, response)
+	
+	if len(request.bits) == 3:
+		nut.export(request.bits[2])
+	else:
+		nut.export(request.bits[2], request.bits[3:])
+
+	return success(request, response, "Fin")
+
+def getImportRegions(request, response):
+	nut.importRegion(request.bits[2], request.bits[3])
+
+	return success(request, response, "Fin")
+
+def getRegions(request, response):
+	response.write(json.dumps(Config.regionLanguages()))
+
+
+def getUpdateLatest(request, response):
+	nut.scanLatestTitleUpdates()
+	return success(request, response, "Fin")
+
+def getUpdateAllVersions(request, response):
+	if len(request.bits) >= 3 and int(request.bits[2]) > 0:
+		nut.updateVersions(True)
+	else:
+		nut.updateVersions(False)
+	return success(request, response, "Fin")
+
+def scrapeShogun(request, response):
+	nut.scrapeShogun()
+	return success(request, response, "Fin")
+
+def submitKey(request, response):
+	titleId = request.bits[2]
+	titleKey = request.bits[3]
+
+	try:
+		if blockchain.blockchain.suggest(titleId, titleKey) == True:
+			return success(request, response, "Key successfully added")
+		else:
+			return error(request, response, "Key validation failed")
+	except LookupError as e:
+		error(request, response, str(e))
+	except OSError as e:
+		error(request, response, str(e))
+	except BaseException as e:
+		error(request, response, str(e))

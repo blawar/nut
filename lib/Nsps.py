@@ -49,7 +49,7 @@ def scan(base):
 
 	if len(fileList) == 0:
 		save()
-		return
+		return 0
 
 	status = Status.create(len(fileList), desc = 'Scanning files...')
 
@@ -74,10 +74,12 @@ def scan(base):
 			except BaseException as e:
 				Print.info('An error occurred processing file: ' + str(e))
 				status.close()
+
 		save()
 		status.close()
 	except BaseException as e:
 		Print.info('An error occurred scanning files: ' + str(e))
+	return i
 
 def removeEmptyDir(path, removeRoot=True):
 	if not os.path.isdir(path):

@@ -23,7 +23,6 @@ import shutil
 MEDIA_SIZE = 0x200
 
 class Nsp(Pfs0):
-		
 	def __init__(self, path = None, mode = 'rb'):
 		self.path = None
 		self.titleId = None
