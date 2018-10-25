@@ -135,6 +135,8 @@ You can go to the Home tab to see everything that you have installed on your Swi
 - Improved icon loading performance.
 - Added small icon mode.
 - Added smooth scrolling to regular lists.
+- Fixed new graphical glitches.
+- Added section name to title.
 
 
 ## Credits
