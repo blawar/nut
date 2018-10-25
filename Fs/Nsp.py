@@ -312,16 +312,16 @@ class Nsp(Pfs0):
 		format = format.replace('{name}', self.cleanFilename(t.getName() or ''))
 		format = format.replace('{version}', str(self.getVersion() or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
-		format = format.replace('{baseName}', self.cleanFilename(bt.getName() or ''))
+
+		baseName = self.cleanFilename(bt.getName() or '')
+		result = format.replace('{baseName}', baseName)
 		
-		'''
-		if self.hasValidTicket:
-			format = os.path.splitext(format)[0] + '.nsp'
-		else:
-			format = os.path.splitext(format)[0] + '.nsx'
-		'''
+		while(len(os.path.basename(result).encode('utf-8')) > 254 and len(baseName) > 3):
+			baseName = baseName[:-1]
+			result = format.replace('{baseName}', baseName)
+			
 		
-		return format
+		return result
 		
 	def ticket(self):
 		for f in (f for f in self if type(f) == Ticket):
