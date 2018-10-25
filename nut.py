@@ -317,8 +317,8 @@ hasScanned = False
 def scan():
 	global hasScanned
 
-	if hasScanned:
-		return
+	#if hasScanned:
+	#	return
 	hasScanned = True
 	initTitles()
 	initFiles()
@@ -327,8 +327,9 @@ def scan():
 	refreshRegions()
 	importRegion(Config.region, Config.language)
 
-	Nsps.scan(Config.paths.scan)
+	r = Nsps.scan(Config.paths.scan)
 	Titles.save()
+	return r
 	
 def organize():
 	initTitles()
@@ -528,6 +529,50 @@ def importRegion(region = 'US', language = 'en'):
 	Titles.loadTxtDatabases()
 	Titles.save()
 
+def scrapeShogun():
+	initTitles()
+	initFiles()
+
+	for region in cdn.regions():				
+		cdn.Shogun.scrapeTitles(region)
+	Titles.saveAll()
+
+def download(id):
+	bits = id.split(',')
+
+	version = None
+	key = None
+
+	if len(bits) == 1:
+		id = bits[0].upper()
+	elif len(bits) == 2:
+		id = bits[0].upper()
+		key = bits[1].strip()
+	elif len(bits) == 3:
+		id = bits[0].upper()
+		key = bits[1].strip()
+		version = bits[2].strip()
+	else:
+		Print.info('invalid args: ' + download)
+		return False
+
+	if key == '':
+		key = None
+
+	if version == '':
+		version = None
+
+	if len(id) != 16:
+		raise IOError('Invalid title id format')
+
+	if Titles.contains(id):
+		title = Titles.get(id)
+
+		CDNSP.download_game(title.id.lower(), version or title.lastestVersion(), key or title.key, True, '', True)
+	else:
+		CDNSP.download_game(id.lower(), version or Title.getCdnVersion(id.lower()), key, True, '', True)
+	return True
+
 			
 if __name__ == '__main__':
 	try:
@@ -706,40 +751,8 @@ if __name__ == '__main__':
 		if args.download:
 			initTitles()
 			initFiles()
-			for download in args.download:
-				bits = download.split(',')
-
-				version = None
-				key = None
-
-				if len(bits) == 1:
-					id = bits[0].upper()
-				elif len(bits) == 2:
-					id = bits[0].upper()
-					key = bits[1].strip()
-				elif len(bits) == 3:
-					id = bits[0].upper()
-					key = bits[1].strip()
-					version = bits[2].strip()
-				else:
-					Print.info('invalid args: ' + download)
-					continue
-
-				if key == '':
-					key = None
-
-				if version == '':
-					version = None
-
-				if len(id) != 16:
-					raise IOError('Invalid title id format')
-
-				if Titles.contains(id):
-					title = Titles.get(id)
-
-					CDNSP.download_game(title.id.lower(), version or title.lastestVersion(), key or title.key, True, '', True)
-				else:
-					CDNSP.download_game(id.lower(), version or Title.getCdnVersion(id.lower()), key, True, '', True)
+			for d in args.download:
+				download(d)
 	
 		if args.scan:
 			initTitles()
@@ -840,25 +853,7 @@ if __name__ == '__main__':
 				'''
 
 		if args.scrape_shogun:
-			initTitles()
-			initFiles()
-
-			for region in cdn.regions():
-				pass
-				'''
-				r = cdn.Shogun.country(region)
-				if not r:
-					print('could not get region ' + region)
-				else:
-					print(str(r['default_language_code']))
-				'''
-				
-				cdn.Shogun.scrapeTitles(region)
-			Titles.saveAll()
-			#cdn.Shogun.ids('01005EE0036ED001,01005EE0036ED002', 'aoc')
-			#for i in cdn.Superfly.getAddOns('01005ee0036ec000'.upper()):
-			#	print(str(i))
-			#cdn.Shogun.scrapeLangTitles('US', 'en')
+			scrapeShogun()
 
 		if args.scrape_title:
 			initTitles()
