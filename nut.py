@@ -525,7 +525,7 @@ def importRegion(region = 'US', language = 'en'):
 		title = Titles.get(regionTitle.id, None, None)
 		title.importFrom(regionTitle, region, language)
 
-	loadTxtDatabases()
+	Titles.loadTxtDatabases()
 	Titles.save()
 
 			
