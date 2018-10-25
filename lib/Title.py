@@ -344,6 +344,17 @@ class Title:
 				self.isDemo = True
 			else:
 				self.isDemo = False
+
+	def setNameOverride(self, name):
+		if not name:
+			return
+		self.name = name
+		
+		if self.isDemo == None:
+			if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
+				self.isDemo = True
+			else:
+				self.isDemo = False
 	
 	def getName(self):
 		baseId = getBaseId(self.id)
