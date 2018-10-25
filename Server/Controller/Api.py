@@ -365,11 +365,11 @@ def getUpdateAllVersions(request, response):
 		nut.updateVersions(False)
 	return success(request, response, "Fin")
 
-def scrapeShogun(request, response):
+def getScrapeShogun(request, response):
 	nut.scrapeShogun()
 	return success(request, response, "Fin")
 
-def submitKey(request, response):
+def getSubmitKey(request, response):
 	titleId = request.bits[2]
 	titleKey = request.bits[3]
 
