@@ -384,3 +384,19 @@ def getSubmitKey(request, response):
 		error(request, response, str(e))
 	except BaseException as e:
 		error(request, response, str(e))
+
+
+def postTinfoilSetInstalledApps(request, response):
+	try:
+		serial = "XAJ70002712345"
+		path = 'switch/' + serial + ''
+		Print.info('path: ' + path)
+		if not os.makedirs(path, exist_ok=True):
+			Print.error('Failed to create ' + path)
+
+		with open(path + '/installed.json', 'wb') as f:
+			f.write(request.post)
+
+		return success(request, response, "OK")
+	except:
+		raise

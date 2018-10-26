@@ -92,8 +92,13 @@ def logNcaDeltas(file):
 		
 	x.close()
 	
-def updateDb(url):
+def updateDb(url, c=0):
 	initTitles()
+
+	c += 1
+
+	if c > 3:
+		return False
 
 	Print.info("Downloading new title database " + url)
 	try:
@@ -110,6 +115,12 @@ def updateDb(url):
 		r.encoding = 'utf-8-sig'
 
 		if r.status_code == 200:
+			try:
+				m = re.search(r'<a href="([^"]*)">Proceed</a>', r.text)
+				if m:
+					return updateDb(m.group(1), c)
+			except:
+				pass
 			Titles.loadTitleBuffer(r.text, False)
 		else:
 			Print.info('Error updating database: ', repr(r))
