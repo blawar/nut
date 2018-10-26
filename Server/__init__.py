@@ -84,6 +84,16 @@ class NutRequest:
 		self.head = False
 		self.url = urlparse(self.path)
 
+		try:
+			length = int(self.headers['Content-Length'])
+			if not length:
+				self.post = None
+			else:
+				self.post = handler.rfile.read(length)
+				#Print.info('reading %s bytes from post' % self.headers['Content-Length'])
+		except:
+			self.post = None
+
 		self.bits = [x for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
 		self.user = None
@@ -162,12 +172,12 @@ def Response401(request, response):
 	response.headers['WWW-Authenticate'] = 'Basic realm=\"Nut\"'
 	response.write('401')
 
-def route(request, response):
+def route(request, response, verb = 'get'):
 	try:
 		print('routing')
 		if len(request.bits) > 0 and request.bits[0] in mappings:
 			i = request.bits[1]
-			methodName = 'get' + i[0].capitalize() + i[1:]
+			methodName = verb + i[0].capitalize() + i[1:]
 			print('routing to ' + methodName)
 			method = getattr(mappings[request.bits[0]], methodName, Response404)
 			method(request, response)
@@ -209,7 +219,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		except BaseException as e:
 				self.wfile.write(Response500(request, response))
 
-	def do_GET(self):
+	def do(self, verb = 'get'):
 		request = NutRequest(self)
 		response = NutResponse(self)
 		
@@ -224,10 +234,17 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 			return Response401(request, response)
 
 		try:
-			if not route(request, response):
+			if not route(request, response, verb):
 				self.handleFile(request, response)
 		except BaseException as e:
 				self.wfile.write(Response500(request, response))
+
+	def do_GET(self):
+		self.do('get')
+
+
+	def do_POST(self):
+		self.do('post')
 
 
 	def handleFile(self, request, response):
