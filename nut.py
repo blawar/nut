@@ -40,6 +40,11 @@ try:
 except:
 	Print.error('pip3 install pyusb, required for USB coms')
 
+try:
+	import blockchain
+except:
+	raise
+
 
 				
 def loadTitleWhitelist():
@@ -460,7 +465,7 @@ def unlockAll():
 	for k,f in Nsps.files.items():
 		if f.isUnlockable():
 			try:
-				if not blockchain.blockchain.verifyKey(f.titleId, f.title().key):
+				if not blockchain.verifyKey(f.titleId, f.title().key):
 					raise IOError('Could not verify title key! %s / %s' % (t.titleId, f.title().key))
 					continue
 				Print.info('unlocking ' + f.path)
@@ -471,10 +476,6 @@ def unlockAll():
 				Print.info('error unlocking: ' + str(e))
 
 def submitKeys():
-	try:
-		import blockchain
-	except:
-		raise
 	for id, t in Titles.items():
 		if t.key and t.isBase() and len(t.getFiles()) > 0:
 			try:
