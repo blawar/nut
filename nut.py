@@ -466,7 +466,7 @@ def unlockAll():
 		if f.isUnlockable():
 			try:
 				if not blockchain.verifyKey(f.titleId, f.title().key):
-					raise IOError('Could not verify title key! %d %s / %s' % (f.title().name, f.titleId, f.title().key))
+					raise IOError('Could not verify title key! %s / %s - %s' % (f.titleId, f.title().key, f.title().name))
 					continue
 				Print.info('unlocking ' + f.path)
 				f.open(f.path, 'r+b')
