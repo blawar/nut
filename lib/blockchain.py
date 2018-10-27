@@ -340,13 +340,13 @@ def verifyKey(titleId = None, titleKey = None):
 		# Check that the required fields are in the POST'ed data
 		required = ['titleId', 'titleKey']
 		if not titleId or not titleKey:
-			return false
+			return False
 
 		titleId = titleId.upper()
 		nsp = Nsps.getByTitleId(titleId)
 
 		if not nsp:
-			return false
+			return False
 
 		nsp.open()
 
@@ -368,11 +368,11 @@ def verifyKey(titleId = None, titleKey = None):
 
 						blockchain.new_block()
 
-						return true
+						return True
 
-		return false
+		return False
 	except BaseException as e:
-		return str(e), 400
+		return False
 
 @app.route('/transactions/suggest', methods=['GET'])
 def new_suggestion():
