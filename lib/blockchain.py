@@ -121,6 +121,7 @@ class Blockchain:
 		self.current_transactions = []
 		self.chain = []
 		self.nodes = set()
+		self.map = {}
 
 		self.load()
 
@@ -150,8 +151,8 @@ class Blockchain:
 		for c in self.chain:
 			for t in c.transactions:
 				if t.titleId == id:
-					return True
-		return False
+					return t.titleKey
+		return None
 
 	def register_node(self, address):
 		"""
@@ -343,6 +344,13 @@ def verifyKey(titleId = None, titleKey = None):
 			return False
 
 		titleId = titleId.upper()
+
+		if blockchain.hasTitle(titleId):
+			if blockchain.hasTitle(titleId) == titleKey:
+				return True
+			else:
+				return False
+
 		nsp = Nsps.getByTitleId(titleId)
 
 		if not nsp:
