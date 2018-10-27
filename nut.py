@@ -496,6 +496,9 @@ def submitKeys():
 				#blockchain.blockchain.suggest(t.id, t.key)
 				if not blockchain.verifyKey(t.id, t.key):
 					Print.error('Key verification failed for %s / %s' % (str(t.id), str(t.key)))
+					for f in t.getFiles():
+						f.hasValidTicket = False
+						f.move()
 			except LookupError as e:
 				Print.info(str(e))
 			except OSError as e:

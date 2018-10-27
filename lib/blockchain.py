@@ -375,11 +375,13 @@ def verifyKey(titleId = None, titleKey = None):
 						index = blockchain.new_transaction(entry)
 
 						blockchain.new_block()
-
+						nsp.close()
 						return True
+		nsp.close()
 
 		return False
 	except BaseException as e:
+		nsp.close()
 		return False
 
 @app.route('/transactions/suggest', methods=['GET'])
