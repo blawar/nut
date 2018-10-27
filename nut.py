@@ -473,7 +473,7 @@ def submitKeys():
 	except:
 		raise
 	for id, t in Titles.items():
-		if t.key and t.isBase():
+		if t.key and t.isBase() and len(t.getFiles()) > 0:
 			try:
 				#blockchain.blockchain.suggest(t.id, t.key)
 				if not blockchain.verifyKey(t.id, t.key):
