@@ -473,7 +473,7 @@ def submitKeys():
 	except:
 		raise
 	for id, t in Titles.items():
-		if t.key and not t.isUpdate and not t.isDLC:
+		if t.key and t.isBase():
 			try:
 				#blockchain.blockchain.suggest(t.id, t.key)
 				if not blockchain.verifyKey(t.id, t.key):
