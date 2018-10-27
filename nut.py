@@ -460,6 +460,9 @@ def unlockAll():
 	for k,f in Nsps.files.items():
 		if f.isUnlockable():
 			try:
+				if not blockchain.verifyKey(f.titleId, f.title().key):
+					Print.error('Could not verify title key! %s / %s' % (t.titleId, f.title().key))
+					continue
 				Print.info('unlocking ' + f.path)
 				f.open(f.path, 'r+b')
 				f.unlock()
