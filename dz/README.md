@@ -137,6 +137,12 @@ You can go to the Home tab to see everything that you have installed on your Swi
 - Added smooth scrolling to regular lists.
 - Fixed new graphical glitches.
 - Added section name to title.
+- Re-enabled dark theme
+- Fixed b-button exit
+- Fixed UI display bugs
+- Enabled downloading thumbnails from web before trying to read from NSP.
+- General UI enhancements.
+
 
 
 ## Credits
