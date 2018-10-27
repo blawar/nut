@@ -272,6 +272,12 @@ class Title:
 			
 	def getRightsId(self):
 		return self.rightsId or '00000000000000000000000000000000'
+
+	def isBase(self):
+		if self.baseId == self.id:
+			return True
+		else:
+			return False
 			
 	def setId(self, id):
 		self.isUpdate = False
