@@ -256,9 +256,28 @@ class Nsp(Pfs0):
 			shutil.move(self.path, newPath)
 			self.path = newPath
 		except BaseException as e:
-			Print.info('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
+			Print.error('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
+			moveDupe()
+					
 		
 		return True
+
+	def moveDupe(self):
+		try:
+			newPath = self.fileName()
+			os.makedirs(Config.paths.duplicates, exist_ok = True)
+			origDupePath = Config.paths.duplicates + os.path.basename(newPath)
+			dupePath = origDupePath
+			Print.info('moving duplicate ' + os.path.basename(newPath))
+			c = 0
+			while os.path.isfile(dupePath):
+				dupePath = Config.paths.duplicates + os.path.basename(newPath) + '.' + str(c)
+				c = c + 1
+			shutil.move(self.path, dupePath)
+			return True
+		except BaseException as e:
+			Print.error('failed to move to duplicates! ' + str(e))
+		return False
 		
 	def cleanFilename(self, s):
 		#s = re.sub('\s+\Demo\s*', ' ', s, re.I)

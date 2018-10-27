@@ -357,6 +357,20 @@ def organize():
 		#print('moving ' + f.path)
 		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
 		f.move()
+
+	for id, t in Titles.data().items():
+		files = t.getFiles()
+		if len(files) > 1:
+			#Print.info("%d - %s - %s" % (len(files), t.id, t.name))
+			latest = t.getLatestFile()
+
+			if not latest:
+				continue
+
+			for f in files:
+				if f.path != latest.path:
+					f.moveDupe()
+
 	Print.info('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
 	Nsps.save()

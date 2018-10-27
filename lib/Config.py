@@ -38,6 +38,8 @@ class Paths:
 		self.shopNCert = 'ShopN.pem'
 		self.nspOut = '_NSPOUT'
 		self.titleImages = 'titles/images/'
+
+		self.duplicates = 'duplicates/'
 		
 		if platform.system() == 'Linux':
 			self.hactool = './' + self.hactool + '_linux'
@@ -167,6 +169,11 @@ def load(confFile):
 		
 		try:
 			paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
+		except: 
+			pass
+
+		try:
+			paths.duplicates = j['paths']['duplicates']
 		except: 
 			pass
 
