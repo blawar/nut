@@ -142,6 +142,10 @@ You can go to the Home tab to see everything that you have installed on your Swi
 - Fixed UI display bugs
 - Enabled downloading thumbnails from web before trying to read from NSP.
 - General UI enhancements.
+- Improved internet network performance.
+- Hostname's (should) work in locations now.
+- Added read-only file browser.  Will add capabilities over time.
+- Removed individual locations from menu.  NSP's can be installed from locations in the File Browser.
 
 
 
