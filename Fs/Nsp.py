@@ -257,7 +257,7 @@ class Nsp(Pfs0):
 			self.path = newPath
 		except BaseException as e:
 			Print.error('failed to rename file! %s -> %s  : %s' % (self.path, self.fileName(), e))
-			moveDupe()
+			self.moveDupe()
 					
 		
 		return True
