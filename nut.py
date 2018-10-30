@@ -35,10 +35,6 @@ import pprint
 import random
 import cdn.Shogun
 import cdn.Superfly
-try:
-	import Usb
-except:
-	Print.error('pip3 install pyusb, required for USB coms')
 
 try:
 	import blockchain
@@ -791,6 +787,10 @@ if __name__ == '__main__':
 			exit(0)
 
 		if args.usb:
+			try:
+				import Usb
+			except BaseException as e:
+				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
 			scan()
 			Usb.daemon()
 		
