@@ -391,8 +391,7 @@ def postTinfoilSetInstalledApps(request, response):
 		serial = request.bits[2]
 		path = 'switch/' + serial + ''
 		Print.info('path: ' + path)
-		if not os.makedirs(path, exist_ok=True):
-			Print.error('Failed to create ' + path)
+		os.makedirs(path, exist_ok=True)
 
 		with open(path + '/installed.json', 'wb') as f:
 			f.write(request.post)
