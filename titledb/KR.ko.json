@@ -1322,7 +1322,7 @@
             "ko",
             "zh"
         ],
-        "size": 1039138816
+        "size": 1050673152
     },
     "70010000008922": {
         "id": "0100EC100A790000",
@@ -1904,7 +1904,7 @@
         "category": null,
         "ratingContent": [],
         "numberOfPlayers": null,
-        "rating": 0,
+        "rating": null,
         "developer": null,
         "publisher": "BANDAI NAMCO Entertainment",
         "frontBoxArt": null,
@@ -1912,7 +1912,7 @@
         "screenshots": null,
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/edd3efade8e9f4b659329152fd3a7163529f890560e5f5600bb28bf5010ea5ee.jpg",
         "intro": null,
-        "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.",
+        "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1 \uff62\ub808\ud034\uc5e0 \uc911 \"\uc9c4\ub178\uc758 \ub0a0\"\u300d \uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26054\u3000\uc5b4\ub824\uc6c0\u26056\u3000\uadc0\uc2e0\u26056\n\n\u203b\uc774 \uc0c1\ud488\uc740 \uc774\ubbf8 \uc774\ubca4\ud2b8\ub85c \ubb34\ub8cc \ubc30\ud3ec\ud588\ub358 \ucd94\uac00 \ucf58\ud150\uce20\uc640 \ub3d9\uc77c\ud55c \uc0c1\ud488\uc785\ub2c8\ub2e4. \uc0ac\uc804\uc5d0 \ud655\uc778\uc744 \ubd80\ud0c1\ub4dc\ub9ac\uba70, \uc911\ubcf5 \uad6c\ub9e4\uc5d0 \uc8fc\uc758\ud558\uc5ec \uc8fc\uc2ed\uc2dc\uc624. \u203b\ubb34\ub8cc \ubc30\ud3ec \ub2e4\uc6b4\ub85c\ub4dc \ubc88\ud638\uc5d0\ub294 \uc720\ud6a8\uae30\uac04\uc774 \uc788\uc2b5\ub2c8\ub2e4.",
         "languages": null,
         "size": 4194304
     },
@@ -3231,7 +3231,7 @@
             "it",
             "zh"
         ],
-        "size": 3462397952
+        "size": 3468689408
     },
     "70010000010663": {
         "id": "0100A7F002830000",
@@ -5759,5 +5759,165 @@
             "zh"
         ],
         "size": 4773117952
+    },
+    "70010000015694": {
+        "id": "010003F003A34000",
+        "rightsId": null,
+        "name": "\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \ud53c\uce74\uce04",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181116,
+        "nsuId": "70010000015694",
+        "category": [
+            "RPG"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/c234c4a52f86d69c65017ccac05b1c6b2f826457da7224273d9e876047f669bc.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/063e7508c3b8b08e868e8ace0b958129e7d8961ac62e5a3b6c80a74e1067eade.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ec8eb6154fc9e2077e5b92c9180b39384072368d50b83a4934bb29fb4911b62c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3cca04418f626b4f3c809f39b092ece729f326861ca0f1c9897357fe802e2b45.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/24405c4687f5cf4fd4025762056dc2c5b1c03284c493019dae8ad88ac2d3d10c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9c7ce4f38629517757bccb6a1ef947166cf69d6429a8131f582b141e996d4bc9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/43eb9c879dbb4f389484ad652893cb796972e34a7740ca536134c3c7eda33ad7.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/75c0fb4c8eba002b81255ac8b3c4c42a9aaa9971337cf137a04b4fe0541787a2.jpg",
+        "intro": "\u300e\ud3ec\ucf13\ubaac\uc2a4\ud130\u300f\uc2dc\ub9ac\uc988\uac00 Nintendo Switch\uc5d0 \uccab \ub4f1\uc7a5\uff01 \ud53c\uce74\uce04\u30fb\uc774\ube0c\uc774\ub97c \ud30c\ud2b8\ub108\ub85c \ud568\uaed8 \ubaa8\ud5d8\uc744 \uc990\uae30\uc790! ",
+        "description": "\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \ud53c\uce74\uce04\u300d\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \uc774\ube0c\uc774\u300d\ub294 Nintendo Switch \uc18c\ud504\ud2b8\uc6e8\uc5b4\ub85c \ubc1c\ub9e4\ud558\ub294\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130\u300d\uc2dc\ub9ac\uc988 \ucd5c\uc2e0\uc791.\n\n\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \ud53c\uce74\uce04\u300d\uc5d0\uc11c\ub294 \ud53c\uce74\uce04\ub97c, \u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \uc774\ube0c\uc774\u300d\uc5d0\uc11c\ub294 \uc774\ube0c\uc774\ub97c \ud30c\ud2b8\ub108\ub85c \ud568\uaed8 \ubaa8\ud5d8\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4! \ub610\ud55c, \ubaac\uc2a4\ud130\ubcfc \ubaa8\uc591\uc744 \ud55c \ub514\ubc14\uc774\uc2a4 \u300c\ubaac\uc2a4\ud130\ubcfc Plus\u300d\uac00 \ub4f1\uc7a5, \u300cJoy-Con\u300d \ub300\uc2e0\uc5d0 \ubcf8\uc791\uc758 \ucee8\ud2b8\ub864\ub7ec\ub85c \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uac8c\ub2e4\uac00 \u300cPok\u00e9mon GO\u300d\ub97c \uc5f0\uacb0\ud558\uba74 \u300cPok\u00e9mon GO\u300d\uc5d0\uc11c \uc7a1\uc740 \uad00\ub3d9\uc9c0\ubc29\uc758 \ud3ec\ucf13\ubaac\ub4e4\uc744 \ubcf8\uc791\uc73c\ub85c \ub370\ub824\uac00\uc11c \ud568\uaed8 \ubaa8\ud5d8\ud560 \uc218 \uc788\ub294 \ub4f1, \uc644\uc804\ud788 \uc0c8\ub85c\uc6b4 \uccb4\ud5d8\uc744 \ud560 \uc218 \uc788\ub294 \u300c\ud3ec\ucf13\ubaac\uc2a4\ud130\u300d\uc785\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 4472176640
+    },
+    "70010000015693": {
+        "id": "0100187003A36000",
+        "rightsId": null,
+        "name": "\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \uc774\ube0c\uc774",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181116,
+        "nsuId": "70010000015693",
+        "category": [
+            "RPG"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/a1081bb186ad30287111778dfe5425c55a1b15667d053fc4edb23dbe09e9c949.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/01b0df20a9a0127850590735f200e0cee1a79b519dcacf24f97410fc750eb419.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ec8eb6154fc9e2077e5b92c9180b39384072368d50b83a4934bb29fb4911b62c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e8c1a223d2f92c23769da90acb6469f63e6908b52715bc7299caa395f45d2eef.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/24405c4687f5cf4fd4025762056dc2c5b1c03284c493019dae8ad88ac2d3d10c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e28cb94966ce936371f9590e883f526a793dc720f4b3556d7547d6d9ab789956.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/43eb9c879dbb4f389484ad652893cb796972e34a7740ca536134c3c7eda33ad7.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cd0bcc052b4335a3a534a6fc1f0988c1d92265c06fc088a7d584a0e832407a36.jpg",
+        "intro": "\u300e\ud3ec\ucf13\ubaac\uc2a4\ud130\u300f\uc2dc\ub9ac\uc988\uac00 Nintendo Switch\uc5d0 \uccab \ub4f1\uc7a5\uff01 \ud53c\uce74\uce04\u30fb\uc774\ube0c\uc774\ub97c \ud30c\ud2b8\ub108\ub85c \ud568\uaed8 \ubaa8\ud5d8\uc744 \uc990\uae30\uc790!",
+        "description": "\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \ud53c\uce74\uce04\u300d\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \uc774\ube0c\uc774\u300d\ub294 Nintendo Switch \uc18c\ud504\ud2b8\uc6e8\uc5b4\ub85c \ubc1c\ub9e4\ud558\ub294\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130\u300d\uc2dc\ub9ac\uc988 \ucd5c\uc2e0\uc791.\n\n\u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \ud53c\uce74\uce04\u300d\uc5d0\uc11c\ub294 \ud53c\uce74\uce04\ub97c, \u300c\ud3ec\ucf13\ubaac\uc2a4\ud130 \ub808\uce20\uace0! \uc774\ube0c\uc774\u300d\uc5d0\uc11c\ub294 \uc774\ube0c\uc774\ub97c \ud30c\ud2b8\ub108\ub85c \ud568\uaed8 \ubaa8\ud5d8\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4! \ub610\ud55c, \ubaac\uc2a4\ud130\ubcfc \ubaa8\uc591\uc744 \ud55c \ub514\ubc14\uc774\uc2a4 \u300c\ubaac\uc2a4\ud130\ubcfc Plus\u300d\uac00 \ub4f1\uc7a5, \u300cJoy-Con\u300d \ub300\uc2e0\uc5d0 \ubcf8\uc791\uc758 \ucee8\ud2b8\ub864\ub7ec\ub85c \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uac8c\ub2e4\uac00 \u300cPok\u00e9mon GO\u300d\ub97c \uc5f0\uacb0\ud558\uba74 \u300cPok\u00e9mon GO\u300d\uc5d0\uc11c \uc7a1\uc740 \uad00\ub3d9\uc9c0\ubc29\uc758 \ud3ec\ucf13\ubaac\ub4e4\uc744 \ubcf8\uc791\uc73c\ub85c \ub370\ub824\uac00\uc11c \ud568\uaed8 \ubaa8\ud5d8\ud560 \uc218 \uc788\ub294 \ub4f1, \uc644\uc804\ud788 \uc0c8\ub85c\uc6b4 \uccb4\ud5d8\uc744 \ud560 \uc218 \uc788\ub294 \u300c\ud3ec\ucf13\ubaac\uc2a4\ud130\u300d\uc785\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 4475322368
+    },
+    "70010000013611": {
+        "id": "0100DE9005170000",
+        "rightsId": null,
+        "name": "Sports Party",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181030,
+        "nsuId": "70010000013611",
+        "category": [
+            "\uc2a4\ud3ec\uce20",
+            "\ud30c\ud2f0",
+            "\uc544\ucf00\uc774\ub4dc"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/bf1b4266a5ba7b74cb769885bb7737d7923f660ce0b358f02337711c06626814.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8e2a8e17d66b9354133368e5ee4096adcf25d69265056f56c91cd1d18a5c0bbb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8557a3b4c829a1ee99b0e7e800e3ac672555743a0cc42f31089edce56b72388f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f4e7db53eab8388f01066f86516b504afb3d2e28c8aae96289237ec42d570ced.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/98e8c9fac8f0ec73ebd5623fe4826fca0e4fa58774110caa2086516e8a8f4208.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4d8aecc9256579839a27f40a5f1e4173c6f55e86f171cadc05e71362e5c93b8f.jpg",
+        "intro": null,
+        "description": "\ub728\uac70\uc6b4 \ud0dc\uc591\uacfc \uc2dc\uc6d0\ud55c \ubc14\ub2e4 \uc18d\uc5d0\uc11c Sports Party\ub97c \uc990\uaca8 \ubcf4\uc138\uc694! \uc9d1\uc5d0\uc11c \uc544\ub2c8\uba74 \uc774\ub3d9 \uc911\uc5d0, \uce5c\uad6c\uc640 \uac00\uc871\ub4e4\uacfc \ud568\uaed8 Frisbee, Jet Ski, \ub18d\uad6c, \uace8\ud504, \uc2a4\ucf00\uc774\ud2b8\ubcf4\ub4dc, \ube44\uce58 \ud14c\ub2c8\uc2a4\ub85c \uc2e4\ub825\uc744 \uaca8\ub8e8\uc5b4 \ubcfc \uc218 \uc788\uc2b5\ub2c8\ub2e4!\n\nFrisbee, Jet Ski, \ub18d\uad6c, \uace8\ud504, \uc2a4\ucf00\uc774\ud2b8\ubcf4\ub4dc, \ube44\uce58 \ud14c\ub2c8\uc2a4\ub97c \uc990\uae30\uc138\uc694! \ub2e4\uc591\ud55c \ubaa8\ub4dc\uc640 \ucee8\ud2b8\ub864\uc744 \uc0ac\uc6a9\ud574\uc11c \uac01 \uc885\ubaa9\uc744 \uc9c8\ub9ac\uc9c0 \uc54a\uace0 \uc2e0\ub098\uac8c \ud50c\ub808\uc774\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc5ec\ub7ec\ubd84\uc758 \uc544\ubc14\ud0c0\ub294 \uc6d0\ud558\ub294 \ub300\ub85c \uafb8\ubc00 \uc218 \uc788\ub2f5\ub2c8\ub2e4! \uac8c\uc784\uc744 \ud50c\ub808\uc774\ud574 \ub098\uac00\uba74\uc11c \uc0c8\ub85c\uc6b4 \uc544\uc774\ud15c\uc744 \uc7a0\uae08 \ud574\uc81c\ud574 \ubcf4\uc138\uc694! \uc9c1\uad00\uc801\uc778 \ucee8\ud2b8\ub864\ub85c \uc544\uc774\ubd80\ud130 \ub178\uc778\uae4c\uc9c0 \ub204\uad6c\ub098 \uc190\uc27d\uac8c \uc990\uae38 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\n\uc5b4\ub514\uc11c\ub4e0 \uc990\uaca8 \ubcf4\uc138\uc694! Nintendo Switch \ubaa8\uc158 \ucee8\ud2b8\ub864\ub85c 4\uc778 \ub300\uc804\uc744 \uc990\uae30\uac70\ub098 \uce5c\uad6c\uc640 \ub458\uc774\uc11c, \uc544\ub2c8\uba74 \ud63c\uc790\uc11c \ud50c\ub808\uc774\ud560 \uc218\ub3c4 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 3333423104
+    },
+    "70050000008164": {
+        "id": "0100D9A005ED7018",
+        "rightsId": null,
+        "name": "\uff2e\uff25\uff2b\uff2f\uff2b\uff2f\uff06\uff34\uff2f\uff2d\uff2f\uff2d\uff2f",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181101,
+        "nsuId": "70050000008164",
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/382bef8baea8ff50638c3f7aafbc5f8fb1b3d9894dc12fa5fc91d7a9eb688883.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d0a8ec5fa98417eb5c101d1a4626418ae999e64cfef8ac2c9010378919d812cb.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cba757aa74bec32915a39ddf87c016f7d1878ed2cb438ff531a108043b107fb6.jpg",
+        "intro": null,
+        "description": "\u300cNEKO\u30fbTOMO\u300d \ubc1c\ub9e4 \uae30\ub150! NEKOKO&TOMOMO\uac00 \uc5f0\uc8fc \uce90\ub9ad\ud130\ub85c \u300c\ud0dc\uace0\uc758 \ub2ec\uc778 Nintendo Switch \ubc84~\uc804!\u300d\uc5d0 \ub4f1\uc7a5!\n\n\u203b\uc5f0\uc8fc \uac8c\uc784\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.",
+        "languages": null,
+        "size": 4194304
     }
 }

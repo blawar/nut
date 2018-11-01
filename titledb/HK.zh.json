@@ -1030,7 +1030,7 @@
             "de",
             "it"
         ],
-        "size": 12212764672
+        "size": 12379488256
     },
     "70010000013626": {
         "id": "01007CC00BA2A000",
@@ -1419,7 +1419,7 @@
             "ko",
             "zh"
         ],
-        "size": 1039138816
+        "size": 1050673152
     },
     "70010000009229": {
         "id": "0100C1800A9B6000",
@@ -1829,7 +1829,7 @@
             "it",
             "zh"
         ],
-        "size": 3462397952
+        "size": 3468689408
     },
     "70010000012132": {
         "id": "01005FF002E2A000",
@@ -4931,6 +4931,80 @@
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/45f17cc6b42fa08f604966677c9484c6199bd0cc6eecf099feb610b324cc88fb.jpg",
         "intro": null,
         "description": "\u8ffd\u52a0\u4efb\u52d9\u300c\u8d85\u8d8a\u6211\u5427\u300d\u3002 \u4efb\u52d9\u904e\u95dc\u5f8c\u53ef\u7372\u5f97\u88dd\u98fe\u54c1\u7b49\u9053\u5177\u3002",
+        "languages": null,
+        "size": 4194304
+    },
+    "70010000013611": {
+        "id": "0100DE9005170000",
+        "rightsId": null,
+        "name": "\u300a\u904b\u52d5\u6d3e\u5c0d\u300b",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181030,
+        "nsuId": "70010000013611",
+        "category": [
+            "\u904b\u52d5",
+            "\u6d3e\u5c0d",
+            "\u8857\u6a5f"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": null,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/bf1b4266a5ba7b74cb769885bb7737d7923f660ce0b358f02337711c06626814.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8e2a8e17d66b9354133368e5ee4096adcf25d69265056f56c91cd1d18a5c0bbb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8557a3b4c829a1ee99b0e7e800e3ac672555743a0cc42f31089edce56b72388f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f4e7db53eab8388f01066f86516b504afb3d2e28c8aae96289237ec42d570ced.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/98e8c9fac8f0ec73ebd5623fe4826fca0e4fa58774110caa2086516e8a8f4208.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4d8aecc9256579839a27f40a5f1e4173c6f55e86f171cadc05e71362e5c93b8f.jpg",
+        "intro": null,
+        "description": "\u300a\u904b\u52d5\u6d3e\u5c0d\u300b\u8b93\u4f60\u5728\u5f48\u6307\u4e4b\u9593\u4eab\u53d7\u967d\u5149\u3001\u5927\u6d77\u4ee5\u53ca\u904b\u52d5\uff01\u7121\u8ad6\u5728\u5bb6\u6216\u51fa\u9580\u5728\u5916\uff0c\u7686\u53ef\u5c31\u98db\u76e4\u3001\u6c34\u4e0a\u6469\u6258\u8eca\u3001\u7c43\u7403\u3001\u9ad8\u723e\u592b\u3001\u6ed1\u677f\u548c\u6c99\u7058\u6392\u7403\u9805\u76ee\u6311\u6230\u5bb6\u4eba\u53ca\u597d\u53cb\u4e26\u722d\u53d6\u52dd\u5229\uff01\n\n\u76e1\u60c5\u4eab\u53d7\u98db\u76e4\u3001\u6c34\u4e0a\u6469\u6258\u8eca\u3001\u7c43\u7403\u3001\u9ad8\u723e\u592b\u3001\u6ed1\u677f\u548c\u6c99\u7058\u6392\u7403\u7684\u6a02\u8da3\uff01\u591a\u7a2e\u6a21\u5f0f\u8207\u64cd\u63a7\u65b9\u5f0f\u8b93\u4f60\u96a8\u5fc3\u6240\u6b32\u9ad4\u9a57\u5404\u9805\u8da3\u5473\u7121\u7aae\u7684\u904b\u52d5\u3002\u4f60\u7684\u904a\u6232\u66ff\u8eab\u982d\u5230\u8173\u7686\u53ef\u81ea\u8a02\uff01\u96a8\u8457\u904a\u6232\u9032\u884c\u9084\u53ef\u89e3\u958b\u65b0\u7269\u4ef6\uff01\u5bb9\u6613\u4e0a\u624b\u7684\u64cd\u63a7\u65b9\u5f0f\uff0c\u8b93\u9019\u6b3e\u904a\u6232\u9069\u5408\u5f9e\u5c0f\u670b\u53cb\u5230\u8001\u723a\u723a\u7684\u6240\u6709\u73a9\u5bb6\u3002\n\n\u7121\u8ad6\u5230\u54ea\u88e1\u90fd\u53ef\u4eab\u53d7\u300a\u904b\u52d5\u6d3e\u5c0d\u300b\u7684\u6a02\u8da3\uff01\u53ef\u4ee5\u4f7f\u7528 Nintendo Switch \u9ad4\u611f\u63a7\u5236\u5668\u9032\u884c\u56db\u4eba\u5927\u6230\uff0c\u4e5f\u53ef\u4ee5\u548c\u4e00\u540d\u670b\u53cb\u96d9\u4eba\u540c\u6a02\uff0c\u7576\u7136\u4e5f\u53ef\u4ee5\u7368\u81ea\u904a\u73a9\u3002",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 3333423104
+    },
+    "70050000008164": {
+        "id": "0100D9A005ED7018",
+        "rightsId": null,
+        "name": "\uff2e\uff25\uff2b\uff2f\uff2b\uff2f\uff06\uff34\uff2f\uff2d\uff2f\uff2d\uff2f",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181101,
+        "nsuId": "70050000008164",
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/08925f662785abc2dcec68ed38cf9ff6be5ba4d943156d143b3fd3104b640453.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cd885c613bef6274ae568dc0ca26fa0f2f6122c5d1aa5dd9bbb3f51c6ac6db9f.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4540dcf9203889d44ac31acc44fb44963d740ed6c59667cfbb9662536135e170.jpg",
+        "intro": null,
+        "description": "\u8a18\u5ff5\u300cNEKO\u30fbTOMO\u300d\u767c\u552e\uff01\u8b93NEKOKO & TOMOMO\u4ee5\u6f14\u594f\u89d2\u8272\u7684\u8eab\u5206\u65bc \u300cTaiko No Tatsujin Nintendo Switch Version!\u300d\u88e1\u767b\u5834\uff01\n\n\u203b\u662f\u80fd\u5728\u6f14\u594f\u904a\u6232\u88e1\u904a\u73a9\u7684\u8ffd\u52a0\u9805\u76ee\u3002",
         "languages": null,
         "size": 4194304
     }
