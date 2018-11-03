@@ -164,4 +164,4 @@ optional arguments:
 # Credits
 - Original CDNSP
 - Hactool by SciresM (https://github.com/SciresM/)
-- Simon (https://github.com/simonmkwii/) for his seemingly endless CDN knowledge and help.
+- Simon (https://github.com/simontime/) for his seemingly endless CDN knowledge and help.
