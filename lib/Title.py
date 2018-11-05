@@ -163,7 +163,7 @@ class Title:
 		if not regionTitle.name or not regionTitle.id:
 			return
 		for k,v in regionTitle.__dict__.items():
-			if k in ('id', 'version', 'regions', 'languages', 'nsuId', 'key'):
+			if k in ('id', 'version', 'regions', 'nsuId', 'key'):
 				continue
 			setattr(self, k, v)
 			self.setId(self.id)
