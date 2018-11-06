@@ -10,17 +10,25 @@ import Nsps
 import Fs
 import Fs.File
 from Fs import File
+from hashlib import sha256
 from Fs.File import MemoryFile
 from Fs import Nca
 from Fs import Pfs0
 from Fs.Nca import NcaHeader
 from Fs import Type
 import Keys
+import Print
 import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
 import requests
 from flask import Flask, jsonify, request
+
+def _sha256(buf):
+	hash = sha256()
+	hash.update(buf)
+
+	return hash.hexdigest()
 
 
 class KeyEntry:
@@ -55,10 +63,22 @@ class KeyEntry:
 		print('offset = ' + str(self.pfs0Offset))
 		'''
 
-		mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
-		magic = mem.read()[0:4]
-		if magic != b'PFS0':
-			raise LookupError('Title Key is incorrect!')
+		if self.sectionHeaderBlock[8:12] == b'IVFC':
+			#Hex.dump(self.sectionHeaderBlock)
+			#Print.info(hx(self.sectionHeaderBlock[0xc8:0xc8+0x20]).decode('utf-8'))
+			mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
+			data = mem.read();
+			#Hex.dump(data)
+			#print('hash = %s' % str(_sha256(data)))
+			if hx(self.sectionHeaderBlock[0xc8:0xc8+0x20]).decode('utf-8') == str(_sha256(data)):
+				return True
+			else:
+				return False
+		else:
+			mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
+			magic = mem.read()[0:4]
+			if magic != b'PFS0':
+				raise LookupError('Title Key is incorrect!')
 
 		return True
 
@@ -289,6 +309,30 @@ class Blockchain:
 
 						return True
 
+		for f in nsp:
+			if type(f) == Fs.Nca:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						levelOffset = int.from_bytes(sectionHeaderBlock[0x18:0x20], byteorder='little', signed=False)
+						levelSize = int.from_bytes(sectionHeaderBlock[0x20:0x28], byteorder='little', signed=False)
+
+						offset = fs.offset + levelOffset
+
+						f.seek(offset)
+						pfs0Header = f.read(levelSize)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+						return True
+
 		return False
 
 
@@ -354,6 +398,7 @@ def verifyKey(titleId = None, titleKey = None):
 		nsp = Nsps.getByTitleId(titleId)
 
 		if not nsp:
+			Print.info('404 ' + titleId)
 			return False
 
 		nsp.open()
@@ -377,10 +422,37 @@ def verifyKey(titleId = None, titleKey = None):
 						blockchain.new_block()
 						nsp.close()
 						return True
+
+		for f in nsp:
+			if type(f) == Fs.Nca:
+				for fs in f.sectionFilesystems:
+					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
+						f.seek(0)
+						ncaHeader = f.read(0x400)
+
+						sectionHeaderBlock = fs.buffer
+
+						levelOffset = int.from_bytes(sectionHeaderBlock[0x18:0x20], byteorder='little', signed=False)
+						levelSize = int.from_bytes(sectionHeaderBlock[0x20:0x28], byteorder='little', signed=False)
+
+						offset = fs.offset + levelOffset
+
+						f.seek(offset)
+						pfs0Header = f.read(levelSize)
+
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset)
+
+						index = blockchain.new_transaction(entry)
+
+						blockchain.new_block()
+						nsp.close()
+						return True
+
 		nsp.close()
 
 		return False
 	except BaseException as e:
+		print('key exception: ' + str(e))
 		nsp.close()
 		return False
 

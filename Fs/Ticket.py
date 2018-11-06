@@ -198,7 +198,8 @@ class Ticket(File):
 	def printInfo(self, maxDepth = 3, indent = 0):
 		tabs = '\t' * indent
 
-		titleId = format(self.getRightsId(), 'X')[0:16]
+		rightsId = format(self.getRightsId(), 'X').zfill(32)
+		titleId = rightsId[0:16]
 		titleKey = format(self.getTitleKeyBlock(), 'X')
 
 		Print.info('\n%sTicket\n' % (tabs))
@@ -208,7 +209,7 @@ class Ticket(File):
 		Print.info(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
 		Print.info(tabs + 'ticketId = ' + str(self.ticketId))
 		Print.info(tabs + 'deviceId = ' + str(self.deviceId))
-		Print.info(tabs + 'rightsId = ' + format(self.getRightsId(), 'X'))
+		Print.info(tabs + 'rightsId = ' + rightsId)
 		Print.info(tabs + 'accountId = ' + str(self.accountId))
 		Print.info(tabs + 'titleId = ' + titleId)
 		Print.info(tabs + 'titleKey = ' + titleKey)

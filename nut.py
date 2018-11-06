@@ -475,7 +475,7 @@ def unlockAll():
 	for k,f in Nsps.files.items():
 		if f.isUnlockable():
 			try:
-				if f.title().isBase() and not blockchain.verifyKey(f.titleId, f.title().key):
+				if not blockchain.verifyKey(f.titleId, f.title().key):
 					raise IOError('Could not verify title key! %s / %s - %s' % (f.titleId, f.title().key, f.title().name))
 					continue
 				Print.info('unlocking ' + f.path)
@@ -487,7 +487,7 @@ def unlockAll():
 
 def submitKeys():
 	for id, t in Titles.items():
-		if t.key and t.isBase() and len(t.getFiles()) > 0:
+		if t.key and len(t.getFiles()) > 0:
 			try:
 				#blockchain.blockchain.suggest(t.id, t.key)
 				if not blockchain.verifyKey(t.id, t.key):
