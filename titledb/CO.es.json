@@ -2659,5 +2659,36 @@
         "description": "Paquete de idioma japon\u00e9s descargable de modo opcional para Diablo 3: Eternal Collection en Nintendo Switch.",
         "languages": null,
         "size": 4131389440
+    },
+    "70050000008421": {
+        "id": "01006A800016F001",
+        "rightsId": null,
+        "name": "Limited Time Offer: Piranha Plant",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 201902,
+        "nsuId": "70050000008421",
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cac2d0724384d4ff1a4753063a975840c965349ad9f26b4ba0b03550e56a4b59.jpg",
+        "intro": null,
+        "description": "\u00a1Planta pira\u00f1a se une al combate!",
+        "languages": null,
+        "size": 4194304
     }
 }
