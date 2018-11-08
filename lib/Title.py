@@ -518,7 +518,6 @@ class Title:
 			r.append(self.screenshotFile(i))
 		return r
 
-
 	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
 
 		if 'hero_banner_url' in _json:
@@ -595,14 +594,12 @@ class Title:
 			self.iconUrl = _json["applications"]['image_url']
 
 		if "catch_copy" in _json:
-			intro = re.sub('(?<!\n)\n(?!\n)', ' ',_json["catch_copy"])
-			intro = re.sub('  ', ' ', intro)
-			self.intro = intro
+			#self.intro = htmlToText(_json["catch_copy"])
+			self.intro = _json["catch_copy"]
 
 		if "description" in _json:
-			desc = re.sub('(?<!\n)\n(?!\n)', ' ',_json["description"])
-			desc = re.sub('  ', ' ', desc)
-			self.description = desc
+			#self.description = htmlToText(_json["description"])
+			self.description = _json["description"]
 
 		try:
 			if "target_titles" in _json:
