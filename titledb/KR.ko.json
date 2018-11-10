@@ -80,7 +80,7 @@
             "ko",
             "zh"
         ],
-        "size": 13279166464
+        "size": 13292797952
     },
     "70050000007542": {
         "id": "0100E8500AD59001",
@@ -1368,7 +1368,7 @@
             "ko",
             "zh"
         ],
-        "size": 611319808
+        "size": 643825664
     },
     "70050000007065": {
         "id": "0100EC100A791001",
@@ -1864,7 +1864,7 @@
             "ko",
             "zh"
         ],
-        "size": 3798990848
+        "size": 3812622336
     },
     "70050000006381": {
         "id": "0100D9A005ED7001",
@@ -3357,7 +3357,7 @@
             "ko",
             "zh"
         ],
-        "size": 7415529472
+        "size": 7427063808
     },
     "70050000005202": {
         "id": "0100B61008209001",
@@ -3945,7 +3945,7 @@
             "ko",
             "zh"
         ],
-        "size": 278921216
+        "size": 285212672
     },
     "70050000005702": {
         "id": "01005D100807B001",
@@ -4315,7 +4315,7 @@
             "ko",
             "zh"
         ],
-        "size": 3591372800
+        "size": 3596615680
     },
     "70010000009381": {
         "id": "01009B500007C000",
@@ -4474,7 +4474,7 @@
             "ko",
             "zh"
         ],
-        "size": 15453913088
+        "size": 15458107392
     },
     "70050000004094": {
         "id": "01007EF00011F001",
@@ -5551,7 +5551,7 @@
             "ko",
             "zh"
         ],
-        "size": 3768582144
+        "size": 3758096384
     },
     "70050000008524": {
         "id": "010039000B68F004",
@@ -6381,5 +6381,140 @@
         "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1 \uff62\ubaac\ud14c\uaddc\uac00\uc640 \uce90\ud50c\ub9bf\uac00\u300d\n\uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26054\u3000\uc5b4\ub824\uc6c0\u26054\u3000\uadc0\uc2e0\u26054",
         "languages": null,
         "size": 4194304
+    },
+    "70010000008902": {
+        "id": "0100F6400A77E000",
+        "rightsId": null,
+        "name": "Capcom Belt Action Collection",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181107,
+        "nsuId": "70010000008902",
+        "category": [
+            "\uc561\uc158",
+            "\uc544\ucf00\uc774\ub4dc"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 12,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/0cd3656e7819636e9f9b6d05f5da6c155b3fdd4eb30dde30e6a82c36d56b59cd.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/5cd2ccc177bd57be0a40ab0a38273118b190f6f2987d94a99b21619e641b3f57.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d3e96556dff94a7410e96aedd1f646975fb1b50c5a2c4e76dc5a3dc6739ce009.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b5f0598dd1b813bb2270a36c770da88050357b180f9df99317337d7caf78d8de.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dd011ff5f1e7be1299e5190723947d15eb4f733bc34b4533bc320be34f0c976a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/98afdbfb1bcf0fb808625a3330d505878ce88d18933f98a766ff1164cdf1c5cc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4e5dde34fa689646bd94ff8e516e53e76a038934340cb3e8897eea25c0695ae4.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc1fae41aa12f2b252b9ee00dbc9aeb38f0378ca59016e040abc3c359f841e82.jpg",
+        "intro": "\uac8c\uc784\uc13c\ud130\uc758 \ud765\ubd84\uc744 \ub2e4\uc2dc \ud55c\ubc88!\n\ucea1\ucf64\uc758 \ubca8\ud2b8 \uc2a4\ud06c\ub864 \uc561\uc158 \uc77c\uacf1 \uba85\uc791\uc774 \ud558\ub098\ub85c!",
+        "description": "\ub300\ud45c\uc791 \ud30c\uc774\ub110\ud30c\uc774\ud2b8\ub294 \ubb3c\ub860, \ud30c\uc6cc\ub4dc \uae30\uc5b4, \ubc30\ud2c0 \uc11c\ud0b7\uc758 \ucd5c\ucd08\uc774\uc2dd!\n\n\ub09c\uc774\ub3c4/\ub77c\uc774\ud504\uc218\uc758 \uc124\uc815 \ubcc0\uacbd, \uc77c\ubcf8/\ud574\uc678\ud310\uc758 \uc120\ud0dd\uc774 \uac00\ub2a5\ud558\uba70, \ube44\uc7a5 \uc77c\ub7ec\uc2a4\ud2b8\uac00 \uac00\ub4dd\ud55c \uac24\ub7ec\ub9ac \ub610\ud55c \ud0d1\uc7ac!\n\n\uba85\uc791\uc740 \uc2dc\ub300\ub97c \ucd08\uc6d4\ud55c\ub2e4!\n\ubd80\ud65c\ud558\ub294 \uc544\ucf00\uc774\ub4dc \uac8c\uc784\uc758 \uc601\uad11!\n\n\uc218\ub85d\uc791\n\ud30c\uc774\ub110\ud30c\uc774\ud2b8, \ucea1\ud2f4\ucf54\ub9cc\ub3c4, \ub354 \ud0b9 \uc624\ube0c \ub4dc\ub798\uace4\uc988, \ub098\uc774\uce20 \uc624\ube0c \ub354 \ub77c\uc6b4\ub4dc, \ucc9c\uc9c0\ub97c \uba39\ub2e4 2 \uc801\ubcbd\ub300\uc804, \ud30c\uc6cc\ub4dc \uae30\uc5b4, \ubc30\ud2c0 \uc11c\ud0b7.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 860880896
+    },
+    "70010000013094": {
+        "id": "010072000BD32000",
+        "rightsId": null,
+        "name": "WORLD OF FINAL FANTASY MAXIMA",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181106,
+        "nsuId": "70010000013094",
+        "category": [
+            "RPG"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 12,
+        "developer": null,
+        "publisher": "Square Enix",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/bac734675955057b83d72120f751dec094b5022aa87130c9f539f03785919000.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/17fcd4050f4c1f65feeefcc7946f3f1481b67218575ae3ffc7e07cf2e200a9c3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4875001590ab538388e3dbdb6c86f219c2d4814dd6b670cdd28676a2c21213bb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2f7c0de0c2a7a9213ad6d008b179103e2f4d6a7fd499a614898b92d147b49391.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6ada4289d304a9cc643f5b2b3c590e366fe87e6d2834b13d7154b0d3126deff1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/273f8a2650406a33187617f7d03b3ea132f8cc1980e8a40e8a511a6c2aae3b94.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bbb28791bc80f251bfd06bfa01aea5d04467746052b231aceb30992e204c48dd.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e6b90104437217a14293b760bc36038be1a952e3f61eda6710d99008f18fb0ea.jpg",
+        "intro": "FINAL FANTASY\uc758 \ub05d\uc5c6\ub294 \ud655\uc7a5\n\ub9ce\uc740 \ub9cc\ub0a8\uc758 \uc774\uc57c\uae30\uc640 \uc0c8\ub85c\uc6b4 \uc138\uacc4\uc758 \ud0c4\uc0dd",
+        "description": "2016\ub144 10\uc6d4 \ubc1c\ub9e4\ub41c WORLD OF FINAL FANTASY\ub294 FINAL FANTASY MAXIMA\ub85c \uc0c8\ub86d\uac8c \uc5c5\uadf8\ub808\uc774\ub4dc \ub418\uc5b4 \uc774\uc81c Nintendo Switch \uc5d0\uc11c \ud50c\ub808\uc774 \uac00\ub2a5\ud569\ub2c8\ub2e4! \uc774 \uc2e0\ub098\uace0 \uc7ac\ubbf8\uc788\ub294 \ubaa8\ud5d8\uc5d0\ub294 FINAL FANTASY\uc758 \uc0ac\ub791\ubc1b\uc558\ub358 \uce90\ub9ad\ud130\ub4e4\uacfc \ubaac\uc2a4\ud130\ub4e4\uc774 \ub4f1\uc7a5\ud569\ub2c8\ub2e4. \uc0c8 \ubc84\uc804\uc5d0\ub294 \uc8fc\uc778\uacf5\uc778 \ub80c\uacfc \ub780\uc774 \uc138\uc774\ubc84\ub85c\uc11c \uc2f8\uc6b8 \uc218 \uc788\ub294 \uc544\ubc14\ud0c0 \uccb4\uc778\uc9c0 \uc2dc\uc2a4\ud15c\uc774 \uc788\uc2b5\ub2c8\ub2e4. \uc804\uc124\uc801\uc778 FINAL FANTASY \uc601\uc6c5\uc774 \ub418\uc5b4 \ub098\ub9cc\uc758 \ubaa8\ud5d8\uc744 \uac1c\ucc99\ud558\uc138\uc694!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 11508121600
+    },
+    "70010000013267": {
+        "id": "0100CE600BE26000",
+        "rightsId": null,
+        "name": "GRIP : COMBAT RACING (\uadf8\ub9bd : \ucef4\ubc43 \ub808\uc774\uc2f1)",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181106,
+        "nsuId": "70010000013267",
+        "category": [
+            "\ub808\uc774\uc2f1"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 12,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/d8b38d80116382f287ded5181b8cfba159dde2bb8d4a7551c15ccca63498bba5.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/f03bc851b514c48d89a86ed764f4683c3300d41345612621148d909c4b244ff5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/65ac4069baf48567593bb04753552b6c78b5d7a0e2dd5df6e7b280c383c31b4b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b0369172b5d5371b964f62cf53ee634f404a15fa1de1631b3d59bc423351b2b9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2eee819e591e17caa10009be2dbafe2d5803c95dd88523862fc9fa7ed352f1cc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6cebe2dd93da66b1e8175086b2d1a91c3f4b013f9e59b19360621b62497e664f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a59ee07c0f9bbfedb308091a83e724e97f60c050abd1dd7481b0fb5bfa6b23ea.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0297b7f79ddd90ebf2f0bc91117ce8b6ae4de4796241baaef6ef6664b1166bd3.jpg",
+        "intro": "\uc704 \uc544\ub798\uac00 \ub4a4\uc9d1\uc5b4\uc9c4 \ucef4\ubc43 \ub808\uc774\uc2f1!",
+        "description": "\uadf8\ub9bd\uc740 \ub9f9\ub82c\ud55c \uc2a4\ud53c\ub4dc\uc640 \ub2e4\uc591\ud55c \ubb34\uae30\uc758 \uac70\uce5c \ud654\ub825\uc744 \ud568\uaed8 \uc990\uae38 \uc218 \uc788\ub294 \uc21c\ub3c4 \ub192\uc740 \ud558\ub4dc\ucf54\uc5b4 \ucef4\ubc43 \ub808\uc774\uc2f1\uc785\ub2c8\ub2e4.\n\n\uc911\ub825\uc744 \uac70\uc2a4\ub974\ub294 \ubb3c\ub9ac \ud6a8\uacfc\uc640 \ud654\ub824\ud55c \ubbf8\ub798\uc9c0\ud5a5\uc801 \ubb34\uae30\ub4e4\uc744 \uae30\ubc18\uc73c\ub85c, \uac00\uc7a5 \ube60\ub974\uace0 \uac00\uc7a5 \uce58\uc5f4\ud55c \ub808\uc774\uc2f1 \uc7ac\ubbf8\ub97c \uc120\uc0ac\ud569\ub2c8\ub2e4.\n\n\ubcbd\uc774\ub098 \ucc9c\uc7a5\uc758 \uad6c\ubd84 \uc5c6\uc774 \ud0c0\uc774\uc5b4\uac00 \ub2ff\ub294 \uc5b4\ub514\ub4e0 \ud0c0\uace0 \ub2ec\ub9ac\uba70, \uc544\uc2ac\uc544\uc2ac\ud55c \ud2b8\ub799\uacfc \ud2b8\ub9ad\uc744 \ub9c8\uc2a4\ud130\ud558\uace0 \uae30\uc0c1\ucc9c\uc678\ud55c \uc2a4\ud134\ud2b8\ub97c \uad6c\uc0ac\ud558\uba70 \uc5ec\ub7ec \ud589\uc131 \uc704 \uacbd\uae30\uc7a5\uc5d0\uc11c \ub808\uc774\uc2a4\ub97c \ud3bc\uce58\uc138\uc694.",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 1734344704
     }
 }

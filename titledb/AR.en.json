@@ -150,7 +150,7 @@
         "ratingContent": [
             "Violence",
             "Users Interact",
-            "Digital Purchases"
+            "In-Game Purchases"
         ],
         "numberOfPlayers": 1,
         "rating": 13,
@@ -180,7 +180,7 @@
             "ru",
             "ko"
         ],
-        "size": 3070230528
+        "size": 3122659328
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
@@ -658,7 +658,7 @@
             "es",
             "fr"
         ],
-        "size": 3591372800
+        "size": 3596615680
     },
     "70010000001107": {
         "id": "01007960049A0000",
@@ -1546,7 +1546,7 @@
             "es",
             "fr"
         ],
-        "size": 5793382400
+        "size": 5931794432
     },
     "70050000008181": {
         "id": "01003BC0000A1005",
@@ -1772,7 +1772,7 @@
             "nl",
             "ru"
         ],
-        "size": 15453913088
+        "size": 15458107392
     },
     "70050000000183": {
         "id": "01007EF00011F001",
@@ -2688,6 +2688,353 @@
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d22f1f2fb866424f88e38b511e521d0c364140c419c7b7555d16467b253259ac.jpg",
         "intro": null,
         "description": "This is the new fighter, Piranha Plant!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70010000014303": {
+        "id": "01003A400C3DA000",
+        "rightsId": null,
+        "name": "YouTube",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181108,
+        "nsuId": "70010000014303",
+        "category": [
+            "Video"
+        ],
+        "ratingContent": [
+            "Users Interact"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Google",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/f823e3aa145c520923a84c85aa8a71d67272d9af4013fc4d667582c3ad737d79.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8c6a50d71afd028367f0f92c0157bd57f81bb41d599564b65855ffe7712a7bce.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c39c5a90993ab46fdfbef95c2583c50e2857a64443d66109ec136d2801f04ef7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6f5fd648ef8cf9807035e67a8ccf0226ec4cf8f3fafc31336bed631527aaaa41.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6a71876cef571f3d4051dc8b2cf3861a7f0fa3a95ded3aacf95d5600d3eb2e4f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8c3269e0b0dc2a7554b83a001820637080b9f8a3fce53a306c2c0251fb14a8c1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/953a7c57902a7576ad658f450ad9347b868b72e0d9d41b38a24d8f9e5557f10a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/13ab52d526ec8f98d3084eadc51d29665010c8eb9a3035aa0b04dbd6fdb8d50b.jpg",
+        "intro": null,
+        "description": "Kick back and relax with YouTube on your Nintendo Switch\u2122 system. Enjoy entertainment like music videos and shows, plus gaming livestreams, how-tos and much more. Explore a world of videos with recommendations and easy access to your channel subscriptions. So grab your friends, family, and your Nintendo Switch controller, and enjoy YouTube together.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 93323264
+    },
+    "70010000003482": {
+        "id": "01005D100807A000",
+        "rightsId": null,
+        "name": "Pok\u00e9mon\u2122 Quest",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70010000003482",
+        "category": [
+            "Strategy",
+            "Adventure"
+        ],
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/4bbdd3ca2f33b56cbf2e2475f855a19dbc24a0476faefdf797b5440dde7fa3d5.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/e62c4a80418c1e5848a344ddf919ce75211ea5e425c6d5d6c2cca83bb53e5957.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d5f60a7fad8be04b9d0ff7bdc2050e831d21124c6df646641dab3c6bb8fe6510.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9e3daa7b84342c9d6def89aea815f090f0159bb29757e5b7630d3bf0b1d71242.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/679f18a348bb6d113d310e8fc9e1667df7c07db05656dda9b03b6b272a7d9a57.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/11e8e36a20332a0c0c468bd64eae79a0f6676f2ce0b3edf3e6acae491827a6d5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b74567ad4ba2d8b083c723978157abf7b4cd9e91794911d704418493cf1820d.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e454db552d131ea92dfc6da245a50abca6c1cfbd15cc8cf64f3f725e790e0a6a.jpg",
+        "intro": "Welcome to Tumblecube Island,\nwhere Pok\u00e9mon\u2122 have turned into cubes?",
+        "description": "Set off for adventure in the Pok\u00e9mon\u2122 Quest game. Venture out with your Pok\u00e9mon buddies on expeditions across Tumblecube Island in search of loot in this free-to-start action-adventure for the Nintendo Switch\u2122 system. Modify your Pok\u00e9mon buddies with discovered Power Stones to make your ultimate expedition team. \n\nWith a cube-shaped art style, Pok\u00e9mon\u2122 Quest is unlike any Pok\u00e9mon game you\u2019ve seen before. The simple gameplay makes it easy to hop into expeditions and start exploring Tumblecube Island with the help of your Pok\u00e9mon buddies. Afterwards, head back to your base camp where you can use the loot you found during your adventure to befriend more Pok\u00e9mon. Attract various Kanto Region Pok\u00e9mon to your base camp by cooking up dishes made with collected ingredients! You can even decorate your base camp with fun items that provide helpful bonuses that make your expeditions more beneficial.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 285212672
+    },
+    "70050000005541": {
+        "id": "01005D100807B001",
+        "rightsId": null,
+        "name": "Expedition Pack",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005541",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/867c601d1071edb941dda4adcaa1bb0e53ae5787e13942ecda6d6ceff381f6e2.jpg",
+        "intro": null,
+        "description": "This downloadable content includes the following items to enhance your expedition experience:\n\n\u2022 Cooking pot\nIncreases the number of dishes you can cook at the same time by one.\n\n\u2022 Pok\u00e9 Ball Model\nIncreases the number of PM Tickets received as a service for members by 20.\n\n\u2022 Perfect Pair Statue\nIncreases the maximum battery charges by one.\n\nThis DLC also includes the following one-time bonuses:\n\u2022 PM Tickets +100\n\u2022 Lv. 1 Nidoran\u2640 with a special move\n\u2022 Lv. 1 Nidoran\u2642 with a special move",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005725": {
+        "id": "01005D100807B002",
+        "rightsId": null,
+        "name": "Great Expedition Pack",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005725",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f4d90268672d23b7a702b10aca186e7cdb610ac69f94a458ecf866733f078b26.jpg",
+        "intro": null,
+        "description": "This downloadable content includes the following items to enhance your expedition experience:\n\n\u2022 Cooking pot\nIncreases the number of dishes you can cook at the same time by one.\n\n\u2022 Great Ball Model\nIncreases the number of PM Tickets received as a service for members by 30.\n\n\u2022 Eevee Arch\nIncreases the maximum battery charges by one.\n\n\u2022 Lapras Pool\nDoubles the chances of attracting multiple Pok\u00e9mon with your cooking.\n\nThis DLC also includes the following one-time bonuses:\n\u2022 PM Tickets +100\n\u2022 Lv. 1 Lapras with a special move",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005726": {
+        "id": "01005D100807B003",
+        "rightsId": null,
+        "name": "Ultra Expedition Pack",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005726",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e18b61bed1a0c65818fe3ee981d6170637d390c32fded426f9606e7f0ef92bba.jpg",
+        "intro": null,
+        "description": "This downloadable content includes the following items to enhance your expedition experience:\n\n\u30fbCooking pot\nIncreases the number of dishes you can cook at the same time by one.\n\n\u2022 Ultra Ball Model\nIncreases the number of PM Tickets received as a service for members by 40.\n\n\u2022 Pikachu Arch\nIncreases the maximum battery charges by one.\n\n\u2022 Gengar Balloon\nDoubles the drop rate of all ingredients.\n\n\u2022 Snorlax Lounger\nDoubles the Exp. received from expeditions.\n\nThis DLC also includes the following one-time bonuses:\n\u2022 PM Tickets +100\n\u2022 Lv. 1 Snorlax with a special move",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005727": {
+        "id": "01005D100807B005",
+        "rightsId": null,
+        "name": "Scattershot Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005727",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/7b56f96639b28311a94256a3d75c8359488c1a4152a6a292b6c04565bac1dbf2.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Scattershot Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005728": {
+        "id": "01005D100807B006",
+        "rightsId": null,
+        "name": "Broadburst Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005728",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/250ba9b75d140376b379935002bbda713d030b4c0b3d8edad0c03670131c4f7d.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Broadburst Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005729": {
+        "id": "01005D100807B007",
+        "rightsId": null,
+        "name": "Whack-Whack Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005729",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/501b66be7a6ca6ced7cfcd041823d35df466a55b1445b492859284b42cdec57a.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Whack-Whack Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005730": {
+        "id": "01005D100807B008",
+        "rightsId": null,
+        "name": "Wait Less Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005730",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc851d1f91ab63052222fd13a49ac9a3e6066d2068f0f0da43d4ac63fd78878f.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Wait Less Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005731": {
+        "id": "01005D100807B009",
+        "rightsId": null,
+        "name": "Stay Strong Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005731",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f1a2ae0d51efd71b6aecce03ab9b59c22d4823dd67d79dbdd6bf2fca2f1b57bc.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Stay Strong Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005732": {
+        "id": "01005D100807B00A",
+        "rightsId": null,
+        "name": "Sharing Stone",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005732",
+        "category": null,
+        "ratingContent": [
+            "Mild Fantasy Violence",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc388f1e8b9213ed4b45f5d64440f5d766ba2b7ae0c7c476cec28f431d48de34.jpg",
+        "intro": null,
+        "description": "With this downloadable content, you will immediately receive one Sharing Stone. You can attach this stone to a compatible move to make your Pok\u00e9mon stronger!\n\nThis DLC also includes the following one-time bonus:\n\u2022 PM Tickets +100",
         "languages": null,
         "size": 4194304
     }

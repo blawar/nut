@@ -183,7 +183,7 @@
             "ko",
             "zh"
         ],
-        "size": 13279166464
+        "size": 13292797952
     },
     "70050000007542": {
         "id": "0100E8500AD59001",
@@ -831,7 +831,7 @@
             "ja",
             "zh"
         ],
-        "size": 2373976064
+        "size": 2377121792
     },
     "70010000013831": {
         "id": "0100E8D007E16000",
@@ -958,7 +958,7 @@
             "ko",
             "zh"
         ],
-        "size": 611319808
+        "size": 643825664
     },
     "70050000007065": {
         "id": "0100EC100A791001",
@@ -1217,7 +1217,7 @@
         "languages": [
             "zh"
         ],
-        "size": 2483027968
+        "size": 2489319424
     },
     "70010000013556": {
         "id": "01004C200100E000",
@@ -1641,7 +1641,7 @@
             "ko",
             "zh"
         ],
-        "size": 3798990848
+        "size": 3812622336
     },
     "70050000006381": {
         "id": "0100D9A005ED7001",
@@ -2824,7 +2824,7 @@
             "ko",
             "zh"
         ],
-        "size": 7415529472
+        "size": 7427063808
     },
     "70050000005202": {
         "id": "0100B61008209001",
@@ -3312,7 +3312,7 @@
             "ko",
             "zh"
         ],
-        "size": 278921216
+        "size": 285212672
     },
     "70050000005702": {
         "id": "01005D100807B001",
@@ -3722,7 +3722,7 @@
             "ko",
             "zh"
         ],
-        "size": 15453913088
+        "size": 15458107392
     },
     "70050000004094": {
         "id": "01007EF00011F001",
@@ -4038,7 +4038,7 @@
             "ko",
             "zh"
         ],
-        "size": 3591372800
+        "size": 3596615680
     },
     "70010000009642": {
         "id": "01003BC0000A0000",
@@ -4070,7 +4070,7 @@
             "es",
             "fr"
         ],
-        "size": 5793382400
+        "size": 5931794432
     },
     "70050000006103": {
         "id": "01003BC0000A1064",
@@ -4262,7 +4262,7 @@
         "languages": [
             "ja"
         ],
-        "size": 5793382400
+        "size": 5931794432
     },
     "70050000006101": {
         "id": "01003C700009D064",
@@ -4820,7 +4820,7 @@
             "ko",
             "zh"
         ],
-        "size": 3768582144
+        "size": 3758096384
     },
     "70050000008522": {
         "id": "010039000B68F008",
@@ -5478,5 +5478,91 @@
         "description": "\u662f\u80fd\u5728\u6f14\u594f\u904a\u6232\u88e1\u904a\u73a9\u7684\u8ffd\u52a0\u9805\u76ee\u3002\n\n\u25a0\u6a02\u66f2\u300c\u8499\u592a\u53e4\u5bb6\u65cf\u8207\u51f1\u666e\u840a\u7279\u5bb6\u65cf\u300d\n\u7c21\u55ae\u26054\u3000\u666e\u901a\u26054\u3000\u56f0\u96e3\u26054\u3000\u9b54\u738b\u26054",
         "languages": null,
         "size": 4194304
+    },
+    "70010000008902": {
+        "id": "0100F6400A77E000",
+        "rightsId": null,
+        "name": "Capcom Belt Action Collection",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181107,
+        "nsuId": "70010000008902",
+        "category": [
+            "\u52d5\u4f5c",
+            "\u8857\u6a5f"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": null,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/0cd3656e7819636e9f9b6d05f5da6c155b3fdd4eb30dde30e6a82c36d56b59cd.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/5cd2ccc177bd57be0a40ab0a38273118b190f6f2987d94a99b21619e641b3f57.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d3e96556dff94a7410e96aedd1f646975fb1b50c5a2c4e76dc5a3dc6739ce009.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b5f0598dd1b813bb2270a36c770da88050357b180f9df99317337d7caf78d8de.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dd011ff5f1e7be1299e5190723947d15eb4f733bc34b4533bc320be34f0c976a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/98afdbfb1bcf0fb808625a3330d505878ce88d18933f98a766ff1164cdf1c5cc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4e5dde34fa689646bd94ff8e516e53e76a038934340cb3e8897eea25c0695ae4.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc1fae41aa12f2b252b9ee00dbc9aeb38f0378ca59016e040abc3c359f841e82.jpg",
+        "intro": "\u518d\u6b21\u611f\u53d7\u904a\u6232\u6a5f\u4e2d\u5fc3\u7684\u8208\u596e!\n\u5c07Capcom\u76847\u6b3e\u8457\u540d\u6a6b\u5411\u6e05\u7248\u52d5\u4f5c\u904a\u6232\u96c6\u65bc1\u4ef6\u4f5c\u54c1\u5167\u3002",
+        "description": "\u9664\u4e86\u7576\u7136\u8981\u6709\u7684\u4ee3\u8868\u4f5cFinal Fight\u5916, Powered Gear\u53caBattle Circuit \u66f4\u662f\u9996\u6b21\u79fb\u690d\u3002\n\n\u800c\u7576\u5e74\u5728\u904a\u6232\u6a5f\u4e2d\u5fc3\u4e0d\u80fd\u9078\u64c7\u7684\u96e3\u5ea6\u548c\u89d2\u8272\u751f\u547d\u6578\u7b49\u8a2d\u5b9a\u4ea6\u80fd\u66f4\u6539\u3002\u73a9\u5bb6\u9084\u53ef\u6839\u64da\u500b\u4eba\u559c\u597d\u9078\u64c7\u904a\u73a9\u65e5\u672c\u7248\u6216\u6d77\u5916\u7248\u3002\u5176\u4ed6\u5167\u5bb9\u9084\u5305\u62ec\u5145\u6eff\u79d8\u5bc6\u63d2\u756b\u7684\u756b\u5eca!\n\n\u8d85\u8d8a\u4e16\u4ee3\u7684\u540d\u4f5c\u3002\n\u5168\u901a\uff01\u4e00\u5e63\u901a\u95dc\uff01\u9ad8\u5f97\u5206\uff01\n\u50b3\u627f\u4e0b\u53bb\uff01\u9b42\u4e4bMega Crash\uff01\n\n\u6536\u9304\u904a\u6232: Final Fighter / The King Of Dragons / Captain Commando / Knight of the Round / \u541e\u98df\u5929\u5730II \u8d64\u58c1\u4e4b\u6230 / Powered Gear / Battle Circuit ",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 860880896
+    },
+    "70010000013094": {
+        "id": "010072000BD32000",
+        "rightsId": null,
+        "name": "WORLD OF FINAL FANTASY MAXIMA",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181106,
+        "nsuId": "70010000013094",
+        "category": [
+            "\u89d2\u8272\u626e\u6f14"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "SQUARE ENIX",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/bac734675955057b83d72120f751dec094b5022aa87130c9f539f03785919000.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/17fcd4050f4c1f65feeefcc7946f3f1481b67218575ae3ffc7e07cf2e200a9c3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4875001590ab538388e3dbdb6c86f219c2d4814dd6b670cdd28676a2c21213bb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2f7c0de0c2a7a9213ad6d008b179103e2f4d6a7fd499a614898b92d147b49391.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6ada4289d304a9cc643f5b2b3c590e366fe87e6d2834b13d7154b0d3126deff1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/273f8a2650406a33187617f7d03b3ea132f8cc1980e8a40e8a511a6c2aae3b94.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bbb28791bc80f251bfd06bfa01aea5d04467746052b231aceb30992e204c48dd.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e6b90104437217a14293b760bc36038be1a952e3f61eda6710d99008f18fb0ea.jpg",
+        "intro": "\u4ee4\u4eba\u96e3\u5fd8\u7684 FINAL FANTASY \u50b3\u5947\uff0c\n\u5c07\u9019\u500b\u5967\u5999\u7121\u7aae\u3001\u8272\u5f69\u7e7d\u7d1b\u7684\u4e16\u754c\uff0c\u5e7b\u5316\u6210\u771f\u3002",
+        "description": "\u6700\u521d\u65bc2016\u5e7410\u6708\u767c\u552e\uff0c\u300aWORLD OF FINAL FANTASY\u300b\u7684\u589e\u5f37\u7248\u672c\u2014\u2014\u300aWORLD OF FINAL FANTASY MAXIMA\u300b\u65bcNintendo Switch\u9686\u91cd\u767b\u5834\uff01\u8a31\u591a\u88ab\u7a31\u70ba\u300c\u5b88\u8b77\u8005\u300d\u548c\u300c\u8ff7\u5f71\u7378\u300d\u7684\u6b77\u4ee3FF\u50b3\u5947\u89d2\u8272\u548c\u602a\u7269\u5c07\u6703\u5728\u9019\u5834\u6709\u8da3\u800c\u523a\u6fc0\u7684\u5192\u96aa\u4e2d\u767b\u5834\u3002\u53e6\u5916\uff0c\u5728\u9019\u500b\u65b0\u7248\u672c\u4e2d\u66f4\u914d\u5099\u4e86\u5916\u89c0\u8b8a\u66f4\u7cfb\u7d71\uff0c\u56e0\u6b64\u4e3b\u89d2\u84ee\u6069\u548c\u6717\u6069\u80fd\u5920\u4f7f\u7528\u5404\u7a2e\u4e0d\u540c\u5b88\u8b77\u8005\u7684\u5916\u89c0\u548c\u6280\u80fd\u4f86\u6230\u9b25\u3002\u5316\u8eab\u6210\u6b77\u4ee3FF\u7684\u50b3\u5947\u89d2\u8272\uff0c\u597d\u597d\u4eab\u53d7\u6230\u9b25\u7684\u6a02\u8da3\u5427\uff01",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 11508121600
     }
 }

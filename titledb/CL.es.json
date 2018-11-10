@@ -201,7 +201,7 @@
         "ratingContent": [
             "Violencia",
             "Interacci\u00f3n de usuarios",
-            "Compras digitales"
+            "Compras dentro del juego"
         ],
         "numberOfPlayers": 1,
         "rating": 13,
@@ -231,7 +231,7 @@
             "ru",
             "ko"
         ],
-        "size": 3070230528
+        "size": 3122659328
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
@@ -709,7 +709,7 @@
             "es",
             "fr"
         ],
-        "size": 3591372800
+        "size": 3596615680
     },
     "70010000001107": {
         "id": "01007960049A0000",
@@ -1597,7 +1597,7 @@
             "es",
             "fr"
         ],
-        "size": 5793382400
+        "size": 5931794432
     },
     "70050000008181": {
         "id": "01003BC0000A1005",
@@ -1823,7 +1823,7 @@
             "nl",
             "ru"
         ],
-        "size": 15453913088
+        "size": 15458107392
     },
     "70050000000183": {
         "id": "01007EF00011F001",
@@ -2688,6 +2688,353 @@
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cac2d0724384d4ff1a4753063a975840c965349ad9f26b4ba0b03550e56a4b59.jpg",
         "intro": null,
         "description": "\u00a1Planta pira\u00f1a se une al combate!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70010000014303": {
+        "id": "01003A400C3DA000",
+        "rightsId": null,
+        "name": "YouTube",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181108,
+        "nsuId": "70010000014303",
+        "category": [
+            "Video"
+        ],
+        "ratingContent": [
+            "Interacci\u00f3n de usuarios"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Google",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/f823e3aa145c520923a84c85aa8a71d67272d9af4013fc4d667582c3ad737d79.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8c6a50d71afd028367f0f92c0157bd57f81bb41d599564b65855ffe7712a7bce.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c39c5a90993ab46fdfbef95c2583c50e2857a64443d66109ec136d2801f04ef7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6f5fd648ef8cf9807035e67a8ccf0226ec4cf8f3fafc31336bed631527aaaa41.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6a71876cef571f3d4051dc8b2cf3861a7f0fa3a95ded3aacf95d5600d3eb2e4f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8c3269e0b0dc2a7554b83a001820637080b9f8a3fce53a306c2c0251fb14a8c1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/953a7c57902a7576ad658f450ad9347b868b72e0d9d41b38a24d8f9e5557f10a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/13ab52d526ec8f98d3084eadc51d29665010c8eb9a3035aa0b04dbd6fdb8d50b.jpg",
+        "intro": null,
+        "description": "Ponte c\u00f3modo y rel\u00e1jate con YouTube en tu sistema Nintendo Switch\u2122. Disfruta de m\u00fasica, videos, programas, transmisiones en vivo de videojuegos y lo \u00faltimo en contenido viral, entre otras opciones de entretenimiento. Explora un mundo de videos con recomendaciones personalizadas y acceso f\u00e1cil a tus suscripciones a canales. Re\u00fane a tu familia o amigos, toma el control de tu Nintendo Switch y disfruta de YouTube con ellos.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 93323264
+    },
+    "70010000003482": {
+        "id": "01005D100807A000",
+        "rightsId": null,
+        "name": "Pok\u00e9mon\u2122 Quest",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70010000003482",
+        "category": [
+            "Estrategia",
+            "Aventura"
+        ],
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/4bbdd3ca2f33b56cbf2e2475f855a19dbc24a0476faefdf797b5440dde7fa3d5.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/e62c4a80418c1e5848a344ddf919ce75211ea5e425c6d5d6c2cca83bb53e5957.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d5f60a7fad8be04b9d0ff7bdc2050e831d21124c6df646641dab3c6bb8fe6510.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9e3daa7b84342c9d6def89aea815f090f0159bb29757e5b7630d3bf0b1d71242.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/679f18a348bb6d113d310e8fc9e1667df7c07db05656dda9b03b6b272a7d9a57.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/11e8e36a20332a0c0c468bd64eae79a0f6676f2ce0b3edf3e6acae491827a6d5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b74567ad4ba2d8b083c723978157abf7b4cd9e91794911d704418493cf1820d.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e454db552d131ea92dfc6da245a50abca6c1cfbd15cc8cf64f3f725e790e0a6a.jpg",
+        "intro": "Bienvenidos a la isla Rodacubo, donde los Pok\u00e9mon\u2122 se\nhan convertido en\u2026 \u00bfcubos?",
+        "description": "Inicia tu aventura en el juego Pok\u00e9mon\u2122 Quest. Emprende una expedici\u00f3n en busca de tesoros a trav\u00e9s de la isla Rodacubo con tus amigos Pok\u00e9mon en este juego de acci\u00f3n para la consola Nintendo Switch\u2122. Modifica a tus aliados Pok\u00e9mon con las piedras P. obtenidas para crear el mejor equipo de expedici\u00f3n.\n\nCon un estilo art\u00edstico inspirado en formas c\u00fabicas, Pok\u00e9mon\u2122 Quest es como ning\u00fan otro juego de Pok\u00e9mon. El estilo de juego simplifica el arranque de las expediciones y la exploraci\u00f3n de Rodacubo con la ayuda de tus aliados Pok\u00e9mon. Luego, regresa a tu base donde podr\u00e1s utilizar los tesoros que encontraste en tu aventura para entablar m\u00e1s amistades con otros Pok\u00e9mon. \u00a1Atrae a varios Pok\u00e9mon de la regi\u00f3n de Kanto a tu base al preparar diferentes platillos con los ingredientes obtenidos! Incluso podr\u00e1s decorar tu base con divertidos objetos que te dar\u00e1n \u00fatiles bonificaciones que har\u00e1n m\u00e1s beneficiosas tus expediciones.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 285212672
+    },
+    "70050000005541": {
+        "id": "01005D100807B001",
+        "rightsId": null,
+        "name": "Lote Expedici\u00f3n",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005541",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/867c601d1071edb941dda4adcaa1bb0e53ae5787e13942ecda6d6ceff381f6e2.jpg",
+        "intro": null,
+        "description": "Este contenido adicional incluye los siguientes objetos para mejorar tu aventura:\n\n\u30fbMarmita\nIncrementa en uno el n\u00famero de platillos que puedes preparar.\n\n\u30fbR\u00e9plica Pok\u00e9 Ball\nIncrementa en 20 el n\u00famero de Cupones TP recibidos en promociones. \n\n\u30fbEstatua Nidoguardia \nIncrementa en uno el m\u00e1ximo de la duraci\u00f3n de la bater\u00eda.\n\nEste contenido adicional tambi\u00e9n incluye los siguientes regalos que se otorgar\u00e1n una sola vez:\n\u30fbCupones TP + 100\n\u30fbNidoran\u2640 de Nv. 1 con movimiento especial\n\u30fbNidoran\u2642 de Nv. 1 con movimiento especial\n",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005725": {
+        "id": "01005D100807B002",
+        "rightsId": null,
+        "name": "Lote Expedici\u00f3n S\u00faper",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005725",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f4d90268672d23b7a702b10aca186e7cdb610ac69f94a458ecf866733f078b26.jpg",
+        "intro": null,
+        "description": "Este contenido adicional incluye los siguientes objetos para mejorar tu aventura:\n\n\u30fbMarmita\nIncrementa en uno el n\u00famero de platillos que puedes preparar.\n\n\u30fbR\u00e9plica Super Ball\nIncrementa en 30 el n\u00famero de Cupones TP recibidos en promociones. \n\n\u30fbArco Eevee \nIncrementa en uno el m\u00e1ximo de la duraci\u00f3n de la bater\u00eda.\n\n\u30fbPiscina Lapras\nAumenta las probabilidades de que m\u00e1s Pok\u00e9mon se vean atra\u00eddos por el olor de la comida. \n\nEste contenido adicional tambi\u00e9n incluye los siguientes regalos que se otorgar\u00e1n una sola vez:\n\u30fbCupones TP + 100\n\u30fbLapras de Nv. 1 con movimiento especial\n",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005726": {
+        "id": "01005D100807B003",
+        "rightsId": null,
+        "name": "Lote Expedici\u00f3n Ultra",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005726",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e18b61bed1a0c65818fe3ee981d6170637d390c32fded426f9606e7f0ef92bba.jpg",
+        "intro": null,
+        "description": "Este contenido adicional incluye los siguientes objetos para mejorar tu aventura:\n\n\u30fbMarmita\nIncrementa en uno el n\u00famero de platillos que puedes preparar.\n\n\u30fbR\u00e9plica Ultra Ball\nIncrementa en 40 el n\u00famero de Cupones TP recibidos en promociones. \n\n\u30fbArco Pikachu\nIncrementa en uno el m\u00e1ximo de la duraci\u00f3n de la bater\u00eda.\n\n\u30fbGlobo Gengar \nAumenta al doble la cantidad de ingredientes de todo tipo que te encuentres.\n\n\u30fbBanco Snorlax \nAumenta al doble la cantidad de experiencia que reciben los Pok\u00e9mon durante las expediciones.\n\nEste contenido adicional tambi\u00e9n incluye los siguientes regalos que se otorgar\u00e1n una sola vez:\n\u30fbCupones TP + 100\n\u30fbSnorlax de Nv. 1 con movimiento especial ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005727": {
+        "id": "01005D100807B005",
+        "rightsId": null,
+        "name": "Piedra R\u00e1faga",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005727",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/7b56f96639b28311a94256a3d75c8359488c1a4152a6a292b6c04565bac1dbf2.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra R\u00e1faga. Usa un movimiento compatible tras haber equipado una Piedra R\u00e1faga para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005728": {
+        "id": "01005D100807B006",
+        "rightsId": null,
+        "name": "Piedra Expansi\u00f3n",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005728",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/250ba9b75d140376b379935002bbda713d030b4c0b3d8edad0c03670131c4f7d.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra Expansi\u00f3n. Usa un movimiento compatible tras haber equipado una Piedra Expansi\u00f3n para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005729": {
+        "id": "01005D100807B007",
+        "rightsId": null,
+        "name": "Piedra Eco",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005729",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/501b66be7a6ca6ced7cfcd041823d35df466a55b1445b492859284b42cdec57a.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra Eco. Usa un movimiento compatible tras haber equipado una Piedra Eco para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005730": {
+        "id": "01005D100807B008",
+        "rightsId": null,
+        "name": "Piedra Recarga",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005730",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc851d1f91ab63052222fd13a49ac9a3e6066d2068f0f0da43d4ac63fd78878f.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra Recarga. Usa un movimiento compatible tras haber equipado una Piedra Recarga para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005731": {
+        "id": "01005D100807B009",
+        "rightsId": null,
+        "name": "Piedra Ventaja",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005731",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f1a2ae0d51efd71b6aecce03ab9b59c22d4823dd67d79dbdd6bf2fca2f1b57bc.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra Ventaja. Usa un movimiento compatible tras haber equipado una Piedra Ventaja para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000005732": {
+        "id": "01005D100807B00A",
+        "rightsId": null,
+        "name": "Piedra Reparto",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20180529,
+        "nsuId": "70050000005732",
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc388f1e8b9213ed4b45f5d64440f5d766ba2b7ae0c7c476cec28f431d48de34.jpg",
+        "intro": null,
+        "description": "Con este contenido adicional recibir\u00e1s inmediatamente una Piedra Reparto. Usa un movimiento compatible tras haber equipado una Piedra Reparto para que tu Pok\u00e9mon sea m\u00e1s poderoso.\n\nEste contenido adicional tambi\u00e9n incluye el siguiente regalo que se otorgar\u00e1 una sola vez:\n\u30fbCupones TP + 100",
         "languages": null,
         "size": 4194304
     }
