@@ -656,7 +656,7 @@ if __name__ == '__main__':
 		parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
 		parser.add_argument('-i', '--info', help='show info about title or file')
 		parser.add_argument('--depth', type=int, default=1, help='max depth for file info and extraction')
-		parser.add_argument('-I', '--verify', help='verify title key')
+		parser.add_argument('-I', '--verify', nargs=2, help='verify title key TID TKEY')
 		parser.add_argument('-u', '--unlock', help='install available title key into NSX / NSP')
 		parser.add_argument('--unlock-all', action="store_true", help='install available title keys into all NSX files')
 		parser.add_argument('--set-masterkey1', help='Changes the master key encryption for NSP.')
@@ -739,6 +739,7 @@ if __name__ == '__main__':
 		Print.info('                `"\'')
 
 		if args.extract:
+			initTitles()
 			for filePath in args.extract:
 				#f = Fs.Nsp(filePath, 'rb')
 				f = Fs.factory(filePath)
@@ -866,13 +867,10 @@ if __name__ == '__main__':
 			logNcaDeltas(args.nca_deltas)
 
 		if args.verify:
-			for fileName in args.file:
-				f = Fs.factory(fileName)
-				f.open(fileName, 'r+b')
-				if f.verifyKey(args.verify):
-					print('key verified for ' + fileName)
-				else:
-					print('key failure for ' + fileName)
+			if blockchain.verifyKey(args.verify[0], args.verify[1]):
+				Print.info('Title key is valid')
+			else:
+				Print.info('Title key is INVALID %s - %s' % (args.verify[0], args.verify[1]))
 
 		if args.info:
 			initTitles()
