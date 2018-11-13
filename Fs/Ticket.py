@@ -200,7 +200,7 @@ class Ticket(File):
 
 		rightsId = format(self.getRightsId(), 'X').zfill(32)
 		titleId = rightsId[0:16]
-		titleKey = format(self.getTitleKeyBlock(), 'X')
+		titleKey = format(self.getTitleKeyBlock(), 'X').zfill(32)
 
 		Print.info('\n%sTicket\n' % (tabs))
 		super(Ticket, self).printInfo(maxDepth, indent)
