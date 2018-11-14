@@ -334,7 +334,7 @@ class Nsp(Pfs0):
 		baseName = self.cleanFilename(bt.getName() or '')
 		result = format.replace('{baseName}', baseName)
 		
-		while(len(os.path.basename(result).encode('utf-8')) > 254 and len(baseName) > 3):
+		while(len(os.path.basename(result).encode('utf-8')) > 240 and len(baseName) > 3):
 			baseName = baseName[:-1]
 			result = format.replace('{baseName}', baseName)
 			
