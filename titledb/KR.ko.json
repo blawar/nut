@@ -904,7 +904,7 @@
             "ko",
             "zh"
         ],
-        "size": 14552137728
+        "size": 15349055488
     },
     "70050000007581": {
         "id": "0100D6000B52D001",
@@ -1018,7 +1018,7 @@
             "ko",
             "zh"
         ],
-        "size": 740294656
+        "size": 744488960
     },
     "70010000013723": {
         "id": "01002CC0062B8000",
@@ -3271,7 +3271,7 @@
             "ko",
             "zh"
         ],
-        "size": 1031798784
+        "size": 1081081856
     },
     "70010000011856": {
         "id": "010003E0099AC000",
@@ -5551,7 +5551,7 @@
             "ko",
             "zh"
         ],
-        "size": 3758096384
+        "size": 3765436416
     },
     "70050000008524": {
         "id": "010039000B68F004",
@@ -6632,5 +6632,199 @@
         "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1 \u300c\uc0ac\uc694\ub098\ub77c \uc5d8\ub808\uc9c0\u300d\n\uc26c\uc6c0\u26053\u3000\ubcf4\ud1b5\u26054\u3000\uc5b4\ub824\uc6c0\u26055\u3000\uadc0\uc2e0\u26058\n\u25a0\uace1 \uff62\uff35.\uff33.\uff21.\u300d\n\uc26c\uc6c0\u26052\u3000\ubcf4\ud1b5\u26053\u3000\uc5b4\ub824\uc6c0\u26055\u3000\uadc0\uc2e0\u26056\n\u25a0\uace1 \uff62\ucf54\uc774\u300d\n\uc26c\uc6c0\u26052\u3000\ubcf4\ud1b5\u26053\u3000\uc5b4\ub824\uc6c0\u26053\u3000\uadc0\uc2e0\u26056",
         "languages": null,
         "size": 12582912
+    },
+    "70010000010136": {
+        "id": "010075600AE96000",
+        "rightsId": null,
+        "name": "Just Dance\u00ae 2019",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181115,
+        "nsuId": "70010000010136",
+        "category": [
+            "\uc74c\uc545",
+            "\ud30c\ud2f0",
+            "\ud2b8\ub808\uc774\ub2dd",
+            "\uc2dc\ubbac\ub808\uc774\uc158"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 6,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/ecb1aa407bc963d93a6d45ae2591bd3833884810dda16bbb6957f21d60e7795f.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/94daf5373b3b386762ec3cb86068eb87a2dd112a363bebcc767ca043cec1d635.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2f6d416a4239f0d35d1c23cb8cecfa9a247fce0581938f12a50516285cec8f99.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8c11a7c063c7f45600982feedd5dd7ab73ec86cbfcd12a4de3e2b964487bf08b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/297ef99313a92add60cc97eabdb64e631dc140d9fad8f7b12151316ee927052d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8602db60abf946788e1fb807fe48545311673bb0fd69c402f43362e5ccadd382.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5016254aab67d86231fdbea2b5bbd315ce5b45fd8934a1abbcbe792f95e0d371.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/676ae51b671af626be8985b919fb4f9875c14f9964c9e5f3ed08341ff8bbf5e1.jpg",
+        "intro": null,
+        "description": "\ucd5c\uace0\uc758 \ub304\uc2a4 \uac8c\uc784 Just Dance\u00ae 2019\ub85c \ucc28\ud2b8\ub97c \uc810\ub839\ud588\ub358 \ud788\ud2b8\uace1\ubd80\ud130 \uac00\uc871\ub4e4\uc774 \ud568\uaed8 \uc990\uae30\ub294 \uba85\uace1\uae4c\uc9c0 40\uace1\uc744 \uc990\uaca8 \ubcf4\uc138\uc694. Camila Cabello\uc758 \"Havana\", \ube45\ubc45\uc758 \"\ubc45\ubc45\ubc45\", The Weeknd Ft. Daft Punk\uc758 \"I Feel It Coming\" \uac19\uc740 \uc2e0\ub098\ub294 \uace1\ub4e4\uc774 \uc5ec\ub7ec\ubd84\uc744 \uae30\ub2e4\ub9bd\ub2c8\ub2e4!\n\nCamila Cabello\uc758 \"Havana\", \ube45\ubc45\uc758 \"\ubc45\ubc45\ubc45\", The Weeknd Ft. Daft Punk\uc758 \"I Feel It Coming\" \ub4f1 40\uac1c \ud788\ud2b8\uace1\uc5d0 \ub9de\ucd94\uc5b4 \ucda4\uc744 \ucdb0 \ubcf4\uc138\uc694! Just Dance Unlimited 1\uac1c\uc6d4 \uc774\uc6a9\uad8c\ub3c4 \ud568\uaed8 \ub4dc\ub9bd\ub2c8\ub2e4! 400\uace1\uc774 \ub118\ub294 \ubc29\ub300\ud55c \ubaa9\ub85d\uc744 \uc990\uae38 \uc218 \uc788\ub2f5\ub2c8\ub2e4. \uac8c\uc784\uc5d0\uc11c \uc5ec\ub7ec\ubd84\uc758 \uc2b5\uad00\uc744 \ud30c\uc545\ud558\uace0 \ucf58\ud150\uce20\ub97c \ucd94\ucc9c\ud574 \uc8fc\uae30 \ub54c\ubb38\uc5d0 \ub098\ub9cc\uc758 \ubc29\uc2dd\uc73c\ub85c Just Dance\ub97c \uccb4\ud5d8\ud560 \uc218 \uc788\uc5b4\uc694! \uc804\ubb38\uac00\ub4e4\uc758 \uc9c0\uc6d0\uc744 \ubc1b\uc544 \uac74\uac15\uae4c\uc9c0 \ucc59\uae38 \uc218 \uc788\ub294 8\uac1c\uc758 \uc5b4\ub9b0\uc774\uc6a9 \ud2b9\ubcc4 \uc548\ubb34\ub3c4 \ucd94\uac00\ud588\uc2b5\ub2c8\ub2e4. ",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 7913603072
+    },
+    "70010000010278": {
+        "id": "0100E1A00AF40000",
+        "rightsId": null,
+        "name": "Hungry Shark\u00ae World",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181115,
+        "nsuId": "70010000010278",
+        "category": [
+            "\uc544\ucf00\uc774\ub4dc",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/c7abb7d1bf493f8da708bb5c59b1d0fa0652f87408f4a3b3c8338f1081bfa7eb.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2232111dc620e563b4294b6aacebded8a690d0c8be91e7306ad785630bdf44b5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a6ea689d65374df13ac1e6de99ed9a6714694cfccccddcfd2ec9125beee736c1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/43b5200b60bdf921220cbbac4711c1ba5f866f9aa0e45c33a6b2b6c348eeb7a5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9de90dfcee6561db5850db06b8922b657f5dec98a47491ea16f9b695dcdd2100.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/82b7426faf985daf17de545b140bc4f819a704d406ef9e0837b9c0d0dc68e89e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b44e1402cbf9a7d10fa4d45036a60f70f8e608e60cb3d472865ff3787e29300.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/68b2f4d7e0b6716ef9c5bc5e1ef3693d4f8ab98646fb576dcc8a2d0f10c99d48.jpg",
+        "intro": null,
+        "description": "\uc218\uc911\uc5d0\uc11c \ud3bc\uccd0\uc9c0\ub294 \uc561\uc158 \uc5b4\ub4dc\ubca4\ucc98 \uac8c\uc784\uc5d0\uc11c \uc0c1\uc5b4\uac00 \ub418\uc5b4\uc11c \uc55e\uae38\uc744 \uac00\ub85c\ubc15\ub294 \ubaa8\ub4e0 \uac78 \uba39\uc5b4\uce58\uc6cc \ubcf4\uc2ed\uc2dc\uc624! HD\ub85c \uad6c\ud604\ub41c \ubc14\ub2e4\uc5d0\uc11c 20\uc885 \uc774\uc0c1\uc758 \uc0c1\uc5b4\ub97c \ucee8\ud2b8\ub864\ud558\uc5ec \ubb34\uc2dc\ubb34\uc2dc\ud55c \ubcf4\uc2a4\ub4e4\uc744 \ubb3c\ub9ac\uce58\uace0, \uac07\ud600\uc788\ub294 \uc0c1\uc5b4\ub97c \ubc1c\uacac\ud558\uac70\ub098 \uc228\uaca8\uc9c4 \ubcf4\ubb3c\uc744 \ucc3e\uc744 \uc218\ub3c4 \uc788\uc2b5\ub2c8\ub2e4. \uc218\uc0c1 \uacbd\ub825\uc5d0 \ube5b\ub098\ub294 Hungry Shark \uc2dc\ub9ac\uc988\ub97c \uc774\uc81c \ucee8\ud2b8\ub864\ub7ec\uc5d0 \ucd5c\uc801\ud654\ub41c \ucf58\uc194 \ud50c\ub7ab\ud3fc\uc5d0\uc11c \uc990\uae30\uc2ed\uc2dc\uc624. \ub09c\uc774\ub3c4\uac00 \uc788\ub294 \ubcf4\uc2a4\uc804\uc5d0\uc11c\ub294 \uc12c\ub729\ud55c \ub9c8\uadc0\uc0c1\uc5b4, \uc545\uc0c1\uc5b4\ubd80\ud130 \uace0\ub300 \uad34\ubb3c\uacfc \uac70\ub300 \uc7a0\uc218\ud568\uae4c\uc9c0 \ub2e4\uc591\ud55c \uc801\ub4e4\uc774 \ub4f1\uc7a5\ud569\ub2c8\ub2e4. \uae4a\uc740 \ubc14\ub2e4\ub97c \ud0d0\ud5d8\ud558\uc5ec \ubcf4\ubb3c\uc744 \uc7a0\uae08 \ud574\uc81c\ud558\uace0 4\uac1c\uc758 \ub3c5\ud2b9\ud55c \uc7a5\uc18c\uc5d0\uc11c \ud3bc\uccd0\uc9c0\ub294 \ubbf8\uc158\uc744 \uc218\ud589\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc544\ucf00\uc774\ub4dc \uc5b4\ub4dc\ubca4\ucc98 \uac8c\uc784\uc5d0\uc11c \ub2f9\uc2e0 \uc548\uc5d0 \uc7a0\uc790\ub294 \uc0c1\uc5b4\ub97c \uae68\uc6cc \uc774\ube68\uc744 \ub4dc\ub7ec\ub0b4 \ubcf4\uc2ed\uc2dc\uc624! \ubb34\uc2dc\ubb34\uc2dc\ud55c \ubcf4\uc2a4\ub4e4\uc744 \ubb3c\ub9ac\uce58\uace0, \uac07\ud600\uc788\ub294 \uc0c1\uc5b4\ub97c \ubc1c\uacac\ud558\uac70\ub098 \uc228\uaca8\uc9c4 \ubcf4\ubb3c\uc744 \ucc3e\uc744 \uc218\ub3c4 \uc788\uc2b5\ub2c8\ub2e4. ",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 2675965952
+    },
+    "70010000010487": {
+        "id": "010099700B01A000",
+        "rightsId": null,
+        "name": "Valiant Hearts: The Great War",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181115,
+        "nsuId": "70010000010487",
+        "category": [
+            "\uc5b4\ub4dc\ubca4\ucc98",
+            "\ud37c\uc990",
+            "\ud559\uc2b5",
+            "\uae30\ud0c0"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/846bbafd3b872f52ff85e7caaec3a52d7dc414773da16cbf24ddb4c25e9c87c2.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/c2ae795f726b4a4ecf04cabc3781ce251a335aabbbc337bb6a2282be4e0fd816.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/be12b2f953b58a5ac5b784a8059e08ece0a4582fa017b01c1cbbce447dc8ae50.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/aa294bd6d466b46194f570930ac7413fbcae24889f31d147effd7ca217d2bc11.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/14f7e87b509ee5eff6df08d5e6819a31cd39021e426cfc77610c51b2720ef548.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cba8d318b7ff81d85e49755f7bb0f0c64774dc78a015368c2eb35fe1dda8a82a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4ddc522a833948bec7c97bff0fbd335099b29aa496f8875d73677a2d4daa4533.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f5bc96136655c519d6aa54278226c2a3aa6e6bfdfb0e972069d2dd9efa548224.jpg",
+        "intro": null,
+        "description": "\uc81c1\ucc28 \uc138\uacc4 \ub300\uc804\uc758 \ud3ec\ud654 \uc18d\uc5d0\uc11c, \ub2e4\uc591\ud55c \uce90\ub9ad\ud130\ub4e4\uc774 \ud3bc\uce58\ub294 \uc774\uc57c\uae30\ub97c Valiant Hearts: The Great War\u00ae\ub85c \ub9cc\ub098 \ubcf4\uc2ed\uc2dc\uc624. \uc804\uc7c1\uc758 \uacf5\ud3ec \uc18d\uc5d0\uc11c\ub3c4 \ubb34\ub108\uc9c0\uc9c0 \uc54a\uc740 \uc0ac\ub791\uacfc \uc6b0\uc815, \ud76c\uc0dd\uc758 \ub4dc\ub77c\ub9c8\uac00 \ud3bc\uccd0\uc9d1\ub2c8\ub2e4.\n\n\ud55c\ud3b8\uc758 \uc560\ub2c8\uba54\uc774\uc158\ucc98\ub7fc \ud3bc\uccd0\uc9c0\ub294 \uc11c\uc0ac\uc801 \ubaa8\ud5d8\n\ub3c5\ud2b9\ud55c \uc2a4\ud0c0\uc77c\ub85c \uafb8\uba70\uc9c4 Valiant Hearts: The Great War\uc758 \uc138\uacc4\ub97c \ud0d0\ud5d8\ud558\uc138\uc694.\n\n\ud0d0\ud5d8, \ud37c\uc990, \uc561\uc158\uc744 \ud55c\uc790\ub9ac\uc5d0\n\uc801\uc9c4\uc5d0\uc11c \ud0c8\ucd9c\ud558\uace0 \ud37c\uc990\uc744 \ud480\uba74\uc11c \uc0b4\uc544\ub0a8\uc544\uc57c \ud569\ub2c8\ub2e4.\n\n\uc5ed\uc0ac\uc640\uc758 \uc18c\ud1b5\n\uc11c\ubd80 \uc804\uc120\uc744 \ub530\ub77c \uc5ed\uc0ac\uc801 \uc804\ud22c\ub97c \uccb4\ud5d8\ud558\uace0, 1\ucc28 \uc138\uacc4\ub300\uc804\uc758 \uaca9\uc804\uc9c0\ub97c \uc0b4\ud3b4\ubcf4\uc138\uc694.\n\nUBIART \ud504\ub808\uc784\uc6cc\ud06c \uc5d4\uc9c4\nUBIART \ud504\ub808\uc784\uc6cc\ud06c \uc5d4\uc9c4\uc73c\ub85c \ud55c\uce35 \uc0dd\ub3d9\uac10 \ub118\uce58\ub294 \uc608\uc220 \uc791\ud488\uc744 \uc990\uae38 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc120\ud638\ud558\ub294 \ucee8\ud2b8\ub864 \ubaa8\ub4dc\ub97c \uc120\ud0dd\ud574\uc11c Joy-Con \ucee8\ud2b8\ub864\ub7ec\ub098 \ud130\uce58 \uc2a4\ud06c\ub9b0\uc73c\ub85c \ud50c\ub808\uc774\ud558\uc138\uc694.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 1451229184
+    },
+    "70010000013586": {
+        "id": "01007D000AD8A000",
+        "rightsId": null,
+        "name": "Child Of Light",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181115,
+        "nsuId": "70010000013586",
+        "category": [
+            "\uc561\uc158",
+            "RPG",
+            "\uc5b4\ub4dc\ubca4\ucc98",
+            "\uc804\ub7b5"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Ubisoft",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/0303e8e1adc304b5553ffaee393a80b108991648c5cbe1d2c3c521ec2521c24e.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/023d8363b21f4d22549002cbe7a76c753764bd033da72e9e19205d7d3c7ca18d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5c02d2709804f6e3fb85b2f02f6a145cea7a57f8b52276e14e023ad801ed8997.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f016efa57a51cd68e4bd55c10d749fdb2b8507af2f740c03dc10dc8ab9d370db.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6ab6033d2efd801c68bf4bacd83dcd1b7127b4584e0da234482cbd865131a726.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d7b8f67866a8ee9f9aaa688f5e717480ce899cc896c2fc8d66820c1b8b74450d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a638d79ee99a48b8129bf2e89b05732f0a265ff903ce9ceb57ae9f972f5df9db.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/c2b8cfd36bece5460dfd8d8044b67f529a4deb297c942629bd5d50fc6e19f6ac.jpg",
+        "intro": null,
+        "description": "\uc2e0\ube44\ub85c\uc6b4 \ub808\ubb34\ub9ac\uc544\uc5d0\uc11c \ud3bc\uccd0\uc9c0\ub294 \uc624\ub85c\ub77c\uc758 \uc5ec\uc815\uc5d0 \ub3d9\ucc38\ud574\uc11c \ubcd1\ub4e0 \uc544\ubc84\uc9c0\uc640 \uc783\uc5b4\ubc84\ub9b0 \uc655\uad6d\uc744 \uad6c\ud574\ub0b4\uc2ed\uc2dc\uc624. \ubaa8\ud5d8\uc744 \ub530\ub77c\uac00\uba74\uc11c \uc608\uc0c1\ud588\ub358 \uac83\ubcf4\ub2e4 \ud6e8\uc52c \uc911\ub300\ud55c \uc6b4\uba85\uc774 \uadf8\ub140\ub97c \uae30\ub2e4\ub9ac\uace0 \uc788\ub2e4\ub294 \uac78 \uc54c\uac8c \ub420 \uac81\ub2c8\ub2e4.\n\n\uc218\uc0c1 \uacbd\ub825\uc5d0 \ube5b\ub098\ub294 Patrick Plourde\uc640 Jeffrey Yohalem\uc774 Child of Light\u00ae\uc5d0 \ud568\uaed8 \ud569\ub2c8\ub2e4. \uc0ac\uc545\ud55c \ub9c8\ub140, \ubb34\uc2dc\ubb34\uc2dc\ud55c \ubc14\ub2f7\ubc40 \ub4f1 \uae30\uc774\ud55c \uc874\uc7ac\ub4e4\uacfc \ub300\uc801\ud558\uace0 \ub4dc\ub113\uc740 \ub808\ubb34\ub9ac\uc544\ub97c \ud0d0\ud5d8\ud558\uc138\uc694. \ub3d9\ub8cc\ub4e4\uacfc \ud568\uaed8 \uc2f8\uc6cc\uc11c \ub2a5\ub825\uc744 \uc5c5\uadf8\ub808\uc774\ub4dc\ud558\uace0, \ub3c5\ud2b9\ud55c \uae30\uc220\uc744 \uc7a0\uae08 \ud574\uc81c\ud558\uace0, \ud2b9\ubcc4\ud55c \ubcf4\uc11d\uc73c\ub85c \uae30\uc220\uc744 \uac1c\uc120\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc5ed\uc2dc \ub3d9\ub8cc\ub4e4\uacfc \ud568\uaed8 \uc218\uc218\uaed8\ub07c\ub97c \ud480\uace0 \uc228\uaca8\uc9c4 \ube44\ubc00\uc744 \ubc1d\ud600\ub0b4\uc138\uc694. Coeur de pirate\uac00 \uc791\uace1\ud55c \uc0ac\uc6b4\ub4dc\ud2b8\ub799\uc744 \ubc30\uacbd\uc73c\ub85c \uc6b4\uc728\uc5d0 \ub9de\ucd94\uc5b4 \ub3d9\ud654\uac19\uc740 \uc774\uc57c\uae30\ub97c \ub530\ub77c\uac00 \ubd05\uc2dc\ub2e4. \uc5b8\uc81c \uc5b4\ub514\uc11c\ub4e0 \ud50c\ub808\uc774\ud574 \ubcf4\uc138\uc694. Nintendo Switch\u2122\ub85c TV \ubaa8\ub4dc\ub098 \ud734\ub300 \ubaa8\ub4dc\ub85c \ud50c\ub808\uc774\ud560 \uc218 \uc788\uace0, \ub610\ub294 \uce5c\uad6c\ub4e4\uacfc \ud568\uaed8 \ud14c\uc774\ube14 \ubaa8\ub4dc\ub85c \uc990\uae38 \uc218\ub3c4 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "zh"
+        ],
+        "size": 2316304384
     }
 }
