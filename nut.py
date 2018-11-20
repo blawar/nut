@@ -875,10 +875,10 @@ if __name__ == '__main__':
 		if args.info:
 			initTitles()
 			initFiles()
-			print(str(len(args.info)))
 			if re.search(r'^[A-Fa-f0-9]+$', args.info.strip(), re.I | re.M | re.S):
 				Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 			else:
+				print('reading')
 				f = Fs.factory(args.info)
 				f.open(args.info, 'r+b')
 				f.printInfo(args.depth+1)
