@@ -65,7 +65,7 @@ def getNsuid(id, region, language):
 			return map[t]
 
 	title = Title.Title()
-	title.nsuId = id
+	title.setNsuId(id)
 
 	map[id] = title
 	return title
@@ -249,7 +249,9 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 	confLock.acquire()
 	try:
 		j = {}
-		for i,k in newTitles.items():
+		#for i in newTitles.items():
+		for i in sorted(newTitles):
+			k = newTitles[i]
 			if not k.nsuId:
 				continue
 
