@@ -519,7 +519,6 @@ class Title:
 		return r
 
 	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
-
 		if 'hero_banner_url' in _json:
 			self.bannerUrl = _json['hero_banner_url']
 
@@ -529,11 +528,14 @@ class Title:
 			except:
 				pass
 
+		'''
 		if "id" in _json:
 			try:
 				self.setNsuId("%s" % _json["id"])
-			except:
+			except BaseException as e:
+				Print.info('error setting nsuid: ' + str(e))
 				pass
+		'''
 
 		if "formal_name" in _json:
 			self.name = _json["formal_name"].strip()
@@ -583,8 +585,10 @@ class Title:
 
 		if "applications" in _json and isinstance(_json["applications"], list):
 			for a in _json["applications"]:
+				'''
 				if "id" in a:
 					self.setId(a['id'])
+				'''
 
 				if "image_url" in a:
 					self.iconUrl = a['image_url']
