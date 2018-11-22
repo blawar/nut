@@ -111,7 +111,6 @@ def loadTitleBuffer(buffer, silent = False):
 			firstLine = False
 			if re.match('[A-Za-z\|\s]+', line, re.I):
 				map = line.split('|')
-				print('map set to ' + str(map))
 				
 				i = 0
 				while i < len(map):
