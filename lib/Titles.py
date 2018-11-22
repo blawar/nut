@@ -67,7 +67,7 @@ def getNsuid(id, region, language):
 	title = Title.Title()
 	title.setNsuId(id)
 
-	map[id] = title
+	map[str(id)] = title
 	return title
 
 def hasNsuid(id, region, language):
@@ -111,6 +111,7 @@ def loadTitleBuffer(buffer, silent = False):
 			firstLine = False
 			if re.match('[A-Za-z\|\s]+', line, re.I):
 				map = line.split('|')
+				print('map set to ' + str(map))
 				
 				i = 0
 				while i < len(map):
@@ -185,7 +186,7 @@ def load():
 	#loadTxtDatabases()
 
 def parsePersonalKeys(path):
-	Print.info('loading ' + path)
+	Print.info('loading personal keys ' + path)
 	parsed_keys = {}
 	with open(path, encoding='utf8', errors='ignore') as f:
 		lines = f.readlines()
@@ -225,7 +226,7 @@ def loadTxtDatabases():
 		files.sort()
 	
 		for file in files:
-			if file.endswith('personal_keys.txt') or file:
+			if file.endswith('personal_keys.txt'):
 				parsePersonalKeys(Config.paths.titleDatabase + '/' + file)
 			else:
 				loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
@@ -268,7 +269,8 @@ def save(fileName = 'titledb/titles.json'):
 	confLock.acquire()
 	try:
 		j = {}
-		for i,k in titles.items():
+		for i in sorted(titles):
+			k = titles[i]
 			if not k.id or k.id == '0000000000000000':
 				continue
 
