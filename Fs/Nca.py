@@ -183,6 +183,14 @@ class NcaHeader(File):
 		self.seek(0x230)
 		self.writeInt128(value, 'big')
 
+	def getIsGameCard(self):
+		self.seek(0x204)
+		return self.readInt8()
+
+	def setIsGameCard(self, value):
+		self.seek(0x204)
+		self.writeInt8(value)
+
 
 class Nca(File):
 	def __init__(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):

@@ -480,6 +480,20 @@ class Nsp(Pfs0):
 				nca.header.setRightsId(0)
 				nca.header.setKeyBlock(encKeyBlock)
 				Hex.dump(encKeyBlock)
+
+	def setGameCard(self, isGameCard = False):
+		if isGameCard:
+			targetValue = 1
+		else:
+			targetValue = 0
+
+		for nca in self:
+			if type(nca) == Nca:
+				if nca.header.getIsGameCard() == targetValue:
+					continue
+
+				Print.info('writing isGameCard for %s, %d' % (str(nca._path),  targetValue))
+				nca.header.setIsGameCard(targetValue)
 			
 		
 	def pack(self, files):
