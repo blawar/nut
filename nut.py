@@ -674,6 +674,7 @@ if __name__ == '__main__':
 		parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 		parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
 		parser.add_argument('-c', '--create', help='create / pack a NSP')
+		parser.add_argument('-e', '--seteshop', help='Set NSP NCA''s as eshop')
 		parser.add_argument('--export', help='export title database in csv format')
 		parser.add_argument('--export-versions', help='export title version database in csv format')
 		parser.add_argument('-M', '--missing', help='export title database of titles you have not downloaded in csv format')
@@ -768,6 +769,14 @@ if __name__ == '__main__':
 			initTitles()
 			initFiles()
 			submitKeys()
+
+		if args.seteshop:
+			#initTitles()
+			#initFiles()
+			f = Fs.factory(args.seteshop)
+			f.open(args.seteshop, 'r+b')
+			f.setGameCard(False)
+			f.close()
 
 		if args.scrape_languages:
 			cdn.Shogun.saveLanguages()
