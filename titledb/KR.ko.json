@@ -260,7 +260,7 @@
             "ja",
             "zh"
         ],
-        "size": 2956984320
+        "size": 2962227200
     },
     "70010000009162": {
         "id": "01002AB007FD2000",
@@ -823,7 +823,7 @@
             "ko",
             "zh"
         ],
-        "size": 3596615680
+        "size": 3601858560
     },
     "70010000009447": {
         "id": "0100E000089F2000",
@@ -1251,7 +1251,7 @@
             "ko",
             "zh"
         ],
-        "size": 13292797952
+        "size": 13303283712
     },
     "70010000010134": {
         "id": "0100842008EC4000",
@@ -3457,6 +3457,46 @@
         ],
         "size": 481296384
     },
+    "70010000014357": {
+        "id": "01009D400C4A8000",
+        "rightsId": null,
+        "name": "\uc0ac\uc774\ucfc4 \uceec\ub809\uc158 Vol.2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181122,
+        "nsuId": 70010000014357,
+        "category": [
+            "\uc288\ud305",
+            "\uc544\ucf00\uc774\ub4dc"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 15,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/104f4b1ae76554b325aa66f83f6152a288504fd47549fef40b47b00abeed538d.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ea1684804733c97558d69f0c4b117f98f42af5b849b80a26b2593abe03ac3ff3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bd979bd2043648d9be94ea642d1884b4c937385de736ffcd74e12cfef8191941.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/908a55bc074229138ed4f320b448a8266079c994f6474367c5326b69950b302a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f955656c3e15c7504a8198d2af3351bfba5411a5e3697eb19e6dbc8cd7aadcba.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0cc63e3841941ab5151feef55ee5e2e2adef5b14a2d26fd8f6fc51cb55a787eb.jpg",
+        "intro": "\uc0ac\uc774\ucfc4 \uc0ac\uc758 \uba85\uc791 \uc288\ud305 \uac8c\uc784\uc774 \ubd80\ud65c\ud55c\ub2e4!\n<\uc0ac\uc774\ucfc4 \uceec\ub809\uc158 Vol.2>",
+        "description": "\uc288\ud305\uc758 \ud601\uba85\uacfc \uc9c4\ud654, \uadf8 \ubc1c\uc790\ucde8\uac00 \uc5ec\uae30\uc5d0!\n\n\uc0ac\uc774\ucfc4(\u5f69\u4eac) \uc0ac\uc758 \uace0\uc804 \uba85\uc791 \uc288\ud305 \uac8c\uc784 \ub124 \uc791\ud488\uc774 \ubaa8\uc600\ub2e4!\n\uc288\ud305 \ubcf8\ub2a5\uc744 \uc790\uadf9\ud558\ub294 4 in 1!\n\ubaa8\ub4e0 \uc2a4\ud1a0\ub9ac\uc640 \ub300\uc0ac\uc5d0 \ud55c\uad6d\uc5b4 \uc9c0\uc6d0!\n\n\uc218\ub85d \ud0c0\uc774\ud2c0 \uc18c\uac1c:\n\u300c\uc2a4\ud2b8\ub77c\uc774\ucee4\uc988 1945 \u2161\u300d\n\uc2dc\ub9ac\uc988 \ucd5c\uace0\uc758 \uc644\uc131\ub3c4! \uc624\ub77d\uc2e4\uc758 \uc815\ubcf5\uc790\n\uc804\ud22c\uae30 \uc288\ud305 \uc2a4\ud2b8\ub77c\uc774\ucee4 \uc2dc\ub9ac\uc988 \uc81c2\uc791\n\n\u300c\uac74\ubc84\ub4dc 2\u300d\n\ucd08\uc778\uae30 \ucf54\ubbf9 \uc5b4\ub4dc\ubca4\ucc98 \uc288\ud305 \uac8c\uc784 \uac74\ubc84\ub4dc\uac00\n2\ubc30\ub85c \ud30c\uc6cc\uc5c5\ud558\uc5ec \ub3cc\uc544\uc654\ub2e4!\n\n\u300c\ud150\uac00\uc774\u300d\n\uc774\uc0c9 \uc804\uad6d \uc288\ud305 \uc0ac\ubb34\ub77c\uc774 \uc5d0\uc774\uc2a4\uc758 \uba85\ub9e5\uc744 \uc787\ub294\n\uc0ac\uc0c1\ucd5c\uac15\uc758 \uc0ac\uc774\ub4dc \uc2a4\ud06c\ub864 \uc288\ud305 \uac8c\uc784\n\n\u300c\ub4dc\ub798\uace4 \ube14\ub808\uc774\uc988\u300d\n\uc544\ub984\ub2e4\uc6b4 \uadf8\ub798\ud53d\uacfc \ub4dc\ub798\uace4\uc744 \ud65c\uc6a9\ud55c\n\ub3c5\ud2b9\ud55c \uc2dc\uc2a4\ud15c\uc774 \ub3cb\ubcf4\uc774\ub294 \ud310\ud0c0\uc9c0 \uc288\ud305",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 705691648
+    },
     "70010000014607": {
         "id": "010036B0034E4000",
         "rightsId": null,
@@ -3578,6 +3618,45 @@
             "zh"
         ],
         "size": 4773117952
+    },
+    "70010000015172": {
+        "id": "0100BDC00A664000",
+        "rightsId": null,
+        "name": "\uac00\uba74\ub77c\uc774\ub354 \ud074\ub77c\uc774\ub9e5\uc2a4 \uc2a4\ud06c\ub7a8\ube14",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181129,
+        "nsuId": 70010000015172,
+        "category": [
+            "\uc561\uc158",
+            "\uaca9\ud22c"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 12,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/22c0e6b66729ec43515a15c6294cd2801f65b3692ac5ee6f405d0a5eb125b7bb.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ee07a34826a363dfa66c9631ecbd1308a5284da7cd951cdcc84c73ab4c17e5d7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d517eda9c1a6a89fd9be8db0cc88b766989bd2757f05c79d4e2b6a66b9578307.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ceb05bd68fcd33516250cf51d45535eb42a626e4a495903f0f8d52d8559fa73b.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/8425128d0b37506633d622b53cdcff9d8b6f4b85af4788762e0acedb208daa0a.jpg",
+        "intro": "\uac00\uc871\uc774\ub098 \uce5c\uad6c\uc640, \uc5b8\uc81c \uc5b4\ub514\uc11c\ub4e0\uc9c0\n\ubaa8\ub450 \ud568\uaed8 \ub77c\uc774\ub354 \ubc30\ud2c0!",
+        "description": "Nintendo Switch \uccab \u300c\uac00\uba74\ub77c\uc774\ub354\u300d \uac8c\uc784\uc774 \ub4f1\uc7a5!\n\u3000\n\uc5ed\ub300 \ud5e4\uc774\uc138\uc774 \ub77c\uc774\ub354\ub4e4\uacfc \ucd5c\uc2e0 \uac00\uba74\ub77c\uc774\ub354\uc778 \u300c\uc9c0\uc624\u300d \ubc0f \u300c\uac8c\uc774\uce20\u300d\ub3c4 \ucc38\uc804\ud558\uc5ec\n\ub300\ubc15\ub825\uc758 \ub77c\uc774\ub354 \ubc30\ud2c0\uc744 \ud3bc\uce58\ub294 \"\ud788\uc5b4\ub85c \ub300\uc804 \uc561\uc158\"\uc774\ub2e4!\n\u3000\n\uce5c\uad6c\ub098 \uac00\uc871\uacfc Joy-Con\uc744 \ub098\ub220 \uac00\uc9c0\uace0 \uacf5\ud22c\ub098 \ub300\uc804\uc744 \uc990\uae38 \uc218 \uc788\ub294 \"\ub098\ub214 \ud50c\ub808\uc774\" \ubc0f\nJoy-Con\uc744 \ud754\ub4e4\uae30\ub9cc \ud558\uba74 \uc0c1\ucf8c\ud558\uac8c \ucf64\ubcf4\ub97c \uc774\uc5b4\uac08 \uc218 \uc788\ub294 \"\ubaa8\uc158 \uc870\uc791\" \ub4f1,\n\ud63c\uc790\uc11c, \ub2e4 \ud568\uaed8 \uadf8\ub9ac\uace0 \uc544\uc774\ubd80\ud130 \uc5b4\ub978\uae4c\uc9c0, \ud3ed\ub113\uc740 \uace0\uac1d\uce35\uc774 \ubc15\ub825 \ub118\uce58\ub294 \ub77c\uc774\ub354 \ubc30\ud2c0\uc744 \uc990\uae38 \uc218 \uc788\ub2e4!\n\u3000\n\uac00\uc871\uc774\ub098 \uce5c\uad6c\uc640 \ubaa8\ub450 \ud568\uaed8 \uc990\uaca8\ubcf4\uc790!\n\n\uac8c\ub2e4\uac00 \ubcf8 \uc791\ud488\uc5d0\ub294 \uc624\ub9ac\uc9c0\ub110 \uc2a4\ud1a0\ub9ac \ubaa8\ub4dc\ub3c4 \ud0d1\uc7ac\ub418\uc5b4 \uc788\ub2e4!\n\u3000\n\uae30\uc5b5\uc774 \ub4a4\ubc14\ub010 \ud5e4\uc774\uc138\uc774 \ub77c\uc774\ub354\ub4e4\uc774\ub098 \uad34\uc778\ub4e4\uc774 \uc9c0\uc624\uc640 \uac8c\uc774\uce20\ub97c \ucc28\ub840\ub85c \uc2b5\uaca9\ud55c\ub2e4!\n\uc9c0\uc624\uc640 \uac8c\uc774\uce20\ub294 \ub77c\uc774\ub354\ub4e4\uc758 \uae30\uc5b5\uc744 \ub418\ucc3e\uc544\uc8fc\uba74\uc11c \uadf8 \uc774\uba74\uc5d0 \uc228\uc740 \uc0ac\uc545\ud55c \uadf8\ub9bc\uc790\ub97c \ubb3c\ub9ac\uce58\uae30 \uc704\ud574 \uacc4\uc18d \uc2f8\uc6cc\ub098\uac04\ub2e4!",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 2911895552
     },
     "70010000015693": {
         "id": "0100187003A36000",

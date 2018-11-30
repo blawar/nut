@@ -800,7 +800,7 @@
             "es",
             "fr"
         ],
-        "size": 3596615680
+        "size": 3601858560
     },
     "70010000002722": {
         "id": "01009BF0072D4000",
@@ -1359,7 +1359,7 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": null,
+        "releaseDate": 20181108,
         "nsuId": 70010000012305,
         "category": [
             "Acci\u00f3n",
