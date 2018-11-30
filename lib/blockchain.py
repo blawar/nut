@@ -174,6 +174,14 @@ class Blockchain:
 					return t.titleKey
 		return None
 
+	def export(self):
+		lst = {}
+		for c in self.chain:
+			for t in c.transactions:
+				lst[t.titleId] = t.titleKey
+		return lst
+
+
 	def register_node(self, address):
 		"""
 		Add a new node to the list of nodes
