@@ -487,6 +487,7 @@ def unlockAll():
 
 def exportVerifiedKeys(fileName):
 	with open(fileName, 'w') as f:
+		f.write('id|key\n')
 		for tid,key in blockchain.blockchain.export().items():
 			f.write(str(tid) + '|' + str(key) + '\n')
 
