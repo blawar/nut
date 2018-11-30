@@ -485,6 +485,11 @@ def unlockAll():
 			except BaseException as e:
 				Print.info('error unlocking: ' + str(e))
 
+def exportVerifiedKeys(fileName):
+	with open(fileName, 'w') as f:
+		for tid,key in blockchain.blockchain.export().items():
+			f.write(str(tid) + '|' + str(key) + '\n')
+
 def submitKeys():
 	for id, t in Titles.items():
 		if t.key and len(t.getFiles()) > 0:
@@ -687,6 +692,7 @@ if __name__ == '__main__':
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
 		parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
 		parser.add_argument('-k', '--submit-keys', action="store_true", help='Submit all title keys to blockchain')
+		parser.add_argument('-K', '--export-verified-keys', help='Exports verified title keys from blockchain')
 
 		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
@@ -1020,6 +1026,9 @@ if __name__ == '__main__':
 			initTitles()
 			initFiles()
 			startBaseScan()
+
+		if args.export_verified_keys:
+			exportVerifiedKeys(args.export_verified_keys)
 
 		Status.close()
 	
