@@ -83,6 +83,10 @@ def hasNsuid(id, region, language):
 	
 def contains(key, region = None):
 	return key in titles
+
+def erase(id):
+	id = id.upper()
+	del titles[id]
 	
 def set(key, value):
 	titles[key] = value
@@ -270,7 +274,7 @@ def save(fileName = 'titledb/titles.json'):
 		j = {}
 		for i in sorted(titles):
 			k = titles[i]
-			if not k.id or k.id == '0000000000000000':
+			if not k.id or k.id == '0000000000000000' or k.id in Config.titleBlacklist:
 				continue
 
 			j[k.id] = k.exportDict()
