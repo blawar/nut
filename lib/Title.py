@@ -428,7 +428,7 @@ class Title:
 		
 			if not self.version or force:
 				self.version = Title.getCdnVersion(self.id)
-				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
+				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
 			#Print.info('version: ' + str(self.version))
 			return self.version

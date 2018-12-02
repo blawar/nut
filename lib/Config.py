@@ -117,6 +117,8 @@ threads = 4
 jsonOutput = False
 isRunning = True
 
+titleBlacklist = []
+
 region = 'US'
 language = 'en'
 
