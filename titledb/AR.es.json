@@ -843,6 +843,55 @@
         ],
         "size": 1587544064
     },
+    "70010000003208": {
+        "id": "0100633007D48000",
+        "rightsId": null,
+        "name": "Hollow Knight",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000003208,
+        "category": [
+            "Acci\u00f3n",
+            "Aventura",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Violencia de fantasia",
+            "Bajo contenido de sangre"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Team Cherry",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/91540557d07599fd6b8d63e544320fc682e71ec8d30f2b7c3d13568af18323be.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/50162a28f3e73c7e80021d799acce991a0b051105f209565088cd254a2a986d1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/208c3efdf8bf7cb5ba1f2154f5508d97af71b7853dc8e7eff302d3b1804bb178.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6266f71028d118acbc56f2952106b99b8a81de0c4d80db5729db2f2d8c48b15e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ddcf359a6e8a2bb8b2eabf9fc26b9511b047745320c2d56aeabf24222f0967fc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c9eaec86c13661401717a75546d7e6af55fa0da8b3d3e41e9d58b0c037cc7de7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/93309648ca2cf8d7a269da8f3deb386833497d857e8344d339caf3f81fc8a2f1.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51.jpg",
+        "intro": "\u00a1Forja tu propio camino en Hollow Knight! Una aventura \u00e9pica a trav\u00e9s de un vasto reino de insectos y h\u00e9roes que se encuentra en ruinas.",
+        "description": "Hollow Knight es una aventura de acci\u00f3n cl\u00e1sica en 2D ambientada en un vasto mundo interconectado. Explora cavernas tortuosas, ciudades antiguas y p\u00e1ramos mortales. Combate contra criaturas corrompidas, haz nuevas amistades con extra\u00f1os insectos y resuelve los antiguos misterios que yacen en el coraz\u00f3n del reino.\n\n\u00a1Incluye nuevos packs de contenido gratis! \u00a1Todas las misiones nuevas, batallas contra jefes y secretos!\n\u2022Sue\u00f1os Ocultos: \u00a1Poderosos enemigos emergen! Nuevas batallas contra jefes. Nuevas mejoras. Nueva m\u00fasica.\n\u2022La Compa\u00f1\u00eda de Grimm: Enciende la Linterna Pesadilla. Invoca a la Compa\u00f1\u00eda. Nueva Misi\u00f3n Principal. Nuevas Batallas contra Jefes. Nueos Amuletos. Nuevos Enemigos. Nuevos Amigos.\n\u2022Saviavida: Nuevas Herramientas Cartogr\u00e1ficas. Nueva Batalla contra un Jefe. Jefes Mejorados. Nuevas Pistas de M\u00fasica. \u00a1M\u00e1s Extras Escondidos!\n\nCaracter\u00edsticas del juego\n\u2022 Controles 2D perfectamente ajustados. Esquiva, corre y golpea para abrirte camino incluso frente a los adversarios m\u00e1s mortales.\n\u2022 Explora un vasto mundo interconectado de caminos olvidados, vegetaci\u00f3n salvaje y ciudades en ruinas.\n\u2022 \u00a1Forja tu propio camino! El mundo de Hallownest es extenso y abierto. Elige qu\u00e9 rutas seguir, a qu\u00e9 enemigos enfrentarte y encuentra tu propio camino.\n\u2022 \u00a1Evoluciona con habilidades nuevas y poderosas! Adquiere hechizos, fuerza y velocidad. Llega a nuevas alturas con las alas et\u00e9reas. Avanza r\u00e1pidamente en un destello fulminante. \u00a1Acaba con los enemigos gracias al Alma \u00cdgnea!\n\u2022 \u00a1Equipa amuletos! Antiguas reliquias que proporcionan poderes y habilidades extra\u00f1as. \u00a1Elige las que prefieras y emprende un viaje \u00fanico!\n\u2022 Un inmenso elenco de personajes adorables y extra\u00f1os que cobran vida gracias a una animaci\u00f3n tradicional fotograma a fotograma en 2D.\n\u2022 \u00a1M\u00e1s de 140 enemigos! \u00a130 jefes \u00e9picos! Enfr\u00e9ntate a bestias feroces y vence a caballeros antiguos durante tu b\u00fasqueda a trav\u00e9s del reino. \u00a1Rastrea hasta el \u00faltimo enemigo y a\u00f1\u00e1delo a tu Diario del Cazador!\n\u2022 Entra en sus mentes con el Aguij\u00f3n On\u00edrico. Descubre un lado nuevo de los personajes y de los enemigos a los que te enfrentes.\n\u2022 Los bellos paisajes coloreados con una perspectiva extravagante consiguen que este mundo transmita una sensaci\u00f3n de profundidad.\n\u2022 Registra tu viaje con numerosas herramientas de cartograf\u00eda. Compra br\u00fajulas, plumas, mapas y marcadores para entender mejor los paisajes serpenteantes de Hollow Knight.\n\u2022 Una banda sonora \u00edntima e inquietante, compuesta por Christopher Larkin, acompa\u00f1a al jugador durante su viaje.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 5689573376
+    },
     "70010000003482": {
         "id": "01005D100807A000",
         "rightsId": null,

@@ -843,6 +843,55 @@
         ],
         "size": 1587544064
     },
+    "70010000003208": {
+        "id": "0100633007D48000",
+        "rightsId": null,
+        "name": "Hollow Knight",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000003208,
+        "category": [
+            "Action",
+            "Adventure",
+            "Platformer"
+        ],
+        "ratingContent": [
+            "Fantasy Violence",
+            "Mild Blood"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Team Cherry",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/91540557d07599fd6b8d63e544320fc682e71ec8d30f2b7c3d13568af18323be.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/50162a28f3e73c7e80021d799acce991a0b051105f209565088cd254a2a986d1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/208c3efdf8bf7cb5ba1f2154f5508d97af71b7853dc8e7eff302d3b1804bb178.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6266f71028d118acbc56f2952106b99b8a81de0c4d80db5729db2f2d8c48b15e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ddcf359a6e8a2bb8b2eabf9fc26b9511b047745320c2d56aeabf24222f0967fc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c9eaec86c13661401717a75546d7e6af55fa0da8b3d3e41e9d58b0c037cc7de7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/93309648ca2cf8d7a269da8f3deb386833497d857e8344d339caf3f81fc8a2f1.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51.jpg",
+        "intro": "Forge your own path in Hollow Knight! An epic action adventure through a vast, ruined kingdom of insects and heroes.",
+        "description": "Hollow Knight is a classically styled 2D action adventure across a vast interconnected world. Explore twisting caverns, ancient cities and deadly wastes; battle tainted creatures and befriend bizarre bugs; and solve ancient mysteries at the kingdom's heart.\n\nIncludes free content packs! All new quests, boss battles and secrets!\n\u2022 Hidden Dreams: Mighty new foes emerge! New Boss fights. New Upgrades. New Music.\n\u2022 The Grimm Troupe: Light the Nightmare Lantern. Summon the Troupe. New Major Quest. New Boss Fights. New Charms. New Enemies. New Friends.\n\u2022 Lifeblood: New mapping tools. New Boss fight. Upgraded Bosses. New Music. Hidden Extras!\n\nGame Features\n\u2022 Classic side-scrolling action, with all the modern trimmings.\n\u2022 Forge your own path! The world of Hallownest is expansive and open. Choose which paths you take, which enemies you face and find your own way forward.\n\u2022 Evolve with powerful new skills and abilities! Gain spells, strength and speed. Leap to new heights on ethereal wings. Dash forward in a blazing flash. Blast foes with fiery Soul!\n\u2022 Equip Charms! Ancient relics that offer bizarre new powers and abilities. Choose your favourites and make your journey unique!\n\u2022 An enormous cast of cute and creepy characters all brought to life with traditional 2D frame-by-frame animation.\n\u2022 Over 140 enemies! 30 epic bosses! Face ferocious beasts and vanquish ancient knights on your quest through the kingdom.\n\u2022 Chart your journey with extensive mapping tools. Buy compasses, quills, maps and pins to enhance your understanding of Hollow Knight\u2019s many twisting landscapes.\n\u2022 A haunting, intimate score accompanies the player on their journey, composed by Christopher Larkin.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 5689573376
+    },
     "70010000003482": {
         "id": "01005D100807A000",
         "rightsId": null,

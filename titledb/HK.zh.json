@@ -3666,6 +3666,117 @@
         ],
         "size": 4472176640
     },
+    "70010000015950": {
+        "id": "01002D700B906000",
+        "rightsId": null,
+        "name": "\u863f\u6a02\u5a1c\u7684\u934a\u91d1\u5de5\u623f \uff5e\u4e9e\u862d\u5fb7\u4e4b\u934a\u91d1\u8853\u58eb\uff5e DX",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181204,
+        "nsuId": 70010000015950,
+        "category": [
+            "\u89d2\u8272\u626e\u6f14"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "TECMO KOEI GAMES",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/ca209f949795e3baa15990e96ab9b59e753ee6d60af34f79f7de90a6df7c3b61.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/1c4a7c10c40229b01cb750552a39cd098fd56c4bc3053d89a2a0c0ec0fcd1a34.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c334d762857be5668c06b56c6774ac6b45c17ed03b6bcf1ace1326de3393841d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d2ad694b6e73d50ae20caef6bb95b745aad632d8e106987e9d8076e7acfc0803.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4a074827b1c626e5a1d68f165e10d99ff111483a0dd18c326f1b16cf239c4ddb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ecabb76e3f58a6bd3520a29927f2d51672dd415b52aa5723ede23786b4eacd6a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f8e7065d79afaa62c332537a52319af08ba9294498bdc97882e5bda13f68f22f.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/8cafcc54489464fdf2110f06852f9cc8f3fa4d3aada44ff3f205a600ab0e62a0.jpg",
+        "intro": "\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u65bcNintendo Switch\u767b\u5834\uff01\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\uff01",
+        "description": "\u300c\u934a\u91d1\u5de5\u623f\u300d\u7cfb\u5217\u4e2d\u64c1\u6709\u8d85\u9ad8\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u4e09\u90e8\u66f2\u63a8\u51fa\u4e86DX\u7248\u3002\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\u4e4b\u8c6a\u83ef\u7248\u9686\u91cd\u554f\u4e16\u3002\n\u672c\u904a\u6232\u70ba\u4e9e\u862d\u5fb7\u4e09\u90e8\u66f2\u7684\u7b2c\u4e00\u90e8\u4f5c\u54c1\u3002\n\u63cf\u5beb\u521d\u51fa\u8305\u5eec\u7684\u934a\u91d1\u8853\u58eb\u863f\u6a02\u5a1c\u70ba\u9632\u6b62\u934a\u91d1\u5de5\u623f\u88ab\u6bc0\uff0c\u904b\u7528\u934a\u91d1\u8853\u5b8c\u6210\u773e\u591a\u59d4\u8a17\uff0c\u81f4\u529b\u6062\u5fa9\u934a\u91d1\u5de5\u623f\u7684\u4fe1\u7528\uff0c\u596e\u9b25\u4e09\u5e74\u7684\u8271\u8f9b\u53f2\u3002\n\u656c\u8acb\u4eab\u73a9\u5c0d\u61c9\u4e86Nintendo Switch\uff0c\u66f4\u52a0\u7d30\u7dfb\u7684\u300c\u863f\u6a02\u5a1c\u7684\u934a\u91d1\u5de5\u623f\u300d\u3002",
+        "languages": [
+            "ja",
+            "zh"
+        ],
+        "size": 9729736704
+    },
+    "70010000016165": {
+        "id": "01003F100B908000",
+        "rightsId": null,
+        "name": "\u6258\u6258\u8389\u7684\u934a\u91d1\u5de5\u623f \uff5e\u4e9e\u862d\u5fb7\u4e4b\u934a\u91d1\u8853\u58eb2\uff5e DX",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181204,
+        "nsuId": 70010000016165,
+        "category": [
+            "\u89d2\u8272\u626e\u6f14"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "TECMO KOEI GAMES",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/4b2a8e37a8c29af82f899273064480f24dd975c21a33a77479733410243a3f76.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/f8c8ae56f0d2f1521d6e958b4c347e620b8fb4e18a6ddbc1a80a0d625aed292f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/020588f4980081768a1130a19fee883fc70546832cd57b73f00bd182e3279e19.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ef2e49018a3a574070f31a34af8a5c48d009ed7a982325ddfc6ecd5686f673e3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/41ddd6044602950f22fd3000fe8993ada96597f39b0702e2579a98c9d7ed5d6a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b052074a47d20c3253ab0c4ec0f2a17ab21c142a7416b636c35b87e92773fcc3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/645a2943c75ab1656249952309022b4d77e337a5c7ffb9c25b2e2650295bc578.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b68e40e168a16d3bdcdfde87f735dd0c3574ab0db4eaa954da9144510faf4b68.jpg",
+        "intro": "\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u65bcNintendo Switch\u767b\u5834\uff01\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\uff01",
+        "description": "\u300c\u934a\u91d1\u5de5\u623f\u300d\u7cfb\u5217\u4e2d\u64c1\u6709\u8d85\u9ad8\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u4e09\u90e8\u66f2\u63a8\u51fa\u4e86DX\u7248\u3002\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\u4e4b\u8c6a\u83ef\u7248\u9686\u91cd\u554f\u4e16\u3002\n\u672c\u904a\u6232\u70ba\u4e9e\u862d\u5fb7\u4e09\u90e8\u66f2\u7684\u7b2c\u4e8c\u90e8\u4f5c\u54c1\u3002\n\u63cf\u5beb\u934a\u91d1\u8853\u58eb\u5c11\u5973\u6258\u6258\u8389\u70ba\u627e\u5c0b\u4e0b\u843d\u4e0d\u660e\u7684\u6bcd\u89aa\u800c\u6210\u70ba\u570b\u5bb6\u516c\u8a8d\u7684\u5192\u96aa\u8005\uff0c\u53d7\u5404\u7a2e\u6b77\u7df4\u5f8c\u9010\u6f38\u6210\u9577\u7684\u6545\u4e8b\u3002\n\u656c\u8acb\u4eab\u73a9\u5c0d\u61c9\u4e86Nintendo Switch\uff0c\u66f4\u52a0\u7d30\u7dfb\u7684\u300c\u6258\u6258\u8389\u7684\u934a\u91d1\u5de5\u623f\u300d\u3002",
+        "languages": [
+            "ja",
+            "zh"
+        ],
+        "size": 8249147392
+    },
+    "70010000016195": {
+        "id": "0100E9300B90A000",
+        "rightsId": null,
+        "name": "\u6885\u9732\u9732\u7684\u934a\u91d1\u5de5\u623f \uff5e\u4e9e\u862d\u5fb7\u4e4b\u934a\u91d1\u8853\u58eb3\uff5e DX",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181204,
+        "nsuId": 70010000016195,
+        "category": [
+            "\u89d2\u8272\u626e\u6f14"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "TECMO KOEI GAMES",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/93c70ccd8860ab0a7bee7eb6b62a9ebb5f3d6d2e519f1db9b6d91e7edfc90e98.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/e3927c344036b6cdff88466e64bcefbb06e724025adc92dc25b8b9951b519e65.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ed8f9ffc91e9b41f212af374e4e44af4e8f7b8d9ed9166aed795c2ff87ab97c3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0a3d3c84f0cead3302eafbdd1ec181eb9f2f255c7454d217c80127931f7dc717.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1cad93b7ec9af645a4e97990baaca3cf2f41d19e0ea5479c0137bc99f72d8908.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c5913d154210f2ef61664bf469680408f1bd7b96ca69597ca6ddfd68fccd87c4.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5dc28edafa96bb071c48b20b5e86c0282e0525eec148fb203939fcb5121105d2.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/86b45a7c793947bd6f5817a9707d484a042f3702b70736543c9e77ea098273b7.jpg",
+        "intro": "\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u65bcNintendo Switch\u767b\u5834\uff01\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\uff01",
+        "description": "\u300c\u934a\u91d1\u5de5\u623f\u300d\u7cfb\u5217\u4e2d\u64c1\u6709\u8d85\u9ad8\u4eba\u6c23\u7684\u300c\u4e9e\u862d\u5fb7\u300d\u7cfb\u5217\u4e09\u90e8\u66f2\u63a8\u51fa\u4e86DX\u7248\u3002\n\u6536\u9304\u4e86\u81f3\u4eca\u70ba\u6b62\u7684\u8a31\u591aDLC\u4e4b\u8c6a\u83ef\u7248\u9686\u91cd\u554f\u4e16\u3002\n\u672c\u904a\u6232\u70ba\u4e9e\u862d\u5fb7\u4e09\u90e8\u66f2\u7684\u7b2c\u4e09\u90e8\u4f5c\u54c1\u3002\n\u504f\u9060\u5c0f\u570b\u4e9e\u723e\u8332\u738b\u570b\u7684\u516c\u4e3b\u6885\u9732\u9732\u70ba\u4e86\u81ea\u570b\u7684\u767c\u5c55\uff0c\u904b\u7528\u5176\u5e2b\u6258\u6258\u8389\u50b3\u6388\u7684\u934a\u91d1\u8853\uff0c\u7a4d\u6975\u62d3\u5c55\u81ea\u570b\u7684\u6545\u4e8b\u3002\n\u656c\u8acb\u4eab\u73a9\u5c0d\u61c9\u4e86Nintendo Switch\uff0c\u66f4\u52a0\u7d30\u7dfb\u7684\u300c\u6885\u9732\u9732\u7684\u934a\u91d1\u5de5\u623f\u300d\u3002",
+        "languages": [
+            "ja",
+            "zh"
+        ],
+        "size": 9215934464
+    },
     "70050000004094": {
         "id": "01007EF00011F001",
         "rightsId": null,
