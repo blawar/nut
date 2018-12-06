@@ -848,6 +848,8 @@ if __name__ == '__main__':
 			organize()
 
 		if args.set_masterkey1:
+			initTitles()
+			initFiles()
 			f = Fs.Nsp(args.set_masterkey1, 'r+b')
 			f.setMasterKeyRev(0)
 			f.flush()
@@ -855,6 +857,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey2:
+			initTitles()
+			initFiles()
 			f = Fs.Nsp(args.set_masterkey2, 'r+b')
 			f.setMasterKeyRev(2)
 			f.flush()
@@ -862,6 +866,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey3:
+			initTitles()
+			initFiles()
 			f = Fs.Nsp(args.set_masterkey3, 'r+b')
 			f.setMasterKeyRev(3)
 			f.flush()
@@ -869,6 +875,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey4:
+			initTitles()
+			initFiles()
 			f = Fs.Nsp(args.set_masterkey4, 'r+b')
 			f.setMasterKeyRev(4)
 			f.flush()
@@ -876,6 +884,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey5:
+			initTitles()
+			initFiles()
 			f = Fs.Nsp(args.set_masterkey5, 'r+b')
 			f.setMasterKeyRev(5)
 			f.flush()
