@@ -50,7 +50,7 @@ def makeRequest(method, url, hdArgs={}):
 
 	return r
 
-def makeJsonRequest(method, url, hdArgs={}, key = None):
+def makeJsonRequest(method, url, hdArgs={}, key = None, force = False):
 	os.makedirs('cache/bugyo/', exist_ok=True)
 	cacheFileName = 'cache/bugyo/' + hashlib.md5(url.encode()).hexdigest()
 
@@ -59,7 +59,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	j = None
 
-	if cdn.isValidCache(cacheFileName):
+	if cdn.isValidCache(cacheFileName) and not force:
 		if not key:
 			with open(cacheFileName, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
@@ -69,7 +69,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None):
 
 	if key:
 		cacheFileName = key
-		if cdn.isValidCache(cacheFileName):
+		if cdn.isValidCache(cacheFileName) and not force:
 			with open(key, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
 
@@ -126,7 +126,7 @@ def scrapeTitles(region = 'US', shop_id = 4):
 		scrapeLangTitles(region, language, shop_id)
 	Titles.save()
 
-def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4):
+def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4, force = False):
 	Print.info('Scraping %s %s' % (region, language))
 	pageSize = 50
 	offset = 0
@@ -135,7 +135,7 @@ def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4):
 	while offset < total:
 		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles?shop_id=%d&lang=%s&country=%s&sort=new&limit=%d&offset=%d' % (Config.cdn.environment, shop_id, language, region, pageSize, offset)
 		#print(url)
-		j = makeJsonRequest('GET', url, {}, '%d/%s/%s/titles/index/%d-%d.json' % (shop_id, language, region, pageSize, offset))
+		j = makeJsonRequest('GET', url, {}, '%d/%s/%s/titles/index/%d-%d.json' % (shop_id, language, region, pageSize, offset), force = False)
 
 		if not j:
 			break
@@ -248,8 +248,8 @@ def getNsuIds(titleIds, type='title', region = 'US', language = 'en', shop_id = 
 			title = Titles.getNsuid(nsuId, region, language)
 			title.setId(titleId)
 
-
 			try:
+				pass
 				if title.isDLC:
 					title.parseShogunJson(getDlcByNsuid(nsuId, region, language), region, language, True)
 				elif not title.isUpdate:
