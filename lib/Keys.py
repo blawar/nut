@@ -88,8 +88,11 @@ def load(fileName):
 		else:
 			titleKeks.append('0' * 32) 
 
-				
-load('keys.txt')
+
+try:			
+	load('keys.txt')
+except BaseException as e:
+	Print.error(str(e))
 
 #for k in titleKeks:
 #	Print.info('titleKek = ' + k)
