@@ -213,8 +213,8 @@ def getDownload(request, response, start = None, end = None):
 		response.attachFile(nsp.titleId + '.nsp')
 
 		if len(request.bits) >= 5:
-			start = int(request.bits[3])
-			end = int(request.bits[4])
+			start = int(request.bits[-2])
+			end = int(request.bits[-1])
 	
 		chunkSize = 0x400000
 
