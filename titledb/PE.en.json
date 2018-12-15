@@ -1311,7 +1311,7 @@
             "ru",
             "ko"
         ],
-        "size": 3655335936
+        "size": 3659530240
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1501,7 +1501,7 @@
             "ko",
             "zh"
         ],
-        "size": 15075377152
+        "size": 15084814336
     },
     "70010000012879": {
         "id": "0100D870045B6000",
@@ -1544,7 +1544,7 @@
             "fr",
             "pt"
         ],
-        "size": 93323264
+        "size": 98566144
     },
     "70010000013704": {
         "id": "010044500C182000",
@@ -3194,6 +3194,31 @@
         "region": null,
         "releaseDate": null,
         "nsuId": 70070000001041,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000003621": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000003621,
         "category": null,
         "ratingContent": null,
         "numberOfPlayers": null,
