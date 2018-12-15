@@ -6199,6 +6199,38 @@
         "languages": null,
         "size": 20971520
     },
+    "70050000009501": {
+        "id": "0100D6000B52D004",
+        "rightsId": null,
+        "name": "SNK HEROINES Tag Team Frenzy: \u65b0\u589e\u89d2\u8272 \"\u8c9e\u5fb7\"",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181213,
+        "nsuId": 70050000009501,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/023935c1b38a3215be6d111a73c4e608d62fc138315bea097155275b1553288d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/923ed48e8503f928304ddfa81021c2e59c23b45e938424d509c91980dd5657ac.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3fdac8f9f7b93778e130fe4e580dde0a1280d76208a675dbeb4593ac81ccd73f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/73919ed116c8a0a53abeaf94c6ccecf411b28585a0b29ba0aaa65e99b2b9866f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/37e3df4ea5b3dec6d6c9d9ef2183d7dd8ededaf38f14bb17edea76ddda384c8f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e060140693782579143d4cead547828a3fde24e40c84f2e04761194364a59d53.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2c1f9320afeea732945830c7d0cd95fdcb96a4e363cd0a64f1e42ee111b8ae63.jpg",
+        "intro": null,
+        "description": "\u8cfc\u8cb7\u672c\u5546\u54c1\u5f8c\u53ef\u5728\u300cSNK HEROINES Tag Team Frenzy\u300d\u904a\u6232\u6b63\u7bc7\n\u4f7f\u7528\u65b0\u589e\u89d2\u8272\u300c\u8c9e\u5fb7\u300d\u3002\n",
+        "languages": null,
+        "size": 4194304
+    },
     "70070000002461": {
         "id": null,
         "rightsId": null,
