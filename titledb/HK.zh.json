@@ -3189,7 +3189,7 @@
             "ko",
             "zh"
         ],
-        "size": 3333423104
+        "size": 3474980864
     },
     "70010000013625": {
         "id": "0100192003FA4000",
@@ -3593,6 +3593,46 @@
             "zh"
         ],
         "size": 3656384512
+    },
+    "70010000014731": {
+        "id": "010037200C72A000",
+        "rightsId": null,
+        "name": "Nippon Marathon",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181217,
+        "nsuId": 70010000014731,
+        "category": [
+            "\u6d3e\u5c0d",
+            "\u7af6\u901f",
+            "\u52d5\u4f5c"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 8,
+        "rating": null,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/726f04cd68fe67b9f50ac528478585803e8d849b9a170bf03cf31bc9bf76c5c0.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/744bfcbf3899df5df0f90b808c9b74edb8a66d080fbb2ffe561d937abf65d0c9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e99c5fc455dc03b797fd2459fad3060af143fdd05d7edea1c8fe1533548d0638.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/76be0e487977690a83d42a43d25a00e1b27c42b236252f2d74509aaf198ea000.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cf7bc479396223d884a947cdd27d009d4580df1b6204beac8946c29f9976c81c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/86bb1564acde297c2553d291b61fad936dc9ea97b23c162d1405b377a2ae4141.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/65456513afd06f1ed5d4bba6f8905d4b846d0457133923133e5ac1ba989e170b.jpg",
+        "intro": null,
+        "description": "\u4e00\uff01\u4e8c\uff01\u4e09\uff01\u51fa\u767c\uff01\uff01\uff01\n\u62c9\u4f38\u808c\u8089\uff0c\u958b\u59cb\u9019\u5834\u7d42\u6975\u65e5\u672c\u99ac\u62c9\u677e\u5927\u8cfd\u3002\n\u5728\u9019\u6b3e\u5341\u5206\u760b\u72c2\uff0c\u57fa\u65bc\u7269\u7406\u6f14\u7b97\uff0c\u56db\u4eba\u805a\u6703\u578b\u7af6\u8cfd\u904a\u6232\u4e2d\uff0c\u4e00\u5207\u7686\u6709\u53ef\u80fd\uff01\n\u969c\u7919\u6876\uff0c\u8dd1\u5f97\u6bd4\u8ab0\u90fd\u5feb\u7684\u67f4\u72ac\uff0c\u885d\u51fa\u5c0f\u5f91\u7684\u81ea\u884c\u8eca\uff0c\u800c\u8207\u6b64\u540c\u6642\u5954\u8dd1\u5728\u8cfd\u9053\u4e0a\u7684\u4f60\u9700\u8981\u671d\u8457\u5c0d\u624b\u7838\u6c34\u679c\uff0c\u885d\u904e\u67b6\u5728\u7011\u5e03\u4e0a\u65b9\u4e26\u4e0d\u7a69\u5b9a\u7684\u6728\u677f\uff0c\n\u5728\u9019\u865b\u5e7b\u7684\u8a2d\u5b9a\u4e2d\u4f60\u6703\u611f\u5230\u771f\u5be6\u7684\u6a02\u8da3\uff01",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 3297771520
     },
     "70010000014944": {
         "id": "0100F1B00B456000",
