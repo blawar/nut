@@ -350,7 +350,7 @@
             "es",
             "fr"
         ],
-        "size": 6001000448
+        "size": 6020923392
     },
     "70010000000600": {
         "id": "0100F15003E64000",
@@ -442,7 +442,7 @@
             "pt",
             "zh"
         ],
-        "size": 13798211584
+        "size": 14120124416
     },
     "70010000000705": {
         "id": "010095A004040000",
@@ -1212,6 +1212,55 @@
         ],
         "size": 13870563328
     },
+    "70010000006411": {
+        "id": "0100EA80032EA000",
+        "rightsId": null,
+        "name": "New Super Mario Bros.\u2122 U Deluxe",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190111,
+        "nsuId": 70010000006411,
+        "category": [
+            "Platformer",
+            "Action"
+        ],
+        "ratingContent": [
+            "Comic Mischief"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/658a846bafd5446bbdfc163c46937152887c6c39eb5f1e6b2337ddec3352b524.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/f7eab80bf81dace25f1372f2b0ac5a63e3653af74468f73f37c6bb27df638a93.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5e1ca57f22a388d696dd0883ea3b5453c7c9e59ff0fea05dd912a2fcb88d1985.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5d7c325d4bac7e8af8da21d05376a007e4701421cec4a9a8791677162817eed9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/10ad0a494ed4eb05efebfbb08a7b878a65c17cdeb80101712eed1fe2966b86be.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/26826beae5aa713a619278d2003d44f15ca591d831a312e2f56aee7a709d7409.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cf09bb956319bb998c3ac9ac52c19c5ad3ca72902451e2a683a3b03a87f6e0e9.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/94ed1229e652a2907402c6bbc4589b633af055bcb83df733665b89986f9056de.jpg",
+        "intro": "Two Super Mario Bros. games in one, for double the fun!",
+        "description": "Join Mario, Luigi, and pals for single-player or multiplayer fun anytime, anywhere! Take on two family-friendly, side-scrolling adventures with up to three friends* as you try to save the Mushroom Kingdom. Includes the New Super Mario Bros. U and harder, faster New Super Luigi U games\u2014both of which include Nabbit and Toadette as playable characters!\n\nTwo games in one, for double the fun! Simple, straightforward controls, new playable characters optimized for younger and less-experienced players, and a wealth of bonus content\u2014like a Hints gallery and helpful reference videos**\u2014make this a perfect choice for anyone looking to introduce their family to the wonderful world of Mario. All a player needs is one Joy-Con\u2122 controller, so two people can team up right out of the box! Tackle 164 platforming courses in the two main game modes and enjoy extra replayability with three additional game modes in which you can also play as a Mii\u2122 character: Challenges, Boost Rush, and Coin Battle!\n\n*Additional accessories may be required for multiplayer mode. Sold separately.\n**Internet access required in order to access Videos gallery\n",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 2696937472
+    },
     "70010000006801": {
         "id": "010008900705C000",
         "rightsId": null,
@@ -1400,7 +1449,7 @@
             "ko",
             "zh"
         ],
-        "size": 7913603072
+        "size": 7882145792
     },
     "70010000010192": {
         "id": "010025400AECE000",
@@ -1451,7 +1500,7 @@
             "ru",
             "ko"
         ],
-        "size": 3659530240
+        "size": 4006608896
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -3358,14 +3407,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008422,
         "category": null,
         "ratingContent": [
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
@@ -3418,14 +3468,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008424,
         "category": null,
         "ratingContent": [
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
@@ -3448,14 +3499,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008425,
         "category": null,
         "ratingContent": [
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
@@ -3478,14 +3530,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008426,
         "category": null,
         "ratingContent": [
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
