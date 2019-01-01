@@ -766,6 +766,56 @@
         ],
         "size": 7158628352
     },
+    "70010000001515": {
+        "id": "010095300212A000",
+        "rightsId": null,
+        "name": "Resident Evil Revelations 2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181224,
+        "nsuId": 70010000001515,
+        "category": [
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Derramamiento de sangre",
+            "Violencia intensa",
+            "Interacciones en linea no estan clasificadas por la ESRB",
+            "Lenguaje fuerte"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 17,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/c4ae8e6f29c8e411dd59b9affa773b00dbdbfe5a7f2349d444c98bb4dcbb1383.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ab181d3458bf86c90c5c47ae037ceb29d9a52277eebd07f1d98a5eff1511ae74.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d080a6eccc7c1071b46d59b1d394352a9d8d3ecf1679df77722c4fd15d5c5d72.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1223e68a7e0d8865c90a9082705917bcb52c378b8cd329d810f1c256ca2a11a2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3dd45b884cd0f4d0535d47c1910eac07621e65b38c3fadde2db558b8f5ea852f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1de64438c4cb8ad46ec84535469b7a8e6810ee2728e2fb323484447fdcc057bd.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5216f24968dae16cd0274803f17fcd675bb99482230101aaa38d01fc873552a5.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/45a131c42a6c4d0923f738d6393f034a0daca4f280e17c8f193cee151921c7d8.jpg",
+        "intro": "El mal observa",
+        "description": "Al comienzo de Resident Evil Revelations 2 veremos el espectacular regreso de Claire Redfield, uno de los personajes preferidos de los aficionados. Claire sobrevivi\u00f3 al incidente de Raccoon City narrado en entregas anteriores de Resident Evil y ahora trabaja para la organizaci\u00f3n antibioterrorista Terra Save. Moira Burton asiste a su fiesta de bienvenida a Terra Save cuando soldados desconocidos asaltan las oficinas. Claire y Moira pierden el conocimiento y, al despertar, se encuentran en una penitenciar\u00eda oscura y abandonada. Deber\u00e1n colaborar para descubrir qui\u00e9n las rapt\u00f3 y con qu\u00e9 siniestro fin. \u00bfLograr\u00e1n escapar con vida y descubrir por qu\u00e9 las llevaron hasta esta isla remota? Una trama llena de giros y sorpresas har\u00e1 que los jugadores no puedan saber lo que les espera.\n\nMejora a\u00fan m\u00e1s la experiencia de juego con controles de movimiento adicionales que permiten apuntar y disparar con mayor precisi\u00f3n en Nintendo Switch. ",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 25377636352
+    },
     "70010000001618": {
         "id": "010057D006492000",
         "rightsId": null,
@@ -1123,6 +1173,50 @@
             "zh"
         ],
         "size": 7129268224
+    },
+    "70010000004682": {
+        "id": "0100842008EC4000",
+        "rightsId": null,
+        "name": "Mega Man Legacy Collection 2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181224,
+        "nsuId": 70010000004682,
+        "category": [
+            "Acci\u00f3n",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Violencia de fantasia"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/1e43ffef0f0709bf3449a2689f4c27970bc345bc6d1ad33ff0711e0f9bc54c77.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/6d902340f0f8dfd611d4575971a9a5b65e7fd8686bd6d868078e140484b17196.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7717fa5697a2fcf4848ab7086dde9b376bc45b610f4bdd99194ccf29517d88ce.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7a827f2bb840cb604b0d92b19312fa3128709a571ca60038dca66130783e9638.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a17abb8f5f2fad185e30e35b2220f1151ebc72ddbd41fb757624e9250ac40f0a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/02ab4e6d034a140d0b46b743f2f915afc142fd4c0587e82be21fed8a2bc59383.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1394335f2dcc62499c0f3a051fa594a10795e9d9b5518870cc79c654efbba173.jpg",
+        "intro": "\u00a1Cuatro \u00e9xitos en un \u00fanico megapack!\n\u00a1Montones de contenidos extras en Mega Man Legacy Collection 2!",
+        "description": "\u00a1El bombardero azul vuelve con la segunda colecci\u00f3n de t\u00edtulos cl\u00e1sicos de Capcom! Con fieles reproducciones de Mega Man 7 a Mega Man 10, el juego llega repleto de contenido adicional, desde contrarrelojes y retos, a un reproductor de m\u00fasica y una completa galer\u00eda de raras ilustraciones. Tambi\u00e9n incluye los modos adicionales publicados originalmente como DLC para Mega Man 9 y 10, y, para los que encuentran estos juegos de plataformas retro un poco demasiado dif\u00edciles, ahora puedes incluso reducir los da\u00f1os que recibes.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 3468689408
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
@@ -3438,14 +3532,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008423,
         "category": null,
         "ratingContent": [
             "Violencia de caricatura",
             "Travesuras comicas",
             "Temas insinuantes",
-            "Interacci\u00f3n de usuarios"
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
         ],
         "numberOfPlayers": null,
         "rating": 10,

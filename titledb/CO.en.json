@@ -766,6 +766,56 @@
         ],
         "size": 7158628352
     },
+    "70010000001515": {
+        "id": "010095300212A000",
+        "rightsId": null,
+        "name": "Resident Evil Revelations 2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181224,
+        "nsuId": 70010000001515,
+        "category": [
+            "Action"
+        ],
+        "ratingContent": [
+            "Blood and Gore",
+            "Intense Violence",
+            "Online Interactions Not Rated by the ESRB",
+            "Strong Language"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 17,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/c4ae8e6f29c8e411dd59b9affa773b00dbdbfe5a7f2349d444c98bb4dcbb1383.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ab181d3458bf86c90c5c47ae037ceb29d9a52277eebd07f1d98a5eff1511ae74.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d080a6eccc7c1071b46d59b1d394352a9d8d3ecf1679df77722c4fd15d5c5d72.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1223e68a7e0d8865c90a9082705917bcb52c378b8cd329d810f1c256ca2a11a2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3dd45b884cd0f4d0535d47c1910eac07621e65b38c3fadde2db558b8f5ea852f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1de64438c4cb8ad46ec84535469b7a8e6810ee2728e2fb323484447fdcc057bd.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5216f24968dae16cd0274803f17fcd675bb99482230101aaa38d01fc873552a5.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/45a131c42a6c4d0923f738d6393f034a0daca4f280e17c8f193cee151921c7d8.jpg",
+        "intro": "Evil is watching",
+        "description": "The beginning of the Resident Evil Revelations 2 tale sees fan favorite Claire Redfield make a dramatic return. Survivor of the Raccoon City incident depicted in previous Resident Evil games, Claire now works for the anti-bioterrorism organization Terra Save. Moira Burton, is attending her welcome party for Terra Save when unknown armed forces storm the office. Claire and Moira are knocked unconscious and awaken later to find themselves in a dark and abandoned detention facility. Working together, they must find out who took them and to what sinister end. Will Claire and Moira make it out alive and discover what\u2019s led to them being taken to this remote island? A story of twists and turns will have players guessing the next step at every turn.\n\nEnhance your gameplay experience even further with additional motion controls that let you aim and wield your weapons with greater accuracy on the Nintendo Switch.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 25377636352
+    },
     "70010000001618": {
         "id": "010057D006492000",
         "rightsId": null,
@@ -1123,6 +1173,50 @@
             "zh"
         ],
         "size": 7129268224
+    },
+    "70010000004682": {
+        "id": "0100842008EC4000",
+        "rightsId": null,
+        "name": "Mega Man Legacy Collection 2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20181224,
+        "nsuId": 70010000004682,
+        "category": [
+            "Action",
+            "Platformer"
+        ],
+        "ratingContent": [
+            "Fantasy Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/1e43ffef0f0709bf3449a2689f4c27970bc345bc6d1ad33ff0711e0f9bc54c77.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/6d902340f0f8dfd611d4575971a9a5b65e7fd8686bd6d868078e140484b17196.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7717fa5697a2fcf4848ab7086dde9b376bc45b610f4bdd99194ccf29517d88ce.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7a827f2bb840cb604b0d92b19312fa3128709a571ca60038dca66130783e9638.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a17abb8f5f2fad185e30e35b2220f1151ebc72ddbd41fb757624e9250ac40f0a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/02ab4e6d034a140d0b46b743f2f915afc142fd4c0587e82be21fed8a2bc59383.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1394335f2dcc62499c0f3a051fa594a10795e9d9b5518870cc79c654efbba173.jpg",
+        "intro": "4 Hits in 1 MEGA Package!\nThere's a ton of extra content in Mega Man Legacy Collection 2!",
+        "description": "The Blue Bomber is back in this second collection of classic Capcom titles! Featuring faithful reproductions of Mega Man 7, 8, 9, & 10, this collection spans the iconic series' evolution and retro revolution. Take on the nefarious Dr. Wily and his diverse Robot Masters in these timeless 8-bit, 16-bit, and 32-bit adventures!\n\nMega Man Legacy Collection 2 is bursting with additional content, including time trials, remix challenges, a music player, and an extensive gallery of rare illustrations. Also included are the additional modes originally released as DLC for Mega Man 9 and 10, featuring extra stages and playable characters. For anyone who wants a little extra help with these challenging classic platformers, you now have the option to reduce the amount of damage received.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 3468689408
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
@@ -3438,14 +3532,15 @@
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20300101,
         "nsuId": 70050000008423,
         "category": null,
         "ratingContent": [
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
