@@ -117,9 +117,9 @@ class Packet:
 		self.i = i
 		self.o = o
 		
-	def recv(self):
+	def recv(self, timeout = 60000):
 		print('begin recv')
-		header = bytes(self.i.read(32, timeout=0))
+		header = bytes(self.i.read(32, timeout=timeout))
 		print('read complete')
 		magic = header[:4]
 		self.command = int.from_bytes(header[4:8], byteorder='little')
@@ -137,22 +137,23 @@ class Packet:
 		self.payload = bytes(self.i.read(self.size, timeout=0))
 		return True
 		
-	def send(self):
+	def send(self, timeout = 60000):
 		print('sending %d bytes' % len(self.payload))
-		self.o.write(b'\x12\x12\x12\x12')
-		self.o.write(struct.pack('<I', self.command))
-		self.o.write(struct.pack('<Q', len(self.payload))) # size
-		self.o.write(struct.pack('<I', 0)) # threadId
-		self.o.write(struct.pack('<H', 0)) # packetIndex
-		self.o.write(struct.pack('<H', 0)) # packetCount
-		self.o.write(struct.pack('<Q', 0)) # timestamp
-		self.o.write(self.payload)
+		self.o.write(b'\x12\x12\x12\x12', timeout=timeout)
+		self.o.write(struct.pack('<I', self.command), timeout=timeout)
+		self.o.write(struct.pack('<Q', len(self.payload)), timeout=timeout) # size
+		self.o.write(struct.pack('<I', 0), timeout=timeout) # threadId
+		self.o.write(struct.pack('<H', 0), timeout=timeout) # packetIndex
+		self.o.write(struct.pack('<H', 0), timeout=timeout) # packetCount
+		self.o.write(struct.pack('<Q', 0), timeout=timeout) # timestamp
+		self.o.write(self.payload, timeout=timeout)
 
 def poll_commands(in_ep, out_ep):
 	p = Packet(in_ep, out_ep)
 	while True:
 		if p.recv():
 			if p.command == 1:
+				print('Recv command! %d' % p.command)
 				req = UsbRequest(p.payload.decode('utf-8'))
 				resp = UsbResponse(p)
 
