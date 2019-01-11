@@ -1989,7 +1989,7 @@
             "ko",
             "zh"
         ],
-        "size": 3979345920
+        "size": 4017094656
     },
     "70010000011852": {
         "id": "0100C1500B82E000",
@@ -4017,6 +4017,52 @@
             "zh"
         ],
         "size": 2962227200
+    },
+    "70010000015224": {
+        "id": "010063700CA1C000",
+        "rightsId": null,
+        "name": "\ube0c\uc774 \ub7a0\ub9ac 4",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190110,
+        "nsuId": 70010000015224,
+        "category": [
+            "\ub808\uc774\uc2f1",
+            "\uc2dc\ubbac\ub808\uc774\uc158"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": 0,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/b3212527b4a8d2abdab3e033ce6f57826e28eb36c3924fa2c92d24614127b224.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/e073fcf8239abe55b4fa542ee6356c6b10f11614fd008cae3cd9e35d2c696232.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f444f448dcbbbb4526abc509e91a83403f3094db26e0b1ea98534fa183382a4d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9c293ce15f34d4d9040c0df30d1be99f6bb3cc502dd385486fce3327049c9eef.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f3476618d318b7c72e5d3e2cad459d204f34b0dd68615efb310abe47ec31a487.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/708f64ea95ba5b57b7e16bce0a29eae2ba9cd75bc49c215054e1392dff66fbee.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4824966e64b16fddccccfabb8d669a99597f81ee6b663f66cb058d6090ed30d4.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fcc197eb0dd4f556884dd683b10755983ef4c07ce19345bccd594ff38daf1eb0.jpg",
+        "intro": null,
+        "description": "\uc804\uc124\uc801\uc778 \uc624\ud504\ub85c\ub4dc \ub808\uc774\uc2f1 \uac8c\uc784\uc774 \ub3cc\uc544\uc635\ub2c8\ub2e4! \uc775\uc2a4\ud2b8\ub9bc \uc2a4\ud3ec\uce20\ub97c \uacbd\ud5d8\ud558\uba70 \uac00\ud639\ud55c \ud658\uacbd\uc5d0\uc11c \ub4dc\ub77c\uc774\ube59 \uc2dc\ubbac\ub808\uc774\uc158\uc758 \uc804\ubb38\uac00\uac00 \ub418\uc138\uc694. \ub7a0\ub9ac\uc640 \ub7a0\ub9ac\ud06c\ub85c\uc2a4, \ub4dc\ub9ac\ud504\ud2b8, \ubc84\uae30, \ud790 \ud074\ub77c\uc784 \ub4f1\uc758 \ub3c4\uc804\uc744 \uc774\uaca8\ub0b4\uace0, \uc804 \ub300\ub959\uc744 \ub204\ube44\ub294 \uba4b\uc9c4 \uc5ec\uc815\uc744 \ub5a0\ub098\uc138\uc694.\n\uc704\ud5d8\ud55c \ub3c4\ub85c\uc640 \uac00\ud639\ud55c \ub0a0\uc528, \ucc99\ubc15\ud55c \ud658\uacbd\uc744 \uc815\ubcf5\ud558\uace0, \uc9c0\uc18d\uc801\uc73c\ub85c \uc18d\ub3c4\ub97c \ub192\uc774\uba70 \uc5ec\ub7ec\ubd84\uc758 \uc7a0\ub4e0 \ubc18\uc0ac \uc2e0\uacbd\uc744 \uc544\ub4dc\ub808\ub0a0\ub9b0\uc73c\ub85c \uae68\uc6b0\uc138\uc694. \uac01 \ubd80\ubb38\ubcc4 \uac00\uc7a5 \uc804\uc124\uc801\uc778 \uc624\ud504\ub85c\ub4dc \uc790\ub3d9\ucc28\ub97c \ubab0\uace0 \uc544\ub984\ub2e4\uc6b4 \uacbd\uad00 \uc18d\uc5d0\uc11c \uadf9\ub3c4\ub85c \uc5b4\ub824\uc6b4 \ub3c4\ub85c\uc5d0 \ub3c4\uc804\ud558\uc138\uc694.\n\n- \ub7a0\ub9ac: \ucf00\ub0d0\uc5d0\uc11c \uc138\ucffc\uc774\uc544 \uad6d\ub9bd \uacf5\uc6d0\uae4c\uc9c0, \ud604\ub300\uc801\uc778 \uc790\ub3d9\ucc28\uc640 \uc5ed\uc0ac \uc18d \ucc28\ub7c9\uc5d0 \ud0d1\uc2b9\ud558\uace0 \uadf9\ub2e8\uc801\uc778 \uc870\uac74\uc5d0\uc11c \uac00\uc7a5 \ud798\uaca8\uc6b4 \ub3c4\ub85c\ub97c \uc815\ubcf5\ud558\uc138\uc694. \n- V-\ub7a0\ub9ac\ud06c\ub85c\uc2a4: \ud759\uae38\uacfc \uc544\uc2a4\ud314\ud2b8 \ub3c4\ub85c\uc5d0\uc11c 8\uc778 \ub808\uc774\uc2a4\ub97c \uc990\uae30\uc138\uc694. \n- \uc775\uc2a4\ud2b8\ub9bc-\uce74\ub098: \ub3c4\ub85c \uc5ec\uae30\uc800\uae30\uc5d0 \ud769\uc5b4\uc838 \uc788\ub294 \ud568\uc815\uc744 \ud53c\ud574 \ube60\ub978 \uc18d\ub3c4\ub85c \uc815\ubc00\ud558\uac8c \ub4dc\ub9ac\ud504\ud2b8\ud558\uba70, \ub2f9\uc2e0\uc758 \uc6b4\uc804 \uc2e4\ub825\uacfc \uc1fc\ub9e8\uc2ed\uc744 \ubf50\ub0b4 \ubcf4\uc138\uc694!\n- \ubc84\uae30: \uad6c\ubd88\uac70\ub9ac\ub294 \uc5b8\ub355 \uc9c0\ud615\uc744 \ub204\ube44\uba70 \ub4dc\ub77c\uc774\ube59 \uc804\ubb38\uac00\uac00 \ub418\uc138\uc694. \ubc18\uc0ac \uc2e0\uacbd\uc744 \uadf9\ud55c\uae4c\uc9c0 \ubc1c\ud718\ud558\uba70 \uc6b4\uc804\uc5d0 \ud544\uc694\ud55c \ubb3c\ub9ac \uc5ed\ud559\uc744 \uc9c0\ubc30\ud574\uc57c \uc774 \uce58\uc5f4\ud55c \uacbd\uc8fc\uc5d0\uc11c \uc2b9\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \n- \ud790 \ud074\ub77c\uc784: \uac15\ub825\ud55c \ud798\uc73c\ub85c \uc694\ub3d9\uce58\ub294 \uad34\ubb3c \uc790\ub3d9\ucc28\uc5d0 \ud0d1\uc2b9\ud558\uace0 \ubd09\uc6b0\ub9ac \uc815\uc0c1\uc5d0 \ub3c4\ub2ec\ud558\uc138\uc694.\n\uac00\uc7a5 \uc720\uba85\ud55c \ub7a0\ub9ac \ubc0f \uc775\uc2a4\ud2b8\ub9bc \ubaa8\ud130 \uc2a4\ud3ec\uce20 \ucc28\ub7c9\uc744 \ud3ec\ud568\ud55c 50\uac1c \uc774\uc0c1\uc758 \uc790\ub3d9\ucc28 \ubaa8\ub378\uc744 \uc2dc\ud5d8 \uc8fc\ud589\ud558\uace0, \uc218\uc9d1\ud558\uace0, \uc5c5\uadf8\ub808\uc774\ub4dc\ud558\uace0, \uc5ec\ub7ec\ubd84\uc758 \ucde8\ud5a5\uc5d0 \ub9de\ucdb0 \uafb8\ubbf8\uba70 \uc5ec\ub7ec\ubd84\uc758 \ub180\ub77c\uc6b4 \uc6b4\uc804 \uc19c\uc528\ub97c \uc790\ub791\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4! \n\ub808\uc774\uc2f1 \uc2dc\ubbac\ub808\uc774\uc158 \uc804\ubb38 \uc2a4\ud29c\ub514\uc624 Kylotonn Racing Games\uc5d0\uc11c \uac1c\ubc1c\ud55c \ube0c\uc774 \ub7a0\ub9ac 4\uc5d0\ub294 KT \uc5d4\uc9c4\uc758 \ucd5c\uc2e0 \ubb3c\ub9ac \uc5d4\uc9c4\uacfc \uadf8\ub798\ud53d\uc774 \ub3c4\uc785\ub418\uc5c8\uc2b5\ub2c8\ub2e4.\n\uc5ec\ud589\uc758 \uc990\uac70\uc6c0\uc740 \ud568\uaed8 \ub098\ub220\uc57c \uc758\ubbf8\uac00 \uc788\ub4ef\uc774, \ube0c\uc774 \ub7a0\ub9ac 4\uc5d0\uc11c\ub294 \ucee4\ub9ac\uc5b4 \ubaa8\ub4dc\uc640 \ud601\uc2e0\uc801\uc778 \uc628\ub77c\uc778 \ubaa8\ub4dc\uc5d0\uc11c \uc5ec\ub7ec\ubd84\uc758 \uac8c\uc784 \uacbd\ud5d8\uacfc \uc9c4\ud589 \uc0c1\ud669\uc744 \uacf5\uc720\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 12246319104
     },
     "70010000015254": {
         "id": "010064000CA60000",
@@ -7431,6 +7477,56 @@
         "description": "\uc774 \uc0c1\ud488\uc744 \uad6c\uc785\ud558\uba74 \uac8c\uc784 \ubcf8\ud3b8 \u300cSNK\ud788\ub85c\uc778\uc988Tag Team Frenzy\u300d\uc5d0\uc11c \ucd94\uac00 \uce90\ub9ad\ud130 \u300c\uc794\u300d\uc744 \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
         "languages": null,
         "size": 4194304
+    },
+    "70050000009783": {
+        "id": "0100D9A005ED7033",
+        "rightsId": null,
+        "name": "\ud31d \uff30\uff41\uff43\uff4b \uff36\uff4f\uff4c\uff0e\uff12",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190110,
+        "nsuId": 70050000009783,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3c81fb956e6f59ad26607997c1bc13fd67df26002be7a074d066252daa19d717.jpg",
+        "intro": null,
+        "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1 \u300c\uff27\uff41\uff52\uff41\uff53\uff55 \uff37\uff4f \uff37\uff41\uff52\uff45\u300d\n\uc26c\uc6c0\u26053\u3000\ubcf4\ud1b5\u26054\u3000\uc5b4\ub824\uc6c0\u26054\u3000\uadc0\uc2e0\u26056\n\u25a0\uace1 \u300c\uff33\uff39\uff2e\uff23\uff28\uff32\uff2f\uff2e\uff29\uff23\uff29\uff34\uff39\u300d\n\uc26c\uc6c0\u26052\u3000\ubcf4\ud1b5\u26053\u3000\uc5b4\ub824\uc6c0\u26055\u3000\uadc0\uc2e0\u26057\n\u25a0\uace1 \u300c\uff2b\uff4f\uff49\uff53\uff55\uff52\uff55 \uff26\uff4f\uff52\uff54\uff55\uff4e\uff45 \uff23\uff4f\uff4f\uff4b\uff49\uff45\u300d\n\uc26c\uc6c0\u26053\u3000\ubcf4\ud1b5\u26054\u3000\uc5b4\ub824\uc6c0\u26056\u3000\uadc0\uc2e0\u26057",
+        "languages": null,
+        "size": 12582912
+    },
+    "70050000009784": {
+        "id": "0100D9A005ED7030",
+        "rightsId": null,
+        "name": "\ub2ec\uc778 \uff23\uff48\uff41\uff4c\uff4c\uff45\uff4e\uff47\uff45 \uff30\uff41\uff43\uff4b \uff36\uff4f\uff4c\uff0e\uff12",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190110,
+        "nsuId": 70050000009784,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/13e05ca6e83422b074f6e786db3df35e70dd8a5556ab771a674d230e87f04ed9.jpg",
+        "intro": null,
+        "description": "\uc5f0\uc8fc \ubaa8\ub4dc\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \ucd94\uac00 \ucf58\ud150\uce20\uc785\ub2c8\ub2e4.\n\n\u25a0\uace1 \u300c\uff2d\uff21\uff2f-\uff55\u300d\n\uc26c\uc6c0\u26053\u3000\ubcf4\ud1b5\u26055\u3000\uc5b4\ub824\uc6c0\u26057\u3000\uadc0\uc2e0\u26058\n\u25a0\uace1 \u300c\uff33\uff43\uff52\uff4f\uff4c\uff4c \uff2d\uff29\uff2b\uff21\u300d\n\uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26056\u3000\uc5b4\ub824\uc6c0\u26057\u3000\uadc0\uc2e0\u26057\n\u25a0\uace1 \u300c\uff30\uff41\uff53\uff54\uff45\uff4c \uff24\uff52\uff45\uff41\uff4d\u300d\n\uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26056\u3000\uc5b4\ub824\uc6c0\u26057\u3000\uadc0\uc2e0\u26058\n\u25a0\uace1 \u300c\uff2b\uff21\uff32\uff35\uff29\uff3a\uff21\uff37\uff21\uff2d\uff25\uff2b\uff29\u300d\n\uc26c\uc6c0\u26054\u3000\ubcf4\ud1b5\u26056\u3000\uc5b4\ub824\uc6c0\u26057\u3000\uadc0\uc2e0\u26059\n\u25a0\uace1 \u300c\uff29\uff2e\uff35\uff2e\uff2f\uff2e\uff2f\uff32\uff29\uff2d\uff2f\uff2e\uff2f\u300d\n\uc26c\uc6c0\u26053\u3000\ubcf4\ud1b5\u26055\u3000\uc5b4\ub824\uc6c0\u26056\u3000\uadc0\uc2e0\u26058",
+        "languages": null,
+        "size": 20971520
     },
     "70070000002481": {
         "id": null,
