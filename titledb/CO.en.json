@@ -90,7 +90,7 @@
             "es",
             "fr"
         ],
-        "size": 1496317952
+        "size": 1500512256
     },
     "70010000000142": {
         "id": "0100704000B3A000",
@@ -131,7 +131,7 @@
             "es",
             "fr"
         ],
-        "size": 1581252608
+        "size": 1585446912
     },
     "70010000000153": {
         "id": "0100152000022000",
@@ -174,7 +174,7 @@
             "es",
             "fr"
         ],
-        "size": 7395606528
+        "size": 7401897984
     },
     "70010000000392": {
         "id": "01009B500007C000",
@@ -223,7 +223,7 @@
             "ru",
             "ko"
         ],
-        "size": 3479175168
+        "size": 3484418048
     },
     "70010000000447": {
         "id": "010003F003A34000",
@@ -393,7 +393,7 @@
             "de",
             "it"
         ],
-        "size": 14378074112
+        "size": 14385414144
     },
     "70010000000662": {
         "id": "01002CC003FE6000",
@@ -491,7 +491,7 @@
             "ru",
             "zh"
         ],
-        "size": 438304768
+        "size": 442499072
     },
     "70010000000707": {
         "id": "0100E95004038000",
@@ -583,7 +583,7 @@
             "de",
             "it"
         ],
-        "size": 13324255232
+        "size": 13330546688
     },
     "70010000001109": {
         "id": "010076F0049A2000",
@@ -630,7 +630,7 @@
             "de",
             "it"
         ],
-        "size": 9214885888
+        "size": 9221177344
     },
     "70010000001130": {
         "id": "0100000000010000",
@@ -678,7 +678,7 @@
             "ru",
             "zh"
         ],
-        "size": 5906628608
+        "size": 5913968640
     },
     "70010000001132": {
         "id": "0100B3F000BE2000",
@@ -723,7 +723,7 @@
             "de",
             "it"
         ],
-        "size": 4255121408
+        "size": 4260364288
     },
     "70010000001339": {
         "id": "0100C1F0051B6000",
@@ -764,7 +764,7 @@
             "es",
             "fr"
         ],
-        "size": 7158628352
+        "size": 7163871232
     },
     "70010000001515": {
         "id": "010095300212A000",
@@ -940,7 +940,7 @@
             "es",
             "fr"
         ],
-        "size": 1587544064
+        "size": 1592786944
     },
     "70010000003208": {
         "id": "0100633007D48000",
@@ -1079,7 +1079,7 @@
             "es",
             "fr"
         ],
-        "size": 2963275776
+        "size": 2968518656
     },
     "70010000003889": {
         "id": "0100BDE00862A000",
@@ -1304,7 +1304,7 @@
             "es",
             "fr"
         ],
-        "size": 13870563328
+        "size": 13876854784
     },
     "70010000006411": {
         "id": "0100EA80032EA000",
@@ -1401,7 +1401,7 @@
             "es",
             "fr"
         ],
-        "size": 850395136
+        "size": 855638016
     },
     "70010000008122": {
         "id": "01004AB00A260000",
@@ -1592,7 +1592,7 @@
             "ru",
             "ko"
         ],
-        "size": 4006608896
+        "size": 4085252096
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1727,9 +1727,11 @@
             "fr",
             "de",
             "it",
-            "ru"
+            "ru",
+            "ko",
+            "zh"
         ],
-        "size": 14371782656
+        "size": 14572060672
     },
     "70010000012332": {
         "id": "01006A800016E000",
@@ -1825,7 +1827,7 @@
             "fr",
             "pt"
         ],
-        "size": 98566144
+        "size": 101711872
     },
     "70010000013704": {
         "id": "010044500C182000",
@@ -2009,6 +2011,55 @@
         ],
         "size": 93323264
     },
+    "70010000015123": {
+        "id": "010011600C946000",
+        "rightsId": null,
+        "name": "Travis Strikes Again: No More Heroes",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190118,
+        "nsuId": 70010000015123,
+        "category": [
+            "Action",
+            "Multiplayer"
+        ],
+        "ratingContent": [
+            "Blood",
+            "Drug Reference",
+            "Partial Nudity",
+            "Strong Language",
+            "Violence"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/de0ae0748c28de16144def47c19b30f0f43b6d40d480ed6d7e34de0f375a990a.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/3cbb8f6db56e82436b12e20b3780e3c05acfb9c06c5f40b7bdee35291421722d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f370e2a4b834b5066c130245f00c4912f991673efe4dbf8a6818ea13be8a75f5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8da93ce00cd1fa42b0a0d8c001c8f1c8760e61597aa6e5a14f3c93e50b2b50ab.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/95a102daf459f23b50be5aa3ab1086faafa01ae235fdd7c0dc2a2eec6facd090.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/73cfdef82d0ac8a222fec014167bc176f831e2181ef2fca24aeba1ce015a712a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3a1932b55c39eb21a2a27176caf2885fdbd0641eaf5c7b5b45939d990821fc43.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/7b9694d9feaa48aa3df445dcc5df7a0eb8f07afcabc698a4bbfe4fc72b0375c9.jpg",
+        "intro": "Get into the game\u2014literally!\nBeam Katana in hand, \nTravis Strikes Again!",
+        "description": "Several years after No More Heroes 2... This time, the setting is a small town in the middle of nowhere in the American South. Badman shows up at the trailer Travis has been living in to exact revenge for the murder of his daughter, Bad Girl, and things go horribly wrong. As they battle it out, the two are sucked into the game world of the legendary game console, the Death Drive Mk\u2161. Developed by Dr. Juvenile, the Death Drive Mk\u2161 has six games contained on Death Balls. It\u2019s said that collecting all six and then beating each game allows the player to have one wish granted. Travis and Badman team up to use the Death Balls to bring Bad Girl back to life.\nIn the Adventure Part,  you can search for Death Balls (game software) and enjoy hilarious interactions between characters.\nPass a Joy-Con\u2122 to a friend and team up anytime, anywhere! By performing simultaneous Charge Attacks during co-op play, you can unleash the super-powerful co-op attack Choco Banana with Caramel Ice Cream.\nCollaborations with various indie games! You just may find your own favorite character!\nFeatures lots of laughs and iconic gags from the NMH series, such as saving your game on the toilet, etc.!\nDLC scheduled to make fan favorites playable! Stages also to be added!\nHit the road in an all new adventure with gaming's most hardcore otaku assassin.\nBeam Katana in hand, Travis Strikes Again! \n",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 6131023872
+    },
     "70050000000183": {
         "id": "01007EF00011F001",
         "rightsId": null,
@@ -2121,7 +2172,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem Awakening.\n\nNew Playable Characters:\nOwain, Tharja, and Olivia.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nChrom, Exalt; Lissa, Sage; and Cordelia, Dark Flier.\n\nNew Weapons:\nRobin, Thoron; Lissa, Lissa's Axe; Frederick, Frederick's Axe; Cordelia, Cordelia's Lance; Owain, Missiletainn; Tharja, Tharja's Hex; and Olivia, Olivia's Blade.\n\nBroken-Armor Models:\nChrom, Robin, Lissa, Frederick, Cordelia, Lucina, Owain, Tharja, and Olivia.",
         "languages": null,
-        "size": 1288699904
+        "size": 1291845632
     },
     "70050000001489": {
         "id": "0100F15003E65002",
@@ -2149,7 +2200,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem Fates.\n\nNew Playable Characters:\nAzura, Oboro, and Niles.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nTakumi, Butler; Camilla, Maid; Corrin, Hoshido Noble (Female); Corrin, Nohr Noble (Male); and Azura, Dark Songstress.\n\nBroken-Armor Models:\nCorrin, Ryoma, Hinoka, Takumi, Sakura, Xander, Camilla, Leo, Elise, Azura, Oboro, and Niles.",
         "languages": null,
-        "size": 1225785344
+        "size": 1228931072
     },
     "70050000001490": {
         "id": "0100F15003E65003",
@@ -2177,7 +2228,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem: Shadow Dragon.\n\nNew Playable Characters:\nNavarre, Minerva, and Linde.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nMarth, Bridegroom; Caeda, Bride; Tiki, Vibrant Dress; and Lyn, Swordmaster.\n\nNew Weapons:\nCaeda, Wing Spear; Tiki, Divinestone; Anna, Anna's Bow; Navarre, Wo Dao; Minerva, Hauteclere; and Linde, Aura.\n\nBroken-Armor Models:\nMarth, Caeda, Tiki, Celica, Lyn, Anna, Navarre, Minerva, and Linde.",
         "languages": null,
-        "size": 1071644672
+        "size": 1074790400
     },
     "70050000001721": {
         "id": "0100704000B3B001",
@@ -2208,7 +2259,7 @@
         "intro": "The hit puzzle game returns with even more laugh-out-loud fun!",
         "description": "Paper pals Snip and Clip must cut each other into the right shapes to overcome new obstacles in this new DLC update. Partner up with friends or family* to solve puzzles, including new comic book and toy box worlds, 3 new Blitz games, and a new stamp mode. Plus, play the original levels in new shapes!** ",
         "languages": null,
-        "size": 380633088
+        "size": 383778816
     },
     "70050000001861": {
         "id": "0100E95004039005",
@@ -3706,6 +3757,128 @@
         "languages": null,
         "size": 5384437760
     },
+    "70050000009321": {
+        "id": "010011600C947001",
+        "rightsId": null,
+        "name": "Travis Strikes Again: No More Heroes - DLC #1",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190228,
+        "nsuId": 70050000009321,
+        "category": null,
+        "ratingContent": [
+            "Blood",
+            "Drug Reference",
+            "Partial Nudity",
+            "Strong Language",
+            "Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a65a2085debe248c9bf3c6564602b7bb6ad7d5d57b1525ee06a7c69554e0f781.jpg",
+        "intro": null,
+        "description": "This pack of downloadable content contains:\n\u25cf One New Playable Character\n\u25cf Two Skills Specific to the New Character\n\u25cf A New Text Adventure\n\nAdditional information to follow at a later date.",
+        "languages": null,
+        "size": 6291456
+    },
+    "70050000009322": {
+        "id": "010011600C947002",
+        "rightsId": null,
+        "name": "Travis Strikes Again: No More Heroes - DLC #2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190430,
+        "nsuId": 70050000009322,
+        "category": null,
+        "ratingContent": [
+            "Blood",
+            "Drug Reference",
+            "Partial Nudity",
+            "Strong Language",
+            "Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/027111e7449f37aa9c9cb141c52a50341d52dca33a9e4a156c56f1aa401cd79b.jpg",
+        "intro": null,
+        "description": "Available by April 30, 2019\n- Bad Girl (playable after completing game)\n- 2 Bad Girl-only skills\n- Killer Marathon level expansion\n- New skill (unlocked by completing Killer Marathon)\n- Travis Strikes Back New Scenario\n                                                                ",
+        "languages": null,
+        "size": 6291456
+    },
+    "70050000009585": {
+        "id": "01001B300B9BF00C",
+        "rightsId": null,
+        "name": "Traditional Chinese Language Pack",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190115,
+        "nsuId": 70050000009585,
+        "category": null,
+        "ratingContent": [
+            "Blood and Gore",
+            "Partial Nudity",
+            "Violence",
+            "Users Interact"
+        ],
+        "numberOfPlayers": null,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Blizzard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9d8f95e20b59b76eab1a74aaefdabbabe6438b6761efc4efa6306dde638987f3.jpg",
+        "intro": null,
+        "description": "Optional downloadable Traditional Chinese Language Pack for Diablo 3: Eternal Collection on Nintendo Switch.",
+        "languages": null,
+        "size": 5736759296
+    },
+    "70050000009952": {
+        "id": "01001B300B9BF008",
+        "rightsId": null,
+        "name": "Korean Language Pack",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190115,
+        "nsuId": 70050000009952,
+        "category": null,
+        "ratingContent": [
+            "Blood and Gore",
+            "Partial Nudity",
+            "Violence",
+            "Users Interact"
+        ],
+        "numberOfPlayers": null,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Blizzard",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9d8f95e20b59b76eab1a74aaefdabbabe6438b6761efc4efa6306dde638987f3.jpg",
+        "intro": null,
+        "description": "Optional downloadable Korean Language Pack for Diablo 3: Eternal Collection on Nintendo Switch.",
+        "languages": null,
+        "size": 5613027328
+    },
     "70070000000481": {
         "id": null,
         "rightsId": null,
@@ -3866,6 +4039,31 @@
         "region": null,
         "releaseDate": null,
         "nsuId": 70070000003621,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000004223": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000004223,
         "category": null,
         "ratingContent": null,
         "numberOfPlayers": null,

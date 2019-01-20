@@ -403,7 +403,7 @@
             "it",
             "nl"
         ],
-        "size": 9484369920
+        "size": 9489612800
     },
     "70010000009367": {
         "id": "01007EF00011E000",
@@ -480,7 +480,7 @@
             "ko",
             "zh"
         ],
-        "size": 5906628608
+        "size": 5913968640
     },
     "70010000009373": {
         "id": "0100152000022000",
@@ -520,7 +520,7 @@
             "ko",
             "zh"
         ],
-        "size": 7395606528
+        "size": 7401897984
     },
     "70010000009374": {
         "id": "01000320000CC000",
@@ -556,7 +556,7 @@
             "nl",
             "ru"
         ],
-        "size": 1496317952
+        "size": 1500512256
     },
     "70010000009376": {
         "id": "01008E20047DC000",
@@ -594,7 +594,7 @@
             "nl",
             "zh"
         ],
-        "size": 1409286144
+        "size": 1414529024
     },
     "70010000009377": {
         "id": "0100E46003042000",
@@ -666,7 +666,7 @@
             "ko",
             "zh"
         ],
-        "size": 3479175168
+        "size": 3484418048
     },
     "70010000009382": {
         "id": "01007E3006DDA000",
@@ -921,7 +921,7 @@
             "de",
             "it"
         ],
-        "size": 4255121408
+        "size": 4260364288
     },
     "70010000009644": {
         "id": "010030D005AE6000",
@@ -1549,7 +1549,7 @@
             "de",
             "it"
         ],
-        "size": 7158628352
+        "size": 7163871232
     },
     "70010000010681": {
         "id": "0100BDE00862A000",
@@ -1685,7 +1685,7 @@
             "it",
             "nl"
         ],
-        "size": 2963275776
+        "size": 2968518656
     },
     "70010000011067": {
         "id": "01009BF0072D4000",
@@ -1720,7 +1720,7 @@
             "it",
             "nl"
         ],
-        "size": 1587544064
+        "size": 1592786944
     },
     "70010000011230": {
         "id": "01005D100807A000",
@@ -3843,6 +3843,51 @@
         ],
         "size": 421527552
     },
+    "70010000014890": {
+        "id": "01005FF00C7CC000",
+        "rightsId": null,
+        "name": "Gear.Club Unlimited 2",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190116,
+        "nsuId": 70010000014890,
+        "category": [
+            "\u7af6\u901f"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": null,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/7cb73ca34ca2ef191b84f23732307736defdddfb4d71013e7ee142de111df755.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/50b6912902950d09dabd0e6b8283d1bdf0b6c0ef1a1c98fb6d9e8bcc55b60c02.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/60cefced701198e2d85e9125f1332edb1dfe30fb535859077f19d82a2255ea15.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/70ae4f2615acd9be0849405f5b52b57dadb9549cd5c2d218166f7b2e03e4ffbb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bcde7086e1dd41013dead08ea98cb3bbffd3d52b1d4aaaabd2393fd3c6736c00.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ec940b74790092654be397beef241de15e2cafbeb99dccc9ec4c6847aaec7328.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/198d5d5758644fb849c471d38aa148104e0e4d8b7be4902b25f14be6ca0fec29.jpg",
+        "intro": "\u6311\u6230\u4e16\u754c\u4ee5\u7a81\u7834\u6975\u9650\u7684\u5439\u98a8\u6a5f\u6311\u6230\uff01",
+        "description": "\u5728\u7099\u71b1\u7684\u6c99\u6f20\u3001\u963f\u723e\u5351\u65af\u7684\u5c71\u5dbd\u8def\u7dda\u3001\u5730\u4e2d\u6d77\u6cbf\u5cb8\u7684\u6d6a\u6f2b\u9053\u8def\u3001\u9ec3\u65af\u77f3\u570b\u7acb\u516c\u5712\u7684\u6eab\u6cc9\u5730\u5e36\u7b49\u7e3d\u7dda\u90543000\u516c\u88cf\u3002\n\n\u4ee5\u51a0\u8ecd\u70ba\u9996\u7684\u591a\u6a23\u7684\u4efb\u52d9\u548c\u6311\u6230\u53ef\u4ee5\u4eab\u53d7250\u7a2e\u4ee5\u4e0a\u7684\u8cfd\u8eca\u6bd4\u8cfd\uff0c\u5305\u62ec\u73fe\u6709\u7684\u6c7d\u8eca\uff0c\u53ef\u4ee5\u4f7f\u752850\u591a\u7a2e \u540d\u8eca\u4f86\u53c3\u52a0\u8cfd\u8eca\u3002\n\n\u53e6\u5916\uff0c\u4e0d\u50c5\u662f1\u4eba\u904a\u73a9\uff0c\u4e5f\u53ef\u4ee5\u5206\u5272\u756b\u9762\u6700\u591a\u5c0d\u61c94\u4eba\u7684\u591a\u4eba\u904a\u73a9\u3002",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 3465543680
+    },
     "70010000014944": {
         "id": "0100F1B00B456000",
         "rightsId": null,
@@ -3884,6 +3929,49 @@
         ],
         "size": 4773117952
     },
+    "70010000015122": {
+        "id": "010011600C946000",
+        "rightsId": null,
+        "name": "Travis Strikes Again: No More Heroes",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190118,
+        "nsuId": 70010000015122,
+        "category": [
+            "\u52d5\u4f5c"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": null,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/de0ae0748c28de16144def47c19b30f0f43b6d40d480ed6d7e34de0f375a990a.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/3cbb8f6db56e82436b12e20b3780e3c05acfb9c06c5f40b7bdee35291421722d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f370e2a4b834b5066c130245f00c4912f991673efe4dbf8a6818ea13be8a75f5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8da93ce00cd1fa42b0a0d8c001c8f1c8760e61597aa6e5a14f3c93e50b2b50ab.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/95a102daf459f23b50be5aa3ab1086faafa01ae235fdd7c0dc2a2eec6facd090.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/73cfdef82d0ac8a222fec014167bc176f831e2181ef2fca24aeba1ce015a712a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3a1932b55c39eb21a2a27176caf2885fdbd0641eaf5c7b5b45939d990821fc43.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/7b9694d9feaa48aa3df445dcc5df7a0eb8f07afcabc698a4bbfe4fc72b0375c9.jpg",
+        "intro": "\u6012\u543c\u5427\uff0cBeam Katana\uff01\n\u6230\u9b25\u5427\uff0c\u7279\u62c9\u7dad\u65af\uff01",
+        "description": "\u50b3\u5947\u904a\u6232\u8edf\u9ad4\u2014the Death Drive Mark\n\u7279\u62c9\u7dad\u65af\u5f98\u5f8a\u5728\u904a\u6232\u4e16\u754c\u4e2d\uff0c\u4e26\u8e0f\u4e0a\u4e00\u5834\u767e\u5e74\u96e3\u9047\u7684\u9b27\u5287\u3002\u672c\u6b21\u4f5c\u54c1\u5305\u62ec\u4e86\u52d5\u4f5c\u904a\u6232\uff0c\u8cfd\u8eca\uff0c\u62fc\u5716...\u5171\u6709\u4e03\u7a2e\u4e0d\u540c\u7684\u904a\u6232\uff01\n\u7279\u8272\uff1a\n\u6709Beam Katana\u5728\u624b\u4e0a\uff0c\u7279\u62c9\u7dad\u65af\u8a93\u8981\u6d88\u9664\u4ed6\u767c\u73fe\u7684\u6bcf\u4e00\u500bBug\u3002\u628a\u57fa\u672c\u653b\u64ca\u548c\u6280\u80fd\u4e32\u9023\u8d77\u4f86\uff0c\u4ee5\u5c07\u5176\u6d88\u6ec5\u3002\n\u6bcf\u500b\u95dc\u5361\u90fd\u6f5b\u4f0f\u8457\u4e00\u500b\u5147\u6b98\u7684BOSS\u3002\u904b\u7528\u9748\u6d3b\u7684\u8eab\u624b\u53bb\u64ca\u5012\u4ed6\u5011\uff01\n\u96c6\u9f4a\u4e03\u500bDeath Balls\u5c31\u53ef\u4ee5\u5f97\u5230\u4e00\u500b\u9858\u671b\u3002\u60f3\u8981\u4efb\u4f55\u6771\u897f\u90fd\u53ef\u4ee5\uff0c\u6240\u4ee5\u4e00\u5b9a\u8981\u6536\u96c6\u5b83\u5011\uff01\n\u5c07Joy-Con\u7d66\u670b\u53cb\u4ee5\u9032\u884c\u591a\u4eba\u5354\u529b\u904a\u6232\u2014\u2014\u751a\u81f3\u8207\u552f\u4e00\u7684\u5927\u58de\u86cb\u642d\u6a94\uff01\n\u6b64\u5916\uff0c\u9084\u6709\u4e00\u500b\u95dc\u65bc\u5168\u65b0\u6545\u4e8b\u7684\u5192\u96aa\u6a21\u5f0f\uff01\nTravis Strikes Again\uff1aNo More Heroes\uff0cNintendo Switch\u7368\u5bb6\u4eab\u6709\u3002",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 6131023872
+    },
     "70010000015172": {
         "id": "0100BDC00A664000",
         "rightsId": null,
@@ -3919,7 +4007,7 @@
             "ko",
             "zh"
         ],
-        "size": 2962227200
+        "size": 3011510272
     },
     "70010000015693": {
         "id": "0100187003A36000",
@@ -6663,6 +6751,56 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000010101": {
+        "id": "010011600C947001",
+        "rightsId": null,
+        "name": "\u65b0\u589e\u5167\u5bb9\u7b2c\u4e00\u5f48 Black Dandelion",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190228,
+        "nsuId": 70050000010101,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a65a2085debe248c9bf3c6564602b7bb6ad7d5d57b1525ee06a7c69554e0f781.jpg",
+        "intro": "DLC\uff1a01\u3000Black Dandelion",
+        "description": "\u9810\u8a082019\u5e742\u670828\u65e5\u6216\u4e4b\u524d\u516c\u958b\n\u6b64\u65b0\u589e\u5167\u5bb9\u5305\u62ec\uff1a\n\u30fb\u53ef\u4f7f\u7528\u89d2\u8272 - \u5fd7\u4e43\u6b66 (\u5b8c\u6210\u904a\u6232\u5f8c\u53ef\u4f7f\u7528)\n\u30fb2\u6b3e\u5fd7\u4e43\u6b66\u7368\u6709\u7684\u62db\u5f0f\n\u30fb\u65b0\u65c5\u7a0b\u300cBADMAN STRIKES BACK\u300d",
+        "languages": null,
+        "size": 6291456
+    },
+    "70050000010250": {
+        "id": "010011600C947002",
+        "rightsId": null,
+        "name": "\u65b0\u589e\u5167\u5bb9\u7b2c\u4e8c\u5f48 Bubblegum Fatale",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190430,
+        "nsuId": 70050000010250,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/027111e7449f37aa9c9cb141c52a50341d52dca33a9e4a156c56f1aa401cd79b.jpg",
+        "intro": "DLC:02\u3000Bubblegum Fatale",
+        "description": "\u9810\u8a082019\u5e744\u670830\u65e5\u6216\u4e4b\u524d\u516c\u958b\n\u6b64\u65b0\u589e\u5167\u5bb9\u5305\u62ec\uff1a\n\u30fb\u53ef\u4f7f\u7528\u89d2\u8272 - \u58de\u5973\u5b69 (\u5b8c\u6210\u904a\u6232\u5f8c\u53ef\u4f7f\u7528)\n\u30fb2\u6b3e\u58de\u5973\u5b69\u7368\u6709\u7684\u62db\u5f0f\n\u30fb\u65b0\u95dc\u5361\u300cKiller Marathon\u300d\n\u30fb\u65b0\u62db\u5f0f (\u5b8c\u6210Killer Marathon\u5f8c\u53ef\u4f7f\u7528)\n\u30fb\u65b0\u65c5\u7a0b\u300cTRAVIS STRIKES BACK\u300d",
+        "languages": null,
+        "size": 6291456
+    },
     "70070000002461": {
         "id": null,
         "rightsId": null,
@@ -6723,6 +6861,31 @@
         "region": null,
         "releaseDate": null,
         "nsuId": 70070000003982,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000004707": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000004707,
         "category": null,
         "ratingContent": null,
         "numberOfPlayers": null,

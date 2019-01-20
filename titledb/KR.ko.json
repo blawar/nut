@@ -373,7 +373,7 @@
             "it",
             "nl"
         ],
-        "size": 9484369920
+        "size": 9489612800
     },
     "70010000009367": {
         "id": "01007EF00011E000",
@@ -454,7 +454,7 @@
             "ko",
             "zh"
         ],
-        "size": 5906628608
+        "size": 5913968640
     },
     "70010000009373": {
         "id": "0100152000022000",
@@ -494,7 +494,7 @@
             "ko",
             "zh"
         ],
-        "size": 7395606528
+        "size": 7401897984
     },
     "70010000009374": {
         "id": "01000320000CC000",
@@ -530,7 +530,7 @@
             "nl",
             "ru"
         ],
-        "size": 1496317952
+        "size": 1500512256
     },
     "70010000009375": {
         "id": "0100E95004038000",
@@ -603,7 +603,7 @@
             "nl",
             "zh"
         ],
-        "size": 1409286144
+        "size": 1414529024
     },
     "70010000009377": {
         "id": "0100E46003042000",
@@ -678,7 +678,7 @@
             "ru",
             "zh"
         ],
-        "size": 15600713728
+        "size": 15607005184
     },
     "70010000009379": {
         "id": "01007960049A0000",
@@ -716,7 +716,7 @@
             "de",
             "it"
         ],
-        "size": 13324255232
+        "size": 13330546688
     },
     "70010000009380": {
         "id": "0100F15003E64000",
@@ -745,7 +745,7 @@
         "languages": [
             "en"
         ],
-        "size": 14378074112
+        "size": 14385414144
     },
     "70010000009381": {
         "id": "01009B500007C000",
@@ -786,7 +786,7 @@
             "ko",
             "zh"
         ],
-        "size": 3479175168
+        "size": 3484418048
     },
     "70010000009382": {
         "id": "01007E3006DDA000",
@@ -1694,7 +1694,7 @@
             "de",
             "it"
         ],
-        "size": 7158628352
+        "size": 7163871232
     },
     "70010000010681": {
         "id": "0100BDE00862A000",
@@ -1799,7 +1799,7 @@
             "it",
             "nl"
         ],
-        "size": 2963275776
+        "size": 2968518656
     },
     "70010000011067": {
         "id": "01009BF0072D4000",
@@ -1834,7 +1834,7 @@
             "it",
             "nl"
         ],
-        "size": 1587544064
+        "size": 1592786944
     },
     "70010000011230": {
         "id": "01005D100807A000",
@@ -3983,6 +3983,51 @@
         ],
         "size": 421527552
     },
+    "70010000014890": {
+        "id": "01005FF00C7CC000",
+        "rightsId": null,
+        "name": "\uae30\uc5b4.\ud074\ub7fd \uc5b8\ub9ac\ubbf8\ud2f0\ub4dc 2 (Gear.Club Unlimited 2)",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190116,
+        "nsuId": 70010000014890,
+        "category": [
+            "\ub808\uc774\uc2f1"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": 0,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/7cb73ca34ca2ef191b84f23732307736defdddfb4d71013e7ee142de111df755.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/50b6912902950d09dabd0e6b8283d1bdf0b6c0ef1a1c98fb6d9e8bcc55b60c02.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/60cefced701198e2d85e9125f1332edb1dfe30fb535859077f19d82a2255ea15.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/70ae4f2615acd9be0849405f5b52b57dadb9549cd5c2d218166f7b2e03e4ffbb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bcde7086e1dd41013dead08ea98cb3bbffd3d52b1d4aaaabd2393fd3c6736c00.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ec940b74790092654be397beef241de15e2cafbeb99dccc9ec4c6847aaec7328.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/198d5d5758644fb849c471d38aa148104e0e4d8b7be4902b25f14be6ca0fec29.jpg",
+        "intro": "\uc138\uacc4\ub97c \ubb34\ub300\ub85c \ud55c\uacc4 \ub3cc\ud30c \ub4dc\ub77c\uc774\ube59\uc5d0 \ub3c4\uc804\ud558\ub77c!",
+        "description": "\ub728\uac70\uc6b4 \uc0ac\ub9c9\uc774\ub098, \uc54c\ud504\uc2a4\uc758 \uc0b0\uc545 \ucf54\uc2a4, \uc9c0\uc911\ud574 \uc5f0\uc548\uc744 \ub2ec\ub9ac\ub294 \ub0ad\ub9cc\uc801\uc778 \ub3c4\ub85c, \uc610\ub85c \uc2a4\ud1a4 \uad6d\ub9bd \uacf5\uc6d0\uc758 \uc628\ucc9c \uc9c0\ub300 \ub4f1 \ucd1d \uc8fc\ud589 \uac70\ub9ac 3,000\ud0ac\ub85c\uac00 \ub118\ub294 \ub2e4\uc591\ud55c \ucf54\uc2a4\ub4e4\uc774 \ud0d1\uc7ac\ub418\uc5b4 \uc788\ub2e4.\n\n\ucc54\ud53c\uc5b8\uc2ed\uc744 \ube44\ub86f\ud55c \ub2e4\uc591\ud55c \ubbf8\uc158\uacfc \ucc4c\ub9b0\uc9c0\uc5d0\uc11c 250\uac00\uc9c0 \uc774\uc0c1\uc758 \ub808\uc774\uc2a4\ub97c \uc990\uae38 \uc218 \uc788\uace0, \uc2e4\uc874\ud558\ub294 \uc720\uba85 \ucc28\ub7c9\ub4e4\uc744 \ud3ec\ud568\ud55c 50\uc5ec\uac00\uc9c0\uc758 \ucc28\ub7c9\uc744 \uc774\uc6a9\ud560 \uc218 \uc788\ub2e4.\n\n\ub610\ud55c 1\uc778 \ud50c\ub808\uc774\ub294 \ubb3c\ub860 \ud654\uba74\uc744 \ubd84\ud560\ud558\uc5ec \ucd5c\ub300 4\uba85\uae4c\uc9c0 \ub85c\uceec \uba40\ud2f0 \ud50c\ub808\uc774\ub97c \uc990\uae30\ub294 \uac83\ub3c4 \uac00\ub2a5\ud558\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 3465543680
+    },
     "70010000014944": {
         "id": "0100F1B00B456000",
         "rightsId": null,
@@ -4071,7 +4116,7 @@
             "ko",
             "zh"
         ],
-        "size": 6029312000
+        "size": 6131023872
     },
     "70010000015172": {
         "id": "0100BDC00A664000",
@@ -4110,7 +4155,7 @@
             "ko",
             "zh"
         ],
-        "size": 2962227200
+        "size": 3011510272
     },
     "70010000015224": {
         "id": "010063700CA1C000",
@@ -4675,7 +4720,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem: Shadow Dragon.\n\nNew Playable Characters:\nNavarre, Minerva, and Linde.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nMarth, Bridegroom; Caeda, Bride; Tiki, Vibrant Dress; and Lyn, Swordmaster.\n\nNew Weapons:\nCaeda, Wing Spear; Tiki, Divinestone; Anna, Anna's Bow; Navarre, Wo Dao; Minerva, Hauteclere; and Linde, Aura.\n\nBroken-Armor Models:\nMarth, Caeda, Tiki, Celica, Lyn, Anna, Navarre, Minerva, and Linde.",
         "languages": null,
-        "size": 1071644672
+        "size": 1074790400
     },
     "70050000004212": {
         "id": "0100F15003E65002",
@@ -4700,7 +4745,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem Fates.\n\nNew Playable Characters:\nAzura, Oboro, and Niles.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nTakumi, Butler; Camilla, Maid; Corrin, Hoshido Noble (Female); Corrin, Nohr Noble (Male); and Azura, Dark Songstress.\n\nBroken-Armor Models:\nCorrin, Ryoma, Hinoka, Takumi, Sakura, Xander, Camilla, Leo, Elise, Azura, Oboro, and Niles.",
         "languages": null,
-        "size": 1225785344
+        "size": 1228931072
     },
     "70050000004213": {
         "id": "0100F15003E65004",
@@ -4725,7 +4770,7 @@
         "intro": null,
         "description": "This DLC is themed around Fire Emblem Awakening.\n\nNew Playable Characters:\nOwain, Tharja, and Olivia.\n\nThree new History Mode maps, each retelling a story from the Fire Emblem franchise.\n\nNew Costumes:\nChrom, Exalt; Lissa, Sage; and Cordelia, Dark Flier.\n\nNew Weapons:\nRobin, Thoron; Lissa, Lissa's Axe; Frederick, Frederick's Axe; Cordelia, Cordelia's Lance; Owain, Missiletainn; Tharja, Tharja's Hex; and Olivia, Olivia's Blade.\n\nBroken-Armor Models:\nChrom, Robin, Lissa, Frederick, Cordelia, Lucina, Owain, Tharja, and Olivia.",
         "languages": null,
-        "size": 1288699904
+        "size": 1291845632
     },
     "70050000004214": {
         "id": "0100F15003E65005",
@@ -7682,6 +7727,62 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000010101": {
+        "id": "010011600C947001",
+        "rightsId": null,
+        "name": "\ucd94\uac00 \ucf58\ud150\uce20 \uc81c1\ud0c4 Black Dandelion",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190228,
+        "nsuId": 70050000010101,
+        "category": null,
+        "ratingContent": [
+            "\ud3ed\ub825\uc131",
+            "\uc5b8\uc5b4\uc758 \ubd80\uc801\uc808\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a65a2085debe248c9bf3c6564602b7bb6ad7d5d57b1525ee06a7c69554e0f781.jpg",
+        "intro": "DLC\uff1a01\u3000Black Dandelion",
+        "description": "2019\ub144 2\uc6d4 28\uc77c \uc774\uc804\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\uc774 \ucd94\uac00 \ucf58\ud150\uce20\uc5d0\ub294 \ub2e4\uc74c\uacfc \uac19\uc740 \ub0b4\uc6a9\uc774 \ud3ec\ud568\ub418\uc5b4 \uc788\uc2b5\ub2c8\ub2e4.\n\u30fb\ud50c\ub808\uc774\uc5b4 \uce90\ub9ad\ud130 \u201c\uc2dc\ub178\ubd80\u201d\n\u30fb\uc2dc\ub178\ubd80 \uc804\uc6a9 \uc2a4\ud0ac 2\uc885\n\u30fb\ubc30\ub4dc\ub9e8\uc758 \uc5b4\ub4dc\ubca4\uccd0 \ud3b8",
+        "languages": null,
+        "size": 6291456
+    },
+    "70050000010250": {
+        "id": "010011600C947002",
+        "rightsId": null,
+        "name": "\ucd94\uac00 \ucf58\ud150\uce20 \uc81c2\ud0c4 Bubblegum Fatale",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190430,
+        "nsuId": 70050000010250,
+        "category": null,
+        "ratingContent": [
+            "\ud3ed\ub825\uc131",
+            "\uc5b8\uc5b4\uc758 \ubd80\uc801\uc808\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "Grasshopper Manufacture",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/027111e7449f37aa9c9cb141c52a50341d52dca33a9e4a156c56f1aa401cd79b.jpg",
+        "intro": "DLC:02\u3000Bubblegum Fatale",
+        "description": "2019\ub144 4\uc6d4 30\uc77c \uc774\uc804\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\uc774 \ucd94\uac00 \ucf58\ud150\uce20\uc5d0\ub294 \ub2e4\uc74c\uacfc \uac19\uc740 \ub0b4\uc6a9\uc774 \ud3ec\ud568\ub418\uc5b4 \uc788\uc2b5\ub2c8\ub2e4.\n\u30fb\ud50c\ub808\uc774\uc5b4 \uce90\ub9ad\ud130 \u201c\ubc30\ub4dc\uac78\u201d\n\u30fb\ubc30\ub4dc\uac78 \uc804\uc6a9 \uc2a4\ud0ac 2\uc885\n\u30fb\ucd94\uac00 \uc2a4\ud14c\uc774\uc9c0 \u300c\ud0ac \ub9c8\ub77c\ud1a4\u300d\n\u30fb\uc0c8\ub85c\uc6b4 \uc2a4\ud0ac\n\u30fb\u300cTravis Strikes Back\u300d \uc0c8\ub85c\uc6b4 \uc2dc\ub098\ub9ac\uc624",
+        "languages": null,
+        "size": 6291456
+    },
     "70070000002481": {
         "id": null,
         "rightsId": null,
@@ -7742,6 +7843,31 @@
         "region": null,
         "releaseDate": null,
         "nsuId": 70070000004461,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000004707": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000004707,
         "category": null,
         "ratingContent": null,
         "numberOfPlayers": null,
