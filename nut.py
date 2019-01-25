@@ -493,10 +493,13 @@ def unlockAll():
 				Print.info('error unlocking: ' + str(e))
 
 def exportVerifiedKeys(fileName):
+	initTitles()
 	with open(fileName, 'w') as f:
 		f.write('id|key\n')
 		for tid,key in blockchain.blockchain.export().items():
-			f.write(str(tid) + '|' + str(key) + '\n')
+			title = Titles.get(tid)
+			if title and title.rightsId:
+				f.write(str(title.rightsId) + '|' + str(key) + '\n')
 
 def submitKeys():
 	for id, t in Titles.items():
