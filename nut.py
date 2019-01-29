@@ -1034,7 +1034,7 @@ if __name__ == '__main__':
 		if args.export_versions:
 			initTitles()
 			initFiles()
-			export(args.export_versions, ['id', 'version'])
+			export(args.export_versions, ['rightsId', 'version'])
 		
 		if args.missing:
 			logMissingTitles(args.missing)
