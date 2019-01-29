@@ -500,19 +500,19 @@ def unlockAll():
 def exportVerifiedKeys(fileName):
 	initTitles()
 	with open(fileName, 'w') as f:
-		f.write('id|key\n')
+		f.write('id|key|version\n')
 		for tid,key in blockchain.blockchain.export().items():
 			title = Titles.get(tid)
 			if title and title.rightsId:
-				f.write(str(title.rightsId) + '|' + str(key) + '\n')
+				f.write(str(title.rightsId) + '|' + str(key) + '|' + str(title.version) + '\n')
 				
 def exportKeys(fileName):
 	initTitles()
 	with open(fileName, 'w') as f:
-		f.write('id|key\n')
+		f.write('id|key|version\n')
 		for tid,title in Titles.items():
 			if title and title.rightsId and title.key:
-				f.write(str(title.rightsId) + '|' + str(title.key) + '\n')
+				f.write(str(title.rightsId) + '|' + str(title.key) + '|' + str(title.version) + '\n')
 
 def submitKeys():
 	for id, t in Titles.items():
