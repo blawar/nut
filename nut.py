@@ -387,8 +387,8 @@ def refresh():
 			f.open()
 			f.readMeta()
 			f.close()
-		except:
-			raise
+		except BaseException as e:
+			print('exception: ' + str(e))
 			pass
 	Titles.save()
 	
@@ -500,6 +500,14 @@ def exportVerifiedKeys(fileName):
 			title = Titles.get(tid)
 			if title and title.rightsId:
 				f.write(str(title.rightsId) + '|' + str(key) + '\n')
+				
+def exportKeys(fileName):
+	initTitles()
+	with open(fileName, 'w') as f:
+		f.write('id|key\n')
+		for tid,title in Titles.items():
+			if title and title.rightsId and title.key:
+				f.write(str(title.rightsId) + '|' + str(title.key) + '\n')
 
 def submitKeys():
 	for id, t in Titles.items():
@@ -712,6 +720,7 @@ if __name__ == '__main__':
 		parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
 		parser.add_argument('-k', '--submit-keys', action="store_true", help='Submit all title keys to blockchain')
 		parser.add_argument('-K', '--export-verified-keys', help='Exports verified title keys from blockchain')
+		parser.add_argument('--export-keys', help='Exports title keys from blockchain')
 
 		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
@@ -1059,6 +1068,9 @@ if __name__ == '__main__':
 
 		if args.export_verified_keys:
 			exportVerifiedKeys(args.export_verified_keys)
+			
+		if args.export_keys:
+			exportKeys(args.export_keys)
 
 		Status.close()
 	
