@@ -378,12 +378,17 @@ def organize():
 	Nsps.removeEmptyDir('.', False)
 	Nsps.save()
 		
-def refresh():
+def refresh(titleRightsOnly = False):
 	initTitles()
 	initFiles()
 
 	for k, f in Nsps.files.items():
 		try:
+			if titleRightsOnly:
+				title = Titles.get(f.titleId)
+				if title and title.rightsId:
+					continue
+			print(f.path)
 			f.open()
 			f.readMeta()
 			f.close()
@@ -704,6 +709,7 @@ if __name__ == '__main__':
 		parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 		parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 		parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
+		parser.add_argument('-R', '--read-rightsids', action="store_true", help='reads all title rights ids from nsps')
 		parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
 		parser.add_argument('-c', '--create', help='create / pack a NSP')
 		parser.add_argument('-e', '--seteshop', help='Set NSP NCA''s as eshop')
@@ -852,7 +858,12 @@ if __name__ == '__main__':
 		if args.refresh:
 			initTitles()
 			initFiles()
-			refresh()
+			refresh(False)
+			
+		if args.read_rightsids:
+			initTitles()
+			initFiles()
+			refresh(True)
 	
 		if args.organize:
 			initTitles()
