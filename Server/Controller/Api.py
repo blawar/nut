@@ -234,8 +234,8 @@ def getDownload(request, response, start = None, end = None):
 				else:
 					start = int(start)
 
-				if start >= size or end > size or start < 0 or end <= 0:
-					return Server.Response400(request, response, 'Invalid range request')
+				if start >= size or start < 0 or end <= 0:
+					return Server.Response400(request, response, 'Invalid range request %d - %d' % (start, end))
 
 				response.setStatus(206)
 
