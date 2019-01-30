@@ -49,6 +49,7 @@ def items(region = None, language = None):
 
 def get(key, region = None, language = None):
 	key = key.upper()
+
 	if not key in data(region, language):
 		t = Title.Title()
 		t.setId(key)
@@ -129,6 +130,9 @@ def loadTitleBuffer(buffer, silent = False):
 		
 		t = Title.Title()
 		t.loadCsv(line, map)
+		
+		if not isinstance(t.id, str):
+			continue
 
 		if not t.id in keys(None, None):
 			titles[t.id] = Title.Title()
@@ -253,7 +257,7 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 	confLock.acquire()
 	try:
 		j = {}
-		#for i in newTitles.items():
+
 		for i in sorted(newTitles):
 			k = newTitles[i]
 			if not k.nsuId:
