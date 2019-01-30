@@ -605,6 +605,8 @@ def genTinfoilTitles():
 			importRegion(region, language)
 			Titles.save('titledb/titles.%s.%s.json' % (region, language))
 			#Print.info('%s - %s' % (region, language))
+	scanLatestTitleUpdates()
+	export('titledb/versions.txt', ['id', 'version'])
 
 def download(id):
 	bits = id.split(',')
@@ -649,6 +651,25 @@ def download(id):
 	else:
 		CDNSP.download_game(id.lower(), version or Title.getCdnVersion(id.lower()), key, True, '', True)
 	return True
+
+def organizeNcas(dir):
+	files = [f for f in os.listdir(dir) if f.endswith('.nca')]
+	
+	for file in files:
+		try:
+			path = os.path.join(dir, file)
+			f = Fs.Nca()
+			f.open(path, 'r+b')
+			f.close()
+			titleId = f.header.titleId
+			header = f.header
+			os.makedirs(os.path.join(dir, f.header.titleId), exist_ok=True)
+
+			dest = os.path.join(dir, f.header.titleId, file)
+			os.rename(path, dest)
+			Print.info(dest)
+		except BaseException as e:
+			Print.info(str(e))
 
 			
 if __name__ == '__main__':
@@ -743,6 +764,7 @@ if __name__ == '__main__':
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
 
 		parser.add_argument('--gen-tinfoil-titles', action="store_true", help='Outputs language files for Tinfoil')
+		parser.add_argument('-O', '--organize-ncas', help='Organize unsorted NCA\'s')
 
 		
 		args = parser.parse_args()
@@ -1013,12 +1035,6 @@ if __name__ == '__main__':
 			Print.info('opening ' + args.unlock)
 			f = Fs.Nsp(args.unlock, 'r+b')
 			f.unlock()
-			#Print.info(hex(int(f.titleId, 16)))
-			#f.ticket().setTitleKeyBlock(0x3F4E5ADCAECFB0A25C9FCABD37E68ECE)
-			#f.ticket().flush()
-			#Print.info(hex(f.ticket().getTitleKeyBlock()))
-			#Print.info(hex(f.ticket().getTitleKeyBlock()))
-			#f.close()
 
 
 		
@@ -1058,6 +1074,8 @@ if __name__ == '__main__':
 			scan()
 			organize()
 			downloadAll()
+			scanLatestTitleUpdates()
+			export('titledb/versions.txt', ['id', 'version'])
 
 		if args.scan_dlc != None:
 			initTitles()
@@ -1082,6 +1100,9 @@ if __name__ == '__main__':
 			
 		if args.export_keys:
 			exportKeys(args.export_keys)
+
+		if args.organize_ncas:
+			organizeNcas(args.organize_ncas)
 
 		Status.close()
 	

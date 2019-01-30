@@ -141,6 +141,8 @@ class NcaHeader(File):
 		else:
 			self.titleKeyDec = self.key()
 
+		return True
+
 	def key(self):
 		return self.keys[2]
 		return self.keys[self.cryptoType]
