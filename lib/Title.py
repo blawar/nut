@@ -211,7 +211,8 @@ class Title:
 		try:
 			if int(nsp.version) < int(self.lastestVersion()):
 				return True
-		except:
+		except BaseException as e:
+			Print.error('isUpdateAvailable exception: ' + str(e))
 			pass
 
 		return False

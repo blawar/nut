@@ -3518,7 +3518,7 @@
             "ko",
             "zh"
         ],
-        "size": 3297771520
+        "size": 3321888768
     },
     "70010000013830": {
         "id": "010001B005E5C000",
@@ -3601,6 +3601,46 @@
             "zh"
         ],
         "size": 481296384
+    },
+    "70010000013864": {
+        "id": "010035D00C23A000",
+        "rightsId": null,
+        "name": "Mulaka",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190123,
+        "nsuId": 70010000013864,
+        "category": [
+            "\u52d5\u4f5c",
+            "\u5192\u96aa"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "Intragames",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/aa6177c5744cc6d46c16fac930b95e379f9842f22dcc5f01ad1a8504a4c3b276.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/237cf2a0dec768651c2e447acffcff2b0bf16424d02e87e98b01924c2f5623f2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/164d06fdb6c68cc5a0cf512302d35ab8a03bcaec2d95f47288a026e219e5017c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a1f45b60a706e71658c9bd43b9908338c3fe35a850ba21e0c88d9f4322a780fa.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c59395c5920491e50882810d50a4e85cac8e5df52e6557571272be44c9abc059.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/07256c705a4dddb71d7cd2cde6fe0a4836325acc5adad2fc41b1c0897827815f.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f36539a7c793bcaf5546bb1f31c7f65daa71a16603dff04e92dd0a0d4d47a85b.jpg",
+        "intro": "\u5c07\u58a8\u897f\u54e5\u50b3\u7d71\u6cbf\u8972\u81f3\u4eca\u7684\u5854\u62c9\u70cf\u99ac\u62c9\u4eba\u89aa\u53e3\u8b1b\u8ff0\uff0c\u5049\u5927\u7684\u795e\u8a71\u5192\u96aa\u5373\u5c07\u62c9\u958b\u5e37\u5e55\u3002",
+        "description": "Mulaka\u662f\u4e00\u6b3e\u4ee5\u5854\u62c9\u70cf\u99ac\u62c9\u4eba\u7d62\u9e97\u591a\u5f69\u7684\u571f\u8457\u6587\u5316\u70ba\u57fa\u790e\u88fd\u4f5c\u76843D\u52d5\u4f5c\u5192\u96aa\u904a\u6232\u3002\u901a\u904e\u5b83\uff0c\u4f60\u5c07\u958b\u555f\u4e00\u8d9f\u76e1\u4eab\u5317\u58a8\u897f\u54e5\u98a8\u666f\u7684\u5e7b\u60f3\u4e4b\u65c5\u3002\u5728\u65c5\u9014\u4e2d\u5316\u8eab\u4ee5\u64c5\u8dd1\u800c\u805e\u540d\u7684\u5854\u62c9\u70cf\u99ac\u62c9\u4eba\u7684\u85a9\u6effSukur\u00faame\uff0c\u6536\u96c6\u534a\u795e\u7684\u529b\u91cf\u4ee5\u5c0d\u6297\u90aa\u60e1\u52e2\u529b\uff0c\u963b\u6b62\u4e16\u754c\u7684\u6c89\u6dea\u3002\u904a\u6232\u5167\u89e3\u8b0e\u90e8\u5206\u7686\u5f9e\u771f\u6b63\u7684\u5854\u62c9\u70cf\u99ac\u62c9\u4eba\u751f\u6d3b\u7684\u5c71\u5340\u7372\u5f97\u9748\u611f\uff0c\u800c\u602a\u7269\u5f62\u8c61\u5247\u6e90\u81ea\u7576\u5730\u795e\u8a71\uff0c\u5728\u5967\u5999\u7684\u8b0e\u984c\u8207\u6fc0\u70c8\u7684\u6230\u9b25\u4e2d\u4e00\u6b65\u6b65\u8d70\u8fd1\u5854\u62c9\u70cf\u99ac\u62c9\u4eba\u975e\u540c\u5e38\u4eba\u7684\u79d8\u5bc6\u5427\u3002",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "ko",
+            "zh"
+        ],
+        "size": 3005218816
     },
     "70010000014357": {
         "id": "01009D400C4A8000",
@@ -3970,7 +4010,7 @@
             "ko",
             "zh"
         ],
-        "size": 6131023872
+        "size": 6209667072
     },
     "70010000015172": {
         "id": "0100BDC00A664000",
@@ -4047,7 +4087,7 @@
             "ko",
             "zh"
         ],
-        "size": 4475322368
+        "size": 4518313984
     },
     "70010000015694": {
         "id": "010003F003A34000",
@@ -4087,7 +4127,7 @@
             "ko",
             "zh"
         ],
-        "size": 4472176640
+        "size": 4515168256
     },
     "70010000015945": {
         "id": "01009D600CA88000",
@@ -4198,7 +4238,7 @@
             "ja",
             "zh"
         ],
-        "size": 8249147392
+        "size": 8253341696
     },
     "70010000016195": {
         "id": "0100E9300B90A000",
@@ -4235,7 +4275,7 @@
             "ja",
             "zh"
         ],
-        "size": 9215934464
+        "size": 9216983040
     },
     "70010000017149": {
         "id": "0100EA80032EA000",

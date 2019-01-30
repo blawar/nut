@@ -12,7 +12,7 @@ class Server:
 class Cdn:
 	def __init__(self):
 		self.region = 'US'
-		self.firmware = '6.0.0-5.0'
+		self.firmware = '7.0.0-5.0'
 		self.deviceId = '0000000000000000'
 		self.environment = 'lp1'
 		
