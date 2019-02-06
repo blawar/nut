@@ -41,28 +41,6 @@ try:
 except:
 	raise
 
-
-				
-def loadTitleWhitelist():
-	global titleWhitelist
-	titleWhitelist = []
-	with open('conf/whitelist.txt', encoding="utf8") as f:
-		for line in f.readlines():
-			titleWhitelist.append(line.strip().upper())
-			
-def loadTitleBlacklist():
-	Config.titleBlacklist = []
-	with open('conf/blacklist.txt', encoding="utf8") as f:
-		for line in f.readlines():
-			id = line.split('|')[0].strip().upper()
-			if id:
-				Config.titleBlacklist.append(id)
-
-	with open('conf/retailOnly.blacklist', encoding="utf8") as f:
-		for line in f.readlines():
-			id = line.split('|')[0].strip().upper()
-			if id:
-				Config.titleBlacklist.append(id)
 			
 def logMissingTitles(file):
 	initTitles()
@@ -71,7 +49,7 @@ def logMissingTitles(file):
 	f = open(file,"w", encoding="utf-8-sig")
 	
 	for k,t in Titles.items():
-		if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in Config.titleBlacklist:
+		if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 			if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
 				continue
 			f.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
@@ -87,7 +65,7 @@ def logNcaDeltas(file):
 	for k,f in Nsps.files.items():
 		try:
 			t = f.title()
-			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in Config.titleBlacklist:
+			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 				f.open(f.path)
 				if f.hasDeltas():
 					Print.info(f.path)
@@ -218,7 +196,7 @@ def downloadAll(wait = True):
 	try:
 
 		for k,t in Titles.items():
-			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in Config.titleBlacklist:
+			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
 					#Print.warning('no valid id? ' + str(t.path))
 					continue
@@ -381,17 +359,22 @@ def organize():
 def refresh(titleRightsOnly = False):
 	initTitles()
 	initFiles()
-
+	i = 0
 	for k, f in Nsps.files.items():
 		try:
 			if titleRightsOnly:
 				title = Titles.get(f.titleId)
-				if title and title.rightsId:
+				if title and title.rightsId and (title.key or f.path.endswith('.nsx')):
 					continue
+			i = i + 1
 			print(f.path)
 			f.open()
 			f.readMeta()
 			f.close()
+
+			if i > 20:
+				i = 0
+				Titles.save()
 		except BaseException as e:
 			print('exception: ' + str(e))
 			pass
@@ -429,7 +412,7 @@ def updateVersions(force = True):
 	i = 0
 	for k,t in Titles.items():
 		if force or t.version == None:
-			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(titleWhitelist) == 0 or t.id in titleWhitelist) and t.id not in Config.titleBlacklist:
+			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 				v = t.lastestVersion(True)
 				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
 			
@@ -463,9 +446,6 @@ def initTitles():
 	isInitTitles = True
 
 	Titles.load()
-
-	loadTitleWhitelist()
-	loadTitleBlacklist()
 
 	Nsps.load()
 	Titles.queue.load()
@@ -511,7 +491,7 @@ def exportKeys(fileName):
 	with open(fileName, 'w') as f:
 		f.write('id|key|version\n')
 		for tid,title in Titles.items():
-			if title and title.rightsId and title.key:
+			if title and title.rightsId and title.key and title.isActive():
 				f.write(str(title.rightsId) + '|' + str(title.key) + '|' + str(title.version) + '\n')
 
 def submitKeys():
@@ -674,9 +654,6 @@ def organizeNcas(dir):
 			
 if __name__ == '__main__':
 	try:
-		titleWhitelist = []
-		titleBlacklist = []
-
 		urllib3.disable_warnings()
 
 		#signal.signal(signal.SIGINT, handler)
@@ -753,7 +730,7 @@ if __name__ == '__main__':
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 
-		parser.add_argument('--scrape-shogun', action="store_true", help='Scrape ALL titles from shogun')
+		parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
 		parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
 
 		parser.add_argument('--refresh-regions', action="store_true", help='Refreshes the region and language mappings in Nut\'s DB')
@@ -982,8 +959,21 @@ if __name__ == '__main__':
 				#f.close()
 				'''
 
-		if args.scrape_shogun:
-			scrapeShogun()
+		if args.scrape_shogun != None:
+			if len(args.scrape_shogun) == 0:
+				scrapeShogun()
+			else:
+				initTitles()
+				initFiles()
+				for i in args.scrape_shogun:
+					if len(i) == 16:
+						#l = cdn.Shogun.ids(i)
+						for t in cdn.Shogun.ids(i)['id_pairs']:
+							print('nsuId: ' + str(t['id']))
+							print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
+							Titles.saveRegion('US', 'en')
+					else:
+						print('bleh')
 
 		if args.gen_tinfoil_titles:
 			genTinfoilTitles()
