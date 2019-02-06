@@ -118,6 +118,7 @@ jsonOutput = False
 isRunning = True
 
 titleBlacklist = []
+titleWhitelist = []
 
 region = 'US'
 language = 'en'
@@ -324,3 +325,28 @@ def regionLanguages(fileName = 'titledb/languages.json'):
 			g_regionLanguages = json.loads(f.read())
 
 	return g_regionLanguages
+
+def loadTitleWhitelist():
+	global titleWhitelist
+	titleWhitelist = []
+	with open('conf/whitelist.txt', encoding="utf8") as f:
+		for line in f.readlines():
+			titleWhitelist.append(line.strip().upper())
+			
+def loadTitleBlacklist():
+	global titleBlacklist
+	titleBlacklist = []
+	with open('conf/blacklist.txt', encoding="utf8") as f:
+		for line in f.readlines():
+			id = line.split('|')[0].strip().upper()
+			if id:
+				titleBlacklist.append(id)
+
+	with open('conf/retailOnly.blacklist', encoding="utf8") as f:
+		for line in f.readlines():
+			id = line.split('|')[0].strip().upper()
+			if id:
+				titleBlacklist.append(id)
+
+loadTitleWhitelist()
+loadTitleBlacklist()

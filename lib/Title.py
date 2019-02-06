@@ -441,6 +441,12 @@ class Title:
 			return True
 		else:
 			return False
+
+	def isActive(self):
+		if (self.isDLC or self.isUpdate or Config.download.base) and (not self.isDLC or Config.download.DLC) and (not self.isDemo or Config.download.demo) and (not self.isUpdate or Config.download.update) and (self.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or self.id in Config.titleWhitelist) and self.id not in Config.titleBlacklist:
+			return True
+		else:
+			return False
 		
 	@staticmethod
 	def getCdnVersion(id):
@@ -520,6 +526,9 @@ class Title:
 		return r
 
 	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
+		if not _json:
+			return None
+			
 		if 'hero_banner_url' in _json:
 			self.bannerUrl = _json['hero_banner_url']
 

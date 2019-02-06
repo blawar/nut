@@ -8,7 +8,7 @@ def isValidCache(cacheFileName):
 	if not os.path.isfile(cacheFileName):
 		return False
 
-	if time.time() - os.path.getmtime(cacheFileName) < 604800:
+	if time.time() - os.path.getmtime(cacheFileName) < 86400 * 4:
 		return True
 	return False
 
