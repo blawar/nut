@@ -1,7 +1,7 @@
 {
     "70010000000025": {
         "id": "01007EF00011E000",
-        "rightsId": null,
+        "rightsId": "01007EF00011E0000000000000000000",
         "name": "The Legend of Zelda\u2122: Breath of the Wild",
         "version": null,
         "key": null,
@@ -51,7 +51,7 @@
     },
     "70010000000141": {
         "id": "01000320000CC000",
-        "rightsId": null,
+        "rightsId": "01000320000CC0000000000000000000",
         "name": "1-2-Switch\u2122",
         "version": null,
         "key": null,
@@ -94,7 +94,7 @@
     },
     "70010000000142": {
         "id": "0100704000B3A000",
-        "rightsId": null,
+        "rightsId": "0100704000B3A0000000000000000000",
         "name": "Snipperclips\u2122 \u2013 Cut it out, together!",
         "version": null,
         "key": null,
@@ -135,7 +135,7 @@
     },
     "70010000000153": {
         "id": "0100152000022000",
-        "rightsId": null,
+        "rightsId": "01001520000220000000000000000000",
         "name": "Mario Kart\u2122 8 Deluxe",
         "version": null,
         "key": null,
@@ -178,7 +178,7 @@
     },
     "70010000000392": {
         "id": "01009B500007C000",
-        "rightsId": null,
+        "rightsId": "01009B500007C0000000000000000000",
         "name": "ARMS\u2122",
         "version": null,
         "key": null,
@@ -227,7 +227,7 @@
     },
     "70010000000447": {
         "id": "010003F003A34000",
-        "rightsId": null,
+        "rightsId": "010003F003A340000000000000000005",
         "name": "Pok\u00e9mon\u2122: Let\u2019s Go, Pikachu!",
         "version": null,
         "key": null,
@@ -269,7 +269,7 @@
     },
     "70010000000450": {
         "id": "0100187003A36000",
-        "rightsId": null,
+        "rightsId": "0100187003A360000000000000000005",
         "name": "Pok\u00e9mon\u2122: Let\u2019s Go, Eevee!",
         "version": null,
         "key": null,
@@ -311,7 +311,7 @@
     },
     "70010000000529": {
         "id": "01003BC0000A0000",
-        "rightsId": null,
+        "rightsId": "01003BC0000A00000000000000000000",
         "name": "Splatoon\u2122 2",
         "version": null,
         "key": null,
@@ -350,11 +350,11 @@
             "es",
             "fr"
         ],
-        "size": 6020923392
+        "size": 6095372288
     },
     "70010000000600": {
         "id": "0100F15003E64000",
-        "rightsId": null,
+        "rightsId": "0100F15003E640000000000000000003",
         "name": "Fire Emblem Warriors",
         "version": null,
         "key": null,
@@ -397,7 +397,7 @@
     },
     "70010000000662": {
         "id": "01002CC003FE6000",
-        "rightsId": null,
+        "rightsId": "01002CC003FE60000000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Edition",
         "version": null,
         "key": null,
@@ -446,7 +446,7 @@
     },
     "70010000000705": {
         "id": "010095A004040000",
-        "rightsId": null,
+        "rightsId": "010095A0040400000000000000000000",
         "name": "Flip Wars",
         "version": null,
         "key": null,
@@ -495,7 +495,7 @@
     },
     "70010000000707": {
         "id": "0100E95004038000",
-        "rightsId": null,
+        "rightsId": "0100E950040380000000000000000003",
         "name": "Xenoblade Chronicles\u2122 2",
         "version": null,
         "key": null,
@@ -538,9 +538,49 @@
         ],
         "size": 14164164608
     },
+    "70010000000734": {
+        "id": "01006000040C2000",
+        "rightsId": null,
+        "name": "Yoshi\u2019s Crafted World\u2122",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190329,
+        "nsuId": 70010000000734,
+        "category": [
+            "Action",
+            "Platformer"
+        ],
+        "ratingContent": [
+            "Mild Cartoon Violence"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/eb4db2538ac3d439fce167fe2c23d2a58b09a80fdf1a8d00d1cbae50481f374f.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/9aa9468e9adeb140d52ba44f3646a8b202a38bd4bb0a5e752b5feb2b51046495.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cb50f4bade1f501323f9397063f22356ae6e874d39a6c5947c0fac1fc2a74ec7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0369ede6ebf36644e53e9d5aac826f5175d1688a43a3436cf2287cf3b8943a60.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1cd3a1127f4d34e03914f2d0e3484813bf3216afb36b59d62e7dbc8c2300e3f8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ed06a0cf6319158906704d60be28b94bb4a9bdeeb8bc89679ab0bb72d0dcc570.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0b877ba2cdc8d08ff70335743594bc96cd722916b350b6eaaa8956f94b2d41e3.jpg",
+        "intro": "Get crafty with Yoshi in\na handicraft world",
+        "description": "Jump into a new Yoshi adventure in a world made of everyday objects\u2014like boxes and paper cups! As Yoshi, you\u2019ll leap up high, gulp down enemies, and set out on a treasure hunt to find all the different collectables. On the flip side, stages can be played backwards, providing new perspectives to explore and new ways to locate some of the more craftily hidden items! this fabled artifact can grant the bearer their wildest dreams! But when the artifact\u2019s gems are sent flying, it falls upon Yoshi and friends to find them. Luckily, saving the day can be cooperative and challenging. Pass a Joy-ConTM controller to a friend to team up as fellow Yoshis. Also, Mellow mode gives Yoshi wings for a breezier experience, which may come in handy! Finding all the flowers, coins, and Poochy Pups is no small feat! For extra protection, suit up in one of the handicraft costumes you can unlock in-game!",
+        "languages": [
+            "en",
+            "es",
+            "fr"
+        ],
+        "size": 5692719104
+    },
     "70010000001107": {
         "id": "01007960049A0000",
-        "rightsId": null,
+        "rightsId": "01007960049A00000000000000000003",
         "name": "Bayonetta\u2122 2",
         "version": null,
         "key": null,
@@ -587,7 +627,7 @@
     },
     "70010000001109": {
         "id": "010076F0049A2000",
-        "rightsId": null,
+        "rightsId": "010076F0049A20000000000000000003",
         "name": "Bayonetta\u2122",
         "version": null,
         "key": null,
@@ -634,7 +674,7 @@
     },
     "70010000001130": {
         "id": "0100000000010000",
-        "rightsId": null,
+        "rightsId": "01000000000100000000000000000003",
         "name": "Super Mario Odyssey\u2122",
         "version": null,
         "key": null,
@@ -682,7 +722,7 @@
     },
     "70010000001132": {
         "id": "0100B3F000BE2000",
-        "rightsId": null,
+        "rightsId": "0100B3F000BE20000000000000000000",
         "name": "Pokk\u00e9n Tournament\u2122 DX",
         "version": null,
         "key": null,
@@ -727,7 +767,7 @@
     },
     "70010000001339": {
         "id": "0100C1F0051B6000",
-        "rightsId": null,
+        "rightsId": "0100C1F0051B60000000000000000004",
         "name": "Donkey Kong Country\u2122: Tropical Freeze",
         "version": null,
         "key": null,
@@ -768,7 +808,7 @@
     },
     "70010000001515": {
         "id": "010095300212A000",
-        "rightsId": null,
+        "rightsId": "010095300212A0000000000000000003",
         "name": "Resident Evil Revelations 2",
         "version": null,
         "key": null,
@@ -818,7 +858,7 @@
     },
     "70010000001618": {
         "id": "010057D006492000",
-        "rightsId": null,
+        "rightsId": "010057D0064920000000000000000004",
         "name": "Octopath Traveler\u2122",
         "version": null,
         "key": null,
@@ -863,7 +903,7 @@
     },
     "70010000002365": {
         "id": "01007E3006DDA000",
-        "rightsId": null,
+        "rightsId": "01007E3006DDA0000000000000000004",
         "name": "Kirby\u2122 Star Allies",
         "version": null,
         "key": null,
@@ -903,7 +943,7 @@
     },
     "70010000002722": {
         "id": "01009BF0072D4000",
-        "rightsId": null,
+        "rightsId": "01009BF0072D40000000000000000004",
         "name": "Captain Toad\u2122: Treasure Tracker",
         "version": null,
         "key": null,
@@ -944,7 +984,7 @@
     },
     "70010000003208": {
         "id": "0100633007D48000",
-        "rightsId": null,
+        "rightsId": "0100633007D480000000000000000004",
         "name": "Hollow Knight",
         "version": null,
         "key": null,
@@ -994,7 +1034,7 @@
     },
     "70010000003482": {
         "id": "01005D100807A000",
-        "rightsId": null,
+        "rightsId": "01005D100807A0000000000000000004",
         "name": "Pok\u00e9mon\u2122 Quest",
         "version": null,
         "key": null,
@@ -1041,7 +1081,7 @@
     },
     "70010000003842": {
         "id": "0100DDD0085A4000",
-        "rightsId": null,
+        "rightsId": "0100DDD0085A40000000000000000004",
         "name": "Sushi Striker\u2122: The Way of Sushido",
         "version": null,
         "key": null,
@@ -1083,7 +1123,7 @@
     },
     "70010000003889": {
         "id": "0100BDE00862A000",
-        "rightsId": null,
+        "rightsId": "0100BDE00862A0000000000000000004",
         "name": "Mario Tennis\u2122 Aces",
         "version": null,
         "key": null,
@@ -1127,11 +1167,11 @@
             "ko",
             "zh"
         ],
-        "size": 2357198848
+        "size": 2347761664
     },
     "70010000003971": {
         "id": "01005250086C4000",
-        "rightsId": null,
+        "rightsId": "01005250086C40000000000000000004",
         "name": "Mega Man X Legacy Collection 2",
         "version": null,
         "key": null,
@@ -1176,7 +1216,7 @@
     },
     "70010000004682": {
         "id": "0100842008EC4000",
-        "rightsId": null,
+        "rightsId": "0100842008EC40000000000000000004",
         "name": "Mega Man Legacy Collection 2",
         "version": null,
         "key": null,
@@ -1220,7 +1260,7 @@
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
-        "rightsId": null,
+        "rightsId": "0100FFA0093E80000000000000000005",
         "name": "FIFA 19",
         "version": null,
         "key": null,
@@ -1265,7 +1305,7 @@
     },
     "70010000006023": {
         "id": "0100AE00096EA000",
-        "rightsId": null,
+        "rightsId": "0100AE00096EA0000000000000000004",
         "name": "Hyrule Warriors: Definitive Edition",
         "version": null,
         "key": null,
@@ -1308,7 +1348,7 @@
     },
     "70010000006411": {
         "id": "0100EA80032EA000",
-        "rightsId": null,
+        "rightsId": "0100EA80032EA0000000000000000004",
         "name": "New Super Mario Bros.\u2122 U Deluxe",
         "version": null,
         "key": null,
@@ -1357,7 +1397,7 @@
     },
     "70010000006801": {
         "id": "010008900705C000",
-        "rightsId": null,
+        "rightsId": "010008900705C0000000000000000003",
         "name": "Dragon Quest Builders\u2122",
         "version": null,
         "key": null,
@@ -1405,7 +1445,7 @@
     },
     "70010000008122": {
         "id": "01004AB00A260000",
-        "rightsId": null,
+        "rightsId": "01004AB00A2600000000000000000005",
         "name": "DARK SOULS\u2122: REMASTERED",
         "version": null,
         "key": null,
@@ -1456,7 +1496,7 @@
     },
     "70010000009564": {
         "id": "0100E7300AAD4000",
-        "rightsId": null,
+        "rightsId": "0100E7300AAD40000000000000000005",
         "name": "Fitness Boxing",
         "version": null,
         "key": null,
@@ -1495,7 +1535,7 @@
     },
     "70010000010137": {
         "id": "010075600AE96000",
-        "rightsId": null,
+        "rightsId": "010075600AE960000000000000000005",
         "name": "Just Dance\u00ae 2019",
         "version": null,
         "key": null,
@@ -1541,11 +1581,11 @@
             "ko",
             "zh"
         ],
-        "size": 7882145792
+        "size": 8064598016
     },
     "70010000010192": {
         "id": "010025400AECE000",
-        "rightsId": null,
+        "rightsId": "010025400AECE0000000000000000005",
         "name": "Fortnite",
         "version": null,
         "key": null,
@@ -1592,7 +1632,7 @@
             "ru",
             "ko"
         ],
-        "size": 4085252096
+        "size": 4435476480
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1643,7 +1683,7 @@
     },
     "70010000011853": {
         "id": "0100C1500B82E000",
-        "rightsId": null,
+        "rightsId": "0100C1500B82E0000000000000000005",
         "name": "The World Ends with You\u00ae: Final Remix",
         "version": null,
         "key": null,
@@ -1684,7 +1724,7 @@
     },
     "70010000012305": {
         "id": "01001B300B9BE000",
-        "rightsId": null,
+        "rightsId": "01001B300B9BE0000000000000000005",
         "name": "Diablo III: Eternal Collection",
         "version": null,
         "key": null,
@@ -1735,7 +1775,7 @@
     },
     "70010000012332": {
         "id": "01006A800016E000",
-        "rightsId": null,
+        "rightsId": "01006A800016E0000000000000000005",
         "name": "Super Smash Bros.\u2122 Ultimate",
         "version": null,
         "key": null,
@@ -1784,11 +1824,11 @@
             "ko",
             "zh"
         ],
-        "size": 15084814336
+        "size": 15278800896
     },
     "70010000012879": {
         "id": "0100D870045B6000",
-        "rightsId": null,
+        "rightsId": "0100D870045B60000000000000000005",
         "name": "Nintendo Entertainment System\u2122 - Nintendo Switch Online",
         "version": null,
         "key": null,
@@ -1831,7 +1871,7 @@
     },
     "70010000013704": {
         "id": "010044500C182000",
-        "rightsId": null,
+        "rightsId": "010044500C1820000000000000000005",
         "name": "Sid Meier\u2019s Civilization VI",
         "version": null,
         "key": null,
@@ -1880,7 +1920,7 @@
     },
     "70010000014081": {
         "id": "0100C9F009F7A000",
-        "rightsId": null,
+        "rightsId": "0100C9F009F7A0000000000000000005",
         "name": "Xenoblade Chronicles 2: Torna ~ The Golden Country",
         "version": null,
         "key": null,
@@ -1923,7 +1963,7 @@
     },
     "70010000014158": {
         "id": "010036B0034E4000",
-        "rightsId": null,
+        "rightsId": "010036B0034E40000000000000000005",
         "name": "Super Mario Party\u2122",
         "version": null,
         "key": null,
@@ -1965,7 +2005,7 @@
     },
     "70010000014303": {
         "id": "01003A400C3DA000",
-        "rightsId": null,
+        "rightsId": "01003A400C3DA0000000000000000005",
         "name": "YouTube",
         "version": null,
         "key": null,
@@ -2060,9 +2100,34 @@
         ],
         "size": 6209667072
     },
+    "70030000005101": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": true,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70030000005101,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
     "70050000000183": {
         "id": "01007EF00011F001",
-        "rightsId": null,
+        "rightsId": "01007EF00011F0010000000000000000",
         "name": "The Legend of Zelda: \nBreath of the Wild DLC Pack 1",
         "version": null,
         "key": null,
@@ -2091,7 +2156,7 @@
     },
     "70050000000184": {
         "id": "01007EF00011F002",
-        "rightsId": null,
+        "rightsId": "01007EF00011F0020000000000000000",
         "name": "The Legend of Zelda:\nBreath of the Wild DLC Pack 2",
         "version": null,
         "key": null,
@@ -2120,7 +2185,7 @@
     },
     "70050000001423": {
         "id": "0100F15003E65001",
-        "rightsId": null,
+        "rightsId": "0100F15003E650010000000000000003",
         "name": "Lucina's Bridal Costume",
         "version": null,
         "key": null,
@@ -2148,7 +2213,7 @@
     },
     "70050000001426": {
         "id": "0100F15003E65004",
-        "rightsId": null,
+        "rightsId": "0100F15003E650040000000000000003",
         "name": "Fire Emblem Awakening DLC Pack",
         "version": null,
         "key": null,
@@ -2176,7 +2241,7 @@
     },
     "70050000001489": {
         "id": "0100F15003E65002",
-        "rightsId": null,
+        "rightsId": "0100F15003E650020000000000000003",
         "name": "Fire Emblem Fates DLC Pack",
         "version": null,
         "key": null,
@@ -2204,7 +2269,7 @@
     },
     "70050000001490": {
         "id": "0100F15003E65003",
-        "rightsId": null,
+        "rightsId": "0100F15003E650030000000000000003",
         "name": "Fire Emblem: Shadow Dragon DLC Pack",
         "version": null,
         "key": null,
@@ -2232,7 +2297,7 @@
     },
     "70050000001721": {
         "id": "0100704000B3B001",
-        "rightsId": null,
+        "rightsId": "0100704000B3B0010000000000000003",
         "name": "Snipperclips\u2122 \u2013 Cut it out, together! DLC",
         "version": null,
         "key": null,
@@ -2263,7 +2328,7 @@
     },
     "70050000001861": {
         "id": "0100E95004039005",
-        "rightsId": null,
+        "rightsId": "0100E950040390050000000000000003",
         "name": "Helpful Items Pack",
         "version": null,
         "key": null,
@@ -2293,7 +2358,7 @@
     },
     "70050000001901": {
         "id": "0100E95004039002",
-        "rightsId": null,
+        "rightsId": "0100E950040390020000000000000000",
         "name": "New Quests Pack",
         "version": null,
         "key": null,
@@ -2323,7 +2388,7 @@
     },
     "70050000001902": {
         "id": "0100E95004039003",
-        "rightsId": null,
+        "rightsId": "0100E950040390030000000000000000",
         "name": "New Rare Blade Pack",
         "version": null,
         "key": null,
@@ -2353,7 +2418,7 @@
     },
     "70050000001903": {
         "id": "0100E95004039004",
-        "rightsId": null,
+        "rightsId": "0100E950040390040000000000000000",
         "name": "New Challenge Mode Pack",
         "version": null,
         "key": null,
@@ -2383,7 +2448,7 @@
     },
     "70050000001904": {
         "id": "0100E95004039001",
-        "rightsId": null,
+        "rightsId": "0100E950040390010000000000000000",
         "name": "Xenoblade Chronicles 2: Torna ~ The Golden Country",
         "version": null,
         "key": null,
@@ -2413,7 +2478,7 @@
     },
     "70050000002249": {
         "id": "0100B3F000BE3001",
-        "rightsId": null,
+        "rightsId": "0100B3F000BE30010000000000000003",
         "name": "Pokk\u00e9n Tournament DX Battle Pack Wave 1",
         "version": null,
         "key": null,
@@ -2441,7 +2506,7 @@
     },
     "70050000002861": {
         "id": "0100B3F000BE3002",
-        "rightsId": null,
+        "rightsId": "0100B3F000BE30020000000000000003",
         "name": "Pokk\u00e9n Tournament DX Battle Pack Wave 2",
         "version": null,
         "key": null,
@@ -2469,7 +2534,7 @@
     },
     "70050000004063": {
         "id": "01003BC0000A1065",
-        "rightsId": null,
+        "rightsId": "01003BC0000A10650000000000000004",
         "name": "Splatoon\u2122 2: Octo Expansion",
         "version": null,
         "key": null,
@@ -2497,7 +2562,7 @@
     },
     "70050000004341": {
         "id": "01003BC0000A1064",
-        "rightsId": null,
+        "rightsId": "01003BC0000A10640000000000000004",
         "name": "Bonus Octo-themed Gear",
         "version": null,
         "key": null,
@@ -2525,7 +2590,7 @@
     },
     "70050000005541": {
         "id": "01005D100807B001",
-        "rightsId": null,
+        "rightsId": "01005D100807B0010000000000000004",
         "name": "Expedition Pack",
         "version": null,
         "key": null,
@@ -2553,7 +2618,7 @@
     },
     "70050000005725": {
         "id": "01005D100807B002",
-        "rightsId": null,
+        "rightsId": "01005D100807B0020000000000000004",
         "name": "Great Expedition Pack",
         "version": null,
         "key": null,
@@ -2581,7 +2646,7 @@
     },
     "70050000005726": {
         "id": "01005D100807B003",
-        "rightsId": null,
+        "rightsId": "01005D100807B0030000000000000004",
         "name": "Ultra Expedition Pack",
         "version": null,
         "key": null,
@@ -2609,7 +2674,7 @@
     },
     "70050000005727": {
         "id": "01005D100807B005",
-        "rightsId": null,
+        "rightsId": "01005D100807B0050000000000000004",
         "name": "Scattershot Stone",
         "version": null,
         "key": null,
@@ -2637,7 +2702,7 @@
     },
     "70050000005728": {
         "id": "01005D100807B006",
-        "rightsId": null,
+        "rightsId": "01005D100807B0060000000000000004",
         "name": "Broadburst Stone",
         "version": null,
         "key": null,
@@ -2665,7 +2730,7 @@
     },
     "70050000005729": {
         "id": "01005D100807B007",
-        "rightsId": null,
+        "rightsId": "01005D100807B0070000000000000004",
         "name": "Whack-Whack Stone",
         "version": null,
         "key": null,
@@ -2693,7 +2758,7 @@
     },
     "70050000005730": {
         "id": "01005D100807B008",
-        "rightsId": null,
+        "rightsId": "01005D100807B0080000000000000004",
         "name": "Wait Less Stone",
         "version": null,
         "key": null,
@@ -2721,7 +2786,7 @@
     },
     "70050000005731": {
         "id": "01005D100807B009",
-        "rightsId": null,
+        "rightsId": "01005D100807B0090000000000000004",
         "name": "Stay Strong Stone",
         "version": null,
         "key": null,
@@ -2749,7 +2814,7 @@
     },
     "70050000005732": {
         "id": "01005D100807B00A",
-        "rightsId": null,
+        "rightsId": "01005D100807B00A0000000000000004",
         "name": "Sharing Stone",
         "version": null,
         "key": null,
@@ -2777,7 +2842,7 @@
     },
     "70050000007546": {
         "id": "010044500C183001",
-        "rightsId": null,
+        "rightsId": "010044500C1830010000000000000005",
         "name": "Civilization VI - Nubia Civilization & Scenario Pack",
         "version": null,
         "key": null,
@@ -2813,7 +2878,7 @@
     },
     "70050000007547": {
         "id": "010044500C183002",
-        "rightsId": null,
+        "rightsId": "010044500C1830020000000000000005",
         "name": "Civilization VI - Khmer and Indonesia Civilization & Scenario Pack",
         "version": null,
         "key": null,
@@ -2849,7 +2914,7 @@
     },
     "70050000007564": {
         "id": "0100E95004039006",
-        "rightsId": null,
+        "rightsId": "0100E950040390060000000000000005",
         "name": "Xenoblade Chronicles 2 \u2013 My Nintendo Bonus Items",
         "version": null,
         "key": null,
@@ -2879,7 +2944,7 @@
     },
     "70050000008041": {
         "id": "01001B300B9BF005",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0050000000000000005",
         "name": "French Language Pack",
         "version": null,
         "key": null,
@@ -2909,7 +2974,7 @@
     },
     "70050000008085": {
         "id": "01002CC003FE7003",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70030000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Lance Starship Pack",
         "version": null,
         "key": null,
@@ -2937,7 +3002,7 @@
     },
     "70050000008086": {
         "id": "01002CC003FE7004",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70040000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Nadir Starship Pack",
         "version": null,
         "key": null,
@@ -2965,7 +3030,7 @@
     },
     "70050000008087": {
         "id": "01002CC003FE7002",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70020000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Neptune Starship Pack",
         "version": null,
         "key": null,
@@ -2993,7 +3058,7 @@
     },
     "70050000008088": {
         "id": "01002CC003FE7001",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70010000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Pulse Starship Pack",
         "version": null,
         "key": null,
@@ -3021,7 +3086,7 @@
     },
     "70050000008089": {
         "id": "01002CC003FE7008",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70080000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Eli Arborwood Pilot Pack",
         "version": null,
         "key": null,
@@ -3049,7 +3114,7 @@
     },
     "70050000008090": {
         "id": "01002CC003FE7006",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70060000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Kharl Zeon Pilot Pack",
         "version": null,
         "key": null,
@@ -3077,7 +3142,7 @@
     },
     "70050000008091": {
         "id": "01002CC003FE7005",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70050000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Levi McCray Pilot Pack",
         "version": null,
         "key": null,
@@ -3105,7 +3170,7 @@
     },
     "70050000008092": {
         "id": "01002CC003FE7007",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70070000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Razor Lemay Pilot Pack",
         "version": null,
         "key": null,
@@ -3133,7 +3198,7 @@
     },
     "70050000008093": {
         "id": "01002CC003FE700A",
-        "rightsId": null,
+        "rightsId": "01002CC003FE700A0000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Crusher Weapon Pack",
         "version": null,
         "key": null,
@@ -3161,7 +3226,7 @@
     },
     "70050000008094": {
         "id": "01002CC003FE700C",
-        "rightsId": null,
+        "rightsId": "01002CC003FE700C0000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Hailstorm Weapon Pack",
         "version": null,
         "key": null,
@@ -3189,7 +3254,7 @@
     },
     "70050000008095": {
         "id": "01002CC003FE7009",
-        "rightsId": null,
+        "rightsId": "01002CC003FE70090000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Iron Fist Weapon Pack",
         "version": null,
         "key": null,
@@ -3217,7 +3282,7 @@
     },
     "70050000008096": {
         "id": "01002CC003FE700B",
-        "rightsId": null,
+        "rightsId": "01002CC003FE700B0000000000000005",
         "name": "Starlink: Battle for Atlas\u2122 Digital Shockwave Weapon Pack",
         "version": null,
         "key": null,
@@ -3245,7 +3310,7 @@
     },
     "70050000008181": {
         "id": "01003BC0000A1005",
-        "rightsId": null,
+        "rightsId": "01003BC0000A10050000000000000005",
         "name": "Splatoon\u2122 2  - Nintendo Switch Online Special Gear",
         "version": null,
         "key": null,
@@ -3273,7 +3338,7 @@
     },
     "70050000008182": {
         "id": "01001B300B9BF006",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0060000000000000005",
         "name": "Italian Language Pack",
         "version": null,
         "key": null,
@@ -3303,7 +3368,7 @@
     },
     "70050000008183": {
         "id": "01001B300B9BF003",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0030000000000000005",
         "name": "Castilian Spanish Language Pack",
         "version": null,
         "key": null,
@@ -3333,7 +3398,7 @@
     },
     "70050000008321": {
         "id": "01001B300B9BF004",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0040000000000000005",
         "name": "Latin American Spanish Language Pack",
         "version": null,
         "key": null,
@@ -3363,7 +3428,7 @@
     },
     "70050000008322": {
         "id": "01001B300B9BF007",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0070000000000000005",
         "name": "German Language Pack",
         "version": null,
         "key": null,
@@ -3393,7 +3458,7 @@
     },
     "70050000008323": {
         "id": "01001B300B9BF00A",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF00A0000000000000005",
         "name": "Russian Language Pack",
         "version": null,
         "key": null,
@@ -3423,7 +3488,7 @@
     },
     "70050000008324": {
         "id": "01001B300B9BF009",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0090000000000000005",
         "name": "Brazilian Portuguese Language Pack",
         "version": null,
         "key": null,
@@ -3453,7 +3518,7 @@
     },
     "70050000008325": {
         "id": "01001B300B9BF00E",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF00E0000000000000005",
         "name": "Polish Language Pack",
         "version": null,
         "key": null,
@@ -3483,7 +3548,7 @@
     },
     "70050000008326": {
         "id": "01001B300B9BF010",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0100000000000000005",
         "name": "Japanese Language Pack",
         "version": null,
         "key": null,
@@ -3513,13 +3578,13 @@
     },
     "70050000008421": {
         "id": "01006A800016F001",
-        "rightsId": null,
-        "name": "Limited Time Offer: Piranha Plant",
+        "rightsId": "01006A800016F0010000000000000005",
+        "name": "Super Smash Bros.\u2122 Ultimate: Piranha Plant Standalone Fighter",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 201902,
+        "releaseDate": 20190201,
         "nsuId": 70050000008421,
         "category": null,
         "ratingContent": [
@@ -3535,16 +3600,23 @@
         "publisher": "Nintendo",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d22f1f2fb866424f88e38b511e521d0c364140c419c7b7555d16467b253259ac.jpg",
-        "intro": null,
-        "description": "This is the new fighter, Piranha Plant!",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/0db1f41040a6829c0f6010c6cedef05c42017d24a9de1d257f91613977344efd.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7b78619514a3890f643c63e9ff6eeecc80541d1ddd99a6ea198e6f0fd9c7d67f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d4c595daa00f49174c8108e96e83c33e95fe67e7a5a4de2d1e6a294d8cf07852.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ebfd76854fd5d3ef9e9e81146eb7325a0b7f5e6e50e4491e9528657881ba0429.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0a33ab9ebc23b0a236cb5cf6ef2d81f46e38816e2fe725b97e499057a3f35c5c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f6623e6868b357b05465df83af2ceee70e3d00df03154aa13f3c25da9f3aa513.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/90a546fb548a83a52dd187f2f5a850b35aff34df9be4b19b001256106c6b0cc8.jpg",
+        "intro": "Piranha Plant joins the battle!",
+        "description": "Piranha Plant joins the battle as a stand-alone fighter in the Super Smash Bros.\u2122 Ultimate game! With its powerful bite, Poison Breath, and ability to call in Petey Piranha for a larger-than-life Final Smash, this fighter\u2019s ferocity is as sharp as its teeth. Ready your pipes and flowerpots; your opponent won\u2019t see you coming! (Then again, Piranha Plant doesn\u2019t really \u201csee\u201d either. It doesn\u2019t have eyes.)\n\nPlayers who purchased and registered the game before January 31, 2019 have until June 30, 2019 to redeem their codes and receive Piranha Plant for free. Players who did not qualify for the early purchase bonus can purchase Piranha Plant in the Nintendo eShop for $4.99 USD.\n\nNote: Piranha Plant is not a part of the Super Smash Bros. Ultimate Fighters Pass. Therefore, this fighter does not come with a stage or selection of music.",
         "languages": null,
         "size": 4194304
     },
     "70050000008422": {
         "id": "01006A800016F002",
-        "rightsId": null,
+        "rightsId": "01006A800016F0020000000000000005",
         "name": "Challenger Pack 1",
         "version": null,
         "key": null,
@@ -3575,7 +3647,7 @@
     },
     "70050000008423": {
         "id": "01006A800016F003",
-        "rightsId": null,
+        "rightsId": "01006A800016F0030000000000000005",
         "name": "Challenger Pack 2",
         "version": null,
         "key": null,
@@ -3606,7 +3678,7 @@
     },
     "70050000008424": {
         "id": "01006A800016F004",
-        "rightsId": null,
+        "rightsId": "01006A800016F0040000000000000005",
         "name": "Challenger Pack 3",
         "version": null,
         "key": null,
@@ -3637,7 +3709,7 @@
     },
     "70050000008425": {
         "id": "01006A800016F005",
-        "rightsId": null,
+        "rightsId": "01006A800016F0050000000000000005",
         "name": "Challenger Pack 4",
         "version": null,
         "key": null,
@@ -3668,7 +3740,7 @@
     },
     "70050000008426": {
         "id": "01006A800016F006",
-        "rightsId": null,
+        "rightsId": "01006A800016F0060000000000000005",
         "name": "Challenger Pack 5",
         "version": null,
         "key": null,
@@ -3699,7 +3771,7 @@
     },
     "70050000008427": {
         "id": "01006A800016F015",
-        "rightsId": null,
+        "rightsId": "01006A800016F0150000000000000005",
         "name": "Super Smash Bros. Ultimate Fighters Pass Bonus Mii Fighter Costume (Rex)",
         "version": null,
         "key": null,
@@ -3729,7 +3801,7 @@
     },
     "70050000009021": {
         "id": "01001B300B9BF001",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0010000000000000005",
         "name": "UK English Language Pack",
         "version": null,
         "key": null,
@@ -3759,7 +3831,7 @@
     },
     "70050000009321": {
         "id": "010011600C947001",
-        "rightsId": null,
+        "rightsId": "010011600C9470010000000000000007",
         "name": "Travis Strikes Again: No More Heroes - DLC #1",
         "version": null,
         "key": null,
@@ -3790,7 +3862,7 @@
     },
     "70050000009322": {
         "id": "010011600C947002",
-        "rightsId": null,
+        "rightsId": "010011600C9470020000000000000007",
         "name": "Travis Strikes Again: No More Heroes - DLC #2",
         "version": null,
         "key": null,
@@ -3821,7 +3893,7 @@
     },
     "70050000009585": {
         "id": "01001B300B9BF00C",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF00C0000000000000007",
         "name": "Traditional Chinese Language Pack",
         "version": null,
         "key": null,
@@ -3851,7 +3923,7 @@
     },
     "70050000009952": {
         "id": "01001B300B9BF008",
-        "rightsId": null,
+        "rightsId": "01001B300B9BF0080000000000000007",
         "name": "Korean Language Pack",
         "version": null,
         "key": null,
