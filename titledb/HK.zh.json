@@ -5908,7 +5908,7 @@
     "70050000008064": {
         "id": "01006A800016F001",
         "rightsId": "01006A800016F0010000000000000005",
-        "name": "\u65e9\u671f\u8cfc\u5165\u7279\u5178 \u541e\u98df\u82b1 (\u9b25\u58eb)",
+        "name": "\u541e\u98df\u82b1 (\u9b25\u58eb)",
         "version": null,
         "key": null,
         "isDemo": false,
@@ -5924,9 +5924,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/033c9e25dac78123e515b13ed0241564967c1f128cfa6d792cbccb9f3bed0c3c.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/42085dd03eaeb464040c86b7914f7293fe51380248c70e61e38984925bbce12a.jpg",
         "intro": null,
-        "description": "\u300c\u541e\u98df\u82b1\u300d\u9b25\u58eb",
+        "description": "\u6709\u73a9\u300e\u8d85\u7d1a\u746a\u5229\u6b50\u300f\u7cfb\u5217\u7684\u4eba\uff0c\u80af\u5b9a\u898b\u904e\u5427\uff01\u90a3\u500b\u89d2\u8272\u2026\u300c\u541e\u98df\u82b1\u300d\u5c45\u7136\u53c3\u6230\u4e86\uff01\n\u4ee5\u540d\u7a31\u76f8\u7b26\u7684\u52d5\u614b\u541e\u98df\u5c0d\u624b\uff01\n\n\u6b64\u65b0\u589e\u5167\u5bb9\u5305\u542b\u4ee5\u4e0b\u5167\u5bb9\uff1a\n\n\u30fb\u9b25\u58eb\uff1a\u541e\u98df\u82b1\n\u30fb\u5834\u5730\uff1a\u6c92\u6709\n\u30fb\u6a02\u66f2\uff1a\u6c92\u6709\n\u30fb\u5c0d\u6230\u8005\u540d\u724c\u7528\u5716\u793a\uff1a\u541e\u98df\u82b1\n\u30fb\u547d\u9b42\uff1a\u541e\u98df\u82b1\uff08\u203b\uff09\n\u203b\u4e0b\u8f09\u5f8c\uff0c\u53ef\u4ee5\u5728\u300c\u53d6\u52dd\u4e82\u9b25\u300d\u6216\u300c\u6536\u85cf\u300d\u7684\u300c\u5546\u5e97\u300d\u7372\u5f97\u3002\n",
         "languages": null,
         "size": 4194304
     },

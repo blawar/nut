@@ -2103,7 +2103,7 @@
     "70030000005101": {
         "id": null,
         "rightsId": null,
-        "name": null,
+        "name": "Fitness Boxing eShop Demo",
         "version": null,
         "key": null,
         "isDemo": true,
@@ -2111,9 +2111,12 @@
         "releaseDate": null,
         "nsuId": 70030000005101,
         "category": null,
-        "ratingContent": null,
+        "ratingContent": [
+            "Violencia moderada",
+            "Temas insinuantes"
+        ],
         "numberOfPlayers": null,
-        "rating": null,
+        "rating": 13,
         "developer": null,
         "publisher": null,
         "frontBoxArt": null,
@@ -2123,7 +2126,7 @@
         "intro": null,
         "description": null,
         "languages": null,
-        "size": 0
+        "size": 461373440
     },
     "70050000000183": {
         "id": "01007EF00011F001",
