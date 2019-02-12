@@ -275,7 +275,7 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 
 	confLock.release()
 
-def save(fileName = 'titledb/titles.json'):
+def save(fileName = 'titledb/titles.json', exportKeys = True):
 	confLock.acquire()
 	try:
 		j = {}
@@ -285,6 +285,9 @@ def save(fileName = 'titledb/titles.json'):
 				continue
 
 			j[k.id] = k.exportDict()
+			if not exportKeys:
+				j[k.id]['key'] = None
+
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
 	except:
