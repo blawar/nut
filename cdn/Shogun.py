@@ -227,11 +227,9 @@ def scrapeDlc(baseNsuid, region = 'US', language = 'en', shop_id = 3):
 		offset = offset + len(j['contents'])
 		
 def getTitleByNsuid(nsuId, region = 'US', language = 'en', shop_id = 3):
-
-	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles/%d?shop_id=%d&lang=%s&country=%s' % (Config.cdn.environment, nsuId, shop_id, language, region)
 	bit = str(nsuId)[0:4]
 	if bit == '7003':
-		type = 'titles'
+		type = 'demos'
 	elif bit == '7001':
 		type = 'titles'
 	elif bit == '7005':
@@ -240,6 +238,7 @@ def getTitleByNsuid(nsuId, region = 'US', language = 'en', shop_id = 3):
 		type = 'bundles'
 	else:
 		type = 'titles'
+	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/%s/%d?shop_id=%d&lang=%s&country=%s' % (Config.cdn.environment, type, nsuId, shop_id, language, region)
 	j = makeJsonRequest('GET', url, {}, '%d/%s/%s/%s/%d.json' % (shop_id, language, region, type, nsuId))
 
 	return j

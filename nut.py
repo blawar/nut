@@ -35,6 +35,7 @@ import pprint
 import random
 import cdn.Shogun
 import cdn.Superfly
+import queue
 
 try:
 	import blockchain
@@ -576,6 +577,45 @@ def scrapeShogun():
 		cdn.Shogun.scrapeTitles(region)
 	Titles.saveAll()
 
+
+def scrapeShogunWorker(q):
+	while True:
+		region = q.get()
+
+		if region is None:
+			break
+
+		cdn.Shogun.scrapeTitles(region)
+
+		q.task_done()
+
+def scrapeShogunThreaded():
+	initTitles()
+	initFiles()
+
+	scrapeThreads = []
+	numThreads = 4
+
+	q = queue.Queue()
+
+	for region in cdn.regions():
+		q.put(region)
+
+	for i in range(numThreads):
+		t = threading.Thread(target=scrapeShogunWorker, args=[q])
+		t.daemon = True
+		t.start()
+		scrapeThreads.append(t)
+
+	q.join()
+
+	for i in range(numThreads):
+		q.put(None)
+
+	for t in scrapeThreads:
+		t.join()
+	Titles.saveAll()
+
 def genTinfoilTitles():
 	initTitles()
 	initFiles()
@@ -583,7 +623,7 @@ def genTinfoilTitles():
 	for region, languages in Config.regionLanguages().items():			
 		for language in languages:
 			importRegion(region, language)
-			Titles.save('titledb/titles.%s.%s.json' % (region, language))
+			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	scanLatestTitleUpdates()
 	export('titledb/versions.txt', ['id', 'version'])
@@ -961,17 +1001,21 @@ if __name__ == '__main__':
 
 		if args.scrape_shogun != None:
 			if len(args.scrape_shogun) == 0:
-				scrapeShogun()
+				scrapeShogunThreaded()
 			else:
 				initTitles()
 				initFiles()
 				for i in args.scrape_shogun:
 					if len(i) == 16:
-						#l = cdn.Shogun.ids(i)
-						for t in cdn.Shogun.ids(i)['id_pairs']:
-							print('nsuId: ' + str(t['id']))
-							print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
-							Titles.saveRegion('US', 'en')
+						l = cdn.Shogun.ids(i)
+						if not l or len(l) == 0 or len(l['id_pairs']) == 0:
+							print('no nsuId\'s found')
+						else:
+							print(l)
+							for t in l['id_pairs']:
+								print('nsuId: ' + str(t['id']))
+								print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
+								Titles.saveRegion('US', 'en')
 					else:
 						print('bleh')
 
