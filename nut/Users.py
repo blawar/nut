@@ -104,6 +104,7 @@ def load(path = 'conf/users.conf'):
 		id = 'guest'
 		users[id] = User()
 		users[id].setPassword('guest')
+		users[id].setId('guest')
 		return
 
 	firstLine = True
