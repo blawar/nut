@@ -428,7 +428,7 @@ class Title:
 				self.version = None
 		
 			if not self.version or force:
-				self.version = Title.getCdnVersion(self.id)
+				self.version = CDNSP.get_version(self.id)
 				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
 			#Print.info('version: ' + str(self.version))

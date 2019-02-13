@@ -12,7 +12,8 @@ import pathlib
 import urllib3
 import json
 
-#os.chdir(os.path.dirname(os.path.abspath(__file__)))
+if not getattr(sys, 'frozen', False):
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 #sys.path.insert(0, 'nut')
 
@@ -36,9 +37,10 @@ import random
 import cdn.Shogun
 import cdn.Superfly
 import queue
+import nut
 
 try:
-	import nut.blockchain
+	from nut import blockchain
 except:
 	raise
 
@@ -572,7 +574,7 @@ def download(id):
 
 		CDNSP.download_game(title.id.lower(), version or title.lastestVersion(), key or title.key, True, '', True)
 	else:
-		CDNSP.download_game(id.lower(), version or Title.getCdnVersion(id.lower()), key, True, '', True)
+		CDNSP.download_game(id.lower(), version or CDNSP.get_version(id.lower()), key, True, '', True)
 	return True
 
 def organizeNcas(dir):
