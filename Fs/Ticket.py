@@ -1,9 +1,9 @@
 from Fs.File import File
 import Fs.Type
 from binascii import hexlify as hx, unhexlify as uhx
-import Print
-import Keys
-import blockchain
+from nut import Print
+from nut import Keys
+from nut import blockchain
 
 
 class Ticket(File):

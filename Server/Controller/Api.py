@@ -1,18 +1,18 @@
-import Titles
+from nut import Titles
 import json
-import Titles
-import Status
-import Nsps
-import Print
+from nut import Titles
+from nut import Status
+from nut import Nsps
+from nut import Print
 import Server
-import Config
-import Hex
+from nut import Config
+from nut import Hex
 import socket
 import struct
 import time
 import nut
 import cdn
-import blockchain
+from nut import blockchain
 import urllib.parse
 import requests
 
@@ -216,6 +216,7 @@ def getDownload(request, response, start = None, end = None):
 			start = int(request.bits[-2])
 			end = int(request.bits[-1])
 	
+		#chunkSize = 0x1000000
 		chunkSize = 0x400000
 
 		with open(nsp.path, "rb") as f:
@@ -266,16 +267,20 @@ def getDownload(request, response, start = None, end = None):
 				size = end - start
 
 				i = 0
+				status = Status.create(size, 'Downloading ' + os.path.basename(nsp.path))
 
 				while i < size:
 					chunk = f.read(min(size-i, chunkSize))
 					i += len(chunk)
+
+					status.add(len(chunk))
 
 					if chunk:
 						pass
 						response.write(chunk)
 					else:
 						break
+				status.close()
 	except BaseException as e:
 		Print.error('NSP download exception: ' + str(e))
 	if response.bytesSent == 0:

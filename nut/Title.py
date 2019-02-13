@@ -4,8 +4,8 @@ import os
 import re
 import json
 import CDNSP
-import Titles
-import Print
+from nut import Titles
+from nut import Print
 
 from bs4 import BeautifulSoup
 import requests
@@ -13,9 +13,9 @@ import time
 import datetime
 import calendar
 import threading
-import Nsps
+from nut import Nsps
 import urllib.request
-import Config
+from nut import Config
 import cdn.Shogun
 
 try:

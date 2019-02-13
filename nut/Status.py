@@ -1,7 +1,7 @@
 import tqdm
 import time
 import threading
-import Config
+from nut import Config
 import json
 import sys
 

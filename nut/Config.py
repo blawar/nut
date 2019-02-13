@@ -6,7 +6,7 @@ import platform
 
 class Server:
 	def __init__(self):
-		self.hostname = 'localhost'
+		self.hostname = '0.0.0.0'
 		self.port = 9000
 
 class Cdn:
@@ -321,32 +321,43 @@ def regionLanguages(fileName = 'titledb/languages.json'):
 	if g_regionLanguages:
 		return g_regionLanguages
 
-	with open(fileName, encoding="utf-8-sig") as f:
-			g_regionLanguages = json.loads(f.read())
+	g_regionLanguages = []
+
+	try:
+		with open(fileName, encoding="utf-8-sig") as f:
+				g_regionLanguages = json.loads(f.read())
+	except:
+		pass
 
 	return g_regionLanguages
 
 def loadTitleWhitelist():
 	global titleWhitelist
 	titleWhitelist = []
-	with open('conf/whitelist.txt', encoding="utf8") as f:
-		for line in f.readlines():
-			titleWhitelist.append(line.strip().upper())
+	try:
+		with open('conf/whitelist.txt', encoding="utf8") as f:
+			for line in f.readlines():
+				titleWhitelist.append(line.strip().upper())
+	except:
+		pass
 			
 def loadTitleBlacklist():
 	global titleBlacklist
 	titleBlacklist = []
-	with open('conf/blacklist.txt', encoding="utf8") as f:
-		for line in f.readlines():
-			id = line.split('|')[0].strip().upper()
-			if id:
-				titleBlacklist.append(id)
+	try:
+		with open('conf/blacklist.txt', encoding="utf8") as f:
+			for line in f.readlines():
+				id = line.split('|')[0].strip().upper()
+				if id:
+					titleBlacklist.append(id)
 
-	with open('conf/retailOnly.blacklist', encoding="utf8") as f:
-		for line in f.readlines():
-			id = line.split('|')[0].strip().upper()
-			if id:
-				titleBlacklist.append(id)
+		with open('conf/retailOnly.blacklist', encoding="utf8") as f:
+			for line in f.readlines():
+				id = line.split('|')[0].strip().upper()
+				if id:
+					titleBlacklist.append(id)
+	except:
+		pass
 
 loadTitleWhitelist()
 loadTitleBlacklist()

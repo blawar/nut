@@ -1,7 +1,7 @@
 import re
-import aes128
+from nut import aes128
 from binascii import hexlify as hx, unhexlify as uhx
-import Print
+from nut import Print
 
 keys = {}
 titleKeks = []

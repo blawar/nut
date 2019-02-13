@@ -5,8 +5,8 @@ from time import time
 from urllib.parse import urlparse
 from uuid import uuid4
 import os
-import Config
-import Nsps
+from nut import Config
+from nut import Nsps
 import Fs
 import Fs.File
 from Fs import File
@@ -16,9 +16,9 @@ from Fs import Nca
 from Fs import Pfs0
 from Fs.Nca import NcaHeader
 from Fs import Type
-import Keys
-import Print
-import Hex
+from nut import Keys
+from nut import Print
+from nut import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
 import requests
@@ -150,11 +150,15 @@ class Blockchain:
 			self.new_block(previous_hash='1')
 
 	def save(self):
-		with open('titledb/blockchain.json', 'w') as outfile:
-			obj = []
-			for i in self.chain:
-				obj.append(i.serialize())
-			json.dump(obj, outfile, indent=4)
+		try:
+			os.mkdir('titledb')
+			with open('titledb/blockchain.json', 'w') as outfile:
+				obj = []
+				for i in self.chain:
+					obj.append(i.serialize())
+				json.dump(obj, outfile, indent=4)
+		except:
+			pass
 
 	def load(self):
 		try:

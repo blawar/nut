@@ -1,7 +1,7 @@
-import aes128
-import Title
-import Titles
-import Hex
+from nut import aes128
+from nut import Title
+from nut import Titles
+from nut import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from Fs.File import File
@@ -12,10 +12,10 @@ from Fs.BaseFs import BaseFs
 import os
 import re
 import pathlib
-import Keys
-import Config
-import Print
-import Nsps
+from nut import Keys
+from nut import Config
+from nut import Print
+from nut import Nsps
 import Fs
 from tqdm import tqdm
 

@@ -4,9 +4,9 @@ import os
 import Fs
 import pathlib
 import re
-import Status
+from nut import Status
 import time
-import Print
+from nut import Print
 import threading
 import json
 
@@ -30,9 +30,9 @@ def getByTitleId(id):
 			return f
 	return None
 	
-def scan(base):
+def scan(base, force = False):
 	global hasScanned
-	if hasScanned:
+	if hasScanned and not force:
 		return
 
 	hasScanned = True
