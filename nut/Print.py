@@ -1,4 +1,4 @@
-import Status
+from nut import Status
 
 global silent
 enableInfo = True

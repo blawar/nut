@@ -2,7 +2,7 @@ from binascii import hexlify as hx, unhexlify as uhx
 from Fs.File import File
 from Fs.Hfs0 import Hfs0
 import os
-import Print
+from nut import Print
 
 
 MEDIA_SIZE = 0x200

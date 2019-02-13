@@ -12,22 +12,22 @@ import pathlib
 import urllib3
 import json
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+#os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-sys.path.insert(0, 'lib')
+#sys.path.insert(0, 'nut')
 
-from Title import Title
-import Titles
-import Nsps
+from nut import Title
+from nut import Titles
+from nut import Nsps
 import CDNSP
 import Fs
-import Config
+from nut import Config
 import requests
-import Hex
-import Print
+from nut import Hex
+from nut import Print
 import threading
 import signal
-import Status
+from nut import Status
 import time
 import colorama
 import Server
@@ -38,14 +38,14 @@ import cdn.Superfly
 import queue
 
 try:
-	import blockchain
+	import nut.blockchain
 except:
 	raise
 
 			
 def logMissingTitles(file):
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	f = open(file,"w", encoding="utf-8-sig")
 	
@@ -58,8 +58,8 @@ def logMissingTitles(file):
 	f.close()
 
 def logNcaDeltas(file):
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	x = open(file,"w", encoding="utf-8-sig")
 	
@@ -80,7 +80,7 @@ def logNcaDeltas(file):
 	x.close()
 	
 def updateDb(url, c=0):
-	initTitles()
+	nut.initTitles()
 
 	c += 1
 
@@ -176,8 +176,8 @@ def startDownloadThreads():
 
 	downloadThreadsStarted = True
 
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	threads = []
 	for i in range(Config.threads):
@@ -188,8 +188,8 @@ def startDownloadThreads():
 		threads.append(t)
 
 def downloadAll(wait = True):
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	global activeDownloads
 	global status
@@ -306,32 +306,12 @@ def startBaseScan():
 
 			
 def export(file, cols = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'baseName', 'name', 'version', 'region']):
-	initTitles()
+	nut.initTitles()
 	Titles.export(file, cols)
-
-global hasScanned
-hasScanned = False
-
-def scan():
-	global hasScanned
-
-	#if hasScanned:
-	#	return
-	hasScanned = True
-	initTitles()
-	initFiles()
-
-	
-	refreshRegions()
-	importRegion(Config.region, Config.language)
-
-	r = Nsps.scan(Config.paths.scan)
-	Titles.save()
-	return r
 	
 def organize():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	#scan()
 	Print.info('organizing')
@@ -358,8 +338,8 @@ def organize():
 	Nsps.save()
 		
 def refresh(titleRightsOnly = False):
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 	i = 0
 	for k, f in Nsps.files.items():
 		try:
@@ -382,8 +362,8 @@ def refresh(titleRightsOnly = False):
 	Titles.save()
 	
 def scanLatestTitleUpdates():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	for k,i in CDNSP.get_versionUpdates().items():
 		id = str(k).upper()
@@ -407,8 +387,8 @@ def scanLatestTitleUpdates():
 	Titles.save()
 	
 def updateVersions(force = True):
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	i = 0
 	for k,t in Titles.items():
@@ -437,33 +417,10 @@ def updateVersions(force = True):
 					
 	Titles.save()
 
-isInitTitles = False
-
-def initTitles():
-	global isInitTitles
-	if isInitTitles:
-		return
-
-	isInitTitles = True
-
-	Titles.load()
-
-	Nsps.load()
-	Titles.queue.load()
-
-isInitFiles = False
-def initFiles():
-	global isInitFiles
-	if isInitFiles:
-		return
-
-	isInitFiles = True
-
-	Nsps.load()
 
 def unlockAll():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	for k,f in Nsps.files.items():
 		if f.isUnlockable():
@@ -479,7 +436,7 @@ def unlockAll():
 				Print.info('error unlocking: ' + str(e))
 
 def exportVerifiedKeys(fileName):
-	initTitles()
+	nut.initTitles()
 	with open(fileName, 'w') as f:
 		f.write('id|key|version\n')
 		for tid,key in blockchain.blockchain.export().items():
@@ -488,7 +445,7 @@ def exportVerifiedKeys(fileName):
 				f.write(str(title.rightsId) + '|' + str(key) + '|' + str(title.version) + '\n')
 				
 def exportKeys(fileName):
-	initTitles()
+	nut.initTitles()
 	with open(fileName, 'w') as f:
 		f.write('id|key|version\n')
 		for tid,title in Titles.items():
@@ -513,65 +470,11 @@ def submitKeys():
 				Print.info(str(e))
 				raise
 
-def refreshRegions():
-	for region in Config.regionLanguages():
-		for language in Config.regionLanguages()[region]:
-			for i in Titles.data(region, language):
-				regionTitle = Titles.data(region, language)[i]
 
-				if regionTitle.id:
-					title = Titles.get(regionTitle.id, None, None)
-
-					if not hasattr(title, 'regions') or not title.regions:
-						title.regions = []
-
-					if not hasattr(title, 'languages') or not title.languages:
-						title.languages = []
-
-					if not region in title.regions:
-						title.regions.append(region)
-
-					if not language in title.languages:
-						title.languages.append(language)
-	Titles.save()
-
-def importRegion(region = 'US', language = 'en'):
-	if not region in Config.regionLanguages() or language not in Config.regionLanguages()[region]:
-		Print.error('Could not locate %s/%s !' % (region, language))
-		return False
-
-	for region2 in Config.regionLanguages():
-		for language2 in Config.regionLanguages()[region2]:
-			for nsuId, regionTitle in Titles.data(region2, language2).items():
-				if not regionTitle.id:
-					continue
-				title = Titles.get(regionTitle.id, None, None)
-				title.importFrom(regionTitle, region2, language2)
-
-	for region2 in Config.regionLanguages():
-		for language2 in Config.regionLanguages()[region2]:
-			if language2 != language:
-				continue
-			for nsuId, regionTitle in Titles.data(region2, language2).items():
-				if not regionTitle.id:
-					continue
-				title = Titles.get(regionTitle.id, None, None)
-				title.importFrom(regionTitle, region2, language2)
-
-
-	for nsuId, regionTitle in Titles.data(region, language).items():
-		if not regionTitle.id:
-			continue
-
-		title = Titles.get(regionTitle.id, None, None)
-		title.importFrom(regionTitle, region, language)
-
-	Titles.loadTxtDatabases()
-	Titles.save()
 
 def scrapeShogun():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	for region in cdn.regions():				
 		cdn.Shogun.scrapeTitles(region)
@@ -590,8 +493,8 @@ def scrapeShogunWorker(q):
 		q.task_done()
 
 def scrapeShogunThreaded():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	scrapeThreads = []
 	numThreads = 4
@@ -617,12 +520,12 @@ def scrapeShogunThreaded():
 	Titles.saveAll()
 
 def genTinfoilTitles():
-	initTitles()
-	initFiles()
+	nut.initTitles()
+	nut.initFiles()
 
 	for region, languages in Config.regionLanguages().items():			
 		for language in languages:
-			importRegion(region, language)
+			nut.importRegion(region, language)
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	scanLatestTitleUpdates()
@@ -819,7 +722,7 @@ if __name__ == '__main__':
 		Print.info('                `"\'')
 
 		if args.extract:
-			initTitles()
+			nut.initTitles()
 			for filePath in args.extract:
 				#f = Fs.Nsp(filePath, 'rb')
 				f = Fs.factory(filePath)
@@ -838,20 +741,20 @@ if __name__ == '__main__':
 
 	
 		if args.update_titles:
-			initTitles()
+			nut.initTitles()
 			for url in Config.titleUrls:
 				updateDb(url)
 			Titles.loadTxtDatabases()
 			Titles.save()
 
 		if args.submit_keys:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			submitKeys()
 
 		if args.seteshop:
-			#initTitles()
-			#initFiles()
+			#nut.initTitles()
+			#nut.initFiles()
 			f = Fs.factory(args.seteshop)
 			f.open(args.seteshop, 'r+b')
 			f.setGameCard(False)
@@ -862,7 +765,7 @@ if __name__ == '__main__':
 			exit(0)
 
 		if args.refresh_regions:
-			refreshRegions()
+			nut.refreshRegions()
 			exit(0)
 
 		if args.import_region:
@@ -872,7 +775,7 @@ if __name__ == '__main__':
 
 			args.language = args.language.lower()
 
-			importRegion(region, args.language)
+			nut.importRegion(region, args.language)
 			exit(0)
 
 		if args.usb:
@@ -880,38 +783,38 @@ if __name__ == '__main__':
 				import Usb
 			except BaseException as e:
 				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
-			scan()
+			nut.scan()
 			Usb.daemon()
 		
 		if args.download:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			for d in args.download:
 				download(d)
 	
 		if args.scan:
-			initTitles()
-			initFiles()
-			scan()
+			nut.initTitles()
+			nut.initFiles()
+			nut.scan()
 		
 		if args.refresh:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			refresh(False)
 			
 		if args.read_rightsids:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			refresh(True)
 	
 		if args.organize:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			organize()
 
 		if args.set_masterkey1:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			f = Fs.Nsp(args.set_masterkey1, 'r+b')
 			f.setMasterKeyRev(0)
 			f.flush()
@@ -919,8 +822,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey2:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			f = Fs.Nsp(args.set_masterkey2, 'r+b')
 			f.setMasterKeyRev(2)
 			f.flush()
@@ -928,8 +831,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey3:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			f = Fs.Nsp(args.set_masterkey3, 'r+b')
 			f.setMasterKeyRev(3)
 			f.flush()
@@ -937,8 +840,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey4:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			f = Fs.Nsp(args.set_masterkey4, 'r+b')
 			f.setMasterKeyRev(4)
 			f.flush()
@@ -946,8 +849,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.set_masterkey5:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			f = Fs.Nsp(args.set_masterkey5, 'r+b')
 			f.setMasterKeyRev(5)
 			f.flush()
@@ -955,8 +858,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.remove_title_rights:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			for fileName in args.remove_title_rights:
 				try:
 					f = Fs.Nsp(fileName, 'r+b')
@@ -976,8 +879,8 @@ if __name__ == '__main__':
 				Print.info('Title key is INVALID %s - %s' % (args.verify[0], args.verify[1]))
 
 		if args.info:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			if re.search(r'^[A-Fa-f0-9]+$', args.info.strip(), re.I | re.M | re.S):
 				Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
 			else:
@@ -1003,8 +906,8 @@ if __name__ == '__main__':
 			if len(args.scrape_shogun) == 0:
 				scrapeShogunThreaded()
 			else:
-				initTitles()
-				initFiles()
+				nut.initTitles()
+				nut.initFiles()
 				for i in args.scrape_shogun:
 					if len(i) == 16:
 						l = cdn.Shogun.ids(i)
@@ -1023,8 +926,8 @@ if __name__ == '__main__':
 			genTinfoilTitles()
 
 		if args.scrape_title:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 
 			if not Titles.contains(args.scrape_title):
 				Print.error('Could not find title ' + args.scrape_title)
@@ -1035,8 +938,8 @@ if __name__ == '__main__':
 				pprint.pprint(Titles.get(args.scrape_title).__dict__)
 
 		if args.scrape or args.scrape_delta:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 
 			threads = []
 			for i in range(scrapeThreads):
@@ -1064,8 +967,8 @@ if __name__ == '__main__':
 			pass
 
 		if args.unlock:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			Print.info('opening ' + args.unlock)
 			f = Fs.Nsp(args.unlock, 'r+b')
 			f.unlock()
@@ -1077,13 +980,13 @@ if __name__ == '__main__':
 			Titles.save()
 		
 		if args.export:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			export(args.export)
 
 		if args.export_versions:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			export(args.export_versions, ['rightsId', 'version'])
 		
 		if args.missing:
@@ -1091,13 +994,13 @@ if __name__ == '__main__':
 
 		if args.server:
 			startDownloadThreads()
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			Server.run()
 
 		if args.blockchain:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			try:
 				import blockchain
 			except:
@@ -1105,15 +1008,15 @@ if __name__ == '__main__':
 			blockchain.run()
 		
 		if len(sys.argv)==1:
-			scan()
+			nut.scan()
 			organize()
 			downloadAll()
 			scanLatestTitleUpdates()
 			export('titledb/versions.txt', ['id', 'version'])
 
 		if args.scan_dlc != None:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			queue = Titles.Queue()
 			if len(args.scan_dlc) > 0:
 				for id in args.scan_dlc:
@@ -1125,8 +1028,8 @@ if __name__ == '__main__':
 			startDlcScan(queue)
 
 		if args.scan_base != None:
-			initTitles()
-			initFiles()
+			nut.initTitles()
+			nut.initFiles()
 			startBaseScan()
 
 		if args.export_verified_keys:

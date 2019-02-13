@@ -17,16 +17,16 @@ from binascii import hexlify as hx, unhexlify as uhx
 from hashlib import sha256
 from struct import pack as pk, unpack as upk
 from io import TextIOWrapper
-import Titles
+from nut import Titles
 import requests
 import unidecode
 import urllib3
-import Print
-import Status
-import Config
+from nut import Print
+from nut import Status
+from nut import Config
 import os
 import hashlib
-import Title
+from nut import Title
 import cdn
 
 

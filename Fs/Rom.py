@@ -5,10 +5,10 @@ from Fs.File import MemoryFile
 import os
 import re
 import pathlib
-import Keys
-import Config
-import Print
-import Nsps
+from nut import Keys
+from nut import Config
+from nut import Print
+from nut import Nsps
 from tqdm import tqdm
 from Fs.BaseFs import BaseFs
 from Fs.Ivfc import Ivfc

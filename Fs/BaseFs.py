@@ -1,5 +1,5 @@
 from Fs.File import File
-import Print
+from nut import Print
 from binascii import hexlify as hx, unhexlify as uhx
 
 class BaseFs(File):

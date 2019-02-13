@@ -50,15 +50,17 @@ import struct
 import sys
 from binascii import hexlify as hx, unhexlify as uhx
 from pathlib import Path
-import Titles
+from nut import Titles
 import Server
 import Server.Controller.Api
-import Print
+from nut import Print
 import time
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 import Server.Controller.Api
 
+global status
+status = 'initializing'
 
 def getFiles():
 	for k, t in Titles.items():
@@ -164,8 +166,10 @@ def poll_commands(in_ep, out_ep):
 			print('failed to read!')
 
 def daemon():
+	global status
 	while True:
 		try:
+			status = 'disconnected'
 			while True:
 				dev = usb.core.find(idVendor=0x057E, idProduct=0x3000)
 
@@ -174,6 +178,7 @@ def daemon():
 				time.sleep(1)
 
 			Print.info('USB Connected')
+			status = 'connected'
 
 			dev.reset()
 			dev.set_configuration()
@@ -189,5 +194,5 @@ def daemon():
 
 			poll_commands(in_ep, out_ep)
 		except BaseException as e:
-			print(str(e))
+			print('usb exception: ' + str(e))
 		time.sleep(1)
