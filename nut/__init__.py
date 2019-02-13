@@ -1,6 +1,8 @@
 from nut import Titles
 from nut import Nsps
 from nut import Print
+import requests
+import os
 
 def refreshRegions():
 	for region in Config.regionLanguages():
@@ -101,3 +103,75 @@ def scan():
 	r = Nsps.scan(Config.paths.scan)
 	Titles.save()
 	return r
+
+def makeRequest(method, url, certificate='', hdArgs={}):
+	reqHd = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
+		'Accept-Encoding': 'gzip, deflate',
+		'Accept': '*/*',
+		'Connection': 'keep-alive'
+	}
+	reqHd.update(hdArgs)
+
+	r = requests.request(method, url, headers=reqHd, verify=False, stream=True)
+
+	if r.status_code == 403:
+		raise IOError('Request rejected by server!')
+
+	return r
+
+def downloadFile(url, fPath):
+	fName = os.path.basename(fPath).split()[0]
+
+	if os.path.exists(fPath):
+		dlded = os.path.getsize(fPath)
+		r = makeRequest('GET', url, hdArgs={'Range': 'bytes=%s-' % dlded})
+
+		if r.headers.get('Server') != 'openresty/1.9.7.4':
+			Print.info('Download is already complete, skipping!')
+			return fPath
+		elif r.headers.get('Content-Range') == None:  # CDN doesn't return a range if request >= filesize
+			fSize = int(r.headers.get('Content-Length'))
+		else:
+			fSize = dlded + int(r.headers.get('Content-Length'))
+
+		if dlded == fSize:
+			Print.info('Download is already complete, skipping!')
+			return fPath
+		elif dlded < fSize:
+			Print.info('Resuming download...')
+			f = open(fPath, 'ab')
+		else:
+			Print.error('Existing file is bigger than expected (%s/%s), restarting download...' % (dlded, fSize))
+			dlded = 0
+			f = open(fPath, "wb")
+	else:
+		dlded = 0
+		r = makeRequest('GET', url)
+		fSize = int(r.headers.get('Content-Length'))
+		f = open(fPath, 'wb')
+
+	chunkSize = 0x100000
+
+	if fSize >= 10000:
+		s = Status.create(fSize, desc=fName, unit='B')
+		#s.id = titleId.upper()
+		s.add(dlded)
+		for chunk in r.iter_content(chunkSize):
+			f.write(chunk)
+			s.add(len(chunk))
+			dlded += len(chunk)
+
+			if not Config.isRunning:
+				break
+		s.close()
+	else:
+		f.write(r.content)
+		dlded += len(r.content)
+
+	#if fSize != 0 and dlded != fSize:
+	#	raise ValueError('Downloaded data is not as big as expected (%s/%s)!' % (dlded, fSize))
+
+	f.close()
+	Print.debug('\r\nSaved to %s!' % f.name)
+	return fPath

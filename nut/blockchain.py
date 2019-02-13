@@ -152,6 +152,9 @@ class Blockchain:
 	def save(self):
 		try:
 			os.mkdir('titledb')
+		except:
+			pass
+		try:
 			with open('titledb/blockchain.json', 'w') as outfile:
 				obj = []
 				for i in self.chain:

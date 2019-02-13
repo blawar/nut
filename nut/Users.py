@@ -72,6 +72,12 @@ class User:
 	def getSwitchPort(self):
 		return self.switchPort
 
+def first():
+	global users
+	for id, user in users.items():
+		return user
+	return None
+
 def auth(id, password, address):
 	#print('Authing: ' + str(id) + ' - ' + str(password) + ', ' + str(address))
 
@@ -92,10 +98,14 @@ def auth(id, password, address):
 	return user
 
 def load(path = 'conf/users.conf'):
+	global users
+
 	if not os.path.isfile(path):
+		id = 'guest'
+		users[id] = User()
+		users[id].setPassword('guest')
 		return
 
-	global users
 	firstLine = True
 	map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth', 'switchHost', 'switchPort']
 	with open(path, encoding="utf-8-sig") as f:

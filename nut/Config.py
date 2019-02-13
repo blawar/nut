@@ -327,7 +327,7 @@ def regionLanguages(fileName = 'titledb/languages.json'):
 		with open(fileName, encoding="utf-8-sig") as f:
 				g_regionLanguages = json.loads(f.read())
 	except:
-		pass
+		g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],"PE":["en","es"],"KR":["ko"],"HK":["zh"],"NZ":["en"],"AT":["de"],"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],"JP":["ja"],"AU":["en"],"GB":["en"],"US":["en","es"]}')
 
 	return g_regionLanguages
 
