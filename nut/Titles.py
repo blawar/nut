@@ -4,6 +4,7 @@ import os
 import re
 import time
 import json
+import nut
 from nut import Title
 import operator
 from nut import Config
@@ -33,7 +34,18 @@ def data(region = None, language = None):
 			if os.path.isfile(filePath):
 				regionTitles[region][language] = loadTitlesJson(filePath)
 			else:
-				regionTitles[region][language] = {}
+				try:
+					os.mkdir('titledb')
+				except:
+					pass
+
+				url = 'https://raw.githubusercontent.com/blawar/nut/master/titledb/%s.%s.json' % (region, language)
+				#https://raw.githubusercontent.com/blawar/nut/master/titledb/HK.zh.json
+				nut.downloadFile(url, filePath)
+				if os.path.isfile(filePath):
+					regionTitles[region][language] = loadTitlesJson(filePath)
+				else:
+					regionTitles[region][language] = {}
 
 		return regionTitles[region][language]
 

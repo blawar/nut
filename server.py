@@ -21,6 +21,7 @@ import Server
 import pprint
 import random
 from nut import Usb
+from nut import Users
 import threading
 from nut import Status
 import time
@@ -56,8 +57,8 @@ class Header:
 		self.scan.clicked.connect(app.on_scan)
 		self.layout.addWidget(self.scan)
 
-		self.serverInfo = QLabel("IP: " + getIpAddress() + "  Port: " + str(Config.server.port))
-		self.serverInfo.setFixedWidth(300)
+		self.serverInfo = QLabel("IP: %s  Port: %s  User: %s  Password: %s" % (getIpAddress(), str(Config.server.port), Users.first().id, Users.first().password))
+		self.serverInfo.setFixedWidth(600)
 		self.serverInfo.setAlignment(Qt.AlignCenter)
 
 		self.layout.addWidget(self.serverInfo)
