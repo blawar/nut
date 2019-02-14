@@ -1,8 +1,13 @@
 from nut import Titles
 from nut import Nsps
 from nut import Print
+import threading
+import time
+import colorama
 import requests
 import os
+import Fs
+import CDNSP
 
 def refreshRegions():
 	for region in Config.regionLanguages():
@@ -229,6 +234,24 @@ def updateVersions(force = True):
 					Titles.save()
 					
 	Titles.save()
+	
+global status
+status = None
+
+global scrapeThreads
+scrapeThreads = 16
+
+def scrapeThread(id, delta = True):
+	size = len(Titles.titles) // scrapeThreads
+	st = Status.create(size, 'Thread ' + str(id))
+	for i,titleId in enumerate(Titles.titles.keys()):
+		try:
+			if (i - id) % scrapeThreads == 0:
+				Titles.get(titleId).scrape(delta)
+				st.add()
+		except BaseException as e:
+			Print.error(str(e))
+	st.close()
 
 def scanLatestTitleUpdates():
 	initTitles()
@@ -254,6 +277,59 @@ def scanLatestTitleUpdates():
 			t.setVersion(version, True)
 			
 	Titles.save()
+	
+global activeDownloads
+activeDownloads = []
+
+def downloadThread(i):
+	Print.info('starting thread ' + str(i))
+	global status
+	while Config.isRunning:
+		try:
+			id = Titles.queue.shift()
+			if id and Titles.contains(id):
+				activeDownloads[i] = 1
+				t = Titles.get(id)
+				path = CDNSP.download_game(t.id.lower(), t.lastestVersion(), t.key, True, '', True)
+
+				if os.path.isfile(path):
+					nsp = Fs.Nsp(path, None)
+					nsp.move()
+					Nsps.files[nsp.path] = nsp
+					Nsps.save()
+					status.add()
+				activeDownloads[i] = 0
+			else:
+				time.sleep(1)
+		except KeyboardInterrupt:
+			pass
+		except BaseException as e:
+			Print.error(str(e))
+	activeDownloads[i] = 0
+	Print.info('ending thread ' + str(i))
+	
+global downloadThreadsStarted
+downloadThreadsStarted = False
+
+def startDownloadThreads():
+	global downloadThreadsStarted
+	global activeDownloads
+
+	if downloadThreadsStarted:
+		return
+
+	downloadThreadsStarted = True
+
+	initTitles()
+	initFiles()
+
+	threads = []
+	for i in range(Config.threads):
+		activeDownloads.append(0)
+		t = threading.Thread(target=downloadThread, args=[i])
+		t.daemon = True
+		t.start()
+		threads.append(t)
 
 def downloadAll(wait = True):
 	initTitles()
