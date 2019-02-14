@@ -309,7 +309,7 @@ def decrypt_NCA(fPath, outDir=''):
 		Print.debug(commandLine)
 		subprocess.check_output(commandLine, shell=True)
 		if os.listdir(outDir) == []:
-			raise subprocess.CalledProcessError('Decryption failed, output folder %s is empty!' % outDir)
+			raise subprocess.CalledProcessError('Decryption failed, output folder %s is empty!' % outDir, cmd = commandLine)
 	except subprocess.CalledProcessError:
 		Print.error('Decryption failed!')
 		raise
