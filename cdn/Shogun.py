@@ -50,7 +50,7 @@ def makeRequest(method, url, hdArgs={}):
 
 	return r
 
-def makeJsonRequest(method, url, hdArgs={}, key = None, force = False):
+def makeJsonRequest(method, url, hdArgs={}, key = None, force = False, expiration = None):
 	os.makedirs('cache/bugyo/', exist_ok=True)
 	cacheFileName = 'cache/bugyo/' + hashlib.md5(url.encode()).hexdigest()
 
@@ -59,7 +59,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None, force = False):
 
 	j = None
 
-	if cdn.isValidCache(cacheFileName) and not force:
+	if ((expiration == None and cdn.isValidCache(cacheFileName)) or (expiration != None and cdn.isValidCache(cacheFileName, expiration))) and not force:
 		if not key:
 			with open(cacheFileName, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
@@ -169,7 +169,8 @@ def scrapeTitle(nsuid, region = 'US', language = 'en', shop_id = 3):
 				title.setId(titleId)
 
 				for x in cdn.Superfly.getAddOns(titleId):
-					getNsuIds(x, 'aoc', region, language)
+					if not x.endswith('800'):
+						getNsuIds(x, 'aoc', region, language)
 
 
 				scrapeDlc(nsuid, region, language)
@@ -252,7 +253,7 @@ def getDlcByNsuid(nsuId, region = 'US', language = 'en', shop_id = 3):
 
 def ids(titleIds, type='title', region = 'US', language = 'en', shop_id = 4):
 	url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/contents/ids?shop_id=%d&lang=%s&country=%s&type=%s&title_ids=%s' % (Config.cdn.environment, shop_id, language, region, type, titleIds)
-	j = makeJsonRequest('GET', url, {},  '%d/%s/%s/contents/ids/%s.%s.json' % (shop_id, language, region, titleIds, type))
+	j = makeJsonRequest('GET', url, {},  '%d/%s/%s/contents/ids/%s.%s.json' % (shop_id, language, region, titleIds, type), False, 0)
 	return j
 
 def getNsuIds(titleIds, type='title', region = 'US', language = 'en', shop_id = 4):

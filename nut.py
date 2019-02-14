@@ -499,7 +499,7 @@ def scrapeShogunThreaded():
 	nut.initFiles()
 
 	scrapeThreads = []
-	numThreads = 4
+	numThreads = 8
 
 	q = queue.Queue()
 
@@ -531,7 +531,7 @@ def genTinfoilTitles():
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	scanLatestTitleUpdates()
-	export('titledb/versions.txt', ['id', 'version'])
+	export('titledb/versions.txt', ['rightsId', 'version'])
 
 def download(id):
 	bits = id.split(',')
@@ -576,6 +576,17 @@ def download(id):
 	else:
 		CDNSP.download_game(id.lower(), version or CDNSP.get_version(id.lower()), key, True, '', True)
 	return True
+
+def matchDemos():
+	for nsuId, rt in Titles.data('US', 'en'):
+		if rt.id:
+			continue
+
+		for tid, t in Titles.data():
+			if rt.name.startsWith(t.name) or (t.name == rt.name and len(t.name) > 5):
+				print(rt.name + ' - ' + t.name)
+				break
+
 
 def organizeNcas(dir):
 	files = [f for f in os.listdir(dir) if f.endswith('.nca')]
@@ -684,6 +695,8 @@ if __name__ == '__main__':
 
 		parser.add_argument('--scan-base', nargs='*', help='Scan for new base Title ID\'s')
 		parser.add_argument('--scan-dlc', nargs='*', help='Scan for new DLC Title ID\'s')
+
+		parser.add_argument('--match-demos', action="store_true", help='Try to fuzzy match demo tids to nsuIds')
 
 		parser.add_argument('--gen-tinfoil-titles', action="store_true", help='Outputs language files for Tinfoil')
 		parser.add_argument('-O', '--organize-ncas', help='Organize unsorted NCA\'s')
@@ -994,6 +1007,9 @@ if __name__ == '__main__':
 		if args.missing:
 			logMissingTitles(args.missing)
 
+		if args.match_demos:
+			matchDemos()
+
 		if args.server:
 			startDownloadThreads()
 			nut.initTitles()
@@ -1014,7 +1030,7 @@ if __name__ == '__main__':
 			organize()
 			downloadAll()
 			scanLatestTitleUpdates()
-			export('titledb/versions.txt', ['id', 'version'])
+			export('titledb/versions.txt', ['rightsId', 'version'])
 
 		if args.scan_dlc != None:
 			nut.initTitles()
