@@ -4,11 +4,11 @@ import os
 def regions():
 	return ['CO', 'AR', 'CL', 'PE', 'KR', 'HK', 'NZ', 'AT', 'BE', 'CZ', 'DK', 'ES', 'FI', 'GR', 'HU', 'NL', 'NO', 'PL', 'PT', 'RU', 'ZA', 'SE', 'MX', 'IT', 'CA', 'FR', 'DE', 'JP', 'AU', 'GB', 'US']
 
-def isValidCache(cacheFileName):
+def isValidCache(cacheFileName, expiration = 86400 * 4):
 	if not os.path.isfile(cacheFileName):
 		return False
 
-	if time.time() - os.path.getmtime(cacheFileName) < 86400 * 4:
+	if not expiration or time.time() - os.path.getmtime(cacheFileName) < expiration:
 		return True
 	return False
 
