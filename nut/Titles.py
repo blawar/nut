@@ -119,6 +119,7 @@ def loadTitleFile(path, silent = False):
 	
 def loadTitleBuffer(buffer, silent = False):
 	firstLine = True
+	importedRegions = {}
 	map = ['id', 'key', 'name']
 	for line in buffer.split('\n'):
 		line = line.strip()
@@ -146,15 +147,24 @@ def loadTitleBuffer(buffer, silent = False):
 		if not isinstance(t.id, str):
 			continue
 
-		if not t.id in keys(None, None):
-			titles[t.id] = Title.Title()
+		if t.region and None:
+			if not t.language:
+				continue
+
+			importedRegions[t.region][t.language] = True
+			title = get(t.nsuId, t.region, t.language)
+		else:
+			title = get(t.id, None, None)
 			
-		titleKey = titles[t.id].key
-		titles[t.id].loadCsv(line, map)
+		titleKey = title.key
+		title.loadCsv(line, map)
 
 		if not silent and titleKey != titles[t.id].key:
 			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + str(t.id) + ']')
 
+	for region, languages in importedRegions.items():
+		for language in languages:
+			pass
 confLock = threading.Lock()
 
 def loadTitlesJson(filePath = 'titledb/titles.json'):

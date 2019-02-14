@@ -578,14 +578,19 @@ def download(id):
 	return True
 
 def matchDemos():
-	for nsuId, rt in Titles.data('US', 'en'):
-		if rt.id:
-			continue
+	nut.initTitles()
+	nut.initFiles()
+	for region, languages in Config.regionLanguages().items():			
+		for language in languages:
+			for nsuId, rt in Titles.data(region, language).items():
+				if rt.id:
+					continue
 
-		for tid, t in Titles.data():
-			if rt.name.startsWith(t.name) or (t.name == rt.name and len(t.name) > 5):
-				print(rt.name + ' - ' + t.name)
-				break
+				t = Titles.getNsuid(str(rt.nsuId), None, None)
+				if not t.id:
+					continue
+				rt.id = t.id
+			Titles.saveRegion(region, language)
 
 
 def organizeNcas(dir):
