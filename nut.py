@@ -580,17 +580,24 @@ def download(id):
 def matchDemos():
 	nut.initTitles()
 	nut.initFiles()
+	orphans = {}
+
+	Titles.loadTxtDatabases()
+
+	for nsuId, titleId in Titles.nsuIdMap.items():
+		print(str(nsuId) + ' -> ' + str(titleId))
+		for region, languages in Config.regionLanguages().items():			
+			for language in languages:
+				if nsuId:
+					title = Titles.get(str(nsuId), region, language)
+					title.id = titleId
+
 	for region, languages in Config.regionLanguages().items():			
 		for language in languages:
-			for nsuId, rt in Titles.data(region, language).items():
-				if rt.id:
-					continue
-
-				t = Titles.getNsuid(str(rt.nsuId), None, None)
-				if not t.id:
-					continue
-				rt.id = t.id
 			Titles.saveRegion(region, language)
+
+	for nsuId, name in orphans.items():
+		print(str(nsuId) + '|' + str(name))
 
 
 def organizeNcas(dir):

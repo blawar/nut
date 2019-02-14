@@ -15,6 +15,9 @@ import cdn
 global titles
 titles = None
 
+global nsuIdMap
+nsuIdMap = {}
+
 global regionTitles
 regionTitles = {}
 
@@ -118,6 +121,7 @@ def loadTitleFile(path, silent = False):
 	Print.info('loaded ' + path + ' in ' + str(time.clock() - timestamp) + ' seconds')
 	
 def loadTitleBuffer(buffer, silent = False):
+	global nsuIdMap;
 	firstLine = True
 	importedRegions = {}
 	map = ['id', 'key', 'name']
@@ -147,14 +151,10 @@ def loadTitleBuffer(buffer, silent = False):
 		if not isinstance(t.id, str):
 			continue
 
-		if t.region and None:
-			if not t.language:
-				continue
+		if 'nsuId' in map:
+			nsuIdMap[t.nsuId] = t.id
 
-			importedRegions[t.region][t.language] = True
-			title = get(t.nsuId, t.region, t.language)
-		else:
-			title = get(t.id, None, None)
+		title = get(t.id, None, None)
 			
 		titleKey = title.key
 		title.loadCsv(line, map)
@@ -162,9 +162,7 @@ def loadTitleBuffer(buffer, silent = False):
 		if not silent and titleKey != titles[t.id].key:
 			Print.info('Added new title key for ' + str(titles[t.id].name) + '[' + str(t.id) + ']')
 
-	for region, languages in importedRegions.items():
-		for language in languages:
-			pass
+
 confLock = threading.Lock()
 
 def loadTitlesJson(filePath = 'titledb/titles.json'):
