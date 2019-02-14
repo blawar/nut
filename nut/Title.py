@@ -163,7 +163,7 @@ class Title:
 		if not regionTitle.name or not regionTitle.id:
 			return
 		for k,v in regionTitle.__dict__.items():
-			if k in ('id', 'version', 'regions', 'nsuId', 'key'):
+			if k in ('id', 'version', 'regions', 'key'):
 				continue
 			setattr(self, k, v)
 			self.setId(self.id)
@@ -260,9 +260,10 @@ class Title:
 			pass
 
 	def setNsuId(self, nsuId):
-		self.nsuId = nsuId
 		if nsuId:
-			self.isDemo = str(nsuId)[0:4] == '7003'
+			self.nsuId = int(nsuId)
+			if nsuId:
+				self.isDemo = str(nsuId)[0:4] == '7003'
 
 	def setRightsId(self, rightsId):
 		if not id:
