@@ -80,43 +80,6 @@ def logNcaDeltas(file):
 			Print.info('error: ' + str(e))
 		
 	x.close()
-	
-def updateDb(url, c=0):
-	nut.initTitles()
-
-	c += 1
-
-	if c > 3:
-		return False
-
-	Print.info("Downloading new title database " + url)
-	try:
-		if url == '' or not url:
-			return
-		if "http://" not in url and "https://" not in url:
-			try:
-				url = base64.b64decode(url)
-			except Exception as e:
-				Print.info("\nError decoding url: ", e)
-				return
-
-		r = requests.get(url)
-		r.encoding = 'utf-8-sig'
-
-		if r.status_code == 200:
-			try:
-				m = re.search(r'<a href="([^"]*)">Proceed</a>', r.text)
-				if m:
-					return updateDb(m.group(1), c)
-			except:
-				pass
-			Titles.loadTitleBuffer(r.text, False)
-		else:
-			Print.info('Error updating database: ', repr(r))
-			
-	except Exception as e:
-		Print.info('Error downloading:' + str(e))
-		raise
 
 global status
 status = None
@@ -188,39 +151,6 @@ def startDownloadThreads():
 		t.daemon = True
 		t.start()
 		threads.append(t)
-
-def downloadAll(wait = True):
-	nut.initTitles()
-	nut.initFiles()
-
-	global activeDownloads
-	global status
-
-	try:
-
-		for k,t in Titles.items():
-			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
-				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
-					#Print.warning('no valid id? ' + str(t.path))
-					continue
-				
-				if not t.lastestVersion():
-					Print.info('Could not get version for ' + str(t.name) + ' [' + str(t.id) + ']')
-					continue
-
-				Titles.queue.add(t.id)
-		Titles.save()
-		status = Status.create(Titles.queue.size(), 'Total Download')
-		startDownloadThreads()
-		while wait and (not Titles.queue.empty() or sum(activeDownloads) > 0):
-			time.sleep(1)
-	except KeyboardInterrupt:
-		pass
-	except BaseException as e:
-		Print.error(str(e))
-
-	if status:
-		status.close()
 
 def scanDLC(id, showErr = True, dlcStatus = None):
 	id = id.upper()
@@ -306,38 +236,6 @@ def startBaseScan():
 
 	baseStatus.close()
 
-			
-def export(file, cols = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'baseName', 'name', 'version', 'region']):
-	nut.initTitles()
-	Titles.export(file, cols)
-	
-def organize():
-	nut.initTitles()
-	nut.initFiles()
-
-	#scan()
-	Print.info('organizing')
-	for k, f in Nsps.files.items():
-		#print('moving ' + f.path)
-		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
-		f.move()
-
-	for id, t in Titles.data().items():
-		files = t.getFiles()
-		if len(files) > 1:
-			#Print.info("%d - %s - %s" % (len(files), t.id, t.name))
-			latest = t.getLatestFile()
-
-			if not latest:
-				continue
-
-			for f in files:
-				if f.path != latest.path:
-					f.moveDupe()
-
-	Print.info('removing empty directories')
-	Nsps.removeEmptyDir('.', False)
-	Nsps.save()
 		
 def refresh(titleRightsOnly = False):
 	nut.initTitles()
@@ -361,62 +259,6 @@ def refresh(titleRightsOnly = False):
 		except BaseException as e:
 			print('exception: ' + str(e))
 			pass
-	Titles.save()
-	
-def scanLatestTitleUpdates():
-	nut.initTitles()
-	nut.initFiles()
-
-	for k,i in CDNSP.get_versionUpdates().items():
-		id = str(k).upper()
-		version = str(i)
-		
-		if not Titles.contains(id):
-			if len(id) != 16:
-				Print.info('invalid title id: ' + id)
-				continue
-			continue
-			t = Title()
-			t.setId(id)
-			Titles.set(id, t)
-			Print.info('Found new title id: ' + str(id))
-			
-		t = Titles.get(id)
-		if str(t.version) != str(version):
-			Print.info('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
-			t.setVersion(version, True)
-			
-	Titles.save()
-	
-def updateVersions(force = True):
-	nut.initTitles()
-	nut.initFiles()
-
-	i = 0
-	for k,t in Titles.items():
-		if force or t.version == None:
-			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
-				v = t.lastestVersion(True)
-				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
-			
-				i = i + 1
-				if i % 20 == 0:
-					Titles.save()
-			
-	for t in list(Titles.data().values()):
-		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
-			u = Title()
-			u.setId(t.updateId)
-			
-			if u.lastestVersion():
-				Titles.set(t.updateId, u)
-				
-				Print.info("%s[%s] FOUND" % (str(t.name), str(u.id)) )
-				
-				i = i + 1
-				if i % 20 == 0:
-					Titles.save()
-					
 	Titles.save()
 
 
@@ -473,54 +315,6 @@ def submitKeys():
 				raise
 
 
-
-def scrapeShogun():
-	nut.initTitles()
-	nut.initFiles()
-
-	for region in cdn.regions():				
-		cdn.Shogun.scrapeTitles(region)
-	Titles.saveAll()
-
-
-def scrapeShogunWorker(q):
-	while True:
-		region = q.get()
-
-		if region is None:
-			break
-
-		cdn.Shogun.scrapeTitles(region)
-
-		q.task_done()
-
-def scrapeShogunThreaded():
-	nut.initTitles()
-	nut.initFiles()
-
-	scrapeThreads = []
-	numThreads = 8
-
-	q = queue.Queue()
-
-	for region in cdn.regions():
-		q.put(region)
-
-	for i in range(numThreads):
-		t = threading.Thread(target=scrapeShogunWorker, args=[q])
-		t.daemon = True
-		t.start()
-		scrapeThreads.append(t)
-
-	q.join()
-
-	for i in range(numThreads):
-		q.put(None)
-
-	for t in scrapeThreads:
-		t.join()
-	Titles.saveAll()
-
 def genTinfoilTitles():
 	nut.initTitles()
 	nut.initFiles()
@@ -530,7 +324,7 @@ def genTinfoilTitles():
 			nut.importRegion(region, language)
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
-	scanLatestTitleUpdates()
+	nut.scanLatestTitleUpdates()
 	export('titledb/versions.txt', ['rightsId', 'version'])
 
 def download(id):
@@ -585,7 +379,6 @@ def matchDemos():
 	Titles.loadTxtDatabases()
 
 	for nsuId, titleId in Titles.nsuIdMap.items():
-		print(str(nsuId) + ' -> ' + str(titleId))
 		for region, languages in Config.regionLanguages().items():			
 			for language in languages:
 				if nsuId:
@@ -594,6 +387,11 @@ def matchDemos():
 
 	for region, languages in Config.regionLanguages().items():			
 		for language in languages:
+			for nsuId, rt in Titles.data(region, language).items():
+				if rt.id:
+					continue
+				orphans[nsuId] = rt.name
+
 			Titles.saveRegion(region, language)
 
 	for nsuId, name in orphans.items():
@@ -770,7 +568,7 @@ if __name__ == '__main__':
 		if args.update_titles:
 			nut.initTitles()
 			for url in Config.titleUrls:
-				updateDb(url)
+				nut.updateDb(url)
 			Titles.loadTxtDatabases()
 			Titles.save()
 
@@ -837,7 +635,7 @@ if __name__ == '__main__':
 		if args.organize:
 			nut.initTitles()
 			nut.initFiles()
-			organize()
+			nut.organize()
 
 		if args.set_masterkey1:
 			nut.initTitles()
@@ -931,7 +729,7 @@ if __name__ == '__main__':
 
 		if args.scrape_shogun != None:
 			if len(args.scrape_shogun) == 0:
-				scrapeShogunThreaded()
+				nut.scrapeShogunThreaded()
 			else:
 				nut.initTitles()
 				nut.initFiles()
@@ -981,13 +779,13 @@ if __name__ == '__main__':
 			
 	
 		if args.Z:
-			updateVersions(True)
+			nut.updateVersions(True)
 		
 		if args.z:
-			updateVersions(False)
+			nut.updateVersions(False)
 		
 		if args.V:
-			scanLatestTitleUpdates()
+			nut.scanLatestTitleUpdates()
 
 		if args.unlock_all:
 			unlockAll()
@@ -1003,18 +801,18 @@ if __name__ == '__main__':
 
 		
 		if args.download_all:
-			downloadAll()
+			nut.downloadAll()
 			Titles.save()
 		
 		if args.export:
 			nut.initTitles()
 			nut.initFiles()
-			export(args.export)
+			nut.export(args.export)
 
 		if args.export_versions:
 			nut.initTitles()
 			nut.initFiles()
-			export(args.export_versions, ['rightsId', 'version'])
+			nut.export(args.export_versions, ['rightsId', 'version'])
 		
 		if args.missing:
 			logMissingTitles(args.missing)
@@ -1039,10 +837,10 @@ if __name__ == '__main__':
 		
 		if len(sys.argv)==1:
 			nut.scan()
-			organize()
-			downloadAll()
-			scanLatestTitleUpdates()
-			export('titledb/versions.txt', ['rightsId', 'version'])
+			nut.organize()
+			nut.downloadAll()
+			nut.scanLatestTitleUpdates()
+			nut.export('titledb/versions.txt', ['rightsId', 'version'])
 
 		if args.scan_dlc != None:
 			nut.initTitles()
