@@ -1,4 +1,5 @@
 from nut import Titles
+from nut import Title
 from nut import Nsps
 from nut import Print
 import threading
