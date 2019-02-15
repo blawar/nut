@@ -113,7 +113,7 @@ def startDlcScan(queue):
 	dlcStatus = Status.create(queue.size() * 0x200, 'DLC Scan')
 	#scanDLC(id)
 	threads = []
-	for i in range(scrapeThreads):
+	for i in range(nut.scrapeThreads):
 		t = threading.Thread(target=scanDLCThread, args=[queue, dlcStatus])
 		t.start()
 		threads.append(t)
@@ -156,7 +156,7 @@ def startBaseScan():
 	baseStatus = Status.create(pow(2,28), 'Base Scan')
 
 	threads = []
-	for i in range(scrapeThreads):
+	for i in range(nut.scrapeThreads):
 		t = threading.Thread(target=scanBaseThread, args=[baseStatus])
 		t.start()
 		threads.append(t)
@@ -697,8 +697,8 @@ if __name__ == '__main__':
 			nut.initFiles()
 
 			threads = []
-			for i in range(scrapeThreads):
-				t = threading.Thread(target=scrapeThread, args=[i, args.scrape_delta])
+			for i in range(nut.scrapeThreads):
+				t = threading.Thread(target=nut.scrapeThread, args=[i, args.scrape_delta])
 				t.start()
 				threads.append(t)
 
