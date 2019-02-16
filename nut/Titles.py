@@ -21,9 +21,6 @@ nsuIdMap = {}
 global regionTitles
 regionTitles = {}
 
-if os.path.isfile('titles.json'):
-	os.rename('titles.json', 'titledb/titles.json')
-
 def data(region = None, language = None):
 	global regionTitles
 	global titles
