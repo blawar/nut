@@ -292,10 +292,6 @@ def load(confFile):
 		except:
 			pass
 
-if os.path.isfile('nut.conf'):
-	os.rename('nut.conf', 'conf/nut.conf')
-
-
 if os.path.isfile('conf/nut.default.conf'):
 	load('conf/nut.default.conf')
 
