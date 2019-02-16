@@ -38,10 +38,6 @@ if os.path.isfile('titledb/redirectCache.json'):
 	with open('titledb/redirectCache.json', encoding="utf-8-sig") as f:
 		urlCache = json.loads(f.read())
 
-if os.path.isfile('titledb/titleRedirects.json'):
-	with open('titledb/titleRedirects.json', encoding="utf-8-sig") as f:
-		titleRedirects = json.loads(f.read())
-
 def grabCachedRedirectUrl(url, cookies = None):
 	global grabUrlInit
 	global urlCache
@@ -642,9 +638,6 @@ class Title:
 		try:
 			if (not delta or not self.bannerUrl):
 				id = self.id
-
-				if id in titleRedirects:
-					id = titleRedirects[id]
 
 				cookies = {'esrb.verified': 'true'}
 				for region in ['JP', 'AU']:
