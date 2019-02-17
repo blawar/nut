@@ -6,6 +6,8 @@ import threading
 import time
 import colorama
 import requests
+import queue
+import cdn
 import os
 import Fs
 import CDNSP
