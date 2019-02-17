@@ -118,6 +118,7 @@ def getBannerImage(request, response):
 	return Server.Response500(request, response)
 
 def getFrontArtBoxImage(request, response):
+	return getTitleImage(request, response)
 	if len(request.bits) < 3:
 		return Server.Response404(request, response)
 

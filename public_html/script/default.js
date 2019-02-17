@@ -75,8 +75,8 @@ angular
   	};
 
   	$scope.titleFilter = function (title) {
-
-  		if ((!title.region || $scope.regionFilter[title.region]) && ($scope.ownedFilter.id != 1 || title.key) && ($scope.preloadedFilter.id != 1 || (title.base && title.base.length > 0)) && ($scope.preloadedFilter.id != -1 || !title.base || title.base.length < 1) && ($scope.ownedFilter.id != -1 || !title.key)) {
+  		isOwned = title.base;
+  		if ((!title.region || $scope.regionFilter[title.region]) && ($scope.ownedFilter.id != 1 || isOwned) && ($scope.preloadedFilter.id != 1 || (title.base && title.base.length > 0)) && ($scope.preloadedFilter.id != -1 || !title.base || title.base.length < 1) && ($scope.ownedFilter.id != -1 || !isOwned)) {
   			return true;
   		}
 
@@ -167,7 +167,7 @@ angular
   		return null;
   	}
 
-  	setInterval(function () {
+  	/*setInterval(function () {
   		$http.get('/api/queue').then(function (res) {
   			queue = [];
 
@@ -192,7 +192,7 @@ angular
   			}
   			$scope.queue = queue;
   		});
-  	}, 3000);
+  	}, 3000);*/
 
   	$scope.showTitle = function (title) {
   		$scope.title = title;

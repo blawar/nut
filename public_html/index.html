@@ -27,9 +27,9 @@
 				<li class="left">
 					<a id="logo" href="/"><img src="/images/logo.jpg" /></a>
 					<input type="text" ng-model="searchText" id="search" placeholder="Search">
-					<button class="gear" ng-click="showOptions()" title="Settings">Settings</button>
+					<!--<button class="gear" ng-click="showOptions()" title="Settings">Settings</button>-->
 					<button class="update" ng-click="showUpdates()" title="Updates Available">Title Updates</button>
-					<button class="queue" ng-click="showQueue()" title="Download Queue">Queue</button>
+					<!--<button class="queue" ng-click="showQueue()" title="Download Queue">Queue</button>-->
 				</li>
 				<li class="center">
 					<ul id="sorts">
@@ -72,7 +72,7 @@
 			<div id="game" style="background-image: url(/api/bannerImage/{{title.baseId }}/)">
 				<div class="container">
 					<header>
-						<div class="boxart"><img src="/api/frontArtBoxImage/{{title.id}}/" /></div>
+						<div class="boxart"><img src="/api/frontArtBoxImage/{{title.id}}/96" /></div>
 						<ul>
 							<li class="title">{{title.name}}</li>
 							<li><label>Publisher</label><span>{{title.publisher}}</span></li>
@@ -82,10 +82,10 @@
 							<li><label>ID</label><span>{{title.id}}</span></li>
 						</ul>
 						<div class="controls">
-							<a class="update" title="Update Available" ng-show="title.currentVersion < title.latestVersion" ng-click="preload(title.id.substring(0, title.id.length - 3) + '800')">Update</a>
+							<!--<a class="update" title="Update Available" ng-show="title.currentVersion < title.latestVersion" ng-click="preload(title.id.substring(0, title.id.length - 3) + '800')">Update</a>-->
 							<a class="download" title="Download Game to PC" href="/api/download/{{title.id}}" ng-show="title.key && title.base.length > 0">Download</a>
-							<a class="install" title="Install Game to Switch" href="/api/install/{{title.id}}" ng-show="title.key && title.base.length > 0 && user && user.switchHost">Install</a>
-							<a class="update" title="Preload Game" ng-click="preload(title.id)" ng-show="!title.base || title.base.length < 1">Preload</a>
+							<!--<a class="install" title="Install Game to Switch" href="/api/install/{{title.id}}" ng-show="title.key && title.base.length > 0 && user && user.switchHost">Install</a>-->
+							<!--<a class="update" title="Preload Game" ng-click="preload(title.id)" ng-show="!title.base || title.base.length < 1">Preload</a>-->
 						</div>
 					</header>
 					<div class="description">
@@ -95,7 +95,7 @@
 								<tr ng-repeat="dlc in title.dlc">
 									<td>{{getTitle(dlc.titleId).name}}</td>
 									<td>{{dlc.version}}</td>
-									<td><button class="update" title="Update available" ng-show="getTitle(dlc.titleId).version > dlc.version" ng-click="preload(dlc.titleId)">Update</button></td>
+									<!--<td><button class="update" title="Update available" ng-show="getTitle(dlc.titleId).version > dlc.version" ng-click="preload(dlc.titleId)">Update</button></td>-->
 									<td><a class="download" href="/api/download/{{getTitle(dlc.titleId).id}}">Download</a></td>
 								</tr>
 							</table>
@@ -152,7 +152,7 @@
 								<th>Title</th>
 								<th>Current Version</th>
 								<th>New Version</th>
-								<th>&nbsp;</th>
+								<!--<th>&nbsp;</th>-->
 							</tr>
 						</thead>
 						<tbody ng-repeat="t in updates">
@@ -161,7 +161,7 @@
 								<td>{{t.name}}</td>
 								<td>{{t.currentVersion}}</td>
 								<td>{{t.newVersion}}</td>
-								<td><a class="update" ng-click="preload(t.id)">Preload</a></td>
+								<!--<td><a class="update" ng-click="preload(t.id)">Preload</a></td>-->
 							</tr>
 						</tbody>
 					</table>
