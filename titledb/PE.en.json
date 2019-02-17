@@ -2100,6 +2100,92 @@
         ],
         "size": 6209667072
     },
+    "70010000018547": {
+        "id": "010040600C5CE000",
+        "rightsId": null,
+        "name": "Tetris\u00ae 99",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70010000018547,
+        "category": [
+            "Multiplayer",
+            "Puzzle"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/b8801d39aab9aed7996dc30f9102257b8852dbdc56071503ba83bc64d6f10414.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/b59a960e412353b5b750b1466f2265336ed5c62fa685a41b89a9f7ccbbf9e091.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/21e65c191a45955ab650a0cdf2a20ce9b0aed7c77c50c68b58f7f09bf2c8254b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e37b9fb95293cdd1e96e8fce4e5c3eae3c5da4745fb87b411d3989772754e883.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2f5267e9c7015adbb9efccbe1af7c4b39add2731858589ca21ad61cbb4bcdf83.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/09a86db6b2399856413919ee25fdffaa4b094c21d142aa0489eb75e45c3d7e86.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2aaa58fe27cdc4784f54ee9f4e7dffd43ad1fd1fffabfd86029889696220d33b.jpg",
+        "intro": "Download the Tetris\u00ae 99 game for free!",
+        "description": "The free to download online software, Tetris\u00ae 99, is available as a special offer for Nintendo Switch Online members. In large-scale, 99-player battles, it\u2019ll take speed, skill, and strategy to knock out the competition and become the last player standing. You can target opponents by sending them Garbage Blocks, but be careful\u2026your rivals can target you back! Defeat opponents to acquire KO badges that may give you the advantage on future attacks. Survive the onslaught and look forward to upcoming online events!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru"
+        ],
+        "size": 161480704
+    },
+    "70010000018600": {
+        "id": "0100BF600D83A000",
+        "rightsId": null,
+        "name": "DAEMON X MACHINA\u2122: Prototype Missions",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70010000018600,
+        "category": [
+            "Action"
+        ],
+        "ratingContent": [
+            "Violence"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/9d946f0b9d322eb6086cc01f421630a7f87f820aa90ff7177d5321f5a9c42a94.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/92489b10516b6e8758836dee7d7cb10c36bb86de6e90c6a80a451c2c22f88588.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/41d4706ba45a012961d7b743533c05ac4fd4281b31f5a6c9c306239db93d1757.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/585a970d9780ca06ccb9a98793061bfe537da00b41c616c28b1e2ef67718fcfb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/57f92aa2cac83c84c523cf9aeafad3539332ca39c3582587a47d6c11137c16be.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ba4957f62c1f6426ff4db013c13be3213dd670b022e0019fb176810c2c0519b3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c0bdd1e8ba6234cb5124269c63aaaa1895e725a2cc821da9732e863acefc8506.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f655747d3edee0787ae5ba97008fbb9bdacf42fdea1aba650cbb732c998397fd.jpg",
+        "intro": "Outfit your Arsenal and defend Earth from corrupted weapons called \u201cImmortals\u201d!",
+        "description": "Defend Earth across four fast-paced demo missions and defeat corrupted A.I. controlled robots using your Arsenal, a fully customizable mechanized battle suit. Choose and equip your Arsenal with a multitude of weapons, obtain more from downed enemy Arsenals, and swap them on the fly to suit your strategy in the face of ever-changing threats that may bring the end of the world.\n\nThey say it was the greatest disaster in recorded history\u2026 The moon tore apart, turning the sky into a kaleidoscope of red light that illuminated all who watched from below. Survive this apocalyptic new age when the self-evolving weapons called \u201cImmortals\u201d have turned on their creators and waged war on humanity. ",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 2267021312
+    },
     "70030000005101": {
         "id": "0100ED800CBFC000",
         "rightsId": null,
@@ -4229,5 +4315,39 @@
         "description": "Travis Strikes Again: No More Heroes - Digital Bundle includes the main game plus the Season Pass.\n\n\u25bcTravis Strikes Again: No More Heroes\nSeveral years after No More Heroes 2... This time, the setting is a small town in the middle of nowhere in the American South. Badman shows up at the trailer Travis has been living in to exact revenge for the murder of his daughter, Bad Girl, and things go horribly wrong. As they battle it out, the two are sucked into the game world of the legendary game console, the Death Drive Mk\u2161.\n\nPass a Joy-Con\u2122 to a friend and team up anytime, anywhere! \nCollaborations with various indie games!\nFeatures lots of laughs and iconic gags from the NMH series, such as saving your game on the toilet!\n\nHit the road in an all new adventure with gaming's most hardcore otaku assassin.\nBeam Katana in hand, Travis Strikes Again! \n\n\u25bcTravis Strikes Again: No More Heroes - SEASON PASS\n\nAvailable by February 28, 2019\n- Shinobu (playable after completing game)\n- 2 Shinobu-only skills\n- Badman Strikes Back Adventure\n\nAvailable by April 30, 2019\n- Bad Girl (playable after completing game)\n- 2 Bad Girl-only skills\n- Killer Marathon level expansion\n- New skill (unlocked by completing Killer Marathon)\n- Travis Strikes Back New Scenario",
         "languages": null,
         "size": 6222249984
+    },
+    "70070000005062": {
+        "id": null,
+        "rightsId": null,
+        "name": "Captain Toad\u2122: Treasure Tracker and Captain Toad\u2122: Treasure Tracker - Special Episode Bundle",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70070000005062,
+        "category": null,
+        "ratingContent": [
+            "Mild Cartoon Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/bc357ae2086f43bbcaf6cef34a8caad0ddfcd739d0ea25db236a0a4b71bc81a8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/72a7b70a3161a757d40571a9264444e307bdcd83a851978510ed8fa31e762a6d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3b11c4d216a5c24007e1adee086f6ad32f9e7f70b2191b98c41a5f64f50682db.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/fc14648c12176ee5ebd6de7b099905356f07089e1250d00ded2b02233629b2df.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cc0bc04661bf65586f29d0b6ca32319fa0255fb0453679195bdf91ae4f0dedc9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3589c7eaf1f2a86d29c2aa5138919a0baa8e3efada3da0dc10b0139230012c7c.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/6f9a4a446deade14cd01e7dbb631430a8b518a8aa82b0bb08d6fbaef3fe846be.jpg",
+        "intro": null,
+        "description": "Captain Toad stars in his own puzzling quest on the Nintendo Switch\u2122 system! Our stubby hero must dodge dangers and track treasures across many trap-filled courses. Survive smoldering volcanoes, hazardous steam engines, haunted houses, and even new courses based on the Super Mario Odyssey\u2122 game! \n\nAs of February 13th, 2019, you can purchase the Captain Toad: Treasure Tracker - Special Episode DLC to continue your journey with eighteen new challenges, including five brand-new courses. Download this content before March 14th for early access to one of the courses! The remainder of the courses will be available on March 14th.\n\n",
+        "languages": null,
+        "size": 1743781888
     }
 }

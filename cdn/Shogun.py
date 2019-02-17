@@ -50,7 +50,7 @@ def makeRequest(method, url, hdArgs={}):
 
 	return r
 
-def makeJsonRequest(method, url, hdArgs={}, key = None, force = False, expiration = None):
+def makeJsonRequest(method, url, hdArgs={}, key = None, force = False, expiration = 86400 * 4):
 	os.makedirs('cache/bugyo/', exist_ok=True)
 	cacheFileName = 'cache/bugyo/' + hashlib.md5(url.encode()).hexdigest()
 
@@ -59,7 +59,7 @@ def makeJsonRequest(method, url, hdArgs={}, key = None, force = False, expiratio
 
 	j = None
 
-	if ((expiration == None and cdn.isValidCache(cacheFileName)) or (expiration != None and cdn.isValidCache(cacheFileName, expiration))) and not force:
+	if cdn.isValidCache(cacheFileName, expiration) and not force:
 		if not key:
 			with open(cacheFileName, encoding="utf-8-sig") as f:
 				j = json.loads(f.read())
@@ -135,7 +135,7 @@ def scrapeLangTitles(region = 'US', language = 'en', shop_id = 4, force = False)
 	while offset < total:
 		url = 'https://bugyo.hac.%s.eshop.nintendo.net/shogun/v1/titles?shop_id=%d&lang=%s&country=%s&sort=new&limit=%d&offset=%d' % (Config.cdn.environment, shop_id, language, region, pageSize, offset)
 		#print(url)
-		j = makeJsonRequest('GET', url, {}, '%d/%s/%s/titles/index/%d-%d.json' % (shop_id, language, region, pageSize, offset), force = False)
+		j = makeJsonRequest('GET', url, {}, '%d/%s/%s/titles/index/%d-%d.json' % (shop_id, language, region, pageSize, offset), force = False, expiration = 60)
 
 		if not j:
 			break

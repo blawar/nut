@@ -2100,6 +2100,92 @@
         ],
         "size": 6209667072
     },
+    "70010000018547": {
+        "id": "010040600C5CE000",
+        "rightsId": null,
+        "name": "Tetris\u00ae 99",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70010000018547,
+        "category": [
+            "Multijugador",
+            "Rompecabezas"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/b8801d39aab9aed7996dc30f9102257b8852dbdc56071503ba83bc64d6f10414.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/b59a960e412353b5b750b1466f2265336ed5c62fa685a41b89a9f7ccbbf9e091.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/21e65c191a45955ab650a0cdf2a20ce9b0aed7c77c50c68b58f7f09bf2c8254b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e37b9fb95293cdd1e96e8fce4e5c3eae3c5da4745fb87b411d3989772754e883.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2f5267e9c7015adbb9efccbe1af7c4b39add2731858589ca21ad61cbb4bcdf83.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/09a86db6b2399856413919ee25fdffaa4b094c21d142aa0489eb75e45c3d7e86.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2aaa58fe27cdc4784f54ee9f4e7dffd43ad1fd1fffabfd86029889696220d33b.jpg",
+        "intro": "\u00a1Descarga el juego Tetris\u00ae 99 de forma gratuita!",
+        "description": "\u00a1Descarga el juego Tetris\u00ae 99 de forma gratuita en Nintendo eShop y \u00fanete a otros miembros de Nintendo Switch Online para dominar Tetris\u2122 en batallas a gran escala de 99 jugadores! Tomar\u00e1 velocidad, habilidad y estrategia el dominar la competencia y convertirte en el \u00faltimo jugador en pie. Podr\u00e1s atacar a tus oponentes lanz\u00e1ndoles l\u00edneas de basura, pero ten cuidado\u2026 \u00a1Tus rivales te podr\u00e1n atacar de vuelta! Derrota a tus oponentes para recibir insignias de KO que te podr\u00e1n dar ventaja en futuros ataques. \u00a1Sobrevive la embestida y reclama la victoria!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru"
+        ],
+        "size": 161480704
+    },
+    "70010000018600": {
+        "id": "0100BF600D83A000",
+        "rightsId": null,
+        "name": "DAEMON X MACHINA\u2122: Prototype Missions",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70010000018600,
+        "category": [
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/9d946f0b9d322eb6086cc01f421630a7f87f820aa90ff7177d5321f5a9c42a94.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/92489b10516b6e8758836dee7d7cb10c36bb86de6e90c6a80a451c2c22f88588.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/41d4706ba45a012961d7b743533c05ac4fd4281b31f5a6c9c306239db93d1757.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/585a970d9780ca06ccb9a98793061bfe537da00b41c616c28b1e2ef67718fcfb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/57f92aa2cac83c84c523cf9aeafad3539332ca39c3582587a47d6c11137c16be.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ba4957f62c1f6426ff4db013c13be3213dd670b022e0019fb176810c2c0519b3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c0bdd1e8ba6234cb5124269c63aaaa1895e725a2cc821da9732e863acefc8506.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f655747d3edee0787ae5ba97008fbb9bdacf42fdea1aba650cbb732c998397fd.jpg",
+        "intro": "\u00a1Equipa tu Arsenal y defiende a la Tierra de estas corruptas armas llamadas \"Inmortales\"!",
+        "description": "Defiende a la Tierra a trav\u00e9s de cuatro veloces misiones de prueba y derrota a los corruptos robots utilizando tu Arsenal, un traje de batalla mecanizado totalmente personalizable. Escoge y equipa tu Arsenal con una gran cantidad de armas, obt\u00e9n m\u00e1s armas de los Arsenales de los enemigos ca\u00eddos e interc\u00e1mbialas para que se adapten a tu estrategia ante las amenazas cambiantes que depara el fin del mundo.\n\nDicen que fue el mayor desastre de la historia ... La luna se desboron\u00f3, convirtiendo el cielo en un caleidoscopio de luz roja que ilumin\u00f3 a todos los que observaban desde abajo. Sobrevive a esta nueva era apocal\u00edptica, donde las armas llamadas \u201cInmortales\u201d han evolucionado y se han ido en contra de sus creadores, iniciando una gran guerra contra la humanidad.\n",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 2267021312
+    },
     "70030000005101": {
         "id": "0100ED800CBFC000",
         "rightsId": null,
@@ -4229,5 +4315,39 @@
         "description": "Travis Strikes Again: No More Heroes - Digital Bundle contiene el juego principal y el pase de temporada.\n\n\u25bcTravis Strikes Again: No More Heroes\nVarios a\u00f1os despu\u00e9s de No More Heroes 2... Esta vez viajamos a un peque\u00f1o pueblo en medio de la nada al sur de Estados Unidos. Bad Man aparece en el tr\u00e1iler en el que Travis ha estado viviendo para vengarse del asesinato de su hija, Bad Girl, y algo sale terriblemente mal. Al pelear, los dos son absorbidos hacia el mundo de los videojuegos de la legendaria consola Death Drive MkII.\n\n\u00a1Dale un Joy-Con\u2122 a un amigo para que se una en cualquier momento y lugar! \n\u00a1Incluye colaboraciones con varios juegos indies!\n\u00a1Contiene muchas risas y diversi\u00f3n de la serie No More Heroes, como guardar tu partida en el inodoro!\n\nInicia esta una nueva aventura con el otaku asesino m\u00e1s rudo de los videojuegos.\nBlandiendo su Beam Katana, \u00a1Travis Strikes Again! \n\n\u25bcTravis Strikes Again: No More Heroes - EL PASE DE TEMPORADA\n\nDisponible el 28 de febrero de 2019\n- Shinobu (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Shinobu\n- Aventura Badman Strikes Back\n\nDisponible el 30 de abril de 2019\n- Bad Girl (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Bad Girl\n- Expansi\u00f3n del nivel Killer Marathon\n- Una nueva habilidad (disponible al completar Killer Marathon)\n- Nuevo escenario Travis Strikes Back\n",
         "languages": null,
         "size": 6222249984
+    },
+    "70070000005062": {
+        "id": null,
+        "rightsId": null,
+        "name": "Captain Toad\u2122: Treasure Tracker and Captain Toad\u2122: Treasure Tracker - Special Episode Bundle",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70070000005062,
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada en caricaturas"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/bc357ae2086f43bbcaf6cef34a8caad0ddfcd739d0ea25db236a0a4b71bc81a8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/72a7b70a3161a757d40571a9264444e307bdcd83a851978510ed8fa31e762a6d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3b11c4d216a5c24007e1adee086f6ad32f9e7f70b2191b98c41a5f64f50682db.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/fc14648c12176ee5ebd6de7b099905356f07089e1250d00ded2b02233629b2df.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cc0bc04661bf65586f29d0b6ca32319fa0255fb0453679195bdf91ae4f0dedc9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3589c7eaf1f2a86d29c2aa5138919a0baa8e3efada3da0dc10b0139230012c7c.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/6f9a4a446deade14cd01e7dbb631430a8b518a8aa82b0bb08d6fbaef3fe846be.jpg",
+        "intro": null,
+        "description": "\u00a1El capit\u00e1n Toad inicia su propia aventura en la consola Nintendo Switch\u2122! Nuestro peque\u00f1o h\u00e9roe debe esquivar los peligros y buscar los tesoros en niveles cargados de trampas. \u00a1Sobrevive ardientes volcanes, peligrosos motores a vapor, espeluznantes casas e incluso niveles basados en el juego Super Mario Odyssey\u2122! \n\nA partir del 13 de febrero de 2019, podr\u00e1s adquirir Captain Toad: Treasure Tracker \u2013 Parte especial para continuar con tu viaje a trav\u00e9s de dieciocho nuevos desaf\u00edos, incluyendo cinco niveles nuevos. \u00a1Descarga este contenido antes del 14 de marzo para obtener acceso temprano a uno de los niveles! El resto de los niveles estar\u00e1 disponible el 14 de marzo.\n",
+        "languages": null,
+        "size": 1743781888
     }
 }
