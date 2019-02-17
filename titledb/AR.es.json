@@ -2102,7 +2102,7 @@
     },
     "70010000018547": {
         "id": "010040600C5CE000",
-        "rightsId": null,
+        "rightsId": "010040600C5CE0000000000000000007",
         "name": "Tetris\u00ae 99",
         "version": null,
         "key": null,
@@ -2145,7 +2145,7 @@
     },
     "70010000018600": {
         "id": "0100BF600D83A000",
-        "rightsId": null,
+        "rightsId": "0100BF600D83A0000000000000000007",
         "name": "DAEMON X MACHINA\u2122: Prototype Missions",
         "version": null,
         "key": null,
