@@ -117,6 +117,8 @@ threads = 4
 jsonOutput = False
 isRunning = True
 
+autolaunchBrowser = True
+
 titleBlacklist = []
 titleWhitelist = []
 
@@ -128,7 +130,6 @@ titleUrls = []
 def set(j, paths, value):
 	last = paths.pop()
 	for path in paths:
-		print(path)
 		if not path in j:
 			j[path] = {}
 		j = j[path]
@@ -147,6 +148,8 @@ def save(confFile = 'conf/nut.conf'):
 	set(j, ['server', 'hostname'], server.hostname)
 	set(j, ['server', 'port'], server.port)
 
+	set(j, ['autolaunchBrowser'], autolaunchBrowser)
+
 	with open(confFile, 'w', encoding='utf-8') as f:
 		json.dump(j, f, indent=4)
 
@@ -156,6 +159,7 @@ def load(confFile):
 	global titleUrls
 	global region
 	global language
+	global autolaunchBrowser
 
 	with open(confFile, encoding="utf8") as f:
 		j = json.load(f)
@@ -167,6 +171,11 @@ def load(confFile):
 
 		try:
 			language = j['language']
+		except:
+			pass
+
+		try:
+			autolaunchBrowser = j['autolaunchBrowser']
 		except:
 			pass
 

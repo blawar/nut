@@ -6,7 +6,9 @@ import os
 import re
 import pathlib
 import urllib3
+import urllib
 import json
+import webbrowser
 import Server
 
 import nut
@@ -28,7 +30,7 @@ import time
 import socket
 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QDesktopWidget, QTabWidget, QProgressBar, QLabel,QHBoxLayout, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QDesktopWidget, QTabWidget, QProgressBar, QLabel,QHBoxLayout, QLineEdit, QPushButton, QCheckBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot,Qt,QTimer
 from PyQt5 import QtWidgets
@@ -57,6 +59,11 @@ class Header:
 		self.scan.clicked.connect(app.on_scan)
 		self.layout.addWidget(self.scan)
 
+		self.autolaunchBrowser = QCheckBox("Auto-Launch Web Browser?", app)
+		self.autolaunchBrowser.setChecked(Config.autolaunchBrowser)
+		self.autolaunchBrowser.stateChanged.connect(self.onCheck)
+		self.layout.addWidget(self.autolaunchBrowser)
+
 		self.serverInfo = QLabel("IP: %s  Port: %s  User: %s  Password: %s" % (getIpAddress(), str(Config.server.port), Users.first().id, Users.first().password))
 		self.serverInfo.setFixedWidth(600)
 		self.serverInfo.setAlignment(Qt.AlignCenter)
@@ -74,6 +81,16 @@ class Header:
 		self.timer.start()
 
 		Users.export()
+
+		if Config.autolaunchBrowser:
+			webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
+
+	def onCheck(self, state):
+		if state == Qt.Checked:
+			Config.autolaunchBrowser = True
+		else:
+			Config.autolaunchBrowser = False
+		Config.save()
 
 	def updatePath(self):
 		Config.paths.scan = self.textbox.text()
@@ -131,7 +148,7 @@ class App(QWidget):
 		super().__init__()
 		self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
 		screen = QDesktopWidget().screenGeometry()
-		self.title = 'NUT USB / Web Server'
+		self.title = 'NUT USB / Web Server v1.1'
 		self.left = screen.width() / 4
 		self.top = screen.height() / 4
 		self.width = screen.width() / 2
