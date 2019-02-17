@@ -255,7 +255,7 @@ def genTinfoilTitles():
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	nut.scanLatestTitleUpdates()
-	export('titledb/versions.txt', ['rightsId', 'version'])
+	nut.export('titledb/versions.txt', ['id','rightsId', 'version'])
 
 def download(id):
 	bits = id.split(',')
@@ -742,7 +742,7 @@ if __name__ == '__main__':
 		if args.export_versions:
 			nut.initTitles()
 			nut.initFiles()
-			nut.export(args.export_versions, ['rightsId', 'version'])
+			nut.export(args.export_versions, ['id', 'rightsId', 'version'])
 		
 		if args.missing:
 			logMissingTitles(args.missing)
@@ -770,7 +770,7 @@ if __name__ == '__main__':
 			nut.organize()
 			nut.downloadAll()
 			nut.scanLatestTitleUpdates()
-			nut.export('titledb/versions.txt', ['rightsId', 'version'])
+			nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
 		if args.scan_dlc != None:
 			nut.initTitles()
