@@ -63,7 +63,6 @@ def scan(base, force = False):
 					nsp = Fs.Nsp(path, None)
 						
 					files[nsp.path] = nsp
-					#files[nsp.path].readMeta()
 
 					i = i + 1
 					if i % 20 == 0:
@@ -73,7 +72,6 @@ def scan(base, force = False):
 				raise
 			except BaseException as e:
 				Print.info('An error occurred processing file: ' + str(e))
-				status.close()
 
 		save()
 		status.close()
