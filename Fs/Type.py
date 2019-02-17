@@ -4,9 +4,9 @@ class Content(IntEnum):
 	PROGRAM = 0x0
 	META = 0x1
 	CONTROL = 0x2
-	MANUAL = 0x3
-	DATA = 0x4
-	UNKNOWN = 0x5
+	MANUAL = 0x3 # HtmlDocument, LegalInformation
+	DATA = 0x4 # DeltaFragment
+	PUBLICDATA = 0x5
 
 class Fs(IntEnum):
 	NONE = 0x0
@@ -19,7 +19,7 @@ class Crypto(IntEnum):
 	XTS = 2
 	CTR = 3
 	BKTR = 4
-	NCA0 = 0x3041434
+	NCA0 = 0x3041434E
 
 class TicketSignature(IntEnum):
 	RSA_4096_SHA1 = 0x010000
