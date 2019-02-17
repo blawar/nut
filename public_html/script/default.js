@@ -50,20 +50,13 @@ angular
   	$scope.sortPropertyName = 'name';
   	$scope.user = null;
 
-  	$scope.ownedOptions = [
-		{ id: 0, name: '' },
-		{ id: 1, name: 'Purchased' },
-		{ id: -1, name: 'Not Purchased' }
-  	];
-
   	$scope.preloadedOptions = [
 		{ id: 0, name: '' },
-		{ id: 1, name: 'Preloaded' },
-		{ id: -1, name: 'Not Preloaded' }
+		{ id: 1, name: 'Downloaded' },
+		{ id: -1, name: 'Not Downloaded' }
   	];
 
-  	$scope.ownedFilter = $scope.ownedOptions[1];
-  	$scope.preloadedFilter = $scope.preloadedOptions[0];
+  	$scope.preloadedFilter = $scope.preloadedOptions[1];
 
   	$scope.getTitle = function (id) {
   		return $scope.titlesDict[id];
@@ -75,8 +68,7 @@ angular
   	};
 
   	$scope.titleFilter = function (title) {
-  		isOwned = title.base;
-  		if ((!title.region || $scope.regionFilter[title.region]) && ($scope.ownedFilter.id != 1 || isOwned) && ($scope.preloadedFilter.id != 1 || (title.base && title.base.length > 0)) && ($scope.preloadedFilter.id != -1 || !title.base || title.base.length < 1) && ($scope.ownedFilter.id != -1 || !isOwned)) {
+  		if ((!title.region || $scope.regionFilter[title.region]) && ($scope.preloadedFilter.id != 1 || (title.base && title.base.length > 0)) && ($scope.preloadedFilter.id != -1 || !title.base || title.base.length < 1)) {
   			return true;
   		}
 
