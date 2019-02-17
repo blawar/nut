@@ -82,9 +82,6 @@ class Header:
 
 		Users.export()
 
-		if Config.autolaunchBrowser:
-			webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
-
 	def onCheck(self, state):
 		if state == Qt.Checked:
 			Config.autolaunchBrowser = True
@@ -235,6 +232,8 @@ def nutThread():
 def initThread(app):
 	nut.scan()
 	app.refresh()
+	if Config.autolaunchBrowser:
+		webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
 			
 if __name__ == '__main__':
 	urllib3.disable_warnings()
