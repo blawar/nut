@@ -6,6 +6,7 @@ import time
 from nut import Config
 import sys
 import os
+from os import listdir
 import re
 from nut import Print
 import urllib
@@ -15,6 +16,7 @@ from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
 import Server.Controller.Api
+import __main__
 
 
 global httpd
@@ -189,7 +191,7 @@ def route(request, response, verb = 'get'):
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
-		self.basePath = os.path.abspath('.')
+		self.basePath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 		super(NutHandler, self).__init__(*args)
 
 	def do_HEAD(self):
@@ -248,7 +250,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 
 	def handleFile(self, request, response):
-		path = os.path.abspath('public_html' + self.path)
+		path = os.path.abspath(self.basePath + '/public_html' + self.path)
 		if not path.startswith(self.basePath):
 			raise IOError('invalid path requested: ' + self.basePath + ' vs ' + path)
 

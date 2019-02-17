@@ -125,6 +125,31 @@ language = 'en'
 
 titleUrls = []
 
+def set(j, paths, value):
+	last = paths.pop()
+	for path in paths:
+		print(path)
+		if not path in j:
+			j[path] = {}
+		j = j[path]
+	j[last] = value
+
+def save(confFile = 'conf/nut.conf'):
+	os.makedirs(os.path.dirname(confFile), exist_ok = True)
+	j = {}
+	try:
+		with open(confFile, encoding="utf8") as f:
+			j = json.load(f)
+	except:
+		pass
+
+	set(j, ['paths', 'scan'], paths.scan)
+	set(j, ['server', 'hostname'], server.hostname)
+	set(j, ['server', 'port'], server.port)
+
+	with open(confFile, 'w', encoding='utf-8') as f:
+		json.dump(j, f, indent=4)
+
 def load(confFile):
 	global threads
 	global jsonOutput

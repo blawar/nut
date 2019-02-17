@@ -28,6 +28,15 @@ class User:
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
 
+	def serialize(self, map = ['id', 'password']):
+		r = []
+		for i in map:
+				
+			methodName = 'get' + i[0].capitalize() + i[1:]
+			method = getattr(self, methodName, lambda: methodName)
+			r.append(str(method()))
+		return '|'.join(r)
+
 	def setId(self, id):
 		self.id = id
 
@@ -108,7 +117,7 @@ def load(path = 'conf/users.conf'):
 		return
 
 	firstLine = True
-	map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth', 'switchHost', 'switchPort']
+	map = ['id', 'password']
 	with open(path, encoding="utf-8-sig") as f:
 		for line in f.readlines():
 			line = line.strip()
@@ -130,7 +139,8 @@ def load(path = 'conf/users.conf'):
 def save():
 	pass
 
-def export(fileName = 'conf/users.conf', map = ['id', 'password', 'isAdmin', 'remoteAddr', 'requireAuth', 'switchHost', 'switchPort']):
+def export(fileName = 'conf/users.conf', map = ['id', 'password']):
+	os.makedirs(os.path.dirname(fileName), exist_ok = True)
 	global users
 	buffer = ''
 	
