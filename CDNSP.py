@@ -144,7 +144,7 @@ def make_request(method, url, certificate='', hdArgs={}):
 	if certificate == '':  # Workaround for defining errors
 		certificate = NXclientPath
 
-	fw = '6.0.0-5.0' #hard coding this incase newbs forget to update
+	fw = '7.0.0-5.0' #hard coding this incase newbs forget to update
 
 	reqHd = {
 		'X-Nintendo-DenebEdgeToken': Config.edgeToken.token,
@@ -600,8 +600,8 @@ class cnmt:
 		self.type = self.packTypes[read_u8(f, 0xC)]
 		self.id = '0%s' % format(read_u64(f, 0x0), 'x')
 		self.ver = str(read_u32(f, 0x8))
-		self.sysver = str(read_u64(f, 0x28))
-		self.dlsysver = str(read_u64(f, 0x18))
+		self.sysver = str(read_u32(f, 0x28))
+		self.dlsysver = str(read_u32(f, 0x18))
 		self.digest = hx(read_at(f, f.seek(0, 2) - 0x20, f.seek(0, 2))).decode()
 
 		with open(hdPath, 'rb') as ncaHd:
