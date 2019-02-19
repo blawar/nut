@@ -34,7 +34,7 @@ def makeRequest(method, url, certificate='', hdArgs={}):
 	if certificate == '':  # Workaround for defining errors
 		certificate = NXclientPath
 
-	fw = '7.0.0-5.0' #hard coding this incase newbs forget to update
+	fw = '7.0.1-1.0' #hard coding this incase newbs forget to update
 
 	reqHd = {
 		'X-Nintendo-DenebEdgeToken': Config.edgeToken.token,
