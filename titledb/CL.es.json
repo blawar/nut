@@ -980,7 +980,7 @@
             "es",
             "fr"
         ],
-        "size": 1592786944
+        "size": 1702887424
     },
     "70010000003208": {
         "id": "0100633007D48000",
@@ -1301,7 +1301,7 @@
             "nl",
             "ru"
         ],
-        "size": 15117320192
+        "size": 15136194560
     },
     "70010000006023": {
         "id": "0100AE00096EA000",
@@ -2213,6 +2213,33 @@
         "description": null,
         "languages": null,
         "size": 461373440
+    },
+    "70030000005881": {
+        "id": null,
+        "rightsId": null,
+        "name": "Yoshi\u2019s Crafted World\u2122 Demo",
+        "version": null,
+        "key": null,
+        "isDemo": true,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70030000005881,
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada en caricaturas"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 543162368
     },
     "70030000005981": {
         "id": "0100C1800D7AE000",
@@ -4066,6 +4093,60 @@
         "description": "Paquete de idioma coreano descargable de modo opcional para Diablo 3: Eternal Collection en Nintendo Switch.",
         "languages": null,
         "size": 5613027328
+    },
+    "70050000010821": {
+        "id": "01009BF0072D5001",
+        "rightsId": null,
+        "name": "Captain Toad\u2122: Treasure Tracker \u2013 Parte especial (El misterioso\ntemplo dividido)",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190213,
+        "nsuId": 70050000010821,
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada en caricaturas"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9965d3b6705679296249992ccb9445edb68c46f00072ecb2fe89a132e7512c39.jpg",
+        "intro": null,
+        "description": "El contenido descargable de Captain Toad: Treasure Tracker \u2013 Parte especial trae dieciocho nuevos desaf\u00edos, incluyendo cinco niveles totalmente nuevos. Al adquirir el contenido descargable de Captain Toad: Treasure Tracker \u2013 Parte especial antes del 14 de marzo en Nintendo eShop, recibir\u00e1s acceso temprano al nivel El misterioso templo dividido. Los dem\u00e1s niveles estar\u00e1n disponibles el 14 de marzo.",
+        "languages": null,
+        "size": 36700160
+    },
+    "70050000010822": {
+        "id": "01009BF0072D5002",
+        "rightsId": null,
+        "name": "Captain Toad\u2122: Treasure Tracker \u2013 Parte especial",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190314,
+        "nsuId": 70050000010822,
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada en caricaturas"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9965d3b6705679296249992ccb9445edb68c46f00072ecb2fe89a132e7512c39.jpg",
+        "intro": null,
+        "description": "El contenido descargable de Captain Toad: Treasure Tracker - Parte especial trae dieciocho desaf\u00edos nuevos, incluyendo cinco niveles totalmente nuevos. ",
+        "languages": null,
+        "size": 4194304
     },
     "70070000000481": {
         "id": null,
