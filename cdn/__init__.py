@@ -161,7 +161,7 @@ def download_game(titleId, ver, tkey=None, nspRepack=False, name='', verify=Fals
 	name = get_name(titleId)
 	gameType = ''
 
-	if name == 'Uknown Title':
+	if name == 'Unknown Title':
 		temp = "[" + titleId + "]"
 	else:
 		temp = name + " [" + titleId + "]"
