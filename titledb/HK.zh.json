@@ -1515,7 +1515,7 @@
             "ko",
             "zh"
         ],
-        "size": 1081081856
+        "size": 1151336448
     },
     "70010000010680": {
         "id": "0100C1F0051B6000",
@@ -2341,7 +2341,7 @@
         "languages": [
             "zh"
         ],
-        "size": 2492465152
+        "size": 2494562304
     },
     "70010000012248": {
         "id": "0100E9D007432000",
@@ -3920,6 +3920,43 @@
         ],
         "size": 3657433088
     },
+    "70010000014793": {
+        "id": "010068200C798000",
+        "rightsId": null,
+        "name": "Lapis x Labyrinth\u3000\u6df1\u6df5\u72c2\u7375",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190221,
+        "nsuId": 70010000014793,
+        "category": [
+            "\u89d2\u8272\u626e\u6f14",
+            "\u52d5\u4f5c"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/3d508766774718a7589aa03d90d37c48067a1f41466c5fbffb170367043aa111.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ec0f1fdbb6ddd2924d87d1bc64f4deae3177d28cf2686778df104467310ae927.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e2670a85b0a679ca0c2d0c3ccd9b94660b2b5649fb6ef6fc827de96fabe2e50a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/83f772fd85482b0111529cb496308827d8f3b29541d81b3ffd85cd35c381e095.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/18edf9d042e0ff2a3db7ac2215dc4f5e6ae439e8def248acbabbd2243e14edda.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f9fd339265e7477a4ef3dfc52baa04bb174325abe2fa9d71992b83e56de96e46.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1098aeb9d07e8170b3f89477a3723b7281f84e5ffa2f607c0fa017579fbfe42f.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/40ac82795639b7167363236bed3a5092cfe7beba8980be88095f3f0d522a958d.jpg",
+        "intro": "\u5806\u758a\u5925\u4f34\u7684\u201c\u8166\u888b\u74dc\u201d\u6230\u9b25\uff0c\u83ef\u9e97\u723d\u5feb\u7684\u52d5\u4f5cRPG\u767b\u5834\uff01",
+        "description": "\"\u6975\u5177\u7279\u8272\u76848\u7a2e\u8077\u696d\u4efb\u541b\u6311\u9078\uff0c\u6253\u9020\u5c6c\u65bc\u81ea\u5df1\u7684\u968a\u4f0d\u3002\n\u904b\u7528\u201c\u8166\u888b\u74dc\u201d\u6383\u8569\u963b\u6493\u5728\u524d\u7684\u6575\u4eba\uff0c\n\u6536\u96c6\u5927\u91cf\u5674\u767c\u7684\u5bf6\u7269\u7a81\u7834\u8ff7\u5bae\uff01\"",
+        "languages": [
+            "zh"
+        ],
+        "size": 746586112
+    },
     "70010000014888": {
         "id": "01008BA00C7CA000",
         "rightsId": "01008BA00C7CA0000000000000000005",
@@ -4243,6 +4280,41 @@
             "zh"
         ],
         "size": 4515168256
+    },
+    "70010000015706": {
+        "id": "01006DD00CC96000",
+        "rightsId": null,
+        "name": "\u5c11\u5973\u8207\u6230\u8eca \u6230\u8eca\u5922\u5e7b\u5927\u6703\u6230 DX",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190221,
+        "nsuId": 70010000015706,
+        "category": [
+            "\u52d5\u4f5c"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "BANDAI NAMCO Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/0275ff4fadb7e30c4546098954f5ad5a842fec04fabb3c0a36f51224a89e5deb.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/69896ac7f9b8fd0811aeb4e8169a6160e6ccb8170feda23e25f9213238416d84.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0e92df97c18e38fdcf51c4bfbdd697056afa9e557786936f28e5cc5b280a06ce.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/23f5da7b5623216bab833fe8b462ae7130f6d15b8d00ced1820dced6775dd4da.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/cc8a82942b31043b2135841b5ca276ef94db2e8d15d883f1012f901f7c17ec20.jpg",
+        "intro": "\u300c\u5c08\u5c6c\u65bc\u4f60\u7684\u6230\u8eca\u9053\uff0c\u518d\u6b21\u767b\u5834\u2500\u2500\u300d\n\u6230\u8eca\u52d5\u4f5c\u904a\u6232\u300c\u5c11\u5973\u8207\u6230\u8eca \u6230\u8eca\u5922\u5e7b\u5927\u6703\u6230\u300d\u5c07\u9032\u5316\u70ba\u300cDX\u300d\u767b\u5834\uff01",
+        "description": "\u300c\u5c08\u5c6c\u65bc\u4f60\u7684\u6230\u8eca\u9053\uff0c\u518d\u6b21\u767b\u5834\u2500\u2500\u300d\n\n\u300c\u5c11\u5973\u8207\u6230\u8eca \u6230\u8eca\u5922\u5e7b\u5927\u6703\u6230\u300d\u5c07\u8ffd\u52a0\u5927\u91cf\u6230\u8eca\u3001\u89d2\u8272\u3001\u4efb\u52d9\u7b49\u7b49\uff0c\u9032\u5316\u70ba\u300cDX\u300d\u5728Nintendo Switch\u2122\u4e0a\u767b\u5834\uff01\n\n\uff5e\u9032\u5316\u8981\u7d20\uff5e\n\u2605\u4f86\u81ea\u300c\u6700\u7d42\u7ae0\u300d\u7684\u65b0\u89d2\u8272\u3001\u65b0\u6230\u8eca\u53c3\u6230\uff01\nBC\u81ea\u7531\u5b78\u5712\u7684\u746a\u8389\u3001\u5b89\u85e4\u3001\u62bc\u7530\uff0c\u9084\u6709\u5927\u6d17\u5973\u5b50\u5b78\u5712\u9bca\u9b5a\u968a\u7684\u963f\u9280\u90fd\u5c07\u53c3\u6230\u3002\n\u9084\u6709\u300c\u96f7\u8afeFT-17\u300d\u3001\u300cS35\u300d\u3001\u300cMark \u2163\u300d\u7b49\u65b0\u6230\u8eca\u4e5f\u6703\u540c\u6642\u767b\u5834\u3002\n\u4e26\u5728\u984d\u5916\u5c0d\u6230\u4e2d\u65b0\u589eBC\u81ea\u7531\u5b78\u5712\u7684\u5168\u8a9e\u97f3\u6545\u4e8b\u5287\u60c5\u3002\n\n\u2605\u8ffd\u52a0\u55ae\u6a5f\u904a\u73a9\u7684\u65b0\u6a21\u5f0f\u300c\u6230\u8eca\u9053\u796d\u5178\u300d\uff01\n\u53ef\u9078\u64c7\u559c\u6b61\u7684\u89d2\u8272\u8207\u6230\u8eca\uff0c\u4ee5\u6dd8\u6c70\u8cfd\u5c0d\u6230\u7684\u65b0\u6a21\u5f0f\u300c\u6230\u8eca\u9053\u796d\u5178\u300d\u3002\n\u5f9e\u5169\u4eba\u968a\u4f0d\u958b\u59cb\uff0c\u6bcf\u62ff\u5230\u4e00\u5834\u52dd\u5229\u5c31\u80fd\u5f9e\u6575\u65b9\u968a\u4f0d\u4e2d\u6311\u9078\u4e00\u4f4d\u5925\u4f34\u3002\n\n\u2605\u8ffd\u52a020\u4f4d\u4ee5\u4e0a\u7684\u8eca\u95773D\u6a21\u7d44\uff01\n\u65b0\u589e\u5927\u91cf3D\u6a21\u7d44\u89d2\u8272\uff0c\u5408\u8a0840\u4f4d\u4ee5\u4e0a\u76843D\u6a21\u7d44\u89d2\u8272\uff0c\u53ef\u4ee5\u5f9e\u8eca\u9577\u6307\u63ee\u5854\u4e2d\u9732\u81c9\u3002\n\n\u2605\u9084\u6709\u9130\u8fd1\u4e3b\u6a5f\u901a\u8a0a\u5c0d\u6230\uff0c\u4ee5\u53ca\u5168\u65b0\u821e\u53f0\u7b49\u8ffd\u52a0\u8981\u7d20\uff01\n\u9664\u4e86\u6709\u6700\u591a10\u4eba\u904a\u73a9\u7684\u9023\u7dda\u5c0d\u6230\uff0c\u9084\u6709\u6700\u591a8\u4eba\u904a\u73a9\u7684\u9130\u8fd1\u4e3b\u6a5f\u901a\u8a0a\u5c0d\u6230\u3002\n\u4e26\u9084\u6709\u65b0\u821e\u53f0\u3001\u65b0\u6230\u8eca\uff0c\u4f7f\u5c0d\u6230\u8b8a\u5f97\u66f4\u71b1\u70c8\u3002\n\n\uff5e\u6240\u8b02\u7684\u300c\u5c11\u5973\u8207\u6230\u8eca \u6230\u8eca\u5922\u5e7b\u5927\u6703\u6230\u300d\uff5e\n\u300c\u9019\u662f\u5c08\u5c6c\u65bc\u4f60\u7684\u6230\u8eca\u9053\u2500\u2500\u300d\n\u5be6\u73fe\u4e86\u5c11\u5973\u8207\u6230\u8eca\u4e2d\u5177\u81e8\u5834\u611f\u3001\u723d\u5feb\u611f\u7684\u6230\u8eca\u52d5\u4f5c\uff0c\u4e26\u53ef\u9032\u884c\u6700\u591a10\u4eba\u9023\u7dda\u5c0d\u6230\u7684\u6230\u8eca\u52d5\u4f5c\u904a\u6232\u3002\n\u55ae\u6a5f\u904a\u73a9\u4e5f\u76f8\u7576\u8c50\u5bcc\uff0c\u4e0d\u50c5\u6709\u4ee5\u5176\u4ed6\u89d2\u8272\u7acb\u5834\u4f86\u9ad4\u9a57\u5287\u5834\u7248\u6545\u4e8b\u7684\u300c\u8986\u76e4\u6230\u6a21\u5f0f\u300d\uff0c\u9084\u6709\u53ef\u9078\u64c7\u4ee5\u5927\u6d17\u5973\u5b50\u5b78\u5712\u6216\u5176\u4ed6\u52c1\u6575\u5b78\u6821\u70ba\u4e3b\u89d2\u7684\u300c\u722d\u596a\u6230\u6a21\u5f0f\u300d\u7b49\u539f\u5275\u6545\u4e8b\u6a21\u5f0f\u3002\u73a9\u5bb6\u5011\u53ef\u89aa\u8eab\u9ad4\u9a57\u904a\u6232\u5c08\u5c6c\u7684\u6230\u8eca\u9053\u3002",
+        "languages": [
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 6962544640
     },
     "70010000015945": {
         "id": "01009D600CA88000",
