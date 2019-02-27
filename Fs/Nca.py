@@ -57,6 +57,7 @@ class NcaHeader(File):
 		self.keyIndex = None
 		self.size = None
 		self.titleId = None
+		self.contentIndex = None
 		self.sdkVersion = None
 		self.cryptoType2 = None
 		self.rightsId = None
@@ -85,10 +86,7 @@ class NcaHeader(File):
 		self.keyIndex = self.readInt8()
 		self.size = self.readInt64()
 		self.titleId = hx(self.read(8)[::-1]).decode('utf-8').upper()
-		
-		self.readInt32() # padding
-		
-
+		self.contentIndex = self.readInt32()
 		self.sdkVersion = self.readInt32()
 		self.cryptoType2 = self.readInt8()
 		
