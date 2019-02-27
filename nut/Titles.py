@@ -264,8 +264,8 @@ def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 
 	buffer = ''
 	
 	buffer += '|'.join(map) + '\n'
-	for t in sorted(list(titles.values())):
-		buffer += t.serialize(map) + '\n'
+	for key in sorted(titles):
+		buffer += titles[key].serialize(map) + '\n'
 		
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
@@ -281,6 +281,7 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 				continue
 			if k.id and not k.rightsId:
 				title = get(k.id)
+				title.setVersion(title.version)
 				if title.rightsId:
 					k.setId(title.rightsId)
 			j[k.nsuId] = k.exportDict(True)
