@@ -23,6 +23,16 @@ It can download any titles you do not have a key for (for archiving), by enablin
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
  
+## Docker
+The docker entrypoint will automatically scrape the delta images, scan for new local items, and start the server. 
+
+- Clone the repository and run `docker build -t nut .`
+- Create a local nut.conf using the example
+- Create a folder to store your nsps
+- You should mount your local nsp folder into the docker container along with the config and map a port like so: `docker run -p 9000:9000 -v /path/to/conf/nut.conf:/var/opt/nut/conf/nut.conf -v /path/to/nsps:/var/opt/nut/titles`
+- You can now connect using localhost:9000
+
+
 ## USB Install for Tinfoil
 Run server.py or Windows users can use the precompiled nut.exe in the release section.
 
