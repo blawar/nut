@@ -1869,6 +1869,53 @@
         ],
         "size": 105906176
     },
+    "70010000013359": {
+        "id": "0100A4400BE74000",
+        "rightsId": null,
+        "name": "La gran aventura LEGO 2: El videojuego",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190301,
+        "nsuId": 70010000013359,
+        "category": [
+            "Aventura",
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia de caricatura"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 10,
+        "developer": null,
+        "publisher": "WB Games",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/e03b44dde42612e36979c06933287ca6856a12bda2872be31ee77817990cccfc.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/9f45b3812b75fffa415bde5e10a3a4f4c63a7c18845969c228d59c39967ae89d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b86352e48743d76406fce1e1ee79e81bb4f93ace78924f89bde8a9e046746e3e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a3affe4e6262c7ca3bf2c6caee06291e73824311e96d37246e1b17bd4a7aafcb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ff6b597bd407749d5e46d6c4be961ba44c46c950a0dd900547a5a22198f73c8a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8087915563a850990a6687fe905696f873ddf9c4e4bf56993dc9c6c60699525c.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0176abb4f2d3c17f7aca88462dd7496814ab470296489196185970384888e772.jpg",
+        "intro": null,
+        "description": "\u00a1Los invasores alien\u00edgenas dejaron Bricksburg en ruinas y se llevaron a los amigos de Emmet! Ahora depende de \u00e9l y de un grupo de heroicos personajes ir m\u00e1s all\u00e1 de su propio mundo y salvar a sus amigos de los extra\u00f1os habitantes del sistema Systar. Viaja al espacio exterior, descubre nuevos mundos y pon a prueba tus habilidades de Maestro Constructor.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 6234832896
+    },
     "70010000013704": {
         "id": "010044500C182000",
         "rightsId": "010044500C1820000000000000000005",

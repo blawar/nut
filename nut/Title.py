@@ -407,7 +407,7 @@ class Title:
 				o = None
 				
 			if not o or n > o or force:
-				self.version = version
+				self.version = n
 			
 	def getVersion(self):
 		return self.version or ''

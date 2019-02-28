@@ -224,7 +224,7 @@ def updateVersions(force = True):
 			
 	for t in list(Titles.data().values()):
 		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
-			u = Title()
+			u = Title.Title()
 			u.setId(t.updateId)
 			
 			if u.lastestVersion():
