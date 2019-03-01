@@ -298,7 +298,7 @@ class Nsp(Pfs0):
 		bt = None
 		if not self.titleId in Titles.keys():
 			if not Title.getBaseId(self.titleId) in Titles.keys():
-				Print.info('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
+				Print.info('could not find title key for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
 				return None
 			bt = Titles.get(Title.getBaseId(self.titleId))
 			t = Title()

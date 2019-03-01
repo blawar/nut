@@ -205,10 +205,13 @@ class Title:
 			return True
 
 		try:
-			if int(nsp.version) < int(self.lastestVersion()):
+			latest = self.lastestVersion()
+			if latest is None:
+				return False
+			if int(nsp.version) < int(latest):
 				return True
 		except BaseException as e:
-			Print.error('isUpdateAvailable exception: ' + str(e))
+			Print.error('isUpdateAvailable exception %s: %s' % (self.id, str(e)))
 			pass
 
 		return False
@@ -424,7 +427,7 @@ class Title:
 			if self.version and self.version.lower() == 'none':
 				self.version = None
 		
-			if not self.version or force:
+			if self.version is None or force:
 				self.version = CDNSP.get_version(self.id)
 				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
