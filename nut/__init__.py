@@ -268,11 +268,6 @@ def scanLatestTitleUpdates():
 			if len(id) != 16:
 				Print.info('invalid title id: ' + id)
 				continue
-			continue
-			t = Title()
-			t.setId(id)
-			Titles.set(id, t)
-			Print.info('Found new title id: ' + str(id))
 			
 		t = Titles.get(id)
 		if str(t.version) != str(version):
