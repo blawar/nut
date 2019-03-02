@@ -426,16 +426,14 @@ class Title:
 			if not self.id:
 				return None
 			
-			if self.version and self.version.lower() == 'none':
-				self.version = None
-		
 			if (self.version is None or force) and not localOnly:
 				self.version = CDNSP.get_version(self.id)
 				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
 			#Print.info('version: ' + str(self.version))
 			return self.version
-		except:
+		except BaseException as e:
+			Print.error(str(e))
 			return None
 		
 	def isValid(self):
