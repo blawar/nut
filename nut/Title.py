@@ -199,13 +199,13 @@ class Title:
 
 		return highest
 
-	def isUpdateAvailable(self):
+	def isUpdateAvailable(self, localOnly = True):
 		nsp = self.getLatestFile()
 		if not nsp:
 			return True
 
 		try:
-			latest = self.lastestVersion(localOnly = True)
+			latest = self.lastestVersion(localOnly = localOnly)
 			if latest is None:
 				return False
 			if int(nsp.version) < int(latest):
@@ -429,7 +429,7 @@ class Title:
 		
 			if (self.version is None or force) and not localOnly:
 				self.version = CDNSP.get_version(self.id)
-				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
+				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
 			#Print.info('version: ' + str(self.version))
 			return self.version
