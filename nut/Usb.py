@@ -160,7 +160,7 @@ class Packet:
 def poll_commands(in_ep, out_ep):
 	p = Packet(in_ep, out_ep)
 	while True:
-		if p.recv():
+		if p.recv(0):
 			if p.command == 1:
 				print('Recv command! %d' % p.command)
 				req = UsbRequest(p.payload.decode('utf-8'))
