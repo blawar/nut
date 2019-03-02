@@ -349,7 +349,7 @@ def downloadAll(wait = True):
 				
 				if t.lastestVersion() is None:
 					Print.info('Could not get version for ' + str(t.name) + ' [' + str(t.id) + ']')
-					#continue
+					continue
 
 				Titles.queue.add(t.id)
 		Print.info("%d titles scanned, downloading %d" % (i, Titles.queue.size()))
