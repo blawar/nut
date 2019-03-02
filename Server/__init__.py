@@ -96,7 +96,7 @@ class NutRequest:
 		except:
 			self.post = None
 
-		self.bits = [x for x in self.url.path.split('/') if x]
+		self.bits = [urllib.parse.unquote(x) for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
 
 		try:
