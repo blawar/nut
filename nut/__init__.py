@@ -342,12 +342,12 @@ def downloadAll(wait = True):
 
 		for k,t in Titles.items():
 			i = i + 1
-			if t.isUpdateAvailable(localOnly = False) and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
-				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion(localOnly = True) in [None, '0']):
-					Print.warning('no valid id? ' + str(t.id))
+			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
+				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
+					#Print.warning('no valid id? ' + str(t.id))
 					continue
 				
-				if t.lastestVersion(localOnly = False) is None:
+				if t.lastestVersion() is None:
 					Print.info('Could not get version for ' + str(t.name) + ' [' + str(t.id) + ']')
 					#continue
 
