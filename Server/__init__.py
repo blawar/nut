@@ -98,6 +98,13 @@ class NutRequest:
 
 		self.bits = [x for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
+
+		try:
+			for k,v in self.query.items():
+				self.query[k] = v[0];
+		except:
+			pass
+
 		self.user = None
 
 	def setHead(self, h):
@@ -182,7 +189,7 @@ def route(request, response, verb = 'get'):
 			methodName = verb + i[0].capitalize() + i[1:]
 			print('routing to ' + methodName)
 			method = getattr(mappings[request.bits[0]], methodName, Response404)
-			method(request, response)
+			method(request, response, **request.query)
 			return True
 	except BaseException as e:
 		print(str(e))
@@ -215,7 +222,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 				i = request.bits[1]
 				methodName = 'get' + i[0].capitalize() + i[1:]
 				method = getattr(mappings[request.bits[0]], methodName, Response404)
-				method(request, response)
+				method(request, response, **request.query)
 			else:
 				self.handleFile(request, response)
 		except BaseException as e:

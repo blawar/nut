@@ -208,6 +208,86 @@ def getInfo(request, response):
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
+def serveFile(response, path, filename = None, start = None, end = None):
+	try:
+		if start is not None:
+			start = int(start)
+
+		if end is not None:
+			end = int(end)
+
+		if not filename:
+			filename = os.path.basename(path)
+
+		response.attachFile(filename)
+	
+		chunkSize = 0x400000
+
+		with open(path, "rb") as f:
+			f.seek(0, 2)
+			size = f.tell()
+			if start and end:
+				if end == None:
+					end = size - 1
+				else:
+					end = int(end) + 1
+
+				if start == None:
+					start = size - end
+				else:
+					start = int(start)
+
+				if start >= size or start < 0 or end <= 0:
+					return Server.Response400(request, response, 'Invalid range request %d - %d' % (start, end))
+
+				response.setStatus(206)
+
+			else:
+				if start == None:
+					start = 0
+				if end == None:
+					end = size
+
+			if end >= size:
+				end = size
+
+				if end <= start:
+					response.write(b'')
+					return
+
+			print('ranged request for %d - %d' % (start, end))
+			f.seek(start, 0)
+
+			response.setMime(path)
+			response.setHeader('Accept-Ranges', 'bytes')
+			response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
+			response.setHeader('Content-Length', str(end - start))
+			response.sendHeader()
+
+			if not response.head:
+				size = end - start
+
+				i = 0
+				status = Status.create(size, 'Downloading ' + os.path.basename(path))
+
+				while i < size:
+					chunk = f.read(min(size-i, chunkSize))
+					i += len(chunk)
+
+					status.add(len(chunk))
+
+					if chunk:
+						pass
+						response.write(chunk)
+					else:
+						break
+				status.close()
+	except BaseException as e:
+		Print.error('File download exception: ' + str(e))
+
+	if response.bytesSent == 0:
+		response.write(b'')
+
 def getDownload(request, response, start = None, end = None):
 	try:
 		nsp = Nsps.getByTitleId(request.bits[2])
@@ -425,6 +505,51 @@ def getSwitchInstalled(request, response):
 
 	except BaseException as e:
 		error(request, response, str(e))
+
+def cleanPath(path = None):
+	if path:
+		path = os.path.abspath(os.path.join(Config.paths.scan, path))
+	else:
+		path = os.path.abspath(Config.paths.scan)
+
+	if not path.startswith(os.path.abspath(Config.paths.scan)):
+		raise IOError('invalid path requested: ' + path)
+	return path
+
+def getDirectoryList(request, response):
+	path = ''
+	for i in request.bits[2:]:
+		path = os.path.join(path, i)
+
+	path = cleanPath(path)
+	r = {'dirs': {}, 'files': {}}
+	for name in os.listdir(path):
+		abspath = os.path.join(path, name)
+
+		if os.path.isdir(abspath):
+			r['dirs'][name] = {}
+		elif os.path.isfile(abspath):
+			r['files'][name] = {'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)}
+
+
+	response.write(json.dumps(r))
+
+def getFile(request, response, start = None, end = None):
+	path = ''
+	for i in request.bits[2:]:
+		path = os.path.join(path, i)
+	path = cleanPath(path)
+
+	if 'Range' in request.headers:
+		start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
+
+		if end != '':
+			end = int(end) + 1
+
+		if start != '':
+			start = int(start)
+
+	return serveFile(response, path, start = start, end = end)
 
 def makeRequest(method, url, hdArgs={}):
 
