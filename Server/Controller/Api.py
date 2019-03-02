@@ -529,7 +529,8 @@ def getDirectoryList(request, response):
 		if os.path.isdir(abspath):
 			r['dirs'].append({'name': name})
 		elif os.path.isfile(abspath):
-			r['files'].append({'name': name, 'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)})
+			if not abspath.endswith('pem') and not abspath.endswith('pfx') and not abspath.endswith('token') and not abspath.endswith('users.conf'):
+				r['files'].append({'name': name, 'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)})
 
 
 	response.write(json.dumps(r))
