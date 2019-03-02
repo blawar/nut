@@ -413,7 +413,9 @@ class Title:
 				self.version = n
 			
 	def getVersion(self):
-		return self.version or ''
+		if self.version is None:
+			return ''
+		return self.version
 		
 	def lastestVersion(self, force = False, localOnly = False):
 		#if self.isDLC:
