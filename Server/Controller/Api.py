@@ -540,6 +540,9 @@ def getFile(request, response, start = None, end = None):
 		path = os.path.join(path, i)
 	path = cleanPath(path)
 
+	if path.endswith('.pem') or path.endswith('.pfx') or path.endswith('.token') or path.endswith('users.conf'):
+		raise IOError('access denied');
+
 	if 'Range' in request.headers:
 		start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
 
