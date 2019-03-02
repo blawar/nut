@@ -105,6 +105,13 @@ class UsbRequest(Server.NutRequest):
 		self.bits = [x for x in self.url.path.split('/') if x]
 		print(self.bits)
 		self.query = parse_qs(self.url.query)
+
+		try:
+			for k,v in self.query.items():
+				self.query[k] = v[0];
+		except:
+			pass
+
 		self.user = None
 
 class Packet:

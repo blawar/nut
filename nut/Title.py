@@ -205,7 +205,7 @@ class Title:
 			return True
 
 		try:
-			latest = self.lastestVersion()
+			latest = self.lastestVersion(localOnly = True)
 			if latest is None:
 				return False
 			if int(nsp.version) < int(latest):
@@ -415,7 +415,7 @@ class Title:
 	def getVersion(self):
 		return self.version or ''
 		
-	def lastestVersion(self, force = False):
+	def lastestVersion(self, force = False, localOnly = False):
 		#if self.isDLC:
 		#	return '0'
 
@@ -427,7 +427,7 @@ class Title:
 			if self.version and self.version.lower() == 'none':
 				self.version = None
 		
-			if self.version is None or force:
+			if (self.version is None or force) and not localOnly:
 				self.version = CDNSP.get_version(self.id)
 				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
