@@ -522,14 +522,14 @@ def getDirectoryList(request, response):
 		path = os.path.join(path, i)
 
 	path = cleanPath(path)
-	r = {'dirs': {}, 'files': {}}
+	r = {'dirs': [], 'files': []}
 	for name in os.listdir(path):
 		abspath = os.path.join(path, name)
 
 		if os.path.isdir(abspath):
-			r['dirs'][name] = {}
+			r['dirs'].append({'name': name})
 		elif os.path.isfile(abspath):
-			r['files'][name] = {'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)}
+			r['files'].append({'name': name, 'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)})
 
 
 	response.write(json.dumps(r))
@@ -550,6 +550,19 @@ def getFile(request, response, start = None, end = None):
 			start = int(start)
 
 	return serveFile(response, path, start = start, end = end)
+
+def getFileSize(request, response):
+	t = {}
+	path = ''
+	for i in request.bits[2:]:
+		path = os.path.join(path, i)
+	path = cleanPath(path)
+	try:
+		t['size'] = os.path.getsize(path);
+		t['mtime'] = os.path.getmtime(path);
+		response.write(json.dumps(t))
+	except BaseException as e:
+		response.write(json.dumps({'success': False, 'message': str(e)}))
 
 def makeRequest(method, url, hdArgs={}):
 
