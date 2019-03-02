@@ -199,7 +199,7 @@ class Title:
 
 		return highest
 
-	def isUpdateAvailable(self, localOnly = True):
+	def isUpdateAvailable(self, localOnly = False):
 		nsp = self.getLatestFile()
 		if not nsp:
 			return True
