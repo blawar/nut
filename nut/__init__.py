@@ -342,9 +342,12 @@ def downloadAll(wait = True):
 
 		for k,t in Titles.items():
 			i = i + 1
-			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
+			if not t.isActive():
+				continue
+
+			if t.isUpdateAvailable():
 				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None]):
-					#Print.warning('no valid id? ' + str(t.id))
+					Print.warning('no valid id? id: %s  version: %s' % (str(t.id), str(t.lastestVersion())))
 					continue
 				
 				if t.lastestVersion() is None:
