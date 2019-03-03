@@ -413,6 +413,8 @@ if __name__ == '__main__':
 		parser.add_argument('--nca-deltas', help='export list of NSPs containing delta updates')
 		parser.add_argument('--silent', action="store_true", help='Suppress stdout/stderr output')
 		parser.add_argument('--json', action="store_true", help='JSON output')
+		parser.add_argument('--usb', action="store_true", help='Run usb daemon')
+		parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
 		parser.add_argument('-m', '--hostname', help='Set server hostname')
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
 		parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
@@ -530,6 +532,14 @@ if __name__ == '__main__':
 
 			nut.importRegion(region, args.language)
 			exit(0)
+
+		if args.usb:
+			try:
+				import Usb
+			except BaseException as e:
+				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
+			nut.scan()
+			Usb.daemon()
 		
 		if args.download:
 			nut.initTitles()
@@ -739,6 +749,12 @@ if __name__ == '__main__':
 
 		if args.match_demos:
 			matchDemos()
+
+		if args.server:
+			nut.startDownloadThreads()
+			nut.initTitles()
+			nut.initFiles()
+			Server.run()
 
 		if args.blockchain:
 			nut.initTitles()
