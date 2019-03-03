@@ -41,13 +41,14 @@ def scan(base, force = False):
 	fileList = {}
 
 	Print.info(base)
-	for root, dirs, _files in os.walk(base, topdown=False):
-		for name in _files:
-			suffix = pathlib.Path(name).suffix
+	for base_s in base.split(','):
+		for root, dirs, _files in os.walk(base_s, topdown=False):
+			for name in _files:
+				suffix = pathlib.Path(name).suffix
 
-			if suffix == '.nsp' or suffix == '.nsx':
-				path = os.path.abspath(root + '/' + name)
-				fileList[path] = name
+				if suffix == '.nsp' or suffix == '.nsx':
+					path = os.path.abspath(root + '/' + name)
+					fileList[path] = name
 
 	if len(fileList) == 0:
 		save()
