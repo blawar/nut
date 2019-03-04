@@ -1167,7 +1167,7 @@
             "ko",
             "zh"
         ],
-        "size": 2347761664
+        "size": 2476736512
     },
     "70010000003971": {
         "id": "01005250086C4000",
@@ -1609,7 +1609,7 @@
         "developer": null,
         "publisher": "Epic Games",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/864b3a81c7401f40212e7d2580907438a854d2e3cf5c8af0ff92cedbaa1a293d.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/13af8cd82774aab080340af6bf737f0bace7e03d5b5238976efc8eca31e2cd88.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/0486729ca41dec242e1a2f8b93f69b5516db43602bbb0e853d9adf0c14afb162.jpg",
             "https://img-eshop.cdn.nintendo.net/i/1cb32fc97e185202534463634c48ac467cc6ba0edc157415ea75acc25b6b1ecd.jpg",
@@ -1618,7 +1618,7 @@
             "https://img-eshop.cdn.nintendo.net/i/d98af9011b7f3d89c65cd9b56f41e506f9c6671913b308567a2078881b6a35c2.jpg",
             "https://img-eshop.cdn.nintendo.net/i/79e37949351caeb2bfdb6733922630541b0dcf3ef70c38391e4104b9c6793640.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/026a0abef9eff5e67a81c5beb7d4f30ec98be722c005ca44ee3eafd0f36e2c7a.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5216ba0f4d1ce0511d480ac6d7602ed1e2c9de0bd7ecbbcd43908ad03df9ea5a.jpg",
         "intro": "\u00a1Forma un escuadr\u00f3n y juega el juego n.\u00b0 1 del g\u00e9nero Battle Royale! ",
         "description": "Sum\u00e9rgete para ser el \u00faltimo jugador en pie en el juego Batalla campal de 100 jugadores gratuito. S\u00e9 m\u00e1s listo que tus oponentes. Consigue la victoria. \u00a1Forma equipo con tus amigos en una misma sala o con personas de todo el mundo!\n\nCONSTRUYE Y DESTRUYE: dale forma al campo de batalla construyendo tus propias defensas. \u00bfEl enemigo se est\u00e1 escondiendo detr\u00e1s de una pared? Destruye su protecci\u00f3n para tomar la ventaja.\n\nPREP\u00c1RATE: sube al autob\u00fas de combate y cae en tu zona favorita. \u00a1Recolecta recursos, re\u00fane equipo y combate contra tus oponentes!\n\nFORMA EQUIPO CON TUS AMIGOS: \u00a1forma equipo con tus amigos de todo el mundo o de la misma sala!\n\nACTUALIZACIONES SEMANALES Y EVENTOS: las actualizaciones potencian constantemente la diversi\u00f3n con nuevos modos de juego, atuendos, armas y objetos.\n\nDesarrollado con Unreal Engine 4.",
         "languages": [
@@ -1632,7 +1632,7 @@
             "ru",
             "ko"
         ],
-        "size": 4435476480
+        "size": 4740612096
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1869,6 +1869,53 @@
         ],
         "size": 105906176
     },
+    "70010000013359": {
+        "id": "0100A4400BE74000",
+        "rightsId": null,
+        "name": "La gran aventura LEGO 2: El videojuego",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190301,
+        "nsuId": 70010000013359,
+        "category": [
+            "Aventura",
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia de caricatura"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 10,
+        "developer": null,
+        "publisher": "WB Games",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/e03b44dde42612e36979c06933287ca6856a12bda2872be31ee77817990cccfc.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/9f45b3812b75fffa415bde5e10a3a4f4c63a7c18845969c228d59c39967ae89d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b86352e48743d76406fce1e1ee79e81bb4f93ace78924f89bde8a9e046746e3e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a3affe4e6262c7ca3bf2c6caee06291e73824311e96d37246e1b17bd4a7aafcb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ff6b597bd407749d5e46d6c4be961ba44c46c950a0dd900547a5a22198f73c8a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8087915563a850990a6687fe905696f873ddf9c4e4bf56993dc9c6c60699525c.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/0176abb4f2d3c17f7aca88462dd7496814ab470296489196185970384888e772.jpg",
+        "intro": null,
+        "description": "\u00a1Los invasores alien\u00edgenas dejaron Bricksburg en ruinas y se llevaron a los amigos de Emmet! Ahora depende de \u00e9l y de un grupo de heroicos personajes ir m\u00e1s all\u00e1 de su propio mundo y salvar a sus amigos de los extra\u00f1os habitantes del sistema Systar. Viaja al espacio exterior, descubre nuevos mundos y pon a prueba tus habilidades de Maestro Constructor.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 6234832896
+    },
     "70010000013704": {
         "id": "010044500C182000",
         "rightsId": "010044500C1820000000000000000005",
@@ -2098,7 +2145,7 @@
             "it",
             "zh"
         ],
-        "size": 6209667072
+        "size": 6466568192
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -3975,7 +4022,7 @@
     "70050000009321": {
         "id": "010011600C947001",
         "rightsId": "010011600C9470010000000000000007",
-        "name": "Travis Strikes Again: No More Heroes - DLC #1",
+        "name": "Travis Strikes Again: No More Heroes - DLC #1 Black Dandelion",
         "version": null,
         "key": null,
         "isDemo": false,
@@ -3996,12 +4043,18 @@
         "publisher": "Grasshopper Manufacture",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/b148e8b06f175e08bd9eed415c5f33fe9b9cf8a0349bfe61662f709b2c207378.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b805afcb1a46ad0d8c88b9ec11efb1d4e5f1d2367e46068c79b8b6d0bb8bdc30.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ed4fc6eaaefd811a66726f4169c52e369c164ccd2655815e0340c7348af0648e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f7f0e7ce1f7ca49099de186f5e7e475b0a639968a8418feb1d88386fb21dc281.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/41d09d58a2bb6c2d6ae0575de0b24e940a3798235be2ad5765983b45b0dfe28a.jpg"
+        ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a65a2085debe248c9bf3c6564602b7bb6ad7d5d57b1525ee06a7c69554e0f781.jpg",
         "intro": "Disponible el 28 de febrero de 2019\n- Shinobu (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Shinobu",
-        "description": null,
+        "description": "Este contenido descargable incluye:\n- Un nuevo personaje controlable\n- Dos habilidades especiales para Shinobu Jacobs\n- Una nueva aventura con Badman como protagonista",
         "languages": null,
-        "size": 6291456
+        "size": 140509184
     },
     "70050000009322": {
         "id": "010011600C947002",
@@ -4395,7 +4448,7 @@
         "intro": "\u00a1Entra al juego, literalmente!\nBlandiendo su Beam Katana,\n\u00a1Travis Strikes Again!",
         "description": "Travis Strikes Again: No More Heroes - Digital Bundle contiene el juego principal y el pase de temporada.\n\n\u25bcTravis Strikes Again: No More Heroes\nVarios a\u00f1os despu\u00e9s de No More Heroes 2... Esta vez viajamos a un peque\u00f1o pueblo en medio de la nada al sur de Estados Unidos. Bad Man aparece en el tr\u00e1iler en el que Travis ha estado viviendo para vengarse del asesinato de su hija, Bad Girl, y algo sale terriblemente mal. Al pelear, los dos son absorbidos hacia el mundo de los videojuegos de la legendaria consola Death Drive MkII.\n\n\u00a1Dale un Joy-Con\u2122 a un amigo para que se una en cualquier momento y lugar! \n\u00a1Incluye colaboraciones con varios juegos indies!\n\u00a1Contiene muchas risas y diversi\u00f3n de la serie No More Heroes, como guardar tu partida en el inodoro!\n\nInicia esta una nueva aventura con el otaku asesino m\u00e1s rudo de los videojuegos.\nBlandiendo su Beam Katana, \u00a1Travis Strikes Again! \n\n\u25bcTravis Strikes Again: No More Heroes - EL PASE DE TEMPORADA\n\nDisponible el 28 de febrero de 2019\n- Shinobu (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Shinobu\n- Aventura Badman Strikes Back\n\nDisponible el 30 de abril de 2019\n- Bad Girl (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Bad Girl\n- Expansi\u00f3n del nivel Killer Marathon\n- Una nueva habilidad (disponible al completar Killer Marathon)\n- Nuevo escenario Travis Strikes Back\n",
         "languages": null,
-        "size": 6222249984
+        "size": 6613368832
     },
     "70070000005062": {
         "id": null,

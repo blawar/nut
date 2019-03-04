@@ -1167,7 +1167,7 @@
             "ko",
             "zh"
         ],
-        "size": 2347761664
+        "size": 2476736512
     },
     "70010000003971": {
         "id": "01005250086C4000",
@@ -1609,7 +1609,7 @@
         "developer": null,
         "publisher": "Epic Games",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/864b3a81c7401f40212e7d2580907438a854d2e3cf5c8af0ff92cedbaa1a293d.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/13af8cd82774aab080340af6bf737f0bace7e03d5b5238976efc8eca31e2cd88.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/0486729ca41dec242e1a2f8b93f69b5516db43602bbb0e853d9adf0c14afb162.jpg",
             "https://img-eshop.cdn.nintendo.net/i/1cb32fc97e185202534463634c48ac467cc6ba0edc157415ea75acc25b6b1ecd.jpg",
@@ -1618,7 +1618,7 @@
             "https://img-eshop.cdn.nintendo.net/i/d98af9011b7f3d89c65cd9b56f41e506f9c6671913b308567a2078881b6a35c2.jpg",
             "https://img-eshop.cdn.nintendo.net/i/79e37949351caeb2bfdb6733922630541b0dcf3ef70c38391e4104b9c6793640.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/026a0abef9eff5e67a81c5beb7d4f30ec98be722c005ca44ee3eafd0f36e2c7a.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5216ba0f4d1ce0511d480ac6d7602ed1e2c9de0bd7ecbbcd43908ad03df9ea5a.jpg",
         "intro": "Squad up and play the #1 Battle Royale game! ",
         "description": "Jump in to be the last one standing in the free 100-player Battle Royale. Build huge forts. Outwit your opponents. Earn your Victory. Squad up together online with friends in the same room or around the world!\n\nBUILD & DESTROY - Shape the battlefield by building your own cover. Opponent hiding behind a wall? Take out their cover to get the edge.\n\nGEAR UP - Board the battle bus and drop in on your favorite zone. Gather resources, collect gear, and battle your opponents!\n\nSQUAD UP WITH FRIENDS - Team up online with your friends around the world or in the same room!\n\nWEEKLY UPDATES & EVENTS -  Updates constantly fuel the fun with new gameplay modes, outfits, weapons and items.\n\nPowered by Unreal Engine 4.",
         "languages": [
@@ -1632,7 +1632,7 @@
             "ru",
             "ko"
         ],
-        "size": 4435476480
+        "size": 4740612096
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -2145,7 +2145,7 @@
             "it",
             "zh"
         ],
-        "size": 6209667072
+        "size": 6466568192
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -4022,7 +4022,7 @@
     "70050000009321": {
         "id": "010011600C947001",
         "rightsId": "010011600C9470010000000000000007",
-        "name": "Travis Strikes Again: No More Heroes - DLC #1",
+        "name": "Travis Strikes Again: No More Heroes - DLC #1 Black Dandelion",
         "version": null,
         "key": null,
         "isDemo": false,
@@ -4043,12 +4043,18 @@
         "publisher": "Grasshopper Manufacture",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/b148e8b06f175e08bd9eed415c5f33fe9b9cf8a0349bfe61662f709b2c207378.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b805afcb1a46ad0d8c88b9ec11efb1d4e5f1d2367e46068c79b8b6d0bb8bdc30.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ed4fc6eaaefd811a66726f4169c52e369c164ccd2655815e0340c7348af0648e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f7f0e7ce1f7ca49099de186f5e7e475b0a639968a8418feb1d88386fb21dc281.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/41d09d58a2bb6c2d6ae0575de0b24e940a3798235be2ad5765983b45b0dfe28a.jpg"
+        ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a65a2085debe248c9bf3c6564602b7bb6ad7d5d57b1525ee06a7c69554e0f781.jpg",
         "intro": null,
-        "description": "This pack of downloadable content contains:\n\u25cf One New Playable Character\n\u25cf Two Skills Specific to the New Character\n\u25cf A New Text Adventure\n\nAdditional information to follow at a later date.",
+        "description": "This DLC includes the following:\n- Shinobu Jacobs, a new playable character\n- 2 unique Skills for Shinobu Jacobs\n- New adventure mode starring Badman  ",
         "languages": null,
-        "size": 6291456
+        "size": 140509184
     },
     "70050000009322": {
         "id": "010011600C947002",
@@ -4442,7 +4448,7 @@
         "intro": "Get into the game\u2014literally!\nBeam Katana in hand, \nTravis Strikes Again!",
         "description": "Travis Strikes Again: No More Heroes - Digital Bundle includes the main game plus the Season Pass.\n\n\u25bcTravis Strikes Again: No More Heroes\nSeveral years after No More Heroes 2... This time, the setting is a small town in the middle of nowhere in the American South. Badman shows up at the trailer Travis has been living in to exact revenge for the murder of his daughter, Bad Girl, and things go horribly wrong. As they battle it out, the two are sucked into the game world of the legendary game console, the Death Drive Mk\u2161.\n\nPass a Joy-Con\u2122 to a friend and team up anytime, anywhere! \nCollaborations with various indie games!\nFeatures lots of laughs and iconic gags from the NMH series, such as saving your game on the toilet!\n\nHit the road in an all new adventure with gaming's most hardcore otaku assassin.\nBeam Katana in hand, Travis Strikes Again! \n\n\u25bcTravis Strikes Again: No More Heroes - SEASON PASS\n\nAvailable by February 28, 2019\n- Shinobu (playable after completing game)\n- 2 Shinobu-only skills\n- Badman Strikes Back Adventure\n\nAvailable by April 30, 2019\n- Bad Girl (playable after completing game)\n- 2 Bad Girl-only skills\n- Killer Marathon level expansion\n- New skill (unlocked by completing Killer Marathon)\n- Travis Strikes Back New Scenario",
         "languages": null,
-        "size": 6222249984
+        "size": 6613368832
     },
     "70070000005062": {
         "id": null,
