@@ -45,6 +45,19 @@ def getIpAddress():
 def formatSpeed(n):
 	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
 
+SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']}
+def approximate_size(size):
+	if size < 0:
+		return 'number must be non-negative'
+
+	multiple = 1000
+	for suffix in SUFFIXES[multiple]:
+		size /= multiple
+		if size < multiple:
+			return '{0:.1f} {1}'.format(size, suffix)
+
+	return 'number too large'
+
 class Header:
 	def __init__(self, app):
 		self.app = app
@@ -181,7 +194,7 @@ class App(QWidget):
 		self.tableWidget = QTableWidget()
 		self.tableWidget.setColumnCount(4)
 
-		headers = [QTableWidgetItem("File"), QTableWidgetItem("Title ID"), QTableWidgetItem("Type"), QTableWidgetItem("Size")]
+		headers = [QTableWidgetItem("Name"), QTableWidgetItem("Title ID"), QTableWidgetItem("Type"), QTableWidgetItem("Size")]
 
 		i = 0
 		for h in headers:
@@ -213,10 +226,10 @@ class App(QWidget):
 			if f.path.endswith('.nsx'):
 				continue
 
-			self.tableWidget.setItem(i,0, QTableWidgetItem(os.path.basename(f.path)))
+			self.tableWidget.setItem(i,0, QTableWidgetItem(Titles.get(f.titleId).getName()))
 			self.tableWidget.setItem(i,1, QTableWidgetItem(str(f.titleId)))
 			self.tableWidget.setItem(i,2, QTableWidgetItem("UPD" if title.isUpdate else ("DLC" if title.isDLC else "BASE")))
-			self.tableWidget.setItem(i,3, QTableWidgetItem(str(f.fileSize or title.size)))
+			self.tableWidget.setItem(i,3, QTableWidgetItem(approximate_size(f.fileSize or title.size)))
 			i = i + 1
 
 		self.tableWidget.setRowCount(i)
