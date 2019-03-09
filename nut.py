@@ -535,7 +535,7 @@ if __name__ == '__main__':
 
 		if args.usb:
 			try:
-				form nut import Usb
+				from nut import Usb
 			except BaseException as e:
 				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
 			nut.scan()
