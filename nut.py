@@ -375,6 +375,7 @@ def exportNcaMap(path):
 			i += 1
 
 			if i > 100:
+				i = 0
 				with open(path, 'w') as outfile:
 					json.dump(map, outfile, indent=4)
 
