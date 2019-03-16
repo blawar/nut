@@ -476,7 +476,11 @@ def getSubmitKey(request, response):
 
 def postTinfoilSetInstalledApps(request, response):
 	try:
-		serial = request.bits[2]
+		if len(request.bits) >= 3:
+			serial = request.bits[2]
+		else:
+			serial = 'incognito'
+
 		path = 'switch/' + serial + ''
 		Print.info('path: ' + path)
 		os.makedirs(path, exist_ok=True)
