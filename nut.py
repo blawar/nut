@@ -353,6 +353,8 @@ def exportNcaMap(path):
 
 	map = {}
 
+	i = 0
+
 	for id, title in Titles.items():
 		print(id)
 		try:
@@ -363,10 +365,19 @@ def exportNcaMap(path):
 
 			nsp.open(args.info, 'r+b')
 
-			map[id] = []
+			map[id] = {}
+			map[id]['version'] = int(title.version)
+			map[id]['files'] = []
 			for f in nsp:
 				if isinstance(f, Fs.Nca):
-					map[id].append(f._path)
+					map[id]['files'].append(f._path)
+
+			i += 1
+
+			if i > 100:
+				with open(path, 'w') as outfile:
+					json.dump(map, outfile, indent=4)
+
 		except BaseException as e:
 			Print.error(str(e))
 
