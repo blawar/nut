@@ -327,7 +327,10 @@ class Nsp(Pfs0):
 			else:
 				format = Config.paths.getTitleDemo(not self.hasValidTicket)
 		elif t.idExt != 0:
-			format = Config.paths.getTitleUpdate(not self.hasValidTicket)
+			if bt and bt.isDemo:
+				format = Config.paths.getTitleDemoUpdate(not self.hasValidTicket)
+			else:
+				format = Config.paths.getTitleUpdate(not self.hasValidTicket)
 		else:
 			format = Config.paths.getTitleBase(not self.hasValidTicket)
 			
