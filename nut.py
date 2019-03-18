@@ -424,7 +424,7 @@ if __name__ == '__main__':
 
 		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
-		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
+		parser.add_argument('--scrape-title', help='Scrape title(s) from Nintendo servers', nargs='+')
 
 		parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
 		parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
@@ -683,14 +683,16 @@ if __name__ == '__main__':
 		if args.scrape_title:
 			nut.initTitles()
 			nut.initFiles()
-
-			if not Titles.contains(args.scrape_title):
-				Print.error('Could not find title ' + args.scrape_title)
-			else:
-				Titles.get(args.scrape_title).scrape(False)
-				Titles.save()
-				#Print.info(repr(Titles.get(args.scrape_title).__dict__))
-				pprint.pprint(Titles.get(args.scrape_title).__dict__)
+			scrape_titles = args.scrape_title[0].split()
+			for scrape_title in scrape_titles:
+				# pprint.pprint(scrapeTarget)
+				if not Titles.contains(scrape_title):
+					Print.error('Could not find title ' + args.scrape_title)
+				else:
+					Titles.get(scrape_title).scrape(False)
+					Titles.save()
+					#Print.info(repr(Titles.get(scrape_title).__dict__))
+					pprint.pprint(Titles.get(scrape_title).__dict__)
 
 		if args.scrape or args.scrape_delta:
 			nut.initTitles()
