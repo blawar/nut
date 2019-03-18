@@ -350,7 +350,7 @@
             "es",
             "fr"
         ],
-        "size": 6095372288
+        "size": 6100615168
     },
     "70010000000600": {
         "id": "0100F15003E64000",
@@ -1625,14 +1625,14 @@
             "ja",
             "en",
             "es",
+            "pt",
             "fr",
             "de",
             "it",
-            "pt",
             "ru",
             "ko"
         ],
-        "size": 4740612096
+        "size": 4846518272
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1867,7 +1867,7 @@
             "fr",
             "pt"
         ],
-        "size": 105906176
+        "size": 110100480
     },
     "70010000013359": {
         "id": "0100A4400BE74000",
@@ -2232,6 +2232,40 @@
             "it"
         ],
         "size": 2267021312
+    },
+    "70010000019033": {
+        "id": "01006BB00D45A000",
+        "rightsId": null,
+        "name": "Splatoon\u2122 2 Demo Especial",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190318,
+        "nsuId": 70010000019033,
+        "category": [
+            "Acci\u00f3n",
+            "Disparos"
+        ],
+        "ratingContent": [
+            "Violencia de caricatura"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/79fb57ba4e54db4ef034886ad9400d8a5f8de6a036e0214e0e3a4f29f1b42cfa.jpg",
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/420ac0c4e2064d2a0e95c56bee48ca6c08614fafbefb78c36ce7eabd62cf7c57.jpg",
+        "intro": "Emp\u00e1pate los pies con el evento de demostraci\u00f3n de Splatoon\u2122 2, el cual incluye una versi\u00f3n de prueba gratuita de Nintendo Switch Online por 7 d\u00edas",
+        "description": "\u00bfQuieres empaparte los pies en intensos y desastrosos combates de tinta? \u00a1Entonces esta versi\u00f3n de prueba del juego Splatoon\u2122 2 es perfecta para ti! Participa en combates en l\u00ednea* y lucha en batallas territoriales de 4 contra 4 con tus amigos y otros jugadores que tengan el juego completo. \u00a1Tambi\u00e9n podr\u00e1s poner a prueba el modo Salmon Run y el combate competitivo! Si decides adquirir el juego completo, tambi\u00e9n podr\u00e1s transferir todo tu progreso.\n\nEste evento de demostraci\u00f3n estar\u00e1 activo del martes 19/03 a las 07:00 (horario del Pac\u00edfico) al lunes 25/03 a las 06:59 (horario del Pac\u00edfico).\n\nNecesitar\u00e1s una conexi\u00f3n a internet y una suscripci\u00f3n a Nintendo Switch Online para poder participar en la versi\u00f3n de prueba especial de Splatoon 2. Afortunadamente, al descargar la versi\u00f3n de prueba desde Nintendo eShop, recibir\u00e1s una prueba gratuita de Nintendo Switch Online por 7 d\u00edas**. Despu\u00e9s de descargar la versi\u00f3n de prueba del juego, recibir\u00e1s un correo electr\u00f3nico con un c\u00f3digo de Nintendo eShop para que descargues la versi\u00f3n de prueba gratuita de Nintendo Switch Online por 7 d\u00edas. Para canjearlo, ingresa el c\u00f3digo en Nintendo eShop para activar tu versi\u00f3n de prueba gratuita. \u00a1Incluso si anteriormente hab\u00edas activado una versi\u00f3n de prueba gratuita, esta versi\u00f3n tambi\u00e9n estar\u00e1 disponible!\n\nAdem\u00e1s como bonificaci\u00f3n especial, durante el periodo del evento, \u00a1tendr\u00e1s un 20 % de descuento en la versi\u00f3n digital del juego Splatoon 2 si lo adquieres a trav\u00e9s de Nintendo eShop!\n\n*Se requiere una suscripci\u00f3n a Nintendo Switch Online y una cuenta Nintendo para jugar en l\u00ednea. La versi\u00f3n de prueba gratuita se convertir\u00e1 autom\u00e1ticamente en una suscripci\u00f3n individual mensual, a menos que desactives la renovaci\u00f3n autom\u00e1tica al final del periodo de prueba. Para los usuarios mayores de 18 a\u00f1os se requiere una tarjeta de cr\u00e9dito o una cuenta de PayPal. No disponible en todos los pa\u00edses. Se requiere una conexi\u00f3n a internet para acceder a los servicios en l\u00ednea. Aplican t\u00e9rminos de uso. nintendo.com/switch-online.\n\n**La versi\u00f3n de prueba estar\u00e1 disponible para canjearse en cuanto recibas el correo electr\u00f3nico. El c\u00f3digo expirar\u00e1 el 25/03 a las 07:00 (horario del Pac\u00edfico).\n",
+        "languages": [
+            "en",
+            "es",
+            "fr"
+        ],
+        "size": 3906994176
     },
     "70030000005101": {
         "id": "0100ED800CBFC000",
@@ -4172,7 +4206,7 @@
         "intro": null,
         "description": "El contenido descargable de Captain Toad: Treasure Tracker \u2013 Parte especial trae dieciocho nuevos desaf\u00edos, incluyendo cinco niveles totalmente nuevos. Al adquirir el contenido descargable de Captain Toad: Treasure Tracker \u2013 Parte especial antes del 14 de marzo en Nintendo eShop, recibir\u00e1s acceso temprano al nivel El misterioso templo dividido. Los dem\u00e1s niveles estar\u00e1n disponibles el 14 de marzo.",
         "languages": null,
-        "size": 36700160
+        "size": 270532608
     },
     "70050000010822": {
         "id": "01009BF0072D5002",
@@ -4512,6 +4546,6 @@
         "intro": null,
         "description": "\u00a1El capit\u00e1n Toad inicia su propia aventura en la consola Nintendo Switch\u2122! Nuestro peque\u00f1o h\u00e9roe debe esquivar los peligros y buscar los tesoros en niveles cargados de trampas. \u00a1Sobrevive ardientes volcanes, peligrosos motores a vapor, espeluznantes casas e incluso niveles basados en el juego Super Mario Odyssey\u2122! \n\nA partir del 13 de febrero de 2019, podr\u00e1s adquirir Captain Toad: Treasure Tracker \u2013 Parte especial para continuar con tu viaje a trav\u00e9s de dieciocho nuevos desaf\u00edos, incluyendo cinco niveles nuevos. \u00a1Descarga este contenido antes del 14 de marzo para obtener acceso temprano a uno de los niveles! El resto de los niveles estar\u00e1 disponible el 14 de marzo.\n",
         "languages": null,
-        "size": 1743781888
+        "size": 1977614336
     }
 }
