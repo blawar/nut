@@ -683,11 +683,11 @@ if __name__ == '__main__':
 		if args.scrape_title:
 			nut.initTitles()
 			nut.initFiles()
+
 			scrape_titles = args.scrape_title[0].split()
 			for scrape_title in scrape_titles:
-				# pprint.pprint(scrapeTarget)
 				if not Titles.contains(scrape_title):
-					Print.error('Could not find title ' + args.scrape_title)
+					Print.error('Could not find title ' + scrape_title)
 				else:
 					Titles.get(scrape_title).scrape(False)
 					Titles.save()
