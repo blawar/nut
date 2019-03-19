@@ -455,6 +455,9 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 			6: [],
 		}
 		for type in [0, 3, 4, 5, 1, 2, 6]:  # Download smaller files first
+			if not Config.download.deltas and type == 6:
+				continue
+
 			for ncaID in CNMT.parse(CNMT.ncaTypes[type]):
 				Print.debug('Downloading %s entry (%s.nca)...' % (CNMT.ncaTypes[type], ncaID))
 				url = 'https://atum%s.hac.%s.d4c.nintendo.net/c/c/%s?device_id=%s' % (n, env, ncaID, deviceId)

@@ -96,6 +96,7 @@ class Download:
 		self.DLC = True
 		self.update = False
 		self.sansTitleKey = False
+		self.deltas = True
 
 class EdgeToken:
 	def __init__(self):
@@ -274,6 +275,11 @@ def load(confFile):
 		
 		try:
 			download.update = j['download']['update']
+		except:
+			pass
+
+		try:
+			download.deltas = j['download']['deltas']
 		except:
 			pass
 
