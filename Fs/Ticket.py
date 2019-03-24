@@ -69,6 +69,8 @@ class Ticket(File):
 		self.sectHeaderOffset = self.readInt32()
 		self.sectNum = self.readInt16()
 		self.sectEntrySize = self.readInt16()
+		self.seek(0x286)
+		self.masterKeyRevision = self.readInt8()
 
 	def seekStart(self, offset):
 		self.seek(0x4 + self.signatureSizes[self.signatureType] + self.signaturePadding + offset)
@@ -136,6 +138,12 @@ class Ticket(File):
 		self.seekStart(0x140)
 		self.formatVersion = self.readInt8()
 		return self.formatVersion
+	
+	def setFormatVersion(self, value):
+		self.seekStart(0x140)
+		self.formatVersion = value
+		self.writeInt8(value)
+		return self.formatVersion
 
 
 	def getKeyType(self):
@@ -153,6 +161,12 @@ class Ticket(File):
 	def getTicketVersion(self):
 		self.seekStart(0x142)
 		self.ticketVersion = self.readInt16()
+		return self.ticketVersion
+	
+	def setTicketVersion(self, value):
+		self.seekStart(0x142)
+		self.ticketVersion = value
+		self.writeInt16(value)
 		return self.ticketVersion
 		
 		
@@ -174,11 +188,17 @@ class Ticket(File):
 		else:
 			self.licenseType = 'Unknown'
 		return self.licenseType
+	
+	def setLicenseType(self, value):
+		self.seekStart(0x144)
+		self.licenseType = value
+		self.writeInt8(value)
+		return self.licenseType
 
 
 	def getMasterKeyRevision(self):
 		self.seekStart(0x145)
-		self.masterKeyRevision = self.readInt8()
+		self.masterKeyRevision = self.readInt8() | self.readInt8()
 		return self.masterKeyRevision
 
 	def setMasterKeyRevision(self, value):
@@ -199,6 +219,12 @@ class Ticket(File):
 			self.propertyMask = 'AllowAllContent'
 		else:
 			self.propertyMask = 'Unknown'
+		return self.propertyMask
+	
+	def setPropertyMask(self, value):
+		self.seekStart(0x146)
+		self.propertyMask = value
+		self.writeInt8(value)
 		return self.propertyMask
 
 
@@ -254,11 +280,23 @@ class Ticket(File):
 		self.seekStart(0x174)
 		self.sectTotalSize = self.readInt32()
 		return self.sectTotalSize
+	
+	def setSectTotalSize(self, value):
+		self.seekStart(0x174)
+		self.sectTotalSize = value
+		self.writeInt32(value)
+		return self.sectTotalSize
 		
 		
 	def getSectHeaderOffset(self):
 		self.seekStart(0x178)
 		self.sectHeaderOffset = self.readInt32()
+		return self.sectHeaderOffset
+	
+	def setSectHeaderOffset(self, value):
+		self.seekStart(0x178)
+		self.sectHeaderOffset = value
+		self.writeInt32(value)
 		return self.sectHeaderOffset
 		
 		
@@ -266,15 +304,24 @@ class Ticket(File):
 		self.seekStart(0x17C)
 		self.sectNum = self.readInt16()
 		return self.sectNum
+	
+	def setSectNum(self, value):
+		self.seekStart(0x17C)
+		self.sectNum = value
+		self.writeInt16(value)
+		return self.sectNum
 		
 		
 	def getSectEntrySize(self):
 		self.seekStart(0x17E)
-		self.sectEntrySize = self.readInt32()
+		self.sectEntrySize = self.readInt16()
 		return self.sectEntrySize
-
-
-
+	
+	def setSectEntrySize(self, value):
+		self.seekStart(0x17E)
+		self.sectEntrySize = value
+		self.writeInt16(value)
+		return self.sectEntrySize
 
 
 	def printInfo(self, maxDepth = 3, indent = 0):
