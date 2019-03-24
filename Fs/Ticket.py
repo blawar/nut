@@ -5,7 +5,6 @@ from nut import Print
 from nut import Keys
 from nut import blockchain
 
-
 class Ticket(File):
 	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(Ticket, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
@@ -149,6 +148,13 @@ class Ticket(File):
 	def getKeyType(self):
 		self.seekStart(0x141)
 		self.keyType = self.readInt8()
+		#b = self.readInt8()
+		#if b == 0:
+		#	self.keyType = 'AES128_CBC'
+		#elif b == 1:
+		#	self.keyType = 'RSA2048'
+		#else:
+		#	self.keyType = 'Unknown'
 		return self.keyType
 
 	def setKeyType(self, value):
@@ -212,11 +218,21 @@ class Ticket(File):
 		self.seekStart(0x146)
 		b = self.readInt8()
 		if b == 0:
-			self.propertyMask = 'PreInstall'
+			self.propertyMask = 'None'
 		elif b == 1:
-			self.propertyMask = 'SharedTitle'
+			self.propertyMask = 'PreInstall'
 		elif b == 2:
-			self.propertyMask = 'AllowAllContent'
+			self.propertyMask = 'SharedTitle'
+		elif b == 3:
+			self.propertyMask = 'PreInstall & SharedTitle'
+		elif b == 4:
+			self.propertyMask = 'AllowAllContents'
+		elif b == 5:
+			self.propertyMask = 'PreInstall & AllowAllContents'
+		elif b == 6:
+			self.propertyMask = 'SharedTitle & AllowAllContents'
+		elif b == 7:
+			self.propertyMask = 'PreInstall & SharedTitle & AllowAllContents'
 		else:
 			self.propertyMask = 'Unknown'
 		return self.propertyMask
@@ -362,5 +378,3 @@ class Ticket(File):
 			raise
 
 		Print.info(tabs + 'titleKeyStatus = ' + tkeyStatus)
-
-
