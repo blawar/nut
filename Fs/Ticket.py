@@ -16,12 +16,20 @@ class Ticket(File):
 
 		self.issuer = None
 		self.titleKeyBlock = None
+		self.formatVersion = None
 		self.keyType = None
+		self.ticketVersion = None
+		self.licenseType = None
 		self.masterKeyRevision = None
+		self.propertyMask = None
 		self.ticketId = None
 		self.deviceId = None
 		self.rightsId = None
 		self.accountId = None
+		self.sectTotalSize = None
+		self.sectHeaderOffset = None
+		self.sectNum = None
+		self.EntrySize = None
 
 		self.signatureSizes = {}
 		self.signatureSizes[Fs.Type.TicketSignature.RSA_4096_SHA1] = 0x200
@@ -46,17 +54,21 @@ class Ticket(File):
 
 		self.issuer = self.read(0x40)
 		self.titleKeyBlock = self.read(0x100)
-		self.readInt8() # unknown
+		self.formatVersion = self.readInt8()
 		self.keyType = self.readInt8()
-		self.read(0x4) # unknown
+		self.ticketVersion = self.readInt16()
+		self.licenseType = self.readInt8()
 		self.masterKeyRevision = self.readInt8()
-		self.read(0x9) # unknown
+		self.propertyMask = self.readInt8()
+		self.read(0x9) # reserved
 		self.ticketId = hx(self.read(0x8)).decode('utf-8')
 		self.deviceId = hx(self.read(0x8)).decode('utf-8')
 		self.rightsId = hx(self.read(0x10)).decode('utf-8')
 		self.accountId = hx(self.read(0x4)).decode('utf-8')
-		self.seek(0x286)
-		self.masterKeyRevision = self.readInt8()
+		self.sectTotalSize = self.readInt32()
+		self.sectHeaderOffset = self.readInt32()
+		self.sectNum = self.readInt16()
+		self.sectEntrySize = self.readInt16()
 
 	def seekStart(self, offset):
 		self.seek(0x4 + self.signatureSizes[self.signatureType] + self.signaturePadding + offset)
@@ -118,6 +130,12 @@ class Ticket(File):
 		#self.writeInt(value, 0x100, 'big')
 		self.writeInt(value, 0x10, 'big')
 		return self.titleKeyBlock
+		
+		
+	def getFormatVersion(self):
+		self.seekStart(0x140)
+		self.formatVersion = self.readInt8()
+		return self.formatVersion
 
 
 	def getKeyType(self):
@@ -130,11 +148,37 @@ class Ticket(File):
 		self.keyType = value
 		self.writeInt8(value)
 		return self.keyType
+		
+		
+	def getTicketVersion(self):
+		self.seekStart(0x142)
+		self.ticketVersion = self.readInt16()
+		return self.ticketVersion
+		
+		
+	def getLicenseType(self):
+		self.seekStart(0x144)
+		b = self.readInt8()
+		if b == 0:
+			self.licenseType = 'Permanent'
+		elif b == 1:
+			self.licenseType = 'Demo'
+		elif b == 2:
+			self.licenseType = 'Trial'
+		elif b == 3:
+			self.licenseType = 'Rental'
+		elif b == 4:
+			self.licenseType = 'Subscription'
+		elif b == 5:
+			self.licenseType = 'Service'
+		else:
+			self.licenseType = 'Unknown'
+		return self.licenseType
 
 
 	def getMasterKeyRevision(self):
 		self.seekStart(0x145)
-		self.masterKeyRevision = self.readInt8() | self.readInt8()
+		self.masterKeyRevision = self.readInt8()
 		return self.masterKeyRevision
 
 	def setMasterKeyRevision(self, value):
@@ -142,6 +186,20 @@ class Ticket(File):
 		self.masterKeyRevision = value
 		self.writeInt8(value)
 		return self.masterKeyRevision
+		
+		
+	def getPropertyMask(self):
+		self.seekStart(0x146)
+		b = self.readInt8()
+		if b == 0:
+			self.propertyMask = 'PreInstall'
+		elif b == 1:
+			self.propertyMask = 'SharedTitle'
+		elif b == 2:
+			self.propertyMask = 'AllowAllContent'
+		else:
+			self.propertyMask = 'Unknown'
+		return self.propertyMask
 
 
 	def getTicketId(self):
@@ -190,6 +248,30 @@ class Ticket(File):
 		self.accountId = value
 		self.writeInt32(value, 'big')
 		return self.accountId
+		
+		
+	def getSectTotalSize(self):
+		self.seekStart(0x174)
+		self.sectTotalSize = self.readInt32()
+		return self.sectTotalSize
+		
+		
+	def getSectHeaderOffset(self):
+		self.seekStart(0x178)
+		self.sectHeaderOffset = self.readInt32()
+		return self.sectHeaderOffset
+		
+		
+	def getSectNum(self):
+		self.seekStart(0x17C)
+		self.sectNum = self.readInt16()
+		return self.sectNum
+		
+		
+	def getSectEntrySize(self):
+		self.seekStart(0x17E)
+		self.sectEntrySize = self.readInt32()
+		return self.sectEntrySize
 
 
 
@@ -205,12 +287,20 @@ class Ticket(File):
 		Print.info('\n%sTicket\n' % (tabs))
 		super(Ticket, self).printInfo(maxDepth, indent)
 		Print.info(tabs + 'signatureType = ' + str(self.signatureType))
-		Print.info(tabs + 'keyType = ' + str(self.keyType))
-		Print.info(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision))
+		Print.info(tabs + 'formatVersion = ' + str(self.formatVersion))
+		Print.info(tabs + 'keyType = ' + str(self.keyType)) # titleKeyEncType
+		Print.info(tabs + 'ticketVersion = ' + str(self.ticketVersion))
+		Print.info(tabs + 'licenseType = ' + str(self.getLicenseType()))
+		Print.info(tabs + 'masterKeyRev = ' + str(self.masterKeyRevision)) # commonKeyId
+		Print.info(tabs + 'propertyMask = ' + str(self.getPropertyMask()))
 		Print.info(tabs + 'ticketId = ' + str(self.ticketId))
 		Print.info(tabs + 'deviceId = ' + str(self.deviceId))
 		Print.info(tabs + 'rightsId = ' + rightsId)
 		Print.info(tabs + 'accountId = ' + str(self.accountId))
+		Print.info(tabs + 'sectTotalSize = ' + hex(self.sectTotalSize))
+		Print.info(tabs + 'sectHeaderOffset = ' + hex(self.sectHeaderOffset))
+		Print.info(tabs + 'sectNum = ' + hex(self.sectNum))
+		Print.info(tabs + 'sectEntrySize = ' + hex(self.sectEntrySize))
 		Print.info(tabs + 'titleId = ' + titleId)
 		Print.info(tabs + 'titleKey = ' + titleKey)
 		Print.info(tabs + 'titleKeyDec = ' + str(hx(Keys.decryptTitleKey((self.getTitleKey()), self.masterKeyRevision))))
