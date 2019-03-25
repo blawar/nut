@@ -552,7 +552,7 @@ def getFile(request, response, start = None, end = None):
 		start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
 
 		if end != '':
-			end = int(end) + 1
+			end = int(end)
 
 		if start != '':
 			start = int(start)
