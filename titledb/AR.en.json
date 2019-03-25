@@ -1747,7 +1747,7 @@
         "numberOfPlayers": 4,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": "https://img-eshop.cdn.nintendo.net/i/bf924a38ce1da69413bdba496afad2ef562f73ea5273621c09cac878ab7ad0b5.jpg",
         "screenshots": [
@@ -2048,7 +2048,7 @@
             "es",
             "fr"
         ],
-        "size": 2989490176
+        "size": 3025141760
     },
     "70010000014303": {
         "id": "01003A400C3DA000",
@@ -2146,6 +2146,51 @@
             "zh"
         ],
         "size": 6466568192
+    },
+    "70010000015568": {
+        "id": "0100E5D00CC0C000",
+        "rightsId": null,
+        "name": "Unravel Two",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190322,
+        "nsuId": 70010000015568,
+        "category": [
+            "Platformer",
+            "Adventure",
+            "Puzzle"
+        ],
+        "ratingContent": [
+            "Mild Fantasy Violence"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Electronic Arts",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/fccfb138993b8fc9767dc6fcdc4daa62cbcf0a8f12abfeef81ec6db690335d78.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/b248f58ac3886282dd77646ee44d9b9fd7defc179d9b6f813be195b21df45dbe.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7063e9bed408862149ee26e178bed34a9489c83bc485f9d7ec737eec64d7c0ac.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b26d3968f4675881aab9468e14c2c9d3964c47e8ca7dcdb558e1e103947ed589.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/40246907c9f12e49ff59f77d95e33b3b3f0e9d2909563abd5f27d807db46c105.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1f42ec0e162e03a5cbaa64546ea6b70a3809269c1d1a25eb857072d9915c9919.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/623e077abce28dec1ea4745fb2e9a5b695b364df50e4d0f8766bad5dba0385d5.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e39e17159b7aa3770398e4dc1ebd15eb15377c6cbad55d2256f84e55394436de.jpg",
+        "intro": "Chase the spark of adventure",
+        "description": "Winner - D.I.C.E. Awards Family Game of the Year.\n\nWhen you cut ties to the past, new bonds form. In Unravel Two, create a Yarny of your very own. Then build relationships with other Yarnys in local co-op or as a single player, fostering friendship and support as you journey together.\nBegin your adventure in a cold and imposing land, then watch your surroundings blossom with new life as you chase the spark of adventure. Dive into an immersive story filled with energy, exuberance, inspiration \u2013 even monsters. Approach every challenge with positivity and fearlessness to awaken the world around you, and discover an unbreakable bond between friends.\n\nNintendo Switch\u2122 Mode Support\n- Tabletop\n- TV\n- Handheld (single player only)",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 2955935744
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -2248,7 +2293,8 @@
             "Shooter"
         ],
         "ratingContent": [
-            "Cartoon Violence"
+            "Cartoon Violence",
+            "Users Interact"
         ],
         "numberOfPlayers": 1,
         "rating": 10,
@@ -2259,7 +2305,7 @@
         "screenshots": null,
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1f6ac10906747e3237f1ff471fe4fc19d9aab4230190b2dd81a8410e78d6e29b.jpg",
         "intro": "Get your feet wet in this Splatoon\u2122 2 Special Demo event, which comes with a 7-Day Free Trial for Nintendo Switch Online",
-        "description": "Wanna get your feet wet in fast-paced, messy ink battles? This Splatoon\u2122 2 Special Demo has your name all over it! Jump online* and fight it out in 4-on-4 Turf War battles with friends and other players who own the full game. You can even try Salmon Run and Ranked Battle modes! If you decide to purchase the full game, you\u2019ll also be able to transfer your progress over.\n\nThis demo event is active only from 3/19 (Tue) 7:00 a.m. PT - 3/25 (Mon)  6:59 a.m. PT. \n\nYou'll need an Internet connection and a Nintendo Switch Online membership to participate in the Splatoon 2 Special Demo. Fortunately, by downloading the demo from Nintendo eShop, you can receive a free 7-day trial** for Nintendo Switch Online! After downloading the demo, you will receive an e-mail with a Nintendo eShop code for a 7-day free trial for Nintendo Switch Online. To redeem, please enter the code into Nintendo eShop to activate your free trial. Even if you\u2019ve activated a previous free trial, you are still eligible for this trial too!\n\nAs an extra bonus, during the special demo timeframe,  there\u2019s a 20% discount on the digital version of the Splatoon 2 game when purchasing via Nintendo eShop!\n\n\n*Nintendo Switch Online membership  and Nintendo Account required for online play. Free trial automatically converts to 1-month auto-renewing membership unless automatic renewal is turned off  by the end of the free trial. Credit card/PayPal account required for 18+. Not available in all countries. Internet access required for online features. Terms apply. nintendo.com/switch-online\n\n**Free trial can be redeemed as soon as received via email. The code will expire on 3/25 at 7:00am PT.\n",
+        "description": "Wanna get your feet wet in fast-paced, messy ink battles? This Splatoon\u2122 2 Special Demo has your name all over it! Jump online* and fight it out in 4-on-4 Turf War battles with friends and other players who own the full game. You can even try Salmon Run and Ranked Battle modes! If you decide to purchase the full game, you\u2019ll also be able to transfer your progress over.\n\nThis demo event is active only from 3/19 (Tue) 7:00 a.m. PT - 3/25 (Mon)  6:59 a.m. PT. \n\nYou'll need an Internet connection and a Nintendo Switch Online membership to participate in the Splatoon 2 Special Demo. Fortunately, by downloading the demo from Nintendo eShop, you can receive a free 7-day trial** for Nintendo Switch Online! Only one demo and 7-day free trial code per system. After downloading the demo, you will receive an e-mail with a Nintendo eShop code for a 7-day free trial for Nintendo Switch Online. To redeem, please enter the code into Nintendo eShop to activate your free trial. Even if you\u2019ve activated a previous free trial, you are still eligible for this trial too!\n\nAs an extra bonus, during the special demo timeframe,  there\u2019s a 20% discount on the digital version of the Splatoon 2 game when purchasing via Nintendo eShop!\n\n\n*Nintendo Switch Online membership  and Nintendo Account required for online play. Free trial automatically converts to 1-month auto-renewing membership unless automatic renewal is turned off  by the end of the free trial. Credit card/PayPal account required for 18+. Not available in all countries. Internet access required for online features. Terms apply. nintendo.com/switch-online\n\n**Free trial can be redeemed as soon as received via email. The code will expire on 3/25 at 7:00am PT.\n",
         "languages": [
             "en",
             "es",
@@ -3186,7 +3232,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3580,7 +3626,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3610,7 +3656,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3640,7 +3686,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3670,7 +3716,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3700,7 +3746,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3730,7 +3776,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3760,7 +3806,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -3790,7 +3836,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -4043,7 +4089,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -4141,7 +4187,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -4171,7 +4217,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
@@ -4255,7 +4301,7 @@
         "numberOfPlayers": null,
         "rating": 17,
         "developer": null,
-        "publisher": "Blizzard",
+        "publisher": "Blizzard Entertainment",
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
