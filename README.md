@@ -185,3 +185,4 @@ optional arguments:
 - Original CDNSP
 - Hactool by SciresM (https://github.com/SciresM/)
 - Simon (https://github.com/simontime/) for his seemingly endless CDN knowledge and help.
+- SplatGamer
