@@ -230,7 +230,7 @@ def serveFile(response, path, filename = None, start = None, end = None):
 				if end == None:
 					end = size - 1
 				else:
-					end = int(end) + 1
+					end = int(end)
 
 				if start == None:
 					start = size - end
@@ -552,7 +552,7 @@ def getFile(request, response, start = None, end = None):
 		start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
 
 		if end != '':
-			end = int(end)
+			end = int(end) + 1
 
 		if start != '':
 			start = int(start)
