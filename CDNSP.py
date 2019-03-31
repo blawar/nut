@@ -597,11 +597,6 @@ class cnmt:
 
 		self.path = fPath
 		self.type = self.packTypes[read_u8(f, 0xC)]
-		self.id = '0%s' % format(read_u64(f, 0x0), 'x')
-		self.ver = str(read_u32(f, 0x8))
-		self.sysver = str(read_u32(f, 0x28))
-		self.dlsysver = str(read_u32(f, 0x18))
-		self.digest = hx(read_at(f, f.seek(0, 2) - 0x20, f.seek(0, 2))).decode()
 
 		with open(hdPath, 'rb') as ncaHd:
 			self.mkeyrev = str(read_u8(ncaHd, 0x220))
@@ -612,29 +607,18 @@ class cnmt:
 		f = open(self.path, 'rb')
 
 		data = {}
-		if self.type == 'SystemUpdate':
-			EntriesNB = read_u16(f, 0x12)
-			for n in range(0x20, 0x10 * EntriesNB, 0x10):
-				titleId = hex(read_u64(f, n))[2:]
-				if len(titleId) != 16:
-					titleId = '%s%s' % ((16 - len(titleId)) * '0', titleId)
-				ver = str(read_u32(f, n + 0x8))
-				packType = self.packTypes[read_u8(f, n + 0xC)]
+		tableOffset = read_u16(f, 0xE)
+		contentEntriesNB = read_u16(f, 0x10)
+		cmetadata = {}
+		for n in range(contentEntriesNB):
+			offset = 0x20 + tableOffset + 0x38 * n
+			hash = hx(read_at(f, offset, 0x20)).decode()
+			titleId = hx(read_at(f, offset + 0x20, 0x10)).decode()
+			size = str(read_u48(f, offset + 0x30))
+			type = self.ncaTypes[read_u16(f, offset + 0x36)]
 
-				data[titleId] = ver, packType
-		else:
-			tableOffset = read_u16(f, 0xE)
-			contentEntriesNB = read_u16(f, 0x10)
-			cmetadata = {}
-			for n in range(contentEntriesNB):
-				offset = 0x20 + tableOffset + 0x38 * n
-				hash = hx(read_at(f, offset, 0x20)).decode()
-				titleId = hx(read_at(f, offset + 0x20, 0x10)).decode()
-				size = str(read_u48(f, offset + 0x30))
-				type = self.ncaTypes[read_u16(f, offset + 0x36)]
-
-				if type == ncaType or ncaType == '':
-					data[titleId] = type, size, hash
+			if type == ncaType or ncaType == '':
+				data[titleId] = type, size, hash
 
 		f.close()
 		return data
@@ -704,7 +688,3 @@ class nsp:
 		header += remainder * b'\x00'
 		
 		return header
-
-
-
-
