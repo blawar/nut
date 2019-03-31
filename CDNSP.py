@@ -11,8 +11,6 @@ import shlex
 import shutil
 import subprocess
 import sys
-import xml.dom.minidom as minidom
-import xml.etree.ElementTree as ET
 from binascii import hexlify as hx, unhexlify as uhx
 from hashlib import sha256
 from struct import pack as pk, unpack as upk
@@ -396,8 +394,7 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 					os.path.join(cnmtDir, 'Header.bin'))
 
 		if nspRepack == True:
-			outf = os.path.join(gameDir, '%s.xml' % os.path.basename(cnmtNCA.strip('.nca')))
-			cnmtXML = CNMT.gen_xml(cnmtNCA, outf)
+			outf = os.path.join(gameDir)
 
 			rightsID = '%s%s%s' % (titleId, (16 - len(CNMT.mkeyrev)) * '0', CNMT.mkeyrev)
 
@@ -477,7 +474,6 @@ def download_title(gameDir, titleId, ver, tkey=None, nspRepack=False, n='', veri
 			for key in [1, 5, 2, 4, 6]:
 				files.extend(NCAs[key])
 			files.append(cnmtNCA)
-			files.append(cnmtXML)
 			files.extend(NCAs[3])
 			return files
 	except KeyboardInterrupt:
@@ -643,51 +639,6 @@ class cnmt:
 		f.close()
 		return data
 
-	def gen_xml(self, ncaPath, outf):
-		data = self.parse()
-
-		ContentMeta = ET.Element('ContentMeta')
-		
-		ET.SubElement(ContentMeta, 'Type').text = self.type
-		ET.SubElement(ContentMeta, 'Id').text = '0x' + self.id
-		ET.SubElement(ContentMeta, 'Version').text = self.ver
-		ET.SubElement(ContentMeta, 'RequiredDownloadSystemVersion').text = self.dlsysver
-		
-		n = 1
-		for titleId in data:
-			locals()["Content"+str(n)] = ET.SubElement(ContentMeta, 'Content')
-			ET.SubElement(locals()["Content"+str(n)], 'Type').text		  = data[titleId][0]
-			ET.SubElement(locals()["Content"+str(n)], 'Id').text			= titleId
-			ET.SubElement(locals()["Content"+str(n)], 'Size').text		  = str(data[titleId][1])
-			ET.SubElement(locals()["Content"+str(n)], 'Hash').text		  = data[titleId][2]
-			ET.SubElement(locals()["Content"+str(n)], 'KeyGeneration').text = self.mkeyrev
-			n += 1
-			
-		# cnmt.nca itself
-		cnmt = ET.SubElement(ContentMeta, 'Content')
-		ET.SubElement(cnmt, 'Type').text		  = 'Meta'
-		ET.SubElement(cnmt, 'Id').text			= os.path.basename(ncaPath).split('.')[0]
-		ET.SubElement(cnmt, 'Size').text		  = str(os.path.getsize(ncaPath))
-		ET.SubElement(cnmt, 'Hash').text		  = sha256_file(ncaPath)
-		ET.SubElement(cnmt, 'KeyGeneration').text = self.mkeyrev
-			
-		ET.SubElement(ContentMeta, 'Digest').text				= self.digest
-		ET.SubElement(ContentMeta, 'KeyGenerationMin').text	  = self.mkeyrev
-		ET.SubElement(ContentMeta, 'RequiredSystemVersion').text = self.sysver
-		if self.type == 'Application':
-			ET.SubElement(ContentMeta, 'PatchId').text = '0x%016x' % (int(self.id, 16) + 0x800)
-		elif self.type == 'Patch':
-			ET.SubElement(ContentMeta, 'OriginalId').text = '0x%016x' % (int(self.id, 16) & 0xFFFFFFFFFFFFF000)
-		elif self.type == 'AddOnContent':	
-			ET.SubElement(ContentMeta, 'ApplicationId').text = '0x%016x' % (int(self.id, 16) - 0x1000 & 0xFFFFFFFFFFFFF000)
-		
-		string = ET.tostring(ContentMeta, encoding='utf-8')
-		reparsed = minidom.parseString(string)
-		with open(outf, 'wb') as f:
-			f.write(reparsed.toprettyxml(encoding='utf-8', indent='  ')[:-1])
-			
-		Print.debug('\t\tGenerated %s!' % os.path.basename(outf))
-		return outf
 
 class nsp:
 	def __init__(self, outf, files):
