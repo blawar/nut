@@ -6,6 +6,8 @@ import threading
 import time
 import colorama
 import requests
+import queue
+import cdn
 import os
 import Fs
 import CDNSP
@@ -222,7 +224,7 @@ def updateVersions(force = True):
 			
 	for t in list(Titles.data().values()):
 		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
-			u = Title()
+			u = Title.Title()
 			u.setId(t.updateId)
 			
 			if u.lastestVersion():
@@ -266,11 +268,6 @@ def scanLatestTitleUpdates():
 			if len(id) != 16:
 				Print.info('invalid title id: ' + id)
 				continue
-			continue
-			t = Title()
-			t.setId(id)
-			Titles.set(id, t)
-			Print.info('Found new title id: ' + str(id))
 			
 		t = Titles.get(id)
 		if str(t.version) != str(version):
@@ -339,19 +336,26 @@ def downloadAll(wait = True):
 	global activeDownloads
 	global status
 
+	i = 0
+	Print.info('Downloading All')
 	try:
 
 		for k,t in Titles.items():
-			if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
-				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
-					#Print.warning('no valid id? ' + str(t.path))
+			i = i + 1
+			if not t.isActive():
+				continue
+
+			if t.isUpdateAvailable():
+				if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None]):
+					Print.warning('no valid id? id: %s  version: %s' % (str(t.id), str(t.lastestVersion())))
 					continue
 				
-				if not t.lastestVersion():
+				if t.lastestVersion() is None:
 					Print.info('Could not get version for ' + str(t.name) + ' [' + str(t.id) + ']')
 					continue
 
 				Titles.queue.add(t.id)
+		Print.info("%d titles scanned, downloading %d" % (i, Titles.queue.size()))
 		Titles.save()
 		status = Status.create(Titles.queue.size(), 'Total Download')
 		startDownloadThreads()
@@ -400,7 +404,6 @@ def updateDb(url, c=0):
 			
 	except Exception as e:
 		Print.info('Error downloading:' + str(e))
-		raise
 
 def downloadFile(url, fPath):
 	fName = os.path.basename(fPath).split()[0]

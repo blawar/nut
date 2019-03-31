@@ -141,7 +141,7 @@ figure {
 	text-indent: -9999px;
 }
 
-.CH label {
+.CH label, .HK label {
 	background-image: url(/images/flags/CH.png);
 	text-indent: -9999px;
 }

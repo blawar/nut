@@ -6,6 +6,7 @@ import time
 from nut import Config
 import sys
 import os
+from os import listdir
 import re
 from nut import Print
 import urllib
@@ -15,6 +16,7 @@ from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
 import Server.Controller.Api
+import __main__
 
 
 global httpd
@@ -94,8 +96,15 @@ class NutRequest:
 		except:
 			self.post = None
 
-		self.bits = [x for x in self.url.path.split('/') if x]
+		self.bits = [urllib.parse.unquote(x) for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
+
+		try:
+			for k,v in self.query.items():
+				self.query[k] = v[0];
+		except:
+			pass
+
 		self.user = None
 
 	def setHead(self, h):
@@ -180,7 +189,7 @@ def route(request, response, verb = 'get'):
 			methodName = verb + i[0].capitalize() + i[1:]
 			print('routing to ' + methodName)
 			method = getattr(mappings[request.bits[0]], methodName, Response404)
-			method(request, response)
+			method(request, response, **request.query)
 			return True
 	except BaseException as e:
 		print(str(e))
@@ -189,7 +198,7 @@ def route(request, response, verb = 'get'):
 
 class NutHandler(http.server.BaseHTTPRequestHandler):
 	def __init__(self, *args):
-		self.basePath = os.path.abspath('.')
+		self.basePath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 		super(NutHandler, self).__init__(*args)
 
 	def do_HEAD(self):
@@ -213,7 +222,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 				i = request.bits[1]
 				methodName = 'get' + i[0].capitalize() + i[1:]
 				method = getattr(mappings[request.bits[0]], methodName, Response404)
-				method(request, response)
+				method(request, response, **request.query)
 			else:
 				self.handleFile(request, response)
 		except BaseException as e:
@@ -248,7 +257,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 
 	def handleFile(self, request, response):
-		path = os.path.abspath('public_html' + self.path)
+		path = os.path.abspath(self.basePath + '/public_html' + self.path)
 		if not path.startswith(self.basePath):
 			raise IOError('invalid path requested: ' + self.basePath + ' vs ' + path)
 

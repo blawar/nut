@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+
+conf/nut.conf
+conf/user.conf
+
+keys.txt
+Certificate.cert
+nx_tls_client_cert.pem
+
+_NSPOUT/
+titles/
+
+titledb/files.json
+titledb/titles.json
+titledb/redirectCache.json

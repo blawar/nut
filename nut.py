@@ -255,7 +255,7 @@ def genTinfoilTitles():
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	nut.scanLatestTitleUpdates()
-	export('titledb/versions.txt', ['rightsId', 'version'])
+	nut.export('titledb/versions.txt', ['id','rightsId', 'version'])
 
 def download(id):
 	bits = id.split(',')
@@ -347,6 +347,43 @@ def organizeNcas(dir):
 		except BaseException as e:
 			Print.info(str(e))
 
+def exportNcaMap(path):
+	nut.initTitles()
+	nut.initFiles()
+
+	map = {}
+
+	i = 0
+
+	for id, title in Titles.items():
+		print(id)
+		try:
+			nsp = title.getLatestFile()
+
+			if not nsp:
+				continue
+
+			nsp.open(args.info, 'r+b')
+
+			map[id] = {}
+			map[id]['version'] = int(title.version)
+			map[id]['files'] = []
+			for f in nsp:
+				if isinstance(f, Fs.Nca):
+					map[id]['files'].append(f._path)
+
+			i += 1
+
+			if i > 100:
+				i = 0
+				with open(path, 'w') as outfile:
+					json.dump(map, outfile, indent=4)
+
+		except BaseException as e:
+			Print.error(str(e))
+
+	with open(path, 'w') as outfile:
+		json.dump(map, outfile, indent=4)
 			
 if __name__ == '__main__':
 	try:
@@ -440,6 +477,7 @@ if __name__ == '__main__':
 
 		parser.add_argument('--gen-tinfoil-titles', action="store_true", help='Outputs language files for Tinfoil')
 		parser.add_argument('-O', '--organize-ncas', help='Organize unsorted NCA\'s')
+		parser.add_argument('--export-nca-map', help='Export JSON map of titleid to NCA mapping')
 
 		
 		args = parser.parse_args()
@@ -535,7 +573,7 @@ if __name__ == '__main__':
 
 		if args.usb:
 			try:
-				import Usb
+				from nut import Usb
 			except BaseException as e:
 				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
 			nut.scan()
@@ -728,7 +766,8 @@ if __name__ == '__main__':
 			f = Fs.Nsp(args.unlock, 'r+b')
 			f.unlock()
 
-
+		if args.export_nca_map:
+			exportNcaMap(args.export_nca_map)
 		
 		if args.download_all:
 			nut.downloadAll()
@@ -742,7 +781,7 @@ if __name__ == '__main__':
 		if args.export_versions:
 			nut.initTitles()
 			nut.initFiles()
-			nut.export(args.export_versions, ['rightsId', 'version'])
+			nut.export(args.export_versions, ['id', 'rightsId', 'version'])
 		
 		if args.missing:
 			logMissingTitles(args.missing)
@@ -770,7 +809,7 @@ if __name__ == '__main__':
 			nut.organize()
 			nut.downloadAll()
 			nut.scanLatestTitleUpdates()
-			nut.export('titledb/versions.txt', ['rightsId', 'version'])
+			nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
 		if args.scan_dlc != None:
 			nut.initTitles()

@@ -43,7 +43,9 @@ def scan(base, force = False):
 	Print.info(base)
 	for root, dirs, _files in os.walk(base, topdown=False):
 		for name in _files:
-			if pathlib.Path(name).suffix == '.nsp' or pathlib.Path(name).suffix == '.nsx':
+			suffix = pathlib.Path(name).suffix
+
+			if suffix == '.nsp' or suffix == '.nsx':
 				path = os.path.abspath(root + '/' + name)
 				fileList[path] = name
 
@@ -63,7 +65,6 @@ def scan(base, force = False):
 					nsp = Fs.Nsp(path, None)
 						
 					files[nsp.path] = nsp
-					#files[nsp.path].readMeta()
 
 					i = i + 1
 					if i % 20 == 0:
@@ -73,7 +74,6 @@ def scan(base, force = False):
 				raise
 			except BaseException as e:
 				Print.info('An error occurred processing file: ' + str(e))
-				status.close()
 
 		save()
 		status.close()

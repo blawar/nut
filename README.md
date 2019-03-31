@@ -19,7 +19,7 @@ It can download any titles you do not have a key for (for archiving), by enablin
 	- `keys.txt`
  - Install Python 3.6+
  - Install the following modules via `pip`:
- 	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4 urllib3 flask`
+ 	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4 urllib3 flask pyqt5`
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
  
@@ -52,7 +52,7 @@ If you wish to run the server GUI, you must first download the images from ninte
 nut.py -s --scrape
 
 This will take some time.  When it is complete, you can start the web server with:
-nut.py --server
+server.py
 
 Then point your web browser to localhost:9000
 
@@ -172,7 +172,6 @@ optional arguments:
                         export list of NSPs containing delta updates
   --silent              Suppress stdout/stderr output
   --json                JSON output
-  -S, --server          Run server daemon
   -m, --hostname        Set server hostname
   -p, --port            Set server port
   --scrape              Scrape ALL titles from Nintendo servers
@@ -186,3 +185,4 @@ optional arguments:
 - Original CDNSP
 - Hactool by SciresM (https://github.com/SciresM/)
 - Simon (https://github.com/simontime/) for his seemingly endless CDN knowledge and help.
+- SplatGamer

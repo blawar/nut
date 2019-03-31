@@ -105,6 +105,13 @@ class UsbRequest(Server.NutRequest):
 		self.bits = [x for x in self.url.path.split('/') if x]
 		print(self.bits)
 		self.query = parse_qs(self.url.query)
+
+		try:
+			for k,v in self.query.items():
+				self.query[k] = v[0];
+		except:
+			pass
+
 		self.user = None
 
 class Packet:
@@ -153,7 +160,7 @@ class Packet:
 def poll_commands(in_ep, out_ep):
 	p = Packet(in_ep, out_ep)
 	while True:
-		if p.recv():
+		if p.recv(0):
 			if p.command == 1:
 				print('Recv command! %d' % p.command)
 				req = UsbRequest(p.payload.decode('utf-8'))

@@ -96,6 +96,7 @@ class Download:
 		self.DLC = True
 		self.update = False
 		self.sansTitleKey = False
+		self.deltas = True
 
 class EdgeToken:
 	def __init__(self):
@@ -117,6 +118,8 @@ threads = 4
 jsonOutput = False
 isRunning = True
 
+autolaunchBrowser = True
+
 titleBlacklist = []
 titleWhitelist = []
 
@@ -125,12 +128,39 @@ language = 'en'
 
 titleUrls = []
 
+def set(j, paths, value):
+	last = paths.pop()
+	for path in paths:
+		if not path in j:
+			j[path] = {}
+		j = j[path]
+	j[last] = value
+
+def save(confFile = 'conf/nut.conf'):
+	os.makedirs(os.path.dirname(confFile), exist_ok = True)
+	j = {}
+	try:
+		with open(confFile, encoding="utf8") as f:
+			j = json.load(f)
+	except:
+		pass
+
+	set(j, ['paths', 'scan'], paths.scan)
+	set(j, ['server', 'hostname'], server.hostname)
+	set(j, ['server', 'port'], server.port)
+
+	set(j, ['autolaunchBrowser'], autolaunchBrowser)
+
+	with open(confFile, 'w', encoding='utf-8') as f:
+		json.dump(j, f, indent=4)
+
 def load(confFile):
 	global threads
 	global jsonOutput
 	global titleUrls
 	global region
 	global language
+	global autolaunchBrowser
 
 	with open(confFile, encoding="utf8") as f:
 		j = json.load(f)
@@ -142,6 +172,11 @@ def load(confFile):
 
 		try:
 			language = j['language']
+		except:
+			pass
+
+		try:
+			autolaunchBrowser = j['autolaunchBrowser']
 		except:
 			pass
 
@@ -240,6 +275,11 @@ def load(confFile):
 		
 		try:
 			download.update = j['download']['update']
+		except:
+			pass
+
+		try:
+			download.deltas = j['download']['deltas']
 		except:
 			pass
 

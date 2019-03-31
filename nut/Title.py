@@ -199,16 +199,19 @@ class Title:
 
 		return highest
 
-	def isUpdateAvailable(self):
+	def isUpdateAvailable(self, localOnly = False):
 		nsp = self.getLatestFile()
 		if not nsp:
 			return True
 
 		try:
-			if int(nsp.version) < int(self.lastestVersion()):
+			latest = self.lastestVersion(localOnly = localOnly)
+			if latest is None:
+				return False
+			if int(nsp.version) < int(latest):
 				return True
 		except BaseException as e:
-			Print.error('isUpdateAvailable exception: ' + str(e))
+			Print.error('isUpdateAvailable exception %s: %s' % (self.id, str(e)))
 			pass
 
 		return False
@@ -407,12 +410,14 @@ class Title:
 				o = None
 				
 			if not o or n > o or force:
-				self.version = version
+				self.version = n
 			
 	def getVersion(self):
-		return self.version or ''
+		if self.version is None:
+			return ''
+		return self.version
 		
-	def lastestVersion(self, force = False):
+	def lastestVersion(self, force = False, localOnly = False):
 		#if self.isDLC:
 		#	return '0'
 
@@ -421,16 +426,14 @@ class Title:
 			if not self.id:
 				return None
 			
-			if self.version and self.version.lower() == 'none':
-				self.version = None
-		
-			if not self.version or force:
+			if (self.version is None or force) and not localOnly:
 				self.version = CDNSP.get_version(self.id)
-				#Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
+				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
 			
 			#Print.info('version: ' + str(self.version))
 			return self.version
-		except:
+		except BaseException as e:
+			Print.error(str(e))
 			return None
 		
 	def isValid(self):

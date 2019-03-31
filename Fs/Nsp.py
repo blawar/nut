@@ -298,7 +298,7 @@ class Nsp(Pfs0):
 		bt = None
 		if not self.titleId in Titles.keys():
 			if not Title.getBaseId(self.titleId) in Titles.keys():
-				Print.info('could not find title key for ' + self.titleId + ' or ' + Title.getBaseId(self.titleId))
+				Print.info('could not find title key for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
 				return None
 			bt = Titles.get(Title.getBaseId(self.titleId))
 			t = Title()
@@ -327,7 +327,10 @@ class Nsp(Pfs0):
 			else:
 				format = Config.paths.getTitleDemo(not self.hasValidTicket)
 		elif t.idExt != 0:
-			format = Config.paths.getTitleUpdate(not self.hasValidTicket)
+			if bt and bt.isDemo:
+				format = Config.paths.getTitleDemoUpdate(not self.hasValidTicket)
+			else:
+				format = Config.paths.getTitleUpdate(not self.hasValidTicket)
 		else:
 			format = Config.paths.getTitleBase(not self.hasValidTicket)
 			
