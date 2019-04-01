@@ -108,7 +108,7 @@ class Nsp(Pfs0):
 	def isUpdateAvailable(self):
 		title = self.title()
 
-		if self.titleId and title.version != None and self.version < title.version and str(title.version) != '0':
+		if self.titleId and str(title.version) != None and str(self.version) < str(title.version) and str(title.version) != '0':
 			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': self.version, 'newVersion': title.version}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
