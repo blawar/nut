@@ -511,6 +511,7 @@ if __name__ == '__main__':
 					if game.isUpdateAvailable():
 						Print.info(title.getName())
 						Print.info(game.isUpdateAvailable())
+			exit(0)
 
 		if args.submit_keys:
 			nut.initTitles()
