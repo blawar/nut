@@ -109,7 +109,7 @@ class Nsp(Pfs0):
 		title = self.title()
 
 		if self.titleId and str(title.version) != None and str(self.version) < str(title.version) and str(title.version) != '0':
-			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(title.version), 'newVersion': str(title.version)}
+			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(self.version), 'newVersion': str(title.version)}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
 			updateFile = self.getUpdateFile()
