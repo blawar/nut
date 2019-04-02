@@ -439,6 +439,7 @@ if __name__ == '__main__':
 		parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
 		parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 		parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
+		parser.add_argument('--update-check', action="store_true", help='check for existing titles needing updates')
 		parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
 		parser.add_argument('-R', '--read-rightsids', action="store_true", help='reads all title rights ids from nsps')
 		parser.add_argument('-x', '--extract', nargs='+', help='extract / unpack a NSP')
@@ -532,13 +533,23 @@ if __name__ == '__main__':
 			#for filePath in args.file:
 			#	Print.info(filePath)
 
-	
 		if args.update_titles:
 			nut.initTitles()
 			for url in Config.titleUrls:
 				nut.updateDb(url)
 			Titles.loadTxtDatabases()
 			Titles.save()
+
+		if args.update_check:
+			nut.initTitles()
+			nut.initFiles()
+			for _,game in Nsps.files.items():
+				title = game.title()
+				if title.isUpdate or title.isDLC:
+					if game.isUpdateAvailable():
+						Print.info(title.getName())
+						Print.info(game.isUpdateAvailable())
+			exit(0)
 
 		if args.submit_keys:
 			nut.initTitles()

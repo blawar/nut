@@ -108,8 +108,8 @@ class Nsp(Pfs0):
 	def isUpdateAvailable(self):
 		title = self.title()
 
-		if self.titleId and title.version != None and self.version < title.version and str(title.version) != '0':
-			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': self.version, 'newVersion': title.version}
+		if self.titleId and str(title.version) != None and str(self.version) < str(title.version) and str(title.version) != '0':
+			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(self.version), 'newVersion': str(title.version)}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
 			updateFile = self.getUpdateFile()
@@ -119,8 +119,8 @@ class Nsp(Pfs0):
 
 			updateTitle = Titles.get(title.updateId)
 
-			if updateTitle.version and str(updateTitle.version) != '0':
-				return {'id': updateTitle.id, 'baseId': title.baseId, 'currentVersion': None, 'newVersion': updateTitle.version}
+			if str(updateTitle.version) and str(updateTitle.version) != '0':
+				return {'id': updateTitle.id, 'baseId': title.baseId, 'currentVersion': None, 'newVersion': str(updateTitle.version)}
 
 		return None
 		
