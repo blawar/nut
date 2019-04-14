@@ -14,6 +14,7 @@ import nut
 from nut import blockchain
 import urllib.parse
 import requests
+from datetime import datetime, timedelta
 
 try:
 	from PIL import Image
@@ -21,6 +22,9 @@ except ImportError:
 	import Image
 import Server
 import os
+
+# Automatic scanning when making requests to the API
+last_scan_datetime = datetime.now()
 
 def success(request, response, s):
 	response.write(json.dumps({'success': True, 'result': s}))
@@ -384,6 +388,10 @@ def getTitleUpdates(request, response):
 	response.write(json.dumps(r))
 
 def getFiles(request, response):
+	global last_scan_datetime
+	if datetime.now() > last_scan_datetime + timedelta(seconds=Config.scanDebounceSeconds):
+		nut.scan()
+		last_scan_datetime = datetime.now()
 	r = {}
 	for path, nsp in Nsps.files.items():
 		if Titles.contains(nsp.titleId):

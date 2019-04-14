@@ -30,10 +30,11 @@ def getByTitleId(id):
 			return f
 	return None
 	
-def scan(base, force = False):
+def scan(base, force = True):
 	global hasScanned
 	if hasScanned and not force:
-		return
+		Print.info(f'scan: force was False, skipping scan')
+		return 0
 
 	hasScanned = True
 	i = 0

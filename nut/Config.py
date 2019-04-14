@@ -4,6 +4,18 @@ import json
 import os
 import platform
 
+NUT_CONFIG_PATH = os.getenv('NUT_CONFIG_PATH', 'conf')
+NUT_EDGE_TOKEN_PATH = os.getenv('NUT_EDGE_TOKEN_PATH', 'edge.token')
+NUT_DAUTH_TOKEN_PATH = os.getenv('NUT_DAUTH_TOKEN_PATH', 'dauth.token')
+NUT_SCAN_PATH = os.getenv('NUT_SCAN_PATH', '.')
+NUT_SCAN_DEBOUNCE_SECONDS = float(os.getenv('NUT_SCAN_DEBOUNCE_SECONDS','30.0'))
+
+blacklist_path = os.path.join(NUT_CONFIG_PATH, 'blacklist.txt')
+retail_only_blacklist_path = os.path.join(NUT_CONFIG_PATH, 'retailOnly.blacklist')
+default_config_path = os.path.join(NUT_CONFIG_PATH, 'nut.default.conf')
+config_path = os.path.join(NUT_CONFIG_PATH, 'nut.conf')
+whitelist_path = os.path.join(NUT_CONFIG_PATH, 'whitelist.txt')
+
 class Server:
 	def __init__(self):
 		self.hostname = '0.0.0.0'
@@ -30,7 +42,7 @@ class Paths:
 		self.nsxTitleDemo = None
 		self.nsxTitleDemoUpdate = None
 
-		self.scan = '.'
+		self.scan = NUT_SCAN_PATH
 		self.titleDatabase = 'titledb'
 		self.hactool = 'bin/hactool'
 		self.keys = 'keys.txt'
@@ -117,6 +129,7 @@ server = Server()
 threads = 4
 jsonOutput = False
 isRunning = True
+scanDebounceSeconds = 999999.0
 
 autolaunchBrowser = True
 
@@ -136,7 +149,7 @@ def set(j, paths, value):
 		j = j[path]
 	j[last] = value
 
-def save(confFile = 'conf/nut.conf'):
+def save(confFile = config_path):
 	os.makedirs(os.path.dirname(confFile), exist_ok = True)
 	j = {}
 	try:
@@ -161,6 +174,7 @@ def load(confFile):
 	global region
 	global language
 	global autolaunchBrowser
+	global scanDebounceSeconds
 
 	with open(confFile, encoding="utf8") as f:
 		j = json.load(f)
@@ -241,10 +255,19 @@ def load(confFile):
 		except: 
 			pass
 
-
-	
 		try:
-			paths.scan = j['paths']['scan']
+			if 'NUT_SCAN_PATH' in os.environ:
+				paths.scan = os.getenv('NUT_SCAN_PATH')
+			else:
+				paths.scan = j['paths']['scan']
+		except:
+			pass
+
+		try:
+			if 'NUT_SCAN_DEBOUNCE_SECONDS' in os.environ:
+				scanDebounceSeconds = float(os.getenv('NUT_SCAN_DEBOUNCE_SECONDS'))
+			else:
+				scanDebounceSeconds = j['scanDebounceSeconds']
 		except:
 			pass
 
@@ -332,19 +355,18 @@ def load(confFile):
 		except:
 			pass
 
-if os.path.isfile('conf/nut.default.conf'):
-	load('conf/nut.default.conf')
+if os.path.isfile(default_config_path):
+	load(default_config_path)
 
-if os.path.isfile('conf/nut.conf'):
-	load('conf/nut.conf')
+if os.path.isfile(config_path):
+	load(config_path)
 
-if os.path.isfile('edge.token'):
-	with open('edge.token', encoding="utf8") as f:
+if os.path.isfile(NUT_EDGE_TOKEN_PATH):
+	with open(NUT_EDGE_TOKEN_PATH, encoding="utf8") as f:
 		edgeToken.token = f.read().strip()
 
-
-if os.path.isfile('dauth.token'):
-	with open('dauth.token', encoding="utf8") as f:
+if os.path.isfile(NUT_DAUTH_TOKEN_PATH):
+	with open(NUT_DAUTH_TOKEN_PATH, encoding="utf8") as f:
 		dauthToken.token = f.read().strip()
 
 
@@ -371,7 +393,7 @@ def loadTitleWhitelist():
 	global titleWhitelist
 	titleWhitelist = []
 	try:
-		with open('conf/whitelist.txt', encoding="utf8") as f:
+		with open(whitelist_path, encoding="utf8") as f:
 			for line in f.readlines():
 				titleWhitelist.append(line.strip().upper())
 	except:
@@ -381,13 +403,13 @@ def loadTitleBlacklist():
 	global titleBlacklist
 	titleBlacklist = []
 	try:
-		with open('conf/blacklist.txt', encoding="utf8") as f:
+		with open(blacklist_path, encoding="utf8") as f:
 			for line in f.readlines():
 				id = line.split('|')[0].strip().upper()
 				if id:
 					titleBlacklist.append(id)
 
-		with open('conf/retailOnly.blacklist', encoding="utf8") as f:
+		with open(retail_only_blacklist_path, encoding="utf8") as f:
 			for line in f.readlines():
 				id = line.split('|')[0].strip().upper()
 				if id:

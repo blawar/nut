@@ -427,12 +427,14 @@ if __name__ == '__main__':
 				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
 			nut.scan()
 			Usb.daemon()
-		
+
+		'''
 		if args.download:
 			nut.initTitles()
 			nut.initFiles()
 			for d in args.download:
 				download(d)
+		'''
 	
 		if args.scan:
 			nut.initTitles()
@@ -511,8 +513,10 @@ if __name__ == '__main__':
 				except BaseException as e:
 					Print.error('Exception: ' + str(e))
 
+		'''
 		if args.nca_deltas:
 			logNcaDeltas(args.nca_deltas)
+		'''
 
 		if args.verify:
 			if blockchain.verifyKey(args.verify[0], args.verify[1]):
@@ -533,6 +537,7 @@ if __name__ == '__main__':
 		if args.gen_tinfoil_titles:
 			genTinfoilTitles()
 
+		'''
 		if args.scrape_title:
 			nut.initTitles()
 			nut.initFiles()
@@ -544,7 +549,9 @@ if __name__ == '__main__':
 				Titles.save()
 				#Print.info(repr(Titles.get(args.scrape_title).__dict__))
 				pprint.pprint(Titles.get(args.scrape_title).__dict__)
+		'''
 
+		'''
 		if args.scrape or args.scrape_delta:
 			nut.initTitles()
 			nut.initFiles()
@@ -559,8 +566,10 @@ if __name__ == '__main__':
 				t.join()
 		
 			Titles.save()
+		'''
 			
-	
+
+		'''
 		if args.Z:
 			nut.updateVersions(True)
 		
@@ -569,6 +578,7 @@ if __name__ == '__main__':
 		
 		if args.V:
 			nut.scanLatestTitleUpdates()
+		'''
 
 		if args.unlock_all:
 			unlockAll()
@@ -583,10 +593,12 @@ if __name__ == '__main__':
 
 		if args.export_nca_map:
 			exportNcaMap(args.export_nca_map)
-		
+
+		'''
 		if args.download_all:
 			nut.downloadAll()
 			Titles.save()
+		'''
 		
 		if args.export:
 			nut.initTitles()
@@ -603,12 +615,6 @@ if __name__ == '__main__':
 
 		if args.match_demos:
 			matchDemos()
-
-		if args.server:
-			nut.startDownloadThreads()
-			nut.initTitles()
-			nut.initFiles()
-			Server.run()
 
 		if args.blockchain:
 			nut.initTitles()
@@ -627,6 +633,8 @@ if __name__ == '__main__':
 			nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
 		if args.scan_dlc != None:
+			raise RuntimeError('--scan-dlc no longer supported, skipping')
+
 			nut.initTitles()
 			nut.initFiles()
 			queue = Titles.Queue()
@@ -637,12 +645,13 @@ if __name__ == '__main__':
 				for i,k in Titles.items():
 					if not k.isDLC and not k.isUpdate and k.id:
 						queue.add(k.id)
-			startDlcScan(queue)
+			# startDlcScan(queue)
 
 		if args.scan_base != None:
+			raise RuntimeError('--scan-base no longer supported, skipping')
 			nut.initTitles()
 			nut.initFiles()
-			startBaseScan()
+			# startBaseScan()
 
 		if args.export_verified_keys:
 			exportVerifiedKeys(args.export_verified_keys)
@@ -652,6 +661,13 @@ if __name__ == '__main__':
 
 		if args.organize_ncas:
 			organizeNcas(args.organize_ncas)
+
+		# server should be last, because this doesn't daemonize
+		if args.server:
+			# nut.startDownloadThreads()
+			nut.initTitles()
+			nut.initFiles()
+			Server.run()
 
 		Status.close()
 	

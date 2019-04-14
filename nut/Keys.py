@@ -1,5 +1,5 @@
 import re
-from nut import aes128
+from nut import aes128, Config
 from binascii import hexlify as hx, unhexlify as uhx
 from nut import Print
 
@@ -97,9 +97,9 @@ def load(fileName):
 
 
 try:			
-	load('keys.txt')
+	load(Config.paths.keys)
 except BaseException as e:
-	Print.error(str(e))
+	Print.error(f'Could not load keys.txt. You can safely ignore this error: {str(e)}')
 
 #for k in titleKeks:
 #	Print.info('titleKek = ' + k)

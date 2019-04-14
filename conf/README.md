@@ -1,0 +1,1 @@
+This directory's `nut.default.conf` is only the default configuration settings for running `nut` locally on your computer. The Docker defaults are located in `root/defauts/nut.conf`.

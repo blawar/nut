@@ -1,0 +1,41 @@
+#!/usr/bin/with-contenv bash
+
+[[ ! -e /config/nut.conf ]] && \
+	cp /defaults/nut.conf /config/nut.conf
+
+[[ ! -e /config/blacklist.txt ]] && \
+	cp /app/nut/conf/blacklist.txt /config/blacklist.txt
+
+[[ ! -e /config/retailOnly.blacklist ]] && \
+	cp /app/nut/conf/retailOnly.blacklist /config/retailOnly.blacklist
+
+[[ ! -e /config/users.conf ]] && \
+	cp /app/nut/conf/users.conf /config/users.conf
+
+[[ ! -e /config/whitelist.txt ]] && \
+	cp /app/nut/conf/whitelist.txt /config/whitelist.txt
+
+[[ ! -d /data/titledb ]] && \
+    cp -r /app/nut/titledb /data
+
+# check config and data
+PUID=${PUID:-911}
+if [ ! "$(stat -c %u /config)" = "$PUID" ]; then
+	echo "Change in ownership detected, please be patient while we chown the config files"
+	echo "This could take some time"
+	chown abc:abc -R \
+	/config
+fi
+
+if [ ! "$(stat -c %u /data)" = "$PUID" ]; then
+	echo "Change in ownership detected, please be patient while we chown the data files (all the little files nut produces that are not games)"
+	echo "This could take some time"
+	chown abc:abc -R \
+	/data
+fi
+
+# permissions
+chown -R abc:abc \
+  /app/nut \
+	/config \
+	/data
