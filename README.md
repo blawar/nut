@@ -89,6 +89,8 @@ In this instance `PUID=1000` and `PGID=1000`, to find yours use `id user` as bel
 
 There is a web UI at `<your-ip>:9000`. It will take some time to scan the titles, so be patient.
 
+The default username and password is `guest:guest`. To change this, edit the `/config/users.conf` file.
+
 ## Docker Tips and Tricks
 
 The rest of this document concerns running `nut` from a local directory on Windows, and portions of it are no longer up to date.
