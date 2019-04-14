@@ -6,6 +6,10 @@ An application for serving Switch titles.
 
 Here are some example snippets to help you get started creating a container.
 
+Once you run these commands, you should be able to visit `http://<your-ip>:9000`, username `guest`, password `guest`.
+
+Force a scan using `http://<your-ip>:9000/api/scan`. By default, scans start between 0 and 30 seconds after interacting with `nut`, and typically take 10 seconds to 2 minutes depending on the size of your collection.
+
 ### docker
 
 ```
