@@ -427,12 +427,6 @@ if __name__ == '__main__':
 				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
 			nut.scan()
 			Usb.daemon()
-		
-		if args.download:
-			nut.initTitles()
-			nut.initFiles()
-			for d in args.download:
-				download(d)
 	
 		if args.scan:
 			nut.initTitles()
