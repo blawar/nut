@@ -10,7 +10,6 @@ import operator
 from nut import Config
 from nut import Print
 import threading
-import cdn
 
 global titles
 titles = None
@@ -318,9 +317,7 @@ def saveRegion(region, language):
 	saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
 
 def saveAll(fileName = 'titledb/titles.json'):
-	for region in cdn.regions():
-		for language in cdn.Shogun.countryLanguages(region):
-			saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
+	pass
 
 	save(fileName)
 

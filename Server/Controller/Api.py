@@ -11,7 +11,6 @@ import socket
 import struct
 import time
 import nut
-import cdn
 from nut import blockchain
 import urllib.parse
 import requests
@@ -413,15 +412,6 @@ def getUpdateDb(request, response):
 	Titles.save()
 	return success(request, response, "Fin")
 
-def getCdnDownloadAll(request, response):
-	nut.downloadAll()
-	return success(request, response, "Fin")
-
-def getCdnDownload(request, response):
-	for id in request.bits[2:]:
-		nut.download(id)
-	return success(request, response, "Fin")
-
 def getExport(request, response):
 	if len(request.bits) < 3:
 		return Server.Response500(request, response)
@@ -572,25 +562,4 @@ def getFileSize(request, response):
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
-def makeRequest(method, url, hdArgs={}):
 
-	reqHd = {
-		'User-Agent': 'NintendoSDK Firmware/%s (platform:NX; eid:%s)' % (Config.cdn.firmware, Config.cdn.environment),
-		'Accept-Encoding': 'gzip, deflate',
-		'Accept': '*/*',
-		'Connection': 'keep-alive'
-	}
-
-	reqHd.update(hdArgs)
-
-	r = requests.request(method, url, headers=reqHd, verify=False, stream=True)
-
-	if r.status_code == 403:
-		raise IOError('Request rejected by server! Check your cert ' + r.text)
-
-	return r
-
-def getProxy(request, response):
-	u = urllib.parse.unquote(request.bits[2])
-	r = makeRequest('get', u)
-	response.write(r.content)

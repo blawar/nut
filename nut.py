@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# place this file in your CDNSP directory
-# add the following line to the top of your CDNSP.py file:
-# from tqdm import tqdm
 
 import argparse
 import sys
@@ -20,7 +17,6 @@ if not getattr(sys, 'frozen', False):
 from nut import Title
 from nut import Titles
 from nut import Nsps
-import CDNSP
 import Fs
 from nut import Config
 import requests
@@ -34,8 +30,6 @@ import colorama
 import Server
 import pprint
 import random
-import cdn.Shogun
-import cdn.Superfly
 import queue
 import nut
 
@@ -82,47 +76,7 @@ def logNcaDeltas(file):
 	x.close()
 
 
-def scanDLC(id, showErr = True, dlcStatus = None):
-	id = id.upper()
-	title = Titles.get(id)
-	baseDlc = Title.baseDlcId(id)
-	for i in range(0x1FF):
-		scanId = format(baseDlc + i, 'X').zfill(16)
-		if Titles.contains(scanId):
-			continue
-		ver = CDNSP.get_version(scanId.lower())
-		if ver != None:
-			t = Title()
-			t.setId(scanId)
-			Titles.set(scanId, t)
-			Titles.save()
-			Print.info('Found new DLC ' + str(title.name) + ' : ' + scanId)
-		elif showErr:
-			Print.info('nothing found at ' + scanId + ', ' + str(ver))
-		if dlcStatus:
-			dlcStatus.add()
-	# CDNSP.get_version(args.info.lower())
 
-def scanDLCThread(queue, dlcStatus):
-	while queue.size() > 0 and Config.isRunning:
-		id = queue.shift()
-		if id:
-			scanDLC(id, False, dlcStatus)
-
-def startDlcScan(queue):
-	dlcStatus = Status.create(queue.size() * 0x200, 'DLC Scan')
-	#scanDLC(id)
-	threads = []
-	for i in range(nut.scrapeThreads):
-		t = threading.Thread(target=scanDLCThread, args=[queue, dlcStatus])
-		t.start()
-		threads.append(t)
-
-	for t in threads:
-		t.join()
-	dlcStatus.close()
-
-# 0100EBE002B3E000
 def getRandomTitleId():
 	n = random.randint(0, 0x10000000)
 	id = 0x100000000000000
@@ -130,41 +84,6 @@ def getRandomTitleId():
 	id += (n & 0xFFF0000) << 20
 
 	return format(id, 'X').zfill(16)
-
-def scanBaseThread(baseStatus):
-	while Config.isRunning:
-		try:
-			id = getRandomTitleId()
-
-			if Titles.contains(id):
-				continue
-
-			ver = CDNSP.get_version(id.lower())
-
-			if ver != None:
-				Print.info('Found new base ' + id)
-				t = Title()
-				t.setId(id)
-				Titles.set(id, t)
-				Titles.save()
-
-			baseStatus.add()
-		except BaseException as e:
-			print('exception: ' + str(e))
-
-def startBaseScan():
-	baseStatus = Status.create(pow(2,28), 'Base Scan')
-
-	threads = []
-	for i in range(nut.scrapeThreads):
-		t = threading.Thread(target=scanBaseThread, args=[baseStatus])
-		t.start()
-		threads.append(t)
-
-	for t in threads:
-		t.join()
-
-	baseStatus.close()
 
 		
 def refresh(titleRightsOnly = False):
@@ -257,49 +176,6 @@ def genTinfoilTitles():
 	nut.scanLatestTitleUpdates()
 	nut.export('titledb/versions.txt', ['id','rightsId', 'version'])
 
-def download(id):
-	bits = id.split(',')
-
-	version = None
-	key = None
-
-	if len(bits) == 1:
-		id = bits[0].upper()
-	elif len(bits) == 2:
-		id = bits[0].upper()
-		key = bits[1].strip()
-	elif len(bits) == 3:
-		id = bits[0].upper()
-		key = bits[1].strip()
-		version = bits[2].strip()
-	else:
-		Print.info('invalid args: ' + download)
-		return False
-
-	if key == '':
-		key = None
-
-	if version == '':
-		version = None
-
-	if len(id) != 16:
-		raise IOError('Invalid title id format')
-
-	if Titles.contains(id):
-		title = Titles.get(id)
-
-		if version == None:
-			version = title.lastestVersion()
-
-		if version == None:
-			if not title.key:
-				Titles.erase(id)
-			return False
-
-		CDNSP.download_game(title.id.lower(), version or title.lastestVersion(), key or title.key, True, '', True)
-	else:
-		CDNSP.download_game(id.lower(), version or CDNSP.get_version(id.lower()), key, True, '', True)
-	return True
 
 def matchDemos():
 	nut.initTitles()
@@ -389,29 +265,6 @@ if __name__ == '__main__':
 	try:
 		urllib3.disable_warnings()
 
-		#signal.signal(signal.SIGINT, handler)
-
-
-		CDNSP.tqdmProgBar = False
-
-
-		CDNSP.hactoolPath = Config.paths.hactool
-		CDNSP.keysPath = Config.paths.keys
-		CDNSP.NXclientPath = Config.paths.NXclientCert
-		CDNSP.ShopNPath = Config.paths.shopNCert
-		CDNSP.reg = Config.cdn.region
-		CDNSP.fw = Config.cdn.firmware
-		CDNSP.deviceId = Config.cdn.deviceId
-		CDNSP.env = Config.cdn.environment
-		CDNSP.dbURL = 'titles.txt'
-		CDNSP.nspout = Config.paths.nspOut
-
-
-		if CDNSP.keysPath != '':
-			CDNSP.keysArg = ' -k "%s"' % CDNSP.keysPath
-		else:
-			CDNSP.keysArg = ''
-
 
 		parser = argparse.ArgumentParser()
 		parser.add_argument('file',nargs='*')
@@ -420,8 +273,6 @@ if __name__ == '__main__':
 		parser.add_argument('--update', type=int, choices=[0, 1], default=Config.download.update*1, help='download title updates')
 		parser.add_argument('--dlc', type=int, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
 		parser.add_argument('--nsx', type=int, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
-		parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
-		parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
 		parser.add_argument('-i', '--info', help='show info about title or file')
 		parser.add_argument('--depth', type=int, default=1, help='max depth for file info and extraction')
 		parser.add_argument('-I', '--verify', nargs=2, help='verify title key TID TKEY')
@@ -434,9 +285,6 @@ if __name__ == '__main__':
 		parser.add_argument('--set-masterkey5', help='Changes the master key encryption for NSP.')
 		parser.add_argument('--remove-title-rights', nargs='+', help='Removes title rights encryption from all NCA\'s in the NSP.')
 		parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
-		parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
-		parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
-		parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
 		parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
 		parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 		parser.add_argument('--update-check', action="store_true", help='check for existing titles needing updates')
@@ -460,12 +308,6 @@ if __name__ == '__main__':
 		parser.add_argument('-K', '--export-verified-keys', help='Exports verified title keys from blockchain')
 		parser.add_argument('--export-keys', help='Exports title keys from blockchain')
 
-		parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
-		parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
-		parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
-
-		parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
-		parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
 
 		parser.add_argument('--refresh-regions', action="store_true", help='Refreshes the region and language mappings in Nut\'s DB')
 		parser.add_argument('--import-region', help='Localizes Nut\'s DB to the specified region')
@@ -563,10 +405,6 @@ if __name__ == '__main__':
 			f.open(args.seteshop, 'r+b')
 			f.setGameCard(False)
 			f.close()
-
-		if args.scrape_languages:
-			cdn.Shogun.saveLanguages()
-			exit(0)
 
 		if args.refresh_regions:
 			nut.refreshRegions()
@@ -685,46 +523,12 @@ if __name__ == '__main__':
 		if args.info:
 			nut.initTitles()
 			nut.initFiles()
-			if re.search(r'^[A-Fa-f0-9]+$', args.info.strip(), re.I | re.M | re.S):
-				Print.info('%s version = %s' % (args.info.upper(), CDNSP.get_version(args.info.lower())))
-			else:
-				print('reading')
-				f = Fs.factory(args.info)
-				f.open(args.info, 'r+b')
-				f.printInfo(args.depth+1)
-				'''
-				for i in f.cnmt():
-					for j in i:
-						Print.info(j._path)
-						j.rewind()
-						buf = j.read()
-						Hex.dump(buf)
-						j.seek(0x28)
-						#j.writeInt64(0)
-						Print.info('min: ' + str(j.readInt64()))
-				#f.flush()
-				#f.close()
-				'''
 
-		if args.scrape_shogun != None:
-			if len(args.scrape_shogun) == 0:
-				nut.scrapeShogunThreaded()
-			else:
-				nut.initTitles()
-				nut.initFiles()
-				for i in args.scrape_shogun:
-					if len(i) == 16:
-						l = cdn.Shogun.ids(i)
-						if not l or len(l) == 0 or len(l['id_pairs']) == 0:
-							print('no nsuId\'s found')
-						else:
-							print(l)
-							for t in l['id_pairs']:
-								print('nsuId: ' + str(t['id']))
-								print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
-								Titles.saveRegion('US', 'en')
-					else:
-						print('bleh')
+			print('reading')
+			f = Fs.factory(args.info)
+			f.open(args.info, 'r+b')
+			f.printInfo(args.depth+1)
+
 
 		if args.gen_tinfoil_titles:
 			genTinfoilTitles()

@@ -53,7 +53,14 @@ def generateKek(src, masterKey, kek_seed, key_seed):
 	else:
 		return src_kek
 
-	
+def unwrapAesWrappedTitlekey(wrappedKey, keyGeneration):
+	aes_kek_generation_source = uhx(keys['aes_kek_generation_source'])
+	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
+
+	kek = generateKek(uhx(keys['key_area_key_application_source']), uhx(keys['master_key_0' + str(keyGeneration)]), aes_kek_generation_source, aes_key_generation_source)
+
+	crypto = aes128.AESECB(kek)
+	return crypto.decrypt(wrappedKey)
 	
 
 def load(fileName):

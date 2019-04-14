@@ -280,7 +280,8 @@ figure {
 
 #popup {
 	display: none;
-	background: #fff;
+	background: #000;
+	color: #F00;
 	position: fixed;
 	left: 16%;
 	right: 16%;
@@ -304,7 +305,7 @@ figure {
 
 #game header {
 	box-shadow:2px 2px 25px #000000;
-	background: rgba(0,0,0,0.7);
+	background: rgba(255,255,255,0.7);
 	display: flex;
 }
 

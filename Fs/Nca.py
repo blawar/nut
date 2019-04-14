@@ -117,17 +117,16 @@ class NcaHeader(File):
 		#	key = encKeyBlock[offset:offset+0x10]
 		#	Print.info('enc %d: %s' % (i, hx(key)))
 
-		if Keys.keyAreaKey(self.masterKey, self.keyIndex):
-			crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, self.keyIndex))
-			self.keyBlock = crypto.decrypt(self.encKeyBlock)
-			self.keys = []
-			for i in range(4):
-				offset = i * 0x10
-				key = self.keyBlock[offset:offset+0x10]
-				#Print.info('dec %d: %s' % (i, hx(key)))
-				self.keys.append(key)
-		else:
-			self.keys = [None, None, None, None, None, None, None]
+
+		#crypto = aes128.AESECB(Keys.keyAreaKey(self.masterKey, 0))
+		self.keyBlock = Keys.unwrapAesWrappedTitlekey(self.encKeyBlock, self.masterKey)
+		self.keys = []
+		for i in range(4):
+			offset = i * 0x10
+			key = self.keyBlock[offset:offset+0x10]
+			#Print.info('dec %d: %s' % (i, hx(key)))
+			self.keys.append(key)
+
 		
 
 		if self.hasTitleRights():
@@ -143,7 +142,6 @@ class NcaHeader(File):
 
 	def key(self):
 		return self.keys[2]
-		return self.keys[self.cryptoType]
 
 	def hasTitleRights(self):
 		return self.rightsId != (b'0' * 32)

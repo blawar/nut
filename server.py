@@ -15,7 +15,6 @@ import nut
 from nut import Title
 from nut import Titles
 from nut import Nsps
-import CDNSP
 from nut import Config
 import time
 

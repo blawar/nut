@@ -5,6 +5,7 @@ from Fs.Rom import Rom
 from Fs.Nacp import Nacp
 from Fs.Pfs0 import Pfs0
 from Fs.Ticket import Ticket
+from Fs.Cnmt import Cnmt
 from Fs.File import File
 
 def factory(name):
@@ -20,6 +21,8 @@ def factory(name):
 		f =  Nacp()
 	elif name.endswith('.tik'):
 		f =  Ticket()
+	elif name.endswith('.cnmt'):
+		f =  Cnmt()
 	else:
 		f = File()
 
