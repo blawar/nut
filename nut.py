@@ -406,10 +406,6 @@ if __name__ == '__main__':
 			f.setGameCard(False)
 			f.close()
 
-		if args.refresh_regions:
-			nut.refreshRegions()
-			exit(0)
-
 		if args.import_region:
 			region = args.import_region.upper()
 			if not args.language:
@@ -527,42 +523,6 @@ if __name__ == '__main__':
 		if args.gen_tinfoil_titles:
 			genTinfoilTitles()
 
-		if args.scrape_title:
-			nut.initTitles()
-			nut.initFiles()
-
-			if not Titles.contains(args.scrape_title):
-				Print.error('Could not find title ' + args.scrape_title)
-			else:
-				Titles.get(args.scrape_title).scrape(False)
-				Titles.save()
-				#Print.info(repr(Titles.get(args.scrape_title).__dict__))
-				pprint.pprint(Titles.get(args.scrape_title).__dict__)
-
-		if args.scrape or args.scrape_delta:
-			nut.initTitles()
-			nut.initFiles()
-
-			threads = []
-			for i in range(nut.scrapeThreads):
-				t = threading.Thread(target=nut.scrapeThread, args=[i, args.scrape_delta])
-				t.start()
-				threads.append(t)
-
-			for t in threads:
-				t.join()
-		
-			Titles.save()
-			
-	
-		if args.Z:
-			nut.updateVersions(True)
-		
-		if args.z:
-			nut.updateVersions(False)
-		
-		if args.V:
-			nut.scanLatestTitleUpdates()
 
 		if args.unlock_all:
 			unlockAll()
@@ -577,10 +537,6 @@ if __name__ == '__main__':
 
 		if args.export_nca_map:
 			exportNcaMap(args.export_nca_map)
-		
-		if args.download_all:
-			nut.downloadAll()
-			Titles.save()
 		
 		if args.export:
 			nut.initTitles()
@@ -616,27 +572,8 @@ if __name__ == '__main__':
 		if len(sys.argv)==1:
 			nut.scan()
 			nut.organize()
-			nut.downloadAll()
-			nut.scanLatestTitleUpdates()
 			nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
-		if args.scan_dlc != None:
-			nut.initTitles()
-			nut.initFiles()
-			queue = Titles.Queue()
-			if len(args.scan_dlc) > 0:
-				for id in args.scan_dlc:
-					queue.add(id)
-			else:
-				for i,k in Titles.items():
-					if not k.isDLC and not k.isUpdate and k.id:
-						queue.add(k.id)
-			startDlcScan(queue)
-
-		if args.scan_base != None:
-			nut.initTitles()
-			nut.initFiles()
-			startBaseScan()
 
 		if args.export_verified_keys:
 			exportVerifiedKeys(args.export_verified_keys)
