@@ -555,7 +555,6 @@ if __name__ == '__main__':
 			matchDemos()
 
 		if args.server:
-			nut.startDownloadThreads()
 			nut.initTitles()
 			nut.initFiles()
 			Server.run()
