@@ -4,6 +4,8 @@ __pycache__/
 .DS_Store
 .idea
 
+qemu*
+
 conf/nut.conf
 conf/user.conf
 
