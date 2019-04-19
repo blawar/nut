@@ -1167,7 +1167,7 @@
             "ko",
             "zh"
         ],
-        "size": 2476736512
+        "size": 2557476864
     },
     "70010000003971": {
         "id": "01005250086C4000",
@@ -1632,7 +1632,53 @@
             "ru",
             "ko"
         ],
-        "size": 4950327296
+        "size": 4955570176
+    },
+    "70010000011410": {
+        "id": "01009EA00B714000",
+        "rightsId": "01009EA00B7140000000000000000005",
+        "name": "Horizon Chase Turbo",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190411,
+        "nsuId": 70010000011410,
+        "category": [
+            "Arcade",
+            "Carreras"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 4,
+        "rating": 6,
+        "developer": null,
+        "publisher": "AQUIRIS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/9cade10d0f8066ef29a87f0c908aa5ac3d1692b04d4a5a498643df31dac56790.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/0c1bbfb8fbb8d7a3c43251c93bf0f5d685f9232ed7e42f725df5270966aa787e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5528ae9732edad7a860e15d9084c863b013dd766a3f9c40cf2deb9220eaad64b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/817d4046e989f8f03098100e59b39474c2c8da1990671c66a92b9bb4a76bc4f9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ae929da8faa2a845ba7880c692e20c29006258c16990382ba4dbc6bcd7a81c6b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1632ae4919c496a56257de283dc8921934bacccf1dd292b2ed72ee4e342cd694.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/02ce5b0ee981033e96d9c216d8ca9105ba51253624798091cdf34cce320f8eef.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/949bd0bd5136e2445f8d91e8ebe14dff8b8c5929b38915e2bae3a60afbea10d4.jpg",
+        "intro": "Horizon Chase Turbo es un juego de carreras inspirado en grandes \u00e9xitos de los 80 y los 90 como Out Run, Top Gear, Rush, etc\u00e9tera. ",
+        "description": "UN HOMENAJE A LOS JUEGOS ARCADE CL\u00c1SICOS\nHorizon Chase Turbo es un juego de carreras inspirado en grandes \u00e9xitos de los 80 y los 90 como Out Run, Top Gear, Rush, etc\u00e9tera. Compite contra tus rivales y domina los circuitos, mientras revives el cl\u00e1sico sistema de juego arcade con una diversi\u00f3n y velocidad sin l\u00edmites.\n\nREGRESA EL MULTIJUGADOR LOCAL\nT\u00edrate en el sof\u00e1 con tu familia y tus amigos y revive esos viejos tiempos en los que jugabas en multijugador a pantalla partida durante toda la noche en cualquiera de los modos de juego.\n\nJUEGA COMO QUIERAS\nJuega individualmente o con amigos, recorre el mundo en la Vuelta al mundo, compite en carreras r\u00e1pidas en el torneo, sobrevive al modo Resistencia y mant\u00e9n la competitividad, mientras el juego evoluciona con el nuevo modo Playground.\n\nPLAYGROUND\nUn conjunto de carreras en constante cambio y con todo tipo de giros, desde contrarrelojes hasta cambios meteorol\u00f3gicos, pistas reflejadas y nitros infinitos. Supera los tiempos de los dem\u00e1s jugadores e intenta llegar al Top 50. \u00a1Nunca se sabe qu\u00e9 te deparar\u00e1 la siguiente temporada!\n\nGR\u00c1FICOS 16-BIT REINVENTADOS\nHorizon Chase Turbo est\u00e1 inspirado en el pasado pero no abandona su modernidad. Pilotar\u00e1s tu b\u00f3lido a trav\u00e9s de lugares extraordinarios, enfrentar\u00e1s cenizas volc\u00e1nicas y hasta tormentas de arena.\n\nBARRY LEITCH, LA LEYENDA\nHorizon Chase Turbo presenta a Barry Leitch, el m\u00fasico por detr\u00e1s de las bandas sonoras de cl\u00e1sicos de carreras como Lotus Turbo Challenge, Top Gear y Rush.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 1411383296
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -1824,7 +1870,7 @@
             "ko",
             "zh"
         ],
-        "size": 15278800896
+        "size": 15854469120
     },
     "70010000012879": {
         "id": "0100D870045B6000",
@@ -1867,7 +1913,7 @@
             "fr",
             "pt"
         ],
-        "size": 110100480
+        "size": 136314880
     },
     "70010000013359": {
         "id": "0100A4400BE74000",
@@ -1914,7 +1960,7 @@
             "ko",
             "zh"
         ],
-        "size": 6234832896
+        "size": 6289358848
     },
     "70010000013704": {
         "id": "010044500C182000",
@@ -2145,7 +2191,7 @@
             "it",
             "zh"
         ],
-        "size": 6466568192
+        "size": 7731150848
     },
     "70010000015568": {
         "id": "0100E5D00CC0C000",
@@ -2191,6 +2237,59 @@
             "it"
         ],
         "size": 2955935744
+    },
+    "70010000017136": {
+        "id": "010029600D56A000",
+        "rightsId": null,
+        "name": "Katana ZERO",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190418,
+        "nsuId": 70010000017136,
+        "category": [
+            "Acci\u00f3n",
+            "Arcade",
+            "Estrategia",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Derramamiento de sangre",
+            "Lenguaje fuerte",
+            "Temas insinuantes",
+            "Uso de drogas",
+            "Violencia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Devolver Digital",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/28d92cd1797707666ad227ced006001ff9bfa906d2656c54a2da39c96130f93a.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/c4383ef71642ef1511bc61a8d28e1a4b9d2e2536b66ededa47087ac31e129e3d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2c23ea896c9212a966850870d0997ac066ae788c16b22cb3b949807f9bc478c8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/53ce2731de528bdcfb82d318dc20eec376f05b7c82719f249cf08f9598c0d03f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4bc2ddd8e184b058ef69539165f670297b862e1686b6bb813892117ca020b53b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/60c86e1e97a38503de0268d68bf7366767492452986058aa5af118aaf132d1d6.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/90705df6f07f773dc504d0d3c6cb45a946d3949d18e135cccfbe6de5fb8ce2bb.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/58ff94c4934232a14fd6f3ee93730cd04c32dc248bae5514b582f2bc635a0d65.jpg",
+        "intro": null,
+        "description": "Katana ZERO es un juego de acci\u00f3n y plataformas neo-noir rebosante de personalidad, acci\u00f3n vertiginosa y combates de muerte instant\u00e1nea. Usa tu espada, corre y manipula el tiempo para desvelar tu pasado en un despliegue acrob\u00e1tico brutalmente est\u00e9tico.\n\nCombate excepcional: Supera a tus rivales seg\u00fan exija la situaci\u00f3n. Desv\u00eda las balas para devolv\u00e9rselas a tus enemigos, esquiva los ataques que recibas y manipula a tus contrincantes y los entornos con trampas y explosivos. No dejes supervivientes.\n\nSecuencias creadas a mano: Cada nivel ha sido dise\u00f1ado de manera \u00fanica para poder completarlo de incontables formas. Derrota a tus adversarios con creatividad, usando enfoques espont\u00e1neos para eliminar a cada cual como creas conveniente.\n\nNarraci\u00f3n totalmente original: Una enigm\u00e1tica historia contada a trav\u00e9s de secuencias cinem\u00e1ticas entretejidas en el juego, creando todo tipo de giros hasta llegar a la inesperada conclusi\u00f3n.",
+        "languages": [
+            "ja",
+            "en",
+            "pt",
+            "es",
+            "fr",
+            "de",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 372244480
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -2277,6 +2376,46 @@
             "it"
         ],
         "size": 2267021312
+    },
+    "70010000018692": {
+        "id": "010018300D006000",
+        "rightsId": null,
+        "name": "BOXBOY! + BOXGIRL!\u2122",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190426,
+        "nsuId": 70010000018692,
+        "category": [
+            "Rompecabezas",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Violencia moderada de fantasia"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/7a81c11f95b031e40780e853b46daf5d35ca3b43e098072ed652bb0dd70b290a.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2db72a09837776bbbadecd9df4b47b12fb70578d63791153fb6753fcc6fda2c3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/26d49b5ad2ff54dbebccd7243370f23b0924dfa93e8c54c3067a2035d1ec79c0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a10c1bc953a4c9bd3ea7403bec0e785cdcde4f264ab58f475d03385e6f604eeb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/19d03734ece507fb4b3568aeb352686813bda6886a3d1cd18d52137f33b9ab53.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/3e1e980bb4e15e0b8024f224e8d4fc3e75f0669a3f39a76bb7c8b113a6b43f94.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/8442f7f1fb66b56e4eebf3aca2bf8d53f65f80301185c34382a2d681852e99b1.jpg",
+        "intro": "Dos cajacerebros son mejor que uno",
+        "description": "\u00a1Con un poco de astucia podr\u00e1s salvar al mundo del peligro! Como Qbby o Qucy, crear\u00e1s cajas que utilizar\u00e1s para superar m\u00e1s de 270 enigm\u00e1ticos niveles, \u00a1la mayor cantidad de niveles en la serie hasta el d\u00eda de hoy! El planeta de las cajas est\u00e1 repleto de obst\u00e1culos, as\u00ed que salta, escala, mu\u00e9vete, conduce y \u00e1brete camino en tres diferentes modos, cada uno con su propia historia, niveles, desaf\u00edos y t\u00e9cnicas. \u00a1Incluso podr\u00e1s formar un equipo de dos jugadores para disfrutar de una aventura con las dos desafortunadas cajas!\n\nEl nuevo modo Aventura para dos permite (por primera vez en la historia de la serie) que dos jugadores resuelvan juntos los rompecabezas\u2026 \u00a1O solo un valiente jugador podr\u00e1 alternar entre Qbby y Qucy! Adem\u00e1s, hay una tercera aventura protagonizando a Qudy, el m\u00e1s alto, y gracias a sus cajas adicionales, \u00a1podr\u00e1s \u201crectangular\u201d m\u00e1s acertijos. Conforme vayas superando los niveles, ir\u00e1s descubriendo m\u00e1s, y si eres exitoso, recibir\u00e1s medallas que podr\u00e1s utilizar en la tienda del juego para adquirir accesorios, c\u00f3mics y \u00fatiles objetos. \u00bfLe pusiste el ojo a un incre\u00edble traje de marinero? Entonces prueba el Desaf\u00edo de globos, si atrapas todos los globos antes de que el tiempo finalice, \u00a1recibir\u00e1s medallas adicionales!",
+        "languages": [
+            "en",
+            "es",
+            "fr"
+        ],
+        "size": 569376768
     },
     "70010000019033": {
         "id": "01006BB00D45A000",
@@ -2394,6 +2533,33 @@
         "description": null,
         "languages": null,
         "size": 2387607552
+    },
+    "70030000006721": {
+        "id": null,
+        "rightsId": null,
+        "name": "BOXBOY! + BOXGIRL!\u2122 Demo",
+        "version": null,
+        "key": null,
+        "isDemo": true,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70030000006721,
+        "category": null,
+        "ratingContent": [
+            "Violencia moderada de fantasia"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 219152384
     },
     "70050000000183": {
         "id": "01007EF00011F001",
@@ -2828,7 +2994,7 @@
         "intro": null,
         "description": "\u00a1Juega como octoling por primera vez en este contenido descargable para Splatoon 2! Esta aventura completa para un solo jugador es protagonizada por un nuevo personaje, llamado Agente 8, que despierta en una oscura plataforma subterr\u00e1nea, tras haber perdido la memoria. \u00c1brete camino en esta misteriosa instalaci\u00f3n subterr\u00e1nea y libra un combate feroz para llegar a la superficie de Crom\u00f3polis. \u00a1Escapa de este laberinto ubicado en las profundidades y, finalmente, \u00fanete a las partidas multijugador como octoling!",
         "languages": null,
-        "size": 2159017984
+        "size": 2162163712
     },
     "70050000004341": {
         "id": "01003BC0000A1064",
@@ -2856,7 +3022,7 @@
         "intro": null,
         "description": "Quand vous achetez Splatoon 2 : Octo Expansion, que \u00e7a soit \u00e0 l\u2019avance ou apr\u00e8s le lancement, vous recevrez un acc\u00e8s imm\u00e9diat \u00e0 des objets en jeu sur le th\u00e8me des octariens (Casque pro Octa et Gilet double Octa).",
         "languages": null,
-        "size": 1048576
+        "size": 4194304
     },
     "70050000005541": {
         "id": "01005D100807B001",
@@ -3887,12 +4053,12 @@
     "70050000008422": {
         "id": "01006A800016F002",
         "rightsId": "01006A800016F0020000000000000005",
-        "name": "Paquete de aspirante 1",
+        "name": "Super Smash Bros.\u2122 Ultimate: Paquete de combatiente 1",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20190417,
         "nsuId": 70050000008422,
         "category": null,
         "ratingContent": [
@@ -3909,9 +4075,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/6799d6c0a8eb09351bcdcea68c6d1994df88c0ae4777a7e247ae2310f4390943.jpg",
-        "intro": null,
-        "description": "Este paquete de contenido descargable incluye:\n\u3000- Un combatiente nuevo\n\u3000- Un escenario nuevo\n\u3000- Varios temas nuevos\n\nSe ofrecer\u00e1 informaci\u00f3n adicional en una fecha posterior.",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/39b84c665ae3dcbfebf051b86541ef23b729a5876f0fa5442e9809b6490967ce.jpg",
+        "intro": "\u00a1Joker se une al combate! ",
+        "description": "\u00a1Joker se robar\u00e1 tu coraz\u00f3n al unirse como un luchador en el juego Super Smash Bros.\u2122 Ultimate! Este veloz luchador de la serie Persona empu\u00f1a un cuchillo y una pistola para causar un gran da\u00f1o. Cuando su medidor de rebeli\u00f3n est\u00e9 lleno, Joker, invocar\u00e1 a su Persona, Arsene, para incrementar sus poderes de ataque de inmediato, pero por tiempo limitado. Este paquete tambi\u00e9n incluye Mementos, \u00a1un escenario que cambia de color dependiendo de la pista musical de la serie Persona que est\u00e9 sonando en ese momento! \n\nEste paquete de aspirante 1 incluye a Joker como un personaje jugable, su escenario, Mementos y una selecci\u00f3n de pistas musicales de la serie Persona. \n\nNota: El contenido de este paquete de aspirante ya est\u00e1 incluido en el pase de combatientes de Super Smash Bros. Ultimate (se vende por separado). ",
         "languages": null,
         "size": 4194304
     },
@@ -4069,6 +4235,130 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000008428": {
+        "id": "01006A800016F01F",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Traje y peluca del personaje principal de Persona 3",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000008428,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e241c31f8610c1d820b81ca909c1bafbf0d842313e81f2e2ab89f1ccfa38750d.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el traje y la peluca del personaje principal de Persona 3.\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008429": {
+        "id": "01006A800016F020",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Traje y peluca del personaje principal de Persona 4",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000008429,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f0283d74fe00afb15283ae21a3ad89fd960a47f58700b27f463564ae1930b953.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el traje y la peluca del personaje principal de Persona 4.\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008430": {
+        "id": "01006A800016F021",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Gorro de Teddie",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000008430,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/36330900d07f9d7509daf534bea3f36cd1986bd3b2f4eaeb72e9f5b751d29d44.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el gorro de Teddie.\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000008431": {
+        "id": "01006A800016F022",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Gorro de Morgana",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000008431,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ef10c4e0d072651efc03d714e534deb9ef3695c0bfb91b0b5b773ab242dcfa79.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el gorro de Morgana.\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
     "70050000009021": {
         "id": "01001B300B9BF001",
         "rightsId": "01001B300B9BF0010000000000000005",
@@ -4139,12 +4429,12 @@
     "70050000009322": {
         "id": "010011600C947002",
         "rightsId": "010011600C9470020000000000000007",
-        "name": "Travis Strikes Again: No More Heroes - DLC #2",
+        "name": "Travis Strikes Again: No More Heroes - DLC #2 - Bubblegum Fatale",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20190430,
+        "releaseDate": 20190417,
         "nsuId": 70050000009322,
         "category": null,
         "ratingContent": [
@@ -4152,7 +4442,8 @@
             "Referencia a drogas",
             "Desnudez parcial",
             "Lenguaje fuerte",
-            "Violencia"
+            "Violencia",
+            "Compras dentro del juego"
         ],
         "numberOfPlayers": null,
         "rating": 17,
@@ -4160,12 +4451,18 @@
         "publisher": "Grasshopper Manufacture",
         "frontBoxArt": null,
         "iconUrl": null,
-        "screenshots": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/9de6c677a870f53b63593a13f7bdb9436510ecd71ff29d5867c44a2f744fd78d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/485c1f64a018baf0fe341906a3da1123e46701a41d3a27ac85ef46341a5d0523.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d51b03efbf52ee33d54f2c4e879376f25e87353245724bb8cfc3d5b851ea6243.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e7946eed7f0e38bf8d6ff8347a4474d0146a4ea99305be02acd6eeadd6e8298a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cb00ace77a9aaf775fc70accb26e58397fc7db9327a5d5fee7992a46a5af7b3d.jpg"
+        ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/027111e7449f37aa9c9cb141c52a50341d52dca33a9e4a156c56f1aa401cd79b.jpg",
         "intro": null,
-        "description": "Disponible el 30 de abril de 2019\n- Bad Girl (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Bad Girl\n- Expansi\u00f3n del nivel Killer Marathon\n- Una nueva habilidad (disponible al completar Killer Marathon)\n- Nuevo escenario Travis Strikes Back",
+        "description": "Este contenido descargable incluye:\n- Un nuevo personaje controlable: Bad Girl\n- Dos habilidades especiales para Bad Girl\n- Un mundo adicional: \"Killer Marathon\"\n- Una nueva habilidad\n- Contenido extra en la aventura de Travis\n\n",
         "languages": null,
-        "size": 6291456
+        "size": 246415360
     },
     "70050000009585": {
         "id": "01001B300B9BF00C",
@@ -4310,6 +4607,95 @@
         "description": "Paquete de idioma chino simplificado descargable de modo opcional para Diablo 3: Eternal Collection en Nintendo Switch.",
         "languages": null,
         "size": 5624561664
+    },
+    "70050000011198": {
+        "id": "01006A800016F023",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Traje y gorro de Tails",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000011198,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/20e6c3f172dfeff958a80f7f919610b904edf145842d29696669e98d08a34ed8.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el traje y el gorro de Tails.\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011199": {
+        "id": "01006A800016F024",
+        "rightsId": null,
+        "name": "\u3010Disfraz\u3011Traje y gorro de Knuckles",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190417,
+        "nsuId": 70050000011199,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Travesuras comicas",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/dca9a2cdf1352c9c9e37d495fca25297aa0e22861f025131fc30583b1086bbb9.jpg",
+        "intro": null,
+        "description": "Este contenido descargable incluye el traje y el gorro de Knuckles.\n\n\n\u203bUna vez realizada la compra, podr\u00e1s utilizarlo desde \u201cJuegos y dem\u00e1s\u201d \u2192 \u201cCombatientes Mii\u201d ",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011740": {
+        "id": "0100A4400BE75002",
+        "rightsId": null,
+        "name": "Paquete de niveles y personajes de Aventuras Gal\u00e1cticas",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190418,
+        "nsuId": 70050000011740,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "WB Games",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e41fa3e38a6282ff781235542117978a292fde8d419d6a701c16d92b8b5cc657.jpg",
+        "intro": null,
+        "description": "\u00a1Ve m\u00e1s all\u00e1 de la pel\u00edcula y disfruta de m\u00e1s aventuras gal\u00e1cticas con la General Caos y Rex Dangervest! Despu\u00e9s de la destrucci\u00f3n de la nave de la Liga de la Justicia, la General Caos debe encontrarlos y llevarlos al Planeta Spa. Con los planes de boda de la Reina arruinados, la General Caos debe completar su misi\u00f3n y regresar al palacio de la Reina para asegurarse de que la ceremonia se lleve a cabo.\n\nConoce a Rex Dangervest antes de convertirse en vaquero, pirata del espacio, arque\u00f3logo y entrenador de velociraptores como lo puedes ver en la pel\u00edcula. Mientras se prepara para llegar a ser una leyenda gal\u00e1ctica, debe entrenar a sus salvajes e incontrolables velociraptores. De las patinetas, a las armas, a los entrenamientos y reparaciones de la nave espacial, Rex necesita preparar a su tripulaci\u00f3n si quiere encontrar a Emmet.",
+        "languages": null,
+        "size": 532676608
     },
     "70070000000481": {
         "id": null,
@@ -4556,9 +4942,9 @@
         "screenshots": null,
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f7d2d4060267d2e77f665821b6acd79a5315c8f39c5566a98ff95a94efe48516.jpg",
         "intro": "\u00a1Entra al juego, literalmente!\nBlandiendo su Beam Katana,\n\u00a1Travis Strikes Again!",
-        "description": "Travis Strikes Again: No More Heroes - Digital Bundle contiene el juego principal y el pase de temporada.\n\n\u25bcTravis Strikes Again: No More Heroes\nVarios a\u00f1os despu\u00e9s de No More Heroes 2... Esta vez viajamos a un peque\u00f1o pueblo en medio de la nada al sur de Estados Unidos. Bad Man aparece en el tr\u00e1iler en el que Travis ha estado viviendo para vengarse del asesinato de su hija, Bad Girl, y algo sale terriblemente mal. Al pelear, los dos son absorbidos hacia el mundo de los videojuegos de la legendaria consola Death Drive MkII.\n\n\u00a1Dale un Joy-Con\u2122 a un amigo para que se una en cualquier momento y lugar! \n\u00a1Incluye colaboraciones con varios juegos indies!\n\u00a1Contiene muchas risas y diversi\u00f3n de la serie No More Heroes, como guardar tu partida en el inodoro!\n\nInicia esta una nueva aventura con el otaku asesino m\u00e1s rudo de los videojuegos.\nBlandiendo su Beam Katana, \u00a1Travis Strikes Again! \n\n\u25bcTravis Strikes Again: No More Heroes - EL PASE DE TEMPORADA\n\nDisponible el 28 de febrero de 2019\n- Shinobu (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Shinobu\n- Aventura Badman Strikes Back\n\nDisponible el 30 de abril de 2019\n- Bad Girl (disponible despu\u00e9s de completar el juego)\n- Dos habilidades exclusivas de Bad Girl\n- Expansi\u00f3n del nivel Killer Marathon\n- Una nueva habilidad (disponible al completar Killer Marathon)\n- Nuevo escenario Travis Strikes Back\n",
+        "description": "Este pack est\u00e1 compuesto por el juego Travis Strikes Again: No More Heroes y el pase de temporada Travis Strikes Again, que te permite reservar de una vez una enorme cantidad de contenido descargable.\n\nTRAVIS STRIKES AGAIN: NO MORE HEROES\nTravis ha vuelto... \u00a1y con clase!\nTras quedar atrapado en la m\u00edtica consola Death Drive Mk II, \u00a1en tus manos est\u00e1 eliminar a los escurridizos jefes con los que te encuentres!\nCompleta todos los juegos y re\u00fane las seis Death Balls para que tus deseos se hagan realidad... o eso dicen.\n\u00a1Vive una emocionante aventura y en busca de las Death Balls!\n\u00a1C\u00e9dele un mando Joy-Con a un amigo y luchad codo a codo en el modo cooperativo!\n\nPASE DE TEMPORADA TRAVIS STRIKES AGAIN\nCon este pase de temporada se puede reservar una gran cantidad de contenido descargable de una sola vez. Incluye dos packs de contenido descargable: \n\nContenido descargable 1 - Black Dandelion\nEste contenido descargable incluye:\n- Un nuevo personaje controlable\n- Dos habilidades especiales para Shinobu Jacobs\n- Una nueva aventura con Badman como protagonista\n\nContenido descargable 2 - Bubblegum Fatale\nEste contenido descargable incluye:\n- Un nuevo personaje controlable: Bad Girl\n- Dos habilidades especiales para Bad Girl\n- Un mundo adicional: \"Killer Marathon\"\n- Una nueva habilidad\n- Contenido extra en la aventura de Travis\n\n* Las caracter\u00edsticas y las fechas de lanzamiento de los contenidos descargables que aqu\u00ed se mencionan podr\u00edan sufrir modificaciones.\n",
         "languages": null,
-        "size": 6613368832
+        "size": 8118075392
     },
     "70070000005062": {
         "id": null,
