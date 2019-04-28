@@ -32,8 +32,8 @@ def getByTitleId(id):
 	
 def scan(base, force = False):
 	global hasScanned
-	if hasScanned and not force:
-		return
+	#if hasScanned and not force:
+	#	return
 
 	hasScanned = True
 	i = 0
