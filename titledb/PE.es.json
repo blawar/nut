@@ -442,7 +442,7 @@
             "nl",
             "zh"
         ],
-        "size": 14120124416
+        "size": 17573085184
     },
     "70010000000705": {
         "id": "010095A004040000",
@@ -1682,7 +1682,7 @@
     },
     "70010000011664": {
         "id": "010096000B3EA000",
-        "rightsId": null,
+        "rightsId": "010096000B3EA0000000000000000004",
         "name": "Octopath Traveler\u2122 - Prologue Demo Version",
         "version": null,
         "key": null,
@@ -2231,7 +2231,7 @@
             "de",
             "it"
         ],
-        "size": 24357371904
+        "size": 24182259712
     },
     "70010000015568": {
         "id": "0100E5D00CC0C000",
@@ -2609,7 +2609,7 @@
         "size": 2387607552
     },
     "70030000006721": {
-        "id": null,
+        "id": "0100B7200E02E000",
         "rightsId": null,
         "name": "BOXBOY! + BOXGIRL!\u2122 Demo",
         "version": null,
@@ -5427,7 +5427,7 @@
         "intro": null,
         "description": "Lidera a un grupo de pilotos interestelares, dedicados a liberar al sistema estelar Atlas del yugo de Grax y la Legi\u00f3n Olvidada.\n\nComienza tu aventura con la primera colecci\u00f3n completa de la flota de Starlink para derrotar a Grax con el juego de Starlink: Battle for Atlas\u2122, 6 naves espaciales, 10 pilotos y 15 armas incluidas. \n\nNaves espaciales:\nArwing\nZenith\nNeptune\nPulse\nLance\nNadir \n\nPilotos:\nFox McCloud\nMason Rana \nLevi McCray\nJudge\nChase da Silva\nHunter Hakka\nShaid\nRazor Lemay\nEli Arborwood\nKharl Zeon \n\nArmas:\nLanzallamas \nAvalancha congelada \nTrituradora\nIron Fist\nCrusher\nShockwave\nHailstorm\nLevitator\nVolcano\nImploder\nMisiles anulantes\nFreeze Ray Mk.2\nShredder Mk.2\nGauss Gun Mk.2\nMeteor Mk.2 \n\nMezcla y une partes para personalizar tu nave espacial y crea tu propio estilo de juego con habilidades de piloto \u00fanicas y armas. Exclusivo de Nintendo Switch\u2122: \u00a1El piloto Fox McCloud, la nave Arwing y misiones exclusivas!",
         "languages": null,
-        "size": 14170456064
+        "size": 17623416832
     },
     "70070000003621": {
         "id": null,
@@ -5548,6 +5548,6 @@
         "intro": null,
         "description": "Mortal\u00a0Kombat\u00a011, la m\u00e1s reciente entrega de la aclamada franquicia, te ofrece una experiencia m\u00e1s profunda y personalizada que nunca. Con las nuevas variantes de personaje tendr\u00e1s un control sin precedentes para personalizar a tus luchadores y hacerlos \u00fanicos.\n\nLa Edici\u00f3n Pr\u00e9mium de Mortal\u00a0Kombat\u00a011 incluye:\n\u2022 Juego principal\n\u2022 Paquete de Kombate\n\nEl Paquete de Kombate incluye:\n\u2022 6\u00a0nuevos personajes de contenido descargable, lanzados con el tiempo\n\u2022 7\u00a0skins de personaje exclusivas\n\u2022 7\u00a0conjuntos de equipo\n exclusivos",
         "languages": null,
-        "size": 24411897856
+        "size": 24236785664
     }
 }

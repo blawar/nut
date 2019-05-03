@@ -925,7 +925,7 @@
     },
     "70010000009644": {
         "id": "010030D005AE6000",
-        "rightsId": null,
+        "rightsId": "010030D005AE60000000000000000000",
         "name": "\u30dd\u30c3\u62f3\u3000POKK\u00c9N TOURNAMENT DX \u9ad4\u9a57\u7248",
         "version": null,
         "key": null,
@@ -960,7 +960,7 @@
     },
     "70010000009646": {
         "id": "01005A70096FA000",
-        "rightsId": null,
+        "rightsId": "01005A70096FA0000000000000000004",
         "name": "\u661f\u4e4b\u5361\u6bd4 \u65b0\u661f\u540c\u76df \u9ad4\u9a57\u7248",
         "version": null,
         "key": null,
@@ -2176,7 +2176,7 @@
     },
     "70010000011858": {
         "id": "010096000B3EA000",
-        "rightsId": null,
+        "rightsId": "010096000B3EA0000000000000000004",
         "name": "OCTOPATH TRAVELER Prologue Demo",
         "version": null,
         "key": null,
@@ -2667,7 +2667,7 @@
     },
     "70010000012421": {
         "id": "01002C400B6B6000",
-        "rightsId": null,
+        "rightsId": "01002C400B6B60000000000000000004",
         "name": "\u9032\u3081\uff01\u30ad\u30ce\u30d4\u30aa\u968a\u9577 \u9ad4\u9a57\u7248",
         "version": null,
         "key": null,
@@ -3083,7 +3083,7 @@
     },
     "70010000013033": {
         "id": "010075A00B7C8000",
-        "rightsId": null,
+        "rightsId": "010075A00B7C80000000000000000004",
         "name": "\u3010\u9ad4\u9a57\u7248\u3011\u592a\u9f13\u4e4b\u9054\u4eba Nintendo Switch\u7248\uff01",
         "version": null,
         "key": null,
@@ -3115,7 +3115,7 @@
     },
     "70010000013036": {
         "id": "010016A00BA0C000",
-        "rightsId": null,
+        "rightsId": "010016A00BA0C0000000000000000004",
         "name": "\u9ad8\u9ad8\u8208\u8208\u52d5\u7269\u6a02\u5712\u3000\u9ad4\u9a57\u7248",
         "version": null,
         "key": null,
@@ -3713,7 +3713,7 @@
     },
     "70010000013626": {
         "id": "01007CC00BA2A000",
-        "rightsId": null,
+        "rightsId": "01007CC00BA2A0000000000000000005",
         "name": "\u65b9\u584a\u5275\u9020\u8005X \u9ad4\u9a57\u7248",
         "version": null,
         "key": null,
@@ -3753,7 +3753,7 @@
     },
     "70010000013722": {
         "id": "0100E6400B1EA000",
-        "rightsId": null,
+        "rightsId": "0100E6400B1EA0000000000000000005",
         "name": "MONSTER HUNTER GENERATIONS ULTIMATE\u2122 Demo",
         "version": null,
         "key": null,
@@ -5282,7 +5282,7 @@
     },
     "70010000018203": {
         "id": "0100A5B00BDC6000",
-        "rightsId": null,
+        "rightsId": "0100A5B00BDC60000000000000000007",
         "name": "FINAL FANTASY VII",
         "version": null,
         "key": null,
@@ -11833,7 +11833,7 @@
     },
     "70050000011528": {
         "id": "0100F4C00B1DF017",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0170000000000000007",
         "name": "\u8f15\u9b06\u9020\u93ae\u9053\u5177\u5305",
         "version": null,
         "key": null,
@@ -11858,7 +11858,7 @@
     },
     "70050000011529": {
         "id": "0100F4C00B1DF00E",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF00E0000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u85a9\u723e\u535a\u683c",
         "version": null,
         "key": null,
@@ -11883,7 +11883,7 @@
     },
     "70050000011530": {
         "id": "0100F4C00B1DF00F",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF00F0000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u845b\u62c9\u59c6\u5948\u7279",
         "version": null,
         "key": null,
@@ -11908,7 +11908,7 @@
     },
     "70050000011571": {
         "id": "0100F4C00B1DF010",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0100000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u4f0a\u8389\u7d72",
         "version": null,
         "key": null,
@@ -11933,7 +11933,7 @@
     },
     "70050000011572": {
         "id": "0100F4C00B1DF011",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0110000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u746a\u90a3\u5b78\u5712",
         "version": null,
         "key": null,
@@ -11958,7 +11958,7 @@
     },
     "70050000011573": {
         "id": "0100F4C00B1DF012",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0120000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u4e9e\u862d\u5fb7",
         "version": null,
         "key": null,
@@ -11983,7 +11983,7 @@
     },
     "70050000011574": {
         "id": "0100F4C00B1DF013",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0130000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u9ec3\u660f",
         "version": null,
         "key": null,
@@ -12008,7 +12008,7 @@
     },
     "70050000011575": {
         "id": "0100F4C00B1DF00D",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF00D0000000000000007",
         "name": "37\u4eba\u670d\u88dd\u5305",
         "version": null,
         "key": null,
@@ -12033,7 +12033,7 @@
     },
     "70050000011576": {
         "id": "0100F4C00B1DF016",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0160000000000000007",
         "name": "\u934a\u91d1\u5de5\u623f20\u9031\u5e74\u6539\u7de8BGM\u5305",
         "version": null,
         "key": null,
@@ -12058,7 +12058,7 @@
     },
     "70050000011577": {
         "id": "0100F4C00B1DF015",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0150000000000000007",
         "name": "\u984d\u5916\u7684\u6545\u4e8b",
         "version": null,
         "key": null,
@@ -12083,7 +12083,7 @@
     },
     "70050000011606": {
         "id": "0100F4C00B1DF014",
-        "rightsId": null,
+        "rightsId": "0100F4C00B1DF0140000000000000007",
         "name": "\u8a2d\u65bd\u5305\uff1a\u4e0d\u53ef\u601d\u8b70",
         "version": null,
         "key": null,
@@ -12105,6 +12105,56 @@
         "description": "\u505a\u70ba\u5b63\u7968\u300c\u50b3\u8aaa\u7684\u9020\u93ae\u7d44\u5408\u300d\u6240\u767c\u4f48\u7684\u8a2d\u65bd\u5305\u3002\n\n\u65bc\u57ce\u93ae\u5efa\u7bc9\u5546\u5e97\u3001\u5de5\u623f\u6642\uff0c\u5176\u5916\u89c0\u53ef\u9078\u64c7\u8c61\u5fb5\u4e0d\u53ef\u601d\u8b70\u7cfb\u5217\u7684\u984f\u8272\u3002\n\u203b\u8a2d\u65bd\u7684\u5efa\u7bc9\u53ef\u65bc\u5e73\u65e5\u7684\u4e3b\u8981\u9078\u55ae\u300c\u5efa\u8a2d\u57ce\u93ae\u300d\u9032\u884c\u3002\n\u203b\u6b64\u7522\u54c1\u4ea6\u53ef\u55ae\u7368\u8cfc\u8cb7\u3002",
         "languages": null,
         "size": 411041792
+    },
+    "70050000011903": {
+        "id": "01003C700009D005",
+        "rightsId": "01003C700009D0050000000000000005",
+        "name": "\u300aSplatoon\u2122 2 (\u65e5\u6587\u7248)\u300bNintendo Switch Online\u9650\u5b9a\u88dd\u5099",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190423,
+        "nsuId": 70050000011903,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a23d1ef3b585f79db54f5797e1f5173db5b04ee5d149d8db7ed0f1db44cd3794.jpg",
+        "intro": null,
+        "description": "\u5df2\u52a0\u5165Nintendo Switch Online\u300c\u500b\u4eba\u8a08\u5283\u768412\u500b\u6708\uff08365\u65e5\uff09\u4f7f\u7528\u52b5\u300d\u6216\u300c\u5bb6\u5ead\u8a08\u528312\u500b\u6708\uff08365\u65e5\uff09\u4f7f\u7528\u52b5\u300d\u4e4b\u73a9\u5bb6\uff0c\u53ef\u7372\u8d08\u5728\u300aSplatoon2\u300b\u88dd\u5099\u7684Nintendo Switch Online\u9650\u5b9a\u88dd\u5099\u4e0b\u8f09\u5e8f\u865f\u3002",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011904": {
+        "id": "01003BC0000A1005",
+        "rightsId": "01003BC0000A10050000000000000005",
+        "name": "\u300aSplatoon\u2122 2 (\u82f1\u6587\u7248)\u300bNintendo Switch Online\u9650\u5b9a\u88dd\u5099",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190423,
+        "nsuId": 70050000011904,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b0b183a9860296016649fadb03b929411e7e5e0809af241e2e9652ebf0c5a715.jpg",
+        "intro": null,
+        "description": "\u5df2\u52a0\u5165Nintendo Switch Online\u300c\u500b\u4eba\u8a08\u5283\u768412\u500b\u6708\uff08365\u65e5\uff09\u4f7f\u7528\u52b5\u300d\u6216\u300c\u5bb6\u5ead\u8a08\u528312\u500b\u6708\uff08365\u65e5\uff09\u4f7f\u7528\u52b5\u300d\u4e4b\u73a9\u5bb6\uff0c\u53ef\u7372\u8d08\u5728\u300aSplatoon2\u300b\u88dd\u5099\u7684Nintendo Switch Online\u9650\u5b9a\u88dd\u5099\u4e0b\u8f09\u5e8f\u865f\u3002",
+        "languages": null,
+        "size": 4194304
     },
     "70070000002461": {
         "id": null,

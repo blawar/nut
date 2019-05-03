@@ -442,7 +442,7 @@
             "nl",
             "zh"
         ],
-        "size": 14120124416
+        "size": 17573085184
     },
     "70010000000705": {
         "id": "010095A004040000",
@@ -1682,7 +1682,7 @@
     },
     "70010000011664": {
         "id": "010096000B3EA000",
-        "rightsId": null,
+        "rightsId": "010096000B3EA0000000000000000004",
         "name": "Octopath Traveler\u2122 - Prologue Demo Version",
         "version": null,
         "key": null,
@@ -2231,7 +2231,7 @@
             "de",
             "it"
         ],
-        "size": 24357371904
+        "size": 24182259712
     },
     "70010000015568": {
         "id": "0100E5D00CC0C000",
@@ -2609,7 +2609,7 @@
         "size": 2387607552
     },
     "70030000006721": {
-        "id": null,
+        "id": "0100B7200E02E000",
         "rightsId": null,
         "name": "BOXBOY! + BOXGIRL!\u2122 Demo",
         "version": null,
@@ -5427,7 +5427,7 @@
         "intro": null,
         "description": "Lead a group of interstellar pilots dedicated to free the Atlas Star System from Grax and the Forgotten Legion.\n\nStart your adventure with the full first collection of the Starlink Fleet to defeat Grax with the Starlink: Battle for Atlas\u2122 game, 6 Starships, 10 Pilots, and 15 Weapons included. \n\nStarships:\nArwing\nZenith\nNeptune\nPulse\nLance\nNadir \n\nPilots:\nFox McCloud\nMason Rana \nLevi McCray\nJudge\nChase da Silva\nHunter Hakka\nShaid\nRazor Lemay\nEli Arborwood\nKharl Zeon \n\nWeapons:\nFlamethrower \nFrost Barrage \nShredder\nIron Fist\nCrusher\nShockwave\nHailstorm\nLevitator\nVolcano\nImploder\nNullifier Missiles\nFreeze Ray Mk.2\nShredder Mk.2\nGauss Gun Mk.2\nMeteor Mk.2 \n\nMix and match parts to customize your starship, and build your own playstyle with unique pilot abilities and weapons. Nintendo Switch\u2122 System exclusive: Fox McCloud Pilot, Arwing Ship, and exclusive missions!",
         "languages": null,
-        "size": 14170456064
+        "size": 17623416832
     },
     "70070000003621": {
         "id": null,
@@ -5548,6 +5548,6 @@
         "intro": null,
         "description": "Mortal Kombat\u00a011 is the latest installment in the critically acclaimed franchise, providing a deeper and more personalized experience than ever before. The all new Custom Character Variations give you unprecedented control of your fighters to make them your own. \n \nThe Mortal Kombat\u00a011 Premium Edition includes: \n\u2022 Main Game\n\u2022 Kombat Pack\n \nThe Kombat Pack includes:\n\u2022 6 new DLC playable characters, released over time \n\u2022 7 exclusive Character Skins\n\u2022 7 exclusive sets of gear",
         "languages": null,
-        "size": 24411897856
+        "size": 24236785664
     }
 }

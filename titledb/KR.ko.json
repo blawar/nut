@@ -998,7 +998,7 @@
     },
     "70010000009646": {
         "id": "01005A70096FA000",
-        "rightsId": null,
+        "rightsId": "01005A70096FA0000000000000000004",
         "name": "\ubcc4\uc758 \ucee4\ube44 \uc2a4\ud0c0 \uc5bc\ub77c\uc774\uc988 \uccb4\ud5d8\ud310",
         "version": null,
         "key": null,
@@ -2329,7 +2329,7 @@
     },
     "70010000011858": {
         "id": "010096000B3EA000",
-        "rightsId": null,
+        "rightsId": "010096000B3EA0000000000000000004",
         "name": "OCTOPATH TRAVELER Prologue Demo",
         "version": null,
         "key": null,
@@ -2782,7 +2782,7 @@
     },
     "70010000012421": {
         "id": "01002C400B6B6000",
-        "rightsId": null,
+        "rightsId": "01002C400B6B60000000000000000004",
         "name": "Captain Toad: Treasure Tracker \uccb4\ud5d8\ud310",
         "version": null,
         "key": null,
@@ -3194,7 +3194,7 @@
     },
     "70010000013033": {
         "id": "010075A00B7C8000",
-        "rightsId": null,
+        "rightsId": "010075A00B7C80000000000000000004",
         "name": "\u3010\uccb4\ud5d8\ud310\u3011\ud0dc\uace0\uc758 \ub2ec\uc778 Nintendo Switch \ubc84~\uc804!",
         "version": null,
         "key": null,
@@ -3226,7 +3226,7 @@
     },
     "70010000013036": {
         "id": "010016A00BA0C000",
-        "rightsId": null,
+        "rightsId": "010016A00BA0C0000000000000000004",
         "name": "\ub450\uadfc\ub450\uadfc \ub3d9\ubb3c \ub79c\ub4dc \uccb4\ud5d8\ud310",
         "version": null,
         "key": null,
@@ -3929,7 +3929,7 @@
     },
     "70010000013626": {
         "id": "01007CC00BA2A000",
-        "rightsId": null,
+        "rightsId": "01007CC00BA2A0000000000000000005",
         "name": "\ud050\ube0c \ud06c\ub9ac\uc5d0\uc774\ud130 X \uccb4\ud5d8\ud310",
         "version": null,
         "key": null,
@@ -5550,7 +5550,7 @@
     },
     "70010000018203": {
         "id": "0100A5B00BDC6000",
-        "rightsId": null,
+        "rightsId": "0100A5B00BDC60000000000000000007",
         "name": "FINAL FANTASY VII",
         "version": null,
         "key": null,
@@ -14040,6 +14040,33 @@
         "description": "\u300eDEAD OR ALIVE Xtreme 3 Scarlet\u300f\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 \uc218\uc601\ubcf5\uc785\ub2c8\ub2e4.\n\n\uc78e\uc0ac\uadc0\ub97c \ubaa8\ud2f0\ube0c\ub85c \ud55c \uc218\uc601\ubcf5\uc73c\ub85c, \uc57c\uc131\ubbf8 \ub118\uce58\ub294 \ub300\ub2f4\ud55c \ub514\uc790\uc778\uc785\ub2c8\ub2e4.\n\uac01 \uce90\ub9ad\ud130\uc758 \uc774\ubbf8\uc9c0\uc5d0 \ub9de\ucd94\uc5b4 \uc7a5\uc2dd\ub41c \uaf43\uc774 \ud3ec\uc778\ud2b8\uc785\ub2c8\ub2e4.\n \n\u25a0\ucd94\uac00\ub418\ub294 \uc218\uc601\ubcf5 \ub9ac\uc2a4\ud2b8\n\uc775\uc2a4\ud2b8\ub9bc \uc139\uc2dc \ucf54\uc2a4\ud2ac V (\uc5d8\ub808\ub098)",
         "languages": null,
         "size": 9437184
+    },
+    "70050000011904": {
+        "id": "01003BC0000A1005",
+        "rightsId": "01003BC0000A10050000000000000005",
+        "name": "\u300eSplatoon 2\u300f \ud55c\uc815 \uc7a5\ube44",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190423,
+        "nsuId": 70050000011904,
+        "category": null,
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 0,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b0b183a9860296016649fadb03b929411e7e5e0809af241e2e9652ebf0c5a715.jpg",
+        "intro": null,
+        "description": "Nintendo Switch Online\uc758 \u300c\uac1c\uc778 \ud50c\ub79c 12\uac1c\uc6d4(365\uc77c\uac04) \uc774\uc6a9\uad8c\u300d, \ub610\ub294 \u300c\ud328\ubc00\ub9ac \ud50c\ub79c 12\uac1c\uc6d4(365\uc77c\uac04) \uc774\uc6a9\uad8c\u300d\uc73c\ub85c \uac00\uc785(\uad6c\uc785)\ud558\uc2e0 \ubd84\uc774\ub77c\uba74 \ub204\uad6c\ub098 \u300eSplatoon 2\u300f\uc5d0\uc11c \uc0ac\uc6a9 \uac00\ub2a5\ud55c Nintendo Switch Online \ud55c\uc815 \uc7a5\ube44\uc758 \ub2e4\uc6b4\ub85c\ub4dc \ubc88\ud638\ub97c \uc120\ubb3c\ubc1b\uc744 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": null,
+        "size": 4194304
     },
     "70070000002481": {
         "id": null,
