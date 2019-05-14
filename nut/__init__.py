@@ -203,3 +203,10 @@ def updateDb(url, c=0):
 		Print.info('Error downloading:' + str(e))
 
 
+def downloadFile(url, fPath):
+	fName = os.path.basename(fPath).split()[0]
+	r = makeRequest('GET', url)
+	with open(fPath, 'wb') as f:
+		f.write(r.content)
+	Print.debug('\r\nSaved to %s!' % f.name)
+	return fPath
