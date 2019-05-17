@@ -1445,6 +1445,55 @@
         ],
         "size": 2696937472
     },
+    "70010000006442": {
+        "id": "01002B30028F6000",
+        "rightsId": "01002B30028F60000000000000000004",
+        "name": "Celeste",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000006442,
+        "category": [
+            "Acci\u00f3n",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Referencia al alcohol",
+            "Violencia de fantasia",
+            "Lenguaje moderado"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Matt Makes Games Inc.",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/64a18f84f1ff5bdcf5ccfe4c89a8b1fc4642d8afc281001cc62b36f0396aef4b.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/4f74fbbab423aba0acc28f954643f112946a9c9318e9543fd1ddea4f863fea81.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dd649ca9811831baff09db2e1adbab93f9ac2bbe058d76759c1aef8a2b20b2a6.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1e79086b6e592aced95d11da2481212b9819d7b51df315d16b577bd1236e1f4a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5427aef20c3e611418739fa0f497eb1196f599b7cf03b07b13bc4bc8c41f8569.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/79be8902941947e79b8b86008aaa5beb960b1a5f97500b126772dc11d5146236.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/fc250befc44966777a68ceeeaf1f9770ccc911e9c2cc8c5f31e7d1c43b90628d.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252.jpg",
+        "intro": "Enfrenta cientos de desaf\u00edos dise\u00f1ados a mano en este intenso juego de plataformas y ayuda a Madeline a sobrevivir en su ascenso a la Monta\u00f1a Celeste.",
+        "description": "Ayuda a Madeline a superar sus demonios internos en su traves\u00eda a la cima de la Monta\u00f1a Celeste, en este intenso juego de plataformas dise\u00f1ado a mano por los creadores del cl\u00e1sico TowerFall.\n\n \u2022 Aventura de un jugador enfocada en la narrativa, como los cuentos de mam\u00e1, con encantadores personajes y una historia conmovedora de autodescubrimiento.\n \u2022 Monta\u00f1a inmensa con m\u00e1s de 700 pantallas de arduos desaf\u00edos y secretos ocultos.\n \u2022 Cap\u00edtulos \"lado B\" brutales para desbloquear; para los monta\u00f1eros m\u00e1s osados.\n \u2022 Finalista en \u201cExcellence in Audio\u201d de IGF; m\u00e1s de 2 horas de m\u00fasica original con un fascinante piano y pegadizos ritmos de sintetizador.\n \u2022 Pastel\n\nLos controles son sencillos y accesibles: salta, acelera en el aire y escala, pero con varias capas de profundidad expresiva para dominar, pues cada muerte deja una lecci\u00f3n. Las reapariciones inmediatas te permiten seguir escalando conforme develas misterios y te enfrentas a numerosos peligros.\n\nEs el momento, Madeline. Respira hondo. T\u00fa puedes hacerlo.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "zh"
+        ],
+        "size": 1315962880
+    },
     "70010000006801": {
         "id": "010008900705C000",
         "rightsId": "010008900705C0000000000000000003",

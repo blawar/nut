@@ -1445,6 +1445,55 @@
         ],
         "size": 2696937472
     },
+    "70010000006442": {
+        "id": "01002B30028F6000",
+        "rightsId": "01002B30028F60000000000000000004",
+        "name": "Celeste",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000006442,
+        "category": [
+            "Action",
+            "Platformer"
+        ],
+        "ratingContent": [
+            "Alcohol Reference",
+            "Fantasy Violence",
+            "Mild Language"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Matt Makes Games Inc.",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/64a18f84f1ff5bdcf5ccfe4c89a8b1fc4642d8afc281001cc62b36f0396aef4b.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/4f74fbbab423aba0acc28f954643f112946a9c9318e9543fd1ddea4f863fea81.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dd649ca9811831baff09db2e1adbab93f9ac2bbe058d76759c1aef8a2b20b2a6.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1e79086b6e592aced95d11da2481212b9819d7b51df315d16b577bd1236e1f4a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5427aef20c3e611418739fa0f497eb1196f599b7cf03b07b13bc4bc8c41f8569.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/79be8902941947e79b8b86008aaa5beb960b1a5f97500b126772dc11d5146236.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/fc250befc44966777a68ceeeaf1f9770ccc911e9c2cc8c5f31e7d1c43b90628d.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252.jpg",
+        "intro": "Brave hundreds of hand-crafted challenges in this super-tight platformer, as you help Madeline survive her journey to the top of Celeste Mountain!",
+        "description": "Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight, hand-crafted platformer from the creators of multiplayer classic TowerFall.\n\n \u2022 A narrative-driven, single-player adventure like mom used to make, with a charming cast of characters and a touching story of self-discovery\n \u2022 A massive mountain teeming with 700+ screens of hardcore platforming challenges and devious secrets\n \u2022 Brutal B-side chapters to unlock, built for only the bravest mountaineers\n \u2022 IGF \u201cExcellence in Audio\u201d finalist, with over 2 hours of original music led by dazzling live piano and catchy synth beats\n \u2022 Pie\n\nThe controls are simple and accessible - simply jump, air-dash, and climb - but with layers of expressive depth to master, where every death is a lesson. Lightning-fast respawns keep you climbing as you uncover the mysteries of the mountain and brave its many perils. \n\nThis is it, Madeline. Just breathe. You can do this.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ru",
+            "zh"
+        ],
+        "size": 1315962880
+    },
     "70010000006801": {
         "id": "010008900705C000",
         "rightsId": "010008900705C0000000000000000003",
