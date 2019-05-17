@@ -2944,6 +2944,55 @@
         ],
         "size": 3659530240
     },
+    "70010000012664": {
+        "id": "01006F80082E4000",
+        "rightsId": null,
+        "name": "\uae38\ud2f0\uae30\uc5b4 \uc774\uadf8\uc81d\uc2a4 \uc561\uc13c\ud2b8 \ucf54\uc5b4 \ud50c\ub7ec\uc2a4 R",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000012664,
+        "category": [
+            "\uaca9\ud22c",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\ud3ed\ub825\uc131",
+            "\uc5b8\uc5b4\uc758 \ubd80\uc801\uc808\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 12,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/d3510000917466ea9ba8efc27d12a9415bf89988c3b050efa2bb57644b730df1.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2ff19857188daec2fce3c36febae6e3ca0bdc4405b3407e53006bf82c222c7e9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1363ec1a127a6531d84385d831008fff4fe611d5cb86e9411c0a081443cc9c86.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/74a5bd0a0c554ae59867a348611ce7fd09b910323f123214fd1fdce20768bc10.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/be5ff0b2e674883b74391262ea8a25cfc24d1875a4bc4e5cf5ee42c69412c70e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a4c76b0f60718bcad603ef4cc5237d1e1f13487048b8ee4947ac7aff1546770f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/620a496ba8dc81191b2745b5569d8a3e3f2612dff45917b786cb2a0cc77523a2.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/57fd2bc1c6078ecc1baffae2a2e0b564da4e40042d9f99d2e3aa59b8a3a629bc.jpg",
+        "intro": null,
+        "description": "2D \ub300\uc804 \uaca9\ud22c\uc758 \uae08\uc790\ud0d1,\n\uae38\ud2f0\uae30\uc5b4 \uc774\uadf8\uc81d\uc2a4 \uc2dc\ub9ac\uc988\uc758 \uc9d1\ub300\uc131\uc774\n\ub4dc\ub514\uc5b4 Nintendo Switch\uc5d0 \ub4f1\uc7a5!\n\n\uae38\ud2f0\uae30\uc5b4\uc758 \uc138\uacc4\uad00\uc744 \uc990\uae38 \uc218 \uc788\ub294 STORY,\n2\uba85\uc774\uc11c \uc990\uae38 \uc218 \uc788\ub294 VS.2P,\n\uc2a4\ucf54\uc5b4\ub97c \uacbd\uc7c1\ud558\ub294 M.O.M \ub4f1\ub4f1,\n13\uac1c\uc758 \ubaa8\ub4dc\ub97c \ud50c\ub808\uc774\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\n\uc5ec\uae30\uc5d0 \uae38\ud2f0\uae30\uc5b4 \uc774\uadf8\uc81d\uc2a4 \uc0e4\ud504\ub9ac\ub85c\ub4dc \ud55c\uad6d\ud310\uc758 BGM\ub3c4 \uc218\ub85d!\n\uac8c\uc784 \ub0b4\uc758 \uc124\uc815\uc744 \ud1b5\ud574 \n<\uae38\ud2f0\uae30\uc5b4 \uae38\ud2f0\uae30\uc5b4 \uc774\uadf8\uc81d\uc2a4 \uc561\uc13c\ud2b8 \ucf54\uc5b4> \ubc84\uc804\ub3c4\n\ud50c\ub808\uc774\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "pt",
+            "ko",
+            "zh"
+        ],
+        "size": 4540334080
+    },
     "70010000012752": {
         "id": "010037600B61C000",
         "rightsId": "010037600B61C0000000000000000004",
@@ -4315,6 +4364,49 @@
         ],
         "size": 653262848
     },
+    "70010000014443": {
+        "id": "0100C8400B248000",
+        "rightsId": null,
+        "name": "GUILTY GEAR",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000014443,
+        "category": [
+            "\uaca9\ud22c",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131",
+            "\uc5b8\uc5b4\uc758 \ubd80\uc801\uc808\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 12,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/9d49c9e0dcfeac80d6f44eca0d1d96e4567d63e6ab10298743ec13b0d8c3f3a9.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ffde499b4f206fc2c14866a6a72510df9e27a7db7ee21cb22f0d4486c8e2a918.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8e75c361a9b5d57e07b781565656e24b943a035c4681276228b9ca30962433c9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6adb8244e698d868ebea7f8980be81f9857c0a950fba14a47a9ab530a0fec339.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/56706d657d62733a3f9396f08e96c2460a4e4e1d5e2ad75c42a300be0426226a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d911decda9993f27e6fc6954738c086b4a215f2a4d9929aa0babc5ff1ded2168.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/49d886a210c4aa190c36610aaa131dcecc27720e2c7833d193884e354dc37672.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ab41cd2b8465ff42fba3018c83da63f39bf76ff49308ae6b6cf8003d33e8dafd.jpg",
+        "intro": null,
+        "description": "1998\ub144 \ubc1c\ub9e4\ub418\uc5b4, \ub2f9\uc2dc \ucc38\uc2e0\ud55c \uac8c\uc784 \uc2dc\uc2a4\ud15c\uacfc\n\uc644\uc131\ub41c \uc138\uacc4\uad00\uc73c\ub85c \uc77c\ubcf8\uc5d0\uc11c \uc8fc\ubaa9\uc744 \ubc1b\uc740\n\uc804\uc124\uc758 2D \ub300\uc804 \uaca9\ud22c \uac8c\uc784 <GUILTY GEAR>\uac00 \ubd80\ud65c!\n\n\ud558\uc774 \uc2a4\ud53c\ub4dc\ud55c \uacf5\ubc29\uc744 \uc5f0\ucd9c\ud558\ub294 '\uac1c\ud2c0\ub9c1 \ucf64\ube44\ub124\uc774\uc158',\n\ub2e4\ucc44\ub85c\uc6b4 \uacf5\uaca9\uc744 \uc0ac\uc6a9\ud558\ub294 '\ucc28\uc9c0 \uc5b4\ud0dd',\n\ub9d0 \uadf8\ub300\ub85c '\uc77c\ubc1c\uc5ed\uc804'\uc744 \ub178\ub9b4 \uc218 \uc788\ub294 '\uc0b4\uacc4' \ub4f1,\n\uc8fc\uc625\uac19\uc740 \uc2dc\uc2a4\ud15c\ub4e4\uc774 \ud0d1\uc7ac!\n\uc5ec\uae30\uc5d0 \ucd5c\ucd08\ub85c \ud55c\uad6d\uc5b4\ub97c \uc9c0\uc6d0\ud558\ub294 \uc2a4\ud1a0\ub9ac\uac00 \uacf5\uac1c!\n\n\uac1c\uc131\uc801\uc778 13\uba85\uc758 \uce90\ub9ad\ud130\ub4e4\uacfc \ud568\uaed8 \uaca9\ud22c\ub97c \uc990\uaca8\ub77c!",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 441450496
+    },
     "70010000014554": {
         "id": "01000A800C5DA000",
         "rightsId": null,
@@ -5428,6 +5520,39 @@
         ],
         "size": 1734344704
     },
+    "70010000016921": {
+        "id": "01006CA00D454000",
+        "rightsId": null,
+        "name": "\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000016921,
+        "category": [
+            "\ubcf4\ub4dc",
+            "\uc5b4\ub4dc\ubca4\ucc98"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/fdc59232cb56eff199eca34f6083b5b267af170aa400a8c828820bcfa5496dd0.jpg",
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d8078d696235444ea3333462140599cff92089af29f569b767f04f4d684b38ff.jpg",
+        "intro": "\uc5b8\uc81c \uc5b4\ub514\uc11c\ub098 \ub4b9\uad74\ub4b9\uad74\ud558\uace0 \uc2f6\uc5b4.\n<\uc12c\ub780 \uce74\uad6c\ub77c>\uac00 \uc139\uc2dc \ud540\ubcfc\uc774 \ub418\uc5b4 Nintendo Switch\ub85c \ub4f1\uc7a5!",
+        "description": "\ub0ae\uacfc \ubc24\uc758 \ub180\uc774\ub3d9\uc0b0\uc744 \ubb34\ub300\ub85c \uae5c\ucc0d\ud55c \uc9d0\uc2b9 \ubaa8\uc2b5\uc758 \uc18c\ub140\ub4e4\uacfc \uac00\uc2b4 \ub6f0\ub294 \ud540\ubcfc\uc744 \uc990\uae38 \uc218 \uc788\ub2e4\u266a\n\n\ud754\ub4e4\ub9ac\uace0 \ud295\uae30\ub294 \ubcfc\uc758 \ucd09\uac10\uc744 HD \uc9c4\ub3d9\uc73c\ub85c \ub9ac\uc5bc\ud558\uac8c \ub290\ub084 \uc218 \uc788\uc73c\uba70\n\ud3ec\uc778\ud2b8\ub97c \uc313\uc73c\uba74 \uc624\ud508\ub418\ub294 \ubcf4\ub108\uc2a4 \uc2a4\ud14c\uc774\uc9c0\uc5d0\uc11c\ub294 '\uc12c\ub780 \uce74\uad6c\ub77c'\ub9cc\uc758 \uc0c8\ub85c\uc6b4 \uc5f0\ucd9c '\uc139\uc2dc \ucc4c\ub9b0\uc9c0'\ub85c\n\uc18c\ub140\ub4e4\uc758 \ub9e4\ub825\uc744 \ub9cc\ub07d\ud560 \uc218 \uc788\ub2e4! \uadf8\ub9ac\uace0 \ud55c\uce35 \ub354 \uc544\ucc14\ud55c '\uc288\ud37c \uc139\uc2dc \ucc4c\ub9b0\uc9c0'\ub3c4...!\n\n\uc2dc\ub9ac\uc988\uc5d0\uc11c \uce5c\uc219\ud55c '\uc758\uc0c1 \ubcc0\uacbd' '\ub514\uc624\ub77c\ub9c8' '\uc2a4\ud0a8\uc2ed' \ubaa8\ub4dc\ub3c4 \uc218\ub85d!\n\ub098\ub9cc\uc758 \ucde8\ud5a5\uc73c\ub85c \uc18c\ub140\ub4e4\uc744 \ucee4\uc2a4\ud130\ub9c8\uc774\uc9d5\ud558\uc5ec \ud540\ubcfc \ud0c0\uc784\uc744 \uc990\uae30\uc790\u2661\n",
+        "languages": [
+            "ko",
+            "zh"
+        ],
+        "size": 5934940160
+    },
     "70010000017149": {
         "id": "0100EA80032EA000",
         "rightsId": "0100EA80032EA0000000000000000004",
@@ -5768,6 +5893,48 @@
         ],
         "size": 6021971968
     },
+    "70010000019221": {
+        "id": "010086300A558000",
+        "rightsId": null,
+        "name": "\uc778\ud398\ub974\ub178 \ud074\ub77c\uc774\uba38 \ub9ac\ubcf8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000019221,
+        "category": [
+            "RPG",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 12,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/66926353fad8286f62190611f67fc8d3386a5cf409c126416599a6356af1ca72.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/a1f4f2af4b99bf15bb0808fbbe50eff70d8fa737aded355690d79208d366a2e1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0cd746620a40b137da31106e4b8a81e842043b4457912dda2c6ed730d374341a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2922f44d6730392a5236ee17281e5ca08124bc61a5722e0bc761e6fd381701b3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/34b0ee56a98d7558cccd36031318182e4c905423c11929256548911ab53b81be.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6f31239467315b18ff8045acd70d5b9612762775e59e7767a142fb6d9b5dbdb7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/11776057ee462f9c5d2eb47637db51e8a58d230ef0f80b7eb4139bc560695b45.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e6d0fa0c35994d4b9f1d3bc63702713ed98058fa34c0177ed1d73f82af587f2e.jpg",
+        "intro": "\uc9c0\uc625\uc5d0\uc11c \uc0b4\uc544\ub0a8\ub294 \uc11c\ubc14\uc774\ubc8c \uc561\uc158 RPG!\n\ub2e4\uc591\ud55c \uc544\uc774\ud15c\uacfc \uae30\ubbf9\uc744 \ud65c\uc6a9\ud558\uc5ec 5\uac1c\uc758 \uc5f0\uc625\uc11d\uc744 \ubaa8\uc544\ub77c!",
+        "description": "\uc77c\ucc0d\uc774, \uac15\ub825\ud55c \ub9c8\ub825\uc744 \uac00\uc9c4 5\uac1c\uc758 \uc5f0\uc625\uc11d\uc774 \uc138\uc0c1\uc758 \uc9c8\uc11c\ub97c \uc9c0\ud0a4\uace0 \uc788\uc5c8\ub2e4.\n\uadf8\ub7ec\ub098 \uc5f0\uc625\uc11d\uc740 \uc138\uacc4\uc758 \uc65c\uace1\uc774 \ucee4\uc9c0\uba74\uc11c \uacb0\uad6d \ub098\uc57d\ud55c \uc0ac\ub78c\ub4e4\uc758 \ub9c8\uc74c\uc744 \uc9c0\ubc30\ud574 \uac04\ub2e4.\n\n\uadf8\ub9ac\uace0 ...... \ub9c8\uacc4\uc758 \ubb38\uc774 \uc5f4\ub9b4 \ub54c.\n\uc138\uacc4\ub294 \ubd95\uad34\ud588\ub2e4.\n\n\uadf8\ub0a0\ubd80\ud130 100 \ub144...\n\uc5ec\uae30 \ub2e4\uc2dc \ud55c\uba85, \uc0ac\uc2e0\uacfc \uacc4\uc57d\ud55c \uc21c\uc218\ud55c \uc601\ud63c\uc774 \ub208\uc744 \ub72c\ub2e4.\n\n\"\uc774\uac83\uc740 \u300c\uc9c0\uc625\u300d\uc774\ub77c\ub294 \uc138\uc0c1\uc758 \uc774\uc57c\uae30.\"",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 2021654528
+    },
     "70010000019367": {
         "id": "0100F2400D434000",
         "rightsId": "0100F2400D4340000000000000000007",
@@ -5940,6 +6107,56 @@
             "it"
         ],
         "size": 614465536
+    },
+    "70010000020120": {
+        "id": "01002BD00CB86000",
+        "rightsId": null,
+        "name": "Panty Party",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70010000020120,
+        "category": [
+            "\uc561\uc158",
+            "\uc288\ud305",
+            "\uc544\ucf00\uc774\ub4dc"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\uc5b8\uc5b4\uc758 \ubd80\uc801\uc808\uc131"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 12,
+        "developer": null,
+        "publisher": "COSEN",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/424d455288eb704f8fc6d0abda6ff44441dea443896cbe52f93fa6906acda910.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/c91a264fd1863b031eac27cebd790116119c85d4b49ee4d021aa913fd1a4ceb8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a9b25383018e0204078a5463e013916619300b62a51f61fb9424afb06a78773a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/45d0d332a8aeaed25bac9b94ff0887edce9aaf7b49dc9a95f903de4a9b8d4712.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1c24b6ca249a1701dd911bbe5cddc3844e56e819670a0cbbb319a07d45040186.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f6fe81b6da5e5b4279be982cc49bb8415034817b3afb65bf47bdb0618abc2ac5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b7c2d4bc822e63c6d4143123f43bac6f3fabe5190cd7ca1ef15eeb1850307cf7.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ddb84e0a061392d4110890b20dc9072c89166d66b81e23d28a8b5c278bfbd4b6.jpg",
+        "intro": "\uacbd\uace0! \uc774 \uac8c\uc784\uc5d0\ub294 19\uae08 \ucf58\ud150\uce20\uac00 \uc5c6\uc2b5\ub2c8\ub2e4! \uc6b0\uc2a4\uaf5d\uc2a4\ub7ec\uc6b4 \ud32c\ud2f0\ub9cc \ub4f1\uc7a5\ud569\ub2c8\ub2e4! ",
+        "description": "\u201c\uc0ac\ub791\uc758 \uc804\uc0ac\ub97c\u2026 \ucc3e\uc544\uc57c\ub9cc \ud574!\u201d\n\u201c\uc0ac\ub791\uc758 \uc804\uc0ac\u2026?\u201d\n\u201c\ub124- \ubc14\ub85c \ub2f9\uc2e0\uc774\uc5d0\uc694! \ud32c\ud2f0\ub97c \uc0ac\ub791\ud558\ub294 \uc0ac\ub78c, \uc0ac\ub791\uc758 \uc804\uc0ac!\u201d\n\uae38\uac70\ub9ac\ub97c \uc9c8\uc8fc\ud558\ub294 \uc0ac\ub791\uc758 \uc804\uc0ac\ub4e4\uc740 \ud32c\ud2f0\ub4e4\uacfc \ud568\uaed8 \uc545\ud55c \uc790\ub85c\ubd80\ud130 \uc778\uac04\uc744 \uad6c\ud558\uace0 \ub3d9\uc2dc\uc5d0 \ubcf8\uc778\ub4e4\uc774 \ud32c\ud2f0\ub85c \ubcc0\ud558\ub294 \uac83\uc744 \ub9c9\uc544\uc57c \ud569\ub2c8\ub2e4!\n\ud32c\ud2f0, \uc0ac\ub791\uacfc \uc5f4\uc815, \ud32c\ud2f0\ub4e4\uc758 \uc804\ud22c\uac00 \uac00\ub4dd\ud55c \uc7ac\ubbf8 \uc788\ub294 \ucf54\ubbf8\ub514!\n\n\ube60\ub978 \uc18d\ub3c4\uc758 \uc804\ud22c\uc5d0\uc11c \uc9c8\uc8fc\ud558\uace0 \ud68c\ud53c\ud558\uc138\uc694\u2026 \ud32c\ud2f0\uc640\uc758 \uaca9\ud22c!\n\ud32c\ud2f0 \ud30c\ud2f0\ub294 \ube60\ub978 \ud398\uc774\uc2a4\uc758 \uaca9\ud22c \uac8c\uc784\uc785\ub2c8\ub2e4. \uac70\ub9ac\uc640 \uac74\ubb3c \uc0ac\uc774\ub97c \ud32c\ud2f0\uac00 \ub418\uc5b4 \ub0a0\uc544\ub2e4\ub2c8\uc138\uc694. \uc801 \ud32c\ud2f0\ub97c \ucc3e\uc544\ub0b4\uc11c \ud63c\uc904\uc744 \ub0b4 \uc8fc\uc138\uc694!\n\n\ud2b9\uc9d5\n\u25cf\ud32c\ud2f0 \ud30c\ud2f0\uc640 \ud568\uaed8 \uc6b0\uc2a4\uc6b4 \ud765\ubd84\uc744 \ub290\uaef4 \ubcf4\uc138\uc694!\n\u25cf\uc0c1\uc0c1\ud560 \uc218 \uc788\ub294 \ubaa8\ub4e0 \uc0c9\uc0c1. \ud32c\ud2f0\uc758 \uc0c9\uc0c1\uc785\ub2c8\ub2e4.\u3000\n\u25cf\ud32c\ud2f0\ub4e4\uacfc \uc0ac\ub791\uc758 \uc804\uc0ac\uc758 \ub10c\uc13c\uc2a4 \uc2a4\ud1a0\ub9ac.\n\u25cf\ud32c\ud2f0 \ud30c\ud2f0\uc5d0\uc11c\ub9cc \uacbd\ud5d8\ud560 \uc218 \uc788\ub294 \ud32c\ud2f0\ub4e4\uc758 \uc13c\uce58\ud55c \uac10\uc815.\n\u25cf\ub9e4\uc6b0 \uaca9\uc870\ub41c \uaca9\ud22c, \ub3c4\uc2ec\uc758 \ub2e4\uc591\ud55c \uaca9\ud22c\uc9c0, \ub2e4\uc591\ud558\uace0 \ub3c5\ud2b9\ud55c \ud32c\ud2f0 \uceec\ub809\uc158!\n\u25cf\ubaa8\ub4e0 \ud32c\ud2f0\ub294 \uadf8\ub4e4\ub9cc\uc758 \uae30\uc220\uacfc \uc815\uc5f4 \uae30\uc220\uc774 \uc788\uc5b4\uc11c \ub354\uc6b1 \uac15\ud574 \uc9d1\ub2c8\ub2e4!",
+        "languages": [
+            "ja",
+            "en",
+            "pt",
+            "es",
+            "fr",
+            "de",
+            "nl",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 1339031552
     },
     "70050000004051": {
         "id": "0100E95004039063",
@@ -14764,6 +14981,114 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000011977": {
+        "id": "01006CA00D455006",
+        "rightsId": null,
+        "name": "\ucd94\uac00 \uc758\uc0c1 6\uc885 \uc138\ud2b8 \u2460",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000011977,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5ce7d1e4d8ce137081f983c44273c4ceaf869b80987c3ce1643af85c997b62c7.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\ucd94\uac00 \uc758\uc0c1 6\uc885 \uc138\ud2b8 \u2460'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 9\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc758\uc0c1 \"\ud574\uc801\", \"\ud1b1\ucee4\ubc84 \ud2f0\uc154\uce20\", \"\uac70\ud488\", \"\ud558\uc774\ub808\uadf8 \uc218\uc601\ubcf5\", \"\ud1a0\ud551 \uc288\ud2b8\", \"\ubc84\ube14 \uc154\uce20\"\n- \uc7a5\uc2dd\ud488 \"\ud574\uc801 \ubaa8\uc790\", \"\ucd08\ucf5c\ub9bf \uba38\ub9ac \uc7a5\uc2dd\", \"\ubcd1\uc544\ub9ac \uba38\ub9ac \uc7a5\uc2dd\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011979": {
+        "id": "01006CA00D455007",
+        "rightsId": null,
+        "name": "\ucd94\uac00 \uc758\uc0c1 6\uc885 \uc138\ud2b8 \u2461",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000011979,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e287a61ff02c2d248b48089eaa611a2e88a356a1c3f77a6c53f70b410185e7fc.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\ucd94\uac00 \uc758\uc0c1 6\uc885 \uc138\ud2b8 \u2461'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 8\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc758\uc0c1 \"\ub530\ub4ef\ud55c \uc0b0\ud0c0\ubcf5\", \"\uc139\uc2dc \uba54\uc774\ub4dc\",  \"\uc139\uc2dc \ubb34\ub140\", \"\uc139\uc2dc \uc624\ud508 \ub4dc\ub808\uc2a4\", \"\uc139\uc2dc \ub808\uc2a4\ud1a0\ub791\", \"\uc12c\uba38 \uce90\ubbf8\uc194\"\n- \uc7a5\uc2dd\ud488 \"\ubb34\ub140\uc758 \uba38\ub9ac \uc7a5\uc2dd\", \"\uc624\ud508 \ub4dc\ub808\uc2a4 \uba38\ub9ac \uc7a5\uc2dd\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011980": {
+        "id": "01006CA00D455009",
+        "rightsId": null,
+        "name": "\ucd94\uac00 \uc7a5\uc2dd\ud488 26\uc885 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000011980,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/c7fcfd3a2e1051a17d92b9cb5130d74cbcaa831f0fa9acc5e242dbfdfbf8dd15.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\ucd94\uac00 \uc7a5\uc2dd\ud488 26\uc885 \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 26\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc7a5\uc2dd\ud488 \"\ud131\uc218\uc5fc\", \"\ubc29\uc6b8 \ubaa9\uac78\uc774\", \"\uc0ac\uc2ac \ubaa9\uac78\uc774\", \"\ud558\uc774\ube44\uc2a4\ucee4\uc2a4\", \"\ubbf8\ub2c8 \ucd95\uc81c \uac00\ub9c8\", \"\ubb3c\uc548\uacbd\", \"\ud150\uad6c \uac00\uba74\", \"\ub9c8\uc2a4\ud06c\", \"\uc544\uc2a4\uce74 \uc548\ub294 \ubca0\uac1c\", \"\uc694\ubbf8 \uc548\ub294 \ubca0\uac1c\", \"\uc720\ubbf8 \uc548\ub294 \ubca0\uac1c\", \"\ubb34\ub77c\uc0ac\ud0a4 \uc548\ub294 \ubca0\uac1c\", \"\ub8cc\ub098 \uc548\ub294 \ubca0\uac1c\", \"\uac00\uc9c0\", \"\uc624\uc774\", \"\ubc45\uae00\ubc45\uae00\", \"\ubcf5\uc791\ubcf5\uc791\", \"\ud751\ubd09\", \"\uc575\ub450\", \"\ucee4\ub2e4\ub780 \ubd80\ucc44\", \"\uc218\ub9ac\uac80\", \"\ub2cc\uc790 \uba38\ud50c\ub7ec\", \"\ud55c\ucabd \ubb36\uae30 \ubd99\uc784\uba38\ub9ac\", \"\uc591\uac08\ub798 \ubd99\uc784\uba38\ub9ac(\uc6b0)\", \"\uc591\uac08\ub798 \ubd99\uc784\uba38\ub9ac(\uc88c)\", \"\uc0ac\uacfc \ubd99\uc784\uba38\ub9ac\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000011981": {
+        "id": "01006CA00D45500E",
+        "rightsId": null,
+        "name": "\uc12c\ub780 \uce74\uad6c\ub77c \uc2a4\ud14c\uc774\uc9c0 BGM \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000011981,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2fef00b0ee274f182288d2096b7fbf408d2e8714118b15ee530c85b7862568a5.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\uc12c\ub780 \uce74\uad6c\ub77c \uc2a4\ud14c\uc774\uc9c0 BGM \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc2a4\ud1a0\ub9ac \ubaa8\ub4dc \ub610\ub294 \ud504\ub9ac \ubaa8\ub4dc \uc2a4\ud14c\uc774\uc9c0 \uc120\ud0dd \ud654\uba74\uc758 BGM \ud56d\ubaa9\uc5d0\uc11c \ud540\ubcfc \uc911\uc758 BGM\uc744 \ubcc0\uacbd\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 \uc2a4\ud14c\uc774\uc9c0 BGM 4\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.",
+        "languages": null,
+        "size": 16777216
+    },
     "70050000012126": {
         "id": "010040600C5CF001",
         "rightsId": null,
@@ -14811,6 +15136,114 @@
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f342c638873ce1818c360ad4908a4b47df26df4f6cf81408ef308b800622e93f.jpg",
         "intro": null,
         "description": "2019\ub144 12\uc6d4 31\uc77c\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\uc81c2\ud0c4 \ucd94\uac00 \ucf58\ud150\uce20\ub85c\ub294 \uce5c\uad6c \ubc0f \uac00\uc871\uacfc \uc624\ud504\ub77c\uc778\uc5d0\uc11c \uc990\uae38 \uc218 \uc788\ub294 \uc0c8\ub85c\uc6b4 \ubaa8\ub4dc\uac00 \ucd94\uac00\ub420 \uc608\uc815\uc785\ub2c8\ub2e4.",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000012381": {
+        "id": "01006CA00D455001",
+        "rightsId": null,
+        "name": "\uc2b4\uac00\uc2b4\uac00 \uc2a4\ud398\uc15c \ud329",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000012381,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/77cdff255859d6eec9dbe475853742c6d70225ff0b9a45ff5d8593324f9d19cb.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\uc2b4\uac00\uc2b4\uac00 \uc2a4\ud398\uc15c DLC 4\uac1c \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 11\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc758\uc0c1 \"\ube44\ubc00\uc758 \uc720\uc6d0\uc9c0\uac78\", \"\uc774\uc0c1\ud55c \ub098\ub77c\uc758 \uc1fc\uac78\"\n- \uc7a5\uc2dd\ud488 \"\uc1fc\uac78 \ud574\ud2b8\", \"\uc1fc\uac78 \uc2a4\ud2f1\"\n- \ub514\uc624\ub77c\ub9c8 \ubaa8\uc158 \"\ub9e4\ud639 \ud3ec\uc988\", \"\ub1cc\uc1c4 \ud3ec\uc988\"\n- \ud53c\uce58 \ubcfc \"\uc544\uc2a4\uce74\uc758 \ube0c\ub77c \ubcfc\", \"\uc720\ubbf8\uc758 \ube0c\ub77c \ubcfc\", \"\uc694\ubbf8\uc758 \ube0c\ub77c \ubcfc\", \"\ubb34\ub77c\uc0ac\ud0a4\uc758 \ube0c\ub77c \ubcfc\", \"\ub8cc\ub098\uc758 \ube0c\ub77c \ubcfc\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000012382": {
+        "id": "01006CA00D455005",
+        "rightsId": null,
+        "name": "\uc2e0\uc791 \uc758\uc0c1 4\uc885 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000012382,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f507635dfccc746cf6f973960a04c8875e411f4a84527f9cd1c7373307bb36c1.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\uc2e0\uc791 \uc758\uc0c1 4\uc885 \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 8\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc758\uc0c1 \"\uc560\ub2c8\uba40 \ube0c\ub9ac\ub354\", \"\ud574\ud53c \ud3ec\uc2a4\ud130\uac78\", \"\uba54\ub974\ud5e8 \ub4dc\ub808\uc2a4\", \"\uc77c\ubcf8\ud48d \ubb34\ub2ac \ube44\ud0a4\ub2c8\"\n- \uc7a5\uc2dd\ud488 \"\uc560\ub2c8\uba40 \ube0c\ub9ac\ub354 \ubaa8\uc790\", \"\ud574\ud53c \uac1c\uad74\uac1c\uad74 \ucea1\", \"\uba54\ub974\ud5e8 \uba38\ub9ac \uc7a5\uc2dd\", \"\uc77c\ubcf8\ud48d \ubb34\ub2ac \ube44\ud0a4\ub2c8 \uba38\ub9ac \uc7a5\uc2dd\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000012383": {
+        "id": "01006CA00D455008",
+        "rightsId": null,
+        "name": "\uc2e0\uc791 \uc7a5\uc2dd\ud488 5\uc885 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000012383,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1925e5b143fc1ce610a2afa73fac4c45f0bf8a6a1482e6af6b034fe6694f7dfa.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\uc2e0\uc791 \uc7a5\uc2dd\ud488 5\uc885 \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 5\uac1c\uac00 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \uc7a5\uc2dd\ud488 \"\ubd80\ucc44\", \" \ub2f9\uadfc\", \"\ubcc0\uc2e0 \uc774\ud30c\ub9ac\", \" \uc560\ub2c8\uba40 \ubc25\uadf8\ub987\", \"\uc5f0\uc5b4\"",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000012384": {
+        "id": "01006CA00D45500A",
+        "rightsId": null,
+        "name": "\uc2e0\uc791 \ub514\uc624\ub77c\ub9c8 \ud3ec\uc988 5\uc885 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70050000012384,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d68e84d6000d5374f946af55fcc9f81773737ed69873e5b3620c42ee92a7fbbe.jpg",
+        "intro": null,
+        "description": "<\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL> \uac8c\uc784 \ubcf8\ud3b8\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 '\uc2e0\uc791 \ub514\uc624\ub77c\ub9c8 \ud3ec\uc988 5\uc885 \uc138\ud2b8'\uc785\ub2c8\ub2e4.\n\uc774 \uc544\uc774\ud15c\uc740 \uc544\ub798 5\uac1c \ub514\uc624\ub77c\ub9c8 \ubaa8\uc158\uc774 \ud3ec\ud568\ub41c \uc138\ud2b8 \uc0c1\ud488\uc785\ub2c8\ub2e4.\n\n\u25bc\uc138\ud2b8 \ub0b4\uc6a9\n- \ub514\uc624\ub77c\ub9c8 \ubaa8\uc158 \"\uadf8\ub8e8\ubc0d\", \"\uc190!\", \"\uae61\ucda9\uae61\ucda9\", \"\ube75\uc57c\", \"\uc870\uc6a9\ud788\"",
         "languages": null,
         "size": 4194304
     },
@@ -15219,5 +15652,32 @@
         "description": "4 \ub300 4\ub85c \ud300\uc744 \ub098\ub204\uc5b4 \uc9c0\uba74\uc5d0 \uc789\ud06c\ub97c \uce60\ud558\uba70, \uc0c9\uce60\ud55c \uba74\uc801\uc774 \ub113\uc740 \ud300\uc774 \uc2b9\ub9ac!\n\ub2e4\uc591\ud55c \ubb34\uae30\ub85c \ud615\ud615\uc0c9\uc0c9\uc758 \uc789\ud06c\ub97c \uc3d8\uace0 \ubfcc\ub9ac\uace0 \ub358\uc9c0\ub294 \u300c\uc789\ud06c \ubc30\ud2c0\u300d \uc2a4\ud3ec\uce20!\n\n\u25cf \ubcc0\ud654\ubb34\uc30d\ud55c \uacf5\uaca9\uc744 \uc704\ud574! \ub2e4\uc591\ud55c \ubb34\uae30 \ubc0f \uc7a5\ube44\n    \ubc14\ub2e5\uc744 \ubc00\uba70 \ub113\uc740 \uba74\uc801\uc744 \uce60\ud574 \uac00\ub294  \u300cRoller\u300d\ubd80\ud130, \n    \uc789\ud06c\ub97c \ub9c8\uad6c \ud37c\ubd93\ub294 \u300cSlosher\u300d  \ub4f1 \uae30\ubcf8 \ubb34\uae30\ubd80\ud130 \uc0c9\ub2e4\ub978 \ubb34\uae30\uae4c\uc9c0!\n \n\u25cf \uc778\uac04\uc774 \ub418\uc5c8\ub2e4\uac00, \uc624\uc9d5\uc5b4\uac00 \ub418\uc5c8\ub2e4\uac00!\n    \uc624\uc9d5\uc5b4\ub85c \ubcc0\ud574 \uc789\ud06c\uc5d0 \uc228\uc5b4 \uc788\ub2e4\uac00 \uc6d0\ud560 \ub54c \uc778\uac04\uc774 \ub418\uc5b4 \uae30\uc2b5 \uacf5\uaca9!\n\n\u25cf 2~4\uba85\uc774\uc11c \ud611\ub825! \u300eSalmon Run\u300f\n    \uc2e4\ub825\uc5d0 \ub300\ud55c \ubd80\ub2f4\uac10\uc774 \uc801\uc740 \ud611\ub825 \ubaa8\ub4dc \uac8c\uc784\uc73c\ub85c, \ub3c4\uc804\ud558\uba74 \ub3c4\uc804\ud560\uc218\ub85d\n    \ub2e4\uc591\ud55c \ubcf4\uc0c1\uc774 \uac00\ub4dd!\n\n\u25cf \ud63c\uc790\uc11c \uc2a4\ub9b4\uac10 \uc788\uac8c! \u300eStory mode\u300f\n    \ud63c\uc790\uc11c \uc2a4\ub9b4\uac10 \uc788\uac8c \ud50c\ub808\uc774! \n    \uc624\uc9d5\uc5b4 \uc138\uacc4\ub97c \uc9c0\ubc30\ud55c \uc545\ub2f9\ub4e4\uc744 \ucad3\uc544\ub0b4\ub77c!\n\n\ubc18\uc740 \uc544\uc774, \ubc18\uc740 \uc624\uc9d5\uc5b4\uc778 \uc789\ud074\ub9c1\uc744 \ub2e4\uc591\ud55c \ubb34\uae30\uc640 \ud328\uc158\uc73c\ub85c\n\ucee4\uc2a4\ud130\ub9c8\uc774\uc9d5! \uc9c0\uae08 \ubc14\ub85c, \ub098\ub9cc\uc758 \uc789\ud074\ub9c1\uc744 \ub9cc\ub4e4\uc5b4 \ubcf4\uc790!\n\n\u25cf\u300eSplatoon 2: Octo Expansion\u300f\n\uc774\uac83\uc740 \uc624\uc9d5\uc5b4\uac00 \uc544\ub2cc, \ubb38\uc5b4\uc758 \uc774\uc57c\uae30.\n\ubb38\uc5b4 \uac19\uc740 \ubaa8\uc2b5\uc758 \uc8fc\uc778\uacf5 \u300cAgent 8\u300d\uc740, \ubaa8\ub4e0 \uae30\uc5b5\uc744 \uc783\uace0,\n\uce84\uce84\ud55c \uc9c0\ud558\ucca0 \ud50c\ub7ab\ud3fc\uc5d0\uc11c \ub208\uc744 \ub72c\ub2e4.\n\uc774\uacf3\uc73c\ub85c \ub9d0\ud558\uc790\uba74, \uae4a\uc219\ud55c \uc9c0\ud558\uc5d0 \uc9c0\uc5b4\uc9c4 \uc218\uc218\uaed8\ub07c\uc758 \uc2e4\ud5d8\uc2dc\uc124.\n\uc9c0\uc0c1\uc73c\ub85c \ub098\uac00\uace0\uc790 \ud558\ub294 \u300cAgent 8\u300d\uc5d0\uac8c,\n80 \uac00\uc9c0 \uc774\uc0c1\uc758 \ubbf8\uc158\uc774 \uae30\ub2e4\ub9ac\uace0 \uc788\ub2e4.\n\n\u25cf\uad6c\uc785 \ud2b9\uc804 \uc7a5\ube44 2\uc885 \uc138\ud2b8\n\u300eSplatoon 2: Octo Expansion\u300f \uad6c\uc785 \ud2b9\uc804\uc785\ub2c8\ub2e4.\n\ub2e4\uc74c\uc758 \uc7a5\ube44\ub97c \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\u30fb\uba38\ub9ac \uad00\ub828 \uc7a5\ube44 \u300cStudio Octophones\u300d\n\u30fb\ubab8 \uad00\ub828 \uc7a5\ube44 \u300cOcto Layered LS\u300d",
         "languages": null,
         "size": 8300527616
+    },
+    "70070000006141": {
+        "id": null,
+        "rightsId": null,
+        "name": "\uc12c\ub780 \uce74\uad6c\ub77c PEACH BALL",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190516,
+        "nsuId": 70070000006141,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 18,
+        "developer": null,
+        "publisher": "SEGA",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d8078d696235444ea3333462140599cff92089af29f569b767f04f4d684b38ff.jpg",
+        "intro": "\uc5b8\uc81c \uc5b4\ub514\uc11c\ub098 \ub4b9\uad74\ub4b9\uad74\ud558\uace0 \uc2f6\uc5b4.\n<\uc12c\ub780 \uce74\uad6c\ub77c>\uac00 \uc139\uc2dc \ud540\ubcfc\uc774 \ub418\uc5b4 Nintendo Switch\ub85c \ub4f1\uc7a5!",
+        "description": "\ub0ae\uacfc \ubc24\uc758 \ub180\uc774\ub3d9\uc0b0\uc744 \ubb34\ub300\ub85c \uae5c\ucc0d\ud55c \uc9d0\uc2b9 \ubaa8\uc2b5\uc758 \uc18c\ub140\ub4e4\uacfc \uac00\uc2b4 \ub6f0\ub294 \ud540\ubcfc\uc744 \uc990\uae38 \uc218 \uc788\ub2e4\u266a\n\n\ud754\ub4e4\ub9ac\uace0 \ud295\uae30\ub294 \ubcfc\uc758 \ucd09\uac10\uc744 HD \uc9c4\ub3d9\uc73c\ub85c \ub9ac\uc5bc\ud558\uac8c \ub290\ub084 \uc218 \uc788\uc73c\uba70\n\ud3ec\uc778\ud2b8\ub97c \uc313\uc73c\uba74 \uc624\ud508\ub418\ub294 \ubcf4\ub108\uc2a4 \uc2a4\ud14c\uc774\uc9c0\uc5d0\uc11c\ub294 '\uc12c\ub780 \uce74\uad6c\ub77c'\ub9cc\uc758 \uc0c8\ub85c\uc6b4 \uc5f0\ucd9c '\uc139\uc2dc \ucc4c\ub9b0\uc9c0'\ub85c\n\uc18c\ub140\ub4e4\uc758 \ub9e4\ub825\uc744 \ub9cc\ub07d\ud560 \uc218 \uc788\ub2e4! \uadf8\ub9ac\uace0 \ud55c\uce35 \ub354 \uc544\ucc14\ud55c '\uc288\ud37c \uc139\uc2dc \ucc4c\ub9b0\uc9c0'\ub3c4...!\n\n\uc2dc\ub9ac\uc988\uc5d0\uc11c \uce5c\uc219\ud55c '\uc758\uc0c1 \ubcc0\uacbd' '\ub514\uc624\ub77c\ub9c8' '\uc2a4\ud0a8\uc2ed' \ubaa8\ub4dc\ub3c4 \uc218\ub85d!\n\ub098\ub9cc\uc758 \ucde8\ud5a5\uc73c\ub85c \uc18c\ub140\ub4e4\uc744 \ucee4\uc2a4\ud130\ub9c8\uc774\uc9d5\ud558\uc5ec \ud540\ubcfc \ud0c0\uc784\uc744 \uc990\uae30\uc790\u2661\n",
+        "languages": null,
+        "size": 5951717376
     }
 }
