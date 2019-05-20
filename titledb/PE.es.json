@@ -2064,6 +2064,48 @@
         ],
         "size": 15854469120
     },
+    "70010000012854": {
+        "id": "010050F00BC1A000",
+        "rightsId": null,
+        "name": "Resident Evil",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000012854,
+        "category": [
+            "Aventura"
+        ],
+        "ratingContent": [
+            "Derramamiento de sangre",
+            "Lenguaje",
+            "Violencia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 17,
+        "developer": null,
+        "publisher": "CAPCOM",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/7a96d542f33d36678b5272508320bb3c0978dc28d0853790eb2fdedd22a44473.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/111a92fe2f320176b32581f388f3ac9cee5a8213b1e99584bd483b2a229ed2d1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bfb5b6bcfbace0cbbe34da687118c917636f8a8e49997f2937bd85e77b073abe.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f7f8825f8345b738c83602b4ce36c0cc2ca70d5c36075d930bc6ccb8b19f5445.jpg",
+        "intro": "Revive la pesadilla.",
+        "description": "Considerado por muchos una obra maestra, el remake del primer juego de la serie Resident Evil ya est\u00e1 disponible en HD. Experimenta el terror con este cl\u00e1sico del g\u00e9nero \"survival horror\".\n\nEs el a\u00f1o 1998. El equipo Bravo de S.T.A.R.S., un escuadr\u00f3n de fuerzas especiales, ha desaparecido del mapa. El equipo Alpha es desplegado en un bosque a las afueras de Raccoon City para investigar su desaparici\u00f3n. Tras ser atacados por una extra\u00f1a jaur\u00eda de perros, los miembros del equipo Alpha, Chris y Jill, consiguen refugiarse en una misteriosa mansi\u00f3n en medio del bosque. Los horrores que encontrar\u00e1n all\u00ed no tienen precedente alguno...",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "zh"
+        ],
+        "size": 15543042048
+    },
     "70010000012879": {
         "id": "0100D870045B6000",
         "rightsId": "0100D870045B60000000000000000005",
