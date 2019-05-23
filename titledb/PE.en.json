@@ -2562,6 +2562,58 @@
         ],
         "size": 2955935744
     },
+    "70010000016330": {
+        "id": "0100A5C00D162000",
+        "rightsId": null,
+        "name": "Cuphead",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190523,
+        "nsuId": 70010000016330,
+        "category": [
+            "Action",
+            "Arcade",
+            "Platformer",
+            "Shooter"
+        ],
+        "ratingContent": [
+            "Fantasy Violence",
+            "Mild Language",
+            "Use of Alcohol and Tobacco"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 10,
+        "developer": null,
+        "publisher": "StudioMDHR",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/139836b3193bb50dab4982ac706d5d5d148fb7cc34ff3c6c21c34cdefa4f5df7.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/28b61e16dfaa8dc0fbaa1f4777a3db884d6be95e653c4d4a79038b7860d063de.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4723f0435692d3f39b85be5a89c63b7ca03851887928e14e0e2fcbe8b922a904.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a478c29325f14b5bdae8402b0fd0f6be8de7af5e2337fd9dadb3d6cdfc9d2f7c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/670082604c93146cd94e427756772337cc42c6f2fe13ecc4813e265e457694cf.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b9fc014405cb5d814349e429f0b832671bac319f629b70d91a3d3f6a540b408.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c7a66066dacc849b6ed5cb800befb356c5866b0d3492098f39ce16dbad8018c2.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d94d2186ef03c930392253c83c84af0c73b7e57cd902a526b09b4155a25930fe.jpg",
+        "intro": "The all-cartoon Magical Wondergame!",
+        "description": "Cuphead is a classic run and gun action game heavily focused on boss battles. Inspired by cartoons of the 1930s, the visuals and audio are painstakingly created with the same techniques of the era: traditional hand drawn cel animation, watercolor backgrounds, and original jazz recordings. \n\nPlay as Cuphead or Mugman (in single player or local co-op) as you traverse strange worlds, acquire new weapons, learn powerful super moves, and discover hidden secrets while you try to pay your debt back to the devil!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 3566206976
+    },
     "70010000016646": {
         "id": "01000F0002BB6000",
         "rightsId": "01000F0002BB60000000000000000007",
