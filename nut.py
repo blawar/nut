@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import argparse
@@ -306,6 +306,7 @@ if __name__ == '__main__':
 		parser.add_argument('-b', '--blockchain', action="store_true", help='run blockchain server')
 		parser.add_argument('-k', '--submit-keys', action="store_true", help='Submit all title keys to blockchain')
 		parser.add_argument('-K', '--export-verified-keys', help='Exports verified title keys from blockchain')
+		parser.add_argument('-l', '--logfile', help='Redirect standard output to a logfile')
 		parser.add_argument('--export-keys', help='Exports title keys from blockchain')
 
 
@@ -331,6 +332,9 @@ if __name__ == '__main__':
 		Config.download.sansTitleKey = bool(args.nsx)
 		Config.download.update = bool(args.update)
 
+		if args.logfile:
+			sys.stdout = open(args.logfile, 'w')
+		
 		if args.hostname:
 			args.server = True
 			Config.server.hostname = args.hostname
