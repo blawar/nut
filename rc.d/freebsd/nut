@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# PROVIDE: nut
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# nut_enable (bool):	Set to NO by default.
+#			Set it to YES to enable it.
+# nut_user:		The user account nut daemon runs as what
+#			you want it to be. It uses 'nut' user by
+#			default. Do not sets it as empty or it will run
+#			as root.
+# nut_group:		The group account nut daemon runs as what
+#			you want it to be. It uses 'nut' group by
+#			default. Do not sets it as empty or it will run
+#			as wheel.
+# nut_chdir:		Directory where nut lives.
+#			Default: /usr/local/nut
+
+. /etc/rc.subr
+
+name="nut"
+rcvar=${name}_enable
+
+load_rc_config ${name}
+
+: ${nut_enable:="NO"}
+: ${nut_user:="nut"}
+: ${nut_group:="nut"}
+: ${nut_chdir:="/usr/local/nut"}
+
+pidfile="/var/run/${name}.pid"
+logfile="/var/log/${name}.log"
+command="/usr/sbin/daemon"
+command_args="-o ${logfile} -P ${pidfile} ${nut_chdir}/nut.py -l ${nutfile} -S"
+
+start_precmd="nut_prestart"
+nut_prestart() {
+	if [ -f ${pidfile} ]; then
+		rm -f ${pidfile}
+		echo "Removing stale pidfile."
+	elif [ ! -d ${pidfile%/*} ]; then
+		install -d -o ${nut_user} -g ${nut_group} ${pidfile%/*}
+	fi
+
+	touch ${pidfile}
+	chown ${nut_user}:${nut_group} ${pidfile}
+}
+
+run_rc_command "$1"
