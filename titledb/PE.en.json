@@ -2988,6 +2988,49 @@
         ],
         "size": 982515712
     },
+    "70010000021364": {
+        "id": "01000B900D8B0000",
+        "rightsId": null,
+        "name": "Cadence of Hyrule \u2013 Crypt of the NecroDancer Featuring The Legend of Zelda",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190613,
+        "nsuId": 70010000021364,
+        "category": [
+            "Action",
+            "Adventure",
+            "Music"
+        ],
+        "ratingContent": [
+            "Mild Fantasy Violence"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/9eb64e3c1acfaedc10361ddfe6858c99f467d944578a3c32770e3476a620b767.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/4425bfc566efc5cc4550fc3af4de06cf1684bfa783593209ff11bc76d4a06857.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2cb3febaafb22e2db34cfe400e5dfabbc7f036115bdd56aaf8a53ed5141e9dc9.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/555d8cd694971f33c03c08ccefc5bc664705a3b692a31ddad9ddf07802c6e856.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/313a8f483a53f196b5472b4587ded3c185ebd2d6b285b699b9fd616f808fb77f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dfdadccab44d829ccfa77d5f1a00a2cdb6200efc366377b597f832fba5f378c0.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/522377693b37974afbc93d085bc740675a13e5d1541b0f63f9e58e45be1c8054.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d98ff11f4ee342047b7812c9011425b0c41cc469a2418187ba2994212721ef0c.jpg",
+        "intro": "Keep the beat and keep Hyrule \nfrom meeting certain doom",
+        "description": "In the latest rhythmic action-adventure from Brace Yourself Games, you can enjoy the gameplay of Crypt of the Necrodancer in the setting of The Legend of Zelda series. As Link\u2014or even as Princess Zelda\u2014you\u2019ll explore the randomly generated overworld and dungeons on a quest to save Hyrule. Every beat of each remixed, The Legend of Zelda tune is a chance to move, attack, defend, and more, so stay one step ahead of each enemy and boss\u2026or face the music. From modern-looking Lynels to the Hyrulean Soldiers of old, you must master the instinctive movements of each pixel-art enemy, and strategically outstep them in rhythmic combat. So equip yourself with an arsenal of iconic Legend of Zelda items, as well as the spells and weapons from Crypt of the Necrodancer. You must be prepared to face Hyrule\u2019s most wicked bosses, which have been transformed by magic, granting them mighty, new forms!",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "pt"
+        ],
+        "size": 709885952
+    },
     "70030000005101": {
         "id": "0100ED800CBFC000",
         "rightsId": null,
