@@ -12,7 +12,7 @@ function formatNumber(rate, unit /*= 'h/s'*/) {
 		return Round(rate * 1000000000, 2) + " n" + unit;
 	}
 	else if (rate < 0.0007) {
-		return Round(rate * 1000000, 2) + " �" + unit;
+		return Round(rate * 1000000, 2) + " µ" + unit;
 	}
 	else if (rate < 0.7) {
 		return Round(rate * 1000, 2) + " m" + unit;
