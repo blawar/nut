@@ -12,7 +12,7 @@ function formatNumber(rate, unit /*= 'h/s'*/) {
 		return Round(rate * 1000000000, 2) + " n" + unit;
 	}
 	else if (rate < 0.0007) {
-		return Round(rate * 1000000, 2) + " µ" + unit;
+		return Round(rate * 1000000, 2) + " ï¿½" + unit;
 	}
 	else if (rate < 0.7) {
 		return Round(rate * 1000, 2) + " m" + unit;
@@ -217,7 +217,21 @@ angular
   				row = res.data[key];
   				t = $scope.titlesDict[row.id];
   				if (t) {
-  					row.name = t.name;
+  					let a = $scope.titlesDict[row.baseId];
+					if (t.name != null) {
+						if (t.name.indexOf(a.name) > -1 ) {
+							row.name = t.name;
+						}
+						else {
+							row.name = a.name + ' DLC: ' + t.name;
+						}
+					}
+					else {
+  						row.name = a.name;
+  						if (t.isDLC) {
+  							row.name += ' DLC';
+						}
+					}
 
   					if (row.currentVersion) {
   						row.currentVersion = parseInt(row.currentVersion).toString(16);
