@@ -365,6 +365,11 @@ class Title:
 		baseId = getBaseId(self.id)
 		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
 			return (Titles.get(baseId).name or '').replace('\n', ' ')
+		elif hasattr(self, 'isDLC') and self.isDLC and Titles.contains(baseId):
+			if (self.name or '').find(Titles.get(baseId).name) > -1:
+				return 'DLC: ' + (self.name or '').replace('\n', ' ')
+			else:
+				return (((Titles.get(baseId).name or '') + ' DLC: ' + (self.name or '')) or '').replace('\n', ' ')
 		return (self.name or '').replace('\n', ' ')
 
 	def getBaseName(self):
