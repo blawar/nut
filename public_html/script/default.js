@@ -226,12 +226,14 @@ angular
 							row.name = a.name + ' DLC: ' + t.name;
 						}
 					}
-					else {
-  						row.name = a.name;
-  						if (t.isDLC) {
-  							row.name += ' DLC';
-						}
-					}
+                                        else {
+                                                if (typeof(a) != 'undefined'){
+                                                        row.name = a.name;
+                                                        if (t.isDLC) {
+                                                                row.name += ' DLC';
+                                                        }
+                                                }
+                                        }
 
   					if (row.currentVersion) {
   						row.currentVersion = parseInt(row.currentVersion).toString(16);
