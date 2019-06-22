@@ -2009,6 +2009,56 @@
         ],
         "size": 2589982720
     },
+    "70010000012124": {
+        "id": "010031200B94C000",
+        "rightsId": null,
+        "name": "My Friend Pedro",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190620,
+        "nsuId": 70010000012124,
+        "category": [
+            "Arcade",
+            "Acci\u00f3n",
+            "Aventura",
+            "Plataformas"
+        ],
+        "ratingContent": [
+            "Sangre",
+            "Violencia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Devolver Digital",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/1fd8075f3740ab5b964f93baabb51b094036ed29073ed0ddd6f39e0900a4ae85.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/3a5c1bdfc5c88ccb71645f40400699eab63665c40393d70d8cf51236fb6d77fc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d9cb20113fde16d35c73e4af238ee8900b13e54c1aedc3503d574618d4e382ec.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8dfea90615b7f966d82e0b6592c6e976017ba885f4729c727eef017a7849ba34.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bdf868ecc2fe0ca3dab29db593de43165669ded272005638ab83607c15ae3e8d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/24b76dbf0586e9bfcaeb3f6032959bce09a6168e446c9c221c4644559d66d6a2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b7637da20ba14c9cda2d589a73b5570f3c17dd636a019fbc7a32a2971a50ca16.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5fbccdf978666ba8f07b95b42f098ae32d072e553e1d5054c19981397d40523f.jpg",
+        "intro": null,
+        "description": "My Friend Pedro es un ballet violento sobre la amistad, la imaginaci\u00f3n y la lucha de un hombre por aniquilar a todo el que se interpone en su camino por orden de un pl\u00e1tano parlante. El uso estrat\u00e9gico de la punter\u00eda dividida, la c\u00e1mara lenta y la elegante ruptura de ventanas crea una sensacional secuencia de acci\u00f3n tras otra en una batalla explosiva por los violentos bajos fondos.\n\nDesata un torrente de destrucci\u00f3n con un nivel de control incre\u00edble sobre tus armas y tu cuerpo. Gira y retu\u00e9rcete en el aire mientras apuntas con ambas manos a amenazas prioritarias o prepara una carambola perfecta para acabar con un g\u00e1nster desprevenido por la espalda.\n\nDescansa un poco de tantas carreras y disparos de alto voltaje con secuencias din\u00e1micas como una trepidante persecuci\u00f3n en moto, o ralent\u00edzalo todo y t\u00f3mate un tiempo para pensar en una serie de ingeniosos (y posiblemente letales) rompecabezas f\u00edsicos.",
+        "languages": [
+            "ja",
+            "pt",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 4331667456
+    },
     "70010000012305": {
         "id": "01001B300B9BE000",
         "rightsId": "01001B300B9BE0000000000000000005",
