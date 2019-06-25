@@ -6131,6 +6131,53 @@
         ],
         "size": 6021971968
     },
+    "70010000019007": {
+        "id": "0100E9600DD6C000",
+        "rightsId": null,
+        "name": "\ube14\ub7ec\ub4dc\uc2a4\ud14c\uc778\ub4dc: \ub9ac\ucd94\uc5bc \uc624\ube0c \ub354 \ub098\uc774\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190625,
+        "nsuId": 70010000019007,
+        "category": [
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 12,
+        "developer": null,
+        "publisher": "Digital Touch",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/f8a2669c22241e9775fd2663f66ac9f6ac4d10bd03929f382cd2db97a4a2780e.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/6be93d85c79e1761645fbbecc40d11e6a8a846828ac49a4b1241c271092bcbc5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/16704ed2174a4d42c783a59a8c9f58851eca31a0c7bebbd1600babaa267ba55c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5268dfca699f9c1b9d99b39b8befe12e6e24f31a867a187b185193c06f876983.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ddd9a3cc7800c1312ef853f110671f43037eaf636e179d08a22ee839e740afa5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/fb28a6e8d0cd4acbc3238f77705c7193fc38c2a666e7acb8a35b7f3c5cd9bd9d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/160c928d85cc10fad7658e682e1e516de9ad8683ed3e6fd04aa392adbdc0bb20.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f72161fbe4fe452c6ec3a10f81fd7fba661a2b6da7011e5b2cfc358505772402.jpg",
+        "intro": "Igavania Returns!\n\uc790\uc2e0\uacfc \uc778\ub958\ub97c \uad6c\ud558\uae30 \uc704\ud574, \ubbf8\ub9ac\uc554\uc740 \uc545\ub9c8\uc758 \uc131\uc744 \uc138\uc0c1\uc5d0 \uc18c\ud658\ud55c \uc9c0\ubca8\uacfc \ub9de\uc11c\uac8c \ub429\ub2c8\ub2e4. ",
+        "description": "Bloodstained: Ritual of the Night\ub294 \uace0\ub515 \ud638\ub7ec \ud6a1\uc2a4\ud06c\ub864 \uc561\uc158 RPG \uac8c\uc784\uc73c\ub85c, \ubd88\uac00\uc0ac\uc758\ud55c \ud798\uc5d0 \uc758\ud574 \uc545\ub9c8\ub85c \uac00\ub4dd\ucc2c \uc131\uacfc \uadf8 \ub9c8\ub825\uc774 \uae43\ub4e0 \uacb0\uc815\uc774 \ucd9c\ud604\ud55c 18\uc138\uae30 \uc601\uad6d\uc744 \ubc30\uacbd\uc73c\ub85c \ud569\ub2c8\ub2e4.\n\uc5f0\uae08\uc220\uc0ac\uc758 \uc800\uc8fc\ubc1b\uc740 \uc2e4\ud5d8\uc73c\ub85c \uc545\ub9c8\uc758 \ud798\uc774 \uae43\ub4e4\uac8c \ub41c \uc8fc\uc778\uacf5 \ubbf8\ub9ac\uc554. \uadf8\ub140\uc758 \ubab8\uc740 \uc11c\uc11c\ud788 \uadf8 \ud798\uc5d0 \uce68\uc2dd\ub418\uc5b4 \uac11\ub2c8\ub2e4. \uc790\uc2e0\uacfc \uc778\ub958\ub97c \uad6c\ud558\uae30 \uc704\ud574, \ubbf8\ub9ac\uc554\uc740 \uc545\ub9c8\uc758 \uc131\uc744 \uc138\uc0c1\uc5d0 \uc18c\ud658\ud55c \uc9c0\ubca8\uacfc \ub9de\uc11c\uac8c \ub429\ub2c8\ub2e4. \n\ub2e4\uc591\ud55c \ubb34\uae30\uc640 \uc7a5\ube44\ud488\uc744 \ud68d\ub4dd \ubc0f \uc81c\uc791\ud558\uace0, \ub2e4\ucc44\ub85c\uc6b4 \ub9c8\ubc95\uacfc \uae30\uc220\uc744 \uad6c\uc0ac\ud574 \uae38\uc744 \ub9c9\uc544\uc11c\ub294 \uc218\ub9ce\uc740 \uc545\ub9c8\uc640 \ubcf4\uc2a4\ub4e4\uc744 \ubb3c\ub9ac\uce58\uc2ed\uc2dc\uc624.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "ko"
+        ],
+        "size": 6599737344
+    },
     "70010000019221": {
         "id": "010086300A558000",
         "rightsId": null,
