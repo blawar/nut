@@ -6678,5 +6678,35 @@
         "description": "Purchase this bundle to own the digital version of the DRAGON QUEST BUILDERS 2 game and Season Pass.\n\nThis bundle includes the following downloadable content:\n\n>DRAGON QUEST BUILDERS 2\nTo stop the worshippers of an ancient evil, you must join forces with the mysterious Malroth and build a ravaged world into the realm of your dreams. In this RPG adventure, you\u2019ll explore huge islands, gather and craft with materials, design towns, level them up, and defend them from monsters and bosses alongside townspeople. As you progress, you\u2019ll unearth crafting and building recipes. Dash, glide, explore underwater, fast travel, and play in optional first-person perspective as you try to find them all. In the Isle of Awakening, you and up to three other Builders can explore together in local wireless*; or play online** together too.\n\n*Additional games and systems required; sold separately.\n** Nintendo Switch Online membership (sold separately) and Nintendo Account required for online play. Persistent Internet, compatible smartphone and Nintendo Account age 13+ required to use app. Data charges may apply. Online play, Save Data Cloud and Nintendo Switch Online smartphone app features available in compatible games. Not available in all countries. The Nintendo Account User Agreement, including the Purchase and Subscription terms, apply. nintendo.com/switch-online\n\n>Season Pass\nThis pass includes the following downloadable content:\n\u2022 Hotto Stuff Pack\n\u2022 Aquarium Pack\n\u2022 Modernist Pack\nEach pack will also be released individually.\n\n\u2022 Full version of game required to use DLC. Sold separately or bundled with Season Pass.\n\u2022 You can also buy DLC packs individually. Please be careful not to purchase the same item twice.\n",
         "languages": null,
         "size": 1569718272
+    },
+    "70070000006542": {
+        "id": null,
+        "rightsId": null,
+        "name": "Fire Emblem\u2122: Three Houses + Expansion Pass",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190726,
+        "nsuId": 70070000006542,
+        "category": null,
+        "ratingContent": [
+            "Blood",
+            "Suggestive Themes",
+            "Violence",
+            "Users Interact"
+        ],
+        "numberOfPlayers": null,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ed2194aa5ca7ecfe6e3d9e2ba60f99dfe2e2c417cd199292e793fd26d24b018e.jpg",
+        "intro": null,
+        "description": "Purchase the Fire Emblem\u2122: Three Houses + Expansion Pass bundle to receive the full game and all waves of downloadable content as they release.\n\n\u2022\tWave 1: Officers Academy outfits for female and male Byleth available Day 1 (July 26th)\n\u2022\tWave 2: Additional Auxiliary battle maps, helpful in-game support items, and more will be released by 10/31/2019\n\u2022\tWave 3: Additional quests and costumes will be released by 12/31/2019; plus, another free update\n\u2022\tWave 4: Discover new story content, with additional playable characters, locations and more will be released by 4/30/2020; plus, another free update\n\n",
+        "languages": null,
+        "size": 11822694400
     }
 }

@@ -6703,5 +6703,35 @@
         "description": "Adquiere este paquete para obtener la versi\u00f3n digital del juego DRAGON QUEST BUILDERS 2 y el pase de temporada. \n\nEste paquete incluye el siguiente contenido descargable:\n\n>DRAGON QUEST BUILDERS 2\nPara ponerle un alto a los seguidores de una antigua fuerza maligna, deber\u00e1s unir fuerzas con el misterioso Malroth y construir de un mundo devastado el reino de tus sue\u00f1os. En esta aventura al estilo juego de rol, explorar\u00e1s enormes islas, reunir\u00e1s y crear\u00e1s materiales, dise\u00f1ar\u00e1s pueblos, los subir\u00e1s de nivel y los defender\u00e1s de monstruos y jefes junto a los habitantes de los pueblos. A medida que avanzas, descubrir\u00e1s y elaborar\u00e1s recetas. Salpica, desliza, explora bajo el agua, viaja r\u00e1pidamente y disfruta de la perspectiva opcional en primera persona mientras intentas encontrarlos a todos. En la Isla del Despertar, t\u00fa y tres constructores m\u00e1s podr\u00e1n explorar juntos a trav\u00e9s de la comunicaci\u00f3n local*, o en l\u00ednea **.\n\n* Se requieren consolas y juegos adicionales que se venden por separado.\n** Se requiere una suscripci\u00f3n a Nintendo Switch Online (se vende por separado) y una cuenta Nintendo para los servicios en l\u00ednea. Se requiere una conexi\u00f3n a internet estable, un tel\u00e9fono m\u00f3vil inteligente y una cuenta Nintendo para mayores de 13 a\u00f1os para usar la aplicaci\u00f3n. Es posible que se apliquen cargos de datos celulares. Las funciones del juego en l\u00ednea, la opci\u00f3n de guardado de datos en la nube y la aplicaci\u00f3n Nintendo Switch Online est\u00e1 disponible en los juegos compatibles. No disponible en todos los pa\u00edses. Aplican los t\u00e9rminos del Acuerdo de usuario de la cuenta Nintendo, incluyendo los T\u00e9rminos de compra y suscripci\u00f3n. nintendo.com/switch-online.\n\n>Season Pass\nEste pase incluye el siguiente contenido descargable:\n\u2022 Hotto Stuff Pack\n\u2022 Aquarium Pack\n\u2022 Modernist Pack\nCada paquete ser\u00e1 lanzado de forma individual.\n\n\u2022 Se requiere la versi\u00f3n completa del juego para poder utilizar el contenido descargable. Se vende por separado o en conjunto con el pase de temporada.\n\u2022 Tambi\u00e9n podr\u00e1s adquirir los paquetes de contenido descargable de forma individual. Ten cuidado de no adquirir el mismo paquete dos veces.\n",
         "languages": null,
         "size": 1569718272
+    },
+    "70070000006542": {
+        "id": null,
+        "rightsId": null,
+        "name": "Fire Emblem\u2122: Three Houses + Pase de expansi\u00f3n",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190726,
+        "nsuId": 70070000006542,
+        "category": null,
+        "ratingContent": [
+            "Sangre",
+            "Temas insinuantes",
+            "Violencia",
+            "Interacci\u00f3n de usuarios"
+        ],
+        "numberOfPlayers": null,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/1f175f198c11505ff0263aba74ef28bbaf32bff55890a3920f84c69890e51494.jpg",
+        "intro": null,
+        "description": "Adquiere el paquete que incluye el juego Fire Emblem\u2122: Three Houses + Pase de expansi\u00f3n y recibe el juego completo y todo el contenido descargable conforme est\u00e9 disponible.\n\n\u2022\tOla 1: Trajes de la Academia de Oficiales para Byleth chico o chica en el d\u00eda 1 (26 de julio)\n\u2022\tOla 2: Mapas adicionales de batallas opcionales, \u00fatiles art\u00edculos de apoyo del juego y mucho m\u00e1s ser\u00e1 lanzado el 31/10/2019\n\u2022\tOla 3: Misiones y trajes adicionales ser\u00e1n lanzados el 31/12/2019, adem\u00e1s otra actualizaci\u00f3n gratuita se llevar\u00e1 acabo\n\u2022\tOla 4: Descubre una nueva historia, con personajes jugables adicionales, ubicaciones y mucho m\u00e1s, todo estar\u00e1 disponible el 30/04/2020 adem\u00e1s de otra actualizaci\u00f3n gratuita\n\n",
+        "languages": null,
+        "size": 11822694400
     }
 }
