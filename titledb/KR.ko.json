@@ -16603,6 +16603,34 @@
         "languages": null,
         "size": 9437184
     },
+    "70050000013121": {
+        "id": "0100E9600DD6D001",
+        "rightsId": null,
+        "name": "Iga\uc758 \ud6c4\uc6d0\uc790 \ud329",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190704,
+        "nsuId": 70050000013121,
+        "category": null,
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 12,
+        "developer": null,
+        "publisher": "Digital Touch",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d9c525080749eb192643201022c2a779f08033ad956342320796666450774b73.jpg",
+        "intro": "Koji Igarashi\uac00 \ub3cc\uc544\uc654\ub2e4!",
+        "description": "Koji Igarashi\uac00 \ub3cc\uc544\uc654\ub2e4! Bloodstained\uc758 \uc624\ub9ac\uc9c0\ub110 \ud0a5\uc2a4\ud0c0\ud130\uc5d0 \ucc38\uc5ec\ud560 \uae30\ud68c\ub97c \ub193\uce58\uc2e0 \ubd84\ub4e4\uc744 \uc704\ud574, \u201cIga\uc758 \ud6c4\uc6d0\uc790 \ud329\"\uc744 \uc900\ube44\ud588\uc2b5\ub2c8\ub2e4.\n\ud32c \uc5ec\ub7ec\ubd84\uc744 \uc704\ud55c \uc778\uae30 \ubb34\uae30 \u300c\uc18c\ub4dc \uc715\u300d\uc744 \uc5bb\uc744 \uc218 \uc788\uc744 \ubfd0\ub9cc \uc544\ub2c8\ub77c, \ud2b9\ubcc4\ud558\uace0\ub3c4 \uac15\ub825\ud55c \ubcf4\uc2a4 Koji Igarashi\uc640\uc758 \uaca9\uc804\uc744 \uacbd\ud5d8\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4!",
+        "languages": null,
+        "size": 4194304
+    },
     "70050000013161": {
         "id": "010055D009F79006",
         "rightsId": null,
