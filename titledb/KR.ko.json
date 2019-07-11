@@ -5629,6 +5629,53 @@
         ],
         "size": 878706688
     },
+    "70010000016357": {
+        "id": "010032C00D19A000",
+        "rightsId": null,
+        "name": "\uc5b4\uc6e8\uc774: \ub73b\ubc16\uc758 \uc5ec\uc815",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190711,
+        "nsuId": 70010000016357,
+        "category": [
+            "\uc561\uc158",
+            "\uc5b4\ub4dc\ubca4\ucc98",
+            "\uc288\ud305"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 0,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/634a54d35058edb057dbe2d0611dfeb0258ae9db71bbc34c3d50b6e9ba8afe55.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/d3166aeab2812e582a62a705c051cd23c7cb05c88b3526ab3644359319eac982.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a56117c4cb7a6d0d8f75ee087ea4656fb3ba1951d5ec3fb0d59fd64f8692afb5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/71f60f406359343b7e93730af8a75442e1c9f926da6282238e42e52e3af72f45.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/5a8bb416e63832c2e560ec0eb68edbd98a4dbca4e79dc238e24d37d9f9217470.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/615d5a54171939ef354fdddcc173ad66128591d8eb9a43c45306dccce6297d78.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6b3bcd701ce4b8fc97a2211ec5bfc90434ae396a19ba3b20d9262c9dcd83b9e9.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/efe0fd3af2f9ec195385a41c74ad83ce5e138b94c1a23682c0d0664fd489e41f.jpg",
+        "intro": "\uc544\ub984\ub2e4\uc6b4 \uc0c9\uac10\uc73c\ub85c \uac00\ub4dd \ucc2c \ubaa8\ud5d8\uacfc \uc561\uc158, \uadf8\ub9ac\uace0 \ub85c\uadf8\ub77c\uc774\ud2b8\uac00 \uacb0\ud569\ub41c 1\uc778\uce6d \uc561\uc158 \uc5b4\ub4dc\ubca4\ucc98 \uac8c\uc784",
+        "description": "'\uc5b4\uc6e8\uc774'\uc5d0\uc11c, \ud50c\ub808\uc774\uc5b4\ub294 \uc601\uc6c5\ub3c4 \uc804\uc0ac\ub3c4 \uc544\ub2cc \ud3c9\ubc94\ud55c \uc18c\ub144\uc774 \ub418\uc5b4 \ubaa8\ud5d8\uc744 \ub5a0\ub098\uac8c \ub418\uba70, \uc55e\uc744 \uac00\ub85c\ub9c9\ub294 \uc218 \ub9ce\uc740 \ubb38\uc81c\ub4e4\uc744 \uc6b0\uc815\uc758 \ud798\uc73c\ub85c \uadf9\ubcf5\ud558\uac8c \ub41c\ub2e4.  \n\n\uc774\uc57c\uae30\ub97c \uc9c4\ud589\ud558\uba70 \uc790\uc2e0\uc758 \uae38\uc744 \uc120\ud0dd\ud558\uace0, \ub530\ub4ef\ud558\uace0 \uac10\ub3d9\uc801\uc778 \uc2a4\ud1a0\ub9ac\ub97c \uc990\uae30\uba70 \ub2f9\uc2e0\uacfc \ud568\uaed8 \uc774\uc57c\uae30\ub97c \ud3bc\uccd0 \ub098\uc544\uac08 \uce5c\uad6c\ub4e4\uc744 \ubaa8\uc9d1\ud558\uc790. \ub2f9\uc2e0\uc774 \ub9cc\ub0a0 \uac1c\uc131\uc801\uc774\uace0 \uac15\ub82c\ud55c \ubaa8\ub4e0 \uce90\ub9ad\ud130\ub4e4\uc740 1\uc778\uce6d\uc73c\ub85c \ud50c\ub808\uc774\ud558\ub294 \uac83\uc774 \uac00\ub2a5\ud558\uba70, \uadf8\ub4e4\uacfc \uc5ec\uc815\uc744 \ud568\uaed8 \ud558\uae30 \uc704\ud574 \ub2f9\uc2e0\uc740 \uc62c\ubc14\ub978 \ub2f5\uc744 \ucc3e\uc544\uc57c\ub9cc \ud55c\ub2e4.\n\n\uac8c\uc784 \ud2b9\uc9d5\n\u25a0 \uc6b0\ub454\ud55c \uc77c\uafbc\ub4e4, \uc6b0\uc8fc \ubc14\uae65\uc5d0\uc11c \uc628 \ubbf8\uc2a4\ud130\ub9ac\ud55c \uc0dd\ubb3c, \uc678\ub208\ubc15\uc774 \uce5c\uad6c\ub4e4 \ub4f1 3D \uc138\uc0c1\uc5d0 \uc0b4\uace0 \uc788\ub294 2D \uce90\ub9ad\ud130\ub4e4\uacfc \ud568\uaed8, \ub3c5\ud2b9\ud55c \uc2dc\uac01 \ud6a8\uacfc\uac00 \uac00\ub4dd\ud55c \ub73b\ubc16\uc758 \uc5ec\uc815\uc744 \ub5a0\ub098\uc790.\n\u25a0 \uce69\ud2a0 \uc74c\uc545 \uc791\uace1\uac00 \ub098\ub8e8\uc138 \uce74\uc988\ud788\ucf54\uac00 \uc791\uace1\ud55c \uc560\ub2c8\uba54\uc774\uc158 \ud14c\ub9c8\ub97c \ubc30\uacbd\uc73c\ub85c, \uac1c\uc131\uc801\uc774\uace0 \ub2e4\uc591\ud55c \uce90\ub9ad\ud130\ub4e4\uc744 \ub9cc\ub098\uba70 \ub85c\uadf8\ub77c\uc774\ud2b8 \uc694\uc18c\uac00 \ub2f4\uae34 \uc7ac\ubbf8\uc788\uace0 \uac10\ub3d9\uc801\uc778 \uc774\uc57c\uae30\ub97c \uc990\uae38 \uc218 \uc788\ub2e4.\n",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "pt",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 5132779520
+    },
     "70010000016505": {
         "id": "0100EB100AB42000",
         "rightsId": null,
