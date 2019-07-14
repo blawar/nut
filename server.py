@@ -50,6 +50,8 @@ class Header:
 		self.layout = QHBoxLayout()
 
 		self.textbox = QLineEdit(app)
+		self.textbox.setMinimumWidth(100)
+		self.textbox.setAlignment(Qt.AlignLeft)
 		self.textbox.setText(os.path.abspath(Config.paths.scan))
 		self.textbox.textChanged.connect(self.updatePath)
 		self.layout.addWidget(self.textbox)
@@ -58,20 +60,19 @@ class Header:
 		self.scan.clicked.connect(app.on_scan)
 		self.layout.addWidget(self.scan)
 
-		self.autolaunchBrowser = QCheckBox("Auto-Launch Web Browser?", app)
-		self.autolaunchBrowser.setChecked(Config.autolaunchBrowser)
-		self.autolaunchBrowser.stateChanged.connect(self.onCheck)
-		self.layout.addWidget(self.autolaunchBrowser)
+		# self.autolaunchBrowser = QCheckBox("Launch Web Browser?", app)
+		# self.autolaunchBrowser.setChecked(Config.autolaunchBrowser)
+		# self.autolaunchBrowser.stateChanged.connect(self.onCheck)
+		# self.layout.addWidget(self.autolaunchBrowser)
 
-		self.serverInfo = QLabel("IP: %s  Port: %s  User: %s  Password: %s" % (getIpAddress(), str(Config.server.port), Users.first().id, Users.first().password))
-		self.serverInfo.setFixedWidth(600)
+		self.serverInfo = QLabel("<b>IP:</b>  %s  <b>Port:</b>  %s  <b>User:</b>  %s  <b>Password:</b>  %s" % (getIpAddress(), str(Config.server.port), Users.first().id, Users.first().password))
+		self.serverInfo.setMinimumWidth(200)
 		self.serverInfo.setAlignment(Qt.AlignCenter)
-
 		self.layout.addWidget(self.serverInfo)
-		self.usbStatus = QLabel("USB Status: " + str(Usb.status))
 
-		self.usbStatus.setFixedWidth(200)
-
+		self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
+		self.usbStatus.setMinimumWidth(50)
+		self.usbStatus.setAlignment(Qt.AlignCenter)
 		self.layout.addWidget(self.usbStatus)
 
 		self.timer = QTimer()
@@ -81,19 +82,19 @@ class Header:
 
 		Users.export()
 
-	def onCheck(self, state):
-		if state == Qt.Checked:
-			Config.autolaunchBrowser = True
-		else:
-			Config.autolaunchBrowser = False
-		Config.save()
+	# def onCheck(self, state):
+	# 	if state == Qt.Checked:
+	# 		Config.autolaunchBrowser = True
+	# 	else:
+	# 		Config.autolaunchBrowser = False
+	# 	Config.save()
 
 	def updatePath(self):
 		Config.paths.scan = self.textbox.text()
 		Config.save()
 
 	def tick(self):
-		self.usbStatus.setText("USB Status: " + str(Usb.status))
+		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
 
 class Progress:
 	def __init__(self, app):
@@ -237,7 +238,6 @@ def initThread(app):
 if __name__ == '__main__':
 	urllib3.disable_warnings()
 
-
 	print('                        ,;:;;,')
 	print('                       ;;;;;')
 	print('               .=\',    ;:;;:,')
@@ -264,4 +264,3 @@ if __name__ == '__main__':
 	sys.exit(app.exec_())
 	
 	print('fin')
-
