@@ -8,13 +8,14 @@ import pathlib
 import urllib3
 import urllib
 import json
-import webbrowser
+# import webbrowser
 import Server
 
 import nut
 from nut import Title
 from nut import Titles
 from nut import Nsps
+
 from nut import Config
 import time
 
@@ -50,7 +51,7 @@ class Header:
 		self.layout = QHBoxLayout()
 
 		self.textbox = QLineEdit(app)
-		self.textbox.setMinimumWidth(100)
+		self.textbox.setMinimumWidth(25)
 		self.textbox.setAlignment(Qt.AlignLeft)
 		self.textbox.setText(os.path.abspath(Config.paths.scan))
 		self.textbox.textChanged.connect(self.updatePath)
@@ -232,11 +233,12 @@ def nutThread():
 def initThread(app):
 	nut.scan()
 	app.refresh()
-	if Config.autolaunchBrowser:
-		webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
+	# if Config.autolaunchBrowser:
+	# 	webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
 			
 if __name__ == '__main__':
 	urllib3.disable_warnings()
+
 
 	print('                        ,;:;;,')
 	print('                       ;;;;;')
