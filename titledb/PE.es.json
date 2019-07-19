@@ -901,6 +901,47 @@
         ],
         "size": 3241148416
     },
+    "70010000001620": {
+        "id": null,
+        "rightsId": null,
+        "name": "Luigi\u2019s Mansion\u2122 3",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20191031,
+        "nsuId": 70010000001620,
+        "category": [
+            "Acci\u00f3n",
+            "Aventura"
+        ],
+        "ratingContent": [
+            "Travesuras comicas",
+            "Violencia moderada en caricaturas"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2b166fb3197dacfde1d939acd6a976b9fbe3b1a32c54f9f0d2c8d23efb22412d.jpg",
+        "intro": "El hotel est\u00e1 encantado. Mario est\u00e1 desaparecido. Y la \u00fanica esperanza es\u2026 \u00bf\u00a1Luigi?!",
+        "description": "Luigi ha sido invitado al hotel El Gran Descanso Real, \u00a1pero cuando Mario y sus amigos desaparecen, nuestro h\u00e9roe de verde tendr\u00e1 que sobrepasar sus miedos para poder salvarlos! Golpe, sopla y aspira a los fantasmas con la nueva Succionaentes GO-1000 y trabaja en conjunto con Gomiluigi para superar los complicados artilugios y traviesos jefes de cada piso tem\u00e1tico. \u00a1Entra a la Torre del Horror y forma equipo con hasta 7 jugadores m\u00e1s en este modo cooperativo en l\u00ednea* y local!\n\nIntenta derrotar a todos los fantasmas, rescatar a todos los toads y cumplir con los objetivos antes de que se acabe el tiempo\u2026 \u00a1en la Torre del Horror! Ya sea que explores el hotel con amigos o en solitario, ser\u00e1s absorbido por la m\u00fasica de ambiente y la espantosa decoraci\u00f3n de cada espeluznante esquina que explores. \u00bfPor qu\u00e9 no disfrutar de los panoramas y sonidos cinematogr\u00e1ficos con un amigo? En la aventura principal, t\u00fa y un amigo podr\u00e1n disfrutar juntos como Luigi y Gomiluigi en un juego cooperativo para dos. Gomiluigi puede caminar sobre picos, cruzar por lugares peque\u00f1o y puede ayudar a Luigi a superar los obst\u00e1culos que por s\u00ed solo no podr\u00eda superar. \u00a1No est\u00e1 de m\u00e1s tener a un amigo en este hotel; tal vez no sea tan tenebroso, pero Luigi no piensa lo mismo!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ko",
+            "zh"
+        ],
+        "size": 0
+    },
     "70010000001801": {
         "id": "0100E65002BB8000",
         "rightsId": "0100E65002BB80000000000000000003",

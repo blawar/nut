@@ -901,6 +901,47 @@
         ],
         "size": 3241148416
     },
+    "70010000001620": {
+        "id": null,
+        "rightsId": null,
+        "name": "Luigi\u2019s Mansion\u2122 3",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20191031,
+        "nsuId": 70010000001620,
+        "category": [
+            "Action",
+            "Adventure"
+        ],
+        "ratingContent": [
+            "Comic Mischief",
+            "Mild Cartoon Violence"
+        ],
+        "numberOfPlayers": null,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2b166fb3197dacfde1d939acd6a976b9fbe3b1a32c54f9f0d2c8d23efb22412d.jpg",
+        "intro": "The hotel is haunted. Mario is missing. And our only hope is\u2026Luigi?!",
+        "description": "Luigi\u2019s invited to the towering Last Resort hotel, but when Mario and friends go missing, our green-clad hero will have to conquer his fears to save them! Slam, blow away, and vacuum up ghosts with the all-new Poltergust G-00, and join forces with Gooigi to overcome the puzzling contraptions and mischievous boss on each themed floor. And that\u2019s just the Last Resort. Enter the ScareScraper to team up with up to seven other players in this online* and local co-op mode!\n\nSee if you can defeat all the ghosts, rescue all the Toads, or clear other objectives before time runs out\u2026in the ScareScraper! Whether you play with friends or wander the hotel alone, you\u2019ll be sucked in by the atmospheric music and ghoulish d\u00e9cor of every cobwebby corner you explore. Why not take in the cinematic sights and sounds with a friend? In the main adventure, you and a friend can play together as Luigi and Gooigi in two-player co-op! Gooigi can walk on spikes, slip through tight spaces, and help Luigi overcome obstacles he can\u2019t tackle alone. Never hurts to have a friend in this hotel; it may not be very spooky, but Luigi begs to differ!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ko",
+            "zh"
+        ],
+        "size": 0
+    },
     "70010000001801": {
         "id": "0100E65002BB8000",
         "rightsId": "0100E65002BB80000000000000000003",
