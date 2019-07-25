@@ -6635,6 +6635,48 @@
         ],
         "size": 255852544
     },
+    "70010000019844": {
+        "id": "01001FB00E386000",
+        "rightsId": null,
+        "name": "\ub2cc\uc790 \uc138\uc774\ube44\uc5b4 : \ub9ac\ud134 \uc624\ube0c \uc6cc\ub9ac\uc5b4\uc988",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190725,
+        "nsuId": 70010000019844,
+        "category": [
+            "\uc544\ucf00\uc774\ub4dc",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 12,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/8ed70166e430293259917f6384e93b1cd3beb06b7d94877662bc63b267a167a3.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/386d0b334d8e967007cf1eccabf1c565bcc3acbd40b9330d25d116628c33be23.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/21d8d1d4274a25b95c42f22f61ce897116f8ad2ad5d2ee2311ca6e525ec6ab23.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d2d0a1cf285937470c24b165e2bdfca46934b3b4d3e3fef95e43f3510284ed2a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9e603efc76855141cba564385c237fec6c006ff0d9898d6e63f076770646c2c3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/739e105dfa9fb0cd9411528f318cc8476ddb9fcd1235e619624801febbc2be47.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/51a9d884f1e2f8a0c794e74b46ffccee074cf7f9dac7d5618a5e66a2faf0b9d7.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ee3532aa0fdef8c9b82dc2a537b9d396d4bc81688ec8b7a5c403753a633e018d.jpg",
+        "intro": "\uba85\uc791 '\ub354 \ub2cc\uc790 \uc6cc\ub9ac\uc5b4\uc988 AGAIN'\uc744 \ub9ac\uba54\uc774\ud06c! \n16bit \ub290\ub08c \uadf8\ub300\ub85c! \uc640\uc774\ub4dc \uc2a4\ud06c\ub9b0 \ub300\uc751! \uc2e0\uce90\ub9ad\ud130 2\uba85 \ucd94\uac00\uc640\n\ub85c\uceec 2\uc778 \ud611\ub825 \ud50c\ub808\uc774 \ub4f1, \uc9c4\uc815\ud55c \ub9ac\uba54\uc774\ud06c\ub85c \ud30c\uc6cc \uc5c5!",
+        "description": "1987\ub144 \ubc1c\ub9e4\ub41c \uc544\ucf00\uc774\ub4dc \uac8c\uc784\n'\ub354 \ub2cc\uc790 \uc6cc\ub9ac\uc5b4\uc988'\ub97c \ub9ac\uba54\uc774\ud06c\ud55c\n1994\ub144\uc5d0 \ubc1c\ub9e4\ub41c \uc288\ud37c \ud328\ubbf8\ucef4\uc6a9 \n'\ub354 \ub2cc\uc790 \uc6cc\ub9ac\uc5b4\uc988 AGAIN'\uc744 \ubca0\uc774\uc2a4\ub85c,\n\n\ub2f9\uc2dc\uc758 \uba54\uc778 \uc2a4\ud0dc\ud504\ud300 'TENGO PROJECT'\uac00\n25\ub144 \ub9cc\uc5d0 \uc140\ud504 \ub9ac\uba54\uc774\ud06c.\n\n16bit \ub290\ub08c \uadf8\ub300\ub85c, \uce90\ub9ad\ud130\uc758 \ud574\uc0c1\ub3c4\uc640\n\uc561\uc158 \ud328\ud134 \uc218 \ub4f1\uc744 \ucd5c\uc2e0 \uae30\uae30\uc5d0 \ub9de\ucd94\uc5b4 \ub300\ud3ed \ud30c\uc6cc \uc5c5!\n\uc0c8\ub85c\uc6b4 \uce90\ub9ad\ud130\uac00 2\uba85 \ucd94\uac00\ub418\uc5b4 \uc788\uc73c\uba70, \n'\ub354 \ub2cc\uc790 \uc6cc\ub9ac\uc5b4\uc988 AGAIN'\uc5d0\uc11c\ub294 \uc2e4\ud604\ud558\uc9c0 \ubabb\ud55c\n2\uc778 \ud611\ub825 \ud50c\ub808\uc774 \ubaa8\ub4dc\ub97c \ucd94\uac00\ud55c \uc791\ud488\uc785\ub2c8\ub2e4.",
+        "languages": [
+            "ja",
+            "en",
+            "ko",
+            "zh"
+        ],
+        "size": 701497344
+    },
     "70010000019901": {
         "id": "010018300D006000",
         "rightsId": null,
@@ -6799,6 +6841,52 @@
             "zh"
         ],
         "size": 982515712
+    },
+    "70010000020297": {
+        "id": "0100A3F00C536000",
+        "rightsId": null,
+        "name": "\ud0ac\ub77c\ud0ac \ub354 \uac8c\uc784 -IF-",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190725,
+        "nsuId": 70010000020297,
+        "category": [
+            "\uaca9\ud22c",
+            "\uc561\uc158"
+        ],
+        "ratingContent": [
+            "\uc120\uc815\uc131",
+            "\ud3ed\ub825\uc131"
+        ],
+        "numberOfPlayers": 2,
+        "rating": 18,
+        "developer": null,
+        "publisher": "ARC SYSTEM WORKS",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/014c911ebaedda049ef307da2c4ced2025440fe96b6d9731b69edb2d030ecdca.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/d8d5249b8ab0267e57d3b798bf09318a709ad3faea7fa3f89bfde381f6fa8fcb.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/376fd0be4002ea49cfe8bc8ad3510e44fbdf601e33d279a2b50422aa8bc246e2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cbf97f7250725e1d636f2a7fc3f4d24204b4ecd3baebb62f1654e2b851495e5f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bf38892774cd0f8580e751c50f846306f114c81fa38a4879b4943382dd1a9bd8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/83080fb83ce1ae450789133f8f910722c8f36161ed763463784b32dd8c142a66.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/8317e3cec7b119e15ae52aa12d5a664ee5c142c97d3f93b0bdb1ad69cd3a55bf.jpg",
+        "intro": null,
+        "description": "\ub728\uac70\uc6cc\uc838\ub77c, \ud53c\uac00 \ub053\uc744 \uc815\ub3c4\ub85c!\n\uc6a9\uc19f\uc74c\uce58\ub294 \uc0c1\ucf8c\ud568! \uc774\uac83\uc774 \ud0ac\ub77c\ud0ac \ub300\uc804 \uc561\uc158\uc774\ub2e4!\n\n2013\ub144\uc758 \ub300\uc778\uae30 \uc560\ub2c8\uba54\uc774\uc158 \u300c\ud0ac\ub77c\ud0ac\u300d\uc774 \ubcf8\uaca9 \ub300\uc804 \uc561\uc158\uc774 \ub418\uc5b4 \ub4f1\uc7a5!\n\uc6d0\uc791 \uc560\ub2c8\uba54\uc774\uc158\uc758 \ub300\uc778\uae30 \uce90\ub9ad\ud130\ub4e4\uc744 \uc870\uc791\ud558\uba70 \ub9d8\uaecf \ub0a0\ub6f0\uc5b4 \ubcf4\ub77c!!\n\uc2a4\ud1a0\ub9ac \ubaa8\ub4dc\ub098 \ucee4\ubc84\uc988 \ucc4c\ub9b0\uc9c0 \ub4f1, \uc2f1\uae00 \ud50c\ub808\uc774 \ubaa8\ub4dc\ub3c4 \uc990\uae38 \uc218 \uc788\ub2e4!\n\n\u25a0 \uc6d0\uc791 \uc560\ub2c8\uba54\uc774\uc158\uc758 \ub290\ub08c\uc744 \ucca0\uc800\ud788 \uc7ac\ud604!\n3D \uc140 \uae30\ubc95\uc73c\ub85c \uadf8\ub824\uc9c0\ub294 \uc555\ub3c4\uc801\uc778 \ube44\uc8fc\uc5bc!\n\n\u25a0 \ud63c\uc2e0\uc744 \ub2f4\uc740 \uc218\ub9ce\uc740 \uc5f0\ucd9c!!\nTRIGGER \uac10\uc218\uc758 \uc5f0\ucd9c, \ub300\uc0ac, \uc74c\uc545\uc744 \ub2f9\uc2e0\uc758 \uc190\uc548\uc5d0!\n\n\u25a0 \uc2ec\ud50c\ud55c \uc870\uc791\uc73c\ub85c \ud3bc\uccd0\uc9c0\ub294 \ud654\ub824\ud55c \uc561\uc158!\n\ub204\uad6c\ub4e0\uc9c0 \uc990\uac81\uace0 \uba4b\uc9c0\uac8c! \ud0ac\ub77c\ud0ac\uc758 \uc138\uacc4\uc5d0\uc11c \ub0a0\ub6f0\uc5b4 \ubcf4\ub77c!!",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 7059013632
     },
     "70010000020843": {
         "id": "01009B90006DC000",
