@@ -6578,6 +6578,34 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000013781": {
+        "id": "01003BC0000A1002",
+        "rightsId": null,
+        "name": "My Nintendo Gear Set",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190722,
+        "nsuId": 70050000013781,
+        "category": null,
+        "ratingContent": [
+            "Cartoon Violence",
+            "Online Interactions Not Rated by the ESRB"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f6468d6052162165e0f6dfb15f4ce9dfac3acb3a313694917c0524234fefe62c.jpg",
+        "intro": null,
+        "description": "This is a set of four in-game gear items. You can receive:\n\n\u2022\tGray FA-11 Bomber\n\u2022\tBrown FA-11 Bomber\n\u2022\tRed V-Neck Limited Tee\n\u2022\tGreen V-Neck Limited Tee\n",
+        "languages": null,
+        "size": 6291456
+    },
     "70070000000481": {
         "id": null,
         "rightsId": null,

@@ -6578,6 +6578,34 @@
         "languages": null,
         "size": 4194304
     },
+    "70050000013781": {
+        "id": "01003BC0000A1002",
+        "rightsId": null,
+        "name": "Conjunto My Nintendo",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190722,
+        "nsuId": 70050000013781,
+        "category": null,
+        "ratingContent": [
+            "Violencia de caricatura",
+            "Interacciones en linea no estan clasificadas por la ESRB"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f6468d6052162165e0f6dfb15f4ce9dfac3acb3a313694917c0524234fefe62c.jpg",
+        "intro": null,
+        "description": "Conjunto My Nintendo\n\nFA-11 gris\nFA-11 marr\u00f3n\nCamiseta t\u00e1ctica roja\nCamiseta t\u00e1ctica verde\n",
+        "languages": null,
+        "size": 6291456
+    },
     "70070000000481": {
         "id": null,
         "rightsId": null,
