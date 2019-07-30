@@ -6960,6 +6960,41 @@
         "languages": null,
         "size": 1569718272
     },
+    "70070000006481": {
+        "id": null,
+        "rightsId": null,
+        "name": "Wolfenstein: Youngblood Trial",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190726,
+        "nsuId": 70070000006481,
+        "category": null,
+        "ratingContent": [
+            "Blood and Gore",
+            "Intense Violence",
+            "Strong Language",
+            "Users Interact",
+            "In-Game Purchases"
+        ],
+        "numberOfPlayers": null,
+        "rating": 17,
+        "developer": null,
+        "publisher": "Bethesda",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/d9e087eed03f64199da6ac5f2896f2a1564c5ebe43513cb52b5aa4674257d110.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e6728e1b5ec40ec348b06e0d3962bf060440616d24b0fbc0fe4432ac55a22128.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2323a7b0c908e88ba82a37f3e496615a4b9294ad3a9f7b1877bfc047b1513ea2.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/590e3183404c9c712ba5730cd0d2dda032c7c6038c40c3b9456e48d8464ebc3f.jpg",
+        "intro": null,
+        "description": "Try Wolfenstein: Youngblood for free. Access to all gameplay and features requires an invitation from a Buddy Pass owner.\n",
+        "languages": null,
+        "size": 24384634880
+    },
     "70070000006482": {
         "id": null,
         "rightsId": null,
