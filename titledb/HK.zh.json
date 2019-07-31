@@ -5752,6 +5752,43 @@
         ],
         "size": 9904848896
     },
+    "70010000017442": {
+        "id": "01004FD00D66A000",
+        "rightsId": null,
+        "name": "Caladrius Blaze",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190731,
+        "nsuId": 70010000017442,
+        "category": [
+            "\u5c04\u64ca"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": null,
+        "developer": null,
+        "publisher": "H2 INTERACTIVE",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/71a9ce1f9b2cd4d9db39fc228cc9aba74369d87956f4de632513b12b1d5f11c9.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/34673eca368a80e10bab5701aec9147df683ebeb0326dfa68258713cfd8d4f69.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e074d9eb2c786ae7ee7b87f3635aed03af4668335c762dc1fa43fbc26c2210d4.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/35de27855c92fc907e3167c3c194655225677bd7484360110d4422a545d3e98e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/78264b19d0ee49a0862c2aacad49f191da0852cf8991f8777342cebd994c452c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/90c4043a80c9b01f443f367862e01e3e1ac78b8f10041d6c3c34124341597eec.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/29c0a44ff63cc18bee4fec510d2ed140b365609128a93f27f6cec277f5785690.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/053295ccd4478216266ad2ee40df6cfbefb3ae0b2716dffc1974eb0205e4c536.jpg",
+        "intro": null,
+        "description": "Caladrius Blaze\u662f\u5728MOSS\u793e\u958b\u767c\u7684\u7e31\u5411\u5377\u8ef8\u5c04\u64ca\u904a\u6232\u3002Caladrius Blaze\u88e1\u5305\u62ecCaladrius\u548cCaladrius AC\u7684\u6240\u6709\u8981\u7d20\u3002\u4f55\u6cc1\u4e0d\u6b62\u9019\u4e9b\uff0c\u904a\u6232\u9084\u63d0\u4f9b\u65b0\u7684\u968e\u6bb5\u3001\u65b0\u7684\u6545\u4e8b\u3001\u65b0\u7684\u982d\u76ee\u4ee5\u53ca\u5b89\u7530\u5178\u751f\u8a2d\u8a08\u7684\u65b0\u7684\u89d2\u8272\u3002\n\n\u4e3b\u8981\u904a\u6232\u7279\u5fb4\n- \u7e3d\u517115\u540d\u4ee5\u4e0a\u6709\u500b\u6027\u7684\u89d2\u8272\u5275\u9020\u7684\u591a\u7a2e\u6545\u4e8b\u6a21\u5f0f\n- 8\u7a2e\u542b\u6709\u4e0d\u540c\u80fd\u529b\u7684\u6a5f\u5668\u548c\u4e3b\u4eba\u516c\u3002\n- \u63d0\u4f9b\u89d2\u8272\u670d\u88dd\u7834\u58de\u5f15\u767c\u6027\u611f\u5834\u666f\u7684\u2018\u7f9e\u6065\u7834\u58de\u2019\u7cfb\u7d71\n- \u53ef\u4ee5\u6230\u7565\u6027\u5347\u7d1a\u6b66\u5668\u7684\u2018\u5143\u7d20\u5c04\u64ca\u2019\u7cfb\u7d71\n- \u65b0\u624b\u4e5f\u5bb9\u6613\u4e0a\u624b\u7684\u2018\u6559\u5b78\u6a21\u5f0f\u2019\u548c\u2018\u540c\u6b65\u6a21\u5f0f\u2019",
+        "languages": [
+            "en",
+            "ko"
+        ],
+        "size": 2878341120
+    },
     "70010000017903": {
         "id": "01002E500B0A0000",
         "rightsId": null,
@@ -6925,6 +6962,44 @@
             "zh"
         ],
         "size": 11797528576
+    },
+    "70010000021605": {
+        "id": "0100CB8005B26000",
+        "rightsId": null,
+        "name": "\u6a5f\u7532\u6230\u9b54",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190913,
+        "nsuId": 70010000021605,
+        "category": [
+            "\u52d5\u4f5c"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 1,
+        "rating": null,
+        "developer": null,
+        "publisher": "Marvelous Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/20ed025aab6919ee83e73d394439bf7cf48d2c90f8dcfa5bc6835625b8375fa2.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8192bd3d9df993d962bd38a857d944d5cd43233a79c39e711a6497c3d9a29d3a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/aef9b0f9ef38ae051a38110912e737c6c25133623b2d9caad13665698d9cfa82.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bdb87b173fe98e871ca1627852b3710c043b33cf2aa1249a7130e74e3ca9f0a2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/dddf6f331cc3aefb0aa43bbd59990e9d73e927198c11cccfc79b38613a973e7c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/553a25e88c34e41390353d0df09cb198f0f6113709ffc31fcb4f44c3cc0b0160.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/c156b5311e5bbc3e2dfa6b4b4d416d038cddd67cb15df6fabd56ad7906700176.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/ec9e0ebee363785209876bfa034a1c99db2481818650a6ccd52d8cbe5f30d31b.jpg",
+        "intro": "\u70ba\u6240\u6709\u904a\u6232\u611b\u597d\u8005\u5448\u737b\u7684\u6a5f\u7532\u52d5\u4f5c\u904a\u6232",
+        "description": "\u65bc\u69cd\u6797\u5f48\u96e8\u7684\u6230\u5834\u4e0a\u81ea\u7531\u99b3\u9a01\uff0c\u5145\u6eff\u723d\u5feb\u611f\u7684\u6d41\u66a2\u6230\u9b25\u52d5\u4f5c\u3002\n\u652f\u63f4Nitendo Switch\u7684\u591a\u4eba\u904a\u6232\u6a21\u5f0f\uff0c\u96a8\u5fc3\u6240\u6b32\u4eab\u53d7\u6a5f\u7532\u52d5\u4f5c\u904a\u6232\u6240\u5e36\u4f86\u7684\u6a02\u8da3\u3002\n\n\u6545\u4e8b\u821e\u53f0\u8a2d\u5b9a\u65bc\u906d\u9022\u6b77\u52ab\u7684\u4e16\u754c\uff0c\u6708\u7403\u7684\u589c\u843d\u9020\u6210\u4eba\u985e\u9762\u81e8\u5b58\u4ea1\u7684\u5371\u6a5f\u3002\u73a9\u5bb6\u4f5c\u70ba\u4e00\u540d\u50ad\u5175\u5728\u4e00\u7247\u6975\u5ea6\u6df7\u4e82\u7684\u6230\u5730\u4e2d\u529b\u6c42\u751f\u5b58\u3002\n\n\u8207\u66b4\u8d70AI\u7684\u6230\u9b25\u4e2d\uff0c\u5404\u4eba\u7684\u76f8\u9047\u4ee5\u53ca\u5f7c\u6b64\u4ea4\u932f\u7684\u60f3\u6cd5\u3002\u4e3b\u89d2\u6700\u7d42\u5230\u9054\u7684\u7d50\u5c40\uff0c\u6240\u770b\u5230\u7684\u5149\u666f\u662f\u2026\u2026\u3002",
+        "languages": [
+            "ja",
+            "en",
+            "zh"
+        ],
+        "size": 6241124352
     },
     "70010000022478": {
         "id": "01007300020FA000",
@@ -14942,6 +15017,56 @@
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/8f00b9312520b707bf02611e0d8953653bd7051a625175565f51aaf1eb3c510b.jpg",
         "intro": null,
         "description": "\u9810\u5b9a2019\u5e7412\u670831\u65e5\u524d\uff0c\u767c\u4f48\u5168\u65b0\u670d\u88dd\u3002",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000013661": {
+        "id": "0100CB8005B27001",
+        "rightsId": null,
+        "name": "\u300c\u539f\u578b\u5175\u88dd\u6a5f\u7532\u300d\u300c\u539f\u578b\u5957\u88dd\u300d",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190913,
+        "nsuId": 70050000013661,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Marvelous Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/15fb47a6bb22c5f0781951322ea074f698f9cf48c351a986c2c7f15ed8f292be.jpg",
+        "intro": "\u8a66\u9a57\u578b\u5175\u88dd\u6a5f\u7532\u7684\u66f4\u65b0\u8a2d\u8a08\u300c\u539f\u578b\u5175\u88dd\u6a5f\u7532\u300d\n\u8a66\u9a57\u578b\u80fd\u529b\u8005\u5957\u88dd\u7684\u66f4\u65b0\u8a2d\u8a08\u300c\u539f\u578b\u5957\u88dd\u300d",
+        "description": "\u7279\u5178\u70ba\u53ef\u8b8a\u66f4\u5175\u88dd\u6a5f\u7532\u8a2d\u8a08\u7684\u8a66\u9a57\u578b\u5175\u88dd\u6a5f\u7532\uff0c\u300c\u539f\u578b\u5175\u88dd\u6a5f\u7532\u300d\u548c\n\u53ef\u4f9b\u80fd\u529b\u8005\u7740\u88dd\u7684\u8a66\u9a57\u578b\u80fd\u529b\u8005\u5957\u88dd\uff0c\u300c\u539f\u578b\u5957\u88dd\u300d\u3002\n\n\u203b\u5716\u50cf\u70ba\u5f62\u8c61\u793a\u610f\u5716\u3002\n\u203b\u300c\u539f\u578b\u5175\u88dd\u6a5f\u7532\u300d\u662f\u70ba\u8b8a\u66f4\u5916\u8868\u7528\u7684\u670d\u88dd\u9053\u5177\u800c\u975e\u88dd\u5099\u3002\u4f7f\u7528\u5f8c\u4e5f\u4e0d\u6703\u7522\u751f\u4efb\u4f55\u72c0\u614b\u8b8a\u5316\u3002\n\u203b\u8a2d\u8a08\u3001\u5167\u5bb9\u3001\u6b3e\u5f0f\u6709\u53ef\u80fd\u672a\u7d93\u544a\u77e5\u9015\u81ea\u4fee\u6539\uff0c\u656c\u8acb\u898b\u8ad2\u3002\n\u203b\u6703\u6709\u90e8\u5206\u5e97\u5bb6\u4e0d\u6703\u63d0\u4f9b\u4e0a\u8ff0\u5546\u54c1\u7684\u60c5\u6cc1\u3002\u8cfc\u8cb7\u524d\u8acb\u5148\u5411\u5404\u5e97\u5bb6\u78ba\u8a8d\u6e05\u695a\u3002\n\u203b\u53d6\u5f97\u4e0b\u8f09\u9805\u76ee\u7684\u5e8f\u865f\u5728\u4e00\u53f0Nintendo Switch\u4e3b\u6a5f\u4e0a\u53ea\u80fd\u4f7f\u7528\u4e00\u6b21\u3002\n\u203b\u4e0b\u8f09\u9805\u76ee\u5167\u5bb9\u5728\u4e00\u53f0Nintendo Switch\u4e3b\u6a5f\u4e0a\u53ea\u80fd\u7372\u5f97\u4e00\u6b21\u3002\n\u203b\u9808\u8655\u65bc\u53ef\u9023\u63a5\u7db2\u8def\u7684\u74b0\u5883\u4e0b\uff0c\u4e26\u64c1\u6709Nintendo\u5e33\u865f\uff0c\u65b9\u53ef\u9032\u884c\u4e0b\u8f09\u3002\n\u203b\u6b64\u4e0b\u8f09\u9805\u76ee\u5c07\u6703\u53ef\u4f9b\u4ed8\u8cbb\u8cfc\u8cb7\u3002\n\u203b\u7279\u5178\u9805\u76ee\u7684\u4e0b\u8f09\u5e8f\u865f\u6578\u91cf\u6709\u9650\uff0c\u552e\u5b8c\u70ba\u6b62\u3002\n\u3000\u4e8b\u5148\u8cfc\u8cb7DL\u7248\u7684\u73a9\u5bb6\uff0c\u90fd\u80fd\u7372\u5f97\u7279\u5178\u4e0b\u8f09\u5e8f\u865f\u3002",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000013662": {
+        "id": "0100CB8005B2700A",
+        "rightsId": null,
+        "name": "\u300c\u9650\u5b9a\u91d1\u5c6c\u88dd\u5099\u5957\u88dd<\u98db\u5f48>\u300d",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190913,
+        "nsuId": 70050000013662,
+        "category": null,
+        "ratingContent": [],
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": "Marvelous Entertainment",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/18ab901963474d23d8cb138d03b5c8ce4465df5a340a3165d8346348f4413d30.jpg",
+        "intro": "\u300c\u96f7\u9ce5 \u9ec3\u91d1\u5c6c\uff08\u98db\u5f48\uff09\u300d\n\u300c\u91d1\u5c6c\u80fd\u529b\u8005\u5957\u88dd\u300d",
+        "description": "\u7279\u5178\u70ba\u80fd\u529b\u8005\u7684\u9650\u5b9a\u91d1\u5c6c\u88dd\u5099\uff0c\u300c\u96f7\u9ce5\u300d\u548c\n\u53ef\u4f9b\u80fd\u529b\u8005\u7740\u88dd\u7684\u80fd\u529b\u8005\u9650\u5b9a\u5957\u88dd\uff0c\u300c\u91d1\u5c6c\u80fd\u529b\u8005\u5957\u88dd\u300d\u3002\n\n\u203b\u8a2d\u8a08\u3001\u5167\u5bb9\u3001\u6b3e\u5f0f\u6709\u53ef\u80fd\u672a\u7d93\u544a\u77e5\u9015\u81ea\u4fee\u6539\uff0c\u656c\u8acb\u898b\u8ad2\u3002\n\u203b\u4e0b\u8f09\u9805\u76ee\u5167\u5bb9\u5728\u4e00\u53f0Nintendo Switch\u4e3b\u6a5f\u4e0a\u53ea\u80fd\u7372\u5f97\u4e00\u6b21\u3002\n\u203b\u9808\u8655\u65bc\u53ef\u9023\u63a5\u7db2\u8def\u7684\u74b0\u5883\u4e0b\uff0c\u4e26\u64c1\u6709Nintendo\u5e33\u865f\uff0c\u65b9\u53ef\u9032\u884c\u4e0b\u8f09\u3002\n\u203b\u5404\u7a2e\u91d1\u5c6c\u88dd\u5099\u7d44\u5408\u4e4b\u5f8c\u4e0d\u6703\u4f9b\u8cfc\u8cb7\u4e0b\u8f09\u3002\n\u203b\u300c\u91d1\u5c6c\u80fd\u529b\u8005\u5957\u88dd\u300d\u53ef\u65bc\u904a\u6232\u5167\u6539\u8b8a\u984f\u8272\u3002",
         "languages": null,
         "size": 4194304
     },
