@@ -51,7 +51,7 @@ class Header:
 		self.textbox = QLineEdit(app)
 		self.textbox.setMinimumWidth(25)
 		self.textbox.setAlignment(Qt.AlignLeft)
-		self.textbox.setText(os.path.abspath(Config.paths.scan))
+		self.textbox.setText(os.path.abspath(Config.paths.scan[0]))
 		self.textbox.textChanged.connect(self.updatePath)
 		self.layout.addWidget(self.textbox)
 
@@ -89,7 +89,7 @@ class Header:
 	# 	Config.save()
 
 	def updatePath(self):
-		Config.paths.scan = self.textbox.text()
+		Config.paths.scan[0] = self.textbox.text()
 		Config.save()
 
 	def tick(self):
@@ -200,8 +200,7 @@ class App(QWidget):
 	@pyqtSlot()
 	def on_scan(self):
 		self.tableWidget.setRowCount(0)
-		Nsps.scan(Config.paths.scan, True)
-		Nsps.save()
+		nut.scan()
 		self.refreshTable()
 
 	@pyqtSlot()
@@ -253,7 +252,6 @@ def run():
 	print('               `"_(  _/="`')
 	print('                `"\'')
 
-	nut.initTitles()
 	nut.initFiles()
 
 	app = QApplication(sys.argv)

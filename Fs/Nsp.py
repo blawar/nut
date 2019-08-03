@@ -1,4 +1,3 @@
-from nut import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from Fs.File import File

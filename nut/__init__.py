@@ -7,11 +7,6 @@ import requests
 import queue
 import os
 
-isInitTitles = False
-
-def initTitles():
-	return
-
 isInitFiles = False
 def initFiles():
 	global isInitFiles
@@ -30,8 +25,11 @@ def scan():
 
 	hasScanned = True
 	initFiles()
+	
+	r = 0
 
-	r = Nsps.scan(Config.paths.scan)
+	for path in Config.paths.scan:
+		r += Nsps.scan(path)
 	Nsps.save()
 	return r
 	
