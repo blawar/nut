@@ -286,22 +286,21 @@ class gui(fw.appFramework):
         nsplist = []
         for k, f in Nsps.files.items():
             # print(json.dumps(f.dict(),indent=4))
-            title = f.title()
+
             if f.path.endswith('.nsx'):
                 continue
 
-            ttl = Titles.get(f.titleId)
 
             #Hide blacklisted but added titles
             #if not str(ttl.id) in Config.titleBlacklist:
 
             nspchunk = {}
-            nspchunk["file"] = os.path.basename(f.path)
-            nspchunk["titleid"] = str(ttl.id) or "n/a"
-            nspchunk["name"] = ttl.name or nspchunk["file"]
-            nspchunk["author"] = ttl.publisher or None
+            nspchunk["file"] = f.fileName()
+            nspchunk["titleid"] = str(f.titleId) or "n/a"
+            nspchunk["name"] = nspchunk["file"]
+            nspchunk["author"] = None
             try:
-                nspchunk["type"] = "UPD" if title.isUpdate else ("DLC" if title.isDLC else "BASE")
+                nspchunk["type"] = "UPD" if f.isUpdate() else ("DLC" if f.isDLC() else "BASE")
             except:
                 nspchunk["type"] = "n/a"
             nspchunk["size"] = formatBytes(os.path.getsize(f.path))
@@ -380,6 +379,7 @@ class gui(fw.appFramework):
 
     #update all info in the info box
     def updateinfobox(self):
+        '''
         self.updatelistboxcursor()
         self.updateAuthorImage()
         if self.softwarelist:
@@ -399,10 +399,12 @@ class gui(fw.appFramework):
             self.updatedescription(desc)
 
             self.controller.after(10, self.infobox.reset_placement)
+        '''
+        pass
 
     def updateAuthorImage(self):
         notfound = "assets/notfound.png"
-        if self.softwarelist:
+        if self.softwarelist or None:
             if self.currentselection > len(self.softwarelist): self.updatelistboxcursor()
             sc = self.softwarelist[self.currentselection]
 
