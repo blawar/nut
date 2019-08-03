@@ -93,7 +93,7 @@ class Nsp:
 		return self.titleId is not None and self.titleId.endswith('800')
 		
 	def isDLC(self):
-		return self.titleId is not None and not self.isUpdate and not self.titleId.endswith('000')
+		return self.titleId is not None and not self.isUpdate() and not self.titleId.endswith('000')
 			
 	def setPath(self, path):			
 		self.path = path
