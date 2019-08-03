@@ -54,8 +54,6 @@ def scan(base, force = False):
 		return 0
 
 	status = Status.create(len(fileList), desc = 'Scanning files...')
-	status.close()
-	return i
 	
 	try:
 		for path, name in fileList.items():
