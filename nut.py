@@ -17,7 +17,6 @@ if not getattr(sys, 'frozen', False):
 from nut import Nsps
 from nut import Config
 import requests
-from nut import Hex
 from nut import Print
 import threading
 import signal

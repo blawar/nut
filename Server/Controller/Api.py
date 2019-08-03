@@ -4,7 +4,6 @@ from nut import Nsps
 from nut import Print
 import Server
 from nut import Config
-from nut import Hex
 import socket
 import struct
 import time

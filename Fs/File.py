@@ -1,7 +1,6 @@
 from enum import IntEnum
 import Fs.Type
 from nut import Print
-from nut import Hex
 from binascii import hexlify as hx, unhexlify as uhx
 
 class BaseFile:
