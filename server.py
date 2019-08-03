@@ -12,8 +12,6 @@ import json
 import Server
 
 import nut
-from nut import Title
-from nut import Titles
 from nut import Nsps
 
 from nut import Config
@@ -203,24 +201,30 @@ class App(QWidget):
 	def on_scan(self):
 		self.tableWidget.setRowCount(0)
 		Nsps.scan(Config.paths.scan, True)
+		Nsps.save()
 		self.refreshTable()
 
 	@pyqtSlot()
 	def refreshTable(self):
-		self.tableWidget.setRowCount(len(Nsps.files))
-		i = 0
-		for k, f in Nsps.files.items():
-			title = f.title()
-			if f.path.endswith('.nsx'):
-				continue
+		try:
+			self.tableWidget.setRowCount(0)
+			self.tableWidget.setRowCount(len(Nsps.files))
+			i = 0
+			for k, f in Nsps.files.items():
+				if f.path.endswith('.nsx'):
+					continue
 
-			self.tableWidget.setItem(i,0, QTableWidgetItem(os.path.basename(f.path)))
-			self.tableWidget.setItem(i,1, QTableWidgetItem(str(f.titleId)))
-			self.tableWidget.setItem(i,2, QTableWidgetItem("UPD" if title.isUpdate else ("DLC" if title.isDLC else "BASE")))
-			self.tableWidget.setItem(i,3, QTableWidgetItem(str(f.fileSize or title.size)))
-			i = i + 1
+				self.tableWidget.setItem(i,0, QTableWidgetItem(f.fileName()))
+				self.tableWidget.setItem(i,1, QTableWidgetItem(str(f.titleId)))
+				self.tableWidget.setItem(i,2, QTableWidgetItem("UPD" if f.isUpdate() else ("DLC" if f.isDLC() else "BASE")))
+				self.tableWidget.setItem(i,3, QTableWidgetItem(str(f.fileSize)))
 
-		self.tableWidget.setRowCount(i)
+				i = i + 1
+
+			self.tableWidget.setRowCount(i)
+		except BaseException as e:
+			print('exception: ' + str(e))
+			pass
  
 threadRun = True
 
@@ -236,7 +240,7 @@ def initThread(app):
 	# if Config.autolaunchBrowser:
 	# 	webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
 			
-if __name__ == '__main__':
+def run():
 	urllib3.disable_warnings()
 
 
@@ -266,3 +270,6 @@ if __name__ == '__main__':
 	sys.exit(app.exec_())
 	
 	print('fin')
+	
+if __name__ == '__main__':
+	run()

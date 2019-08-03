@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
-import Fs
 import pathlib
 import re
 from nut import Status
@@ -9,6 +8,7 @@ import time
 from nut import Print
 import threading
 import json
+import Fs
 
 global files
 files = {}
@@ -54,7 +54,9 @@ def scan(base, force = False):
 		return 0
 
 	status = Status.create(len(fileList), desc = 'Scanning files...')
-
+	status.close()
+	return i
+	
 	try:
 		for path, name in fileList.items():
 			try:
@@ -63,6 +65,7 @@ def scan(base, force = False):
 				if not path in files:
 					Print.info('scanning ' + name)
 					nsp = Fs.Nsp(path, None)
+					nsp.getFileSize()
 						
 					files[nsp.path] = nsp
 
@@ -74,11 +77,14 @@ def scan(base, force = False):
 				raise
 			except BaseException as e:
 				Print.info('An error occurred processing file: ' + str(e))
+				raise
+		
 
 		save()
 		status.close()
 	except BaseException as e:
 		Print.info('An error occurred scanning files: ' + str(e))
+		raise
 	return i
 
 def removeEmptyDir(path, removeRoot=True):
@@ -114,10 +120,14 @@ def load(fileName = 'titledb/files.json'):
 		if os.path.isfile(fileName):
 			with open(fileName, encoding="utf-8-sig") as f:
 				for k in json.loads(f.read()):
-					t = Fs.Nsp(k['path'], None)
-					t.timestamp = k['timestamp']
+					t = Fs.Nsp(None, None)
+
+					t.path = k['path']
 					t.titleId = k['titleId']
 					t.version = k['version']
+					
+					if 'fileSize' in k:
+						t.fileSize = k['fileSize']
 
 					if not t.path:
 						continue
@@ -125,16 +135,19 @@ def load(fileName = 'titledb/files.json'):
 					path = os.path.abspath(t.path)
 					if os.path.isfile(path): 
 						files[path] = t #Fs.Nsp(path, None)
+
+
 	except:
 		raise
 	Print.info('loaded file list in ' + str(time.clock() - timestamp) + ' seconds')
 
-def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket']):
+def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'fileSize']):
 	lock.acquire()
 
 	try:
 		j = []
 		for i,k in files.items():
+			k.getFileSize()
 			j.append(k.dict())
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4, sort_keys=True)
