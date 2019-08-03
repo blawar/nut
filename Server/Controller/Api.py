@@ -380,11 +380,11 @@ def getSwitchInstalled(request, response):
 
 def cleanPath(path = None):
 	if path:
-		path = os.path.abspath(os.path.join(Config.paths.scan, path))
+		path = os.path.abspath(os.path.join(Config.paths.scan[0], path))
 	else:
-		path = os.path.abspath(Config.paths.scan)
+		path = os.path.abspath(Config.paths.scan[0])
 
-	if not path.startswith(os.path.abspath(Config.paths.scan)):
+	if not path.startswith(os.path.abspath(Config.paths.scan[0])):
 		raise IOError('invalid path requested: ' + path)
 	return path
 
