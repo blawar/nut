@@ -30,6 +30,12 @@ def getByTitleId(id):
 			return f
 	return None
 	
+def getBaseId(id):
+	if not id:
+		return None
+	titleIdNum = int(id, 16)
+	return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+	
 def scan(base, force = False):
 	global hasScanned
 	#if hasScanned and not force:
