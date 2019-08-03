@@ -5,7 +5,6 @@ import time
 import urllib
 import json
 
-import nut
 from nut import Config
 from nut import Nsps
 from nut import Status
@@ -19,6 +18,7 @@ from PIL import ImageTk, Image
 from gui.format import * 
 import gui.customwidgets as cw
 import gui.framework as fw
+import gui.tinfoilapi as api
 
 import tkinter as tk
 from tkinter.ttk import Style
@@ -55,8 +55,6 @@ tsk, tsk, now you're stuck with this.
 - SplatGamer
 - LyfeOnEdge (https://github.com/LyfeOnEdge/) for the updated gui
 """.format(QUICKSTARTTEXT)
-
-
 
 
 class gui(fw.appFramework):
@@ -162,14 +160,6 @@ class gui(fw.appFramework):
         self.progbar = cw.progBar(self.stats_box)
         self.progbar.Place(y=60, relx=0, relwidth = 1, width = -2*separatorwidth, x=+separatorwidth, height =15)
         self.progbar.hide()
-
-    #-----------------------------------------------------------------------------------
-
-        # setbuttons(self,buttonlist, self.scanpathbox_frame, set_pathbox = True)
-        # setbuttons(self,buttonlist, self.scanpathbox_frame, set_pathbox = True, pathbox_placeholder = "Enter directory to scan")
-
-        #Images for buttons
-        # self.folderimage = tk.PhotoImage(file=os.path.join(self.cwd,"assets/folder.png")).subsample(2)
         
         self.infoimage = tk.PhotoImage(file=os.path.join(self.cwd,"assets/info.png")).subsample(2)
         self.addimage = tk.PhotoImage(file=os.path.join(self.cwd,"assets/plus.png")).subsample(2)
@@ -290,23 +280,27 @@ class gui(fw.appFramework):
             if f.path.endswith('.nsx'):
                 continue
 
-
-            #Hide blacklisted but added titles
-            #if not str(ttl.id) in Config.titleBlacklist:
-
             nspchunk = {}
-            nspchunk["file"] = f.fileName()
-            nspchunk["titleid"] = str(f.titleId) or "n/a"
-            nspchunk["name"] = nspchunk["file"]
-            nspchunk["author"] = None
-            try:
-                nspchunk["type"] = "UPD" if f.isUpdate() else ("DLC" if f.isDLC() else "BASE")
-            except:
-                nspchunk["type"] = "n/a"
-            nspchunk["size"] = formatBytes(os.path.getsize(f.path))
-            nspchunk["photopath"] = None
+            tid = str(f.titleId)
 
-            nsplist.append(nspchunk)
+            if tid:
+                #api_dict = api.getTitle(tid)
+
+                nspchunk["titleid"] = tid
+                nspchunk["file"] = f.fileName()
+                nspchunk["name"] = f.fileName()
+                nspchunk["author"] = None
+            
+                try:
+                    nspchunk["type"] = "UPD" if f.isUpdate() else ("DLC" if f.isDLC() else "BASE")
+                except:
+                    nspchunk["type"] = "n/a"
+
+                nspchunk["size"] = formatBytes(os.path.getsize(f.path))
+                nspchunk["photopath"] = None
+                nspchunk["description"] = None #api_dict["description"]
+
+                nsplist.append(nspchunk)
 
         for nsp in nsplist:
             f = nsp["file"]
@@ -379,32 +373,43 @@ class gui(fw.appFramework):
 
     #update all info in the info box
     def updateinfobox(self):
-        '''
         self.updatelistboxcursor()
-        self.updateAuthorImage()
         if self.softwarelist:
             sc = self.softwarelist[self.currentselection]
             tid = sc["titleid"]
-            bid = Title.getBaseId(tid)
-            ttle = Titles.get(bid)
-            typ = sc["type"]
-            ttl = ttle.name or sc["name"] or "n/a"
+
+            # bid = Title.getBaseId(tid)
+            # ttle = Titles.get(bid)
+            
+            api_dict = api.getTitle(Nsps.getBaseId(tid))
+            self.updateAuthorImage(api_dict)
+
+            typ = sc["type"] or None
+            
+            ttl = sc["name"] or "n/a"
             if typ:
                 ttl += " [{}]".format(typ)
-            author = ttle.publisher or sc["author"] or "unknown"
-            desc = ttle.description or "No data"
+                
+            if 'publisher' in api_dict:
+                author = sc["author"] or "unknown"
+            else:
+                author = api_dict['publisher']
+            
+            if 'description' in api_dict:
+                desc = api_dict['description']
+            else:
+                desc = sc["description"] or "no data"
 
             self.updatetitle(ttl)
             self.updateauthor(author)
             self.updatedescription(desc)
 
             self.controller.after(10, self.infobox.reset_placement)
-        '''
-        pass
 
-    def updateAuthorImage(self):
+
+    def updateAuthorImage(self, api_dict):
         notfound = "assets/notfound.png"
-        if self.softwarelist or None:
+        if self.softwarelist:
             if self.currentselection > len(self.softwarelist): self.updatelistboxcursor()
             sc = self.softwarelist[self.currentselection]
 
@@ -416,11 +421,16 @@ class gui(fw.appFramework):
             if not imag or imag == notfound:
                 tid = sc["titleid"]
 
-                imag = Titles.get(tid).iconFile(infoframewidth) or Titles.get(tid).frontBoxArtFile(infoframewidth)
-                #If no imag was found try again with the base title id
-                if not imag:
-                    tid = Title.getBaseId(tid)
-                    imag = Titles.get(tid).iconFile(infoframewidth) or Titles.get(tid).frontBoxArtFile(infoframewidth)
+                try:
+                    imag = api.getTitleImage(api_dict)
+                except:
+                    raise
+                    imag = None
+
+                # #If no imag was found try again with the base title id
+                # if not imag:
+                #     tid = Title.getBaseId(tid)
+                #     imag = Titles.get(tid).iconFile(infoframewidth) or Titles.get(tid).frontBoxArtFile(infoframewidth)
 
                 if not imag: imag = notfound
 
