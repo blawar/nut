@@ -1,6 +1,4 @@
-from nut import Titles
 import json
-from nut import Titles
 from nut import Status
 from nut import Nsps
 from nut import Print
@@ -11,7 +9,6 @@ import socket
 import struct
 import time
 import nut
-from nut import blockchain
 import urllib.parse
 import requests
 
@@ -49,10 +46,8 @@ def getSearch(request, response):
 	if demo:
 		demo = int(demo[0])
 
-	for k, t in Titles.items():
-		f = t.getLatestFile()
-		if f and f.hasValidTicket and (region == None or t.region in region) and (dlc == None or t.isDLC == dlc) and (update == None or t.isUpdate == update) and (demo == None or t.isDemo == demo) and (publisher == None or t.publisher in publisher):
-			o.append({'id': t.getId(), 'name': t.getName(), 'version': int(f.version) if f.version else None , 'region': t.getRegion(),'size': f.getFileSize(), 'mtime': f.getFileModified() })
+	for path, f in Nsps.files.items():
+		o.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
 	response.write(json.dumps(o))
 
 def getTitles(request, response):
@@ -172,35 +167,13 @@ def getScreenshotImage(request, response):
 
 	return Server.Response500(request, response)
 
-def getPreload(request, response):
-	Titles.queue.add(request.bits[2])
-	response.write(json.dumps({'success': True}))
 
-def getInstall(request, response):
-	nsp = Nsps.getByTitleId(request.bits[2])
 
-	try:
-		url = ('%s:%s@%s:%d/api/download/%s/title.nsp' % (request.user.id, request.user.password, Config.server.hostname, Config.server.port, request.bits[2]))
-		Print.info('Installing ' + url)
-		file_list_payloadBytes = url.encode('ascii')
-
-		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		#sock.settimeout(1)
-		sock.connect((request.user.switchHost, request.user.switchPort))
-		#sock.settimeout(99999)
-
-		sock.sendall(struct.pack('!L', len(file_list_payloadBytes)) + file_list_payloadBytes)
-		while len(sock.recv(1)) < 1:
-			time.sleep(0.05)
-		sock.close()
-		response.write(json.dumps({'success': True, 'message': 'install successful'}))
-	except BaseException as e:
-		response.write(json.dumps({'success': False, 'message': str(e)}))
 
 def getInfo(request, response):
 	try:
 		nsp = Nsps.getByTitleId(request.bits[2])
-		t = Titles.get(request.bits[2]).__dict__
+		t = {'id': request.bits[2]}
 		t['size'] = nsp.getFileSize();
 		t['mtime'] = nsp.getFileModified();
 		response.write(json.dumps(t))
@@ -366,102 +339,8 @@ def getDownload(request, response, start = None, end = None):
 	if response.bytesSent == 0:
 		response.write(b'')
 
-def getQueue(request, response):
-	r = Status.data().copy()
-	q = Titles.queue.get().copy()
-	i = Titles.queue.i
-	while i < len(q):
-		r.append({'id': q[i], 'i': 0, 'size': 0, 'elapsed': 0, 'speed': 0 })
-		i += 1
-	response.write(json.dumps(r))
-
-def getTitleUpdates(request, response):
-	r = {}
-	for path, nsp in Nsps.files.items():
-		data = nsp.isUpdateAvailable()
-		if data:
-			r[data['id']] = data
-	response.write(json.dumps(r))
-
-def getFiles(request, response):
-	r = {}
-	for path, nsp in Nsps.files.items():
-		if Titles.contains(nsp.titleId):
-			title = Titles.get(nsp.titleId)
-			if not title.baseId in r:
-				r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
-			if title.isDLC:
-				r[title.baseId]['dlc'].append(nsp.dict())
-			elif title.isUpdate:
-				r[title.baseId]['update'].append(nsp.dict())
-			else:
-				r[title.baseId]['base'].append(nsp.dict())
-	response.write(json.dumps(r))
-
 def getScan(request, response):
 	success(request, response, nut.scan())
-
-def getOrganize(request, response):
-	nut.organize()
-	success(request, response, "fin")
-
-def getUpdateDb(request, response):
-	for url in Config.titleUrls:
-		nut.updateDb(url)
-	Titles.loadTxtDatabases()
-	Titles.save()
-	return success(request, response, "Fin")
-
-def getExport(request, response):
-	if len(request.bits) < 3:
-		return Server.Response500(request, response)
-	
-	if len(request.bits) == 3:
-		nut.export(request.bits[2])
-	else:
-		nut.export(request.bits[2], request.bits[3:])
-
-	return success(request, response, "Fin")
-
-def getImportRegions(request, response):
-	nut.importRegion(request.bits[2], request.bits[3])
-
-	return success(request, response, "Fin")
-
-def getRegions(request, response):
-	response.write(json.dumps(Config.regionLanguages()))
-
-
-def getUpdateLatest(request, response):
-	nut.scanLatestTitleUpdates()
-	return success(request, response, "Fin")
-
-def getUpdateAllVersions(request, response):
-	if len(request.bits) >= 3 and int(request.bits[2]) > 0:
-		nut.updateVersions(True)
-	else:
-		nut.updateVersions(False)
-	return success(request, response, "Fin")
-
-def getScrapeShogun(request, response):
-	nut.scrapeShogun()
-	return success(request, response, "Fin")
-
-def getSubmitKey(request, response):
-	titleId = request.bits[2]
-	titleKey = request.bits[3]
-
-	try:
-		if blockchain.blockchain.suggest(titleId, titleKey) == True:
-			return success(request, response, "Key successfully added")
-		else:
-			return error(request, response, "Key validation failed")
-	except LookupError as e:
-		error(request, response, str(e))
-	except OSError as e:
-		error(request, response, str(e))
-	except BaseException as e:
-		error(request, response, str(e))
 
 
 def postTinfoilSetInstalledApps(request, response):
@@ -516,7 +395,9 @@ def getDirectoryList(request, response):
 		path = os.path.join(path, i)
 
 	path = cleanPath(path)
+
 	r = {'dirs': [], 'files': []}
+	
 	for name in os.listdir(path):
 		abspath = os.path.join(path, name)
 
@@ -525,7 +406,6 @@ def getDirectoryList(request, response):
 		elif os.path.isfile(abspath):
 			if not abspath.endswith('pem') and not abspath.endswith('pfx') and not abspath.endswith('token') and not abspath.endswith('users.conf'):
 				r['files'].append({'name': name, 'size': os.path.getsize(abspath), 'mtime': os.path.getmtime(abspath)})
-
 
 	response.write(json.dumps(r))
 

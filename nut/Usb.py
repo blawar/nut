@@ -50,7 +50,6 @@ import struct
 import sys
 from binascii import hexlify as hx, unhexlify as uhx
 from pathlib import Path
-from nut import Titles
 import Server
 import Server.Controller.Api
 from nut import Print
@@ -63,8 +62,7 @@ global status
 status = 'initializing'
 
 def getFiles():
-	for k, t in Titles.items():
-		f = t.getLatestFile()
+	for k, f in Nsps.files.items():
 		if f and f.hasValidTicket:
 			o.append({'id': t.id, 'name': t.name, 'version': int(f.version) if f.version else None , 'size': f.getFileSize(), 'mtime': f.getFileModified() })
 

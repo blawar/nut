@@ -1,6 +1,5 @@
 from enum import IntEnum
 import Fs.Type
-from nut import aes128
 from nut import Print
 from nut import Hex
 from binascii import hexlify as hx, unhexlify as uhx
