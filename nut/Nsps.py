@@ -147,6 +147,7 @@ def load(fileName = 'titledb/files.json'):
 
 def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'fileSize']):
 	lock.acquire()
+	os.makedirs(os.path.dirname(fileName), exist_ok = True)
 
 	try:
 		j = []
