@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+colorama = "*"
+pyopenssl = "*"
+requests = "*"
+tqdm = "*"
+unidecode = "*"
+pillow = "*"
+beautifulsoup4 = "*"
+urllib3 = "*"
+flask = "*"
+pyusb = "*"
+pyqt5 = "*"
+
+[requires]
+python_version = "3.7"
