@@ -1392,7 +1392,7 @@
             "nl",
             "ru"
         ],
-        "size": 15136194560
+        "size": 15210643456
     },
     "70010000006023": {
         "id": "0100AE00096EA000",
@@ -1891,7 +1891,7 @@
         "developer": null,
         "publisher": "Epic Games",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/874ef8228d60acf362cde313bb6e9fa516269475f87010421014f5d444c2fd68.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/6d55fa02da0bcbe24b2438911a6d4240d6d0afedf5325a99436f8e0754540045.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/0486729ca41dec242e1a2f8b93f69b5516db43602bbb0e853d9adf0c14afb162.jpg",
             "https://img-eshop.cdn.nintendo.net/i/1cb32fc97e185202534463634c48ac467cc6ba0edc157415ea75acc25b6b1ecd.jpg",
@@ -1900,7 +1900,7 @@
             "https://img-eshop.cdn.nintendo.net/i/d98af9011b7f3d89c65cd9b56f41e506f9c6671913b308567a2078881b6a35c2.jpg",
             "https://img-eshop.cdn.nintendo.net/i/79e37949351caeb2bfdb6733922630541b0dcf3ef70c38391e4104b9c6793640.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/22c23039e2ac3a3b4e6280737c0e605019adaebff350b282f6b5a60d3067dbf6.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9291e267192b7917425dd6bc1999a23a65748acccaa2e69f78dc00c6c3ba953d.jpg",
         "intro": "Squad up and play the #1 Battle Royale game! ",
         "description": "Jump in to be the last one standing in the free 100-player Battle Royale. Build huge forts. Outwit your opponents. Earn your Victory. Squad up together online with friends in the same room or around the world!\n\nBUILD & DESTROY - Shape the battlefield by building your own cover. Opponent hiding behind a wall? Take out their cover to get the edge.\n\nGEAR UP - Board the battle bus and drop in on your favorite zone. Gather resources, collect gear, and battle your opponents!\n\nSQUAD UP WITH FRIENDS - Team up online with your friends around the world or in the same room!\n\nWEEKLY UPDATES & EVENTS -  Updates constantly fuel the fun with new gameplay modes, outfits, weapons and items.\n\nPowered by Unreal Engine 4.",
         "languages": [
@@ -1914,7 +1914,7 @@
             "ru",
             "ko"
         ],
-        "size": 5416943616
+        "size": 6652166144
     },
     "70010000011410": {
         "id": "01009EA00B714000",
@@ -1960,7 +1960,7 @@
             "ko",
             "zh"
         ],
-        "size": 1411383296
+        "size": 1269825536
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -2149,7 +2149,7 @@
             "ko",
             "zh"
         ],
-        "size": 14749270016
+        "size": 14656995328
     },
     "70010000012332": {
         "id": "01006A800016E000",
@@ -2202,7 +2202,7 @@
             "ko",
             "zh"
         ],
-        "size": 15854469120
+        "size": 16120807424
     },
     "70010000012854": {
         "id": "010050F00BC1A000",
@@ -2335,7 +2335,7 @@
             "ko",
             "zh"
         ],
-        "size": 6289358848
+        "size": 6319767552
     },
     "70010000013704": {
         "id": "010044500C182000",
@@ -2566,7 +2566,7 @@
             "it",
             "zh"
         ],
-        "size": 7731150848
+        "size": 7794065408
     },
     "70010000015154": {
         "id": "0100F2200C984000",
@@ -2604,9 +2604,11 @@
             "pt",
             "fr",
             "de",
-            "it"
+            "it",
+            "ru",
+            "zh"
         ],
-        "size": 24182259712
+        "size": 25378684928
     },
     "70010000015307": {
         "id": "01003BD00CAAE000",
@@ -2802,7 +2804,7 @@
             "ru",
             "zh"
         ],
-        "size": 363855872
+        "size": 364904448
     },
     "70010000017136": {
         "id": "010029600D56A000",
@@ -2855,7 +2857,7 @@
             "ko",
             "zh"
         ],
-        "size": 372244480
+        "size": 376438784
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -2871,7 +2873,9 @@
             "Multiplayer",
             "Puzzle"
         ],
-        "ratingContent": [],
+        "ratingContent": [
+            "In-Game Purchases"
+        ],
         "numberOfPlayers": 1,
         "rating": 6,
         "developer": null,
@@ -2886,8 +2890,8 @@
             "https://img-eshop.cdn.nintendo.net/i/09a86db6b2399856413919ee25fdffaa4b094c21d142aa0489eb75e45c3d7e86.jpg"
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2aaa58fe27cdc4784f54ee9f4e7dffd43ad1fd1fffabfd86029889696220d33b.jpg",
-        "intro": "Download the Tetris\u00ae 99 game for free!",
-        "description": "The free to download online software, Tetris\u00ae 99, is available as a special offer for Nintendo Switch Online members. In large-scale, 99-player battles, it\u2019ll take speed, skill, and strategy to knock out the competition and become the last player standing. You can target opponents by sending them Garbage Blocks, but be careful\u2026your rivals can target you back! Defeat opponents to acquire KO badges that may give you the advantage on future attacks. Survive the onslaught and look forward to upcoming online events!",
+        "intro": "Battle your way to the top in Tetris\u00ae matches!",
+        "description": "The Tetris\u00ae 99 digital game includes an online mode that is a special offer for Nintendo Switch Online members*. In large-scale, 99-player battles, it\u2019ll take speed, skill, and strategy to knock out the competition and become the last player standing. You can target opponents by sending them Garbage Blocks, but be careful\u2026 Your rivals can target you back! Defeat opponents to acquire K.O. Badges that may give you the advantage on future attacks. Nintendo Switch Online members can also look forward to upcoming online events*!",
         "languages": [
             "ja",
             "en",
@@ -2896,9 +2900,11 @@
             "de",
             "it",
             "nl",
-            "ru"
+            "ru",
+            "ko",
+            "zh"
         ],
-        "size": 255852544
+        "size": 342884352
     },
     "70010000018600": {
         "id": "0100BF600D83A000",
@@ -4805,12 +4811,12 @@
     "70050000008423": {
         "id": "01006A800016F003",
         "rightsId": "01006A800016F0030000000000000005",
-        "name": "Challenger Pack 2",
+        "name": "Super Smash Bros.\u2122 Ultimate: Challenger Pack 2",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20190730,
         "nsuId": 70050000008423,
         "category": null,
         "ratingContent": [
@@ -4827,9 +4833,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/502721dbf6d483a80975e4499e83bf5cafdbca26ddd4db4f407b4a79369d71fd.jpg",
-        "intro": null,
-        "description": "This pack of downloadable content contains:\n\u3000- One New Fighter\n\u3000- One New Stage\n\u3000- Several New Music Tracks\n\nAdditional information to follow at a later date.",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/fc4199ea09e9a397df8f24f3bc5ef40f880c5ffd33ab99904007d7c2425b6201.jpg",
+        "intro": "Hero joins the battle!",
+        "description": "The Hero from DRAGON QUEST\u00ae XI joins Super Smash Bros.\u2122 Ultimate as a playable fighter!\nWielding the Supreme Sword of Light and a trusty shield, he can slice his foes and block incoming attacks. When Hero pulls up his Command Selection screen, he\u2019ll have access to a random selection of spells that could turn the tide of battle in his favor! This pack also includes the Yggdrasil\u2019s Altar stage, which sweeps across nearby areas around the sacred Tree of Life, as well as a selection of music from the DRAGON QUEST series.\n\nChallenger Pack 2 includes Hero as a playable fighter, his stage, Yggdrasil\u2019s Altar, and a selection of music from the DRAGON QUEST series.\n\n* The content of this Challenger Pack is already included in the Super Smash Bros. Ultimate Fighters Pass (sold separately).\n\n",
         "languages": null,
         "size": 4194304
     },
@@ -4941,7 +4947,8 @@
             "Cartoon Violence",
             "Comic Mischief",
             "Suggestive Themes",
-            "Users Interact"
+            "Users Interact",
+            "In-Game Purchases"
         ],
         "numberOfPlayers": null,
         "rating": 10,
@@ -5487,12 +5494,12 @@
     "70050000011728": {
         "id": "0100F2200C985006",
         "rightsId": null,
-        "name": "DLC 2",
+        "name": "Shang Tsung",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20191231,
+        "releaseDate": 20190625,
         "nsuId": 70050000011728,
         "category": null,
         "ratingContent": [
@@ -5509,9 +5516,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b1e006ac3ccb675a12745255f608750fb812ecfd971710add0381fbb88cf3476.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2e30d88a838e1532073803917677e2b35a07fff4f17698ca4151cf470ded4368.jpg",
         "intro": null,
-        "description": null,
+        "description": "Soul Sorcerer and historic host of the Mortal Kombat. Born in Earthrealm, Shang Tsung's relentless pursuit of powerful magic led him to Outworld, where Shao Kahn offered him a dark power that no sorcerer on Earthrealm could. Shang Tsung pledged his eternal loyalty to Shao Kahn in exchange for this evil magic, but he is no faithful servant. He dreams of the day his sorcery will overtake Shao Kahn's, and he'll pay any price to get there.",
         "languages": null,
         "size": 4194304
     },
@@ -5673,12 +5680,12 @@
     "70050000011734": {
         "id": "0100F2200C985007",
         "rightsId": null,
-        "name": "DLC 8",
+        "name": "Klassic Arcade Ninja Skin Pack\u00a01",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20191231,
+        "releaseDate": 20190625,
         "nsuId": 70050000011734,
         "category": null,
         "ratingContent": [
@@ -5695,9 +5702,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b1e006ac3ccb675a12745255f608750fb812ecfd971710add0381fbb88cf3476.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/913028a0ebd8a9f4b731989fbcc2ae5f3756a48bc967b7d590090ba4aae980a0.jpg",
         "intro": null,
-        "description": null,
+        "description": "This item is already included in the Kombat Pack.\n\nThree new character skins. The Klassic Arcade Ninja Skin Pack outfits Mortal Kombat\u00a011 characters Scorpion, Sub-Zero and Noob Saibot in Klassic, Arcade inspired costumes.",
         "languages": null,
         "size": 4194304
     },

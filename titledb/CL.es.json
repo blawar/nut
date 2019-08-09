@@ -1392,7 +1392,7 @@
             "nl",
             "ru"
         ],
-        "size": 15136194560
+        "size": 15210643456
     },
     "70010000006023": {
         "id": "0100AE00096EA000",
@@ -1891,7 +1891,7 @@
         "developer": null,
         "publisher": "Epic Games",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/874ef8228d60acf362cde313bb6e9fa516269475f87010421014f5d444c2fd68.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/6d55fa02da0bcbe24b2438911a6d4240d6d0afedf5325a99436f8e0754540045.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/0486729ca41dec242e1a2f8b93f69b5516db43602bbb0e853d9adf0c14afb162.jpg",
             "https://img-eshop.cdn.nintendo.net/i/1cb32fc97e185202534463634c48ac467cc6ba0edc157415ea75acc25b6b1ecd.jpg",
@@ -1900,7 +1900,7 @@
             "https://img-eshop.cdn.nintendo.net/i/d98af9011b7f3d89c65cd9b56f41e506f9c6671913b308567a2078881b6a35c2.jpg",
             "https://img-eshop.cdn.nintendo.net/i/79e37949351caeb2bfdb6733922630541b0dcf3ef70c38391e4104b9c6793640.jpg"
         ],
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/22c23039e2ac3a3b4e6280737c0e605019adaebff350b282f6b5a60d3067dbf6.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/9291e267192b7917425dd6bc1999a23a65748acccaa2e69f78dc00c6c3ba953d.jpg",
         "intro": "\u00a1Forma un escuadr\u00f3n y juega el juego n.\u00b0 1 del g\u00e9nero Battle Royale! ",
         "description": "Sum\u00e9rgete para ser el \u00faltimo jugador en pie en el juego Batalla campal de 100 jugadores gratuito. S\u00e9 m\u00e1s listo que tus oponentes. Consigue la victoria. \u00a1Forma equipo con tus amigos en una misma sala o con personas de todo el mundo!\n\nCONSTRUYE Y DESTRUYE: dale forma al campo de batalla construyendo tus propias defensas. \u00bfEl enemigo se est\u00e1 escondiendo detr\u00e1s de una pared? Destruye su protecci\u00f3n para tomar la ventaja.\n\nPREP\u00c1RATE: sube al autob\u00fas de combate y cae en tu zona favorita. \u00a1Recolecta recursos, re\u00fane equipo y combate contra tus oponentes!\n\nFORMA EQUIPO CON TUS AMIGOS: \u00a1forma equipo con tus amigos de todo el mundo o de la misma sala!\n\nACTUALIZACIONES SEMANALES Y EVENTOS: las actualizaciones potencian constantemente la diversi\u00f3n con nuevos modos de juego, atuendos, armas y objetos.\n\nDesarrollado con Unreal Engine 4.",
         "languages": [
@@ -1914,7 +1914,7 @@
             "ru",
             "ko"
         ],
-        "size": 5416943616
+        "size": 6652166144
     },
     "70010000011410": {
         "id": "01009EA00B714000",
@@ -1960,7 +1960,7 @@
             "ko",
             "zh"
         ],
-        "size": 1411383296
+        "size": 1269825536
     },
     "70010000011664": {
         "id": "010096000B3EA000",
@@ -2149,7 +2149,7 @@
             "ko",
             "zh"
         ],
-        "size": 14749270016
+        "size": 14656995328
     },
     "70010000012332": {
         "id": "01006A800016E000",
@@ -2202,7 +2202,7 @@
             "ko",
             "zh"
         ],
-        "size": 15854469120
+        "size": 16120807424
     },
     "70010000012854": {
         "id": "010050F00BC1A000",
@@ -2335,7 +2335,7 @@
             "ko",
             "zh"
         ],
-        "size": 6289358848
+        "size": 6319767552
     },
     "70010000013704": {
         "id": "010044500C182000",
@@ -2566,7 +2566,7 @@
             "it",
             "zh"
         ],
-        "size": 7731150848
+        "size": 7794065408
     },
     "70010000015154": {
         "id": "0100F2200C984000",
@@ -2604,9 +2604,11 @@
             "pt",
             "fr",
             "de",
-            "it"
+            "it",
+            "ru",
+            "zh"
         ],
-        "size": 24182259712
+        "size": 25378684928
     },
     "70010000015307": {
         "id": "01003BD00CAAE000",
@@ -2802,7 +2804,7 @@
             "ru",
             "zh"
         ],
-        "size": 363855872
+        "size": 364904448
     },
     "70010000017136": {
         "id": "010029600D56A000",
@@ -2855,7 +2857,7 @@
             "ko",
             "zh"
         ],
-        "size": 372244480
+        "size": 376438784
     },
     "70010000018547": {
         "id": "010040600C5CE000",
@@ -2871,7 +2873,9 @@
             "Multijugador",
             "Rompecabezas"
         ],
-        "ratingContent": [],
+        "ratingContent": [
+            "Compras dentro del juego"
+        ],
         "numberOfPlayers": 1,
         "rating": 6,
         "developer": null,
@@ -2887,7 +2891,7 @@
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2aaa58fe27cdc4784f54ee9f4e7dffd43ad1fd1fffabfd86029889696220d33b.jpg",
         "intro": "\u00a1Descarga el juego Tetris\u00ae 99 de forma gratuita!",
-        "description": "\u00a1Descarga el juego Tetris\u00ae 99 de forma gratuita en Nintendo eShop y \u00fanete a otros miembros de Nintendo Switch Online para dominar Tetris\u2122 en batallas a gran escala de 99 jugadores! Tomar\u00e1 velocidad, habilidad y estrategia el dominar la competencia y convertirte en el \u00faltimo jugador en pie. Podr\u00e1s atacar a tus oponentes lanz\u00e1ndoles l\u00edneas de basura, pero ten cuidado\u2026 \u00a1Tus rivales te podr\u00e1n atacar de vuelta! Derrota a tus oponentes para recibir insignias de KO que te podr\u00e1n dar ventaja en futuros ataques. \u00a1Sobrevive la embestida y reclama la victoria!",
+        "description": "El juego digital Tetris\u00ae 99 incluye un modo de juego en l\u00ednea como oferta especial para los miembros de Nintendo Switch Online*. \u00a1Prep\u00e1rate para dominar Tetris\u2122 en duelos a gran escala de 99 jugadores! Tomar\u00e1 velocidad, habilidad y estrategia el dominar la competencia y convertirte en el \u00faltimo jugador en pie. Podr\u00e1s atacar a tus oponentes lanz\u00e1ndoles l\u00edneas de basura, pero ten cuidado\u2026 \u00a1Tus rivales te podr\u00e1n atacar de vuelta! Derrota a tus oponentes para recibir insignias de KO que te podr\u00e1n dar ventaja en futuros ataques. \u00a1Pr\u00f3ximamente habr\u00e1 m\u00e1s eventos en l\u00ednea para los miembros de Nintendo Switch Online!*",
         "languages": [
             "ja",
             "en",
@@ -2896,9 +2900,11 @@
             "de",
             "it",
             "nl",
-            "ru"
+            "ru",
+            "ko",
+            "zh"
         ],
-        "size": 255852544
+        "size": 342884352
     },
     "70010000018600": {
         "id": "0100BF600D83A000",
@@ -4805,12 +4811,12 @@
     "70050000008423": {
         "id": "01006A800016F003",
         "rightsId": "01006A800016F0030000000000000005",
-        "name": "Paquete de aspirante 2",
+        "name": "Super Smash Bros.\u2122 Ultimate: Challenger Pack 2",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20200229,
+        "releaseDate": 20190730,
         "nsuId": 70050000008423,
         "category": null,
         "ratingContent": [
@@ -4827,9 +4833,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2d650b9ab498ce0bac6f99cf285a97a465bab8a05c20ea8bcc67960fbb57bb19.jpg",
-        "intro": null,
-        "description": "Este paquete de contenido descargable incluye:\n\u3000- Un combatiente nuevo\n\u3000- Un escenario nuevo\n\u3000- Varios temas nuevos\n\nSe ofrecer\u00e1 informaci\u00f3n adicional en una fecha posterior.",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/10c4a73d3094c4eafce7747a3b51ea47b6358c4f2379d74ec900d09bf3171a6c.jpg",
+        "intro": "\u00a1H\u00e9roe se une al combate!",
+        "description": "\u00a1H\u00e9roe, de la serie DRAGON QUEST\u00ae XI, se une a Super Smash Bros.\u2122 Ultimate como personaje jugable!\nEmpu\u00f1ando la Espada Suprema de la Luz y su confiable escudo, podr\u00e1 partir en dos a sus enemigos y bloquear ataques. Cuando H\u00e9roe abre su pantalla de elecci\u00f3n de una orden, \u00a1tendr\u00e1 acceso a una selecci\u00f3n aleatoria de hechizos que podr\u00edan modificar el combate a su favor! Este paquete tambi\u00e9n incluye el escenario Altar de Yggdrasil, que se extiende por las \u00e1reas cercanas al \u00c1rbol del Mundo, as\u00ed como una selecci\u00f3n de m\u00fasica de la serie DRAGON QUEST.\n\nEl paquete de aspirante 2 incluye a H\u00e9roe como personaje jugable, su escenario Altar de Yggdrasil, y una selecci\u00f3n de m\u00fasica de la serie DRAGON QUEST.\n\n* el contenido de este paquete de aspirante ya viene incluido con el pase de combatiente del juego Super Smash Bros. Ultimate (se vende por separado).\n",
         "languages": null,
         "size": 4194304
     },
@@ -4941,7 +4947,8 @@
             "Violencia de caricatura",
             "Travesuras comicas",
             "Temas insinuantes",
-            "Interacci\u00f3n de usuarios"
+            "Interacci\u00f3n de usuarios",
+            "Compras dentro del juego"
         ],
         "numberOfPlayers": null,
         "rating": 10,
@@ -5487,12 +5494,12 @@
     "70050000011728": {
         "id": "0100F2200C985006",
         "rightsId": null,
-        "name": "DLC 2",
+        "name": "Shang Tsung",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20191231,
+        "releaseDate": 20190625,
         "nsuId": 70050000011728,
         "category": null,
         "ratingContent": [
@@ -5509,9 +5516,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b1e006ac3ccb675a12745255f608750fb812ecfd971710add0381fbb88cf3476.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/2e30d88a838e1532073803917677e2b35a07fff4f17698ca4151cf470ded4368.jpg",
         "intro": null,
-        "description": null,
+        "description": "Hechicero de las almas y el anfitri\u00f3n hist\u00f3rico de Mortal Kombat. Nacido en la Tierra, Shang Tsung lleg\u00f3 al Mundo Exterior en busca de la magia m\u00e1s poderosa. Ah\u00ed, Shao Kahn le ofreci\u00f3 un poder oscuro que ning\u00fan hechicero de la Tierra pose\u00eda. Shang Tsung le jur\u00f3 lealtad eterna a cambio de esta magia mal\u00e9fica, pero no es el sirviente m\u00e1s fiel. \u00c9l sue\u00f1a con el d\u00eda en que su magia pueda superar a la de Shao Kahn y est\u00e1 dispuesto a todo para lograrlo.\n",
         "languages": null,
         "size": 4194304
     },
@@ -5673,12 +5680,12 @@
     "70050000011734": {
         "id": "0100F2200C985007",
         "rightsId": null,
-        "name": "DLC 8",
+        "name": "Paquete de Skins Ninja de Arcade Kl\u00e1sico\u00a01",
         "version": null,
         "key": null,
         "isDemo": false,
         "region": null,
-        "releaseDate": 20191231,
+        "releaseDate": 20190625,
         "nsuId": 70050000011734,
         "category": null,
         "ratingContent": [
@@ -5695,9 +5702,9 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b1e006ac3ccb675a12745255f608750fb812ecfd971710add0381fbb88cf3476.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/913028a0ebd8a9f4b731989fbcc2ae5f3756a48bc967b7d590090ba4aae980a0.jpg",
         "intro": null,
-        "description": null,
+        "description": "Este art\u00edculo ya est\u00e1 incluido en el Paquete de Kombate.\n\nTres nuevas skins de personaje. El Paquete de Skins Ninja de Arcade Kl\u00e1sico viste a los personajes de Mortal\u00a0Kombat\u00a011 Scorpion, Sub-Zero y Noob Saibot con trajes inspirados en el arcade kl\u00e1sico.",
         "languages": null,
         "size": 4194304
     },
@@ -7085,6 +7092,31 @@
         "region": null,
         "releaseDate": null,
         "nsuId": 70070000005704,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
+    },
+    "70070000006021": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000006021,
         "category": null,
         "ratingContent": null,
         "numberOfPlayers": null,
