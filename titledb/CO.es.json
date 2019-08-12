@@ -350,7 +350,7 @@
             "es",
             "fr"
         ],
-        "size": 6134169600
+        "size": 6560940032
     },
     "70010000000600": {
         "id": "0100F15003E64000",
@@ -899,7 +899,7 @@
             "es",
             "fr"
         ],
-        "size": 3241148416
+        "size": 3332374528
     },
     "70010000001620": {
         "id": null,
@@ -1071,7 +1071,7 @@
             "es",
             "fr"
         ],
-        "size": 1702887424
+        "size": 1772093440
     },
     "70010000003208": {
         "id": "0100633007D48000",
@@ -1258,7 +1258,7 @@
             "ko",
             "zh"
         ],
-        "size": 2557476864
+        "size": 2612002816
     },
     "70010000003971": {
         "id": "01005250086C4000",
@@ -2287,7 +2287,7 @@
             "fr",
             "pt"
         ],
-        "size": 136314880
+        "size": 145752064
     },
     "70010000013359": {
         "id": "0100A4400BE74000",
@@ -3665,7 +3665,7 @@
         "intro": null,
         "description": "Nuevo Pok\u00e9mon de combate: Aegislash\nNuevo equipo de apoyo: Mega-Rayquaza y Mimikyu\nNuevos premios para el avatar, nuevos t\u00edtulos y trajes nuevos para Nia ",
         "languages": null,
-        "size": 1048576
+        "size": 4194304
     },
     "70050000002861": {
         "id": "0100B3F000BE3002",
@@ -3693,7 +3693,7 @@
         "intro": null,
         "description": "Nuevo Pok\u00e9mon de combate: Blastoise\nNuevo equipo de apoyo: Mew y Celebi\nNuevos premios para el avatar, nuevos t\u00edtulos y trajes nuevos para Nia ",
         "languages": null,
-        "size": 1048576
+        "size": 4194304
     },
     "70050000004063": {
         "id": "01003BC0000A1065",
@@ -6924,7 +6924,7 @@
         "intro": null,
         "description": "Presentando el primer juego de Pok\u00e9mon para la consola Nintendo Switch. Toma control de uno de los 21 preciados luchadores Pok\u00e9mon para derrotar a otros Pok\u00e9mon en la arena de combate. Llama al Pok\u00e9mon de apoyo para que asista en el combate, luego desencadena el excepcional ataque de r\u00e1faga de tu Pok\u00e9mon para subir de rango. Con muchos modos y maneras nuevas de combatir con tus amigos, \u00a1esta es tu oportunidad de convertirte en el campe\u00f3n de la regi\u00f3n Ferrum!  \n\nPurchase this bundle to own both Pokk\u00e9n Tournament DX and the Pokk\u00e9n Tournament DX Battle Pack.",
         "languages": null,
-        "size": 4262461440
+        "size": 4268752896
     },
     "70070000003245": {
         "id": null,
