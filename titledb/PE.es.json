@@ -856,6 +856,52 @@
         ],
         "size": 25377636352
     },
+    "70010000001526": {
+        "id": "0100331005E8E000",
+        "rightsId": "0100331005E8E0000000000000000003",
+        "name": "Super Putty Squad",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000001526,
+        "category": [
+            "Plataformas",
+            "Arcade"
+        ],
+        "ratingContent": [
+            "Referencia al alcohol",
+            "Travesuras comicas",
+            "Violencia de fantasia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/a18091d22d343b141af3204cfb0db828be72973f2daa78f63fc1da0a834e851b.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/e6fac490f45c7dacb238d9dcd37013124a902ecb927d7c67020563f083695a1f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/feabde14f9f1c6a8fe54d7c31db31436a6d7d55f69cb6e8abbc3b3283611c42d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/86f046a9d9a4a26f0875fdbeae09cc01c4dac26862780385679edc2585a80929.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ede0bbbe64ee72ecd10184f98d08d755ecff9051b1837791282a34602f325a85.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/7c5d6b2dc9dcebed4014d00ef187bbafb6476a58deef43cab4e4e897f8dd2d9e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/156d4c590fbed5dc04d4925b93953ec586ad57b6293c92128cf563b0f99eb598.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/3f26541958d63d852937dda36f4a45b20de18ab48c86c271e02a29b5ffc2045a.jpg",
+        "intro": null,
+        "description": "\u00a1Putty ha vuelto! El cl\u00e1sico atemporal llega a Nintendo Switch\u2122.\n\nSalta, rebota, brinca y est\u00edrate hacia la victoria mientras ayudas Putty a salvar a sus amigos secuestrados de una muerte segura en esta aventura cl\u00e1sica de plataforma con m\u00e1s de 100 niveles.\n\nSuper Putty Squad es una experiencia de juego retro revivida para los jugadores de hoy en d\u00eda con un nuevo modo tutorial para una mayor jugabilidad. El modo tutorial te gu\u00eda a trav\u00e9s de los primeros niveles, con pistas y consejos sobre c\u00f3mo y cu\u00e1ndo utilizar el arsenal de equipo y los movimientos de Putty.\n\nNuestro h\u00e9roe Putty puede inflarse, transformarse, estirarse, saltar, golpear y absorber a feroces enemigos en su misi\u00f3n para salvar a los putties capturados. Super Putty Squad presenta niveles creados al detalle que pondr\u00e1n a prueba tu velocidad, habilidad e imaginaci\u00f3n en una encantadora y adictiva aventura.\n\nColecciona y desbloquea trofeos adicionales mientras subes de nivel y exploras nuevos niveles muy bien escondidos. Adem\u00e1s, un libro de pegatinas \u00fanico con el que llevar un seguimiento de tu progreso.\n\nPutty, el m\u00e1s improbable de los h\u00e9roes, dispone de poderes especiales que hacen que la experiencia de juego sea incre\u00edblemente adictiva, pero tambi\u00e9n accesible para los jugadores ocasionales, con objetos singulares que hay que encontrar y utilizar. Super Putty Squad te mantendr\u00e1 enganchado durante horas de diversi\u00f3n.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 1526726656
+    },
     "70010000001618": {
         "id": "010057D006492000",
         "rightsId": "010057D0064920000000000000000004",
@@ -992,6 +1038,58 @@
         ],
         "size": 1450180608
     },
+    "70010000002264": {
+        "id": "0100A330022C2000",
+        "rightsId": null,
+        "name": "Constructor Plus",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000002264,
+        "category": [
+            "Estrategia",
+            "Simulaci\u00f3n"
+        ],
+        "ratingContent": [
+            "Sangre",
+            "Humor vulgar",
+            "Referencia a drogas",
+            "Lenguaje",
+            "Temas insinuantes",
+            "Uso de Alcohol y Tabaco",
+            "Violencia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 13,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/7894fb6d4c463bea9bac7ce44cbb9586e2428bfa6d19360b45e81c575460cc79.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2d242d533ff84529ef4e1a38669af12db9d721cd8acb931a5c975a809f259c0e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b7b1ab43acebfb6c242c4da8718e39aa9ed14e2ae29216d4ba438e4ad0036ba2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e536223038e4718b3dc3aa78b2be85edb934aa0015821fe6fe759dc8b0ef78cc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/74b3457d74e85160bccca6a2b5a72ecc105082991ed33ebcc6cb09d8294dd0fc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/d5abfc71889698bf32b615a4bf32f2167180f9d9d764a2e534b54c835af56b6e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/33b6b9256ac2320fec3b6e14b2748416e21cbab22d83ce216672455a269b9f33.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f579190bf662e41d1c8c2fa4bee90253204c32467bf969c3fda8cf1d6cabc66f.jpg",
+        "intro": null,
+        "description": "\n\u00a1En esta ciudad hay que pensar en grande! \n\nDesempe\u00f1a el papel de un promotor inmobiliario en ciernes y pasa de estafador de poca monta a magnate de las propiedades interplanetarias, maquinando, negociando y robando a lo largo de todo el proceso.\n\nLlegar a lo m\u00e1s alto es f\u00e1cil si sabes c\u00f3mo hacerlo... \u00a1aunque no sea de forma legal!\n\nUtiliza una gran variedad de m\u00e9todos sucios para aplastar a la competencia, como llamar a los indeseables o a la mafia cuando necesites emplear mano dura\u2026\n\n\u00a1M\u00e1s de 140 edificios variados, desde caravanas hasta rascacielos! \u00a1Construye a lo grande! \u00a1M\u00e1s y m\u00e1s grande!\n65 ciudades preconstruidas para explorar.\n17 mundos.\n15 modos de historia diferentes.\nPersonaliza tu propio mundo con el dise\u00f1ador de ciudades.\nAprende el oficio con 9 escenarios interactivos y un modo tutorial guiado.\n\nConstruye tu centro de poder en la Tierra y luego l\u00e1nzate a las estrellas. \u00a1Constructor Plus te llevar\u00e1 m\u00e1s all\u00e1 de este mundo!\n",
+        "languages": [
+            "en",
+            "pt",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ru",
+            "zh"
+        ],
+        "size": 4233101312
+    },
     "70010000002365": {
         "id": "01007E3006DDA000",
         "rightsId": "01007E3006DDA0000000000000000004",
@@ -1122,6 +1220,91 @@
             "zh"
         ],
         "size": 5689573376
+    },
+    "70010000003221": {
+        "id": "010038A007AA4000",
+        "rightsId": "010038A007AA40000000000000000003",
+        "name": "Fruitfall Crush",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000003221,
+        "category": [
+            "Rompecabezas",
+            "Arcade",
+            "Estrategia"
+        ],
+        "ratingContent": [],
+        "numberOfPlayers": 2,
+        "rating": 6,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/8534a6ab1ab66604b96cb973c554bb3f33c114219dd9b49ad59c5fe7b4444925.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/2be176c614ad1d1752834ca91551b9eb40d8ee250aedf12e172accd3ccb73e1f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/6ff477d9879790c9413c89c6d467f4c967dfba5980930727020788aee243b30f.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/8f0adff52565bc0a2ec6332b810011427469e838bfec97104d3ca622bf67709e.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/51703a7e7ece14cbc91602e2dbcd8ef1e5568248beb9ae7438f6eee892523ba8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/46e93806c86564a4c05ae2e5964371b8f94bda858ec46d313f6c59e83aac4c7b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4643c439c7502eceea71e3072b0b61776dc621a93145fd6f493c29613774fddf.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/e4d83a6fae0e5bf91ebac4c84c0638a7baef74fa713c85c3cd2a49b001b34caa.jpg",
+        "intro": null,
+        "description": "FRUITFALL CRUSH, un aut\u00e9ntico juego de puzles. El concepto es simple, pero su gran profundidad queda patente a medida que aumenta el desaf\u00edo. FruitFall Crush es f\u00e1cil de aprender gracias a sus sencillos controles, pero a la vez resulta adictivo y har\u00e1 que los jugadores regresen una y otra vez para mejorar sus resultados.\n\nEs uno de esos juegos a los que es imposible dejar de jugar. El cuidadoso dise\u00f1o de la mec\u00e1nica y la facilidad de juego se suman a los 75 niveles alucinantes para que no puedas parar de jugar a FruitFall Crush ni un segundo.\n\n\u00a1ES UN JUEGO MENTAL!\nEl objetivo del juego es hacer que las frutas desaparezcan movi\u00e9ndolas por la cuadr\u00edcula hasta que est\u00e9n agrupadas. Las frutas deben estar por encima, a la izquierda o la derecha de otra fruta (no vale en diagonal).\n\nPara mover la fruta, gira la zona de juego para hacer que caiga y crear grupos de tres o m\u00e1s frutas semejantes. Si lo consigues, la fruta se eliminar\u00e1. Adem\u00e1s, si en un solo turno desaparece m\u00e1s de un grupo, recibir\u00e1s una bonificaci\u00f3n.\n\nFruitFall Crush ofrece a los jugadores 4 modos de juego geniales para mejorar la experiencia al m\u00e1ximo.\n\nMODO ARCADE: en este modo tienes que completar el mayor n\u00famero de niveles seguidos que puedas mientras acumulas tu tiempo y puntuaci\u00f3n. Si te quedas sin tiempo o fracasas en un nivel en concreto, tendr\u00e1s tres oportunidades de \"continuar\", que se muestran como corazones en la parte superior izquierda de la pantalla.\n\nUn sistema de autorresoluci\u00f3n evita que te quedes atascado y te frustres.\n\nCuando hayas \"desbloqueado\" (completado) un nivel en el modo Arcade, podr\u00e1s acceder a \u00e9l en los modos Contrarreloj o Pr\u00e1ctica.\n\nMODO CONTRARRELOJ: \u00a1termina el juego lo antes posible!\nPuedes jugar los niveles desbloqueados todas las veces que quieras, y dejar constancia de los r\u00e9cords que consigas en ellos.\n\nMODO PR\u00c1CTICA: juega a tu ritmo, sin preocuparte por el reloj. Cada vez que reinicies, continuar\u00e1s por donde lo dejaste la \u00faltima vez.\n\nMODO DOS JUGADORES: compite contra un amigo en el emocionante modo Dos jugadores usando una sola consola Nintendo Switch\u2122 en el modo televisor o compitiendo con dos mandos Joy-Con\u2122 para ver qui\u00e9n termina antes los 10 niveles.\n",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 144703488
+    },
+    "70010000003222": {
+        "id": "010057F007AA2000",
+        "rightsId": "010057F007AA20000000000000000003",
+        "name": "Rally Racers",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190806,
+        "nsuId": 70010000003222,
+        "category": [
+            "Carreras",
+            "Arcade"
+        ],
+        "ratingContent": [
+            "Violencia moderada de fantasia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/5476274cdf536505b501e728cae9a8dd39b1f77ac09024be764c42e64e4ddf6b.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/7f694e76099f78ff8fb76c71b94090b1bcddb81506c11b3faf1e1f19c8a9f7db.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2da32aad9cdc6c573344b66d3e1138f4ce3ef9244eacd985de629a1b869d991b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/4017318ac90bea4a72d00f085febfe0b3959dc375da3def610cb884acb3956d2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/bd1b81ecacaac4d6e5b143047f7efceddf749bff66ec5ede4ffde21d1c764ec8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b21bbda8edcacf2ede388eeb019d2a309004c40702435d9e47d6ab5720921631.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/63b2679ab407d3e63b313bb6a46134816f91b77e7e374e6f8e41a587e4b6e7c5.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/f20f2e8b932ab88db77a48619e63f0c111c5c7ef8b0190d7c736679664cb00b0.jpg",
+        "intro": null,
+        "description": "Rally Racers: \u00a1la furia al volante asegura una diversi\u00f3n trepidante!\n\nRally Racers es un juego de carreras de alocados dibujos animados con veh\u00edculos que corren a un ritmo fren\u00e9tico y que har\u00e1n disfrutar a todos los jugadores. Compite contra los dem\u00e1s coches en carreras hacia la gloria, recoge armas especiales y mejoras, recluta a los compa\u00f1eros del equipo enemigo, ejecuta acrobacias y completa desaf\u00edos para ser el primero en cruzar la l\u00ednea de meta.\n\n\u00a1Una carrera del bien contra el mal en la que te enfrentar\u00e1s a tipos malvados que tratar\u00e1n de expulsarte de la competici\u00f3n! \u00a1Necesitar\u00e1s toda la ayuda que puedas conseguir, as\u00ed que usa tu astucia y ponlos de tu parte antes de que te conviertan en papilla! Ellos tambi\u00e9n le han echado el ojo a tu equipo, as\u00ed que vigila tus espaldas. Un compa\u00f1ero de equipo en el que antes confiabas podr\u00eda atacarte de un momento a otro. Recoge frutas encantadas para desbloquearlos y traerlos de vuelta a tu equipo y hazte con los orbes dorados para completar cada misi\u00f3n. \u00a1Prep\u00e1rate para las aventuras m\u00e1s ca\u00f3ticas y divertidas!\n\nA lo largo de tu aventura visitar\u00e1s siete mundos que deber\u00e1s conquistar compitiendo. Cada uno tiene distintos retos y recompensas, y recibir\u00e1s premios conforme avances. \u00a1Gana todas las copas de oro en las carreras de cada mundo y haz crecer tu colecci\u00f3n para conseguir coches m\u00e1s chulos y gamberros!\n\nPractica tus habilidades al volante y los trucos de tu veh\u00edculo en el tutorial antes de lanzarte a intercambiar trompazos con tus competidores.\n\nEncuentra todas las frutas secretas ocultas, mejora tus coches, ejecuta acrobacias para ganar puntos, dispara a los malos, elige compa\u00f1eros de equipo seg\u00fan sus habilidades, convierte a los malos en buenos y completa desaf\u00edos repletos de acci\u00f3n en todos los niveles para llevarte la victoria.\n\nEmpuja, choca y compite para alcanzar la gloria en Rally Racers.\n",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 988807168
     },
     "70010000003482": {
         "id": "01005D100807A000",
@@ -1305,6 +1488,50 @@
         ],
         "size": 7129268224
     },
+    "70010000004606": {
+        "id": "0100CD5008D9E000",
+        "rightsId": null,
+        "name": "James Pond Codename Robocod",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000004606,
+        "category": [
+            "Plataformas",
+            "Arcade",
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia moderada de fantasia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/3186e834d0ab276bbe55baf9368f7b01fb68459b87a5f8fb4ea4fddcc2f598cb.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/6927e2e840643421e09195685674ca8c50b938442e8faa058d7f17b6036b621b.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/2ce3a81df60035855be08f2c4caadff0aca02a7a92eb52085949250b20add783.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/28f682537bd6f2b03cef97190e1711745a62d682acfc831566ee42f416670642.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/403f5b019fc3a6d2d5dcbd3575db6f44578fa9934249dee2166dca1a95a23503.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b4153244193a9c688cc6fd128f117050f3ec08cd5120add294c859606d3f64c2.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/78e75a074d94e7b6a03c07e535f699f9debfde9f430310475160823fed2d553f.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/730d1a4ad9b70907a9a07840bbea4b7e829d5fb7db57f383d1be6e14c6cccc01.jpg",
+        "intro": null,
+        "description": "\nJames Pond, una de las grandes leyendas de los juegos, regresa para vivir su mayor aventura en Codename: RoboCod. Montones de niveles impresionantes, salas escondidas con astucia y algunos de los mejores gr\u00e1ficos estilo dibujos animados hacen que James Pond \u2013 Codename: RoboCod para Nintendo Switch\u2122 sea todo un cl\u00e1sico para coleccionistas.\n\nComunicado urgente: James Pond \u2013 Codename: RoboCod se ha visto envuelto en un asunto muy turbio en el que est\u00e1 metido su archienemigo, el famoso supervillano... \u00a1Dr. Quiz\u00e1s!\n\nJames Pond vuelve a la carga para frustrar los ruines planes de dominaci\u00f3n mundial del malvado Dr. Quiz\u00e1s. Con ayuda de su nuevo y asombroso traje rob\u00f3tico, James Pond deber\u00e1 cruzar mundos estramb\u00f3ticos saltando, apretujando, escalando, estirando y espachurrando osos saltarines, cadillacs locos, remolinos de derviches y monta\u00f1as de chocolate... \u00a1sin olvidar los jefes chiflados y arteros de final de nivel!\n",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 132120576
+    },
     "70010000004682": {
         "id": "0100842008EC4000",
         "rightsId": "0100842008EC40000000000000000004",
@@ -1348,6 +1575,51 @@
             "zh"
         ],
         "size": 3468689408
+    },
+    "70010000005097": {
+        "id": "0100345009240000",
+        "rightsId": null,
+        "name": "Impossible Mission",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70010000005097,
+        "category": [
+            "Plataformas",
+            "Arcade",
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia de fantasia",
+            "Bajo contenido de sangre"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 10,
+        "developer": null,
+        "publisher": "System 3 Software",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/ba94f35b1ef9d6ed32271be8c489e0e8a58d730f07f9b3584e0cd222f4bfc3c9.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/ab3eaa5599185d79ec71462d354935e3255f26de5ef17b793afafe6f4c6dcbed.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0ed7fef0238401d3cf461a6865a44be35235b2f4be492fd1f01a7e53f9b52875.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/9a3946d56d8114588a058b915d690c8f117681053b7735167ee06ee414effcc8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/a1748d49263b05619568a127fd9ae511e4251a06274f222dbd71251d83748aaa.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/cd1c8c47bf0b02e4f13382058f5f08e6965ba96928430d7f1fd8002d2181d2e8.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/aed6768bc8e2458cd0fd3f7dabe84633c347103ff391899b24346ab407bc4f54.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/b2d80f8b1e71be84a497b496233bebc0577196f5d54c0a3491887841cf497a2f.jpg",
+        "intro": "\"\u2026another visitor, stay a while, stay forever.\"",
+        "description": "\nUna fiel adaptaci\u00f3n del anterior cl\u00e1sico de Epyx que mejora al original en todos los sentidos. Tienes s\u00f3lo 6 horas para encontrar todas las piezas para resolver el rompecabezas de un cient\u00edfico loco mientras vas evitando enrevesados robots busca-humanos y mort\u00edferas esferas negras. Incluye tres versiones, la cl\u00e1sica C64 original, una cl\u00e1sica remodelada y la nueva versi\u00f3n completamente actualizada . \n\nEl objeto de la misi\u00f3n secreta es poner fin al genio del mal, el Profesor Elvin Atombender, que es sospechoso de piratear en los ordenadores de Seguridad Nacional. Debes introducirte en el b\u00fanker de la Isla Secreta de Atombender. En una carrera contra el reloj, debes buscar las partes de una contrase\u00f1a secreta que desconectar\u00e1 los mort\u00edferos misiles del trastornado Profesor.\n\nUsando el sistema del ascensor, ve por el laberinto de pasillos del escondite secreto, pero ten cuidado, tendr\u00e1s que burlar a las hordas de los mort\u00edferos robots que patrullan cada zona.\n\nTodos los robots reaccionan de manera diferente, as\u00ed que observa cada robot uno por uno y pon a prueba y aprende sus par\u00e1metros de patrulla y m\u00e9todos de ataque.\n\nUna vez dentro de una zona segura, revisa todos los objetos, mobiliario y terminales de ordenador por si hay partes de la Contrase\u00f1a Secreta. \n\nSi no encuentras la Contrase\u00f1a, la vida en la Tierra como la conocemos cambiar\u00e1 para siempre \u2026 Atombender tiene misiles nucleares apuntando a objetivos estrat\u00e9gicos alrededor del globo \u2026 La cuenta atr\u00e1s ha comenzado \u2026 Es cuesti\u00f3n de horas que salves el planeta ... \u00a1Has escogido emprender la Impossible Mission!\n\n\"\"\u2026otro visitante, permanece un rato, permanece para siempre.\"\"",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 130023424
     },
     "70010000005382": {
         "id": "0100FFA0093E8000",
@@ -2859,6 +3131,51 @@
         ],
         "size": 376438784
     },
+    "70010000018502": {
+        "id": "0100B6400CA56000",
+        "rightsId": null,
+        "name": "DAEMON X MACHINA\u2122",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190913,
+        "nsuId": 70010000018502,
+        "category": [
+            "Acci\u00f3n"
+        ],
+        "ratingContent": [
+            "Violencia de fantasia",
+            "Bajo contenido de sangre",
+            "Lenguaje moderado",
+            "Interacci\u00f3n de usuarios"
+        ],
+        "numberOfPlayers": 4,
+        "rating": 13,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/20ed025aab6919ee83e73d394439bf7cf48d2c90f8dcfa5bc6835625b8375fa2.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/062c03a4629cd72b2d4a97b3ecb993ffeb3fc7f0d20801d34ba54baa17a0e73c.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/ab53f645338191bd3244cc74ec45e3e1791310add8237fa6d76ab07586343aaf.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/671df003b70f0a14592a934570fd73b1b876f25155f458f2cfa3b115f1afbb68.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/475fa9ef3641fbf0e32bd116b5aa390f9203e9ac156f703833e39258efd7247d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1d0c89252b0411bae5b6e74b893e5edcf946c6326009dcc79a379d4c1c412c7a.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b184156e7dc2c10fc7e859c8071a3947cdfe1f089d7c250871d9fa3dc48b415a.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a09b6b2785e70dd5126220100735097133b1ec58e370f25d279aae259c63586c.jpg",
+        "intro": "Defiende el planeta a trav\u00e9s de la acci\u00f3n a toda velocidad de los mech",
+        "description": "La luna se ha roto en mil pedazos, y el cielo se ha cubierto de una luz roja, esto marca el inicio de una nueva era apocal\u00edptica\u2026 donde para sobrevivir deber\u00e1s luchar. Como un mercenario, defiende el planeta a trav\u00e9s de combates a toda velocidad contra terribles robots en una serie de misiones mientras piloteas tu nave, Arsenal, un mech totalmente personalizable. Equipa tu Arsenal con una gran cantidad de modificaciones y armas, obt\u00e9n m\u00e1s de los enemigos ca\u00eddos, e interc\u00e1mbialas para satisfacer tu estrategia y  derrotar las incontables amenazas.\n\nEn este nuevo juego de acci\u00f3n de Kenichiro Tsukuda (Armored Core) y el dise\u00f1ador de mech Shoji Kawamori (Super Dimensional Fortress Macross), tu entorno es tu aliado. Re\u00fane y utiliza la energ\u00eda Femto en el campo de batalla para mejorar tus estad\u00edsticas y crear poderosos espejismos, o empu\u00f1a objetos como autos y letreros de calles para utilizarlos como armas y proyectiles en combates cuerpo a cuerpo. Para obtener a\u00fan m\u00e1s poder, mejora tus habilidades f\u00edsicas de combate y aprende nuevas habilidades a trav\u00e9s de la modificaci\u00f3n de cuerpo. Tambi\u00e9n ser\u00e1 muy \u00fatil cuando salgas de tu Arsenal y luches a pie con armas y habilidades especiales.\n\n\u2022 Defiende el planeta a trav\u00e9s de combates mech de alta velocidad contra robots corruptos\n\u2022 Kenichiro Tsukuda, conocido por su trabajo en el desarrollo de la serie Armored Core, y su talentoso equipo han desarrollado este nuevo t\u00edtulo con el objetivo de convertirlo en \u201cel mejor juego de acci\u00f3n mech\u201d\n\u2022 El avatar del jugador y el Arsenal son totalmente personalizables gracias a la gran variedad de opciones\n\u2022 Los enemigos derrotados pueden dejan caer municiones y armas, que el jugador puede obtener y usar\n\u2022 Organ\u00edzate con otros tres jugadores* para destruir jefes tit\u00e1nicos en el modo cooperativo en l\u00ednea**\n\u2022 Dise\u00f1os mech creados por el Sr. Kawamori, quien tambi\u00e9n trabaj\u00f3 en la serie Armored Core y en la serie Super Dimension Fortress Macross\n",
+        "languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it"
+        ],
+        "size": 6241124352
+    },
     "70010000018547": {
         "id": "010040600C5CE000",
         "rightsId": "010040600C5CE0000000000000000007",
@@ -3012,14 +3329,14 @@
         "developer": null,
         "publisher": "Nintendo",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/a65ee440464235ffea54e9f1b302fb18a0af52a189d604e637389460ba45ee96.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/6e3e4c0a8e88dd9470d686a55052dca29f1be48ae3af3249a0d34a39f77d2684.jpg",
         "screenshots": [
-            "https://img-eshop.cdn.nintendo.net/i/1ee86dda5a76804c2f9cc68d9e060bfb7cedba889943b16686a2bdbaca06f433.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/4da1687fd8bae8beee03cf35b6769a1f3d285758d2b0ef1c95e1da1ad6242b5f.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/4f43a2d8bf9d14e3c0ac6c02873736ea021e679387ecabb7160e112bff9f6473.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/c0f24703b2f1f56945c5d8ee4954cbd9c415426e61cd2e51cf159c44a61d707d.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/90e93e4541f97c0c9ace28d4936be280e63ddc6a5458ab34109554005dabce58.jpg",
-            "https://img-eshop.cdn.nintendo.net/i/4626b62e73eb4f1eb060672da8fe9d612db601f6f4c05216e3e3667bf281f963.jpg"
+            "https://img-eshop.cdn.nintendo.net/i/ae7e1c2764074f1b5af56454cd5c75f150474aa9a4a87b73aeff2996ffad0bee.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1500395a0a6e241f071e902759525e7442434babd3726f25d5ae1d5d232e38b7.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/b4373e8d3b216aaaf30fb58409df7dbf27d0d8b6541ff9ac266b70d0624126e5.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/418a5ff35c577213f0cf54cc4284c5b6ed8416b5975887820ca7d23ee7b26f00.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/98490533e202bc70836a35c2ea4e29723ab25a1d7a3b5d35397dbd3f0421eeb3.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/1168275fd196fd6e28cd1474b1a63515d3af726d6bb38ba407376d8e2032f53a.jpg"
         ],
         "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/aac100206f1c50349fd2c48595e55603259ae60a4ab4eefc28e71f41efb78b97.jpg",
         "intro": "Juega donde quieras. Crea en cualquier lugar.",
@@ -3029,7 +3346,7 @@
             "es",
             "fr"
         ],
-        "size": 3027238912
+        "size": 3114270720
     },
     "70010000018695": {
         "id": null,
