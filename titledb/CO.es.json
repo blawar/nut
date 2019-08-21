@@ -1997,7 +1997,7 @@
             "de",
             "it"
         ],
-        "size": 1552941056
+        "size": 1869611008
     },
     "70010000009564": {
         "id": "0100E7300AAD4000",
@@ -3419,6 +3419,54 @@
         ],
         "size": 3906994176
     },
+    "70010000020033": {
+        "id": "01006BB00C6F0000",
+        "rightsId": null,
+        "name": "The Legend of Zelda\u2122: Link\u2019s Awakening",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190920,
+        "nsuId": 70010000020033,
+        "category": [
+            "Acci\u00f3n",
+            "Aventura"
+        ],
+        "ratingContent": [
+            "Violencia moderada de fantasia"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 6,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/b0b0b2d150830b70b5bb259cdabefe21d2009b55cbd58854cf6a897587249054.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/90a52983d8edc9971cda75e544b0e386bcd13f6660c0f15e98aec169a2ebda2d.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e1b9dea18517d21f8ab3fcb0c1aa5a28331ca33da11c354e681d79a013fadfb4.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/959ad067a4c7699e8f1980d5ca47d97bc674c6038d1323fa023ea6e596928e09.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/05bfd52dd5af420dbeb284b1cc9e8a80ea831c0ea9bc6f218445ab0dcb26d0dc.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0e3ab53cea0d73bc7ad270654406efd1dd11c3bf1ac4c8977b32aa410108b179.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/e82fd2260ccf567ebb34d41bb16a6078593add3d925e0089dbdb776a5415eeac.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/df825d5fc6747b66b051f5d3ba6a412fe625ea7878b6a10c93bb8312195682b1.jpg",
+        "intro": "\u201cN\u00e1ufrago de la isla... \u00a1Debes conocer la verdad!\u201d",
+        "description": "Como Link, despertaste en una extra\u00f1a tierra muy lejos de Hyrule, donde los animales hablan y los monstruos merodean por ah\u00ed. En esta nueva versi\u00f3n de uno de los juegos m\u00e1s queridos de The Legend of Zelda, que ha sido mejorada con incre\u00edbles detalles, deber\u00e1s explorar la isla Koholint y todas sus mazmorras cargadas de trampas ocultas para descubrir la verdad detr\u00e1s de tu paradero y despertar al Pez del Viento. Conforme avances, encontrar\u00e1s una gran variedad de divertid\u00edsimos y encantadores personajes de los cuales no querr\u00e1s despedirte.\n\nEn esta nueva versi\u00f3n del juego, la cl\u00e1sica banda sonora ha sido mejorada con nuevos ajustes, adem\u00e1s, ahora podr\u00e1s equipar m\u00e1s objetos a la vez, revisar conversaciones claves y navegar por el mapa de nuevas maneras. Pon a prueba tus habilidades en los renovados minijuegos para obtener figuras basadas en la serie de Super Mario\u2026o piedras salizas. Estas inusuales piedras pueden ser utilizadas para organizar tu propia mazmorra de salas; \u00a1cada una es un rompecabezas! Coloca las salas de las mazmorras que encuentres por el juego en una serie de cuadr\u00edculas basadas en objetivos\u2026 \u00bfD\u00f3nde colorar\u00e1s a la jefes? \u00bfC\u00f3mo llegas de la entrada a las escaleras? Son tus mazmorras, as\u00ed que acom\u00f3dalas como mejor te parezca. Para recibir m\u00e1s piedras salizas, deber\u00e1s conquistar las mazmorras de la aventura principal, los minijuegos o utilizar una figura amiibo alusiva a los personajes de The Legend of Zelda para desbloquear salas exclusivas de amiibo.",
+        "languages": [
+            "ja",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "nl",
+            "ru",
+            "ko",
+            "zh"
+        ],
+        "size": 6282018816
+    },
     "70010000020281": {
         "id": "0100A4200DA76000",
         "rightsId": null,
@@ -3604,6 +3652,39 @@
         "description": null,
         "languages": null,
         "size": 219152384
+    },
+    "70030000007541": {
+        "id": null,
+        "rightsId": null,
+        "name": "DRAGON QUEST BUILDERS\u2122 2 \u2013 Demo version",
+        "version": null,
+        "key": null,
+        "isDemo": true,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70030000007541,
+        "category": null,
+        "ratingContent": [
+            "Referencia al alcohol",
+            "Travesuras comicas",
+            "Violencia de fantasia",
+            "Bajo contenido de sangre",
+            "Lenguaje moderado",
+            "Temas insinuantes",
+            "Interacci\u00f3n de usuarios"
+        ],
+        "numberOfPlayers": null,
+        "rating": 10,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 849346560
     },
     "70050000000183": {
         "id": "01007EF00011F001",
@@ -6892,7 +6973,7 @@
         "frontBoxArt": null,
         "iconUrl": null,
         "screenshots": null,
-        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/5c2b7729fdb1ceda74b254047b3b78995a58aa70cac53a3cdd3de0cbd42fa089.jpg",
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/6c3a7156d354dd973addbe0793f088ae21eeb69336d3985a76afa91f8cb01757.jpg",
         "intro": null,
         "description": "Recibe los siguientes art\u00edculos en el juego al precomprar el pase de temporada de DRAGON QUEST BUILDERS 2:\ngafas de sol de dise\u00f1ador\n",
         "languages": null,
@@ -7488,6 +7569,31 @@
         "description": "Adquiere este paquete para obtener la versi\u00f3n digital del juego DRAGON QUEST BUILDERS 2 y el pase de temporada. \n\nEste paquete incluye el siguiente contenido descargable:\n\n>DRAGON QUEST BUILDERS 2\nPara ponerle un alto a los seguidores de una antigua fuerza maligna, deber\u00e1s unir fuerzas con el misterioso Malroth y construir de un mundo devastado el reino de tus sue\u00f1os. En esta aventura al estilo juego de rol, explorar\u00e1s enormes islas, reunir\u00e1s y crear\u00e1s materiales, dise\u00f1ar\u00e1s pueblos, los subir\u00e1s de nivel y los defender\u00e1s de monstruos y jefes junto a los habitantes de los pueblos. A medida que avanzas, descubrir\u00e1s y elaborar\u00e1s recetas. Salpica, desliza, explora bajo el agua, viaja r\u00e1pidamente y disfruta de la perspectiva opcional en primera persona mientras intentas encontrarlos a todos. En la Isla del Despertar, t\u00fa y tres constructores m\u00e1s podr\u00e1n explorar juntos a trav\u00e9s de la comunicaci\u00f3n local*, o en l\u00ednea **.\n\n* Se requieren consolas y juegos adicionales que se venden por separado.\n** Se requiere una suscripci\u00f3n a Nintendo Switch Online (se vende por separado) y una cuenta Nintendo para los servicios en l\u00ednea. Se requiere una conexi\u00f3n a internet estable, un tel\u00e9fono m\u00f3vil inteligente y una cuenta Nintendo para mayores de 13 a\u00f1os para usar la aplicaci\u00f3n. Es posible que se apliquen cargos de datos celulares. Las funciones del juego en l\u00ednea, la opci\u00f3n de guardado de datos en la nube y la aplicaci\u00f3n Nintendo Switch Online est\u00e1 disponible en los juegos compatibles. No disponible en todos los pa\u00edses. Aplican los t\u00e9rminos del Acuerdo de usuario de la cuenta Nintendo, incluyendo los T\u00e9rminos de compra y suscripci\u00f3n. nintendo.com/switch-online.\n\n>Season Pass\nEste pase incluye el siguiente contenido descargable:\n\u2022 Hotto Stuff Pack\n\u2022 Aquarium Pack\n\u2022 Modernist Pack\nCada paquete ser\u00e1 lanzado de forma individual.\n\n\u2022 Se requiere la versi\u00f3n completa del juego para poder utilizar el contenido descargable. Se vende por separado o en conjunto con el pase de temporada.\n\u2022 Tambi\u00e9n podr\u00e1s adquirir los paquetes de contenido descargable de forma individual. Ten cuidado de no adquirir el mismo paquete dos veces.\n",
         "languages": null,
         "size": 1569718272
+    },
+    "70070000006281": {
+        "id": null,
+        "rightsId": null,
+        "name": null,
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": null,
+        "nsuId": 70070000006281,
+        "category": null,
+        "ratingContent": null,
+        "numberOfPlayers": null,
+        "rating": null,
+        "developer": null,
+        "publisher": null,
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": null,
+        "intro": null,
+        "description": null,
+        "languages": null,
+        "size": 0
     },
     "70070000006481": {
         "id": null,
