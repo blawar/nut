@@ -7171,7 +7171,7 @@
         "developer": null,
         "publisher": "Nintendo",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/a65ee440464235ffea54e9f1b302fb18a0af52a189d604e637389460ba45ee96.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/6e3e4c0a8e88dd9470d686a55052dca29f1be48ae3af3249a0d34a39f77d2684.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/72c2a52d938647df4e5c9529255fd8959b1f55b88f37a5e8e549c053e6911c04.jpg",
             "https://img-eshop.cdn.nintendo.net/i/bf88e4a50cb5853316d9ffeff6576862b65c43accac95170a2ebf8a43528e1d6.jpg",
@@ -7195,7 +7195,7 @@
             "ko",
             "zh"
         ],
-        "size": 3027238912
+        "size": 3114270720
     },
     "70010000020844": {
         "id": "01009B90006DC000",
@@ -7216,7 +7216,7 @@
         "developer": null,
         "publisher": "Nintendo",
         "frontBoxArt": null,
-        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/a65ee440464235ffea54e9f1b302fb18a0af52a189d604e637389460ba45ee96.jpg",
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/6e3e4c0a8e88dd9470d686a55052dca29f1be48ae3af3249a0d34a39f77d2684.jpg",
         "screenshots": [
             "https://img-eshop.cdn.nintendo.net/i/72c2a52d938647df4e5c9529255fd8959b1f55b88f37a5e8e549c053e6911c04.jpg",
             "https://img-eshop.cdn.nintendo.net/i/bf88e4a50cb5853316d9ffeff6576862b65c43accac95170a2ebf8a43528e1d6.jpg",
@@ -7240,7 +7240,7 @@
             "ko",
             "zh"
         ],
-        "size": 3027238912
+        "size": 3114270720
     },
     "70010000021176": {
         "id": "01000B900D8B0000",
@@ -7373,6 +7373,48 @@
             "zh"
         ],
         "size": 10556014592
+    },
+    "70010000022822": {
+        "id": "01006C300E9F0000",
+        "rightsId": null,
+        "name": "\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI S \uc9c0\ub098\uac04 \uc2dc\uac04\uc744 \ucc3e\uc544\uc11c - Definitive Edition",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70010000022822,
+        "category": [
+            "RPG"
+        ],
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": 1,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": "https://img-eshop.cdn.nintendo.net/i/13c91e28ee110118adfe1467e33321611c8937b0bdaa04334affd8a87e681c60.jpg",
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8aa4658576ea8c8ce53458a04d1a3f072adeac0f9db01f3b256dc4f7ee6ac5a1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b604d7b037eb7ae65fb72174bdeeca6e3c67d107b36687a15b49593a0b3d234.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/11272ef2cfc064dedd37e56bc0632c7efd9ca6f4e05d3af716daf2a25aa639ed.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/849252dea945c3a350bf92841d6d59ff1a1892a7848098007bc1993a24ba9366.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f6e2e99e81b7b38da14a78719f0d0816ecd8e3ce8f7bc3affaa4b51cba87a158.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a06d72112cb2b415443b6ac6d73dbf5446f21e6e64c11dda69cb35878dff21f3.jpg",
+        "intro": "\uc9c0\uae08 \ub2e4\uc2dc, \uc6a9\uc0ac\uc758 \uc2dc\uac04\uc774 \uc6c0\uc9c1\uc774\uae30 \uc2dc\uc791\ud55c\ub2e4.\n",
+        "description": "\uc138\uacc4\ub97c \uad6c\ud560 \ucd5c\ud6c4\uc758 \uc6a9\uc0ac\ub85c \uc608\uc5b8\ub41c \uc8fc\uc778\uacf5\uc774 \u300c\uc545\ub9c8\uc758 \uc790\uc2dd\u300d\uc774\ub77c \ubd88\ub9ac\uba70 \ucad3\uae30\ub294 \uc2e0\uc138\uac00 \ub418\uba74\uc11c \uc2dc\uc791\ub418\ub294 \u300c\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI\u300d\uc774 Nintendo Switch\uc5d0 \ub4f1\uc7a5!\n\n\u300e\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI\u300f \uc644\uc804\ud310\uc73c\ub85c\uc11c \uc0c8\ub85c \ucd94\uac00\ub41c \uc694\uc18c\ub294\n\u30fb3D \uc138\uacc4\uc640 \ud074\ub798\uc2dd\ud55c 2D \uc138\uacc4\ub97c \uc624\uac00\uba70 \ud50c\ub808\uc774 \uac00\ub2a5\n\u30fb\uce90\ub9ad\ud130 \uc74c\uc131 \ucd94\uac00(\uc77c\ubcf8\uc5b4 \u00b7 \uc601\uc5b4)\n\u30fb\uac8c\uc784 \ub0b4 \ub4f1\uc7a5\ud558\ub294 \uac01 \uce90\ub9ad\ud130\ub4e4\uc774 \uc8fc\uc778\uacf5\uc774 \ub418\ub294 \uc0c8\ub85c\uc6b4 \uc2a4\ud1a0\ub9ac\n\u30fb\uacf5\uaca9\ub825\uacfc \uc218\ube44\ub825\uc740 \uc720\uc9c0\ud55c \ucc44 \uc7a5\ube44\uc758 \ubaa8\uc2b5\uc744 \uad50\uccb4 \uac00\ub2a5 \ub4f1 \uc5ec\ub7ec \uac00\uc9c0\uc758 \ucd94\uac00\ub41c \uc694\uc18c\ub85c \ub354\uc6b1 \ub2e4\uc591\ud558\uac8c \ubaa8\ud5d8\uc744 \uc990\uae38 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": [
+            "en",
+            "es",
+            "de",
+            "it",
+            "ko",
+            "zh"
+        ],
+        "size": 14905507840
     },
     "70030000007001": {
         "id": null,
@@ -19020,6 +19062,141 @@
         "languages": null,
         "size": 25165824
     },
+    "70050000014133": {
+        "id": "01006C300E9F1015",
+        "rightsId": null,
+        "name": "\uc0c8\ub07c \uba67\ub3fc\uc9c0 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70050000014133,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/700596c0c7b3fa4d4b2cf52209f93b573b5b899ad6152727ea2bfcdc13e6507f.jpg",
+        "intro": null,
+        "description": "\uac8c\uc784\uc744 \ud50c\ub808\uc774\ud558\uace0 \uacc4\uc2dc\ub294 \uc5ec\ub7ec\ubd84\ub4e4\uc5d0\uac8c \ud2b9\ubcc4\ud55c \uc120\ubb3c\uc744 \ub4dc\ub9bd\ub2c8\ub2e4!\n\uadc0\uc5ec\uc6b4 \ubca0\ub85c\ub2c8\uce74\ub97c \uaf2d \ub9cc\ub098\ubcf4\uc138\uc694!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000014134": {
+        "id": "01006C300E9F1019",
+        "rightsId": null,
+        "name": "\ubaa8\ud5d8\uac00\ub97c \uc704\ud55c \ud2b9\ubcc4\ud55c \uc870\ub07c \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70050000014134,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d86f1ad5ffb24bd9b5fd66b11bbbf9d5f35707b668760df7a9941c6f664b7b99.jpg",
+        "intro": null,
+        "description": "\uac8c\uc784\uc744 \ud50c\ub808\uc774\ud558\uace0 \uacc4\uc2dc\ub294 \uc5ec\ub7ec\ubd84\ub4e4\uc5d0\uac8c \ud2b9\ubcc4\ud55c \uc120\ubb3c\uc744 \ub4dc\ub9bd\ub2c8\ub2e4!\n\uc774 \uc7a5\ube44\ub4e4\uc744 \ucc29\uc6a9\ud558\uace0 \ud589\ubcf5\ud55c \ubcbc\ub77d\ubd80\uc790\uac00 \ub418\uc5b4 \ubd05\uc2dc\ub2e4!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000014135": {
+        "id": "01006C300E9F1018",
+        "rightsId": null,
+        "name": "\ub178\uc2a4\ub808\ub354 \uc288\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70050000014135,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/c0c41c230391daed93b5c9d4291b1d3d377ef3717e2f4c40388746434c1e59d7.jpg",
+        "intro": null,
+        "description": "\uac8c\uc784\uc744 \ud50c\ub808\uc774\ud558\uace0 \uacc4\uc2dc\ub294 \uc5ec\ub7ec\ubd84\ub4e4\uc5d0\uac8c \ud2b9\ubcc4\ud55c \uc120\ubb3c\uc744 \ub4dc\ub9bd\ub2c8\ub2e4!\n\uce74\ubb88\uc758 \ub9e4\ub825\uc744 \ub04c\uc5b4\ub0b4\ub294 \uba4b\uc9c4 \uc758\uc0c1\uc744 \uc785\uc5b4\ubd05\uc2dc\ub2e4!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000014137": {
+        "id": "01006C300E9F1016",
+        "rightsId": null,
+        "name": "\ud2b8\ub85c\ub374 \uc655\uad6d \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70050000014137,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/691230df62e61b7a7529bd8d51705b47469ab8dff28ecae55a8ff8d8f79d3960.jpg",
+        "intro": null,
+        "description": "\uac8c\uc784\uc744 \ud50c\ub808\uc774\ud558\uace0 \uacc4\uc2dc\ub294 \uc5ec\ub7ec\ubd84\ub4e4\uc5d0\uac8c \ud2b9\ubcc4\ud55c \uc120\ubb3c\uc744 \ub4dc\ub9bd\ub2c8\ub2e4!\n\uc6a9\uc0ac\uc758 \uc0c8\ub85c\uc6b4 \ub9e4\ub825\uc744 \ub04c\uc5b4\ub0b4\ub294 \uc5ec\ud589\uc790 \uc758\uc0c1\uc744 \uc785\uc5b4\ubd05\uc2dc\ub2e4!",
+        "languages": null,
+        "size": 4194304
+    },
+    "70050000014138": {
+        "id": "01006C300E9F1017",
+        "rightsId": null,
+        "name": "\ud589\ubcf5 \ubaa8\ud5d8 \uc138\ud2b8",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70050000014138,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": null,
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/d9c425095a334063addd88538373b1d39a19f01c1bc36a3b7440fccd41a9195e.jpg",
+        "intro": null,
+        "description": "\uac8c\uc784\uc744 \ud50c\ub808\uc774\ud558\uace0 \uacc4\uc2dc\ub294 \uc5ec\ub7ec\ubd84\ub4e4\uc5d0\uac8c \ud2b9\ubcc4\ud55c \uc120\ubb3c\uc744 \ub4dc\ub9bd\ub2c8\ub2e4!\n\uc5ec\ub7ec\ubd84\ub4e4\uc758 \ubaa8\ud5d8\uc744 \ub3c4\uc640\uc8fc\ub294 \ud589\ubcf5\ud55c \uc544\uc774\ud15c \uafb8\ub7ec\ubbf8!",
+        "languages": null,
+        "size": 4194304
+    },
     "70070000002481": {
         "id": null,
         "rightsId": null,
@@ -19619,5 +19796,38 @@
         "description": "\u300e\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818 \ud48d\ud654\uc124\uc6d4)\u300f \uc18c\ud504\ud2b8\uc6e8\uc5b4 \ubcf8\ud3b8\uacfc \ubcf5\uc218\uc758 \ucd94\uac00 \ucf58\ud150\uce20\ub97c \uc608\uc57d \uad6c\ub9e4\ud560 \uc218 \uc788\ub294 \u300e\uc775\uc2a4\ud32c\uc158 \ud328\uc2a4\u300f(\uc2dc\uc98c \ud328\uc2a4) \uc138\ud2b8\uc785\ub2c8\ub2e4.\n\n\u25cf\u300e\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818 \ud48d\ud654\uc124\uc6d4\u300f\n\uc138 \uac1c\uc758 \ub098\ub77c, \uc138 \uac1c\uc758 \ubc18, \uadf8\ub9ac\uace0 \ub2f9\uc2e0\uc758 \uc774\uc57c\uae30\n\n\ub3d9\ub8cc\ub97c \uc721\uc131\ud558\ub294 RPG\uc758 \uc990\uac70\uc6c0\uacfc \uc804\ub7b5\uc744 \uc138\uc6cc \uc804\ud22c\ud558\ub294 \uc2dc\ubbac\ub808\uc774\uc158\uc758 \uc990\uac70\uc6c0\uc744 \ud569\uce5c \ub864\ud50c\ub808\uc789 \uc2dc\ubbac\ub808\uc774\uc158 \uac8c\uc784 \u300c\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818\u300d. \uadf8 \uc2dc\ub9ac\uc988\uc758 \ucd5c\uc2e0\uc791 \u300c\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818 \ud48d\ud654\uc124\uc6d4\u300d\uc774 Nintendo Switch \uc5d0 \ub4f1\uc7a5!\n\n\u300e\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818 \ud48d\ud654\uc124\uc6d4\u300f\uc5d0\uc11c \ub2f9\uc2e0\uc740 \uc138 \ub098\ub77c\uc758 \uc80a\uc740\uc774\ub4e4\uc774 \ubaa8\uc778 \uc0ac\uad00\ud559\uad50\uc758 \uad50\uc0ac\uac00 \ub418\uc5b4, \uac01\uac01 \ucd9c\uc2e0\uc774 \ub2e4\ub978 \uc138 \uac1c\uc758 \ubc18 \uc911 \ud558\ub098\ub97c \uc120\ud0dd\ud574 \ud559\uc0dd\ub4e4\uc744 \uc9c0\ub3c4\ud558\uace0 \uc721\uc131\ud558\uba70, \uc804\uc7a5\uc5d0\uc11c\ub294 \uc9c0\ud718\uad00\uc73c\ub85c\uc11c \uadf8\ub4e4\uc744 \uc774\ub04c\uc5b4 \uac04\ub2e4.\n\n\ud568\uaed8 \uc2f8\uc6b0\ub294 \ub3d9\ub8cc\uc774\uae30\ub3c4 \ud558\uba70, \uc9c0\ud0a4\uace0 \uc721\uc131\ud574\uc57c \ud558\ub294 \ub300\uc0c1\uc774\uae30\ub3c4 \ud55c \uac1c\uc131 \ub118\uce58\ub294 \ud559\uc0dd\ub4e4. \uc5b4\ub5a4 \uc804\uc7c1\uc774, \uc5b4\ub5a4 \uc6b4\uba85\uc774 \uadf8\ub4e4\uacfc \ub2f9\uc2e0\uc744 \uae30\ub2e4\ub9ac\uace0 \uc788\uc744 \uac83\uc778\uac00.\n\n\u25cf\u300e\ud30c\uc774\uc5b4 \uc5e0\ube14\ub818 \ud48d\ud654\uc124\uc6d4 \uc775\uc2a4\ud32c\uc158\u30fb\ud328\uc2a4\u300f\n\ubcf5\uc218\uc758 \ucd94\uac00 \ucf58\ud150\uce20\ub97c \uc608\uc57d \uad6c\ub9e4\ud560 \uc218 \uc788\ub294 \uc775\uc2a4\ud32c\uc158 \ud328\uc2a4(\uc2dc\uc98c \ud328\uc2a4)\uc785\ub2c8\ub2e4.\n\uc774\ud558\uc758 \ucd94\uac00 \ucf58\ud150\uce20\uac00 \ud3ec\ud568\ub418\uc5b4 \uc788\uc2b5\ub2c8\ub2e4.\n\n\u30fb\u300c\uc8fc\uc778\uacf5\uc6a9 \uc0ac\uad00\ud559\uad50 \uad50\ubcf5\u300d\uff1a2019\ub144 7\uc6d4 26\uc77c \ubc30\ud3ec \uc608\uc815\n\uc8fc\uc778\uacf5\uc758 \ubaa8\uc2b5\uc744 \ubc14\uafc0 \uc218 \uc788\uac8c \ub429\ub2c8\ub2e4.\n\n\u30fb\u300c\ud504\ub9ac \uc804\ud22c \ub9f5\u300d\uff1a2019\ub144 10\uc6d4 31\uc77c\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\uc77c\ubc18\uc801\uc778 \ud504\ub9ac \uc804\ud22c \ub9f5 \ubcf4\ub2e4 \uc544\uc774\ud15c\uc774\ub098 \uad70\uc790\uae08\uc744 \uc27d\uac8c \uc785\uc218\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\n\u30fb\u300c\uc11c\ud3ec\ud2b8 \uc544\uc774\ud15c\u300d\uff1a2019\ub144 10\uc6d4 31\uc77c\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\n\u30fb\u300c\ucd94\uac00 \ud018\uc2a4\ud2b8\u300d\uff1a2019\ub144 12\uc6d4 31\uc77c\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\n\u30fb\u300c\ucd94\uac00 \uc0ac\uc774\ub4dc \uc2a4\ud1a0\ub9ac\u300d\uff1a2020\ub144 4\ub144 30\uc77c\uae4c\uc9c0 \ubc30\ud3ec \uc608\uc815\n\uc0c8\ub85c\uc6b4 \uce90\ub9ad\ud130\uc758 \ucd94\uac00, \uc2e0\uaddc \uc9c0\uc5ed\uc774\ub098 \uc804\uc7a5\uc744 \ud3ec\ud568\ud55c \uba87\uac1c\uc758 \uc7a5\uc73c\ub85c \uad6c\uc131\ub41c \ubcf8\ud3b8\uacfc\ub294 \ub2e4\ub978 \uc2a4\ud1a0\ub9ac\uc785\ub2c8\ub2e4.",
         "languages": null,
         "size": 11822694400
+    },
+    "70070000007142": {
+        "id": null,
+        "rightsId": null,
+        "name": "\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI S \uc9c0\ub098\uac04 \uc2dc\uac04\uc744 \ucc3e\uc544\uc11c - Definitive Edition",
+        "version": null,
+        "key": null,
+        "isDemo": false,
+        "region": null,
+        "releaseDate": 20190927,
+        "nsuId": 70070000007142,
+        "category": null,
+        "ratingContent": [
+            "\uc0ac\ud589\uc131"
+        ],
+        "numberOfPlayers": null,
+        "rating": 15,
+        "developer": null,
+        "publisher": "Nintendo",
+        "frontBoxArt": null,
+        "iconUrl": null,
+        "screenshots": [
+            "https://img-eshop.cdn.nintendo.net/i/8aa4658576ea8c8ce53458a04d1a3f072adeac0f9db01f3b256dc4f7ee6ac5a1.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/0b604d7b037eb7ae65fb72174bdeeca6e3c67d107b36687a15b49593a0b3d234.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/11272ef2cfc064dedd37e56bc0632c7efd9ca6f4e05d3af716daf2a25aa639ed.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/849252dea945c3a350bf92841d6d59ff1a1892a7848098007bc1993a24ba9366.jpg",
+            "https://img-eshop.cdn.nintendo.net/i/f6e2e99e81b7b38da14a78719f0d0816ecd8e3ce8f7bc3affaa4b51cba87a158.jpg"
+        ],
+        "bannerUrl": "https://img-eshop.cdn.nintendo.net/i/a06d72112cb2b415443b6ac6d73dbf5446f21e6e64c11dda69cb35878dff21f3.jpg",
+        "intro": "\uc9c0\uae08 \ub2e4\uc2dc, \uc6a9\uc0ac\uc758 \uc2dc\uac04\uc774 \uc6c0\uc9c1\uc774\uae30 \uc2dc\uc791\ud55c\ub2e4.",
+        "description": "\uc138\uacc4\ub97c \uad6c\ud560 \ucd5c\ud6c4\uc758 \uc6a9\uc0ac\ub85c \uc608\uc5b8\ub41c \uc8fc\uc778\uacf5\uc774 \u300c\uc545\ub9c8\uc758 \uc790\uc2dd\u300d\uc774\ub77c \ubd88\ub9ac\uba70 \ucad3\uae30\ub294 \uc2e0\uc138\uac00 \ub418\uba74\uc11c \uc2dc\uc791\ub418\ub294 \u300c\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI\u300d\uc774 Nintendo Switch\uc5d0 \ub4f1\uc7a5!\n\n\u300e\ub4dc\ub798\uace4 \ud018\uc2a4\ud2b8 XI\u300f \uc644\uc804\ud310\uc73c\ub85c\uc11c \uc0c8\ub85c \ucd94\uac00\ub41c \uc694\uc18c\ub294\n\u30fb3D \uc138\uacc4\uc640 \ud074\ub798\uc2dd\ud55c 2D \uc138\uacc4\ub97c \uc624\uac00\uba70 \ud50c\ub808\uc774 \uac00\ub2a5\n\u30fb\uce90\ub9ad\ud130 \uc74c\uc131 \ucd94\uac00(\uc77c\ubcf8\uc5b4 \u00b7 \uc601\uc5b4)\n\u30fb\uac8c\uc784 \ub0b4 \ub4f1\uc7a5\ud558\ub294 \uac01 \uce90\ub9ad\ud130\ub4e4\uc774 \uc8fc\uc778\uacf5\uc774 \ub418\ub294 \uc0c8\ub85c\uc6b4 \uc2a4\ud1a0\ub9ac\n\u30fb\uacf5\uaca9\ub825\uacfc \uc218\ube44\ub825\uc740 \uc720\uc9c0\ud55c \ucc44 \uc7a5\ube44\uc758 \ubaa8\uc2b5\uc744 \uad50\uccb4 \uac00\ub2a5 \ub4f1 \uc5ec\ub7ec \uac00\uc9c0\uc758 \ucd94\uac00\ub41c \uc694\uc18c\ub85c \ub354\uc6b1 \ub2e4\uc591\ud558\uac8c \ubaa8\ud5d8\uc744 \uc990\uae38 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+        "languages": null,
+        "size": 14926479360
     }
 }
