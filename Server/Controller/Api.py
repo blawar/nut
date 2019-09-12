@@ -682,6 +682,34 @@ def getFileInfo(service, path):
 	except:
 		raise
 	return None
+	
+def getGdriveToken(request, response):
+	creds = None
+
+	if os.path.exists('token.pickle'):
+		with open('token.pickle', 'rb') as token:
+			creds = pickle.load(token)
+
+	if not creds or not creds.valid:
+		if creds and creds.expired and creds.refresh_token:
+			creds.refresh(Request())
+		else:
+			flow = InstalledAppFlow.from_client_secrets_file(
+				Config.getGdriveCredentialsFile(), SCOPES)
+			creds = flow.run_local_server(port=0)
+
+		with open('token.pickle', 'wb') as token:
+			pickle.dump(creds, token)
+	
+	r = {}
+	r['access_token'] = creds.token
+	r['refresh_token'] = creds.refresh_token
+	
+	with open(Config.getGdriveCredentialsFile(), 'r') as f:
+		r['credentials'] = json.loads(f.read())
+	
+	
+	response.write(json.dumps(r))
 		
 def listGdriveDir(path):
 	r = {'dirs': [], 'files': []}
