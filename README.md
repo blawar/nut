@@ -4,7 +4,7 @@ This is a program that acts as a USB and network server for use with [Tinfoil](h
 ## GDrive Auth
 Nut will authenticate with gdrive if you create a gdrive application, and place its credentials.json file either in nut's root directory, or in the conf directory.  You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/go
 
-Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs or nutfs protocol
+Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or gdrive protocol
 
 ## USB Install for Tinfoil
 Run `python nut.py` after installing the required pip modules or Windows users can use the precompiled nut.exe in the release section.
