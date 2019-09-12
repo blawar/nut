@@ -45,6 +45,13 @@ All of the NSP's listed in nut server should now be available to install in Tinf
 
 ---------
 
+## USB Driver Install
+- Download Zadig from https://zadig.akeo.ie/.
+- With your switch plugged in and Tinfoil running, choose "List All Devices" under the options menu in Zadig, and select libnx USB comms.
+- Choose libusbK from the driver list and click the "Replace Driver" button.
+- run nut.exe or server.py
+- Start tinfoil on the switch, and either connect the USB cable from the switch to your PC, or set up a nut server location using the information displayed in nut server.
+
 
 ## Title Database
 The title databse was moved to https://github.com/blawar/titledb
