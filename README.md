@@ -25,17 +25,14 @@ Headless server: `python nut.py --usb`
 
 ## Usage
  - Download [`nut`](https://github.com/blawar/nut/archive/master.zip)
- - Install Python 3.6+
+ - Install Python 3.6+ to your PATH (make sure `python` opens up a Python 3 shell)
  - Install the following modules via `pip`:
- 	 - `pip3 install colorama pyopenssl requests tqdm unidecode Pillow BeautifulSoup4 urllib3 Flask pyusb pyqt5`
+ 	 - `pip3 install colorama pyopenssl requests tqdm unidecode Pillow BeautifulSoup4 urllib3 Flask pyusb pyqt5 google-api-python-client google-auth-oauthlib`
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
 
-Notes: 
- - If you are comfortable with git and also want updated metadata for your own purposes (Tinfoil updates itself automatically), you can use `git clone --depth 1 https://github.com/blawar/nut.git`
-
 ## NUT Server Install for Tinfoil
-Run server.py or Windows users can use the precompiled nut.exe in the release section.
+Run `server.py` or Windows users can use the precompiled nut.exe in the release section.
 
 After you run the server, ensure NSP's are visible in the list.  If they are not, change the path and click the "scan" button.
 
