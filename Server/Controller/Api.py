@@ -448,7 +448,7 @@ def listDrives():
 def isBlocked(path):
 	path = path.lower()
 
-	whitelist = ['.nro', '.xci', '.nsp', '.nsx', '.conf', '.json', '.db', '.tfl', '.jpg', '.gif', '.png', '.bin', '.enc', '.ini', '.ips', '.txt', '.pdf']
+	whitelist = ['.nro', '.xci', '.nsp', '.nsx', '.nsz', '.xcz', '.conf', '.json', '.db', '.tfl', '.jpg', '.gif', '.png', '.bin', '.enc', '.ini', '.ips', '.txt', '.pdf']
 
 	for ext in whitelist:
 		if path.endswith(ext):
