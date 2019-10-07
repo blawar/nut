@@ -89,7 +89,7 @@ def getSearch(request, response):
 
 	for path, f in Nsps.files.items():
 		o.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-	response.write(json.dumps(reversed(o)))
+	response.write(json.dumps(o.reverse()))
 
 def getTitles(request, response):
 	o = []
