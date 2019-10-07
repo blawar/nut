@@ -70,26 +70,21 @@ def getUser(request, response):
 	response.write(json.dumps(request.user.__dict__))
 
 def getSearch(request, response):
-	o = []
-
-	region = request.query.get('region')
-	publisher = request.query.get('publisher')
-
-	dlc = request.query.get('dlc')
-	if dlc:
-		dlc = int(dlc[0])
-
-	update = request.query.get('update')
-	if update:
-		update = int(update[0])
-
-	demo = request.query.get('demo')
-	if demo:
-		demo = int(demo[0])
+	nsp = []
+	nsx = []
+	nsz = []
 
 	for path, f in Nsps.files.items():
-		o.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-	response.write(json.dumps(o.reverse()))
+		name = f.fileName()
+		if name.endswith('.nsp'):
+			nsp.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+		elif name.endswith('.nsz'):
+			nsz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+		elif name.endswith('.nsx'):
+			nsx.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+		
+	o = nsz + nsp + nsx
+	response.write(json.dumps(o))
 
 def getTitles(request, response):
 	o = []
