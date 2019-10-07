@@ -144,7 +144,7 @@ class App(QWidget):
 		super().__init__()
 		self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
 		screen = QDesktopWidget().screenGeometry()
-		self.title = 'NUT USB / Web Server v2.1'
+		self.title = 'NUT USB / Web Server v2.2'
 		self.left = screen.width() / 4
 		self.top = screen.height() / 4
 		self.width = screen.width() / 2
