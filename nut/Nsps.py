@@ -47,7 +47,7 @@ def scan(base, force = False):
 	fileList = {}
 
 	Print.info(base)
-	for root, dirs, _files in os.walk(base, topdown=False):
+	for root, dirs, _files in os.walk(base, topdown=False, followlinks=True):
 		for name in _files:
 			suffix = pathlib.Path(name).suffix
 
