@@ -29,13 +29,13 @@ def getByTitleId(id):
 		if f.titleId == id:
 			return f
 	return None
-	
+
 def getBaseId(id):
 	if not id:
 		return None
 	titleIdNum = int(id, 16)
 	return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
-	
+
 def scan(base, force = False):
 	global hasScanned
 	#if hasScanned and not force:
@@ -47,7 +47,7 @@ def scan(base, force = False):
 	fileList = {}
 
 	Print.info(base)
-	for root, dirs, _files in os.walk(base, topdown=False):
+	for root, dirs, _files in os.walk(base, topdown=False, followlinks=True):
 		for name in _files:
 			suffix = pathlib.Path(name).suffix
 
@@ -60,7 +60,7 @@ def scan(base, force = False):
 		return 0
 
 	status = Status.create(len(fileList), desc = 'Scanning files...')
-	
+
 	try:
 		for path, name in fileList.items():
 			try:
@@ -70,7 +70,7 @@ def scan(base, force = False):
 					Print.info('scanning ' + name)
 					nsp = Fs.Nsp(path, None)
 					nsp.getFileSize()
-						
+
 					files[nsp.path] = nsp
 
 					i = i + 1
@@ -82,7 +82,7 @@ def scan(base, force = False):
 			except BaseException as e:
 				Print.info('An error occurred processing file: ' + str(e))
 				raise
-		
+
 
 		save()
 		status.close()
@@ -129,7 +129,7 @@ def load(fileName = 'titledb/files.json'):
 					t.path = k['path']
 					t.titleId = k['titleId']
 					t.version = k['version']
-					
+
 					if 'fileSize' in k:
 						t.fileSize = k['fileSize']
 
@@ -137,7 +137,7 @@ def load(fileName = 'titledb/files.json'):
 						continue
 
 					path = os.path.abspath(t.path)
-					if os.path.isfile(path): 
+					if os.path.isfile(path):
 						files[path] = t #Fs.Nsp(path, None)
 
 
