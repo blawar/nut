@@ -14,6 +14,7 @@ from nut import Users
 import base64
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
+import collections
 
 import Server.Controller.Api
 import __main__
@@ -118,6 +119,36 @@ class NutResponse:
 		self.head = False
 		self.headersSent = False
 		self.headers = {'Content-type': 'text/html'}
+		self.q = collections.deque(maxlen=10)
+		self.thread = None
+		self.running = False
+		
+	def worker(self):
+		print('worker enter')
+		while self.running == True:
+			if len(self.q) > 0:
+				print('shifting')
+				item = self.q.popleft()
+				self._write(item)
+			else:
+				print('sleeping')
+				time.sleep(2)
+		print('worker exit')
+		
+	def __enter__(self):
+		self.running = True
+		self.thread = threading.Thread(target = self.worker)
+		self.thread.start()
+		return self
+		
+	def __exit__(self, type, value, traceback):
+		while len(self.q) > 0:
+			time.sleep(0.5)
+		self.running = False
+		self.thread.join()
+		
+	def close(self):
+		pass
 
 	def setHead(self, h):
 		self.head = h
@@ -154,6 +185,13 @@ class NutResponse:
 		self.headersSent = True
 
 	def write(self, data):
+		if self.running == False:
+			raise IOError('no writer thread')
+		self.q.append(data)
+		
+		print('writing queue lenth = %d' % len(self.q))
+
+	def _write(self, data):
 		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
 
@@ -203,50 +241,49 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 	def do_HEAD(self):
 		request = NutRequest(self)
-		response = NutResponse(self)
-		request.setHead(True)
-		response.setHead(True)
-		
-		if self.headers['Authorization'] == None:
-			return Response401(request, response)
+		with NutResponse(self) as response:
+			request.setHead(True)
+			response.setHead(True)
+			
+			if self.headers['Authorization'] == None:
+				return Response401(request, response)
 
-		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-		request.user = Users.auth(id, password, self.client_address[0])
+			request.user = Users.auth(id, password, self.client_address[0])
 
-		if not request.user:
-			return Response401(request, response)
-		
-		try:
-			if len(request.bits) > 0 and request.bits[0] in mappings:
-				i = request.bits[1]
-				methodName = 'get' + i[0].capitalize() + i[1:]
-				method = getattr(mappings[request.bits[0]], methodName, Response404)
-				method(request, response, **request.query)
-			else:
-				self.handleFile(request, response)
-		except BaseException as e:
-				self.wfile.write(Response500(request, response))
+			if not request.user:
+				return Response401(request, response)
+			
+			try:
+				if len(request.bits) > 0 and request.bits[0] in mappings:
+					i = request.bits[1]
+					methodName = 'get' + i[0].capitalize() + i[1:]
+					method = getattr(mappings[request.bits[0]], methodName, Response404)
+					method(request, response, **request.query)
+				else:
+					self.handleFile(request, response)
+			except BaseException as e:
+					self.wfile.write(Response500(request, response))
 
 	def do(self, verb = 'get'):
 		request = NutRequest(self)
-		response = NutResponse(self)
-		
-		if self.headers['Authorization'] == None:
-			return Response401(request, response)
+		with NutResponse(self) as response:
+			if self.headers['Authorization'] == None:
+				return Response401(request, response)
 
-		id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-		request.user = Users.auth(id, password, self.client_address[0])
+			request.user = Users.auth(id, password, self.client_address[0])
 
-		if not request.user:
-			return Response401(request, response)
+			if not request.user:
+				return Response401(request, response)
 
-		try:
-			if not route(request, response, verb):
-				self.handleFile(request, response)
-		except BaseException as e:
-				self.wfile.write(Response500(request, response))
+			try:
+				if not route(request, response, verb):
+					self.handleFile(request, response)
+			except BaseException as e:
+					self.wfile.write(Response500(request, response))
 
 	def do_GET(self):
 		self.do('get')
