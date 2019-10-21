@@ -99,7 +99,7 @@ class Nsp:
 		self.path = path
 		self.version = '0'
 		
-		z = re.match('.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
+		z = re.search('.*\[([a-fA-F0-9]{16})\].*', path, re.I)
 		if z:
 			self.titleId = z.groups()[0].upper()
 		else:
