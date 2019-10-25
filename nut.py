@@ -40,8 +40,12 @@ if __name__ == '__main__':
 		parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
 		parser.add_argument('-m', '--hostname', help='Set server hostname')
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
+		parser.add_argument('--silent', action="store_true", help='Suppresses stdout')
 		
 		args = parser.parse_args()
+		
+		if args.silent:
+			Print.silent = True
 
 		if args.hostname:
 			args.server = True
