@@ -125,7 +125,7 @@ class Progress:
 				try:
 					self.progress.setValue(i.i / i.size * 100)
 					self.text.setText(i.desc)
-					self.speed.setText(formatSpeed(i.a / (time.clock() - i.ats)))
+					self.speed.setText(formatSpeed(i.a / (time.process_time() - i.ats)))
 				except:
 					self.resetStatus()
 				break
