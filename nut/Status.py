@@ -43,9 +43,9 @@ def loopThread():
 		for i in lst:
 			if i.isOpen():
 				try:
-					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.clock() - i.timestamp, 'speed': i.a / (time.clock() - i.ats), 'id': i.id })
+					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.process_time() - i.timestamp, 'speed': i.a / (time.process_time() - i.ats), 'id': i.id })
 					i.a = 0
-					i.ats = time.clock()
+					i.ats = time.process_time()
 				except:
 					pass
 
@@ -75,8 +75,8 @@ class Status:
 		self.i = 0
 		self.a = 0
 		self.id = None
-		self.ats = time.clock()
-		self.timestamp = time.clock()
+		self.ats = time.process_time()
+		self.timestamp = time.process_time()
 		self.desc = desc
 
 		self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position = position, desc=desc, leave=False, ascii = True)
