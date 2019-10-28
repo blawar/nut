@@ -253,7 +253,7 @@ class gui(fw.appFramework):
                 try:
                     self.progbar.setValue(i.i / i.size * 100)
                     self.text.set(i.desc)
-                    self.speed.set(formatSpeed(i.a / (time.clock() - i.ats)))
+                    self.speed.set(formatSpeed(i.a / (time.process_time() - i.ats)))
                 except:
                     resetStatus(self)
                 break
@@ -553,7 +553,7 @@ class tinyGui(cw.ThemedFrame):
                 try:
                     self.progbar.setValue(i.i / i.size * 100)
                     self.text.set(i.desc)
-                    self.speed.set(formatSpeed(i.a / (time.clock() - i.ats)))
+                    self.speed.set(formatSpeed(i.a / (time.process_time() - i.ats)))
                 except:
                     resetStatus(self)
                 break
