@@ -43,7 +43,7 @@ def loopThread():
 		for i in lst:
 			if i.isOpen():
 				try:
-					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.process_time() - i.timestamp, 'speed': i.a / (time.clock() - i.ats), 'id': i.id })
+					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.process_time() - i.timestamp, 'speed': i.a / (time.process_time() - i.ats), 'id': i.id })
 					i.a = 0
 					i.ats = time.process_time()
 				except:
