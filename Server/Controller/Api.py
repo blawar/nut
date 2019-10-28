@@ -203,8 +203,8 @@ def getScreenshotImage(request, response):
 
 	return Server.Response500(request, response)
 
-
-
+def getUpdateDb(request, response): # stub for doge
+	return success(request, response, "Fin")
 
 def getInfo(request, response):
 	try:
@@ -376,7 +376,7 @@ def getDownload(request, response, start = None, end = None):
 		response.write(b'')
 
 def getScan(request, response):
-	success(request, response, nut.scan())
+	success(request, response, nut.scan(scanTitles = True))
 
 
 def postTinfoilSetInstalledApps(request, response):

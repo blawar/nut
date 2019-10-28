@@ -54,6 +54,9 @@ server = Server()
 
 isRunning = True
 
+region = 'US'
+language = 'en'
+
 
 def set(j, paths, value):
 	last = paths.pop()
@@ -111,4 +114,9 @@ if os.path.isfile('conf/nut.default.conf'):
 
 if os.path.isfile('conf/nut.conf'):
 	load('conf/nut.conf')
+	
+g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],"PE":["en","es"],"KR":["ko"],"HK":["zh"],"NZ":["en"],"AT":["de"],"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
+
+def regionLanguages(fileName = 'titledb/languages.json'):
+	return g_regionLanguages
 
