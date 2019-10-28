@@ -111,10 +111,10 @@ def keys(region = None, language = None):
 	return titles.keys()
 	
 def loadTitleFile(path, silent = False):
-	timestamp = time.clock()
+	timestamp = time.process_time()
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
-	Print.info('loaded ' + path + ' in ' + str(time.clock() - timestamp) + ' seconds')
+	Print.info('loaded ' + path + ' in ' + str(time.process_time() - timestamp) + ' seconds')
 	
 def loadTitleBuffer(buffer, silent = False):
 	global nsuIdMap;
@@ -166,14 +166,14 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 	confLock.acquire()
 	try:
 		if os.path.isfile(filePath):
-			timestamp = time.clock()
+			timestamp = time.process_time()
 			with open(filePath, encoding="utf-8-sig") as f:
 				for i, k in json.loads(f.read()).items():
 					newTitles[i] = Title.Title()
 					newTitles[i].__dict__ = k
 					newTitles[i].setId(i)
 
-			Print.info('loaded ' + filePath + ' in ' + str(time.clock() - timestamp) + ' seconds')
+			Print.info('loaded ' + filePath + ' in ' + str(time.process_time() - timestamp) + ' seconds')
 	except BaseException as e:
 		print("load titles json exception: " + str(e))
 
@@ -186,7 +186,7 @@ def load():
 	titles = {}
 
 	if os.path.isfile("titledb/titles.json"):
-		timestamp = time.clock()
+		timestamp = time.process_time()
 		with open('titledb/titles.json', encoding="utf-8-sig") as f:
 			try:
 				items = json.loads(f.read()).items()
@@ -200,7 +200,7 @@ def load():
 					titles[i].__dict__ = k
 					titles[i].setId(i)
 
-		Print.info('loaded titledb/titles.json in ' + str(time.clock() - timestamp) + ' seconds')
+		Print.info('loaded titledb/titles.json in ' + str(time.process_time() - timestamp) + ' seconds')
 
 		'''
 	if os.path.isfile("titles.txt"):
