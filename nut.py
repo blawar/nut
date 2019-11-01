@@ -77,6 +77,7 @@ if __name__ == '__main__':
 			Usb.daemon()
 
 		if args.server:
+			nut.scan()
 			nut.initFiles()
 			Server.run()
 		
