@@ -78,6 +78,7 @@ if __name__ == '__main__':
 
 		if args.server:
 			nut.initFiles()
+			nut.scan()
 			Server.run()
 		
 		if len(sys.argv)==1:
