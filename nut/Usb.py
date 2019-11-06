@@ -86,7 +86,7 @@ class UsbResponse(Server.NutResponse):
 
 		self.bytesSent += len(data)
 		self.packet.payload = data
-		self.packet.send()
+		self.packet.send(0)
 
 		self.bytesSent += len(data)
 
