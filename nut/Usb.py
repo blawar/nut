@@ -144,7 +144,7 @@ class Packet:
 		self.payload = bytes(self.i.read(self.size, timeout=0))
 		return True
 		
-	def send(self, timeout = 60000):
+	def send(self, timeout = 120000):
 		print('sending %d bytes' % len(self.payload))
 		self.o.write(b'\x12\x12\x12\x12', timeout=timeout)
 		self.o.write(struct.pack('<I', self.command), timeout=timeout)
