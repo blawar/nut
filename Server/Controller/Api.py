@@ -70,24 +70,27 @@ def getUser(request, response):
 	response.write(json.dumps(request.user.__dict__))
 
 def getSearch(request, response):
-	nsp = []
-	nsx = []
-	nsz = []
-	xci = []
-
-	for path, f in Nsps.files.items():
-		name = f.fileName()
-		if name.endswith('.nsp'):
-			nsp.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-		elif name.endswith('.nsz'):
-			nsz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-		elif name.endswith('.nsx'):
-			nsx.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-		elif name.endswith('.xci'):
-			xci.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
-		
-	o = nsz + nsp + nsx + xci
-	response.write(json.dumps(o))
+    nsp = []
+    nsx = []
+    nsz = []
+    xci = []
+    xcz = []
+	
+    for path, f in Nsps.files.items():
+        name = f.fileName()
+        if name.endswith('.nsp'):
+            nsp.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+        elif name.endswith('.nsz'):
+            nsz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+        elif name.endswith('.nsx'):
+            nsx.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+        elif name.endswith('.xci'):
+            xci.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+        elif name.endswith('.xcz'):
+            xcz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+			
+    o = nsz + nsp + nsx + xci + xcz
+    response.write(json.dumps(o))
 
 def getTitles(request, response):
 	o = []
