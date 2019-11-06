@@ -74,6 +74,7 @@ def getSearch(request, response):
 	nsx = []
 	nsz = []
 	xci = []
+	xcz = []
 
 	for path, f in Nsps.files.items():
 		name = f.fileName()
@@ -85,8 +86,10 @@ def getSearch(request, response):
 			nsx.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
 		elif name.endswith('.xci'):
 			xci.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
+		elif name.endswith('.xcz'):
+			xcz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
 		
-	o = nsz + nsp + nsx + xci
+	o = nsz + nsp + + xcz + xci + nsx
 	response.write(json.dumps(o))
 
 def getTitles(request, response):
