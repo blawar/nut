@@ -89,7 +89,7 @@ def getSearch(request, response):
 		elif name.endswith('.xcz'):
 			xcz.append({'id': f.titleId, 'name': f.fileName(), 'version': int(f.version) if f.version else None })
 		
-	o = nsz + nsp + + xcz + xci + nsx
+	o = nsz + nsp + xcz + xci + nsx
 	response.write(json.dumps(o))
 
 def getTitles(request, response):
