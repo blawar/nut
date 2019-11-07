@@ -649,9 +649,9 @@ def gdriveGetFolderId(service, path):
 		roots[item['name']] = item['id']
 	
 	if rootId == 'root':
-		items = gdriveQuery(service, "mimeType = 'application/vnd.google-apps.folder'", fields = ['id', 'name', 'size', 'mimeType', 'parents'])
+		items = gdriveQuery(service, "mimeType = 'application/vnd.google-apps.folder' and trashed=false", fields = ['id', 'name', 'size', 'mimeType', 'parents'])
 	else:
-		items = gdriveQuery(service, "mimeType = 'application/vnd.google-apps.folder'", fields = ['id', 'name', 'size', 'mimeType', 'parents'], teamDriveId = rootId)
+		items = gdriveQuery(service, "mimeType = 'application/vnd.google-apps.folder' and trashed=false", fields = ['id', 'name', 'size', 'mimeType', 'parents'], teamDriveId = rootId)
 		
 	for item in items:
 		if 'parents' in item:
