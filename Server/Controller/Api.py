@@ -569,7 +569,7 @@ def gdriveSearchTree(pathBits, nameIdMap, children, id = None, roots = None):
 	if id is None:
 		for name, id in roots.items():
 			if name == pathBits[0]:
-				r = gdriveSearchTree(pathBits[1:], nameIdMap, children, id, roots)
+				r = gdriveSearchTree(pathBits[1:], nameIdMap, children[id] if id in children else [], id, roots)
 				if r is not None:
 					return r
 		return None
@@ -577,13 +577,18 @@ def gdriveSearchTree(pathBits, nameIdMap, children, id = None, roots = None):
 	if len(pathBits) <= 0:
 		return id
 		
-	for folderId in nameIdMap[pathBits[0]]:	
+	for entry in children:
+		if entry['name'] != pathBits[0]:
+			continue
+
+		folderId = entry['id']
+
 		if len(pathBits) == 1:
 			return folderId
 
 		if folderId in children:
-			for item in children[folderId]:
-				r = gdriveSearchTree(pathBits[1:], nameIdMap, children, folderId, roots)
+			for newChildren in children[folderId]:
+				r = gdriveSearchTree(pathBits[1:], nameIdMap, newChildren, folderId, roots)
 			
 				if r is not None:
 					return r
