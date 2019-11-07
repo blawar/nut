@@ -565,11 +565,11 @@ def gdriveDrives(service, fields = ['nextPageToken', 'drives(id, name)']):
 		
 	return items
 
-def gdriveSearchTree(pathBits, nameIdMap, children, id = None, roots = None):
+def gdriveSearchTree(pathBits, children, id = None, roots = None):
 	if id is None:
 		for name, id in roots.items():
 			if name == pathBits[0]:
-				r = gdriveSearchTree(pathBits[1:], nameIdMap, children[id] if id in children else [], id, roots)
+				r = gdriveSearchTree(pathBits[1:], children[id] if id in children else [], id, roots)
 				if r is not None:
 					return r
 		return None
@@ -588,7 +588,7 @@ def gdriveSearchTree(pathBits, nameIdMap, children, id = None, roots = None):
 
 		if folderId in children:
 			for newChildren in children[folderId]:
-				r = gdriveSearchTree(pathBits[1:], nameIdMap, newChildren, folderId, roots)
+				r = gdriveSearchTree(pathBits[1:], newChildren, folderId, roots)
 			
 				if r is not None:
 					return r
@@ -627,8 +627,7 @@ def gdriveGetFolderId(service, path):
 	items = []
 	
 	children = {'root': []}
-	names = {}
-	roots = {}	
+	roots = {}
 
 	rootId = None
 	teamDriveId = None
@@ -665,14 +664,9 @@ def gdriveGetFolderId(service, path):
 					children[parentId] = []
 				children[parentId].append(item)
 		else:
-			children['root'].append(item)
-		
-		if not item['name'] in names:
-			names[item['name']] = []
-		names[item['name']].append(item['id'])
-		
+			children['root'].append(item)		
 
-	return gdriveSearchTree(bits[1:], names, children, None, roots)
+	return gdriveSearchTree(bits[1:], children, None, roots)
 	
 def getFileInfo(service, path):
 	try:
