@@ -15,6 +15,7 @@ import base64
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 import collections
+import queue
 
 import Server.Controller.Api
 import __main__
@@ -111,6 +112,17 @@ class NutRequest:
 	def setHead(self, h):
 		self.head = h
 
+class NutQueue:
+	def __init__(self):
+		self.q = queue.Queue(maxsize=10)
+		self.lock = threading.Lock()
+
+	def push(self, obj):
+		self.q.put(obj)
+
+	def shift(self):
+		return self.q.get(timeout=1)
+
 class NutResponse:
 	def __init__(self, handler):
 		self.handler = handler
@@ -119,18 +131,26 @@ class NutResponse:
 		self.head = False
 		self.headersSent = False
 		self.headers = {'Content-type': 'text/html'}
-		self.q = collections.deque(maxlen=10)
+		self.q = NutQueue()
 		self.thread = None
 		self.running = False
 		
 	def worker(self):
-		while self.running:
+		while True:
 			try:
-				item = self.q.popleft()
+				item = self.q.shift()
 				self._write(item)
-			except:
-				pass
-		
+			except queue.Empty:
+				if not self.running:
+					return
+			except IndexError:
+				if not self.running:
+					return
+			except BaseException:
+				self.running = False
+				return
+
+
 	def __enter__(self):
 		if not self.running:
 			self.running = True
@@ -184,10 +204,7 @@ class NutResponse:
 		if self.running == False:
 			raise IOError('no writer thread')
 
-		while len(self.q) == self.q.maxlen:
-			time.sleep(0.5)
-
-		self.q.append(data)
+		self.q.push(data)
 
 	def _write(self, data):
 		if self.bytesSent == 0 and not self.headersSent:
@@ -219,16 +236,15 @@ def Response401(request, response):
 
 def route(request, response, verb = 'get'):
 	try:
-		print('routing')
 		if len(request.bits) > 0 and request.bits[0] in mappings:
 			i = request.bits[1]
 			methodName = verb + i[0].capitalize() + i[1:]
-			print('routing to ' + methodName)
+			Print.info('routing to ' + methodName)
 			method = getattr(mappings[request.bits[0]], methodName, Response404)
 			method(request, response, **request.query)
 			return True
 	except BaseException as e:
-		print(str(e))
+		Print.error('route exception: ' + str(e))
 		return None
 	return False
 
