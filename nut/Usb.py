@@ -77,7 +77,7 @@ class UsbResponse(Server.NutResponse):
 		pass
 
 	def _write(self, data):
-		print('usbresponse write')
+		Print.info('usbresponse write')
 		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
 
@@ -99,10 +99,9 @@ class UsbRequest(Server.NutRequest):
 		self.head = False
 		self.url = urlparse(self.path)
 
-		print('url ' + self.path);
+		Print.info('url ' + self.path);
 
 		self.bits = [x for x in self.url.path.split('/') if x]
-		print(self.bits)
 		self.query = parse_qs(self.url.query)
 
 		try:
@@ -126,9 +125,9 @@ class Packet:
 		self.o = o
 		
 	def recv(self, timeout = 60000):
-		print('begin recv')
+		Print.info('begin recv')
 		header = bytes(self.i.read(32, timeout=timeout))
-		print('read complete')
+		Print.info('read complete')
 		magic = header[:4]
 		self.command = int.from_bytes(header[4:8], byteorder='little')
 		self.size = int.from_bytes(header[8:16], byteorder='little')
@@ -138,15 +137,15 @@ class Packet:
 		self.timestamp = int.from_bytes(header[24:32], byteorder='little')
 		
 		if magic != b'\x12\x12\x12\x12':
-			print('invalid magic! ' + str(magic));
+			Print.error('invalid magic! ' + str(magic));
 			return False
 		
-		print('receiving %d bytes' % self.size)
+		Print.info('receiving %d bytes' % self.size)
 		self.payload = bytes(self.i.read(self.size, timeout=0))
 		return True
 		
 	def send(self, timeout = 60000):
-		print('sending %d bytes' % len(self.payload))
+		Print.info('sending %d bytes' % len(self.payload))
 		self.o.write(b'\x12\x12\x12\x12', timeout=timeout)
 		self.o.write(struct.pack('<I', self.command), timeout=timeout)
 		self.o.write(struct.pack('<Q', len(self.payload)), timeout=timeout) # size
@@ -161,14 +160,14 @@ def poll_commands(in_ep, out_ep):
 	while True:
 		if p.recv(0):
 			if p.command == 1:
-				print('Recv command! %d' % p.command)
+				Print.debug('Recv command! %d' % p.command)
 				req = UsbRequest(p.payload.decode('utf-8'))
 				with UsbResponse(p) as resp:
 					Server.route(req, resp)
 			else:
-				print('Unknown command! %d' % p.command)
+				Print.error('Unknown command! %d' % p.command)
 		else:
-			print('failed to read!')
+			Print.error('failed to read!')
 
 def daemon():
 	global status
@@ -199,5 +198,5 @@ def daemon():
 
 			poll_commands(in_ep, out_ep)
 		except BaseException as e:
-			print('usb exception: ' + str(e))
+			Print.error('usb exception: ' + str(e))
 		time.sleep(1)
