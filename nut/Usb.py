@@ -76,7 +76,7 @@ class UsbResponse(Server.NutResponse):
 	def sendHeader(self):
 		pass
 
-	def write(self, data):
+	def _write(self, data):
 		print('usbresponse write')
 		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
@@ -84,11 +84,12 @@ class UsbResponse(Server.NutResponse):
 		if type(data) == str:
 			data = data.encode('utf-8')
 
+		if not len(data):
+			return
+
 		self.bytesSent += len(data)
 		self.packet.payload = data
 		self.packet.send(10 * 60 * 1000)
-
-		self.bytesSent += len(data)
 
 
 class UsbRequest(Server.NutRequest):
@@ -162,9 +163,8 @@ def poll_commands(in_ep, out_ep):
 			if p.command == 1:
 				print('Recv command! %d' % p.command)
 				req = UsbRequest(p.payload.decode('utf-8'))
-				resp = UsbResponse(p)
-
-				Server.route(req, resp)
+				with UsbResponse(p) as resp:
+					Server.route(req, resp)
 			else:
 				print('Unknown command! %d' % p.command)
 		else:
