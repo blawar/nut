@@ -124,28 +124,24 @@ class NutResponse:
 		self.running = False
 		
 	def worker(self):
-		print('worker enter')
-		while self.running == True:
-			if len(self.q) > 0:
-				print('shifting')
+		while self.running:
+			try:
 				item = self.q.popleft()
 				self._write(item)
-			else:
-				print('sleeping')
-				time.sleep(2)
-		print('worker exit')
+			except:
+				pass
 		
 	def __enter__(self):
-		self.running = True
-		self.thread = threading.Thread(target = self.worker)
-		self.thread.start()
+		if not self.running:
+			self.running = True
+			self.thread = threading.Thread(target = self.worker)
+			self.thread.start()
 		return self
 		
 	def __exit__(self, type, value, traceback):
-		while len(self.q) > 0:
-			time.sleep(0.5)
-		self.running = False
-		self.thread.join()
+		if self.running:
+			self.running = False
+			self.thread.join()
 		
 	def close(self):
 		pass
@@ -187,9 +183,11 @@ class NutResponse:
 	def write(self, data):
 		if self.running == False:
 			raise IOError('no writer thread')
+
+		while len(self.q) == self.q.maxlen:
+			time.sleep(0.5)
+
 		self.q.append(data)
-		
-		print('writing queue lenth = %d' % len(self.q))
 
 	def _write(self, data):
 		if self.bytesSent == 0 and not self.headersSent:
