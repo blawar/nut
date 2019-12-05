@@ -41,6 +41,7 @@ if __name__ == '__main__':
 		parser.add_argument('-m', '--hostname', help='Set server hostname')
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
 		parser.add_argument('--silent', action="store_true", help='Suppresses stdout')
+		parser.add_argument('-s', '--scan', action="store_true", help='Run a scan')
 		
 		args = parser.parse_args()
 		
@@ -80,6 +81,10 @@ if __name__ == '__main__':
 			nut.initFiles()
 			nut.scan()
 			Server.run()
+			
+		if args.scan:
+			nut.initFiles()
+			nut.scan()
 		
 		if len(sys.argv)==1:
 			import server
