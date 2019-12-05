@@ -41,7 +41,7 @@ if __name__ == '__main__':
 		parser.add_argument('-m', '--hostname', help='Set server hostname')
 		parser.add_argument('-p', '--port', type=int, help='Set server port')
 		parser.add_argument('--silent', action="store_true", help='Suppresses stdout')
-		parser.add_argument('-s', '--scan', action="store_true", help='Run a scan')
+		parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 		
 		args = parser.parse_args()
 		
@@ -78,11 +78,12 @@ if __name__ == '__main__':
 			Usb.daemon()
 
 		if args.server:
+			nut.initTitles()
 			nut.initFiles()
-			nut.scan()
 			Server.run()
 			
 		if args.scan:
+			nut.initTitles()
 			nut.initFiles()
 			nut.scan()
 		
