@@ -19,7 +19,7 @@ Você deve copiar o nut.default.conf para nut.conf e fazer todas as suas ediçõ
 	- `keys.txt`
  - Python 3.6+ instalado
  - Instale os seguintes módulos via `pip`:
- 	 - `pip3 install colorama pyopenssl requests tqdm unidecode image bs4 urllib3 flask`
+ 	 - `pip3 install colorama pyopenssl requests tqdm unidecode pillow beautifulsoup4 urllib3 flask pyusb pyqt5 google-api-python-client google-auth-oauthlib`
  - Configure o `nut.conf` (veja abaixo)
  - Rode o comando `python3 nut.py --help` para entender as opções.
  
