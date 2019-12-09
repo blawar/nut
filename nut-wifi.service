@@ -1,0 +1,10 @@
+[Unit]
+Description=NUT Wifi Service
+[Service]
+ExecStart=/opt/nut-2.4/nut.py --server
+StandardOutput=null
+User=numerunix
+Group=numerunix
+[Install]
+WantedBy=multi-user.target
+Alias=nut-wifi.service

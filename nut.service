@@ -1,0 +1,8 @@
+[Unit]
+Description=NUT USB Service
+[Service]
+ExecStart=/opt/nut-2.4/nut.py --usb
+StandardOutput=null
+[Install]
+WantedBy=multi-user.target
+Alias=nut.service
