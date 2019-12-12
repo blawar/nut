@@ -20,7 +20,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import io
 import hashlib
 
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly', 'https://www.googleapis.com/auth/drive.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive']
 
 try:
 	from PIL import Image
