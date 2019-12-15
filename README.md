@@ -28,6 +28,11 @@ Headless server: `python nut.py --usb`
  - Install Python 3.6+ to your PATH (make sure `python` opens up a Python 3 shell)
  - Install the following modules via `pip`:
  	 - `pip3 install colorama pyopenssl requests tqdm unidecode Pillow BeautifulSoup4 urllib3 Flask pyusb pyqt5 google-api-python-client google-auth-oauthlib`
+ - Linux only:
+   - To be able to connect over USB without running as root, create the file `/etc/udev/rules.d/99-switch.rules` with the following contents:
+     ```
+     SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", GROUP="plugdev"
+     ```
  - Configure `nut.conf` (see below)
  - Run `python3 nut.py --help` to understand options
 
@@ -42,7 +47,7 @@ All of the NSP's listed in nut server should now be available to install in Tinf
 
 ---------
 
-## USB Driver Install
+## USB Driver Install (Windows only)
 - Download Zadig from https://zadig.akeo.ie/.
 - With your switch plugged in and Tinfoil running, choose "List All Devices" under the options menu in Zadig, and select libnx USB comms.
 - Choose libusbK from the driver list and click the "Replace Driver" button.
