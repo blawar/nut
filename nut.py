@@ -80,6 +80,7 @@ if __name__ == '__main__':
 		if args.server:
 			nut.initTitles()
 			nut.initFiles()
+			nut.scan()
 			Server.run()
 			
 		if args.scan:
