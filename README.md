@@ -1,3 +1,15 @@
+# NEW!!!! Docker image for linux ARM, AMD64 and ARM64
+
+Simple to use, all you have to do is expose port 9000, and mount the content to /nsz.
+
+one can access it at server-ip:9000 password=guest, username=guest
+nut protocol within tinfoil
+
+https://hub.docker.com/r/borntohonk/nut-docker
+
+
+
+
 # Nut
 This is a program that acts as a USB and network server for use with [Tinfoil](https://tinfoil.io/Download).
 
