@@ -169,17 +169,32 @@ def poll_commands(in_ep, out_ep):
 		else:
 			Print.error('failed to read!')
 
+def getDevice():
+	while True:
+		devs = usb.core.find(idVendor=0x16C0, idProduct=0x27E2, find_all=True)
+
+		if devs is not None:
+			for dev in devs:
+				return dev
+
+		devs = usb.core.find(idVendor=0x057E, idProduct=0x3000, find_all=True)
+		
+		if devs is not None:
+			for dev in devs:
+				return dev
+
+
+
+
+		time.sleep(1)
+	
 def daemon():
 	global status
 	while True:
 		try:
 			status = 'disconnected'
-			while True:
-				dev = usb.core.find(idVendor=0x057E, idProduct=0x3000)
-
-				if dev != None:
-					break
-				time.sleep(1)
+			
+			dev = getDevice()
 
 			Print.info('USB Connected')
 			status = 'connected'
