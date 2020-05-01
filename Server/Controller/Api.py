@@ -19,6 +19,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.http import MediaIoBaseDownload
 import io
 import hashlib
+import traceback
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
@@ -298,6 +299,7 @@ def serveFile(response, path, filename = None, start = None, end = None):
 				status.close()
 	except BaseException as e:
 		Print.error('File download exception: ' + str(e))
+		traceback.print_exc(file=sys.stdout)
 
 	if response.bytesSent == 0:
 		response.write(b'')
@@ -378,6 +380,7 @@ def getDownload(request, response, start = None, end = None):
 				status.close()
 	except BaseException as e:
 		Print.error('NSP download exception: ' + str(e))
+		traceback.print_exc(file=sys.stdout)
 	if response.bytesSent == 0:
 		response.write(b'')
 
@@ -700,6 +703,9 @@ def getGdriveToken(request, response):
 
 		with open('token.pickle', 'wb') as token:
 			pickle.dump(creds, token)
+			
+		with open('gdrive.token', 'w') as token:
+			token.write(json.dumps({'access_token': creds.token, 'refresh_token': creds.refresh_token}))
 	
 	r = {}
 	r['access_token'] = creds.token
@@ -708,8 +714,8 @@ def getGdriveToken(request, response):
 	with open(Config.getGdriveCredentialsFile(), 'r') as f:
 		r['credentials'] = json.loads(f.read())
 	
-	
-	response.write(json.dumps(r))
+	if response is not None:
+		response.write(json.dumps(r))
 		
 def listGdriveDir(path):
 	r = {'dirs': [], 'files': []}
@@ -920,5 +926,6 @@ def getFileSize(request, response):
 		response.write(json.dumps(t))
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
+
 
 
