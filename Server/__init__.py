@@ -189,7 +189,7 @@ class NutResponse:
 	def attachFile(self, fileName):
 		#Print.info('Attaching file ' + fileName)
 		self.setMime(fileName)
-		self.headers['Content-Disposition'] = 'attachment; filename=' + fileName
+		self.headers['Content-Disposition'] = 'attachment; filename=' + re.sub(r'[^\x00-\x7F]+','_', fileName)
 
 	def sendHeader(self):
 		self.handler.send_response(self.status)

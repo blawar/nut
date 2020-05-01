@@ -8,7 +8,7 @@ import pathlib
 import urllib3
 import urllib
 import json
-# import webbrowser
+import webbrowser
 import Server
 
 import nut
@@ -28,7 +28,7 @@ import time
 import socket
 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QDesktopWidget, QTabWidget, QProgressBar, QLabel,QHBoxLayout, QLineEdit, QPushButton, QCheckBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QDesktopWidget, QTabWidget, QProgressBar, QLabel,QHBoxLayout, QLineEdit, QPushButton, QCheckBox, QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot,Qt,QTimer
 from PyQt5 import QtWidgets
@@ -58,6 +58,10 @@ class Header:
 		self.scan = QPushButton('Scan', app)
 		self.scan.clicked.connect(app.on_scan)
 		self.layout.addWidget(self.scan)
+		
+		self.gdrive = QPushButton('Setup GDrive OAuth', app)
+		self.gdrive.clicked.connect(app.on_gdrive)
+		self.layout.addWidget(self.gdrive)
 
 		# self.autolaunchBrowser = QCheckBox("Launch Web Browser?", app)
 		# self.autolaunchBrowser.setChecked(Config.autolaunchBrowser)
@@ -144,7 +148,7 @@ class App(QWidget):
 		super().__init__()
 		self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
 		screen = QDesktopWidget().screenGeometry()
-		self.title = 'NUT USB / Web Server v2.6'
+		self.title = 'NUT USB / Web Server v2.7'
 		self.left = screen.width() / 4
 		self.top = screen.height() / 4
 		self.width = screen.width() / 2
@@ -202,6 +206,28 @@ class App(QWidget):
 		self.tableWidget.setRowCount(0)
 		nut.scan()
 		self.refreshTable()
+		
+	@pyqtSlot()
+	def on_gdrive(self):
+		if Config.getGdriveCredentialsFile() is None:
+			webbrowser.open_new_tab('https://developers.google.com/drive/api/v3/quickstart/go')
+			QMessageBox.information(self, 'Google Drive OAuth Setup', "You require a credentials.json file to set up Google Drive OAuth.  This file can be obtained from https://developers.google.com/drive/api/v3/quickstart/go , click on the blue button that says 'Enable the Drive API' and save the credentials.json to t his application's directory.")
+		else:
+			buttonReply = QMessageBox.question(self, 'Google Drive OAuth Setup', "Do you you want to setup GDrive OAuth?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+			
+			if buttonReply == QMessageBox.Yes:
+				try:
+					os.unlink('gdrive.token')
+				except:
+					pass
+					
+				try:
+					os.unlink('token.pickle')
+				except:
+					pass
+					
+				Server.Controller.Api.getGdriveToken(None, None)
+				QMessageBox.information(self, 'Google Drive OAuth Setup', "OAuth has completed.  Please copy gdrive.token and credentials.json to your Nintendo Switch's sdmc:/switch/tinfoil/ and/or sdmc:/switch/sx/ directories.")
 
 	@pyqtSlot()
 	def refreshTable(self):
