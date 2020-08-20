@@ -1,4 +1,3 @@
-pyopenssl
 requests
 tqdm
 unidecode
