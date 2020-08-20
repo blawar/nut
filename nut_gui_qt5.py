@@ -28,9 +28,14 @@ import time
 import socket
 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QDesktopWidget, QTabWidget, QProgressBar, QLabel,QHBoxLayout, QLineEdit, QPushButton, QCheckBox, QMessageBox
+
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, \
+							QTableWidget, QTableWidgetItem, QVBoxLayout, \
+							QDesktopWidget, QTabWidget, QProgressBar, \
+							QLabel, QHBoxLayout, QLineEdit, QPushButton, \
+							QCheckBox, QMessageBox
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot,Qt,QTimer
+from PyQt5.QtCore import pyqtSlot, Qt, QTimer
 from PyQt5 import QtWidgets
 
 def getIpAddress():
@@ -149,10 +154,10 @@ class App(QWidget):
 		self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
 		screen = QDesktopWidget().screenGeometry()
 		self.title = 'NUT USB / Web Server v2.7'
-		self.left = screen.width() / 4
-		self.top = screen.height() / 4
-		self.width = screen.width() / 2
-		self.height = screen.height() / 2
+		self.left = int(screen.width() / 4)
+		self.top = int(screen.height() / 4)
+		self.width = int(screen.width() / 2)
+		self.height = int(screen.height() / 2)
 		#self.setWindowState(Qt.WindowMaximized)
 		self.needsRefresh = False
 		self.initUI()
