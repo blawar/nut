@@ -5,7 +5,6 @@ unidecode
 Pillow
 BeautifulSoup4
 urllib3
-Flask
 pyusb
 pyqt5
 google-api-python-client
