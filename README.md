@@ -1,58 +1,42 @@
-# Nut
+# NUT
 This is a program that acts as a USB and network server for use with [Tinfoil](https://tinfoil.io/Download).
 
-## GDrive Auth
-Nut will authenticate with gdrive if you create a gdrive application, and place its credentials.json file either in nut's root directory, or in the conf directory.  You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/go
+## Usage guide (Windows users)
+* Download `tinfoil_driver.exe` and `nut.exe` from [here](https://github.com/blawar/nut/releases/latest).
+* Install the drivers by running the `tinfoil_driver.exe` in the previous step.
+* Run `nut.exe`. You should be presented with a GUI as shown in the picture above.
 
-Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or gdrive protocol
+## Usage guide (UNIX users)
+### Requirements
+* Python 3.6+
+* PIP modules from `requirements.txt`
+* Few braincells & the ability to read
 
-## USB Install for Tinfoil
-Run `python nut.py` after installing the required pip modules or Windows users can use the precompiled nut.exe in the release section. For macOS/Linux users, install libusb (ie. `brew install libusb`).
+### Installation guide
+* Install Python 3.6+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages.
+* Clone this repository to desired directory and change your working directory to the cloned repository.
+* Install the PIP modules with the following command `pip3 install -r requirements.txt`.
+* Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
+```
+SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
+```
+* Run `python3 nut.py` to launch the application.
 
-Follow the directions found in the release page to install the USB driver.
+![NUT GUI Image](https://raw.githubusercontent.com/blawar/nut/master/public_html/images/nutserver.png)
 
-After you run the server, ensure NSP's are visible in the list.  If they are not, change the path and click the "scan" button.
+## Application Summary
+The GUI is divided into three distinct sections (header, body, footer).
 
-Connect your USB cable from your switch to your PC.
+### Application Header
+The top section has a textbox to input a folder path to scan, along with a `Scan` button to scan the path specified in the textbox. Next to it, you should see a `GDrive Auth` button. A detailed explaination of what it does can be found below. The IP/Port/User/Password are the information needed to login to the NUT server. To the right of those, you can also see a `USB Status` indicator, indicating whether a tinfoil client is connected via USB with the server.
 
-Start Tinfoil, and all of the NSP's listed in nut server should now be available to install in Tinfoil.
+### Application Body
+This shows a table containing a list of NSW files that was detected by NUT from the scanned paths. It shows the title count, file name, title ID, title type and title size for each scanned file.
 
-Headless server: `python nut.py --usb`
+### Application Footer
+This shows the progress information of any file that is currently being downloaded from the server.
 
-![alt text](https://raw.githubusercontent.com/blawar/nut/master/public_html/images/nutserver.png)
+### GDrive Auth
+NUT will authenticate with GDrive if you create a GDrive application, and place its credentials.json file either in nut's root directory, or in the conf directory. You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/python.
 
----------
-
-## Usage
- - Download [`nut`](https://github.com/blawar/nut/archive/master.zip)
- - Install Python 3.6+ to your PATH (make sure `python` opens up a Python 3 shell)
- - Install the following modules via `pip`:
- 	 - `pip3 install colorama pyopenssl requests tqdm unidecode Pillow BeautifulSoup4 urllib3 Flask pyusb pyqt5 google-api-python-client google-auth-oauthlib`
- - Linux only:
-   - To be able to connect over USB without running as root, create the file `/etc/udev/rules.d/99-switch.rules` with the following contents:
-     ```
-     SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
-     ```
- - Configure `nut.conf` (see below)
- - Run `python3 nut.py --help` to understand options
-
-## NUT Server Install for Tinfoil
-Run `server.py` or Windows users can use the precompiled nut.exe in the release section.
-
-After you run the server, ensure NSP's are visible in the list.  If they are not, change the path and click the "scan" button.
-
-Start Tinfoil, then go to locations, then select "Add New" location.  Enter the ip, port, username, and password that is displayed in the nut server application, then press save.
-
-All of the NSP's listed in nut server should now be available to install in Tinfoil.
-
----------
-
-## USB Driver Install (Windows only)
-- Download `tinfoil_driver.exe` from [here](https://github.com/blawar/nut/releases/latest).
-- Install the drivers by running the `tinfoil_driver.exe` in the previous step.
-- run nut.exe or server.py
-- Start tinfoil on the switch, and either connect the USB cable from the switch to your PC, or set up a nut server location using the information displayed in nut server.
-
-
-## Title Database
-The title databse was moved to https://github.com/blawar/titledb
+Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or GDrive protocol.
