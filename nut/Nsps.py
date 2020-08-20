@@ -110,7 +110,7 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'titledb/files.json'):
+def load(fileName = 'conf/files.json'):
 	global hasLoaded
 
 	if hasLoaded:
@@ -145,7 +145,7 @@ def load(fileName = 'titledb/files.json'):
 		raise
 	Print.info('loaded file list in ' + str(time.process_time() - timestamp) + ' seconds')
 
-def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'fileSize']):
+def save(fileName = 'conf/files.json', map = ['id', 'path', 'version', 'fileSize']):
 	lock.acquire()
 	os.makedirs(os.path.dirname(fileName), exist_ok = True)
 
@@ -162,4 +162,4 @@ def save(fileName = 'titledb/files.json', map = ['id', 'path', 'version', 'fileS
 	lock.release()
 
 if os.path.isfile('files.json'):
-	os.rename('files.json', 'titledb/files.json')
+	os.rename('files.json', 'conf/files.json')
