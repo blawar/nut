@@ -22,7 +22,6 @@ import threading
 import signal
 from nut import Status
 import time
-import colorama
 import Server
 import pprint
 import random

@@ -2,7 +2,6 @@ from nut import Nsps
 from nut import Print
 import threading
 import time
-import colorama
 import requests
 import queue
 import os
