@@ -1,6 +1,5 @@
 requests
 tqdm
-unidecode
 Pillow
 BeautifulSoup4
 urllib3
