@@ -46,7 +46,7 @@ def getIpAddress():
 		s.close()
 		return ip
 	except OSError:
-		return "Offline"
+		return None
 
 def formatSpeed(n):
 	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
@@ -76,7 +76,13 @@ class Header:
 		# self.autolaunchBrowser.stateChanged.connect(self.onCheck)
 		# self.layout.addWidget(self.autolaunchBrowser)
 
-		self.serverInfo = QLabel("<b>IP:</b>  %s  <b>Port:</b>  %s  <b>User:</b>  %s  <b>Password:</b>  %s" % (getIpAddress(), str(Config.server.port), Users.first().id, Users.first().password))
+		ipAddr = getIpAddress()
+
+		if ipAddr:
+			self.serverInfo = QLabel("<b>IP:</b>  %s  <b>Port:</b>  %s  <b>User:</b>  %s  <b>Password:</b>  %s" % (ipAddr, str(Config.server.port), Users.first().id, Users.first().password))
+		else:
+			self.serverInfo = QLabel("<b>Offline</b>")
+
 		self.serverInfo.setMinimumWidth(200)
 		self.serverInfo.setAlignment(Qt.AlignCenter)
 		self.layout.addWidget(self.serverInfo)
