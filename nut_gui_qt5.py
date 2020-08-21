@@ -40,10 +40,13 @@ from PyQt5 import QtWidgets
 
 def getIpAddress():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.connect(("8.8.8.8", 80))
-	ip = s.getsockname()[0]
-	s.close()
-	return ip
+	try:
+		s.connect(("8.8.8.8", 80))
+		ip = s.getsockname()[0]
+		s.close()
+		return ip
+	except OSError:
+		return "Offline"
 
 def formatSpeed(n):
 	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
