@@ -81,8 +81,8 @@ if __name__ == '__main__':
 			Server.run()
 		
 		if len(sys.argv)==1:
-			import nut_gui_qt5
-			nut_gui_qt5.run()
+			import nut_gui
+			nut_gui.run()
 
 		Status.close()
 	
