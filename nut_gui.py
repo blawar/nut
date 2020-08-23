@@ -91,8 +91,6 @@ class Header:
 		self.timer.timeout.connect(self.tick)
 		self.timer.start()
 
-		Users.export()
-
 	def updatePath(self):
 		Config.paths.scan[0] = self.textbox.text()
 		Config.save()
