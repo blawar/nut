@@ -16,27 +16,6 @@ class User:
 		self.switchPort = None
 		pass
 
-	def loadCsv(self, line, map = []):
-		split = line.split('|')
-		for i, value in enumerate(split):
-			if i >= len(map):
-				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
-				continue
-			
-			i = str(map[i])
-			methodName = 'set' + i[0].capitalize() + i[1:]
-			method = getattr(self, methodName, lambda x: None)
-			method(value.strip())
-
-	def serialize(self, map = ['id', 'password']):
-		r = []
-		for i in map:
-				
-			methodName = 'get' + i[0].capitalize() + i[1:]
-			method = getattr(self, methodName, lambda: methodName)
-			r.append(str(method()))
-		return '|'.join(r)
-
 	def setId(self, id):
 		self.id = id
 
@@ -54,6 +33,7 @@ class User:
 			self.isAdmin = False if int(isAdmin) == 0 else True
 		except:
 			pass
+
 	def getIsAdmin(self):
 		return str(self.isAdmin)
 
@@ -130,25 +110,9 @@ def load(path = 'conf/users.conf'):
 					continue
 		
 			t = User()
-			t.loadCsv(line, map)
 
 			users[t.id] = t
 
 			Print.info('loaded user ' + str(t.id))
-
-def save():
-	pass
-
-def export(fileName = 'conf/users.conf', map = ['id', 'password']):
-	os.makedirs(os.path.dirname(fileName), exist_ok = True)
-	global users
-	buffer = ''
-	
-	buffer += '|'.join(map) + '\n'
-	for k,t in users.items():
-		buffer += t.serialize(map) + '\n'
-		
-	with open(fileName, 'w', encoding='utf-8') as csv:
-		csv.write(buffer)
 
 load()
