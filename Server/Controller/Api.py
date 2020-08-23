@@ -67,9 +67,6 @@ def success(request, response, s):
 def error(request, response, s):
 	response.write(json.dumps({'success': False, 'result': s}))
 
-def getUser(request, response):
-	response.write(json.dumps(request.user.__dict__))
-
 def getSearch(request, response):
 	nsp = []
 	nsx = []
@@ -93,125 +90,6 @@ def getSearch(request, response):
 	o = nsz + nsp + xcz + xci + nsx
 	response.write(json.dumps(o))
 
-def getTitles(request, response):
-	o = []
-	map = ['id', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'baseId']
-	for k, t in Titles.items():
-		o.append(t.__dict__)
-	response.write(json.dumps(o))
-
-def getTitleImage(request, response):
-	if len(request.bits) < 3:
-		return Server.Response404(request, response)
-
-	id = request.bits[2]
-	try:
-		width = int(request.bits[3])
-	except:
-		return Server.Response404(request, response)
-
-
-	if width < 32 or width > 1024:
-		return Server.Response404(request, response)
-
-	if not Titles.contains(id):
-		return Server.Response404(request, response)
-
-	path = Titles.get(id).iconFile(width) or Titles.get(id).frontBoxArtFile(width)
-
-	if not path:
-		return Server.Response404(request, response)
-
-	response.setMime(path)
-	response.headers['Cache-Control'] = 'max-age=31536000'
-
-	if os.path.isfile(path):
-		with open(path, 'rb') as f:
-			response.write(f.read())
-
-	return Server.Response500(request, response)
-
-def getBannerImage(request, response):
-	if len(request.bits) < 3:
-		return Server.Response404(request, response)
-
-	id = request.bits[2]
-
-	if not Titles.contains(id):
-		return Server.Response404(request, response)
-
-	path = Titles.get(id).bannerFile()
-
-	if not path:
-		return Server.Response404(request, response)
-
-	response.setMime(path)
-	response.headers['Cache-Control'] = 'max-age=31536000'
-
-	if os.path.isfile(path):
-		with open(path, 'rb') as f:
-			response.write(f.read())
-
-	return Server.Response500(request, response)
-
-def getFrontArtBoxImage(request, response):
-	return getTitleImage(request, response)
-	if len(request.bits) < 3:
-		return Server.Response404(request, response)
-
-	id = request.bits[2]
-	#width = int(request.bits[3])
-
-	#if width < 32 or width > 512:
-	#	return Server.Response404(request, response)
-
-	if not Titles.contains(id):
-		return Server.Response404(request, response)
-
-	path = Titles.get(id).frontBoxArtFile()
-
-	if not path:
-		return Server.Response404(request, response)
-
-	response.setMime(path)
-	response.headers['Cache-Control'] = 'max-age=31536000'
-
-	if os.path.isfile(path):
-		with open(path, 'rb') as f:
-			response.write(f.read())
-
-	return Server.Response500(request, response)
-
-def getScreenshotImage(request, response):
-	if len(request.bits) < 3:
-		return Server.Response404(request, response)
-
-	id = request.bits[2]
-
-	try:
-		i = int(request.bits[3])
-	except:
-		return Server.Response404(request, response)
-
-	if not Titles.contains(id):
-		return Server.Response404(request, response)
-
-	path = Titles.get(id).screenshotFile(i)
-
-	if not path:
-		return Server.Response404(request, response)
-
-	response.setMime(path)
-	response.headers['Cache-Control'] = 'max-age=31536000'
-
-	if os.path.isfile(path):
-		with open(path, 'rb') as f:
-			response.write(f.read())
-
-	return Server.Response500(request, response)
-
-def getUpdateDb(request, response): # stub for doge
-	return success(request, response, "Fin")
 
 def getInfo(request, response):
 	try:
@@ -384,46 +262,6 @@ def getDownload(request, response, start = None, end = None):
 	if response.bytesSent == 0:
 		response.write(b'')
 
-def getScan(request, response):
-	success(request, response, nut.scan(scanTitles = True))
-
-
-def postTinfoilSetInstalledApps(request, response):
-	try:
-		if len(request.bits) >= 3:
-			serial = request.bits[2]
-		else:
-			serial = 'incognito'
-
-		path = 'switch/' + serial + ''
-		Print.info('path: ' + path)
-		os.makedirs(path, exist_ok=True)
-
-		with open(path + '/installed.json', 'wb') as f:
-			f.write(request.post)
-
-		return success(request, response, "OK")
-	except:
-		raise
-
-
-def getSwitchList(request, response):
-	try:
-		dirs = [f for f in os.listdir('switch/') if os.path.isdir(os.path.join('switch/', f))]
-		response.write(json.dumps(dirs))
-	except BaseException as e:
-		error(request, response, str(e))
-
-def getSwitchInstalled(request, response):
-	try:
-		path = 'switch/' + request.bits[2] + '/installed.json'
-		with open(path, encoding="utf-8-sig") as f:
-			response.write(f.read())
-			return
-
-	except BaseException as e:
-		error(request, response, str(e))
-		
 def isWindows():
 	if "win" in sys.platform[:3].lower():
 		return True
