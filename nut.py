@@ -5,12 +5,12 @@ import argparse
 import sys
 import os
 import re
-import pathlib
+from pathlib import Path
 import urllib3
 import json
 
 if not getattr(sys, 'frozen', False):
-	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+	os.chdir(Path(__file__).resolve().parent)
 
 #sys.path.insert(0, 'nut')
 
@@ -33,7 +33,6 @@ if __name__ == '__main__':
 	try:
 		urllib3.disable_warnings()
 
-
 		parser = argparse.ArgumentParser()
 		parser.add_argument('--usb', action="store_true", help='Run usb daemon')
 		parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
@@ -55,7 +54,6 @@ if __name__ == '__main__':
 			Config.server.port = int(args.port)
 
 		Status.start()
-
 
 		Print.info('                        ,;:;;,')
 		Print.info('                       ;;;;;')
