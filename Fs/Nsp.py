@@ -1,19 +1,9 @@
-from binascii import hexlify as hx, unhexlify as uhx
-from struct import pack as pk, unpack as upk
-from Fs.File import File
-from hashlib import sha256
-import Fs.Type
 import os
 import os.path
 import re
-import pathlib
-from nut import Config
+from pathlib import Path
 from nut import Print
-from nut import Nsps
 from tqdm import tqdm
-import shutil
-
-MEDIA_SIZE = 0x200
 
 class Nsp:
 	def __init__(self, path = None, mode = 'rb'):
@@ -37,27 +27,6 @@ class Nsp:
 		if self.fileModified == None:
 			self.fileModified = os.path.getmtime(self.path)
 		return self.fileModified
-
-	def loadCsv(self, line, map = ['id', 'path', 'version', 'timestamp', 'fileSize']):
-		split = line.split('|')
-		for i, value in enumerate(split):
-			if i >= len(map):
-				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
-				continue
-			
-			i = str(map[i])
-			methodName = 'set' + i[0].capitalize() + i[1:]
-			method = getattr(self, methodName, lambda x: None)
-			method(value.strip())
-
-	def serialize(self, map = ['id', 'path', 'version', 'timestamp', 'fileSize']):
-		r = []
-		for i in map:
-				
-			methodName = 'get' + i[0].capitalize() + i[1:]
-			method = getattr(self, methodName, lambda: methodName)
-			r.append(str(method()))
-		return '|'.join(r)
 
 	def __lt__(self, other):
 		return str(self.path) < str(other.path)
@@ -110,7 +79,7 @@ class Nsp:
 		if z:
 			self.version = z.groups()[0]
 
-		ext = pathlib.Path(path).suffix
+		ext = Path(path).suffix
 
 	def getPath(self):
 		return self.path or ''
@@ -123,8 +92,3 @@ class Nsp:
 		
 	def fileName(self):
 		return os.path.basename(self.path)
-		
-
-		
-			
-	
