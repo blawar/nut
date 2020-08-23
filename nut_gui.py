@@ -53,7 +53,6 @@ def formatSpeed(n):
 
 class Header:
 	def __init__(self, app):
-		self.app = app
 		self.layout = QHBoxLayout()
 
 		self.textbox = QLineEdit(app)
@@ -70,11 +69,6 @@ class Header:
 		self.gdrive = QPushButton('Setup GDrive OAuth', app)
 		self.gdrive.clicked.connect(app.on_gdrive)
 		self.layout.addWidget(self.gdrive)
-
-		# self.autolaunchBrowser = QCheckBox("Launch Web Browser?", app)
-		# self.autolaunchBrowser.setChecked(Config.autolaunchBrowser)
-		# self.autolaunchBrowser.stateChanged.connect(self.onCheck)
-		# self.layout.addWidget(self.autolaunchBrowser)
 
 		ipAddr = getIpAddress()
 
@@ -98,13 +92,6 @@ class Header:
 		self.timer.start()
 
 		Users.export()
-
-	# def onCheck(self, state):
-	# 	if state == Qt.Checked:
-	# 		Config.autolaunchBrowser = True
-	# 	else:
-	# 		Config.autolaunchBrowser = False
-	# 	Config.save()
 
 	def updatePath(self):
 		Config.paths.scan[0] = self.textbox.text()
@@ -167,7 +154,6 @@ class App(QWidget):
 		self.top = int(screen.height() / 4)
 		self.width = int(screen.width() / 2)
 		self.height = int(screen.height() / 2)
-		#self.setWindowState(Qt.WindowMaximized)
 		self.needsRefresh = False
 		self.initUI()
 
@@ -220,7 +206,7 @@ class App(QWidget):
 		self.tableWidget.setRowCount(0)
 		nut.scan()
 		self.refreshTable()
-		
+
 	@pyqtSlot()
 	def on_gdrive(self):
 		if Config.getGdriveCredentialsFile() is None:
@@ -228,18 +214,18 @@ class App(QWidget):
 			QMessageBox.information(self, 'Google Drive OAuth Setup', "You require a credentials.json file to set up Google Drive OAuth.  This file can be obtained from https://developers.google.com/drive/api/v3/quickstart/go , click on the blue button that says 'Enable the Drive API' and save the credentials.json to t his application's directory.")
 		else:
 			buttonReply = QMessageBox.question(self, 'Google Drive OAuth Setup', "Do you you want to setup GDrive OAuth?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-			
+
 			if buttonReply == QMessageBox.Yes:
 				try:
 					os.unlink('gdrive.token')
 				except:
 					pass
-					
+
 				try:
 					os.unlink('token.pickle')
 				except:
 					pass
-					
+
 				Server.Controller.Api.getGdriveToken(None, None)
 				QMessageBox.information(self, 'Google Drive OAuth Setup', "OAuth has completed.  Please copy gdrive.token and credentials.json to your Nintendo Switch's sdmc:/switch/tinfoil/ and/or sdmc:/switch/sx/ directories.")
 
@@ -276,12 +262,9 @@ def nutThread():
 def initThread(app):
 	nut.scan()
 	app.refresh()
-	# if Config.autolaunchBrowser:
-	# 	webbrowser.open_new_tab('http://' + urllib.parse.quote_plus(Users.first().id) + ':' + urllib.parse.quote_plus(Users.first().password) + '@' + getIpAddress() + ':' + str(Config.server.port))
-			
+
 def run():
 	urllib3.disable_warnings()
-
 
 	print('                        ,;:;;,')
 	print('                       ;;;;;')
@@ -306,8 +289,8 @@ def run():
 		t.start()
 
 	sys.exit(app.exec_())
-	
+
 	print('fin')
-	
+
 if __name__ == '__main__':
 	run()
