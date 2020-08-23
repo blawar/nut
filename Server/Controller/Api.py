@@ -95,8 +95,8 @@ def getInfo(request, response):
 	try:
 		nsp = Nsps.getByTitleId(request.bits[2])
 		t = {'id': request.bits[2]}
-		t['size'] = nsp.getFileSize();
-		t['mtime'] = nsp.getFileModified();
+		t['size'] = nsp.getFileSize()
+		t['mtime'] = nsp.getFileModified()
 		response.write(json.dumps(t))
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
@@ -727,7 +727,7 @@ def getFile(request, response, start = None, end = None):
 		path = cleanPath(path)
 
 		if isBlocked(path):
-			raise IOError('access denied');
+			raise IOError('access denied')
 
 		if 'Range' in request.headers:
 			start, end = request.headers.get('Range').strip().strip('bytes=').split('-')
@@ -759,8 +759,8 @@ def getFileSize(request, response):
 		path = os.path.join(path, i)
 	path = cleanPath(path)
 	try:
-		t['size'] = os.path.getsize(path);
-		t['mtime'] = os.path.getmtime(path);
+		t['size'] = os.path.getsize(path)
+		t['mtime'] = os.path.getmtime(path)
 		response.write(json.dumps(t))
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))

@@ -99,14 +99,14 @@ class UsbRequest(Server.NutRequest):
 		self.head = False
 		self.url = urlparse(self.path)
 
-		Print.info('url ' + self.path);
+		Print.info('url ' + self.path)
 
 		self.bits = [x for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
 
 		try:
 			for k,v in self.query.items():
-				self.query[k] = v[0];
+				self.query[k] = v[0]
 		except:
 			pass
 
@@ -137,7 +137,7 @@ class Packet:
 		self.timestamp = int.from_bytes(header[24:32], byteorder='little')
 		
 		if magic != b'\x12\x12\x12\x12':
-			Print.error('invalid magic! ' + str(magic));
+			Print.error('invalid magic! ' + str(magic))
 			return False
 		
 		Print.info('receiving %d bytes' % self.size)

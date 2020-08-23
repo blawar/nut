@@ -103,7 +103,7 @@ class NutRequest:
 
 		try:
 			for k,v in self.query.items():
-				self.query[k] = v[0];
+				self.query[k] = v[0]
 		except:
 			pass
 
