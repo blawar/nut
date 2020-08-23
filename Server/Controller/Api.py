@@ -131,7 +131,7 @@ def serveFile(response, path, filename = None, start = None, end = None):
 					start = int(start)
 
 				if start >= size or start < 0 or end <= 0:
-					return Server.Response400(request, response, 'Invalid range request %d - %d' % (start, end))
+					return Server.Response400(None, response, 'Invalid range request %d - %d' % (start, end))
 
 				response.setStatus(206)
 
@@ -380,7 +380,7 @@ def gdriveDrives(service, fields = ['nextPageToken', 'drives(id, name)']):
 	os.makedirs('cache/gdrive/', exist_ok=True)
 	
 	try:
-		if isValidCache(cacheFileName, expiration = expiration):
+		if isValidCache(cacheFileName):
 			with open(cacheFileName, encoding="utf-8-sig") as f:
 				return json.loads(f.read())
 	except:
@@ -707,7 +707,7 @@ def downloadGdriveFile(response, url, start = None, end = None):
 	info = getFileInfo(service, url)
 
 	if not info:
-		return Server.Response404(request, response)
+		return Server.Response404(None, response)
 		
 	#request = service.files().get_media(fileId=info['id'])
 	
