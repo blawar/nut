@@ -67,6 +67,9 @@ def success(request, response, s):
 def error(request, response, s):
 	response.write(json.dumps({'success': False, 'result': s}))
 
+def getScan(request, response):
+	success(request, response, nut.scan())
+
 def getSearch(request, response):
 	nsp = []
 	nsx = []
