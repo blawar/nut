@@ -101,16 +101,21 @@ def load(path='conf/users.conf'):
     map = ['id', 'password']
     with open(path, encoding="utf-8-sig") as f:
         for line in f.readlines():
-            line = line.strip()
-            if len(line) == 0 or line[0] == '#':
-                continue
             if firstLine:
                 firstLine = False
-                if re.match(r'[A-Za-z\|\s]+', line, re.I):
-                    map = line.split('|')
-                    continue
+                continue
+
+            line = line.strip()
+
+            if len(line) == 0 or line[0] == '#':
+                continue
+
+            if re.match(r'[A-Za-z\|\s]+', line, re.I):
+                map = line.split('|')
 
             t = User()
+            t.setPassword(map[1])
+            t.setId(map[0])
 
             users[t.id] = t
 
