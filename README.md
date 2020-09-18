@@ -22,7 +22,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 ```
 * Run `python3 nut.py` to launch the application.
 
-![NUT GUI Image](https://raw.githubusercontent.com/blawar/nut/master/public_html/images/nutserver.png)
+![NUT GUI Image](./images/nutserver.png)
 
 ## Application Summary
 The GUI is divided into three distinct sections (header, body, footer).
