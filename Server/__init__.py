@@ -336,7 +336,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
         self.do('post')
 
     def handleFile(self, request, response):
-        path = os.path.abspath(self.basePath + '/public_html' + self.path)
+        path = os.path.abspath(self.basePath + self.path)
         if not path.startswith(self.basePath):
             raise IOError(f'invalid path requested: {self.basePath} vs {path}')
 
