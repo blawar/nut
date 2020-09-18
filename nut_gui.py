@@ -153,7 +153,7 @@ class Progress:
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
+        self.setWindowIcon(QIcon('images/logo.jpg'))
         screen = QDesktopWidget().screenGeometry()
         self.title = 'NUT USB / Web Server v2.7'
         self.left = int(screen.width() / 4)
