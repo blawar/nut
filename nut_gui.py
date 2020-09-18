@@ -1,294 +1,359 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys
 import os
-import re
-import pathlib
-import urllib3
-import urllib
-import json
-import webbrowser
+import sys
+import time
 import Server
+import socket
+import urllib3
+import threading
+import webbrowser
 
 import nut
-from nut import Nsps
-
-from nut import Config
-import time
-
-import Server
-import pprint
-import random
 from nut import Usb
+from nut import Nsps
 from nut import Users
-import threading
+from nut import Config
 from nut import Status
-import time
-import socket
 
-import sys
-
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, \
-							QTableWidget, QTableWidgetItem, QVBoxLayout, \
-							QDesktopWidget, QTabWidget, QProgressBar, \
-							QLabel, QHBoxLayout, QLineEdit, QPushButton, \
-							QCheckBox, QMessageBox
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot, Qt, QTimer
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QHeaderView
+from PyQt5.QtWidgets import QProgressBar
+from PyQt5.QtWidgets import QTableWidget
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QDesktopWidget
+from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import pyqtSlot
+
 
 def getIpAddress():
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	try:
-		s.connect(("8.8.8.8", 80))
-		ip = s.getsockname()[0]
-		s.close()
-		return ip
-	except OSError:
-		return None
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except OSError:
+        return None
+
 
 def formatSpeed(n):
-	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
+    return str(round(n / 1000 / 1000, 1)) + 'MB/s'
+
 
 class Header:
-	def __init__(self, app):
-		self.layout = QHBoxLayout()
+    def __init__(self, app):
+        self.layout = QHBoxLayout()
 
-		self.textbox = QLineEdit(app)
-		self.textbox.setMinimumWidth(25)
-		self.textbox.setAlignment(Qt.AlignLeft)
-		self.textbox.setText(os.path.abspath(Config.paths.scan[0]))
-		self.textbox.textChanged.connect(self.updatePath)
-		self.layout.addWidget(self.textbox)
+        self.textbox = QLineEdit(app)
+        self.textbox.setMinimumWidth(25)
+        self.textbox.setAlignment(Qt.AlignLeft)
+        self.textbox.setText(os.path.abspath(Config.paths.scan[0]))
+        self.textbox.textChanged.connect(self.updatePath)
+        self.layout.addWidget(self.textbox)
 
-		self.scan = QPushButton('Scan', app)
-		self.scan.clicked.connect(app.on_scan)
-		self.layout.addWidget(self.scan)
-		
-		self.gdrive = QPushButton('Setup GDrive OAuth', app)
-		self.gdrive.clicked.connect(app.on_gdrive)
-		self.layout.addWidget(self.gdrive)
+        self.scan = QPushButton('Scan', app)
+        self.scan.clicked.connect(app.on_scan)
+        self.layout.addWidget(self.scan)
 
-		ipAddr = getIpAddress()
+        self.gdrive = QPushButton('Setup GDrive OAuth', app)
+        self.gdrive.clicked.connect(app.on_gdrive)
+        self.layout.addWidget(self.gdrive)
 
-		if ipAddr:
-			self.serverInfo = QLabel("<b>IP:</b>  %s  <b>Port:</b>  %s  <b>User:</b>  %s  <b>Password:</b>  %s" % (ipAddr, str(Config.server.port), Users.first().id, Users.first().password))
-		else:
-			self.serverInfo = QLabel("<b>Offline</b>")
+        ipAddr = getIpAddress()
 
-		self.serverInfo.setMinimumWidth(200)
-		self.serverInfo.setAlignment(Qt.AlignCenter)
-		self.layout.addWidget(self.serverInfo)
+        if ipAddr:
+            self.serverInfo = QLabel(
+                f"<b>IP:</b>  {ipAddr}  <b>Port:</b>  {Config.server.port}  " +
+                f"<b>User:</b>  {Users.first().id}  <b>Password:</b>  " +
+                f"{Users.first().password}"
+            )
+        else:
+            self.serverInfo = QLabel("<b>Offline</b>")
 
-		self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
-		self.usbStatus.setMinimumWidth(50)
-		self.usbStatus.setAlignment(Qt.AlignCenter)
-		self.layout.addWidget(self.usbStatus)
+        self.serverInfo.setMinimumWidth(200)
+        self.serverInfo.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.serverInfo)
 
-		self.timer = QTimer()
-		self.timer.setInterval(1000)
-		self.timer.timeout.connect(self.tick)
-		self.timer.start()
+        self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
+        self.usbStatus.setMinimumWidth(50)
+        self.usbStatus.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.usbStatus)
 
-	def updatePath(self):
-		Config.paths.scan[0] = self.textbox.text()
-		Config.save()
+        self.timer = QTimer()
+        self.timer.setInterval(1000)
+        self.timer.timeout.connect(self.tick)
+        self.timer.start()
 
-	def tick(self):
-		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
+    def updatePath(self):
+        Config.paths.scan[0] = self.textbox.text()
+        Config.save()
+
+    def tick(self):
+        self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
+
 
 class Progress:
-	def __init__(self, app):
-		self.app = app
-		self.progress = QProgressBar(app)
-		self.text = QLabel()
-		self.speed = QLabel()
-		self.text.resize(100, 40)
-		self.speed.resize(100, 40)
+    def __init__(self, app):
+        self.app = app
+        self.progress = QProgressBar(app)
+        self.text = QLabel()
+        self.speed = QLabel()
+        self.text.resize(100, 40)
+        self.speed.resize(100, 40)
 
-		self.layout = QHBoxLayout()
-		self.layout.addWidget(self.text)
-		self.layout.addWidget(self.progress)
-		self.layout.addWidget(self.speed)
+        self.layout = QHBoxLayout()
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.progress)
+        self.layout.addWidget(self.speed)
 
-		self.timer = QTimer()
-		self.timer.setInterval(250)
-		self.timer.timeout.connect(self.tick)
-		self.timer.start()
+        self.timer = QTimer()
+        self.timer.setInterval(250)
+        self.timer.timeout.connect(self.tick)
+        self.timer.start()
 
-	def resetStatus(self):
-		self.progress.setValue(0)
-		self.text.setText('')
-		self.speed.setText('')
+    def resetStatus(self):
+        self.progress.setValue(0)
+        self.text.setText('')
+        self.speed.setText('')
 
-	def tick(self):
-		for i in Status.lst:
-			if i.isOpen():
-				try:
-					self.progress.setValue(i.i / i.size * 100)
-					self.text.setText(i.desc)
-					self.speed.setText(formatSpeed(i.a / (time.process_time() - i.ats)))
-				except:
-					self.resetStatus()
-				break
-			else:
-				self.resetStatus()
-		if len(Status.lst) == 0:
-			self.resetStatus()
+    def tick(self):
+        for i in Status.lst:
+            if i.isOpen():
+                try:
+                    self.progress.setValue(i.i / i.size * 100)
+                    self.text.setText(i.desc)
+                    self.speed.setText(
+                        formatSpeed(i.a / (time.process_time() - i.ats))
+                    )
+                # TODO: Remove bare except
+                except:
+                    self.resetStatus()
+                break
+            else:
+                self.resetStatus()
+        if len(Status.lst) == 0:
+            self.resetStatus()
 
-		if self.app.needsRefresh:
-			self.app.needsRefresh = False
-			self.app.refreshTable()
+        if self.app.needsRefresh:
+            self.app.needsRefresh = False
+            self.app.refreshTable()
+
 
 class App(QWidget):
- 
-	def __init__(self):
-		super().__init__()
-		self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
-		screen = QDesktopWidget().screenGeometry()
-		self.title = 'NUT USB / Web Server v2.7'
-		self.left = int(screen.width() / 4)
-		self.top = int(screen.height() / 4)
-		self.width = int(screen.width() / 2)
-		self.height = int(screen.height() / 2)
-		self.needsRefresh = False
-		self.initUI()
+    def __init__(self):
+        super().__init__()
+        self.setWindowIcon(QIcon('public_html/images/logo.jpg'))
+        screen = QDesktopWidget().screenGeometry()
+        self.title = 'NUT USB / Web Server v2.7'
+        self.left = int(screen.width() / 4)
+        self.top = int(screen.height() / 4)
+        self.width = int(screen.width() / 2)
+        self.height = int(screen.height() / 2)
+        self.needsRefresh = False
+        self.initUI()
 
-	def refresh(self):
-		self.needsRefresh = True
- 
-	def initUI(self):
-		self.setWindowTitle(self.title)
-		self.setGeometry(self.left, self.top, self.width, self.height)
- 
-		self.createTable()
+    def refresh(self):
+        self.needsRefresh = True
 
-		self.layout = QVBoxLayout()
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
 
-		self.header = Header(self)
-		self.layout.addLayout(self.header.layout)
+        self.createTable()
 
-		self.layout.addWidget(self.tableWidget)
+        self.layout = QVBoxLayout()
 
-		self.progress = Progress(self)
-		self.layout.addLayout(self.progress.layout)
+        self.header = Header(self)
+        self.layout.addLayout(self.header.layout)
 
-		self.setLayout(self.layout)
- 
-		self.show()
- 
-	def createTable(self):
-		self.tableWidget = QTableWidget()
-		self.tableWidget.setColumnCount(4)
+        self.layout.addWidget(self.tableWidget)
 
-		headers = [QTableWidgetItem("File"), QTableWidgetItem("Title ID"), QTableWidgetItem("Type"), QTableWidgetItem("Size")]
+        self.progress = Progress(self)
+        self.layout.addLayout(self.progress.layout)
 
-		i = 0
-		for h in headers:
-			self.tableWidget.setHorizontalHeaderItem(i, h)
-			i = i + 1
+        self.setLayout(self.layout)
 
-		header = self.tableWidget.horizontalHeader()
-		i = 0
-		for h in headers:
-			header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch if i == 0 else QtWidgets.QHeaderView.ResizeToContents)
-			i = i + 1
+        self.show()
 
-		self.tableWidget.setSortingEnabled(True)
+    def createTable(self):
+        self.tableWidget = QTableWidget()
+        self.tableWidget.setColumnCount(4)
 
-		self.refreshTable()
+        headers = [
+            QTableWidgetItem("File"),
+            QTableWidgetItem("Title ID"),
+            QTableWidgetItem("Type"),
+            QTableWidgetItem("Size")
+        ]
 
-	@pyqtSlot()
-	def on_scan(self):
-		self.tableWidget.setRowCount(0)
-		nut.scan()
-		self.refreshTable()
+        i = 0
+        for h in headers:
+            self.tableWidget.setHorizontalHeaderItem(i, h)
+            i = i + 1
 
-	@pyqtSlot()
-	def on_gdrive(self):
-		if Config.getGdriveCredentialsFile() is None:
-			webbrowser.open_new_tab('https://developers.google.com/drive/api/v3/quickstart/go')
-			QMessageBox.information(self, 'Google Drive OAuth Setup', "You require a credentials.json file to set up Google Drive OAuth.  This file can be obtained from https://developers.google.com/drive/api/v3/quickstart/go , click on the blue button that says 'Enable the Drive API' and save the credentials.json to t his application's directory.")
-		else:
-			buttonReply = QMessageBox.question(self, 'Google Drive OAuth Setup', "Do you you want to setup GDrive OAuth?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        header = self.tableWidget.horizontalHeader()
+        i = 0
+        for h in headers:
+            mode = QHeaderView.Stretch if i == 0 else \
+                QHeaderView.ResizeToContents
+            header.setSectionResizeMode(i, mode)
+            i = i + 1
 
-			if buttonReply == QMessageBox.Yes:
-				try:
-					os.unlink('gdrive.token')
-				except:
-					pass
+        self.tableWidget.setSortingEnabled(True)
 
-				try:
-					os.unlink('token.pickle')
-				except:
-					pass
+        self.refreshTable()
 
-				Server.Controller.Api.getGdriveToken(None, None)
-				QMessageBox.information(self, 'Google Drive OAuth Setup', "OAuth has completed.  Please copy gdrive.token and credentials.json to your Nintendo Switch's sdmc:/switch/tinfoil/ and/or sdmc:/switch/sx/ directories.")
+    @pyqtSlot()
+    def on_scan(self):
+        self.tableWidget.setRowCount(0)
+        nut.scan()
+        self.refreshTable()
 
-	@pyqtSlot()
-	def refreshTable(self):
-		try:
-			self.tableWidget.setRowCount(0)
-			self.tableWidget.setRowCount(len(Nsps.files))
-			i = 0
-			for k, f in Nsps.files.items():
-				if f.path.endswith('.nsx'):
-					continue
+    @pyqtSlot()
+    def on_gdrive(self):
+        if Config.getGdriveCredentialsFile() is None:
+            webbrowser.open_new_tab(
+                'https://developers.google.com/drive/api/v3/quickstart/go',
+            )
+            QMessageBox.information(
+                self,
+                'Google Drive OAuth Setup',
+                "You require a credentials.json file to set up Google Drive " +
+                "OAuth.  This file can be obtained from " +
+                "https://developers.google.com/drive/api/v3/quickstart/go , " +
+                "click on the blue button that says 'Enable the Drive API' " +
+                "and save the credentials.json to t his application's " +
+                "directory.",
+            )
+        else:
+            buttonReply = QMessageBox.question(
+                self,
+                'Google Drive OAuth Setup',
+                "Do you you want to setup GDrive OAuth?",
+                QMessageBox.Yes | QMessageBox.No, QMessageBox.No,
+            )
 
-				self.tableWidget.setItem(i,0, QTableWidgetItem(f.fileName()))
-				self.tableWidget.setItem(i,1, QTableWidgetItem(str(f.titleId)))
-				self.tableWidget.setItem(i,2, QTableWidgetItem("UPD" if f.isUpdate() else ("DLC" if f.isDLC() else "BASE")))
-				self.tableWidget.setItem(i,3, QTableWidgetItem(str(f.fileSize)))
+            if buttonReply == QMessageBox.Yes:
+                try:
+                    os.unlink('gdrive.token')
+                # TODO: Remove bare except
+                except:
+                    pass
 
-				i = i + 1
+                try:
+                    os.unlink('token.pickle')
+                # TODO: Remove bare except
+                except:
+                    pass
 
-			self.tableWidget.setRowCount(i)
-		except BaseException as e:
-			print('exception: ' + str(e))
-			pass
- 
+                Server.Controller.Api.getGdriveToken(None, None)
+                QMessageBox.information(
+                    self,
+                    'Google Drive OAuth Setup',
+                    "OAuth has completed.  Please copy gdrive.token and " +
+                    "credentials.json to your Nintendo Switch's " +
+                    "sdmc:/switch/tinfoil/ and/or sdmc:/switch/sx/ " +
+                    "directories."
+                )
+
+    @pyqtSlot()
+    def refreshTable(self):
+        try:
+            self.tableWidget.setRowCount(0)
+            self.tableWidget.setRowCount(len(Nsps.files))
+            i = 0
+            for k, f in Nsps.files.items():
+                if f.path.endswith('.nsx'):
+                    continue
+
+                titleType = "UPD" if f.isUpdate() else "DLC" if f.isDLC() \
+                    else "BASE"
+
+                self.tableWidget.setItem(
+                    i,
+                    0,
+                    QTableWidgetItem(f.fileName()),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    1,
+                    QTableWidgetItem(str(f.titleId)),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    2,
+                    QTableWidgetItem(titleType),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    3,
+                    QTableWidgetItem(str(f.fileSize)),
+                )
+
+                i = i + 1
+
+            self.tableWidget.setRowCount(i)
+        except BaseException as e:
+            print('exception: ' + str(e))
+            pass
+
+
 threadRun = True
 
+
 def usbThread():
-	Usb.daemon()
+    Usb.daemon()
+
 
 def nutThread():
-	Server.run()
+    Server.run()
+
 
 def initThread(app):
-	nut.scan()
-	app.refresh()
+    nut.scan()
+    app.refresh()
+
 
 def run():
-	urllib3.disable_warnings()
+    urllib3.disable_warnings()
 
-	print('                        ,;:;;,')
-	print('                       ;;;;;')
-	print('               .=\',    ;:;;:,')
-	print('              /_\', "=. \';:;:;')
-	print('              @=:__,  \,;:;:\'')
-	print('                _(\.=  ;:;;\'')
-	print('               `"_(  _/="`')
-	print('                `"\'')
+    print('                        ,;:;;,')
+    print('                       ;;;;;')
+    print('               .=\',    ;:;;:,')
+    print('              /_\', "=. \';:;:;')
+    print('              @=:__,  \\,;:;:\'')
+    print('                _(\\.=  ;:;;\'')
+    print('               `"_(  _/="`')
+    print('                `"\'')
 
-	nut.initFiles()
+    nut.initFiles()
 
-	app = QApplication(sys.argv)
-	ex = App()
+    app = QApplication(sys.argv)
+    ex = App()
 
-	threads = []
-	threads.append(threading.Thread(target=initThread, args=[ex]))
-	threads.append(threading.Thread(target=usbThread, args=[]))
-	threads.append(threading.Thread(target=nutThread, args=[]))
+    threads = []
+    threads.append(threading.Thread(target=initThread, args=[ex]))
+    threads.append(threading.Thread(target=usbThread, args=[]))
+    threads.append(threading.Thread(target=nutThread, args=[]))
 
-	for t in threads:
-		t.start()
+    for t in threads:
+        t.start()
 
-	sys.exit(app.exec_())
+    sys.exit(app.exec_())
 
-	print('fin')
+    print('fin')
+
 
 if __name__ == '__main__':
-	run()
+    run()
