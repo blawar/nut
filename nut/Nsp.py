@@ -10,7 +10,6 @@ class Nsp:
     def __init__(self, path=None, mode='rb'):
         self.path = None
         self.titleId = None
-        self.hasValidTicket = None
         self.timestamp = None
         self.version = None
         self.fileSize = None
@@ -87,7 +86,6 @@ class Nsp:
     def dict(self):
         return {
             "titleId": self.titleId,
-            "hasValidTicket": self.hasValidTicket,
             'version': self.version,
             'fileSize': self.fileSize,
             'path': self.path
