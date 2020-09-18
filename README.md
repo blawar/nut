@@ -40,3 +40,11 @@ This shows the progress information of any file that is currently being download
 NUT will authenticate with GDrive if you create a GDrive application, and place its credentials.json file either in nut's root directory, or in the conf directory. You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/python.
 
 Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or GDrive protocol.
+
+## License
+This project is licensed under the terms of GPLv3, with the exemptions for specific projects noted below.
+
+You can find a copy of the license in the [LICENSE file](./LICENSE).
+
+Exemptions:
+* [nsz](https://github.com/nicoboss/nsz) is exempt from the GPLv3 licensing and can license any source code from this project under MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense. 
