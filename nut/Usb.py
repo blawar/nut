@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 '''
 Copyright (c) 2018 Blake Warner
 Copyright (c) 2017-2018 Adubbz
