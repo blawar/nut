@@ -4,94 +4,93 @@
 import argparse
 import sys
 import os
-import re
 from pathlib import Path
 import urllib3
-import json
 
 if not getattr(sys, 'frozen', False):
-	os.chdir(Path(__file__).resolve().parent)
+    os.chdir(Path(__file__).resolve().parent)
 
-#sys.path.insert(0, 'nut')
-
-from nut import Nsps
 from nut import Config
-import requests
 from nut import Print
-import threading
-import signal
 from nut import Status
-import time
 import Server
-import pprint
-import random
-import queue
 import nut
 
-			
 if __name__ == '__main__':
-	try:
-		urllib3.disable_warnings()
+    try:
+        urllib3.disable_warnings()
 
-		parser = argparse.ArgumentParser()
-		parser.add_argument('--usb', action="store_true", help='Run usb daemon')
-		parser.add_argument('-S', '--server', action="store_true", help='Run server daemon')
-		parser.add_argument('-m', '--hostname', help='Set server hostname')
-		parser.add_argument('-p', '--port', type=int, help='Set server port')
-		parser.add_argument('--silent', action="store_true", help='Suppresses stdout')
-		
-		args = parser.parse_args()
-		
-		if args.silent:
-			Print.silent = True
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            '--usb',
+            action="store_true",
+            help='Run usb daemon',
+        )
+        parser.add_argument(
+            '-S',
+            '--server',
+            action="store_true",
+            help='Run server daemon',
+        )
+        parser.add_argument('-m', '--hostname', help='Set server hostname')
+        parser.add_argument('-p', '--port', type=int, help='Set server port')
+        parser.add_argument(
+            '--silent',
+            action="store_true",
+            help='Suppresses stdout',
+        )
 
-		if args.hostname:
-			args.server = True
-			Config.server.hostname = args.hostname
+        args = parser.parse_args()
 
-		if args.port:
-			args.server = True
-			Config.server.port = int(args.port)
+        if args.silent:
+            Print.silent = True
 
-		Status.start()
+        if args.hostname:
+            args.server = True
+            Config.server.hostname = args.hostname
 
-		Print.info('                        ,;:;;,')
-		Print.info('                       ;;;;;')
-		Print.info('               .=\',    ;:;;:,')
-		Print.info('              /_\', "=. \';:;:;')
-		Print.info('              @=:__,  \,;:;:\'')
-		Print.info('                _(\.=  ;:;;\'')
-		Print.info('               `"_(  _/="`')
-		Print.info('                `"\'')
+        if args.port:
+            args.server = True
+            Config.server.port = int(args.port)
 
+        Status.start()
 
-		if args.usb:
-			try:
-				from nut import Usb
-			except BaseException as e:
-				Print.error('pip3 install pyusb, required for USB coms: ' + str(e))
-			nut.scan()
-			Usb.daemon()
+        Print.info('                        ,;:;;,')
+        Print.info('                       ;;;;;')
+        Print.info('               .=\',    ;:;;:,')
+        Print.info('              /_\', "=. \';:;:;')
+        Print.info('              @=:__,  \\,;:;:\'')
+        Print.info('                _(\\.=  ;:;;\'')
+        Print.info('               `"_(  _/="`')
+        Print.info('                `"\'')
 
-		if args.server:
-			nut.initFiles()
-			nut.scan()
-			Server.run()
-		
-		if len(sys.argv)==1:
-			import nut_gui
-			nut_gui.run()
+        if args.usb:
+            try:
+                from nut import Usb
+            except BaseException as e:
+                Print.error('pip3 install pyusb, required for USB coms: ' +
+                            f'{str(e)}')
+            nut.scan()
+            Usb.daemon()
 
-		Status.close()
-	
+        if args.server:
+            nut.initFiles()
+            nut.scan()
+            Server.run()
 
-	except KeyboardInterrupt:
-		Config.isRunning = False
-		Status.close()
-	except BaseException as e:
-		Config.isRunning = False
-		Status.close()
-		raise
+        if len(sys.argv) == 1:
+            import nut_gui
+            nut_gui.run()
 
-	Print.info('fin')
+        Status.close()
 
+    except KeyboardInterrupt:
+        Config.isRunning = False
+        Status.close()
+
+    except BaseException:
+        Config.isRunning = False
+        Status.close()
+        raise
+
+    Print.info('fin')
