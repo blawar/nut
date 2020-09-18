@@ -36,7 +36,7 @@ status = 'initializing'
 def getFiles():
     o = []
     for k, f in Nsps.files.items():
-        if f and f.hasValidTicket:
+        if f:
             o.append({
                 'id': f.id,
                 'name': f.name,

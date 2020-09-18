@@ -7,7 +7,7 @@ import time
 from nut import Print
 import threading
 import json
-from Fs.Nsp import Nsp
+from nut.Nsp import Nsp
 
 files = {}
 lock = threading.Lock()
