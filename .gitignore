@@ -6,3 +6,9 @@ conf/user.conf
 conf/files.json
 
 keys.txt
+
+*.nsz
+*.nsp
+*.xci
+*.xcz
+*.nsz
