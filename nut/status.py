@@ -3,7 +3,7 @@
 import tqdm
 import time
 import threading
-from nut import Config
+from nut import config
 
 lst = []
 jsonData = []
@@ -38,7 +38,7 @@ def loopThread():
     global threadRun
     global jsonData
 
-    while threadRun and Config.isRunning:
+    while threadRun and config.isRunning:
         time.sleep(0.5)
         jsonData = []
         for i in lst:

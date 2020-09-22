@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
-from nut import Print
+from nut import printer
 
 users = {}
 
@@ -121,7 +121,7 @@ def load(path='conf/users.conf'):
 
             users[t.id] = t
 
-            Print.info('loaded user ' + str(t.id))
+            printer.info('loaded user ' + str(t.id))
 
 
 load()

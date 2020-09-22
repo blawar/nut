@@ -13,7 +13,6 @@ class Server:
 class Paths:
     def __init__(self):
         self.scan = ['.']
-        self.titleDatabase = 'titledb'
 
     def mapping(self):
         m = {}
@@ -70,7 +69,7 @@ def save(confFile='conf/nut.conf'):
     try:
         with open(confFile, encoding="utf8") as f:
             j = json.load(f)
-    except:
+    except json.JSONDecodeError:
         pass
 
     set(j, ['paths', 'scan'], paths.scan)
@@ -90,7 +89,7 @@ def load(confFile):
 
         try:
             paths.scan = j['paths']['scan']
-        except:
+        except KeyError:
             pass
 
         if not isinstance(paths.scan, list):
@@ -98,12 +97,12 @@ def load(confFile):
 
         try:
             server.hostname = j['server']['hostname']
-        except:
+        except KeyError:
             pass
 
         try:
             server.port = int(j['server']['port'])
-        except:
+        except KeyError:
             pass
 
 

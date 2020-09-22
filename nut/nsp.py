@@ -3,14 +3,13 @@
 import os
 import os.path
 import re
-from nut import Print
+from nut import printer
 
 
 class Nsp:
     def __init__(self, path=None, mode='rb'):
         self.path = None
         self.titleId = None
-        self.timestamp = None
         self.version = None
         self.fileSize = None
         self.fileModified = None
@@ -41,15 +40,6 @@ class Nsp:
     def getId(self):
         return self.titleId or ('0' * 16)
 
-    def setTimestamp(self, timestamp):
-        try:
-            self.timestamp = int(str(timestamp), 10)
-        except:
-            pass
-
-    def getTimestamp(self):
-        return str(self.timestamp or '')
-
     def setVersion(self, version):
         if version and len(version) > 0:
             self.version = version
@@ -72,8 +62,8 @@ class Nsp:
         if z:
             self.titleId = z.groups()[0].upper()
         else:
-            Print.info('could not get title id from filename, name needs to ' +
-                       'contain [titleId] : ' + path)
+            printer.info('could not get title id from filename, name needs ' +
+                         'to contain [titleId] : ' + path)
             self.titleId = None
 
         z = re.match(r'.*\[v([0-9]+)\].*', path, re.I)

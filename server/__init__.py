@@ -4,18 +4,18 @@ import http.server
 import threading
 import socket
 import time
-from nut import Config
+from nut import config
 import os
 import re
-from nut import Print
+from nut import printer
 import urllib
-from nut import Users
+from nut import users
 import base64
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 import queue
 
-import Server.Controller.Api
+import server.controller.api
 
 mimes = {}
 httpd = None
@@ -23,7 +23,7 @@ sock = None
 addr = None
 threads = []
 
-mappings = {'api': Server.Controller.Api}
+mappings = {'api': server.controller.api}
 
 mimes = {
         '.css': 'text/css',
@@ -58,12 +58,12 @@ def run():
     global sock
     global addr
 
-    Print.info(
-        f'{time.asctime()} Server Starts - {Config.server.hostname}:' +
-        f'{Config.server.port}'
+    printer.info(
+        f'{time.asctime()} Server Starts - {config.server.hostname}:' +
+        f'{config.server.port}'
     )
     try:
-        addr = (Config.server.hostname, Config.server.port)
+        addr = (config.server.hostname, config.server.port)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind(addr)
@@ -75,9 +75,9 @@ def run():
     except KeyboardInterrupt:
         pass
 
-    Print.info(
-        f'{time.asctime()} Server Stops - {Config.server.hostname}:' +
-        f'{Config.server.port}'
+    printer.info(
+        f'{time.asctime()} Server Stops - {config.server.hostname}:' +
+        f'{config.server.port}'
     )
 
 
@@ -249,7 +249,7 @@ def route(request, response, verb='get'):
         if len(request.bits) > 0 and request.bits[0] in mappings:
             i = request.bits[1]
             methodName = verb + i[0].capitalize() + i[1:]
-            Print.info('routing to ' + methodName)
+            printer.info('routing to ' + methodName)
             method = getattr(
                 mappings[request.bits[0]],
                 methodName,
@@ -258,7 +258,7 @@ def route(request, response, verb='get'):
             method(request, response, **request.query)
             return True
     except BaseException as e:
-        Print.error('route exception: ' + str(e))
+        printer.error('route exception: ' + str(e))
         return None
     return False
 
@@ -290,7 +290,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
                 self.headers['Authorization'].split(' ')[1]
             ).decode().split(':')
 
-            request.user = Users.auth(id, password, self.client_address[0])
+            request.user = users.auth(id, password, self.client_address[0])
 
             if not request.user:
                 return Response401(request, response)
@@ -320,7 +320,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
                 self.headers['Authorization'].split(' ')[1]
             ).decode().split(':')
 
-            request.user = Users.auth(id, password, self.client_address[0])
+            request.user = users.auth(id, password, self.client_address[0])
 
             if not request.user:
                 return Response401(request, response)

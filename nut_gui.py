@@ -3,18 +3,18 @@
 import os
 import sys
 import time
-import Server
+import server
 import socket
 import urllib3
 import threading
 import webbrowser
 
 import nut
-from nut import Usb
-from nut import Nsps
-from nut import Users
-from nut import Config
-from nut import Status
+from nut import usb
+from nut import nsps
+from nut import users
+from nut import config
+from nut import status
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel
@@ -57,7 +57,7 @@ class Header:
         self.textbox = QLineEdit(app)
         self.textbox.setMinimumWidth(25)
         self.textbox.setAlignment(Qt.AlignLeft)
-        self.textbox.setText(os.path.abspath(Config.paths.scan[0]))
+        self.textbox.setText(os.path.abspath(config.paths.scan[0]))
         self.textbox.textChanged.connect(self.updatePath)
         self.layout.addWidget(self.textbox)
 
@@ -73,9 +73,9 @@ class Header:
 
         if ipAddr:
             self.serverInfo = QLabel(
-                f"<b>IP:</b>  {ipAddr}  <b>Port:</b>  {Config.server.port}  " +
-                f"<b>User:</b>  {Users.first().id}  <b>Password:</b>  " +
-                f"{Users.first().password}"
+                f"<b>IP:</b>  {ipAddr}  <b>Port:</b>  {config.server.port}  " +
+                f"<b>User:</b>  {users.first().id}  <b>Password:</b>  " +
+                f"{users.first().password}"
             )
         else:
             self.serverInfo = QLabel("<b>Offline</b>")
@@ -84,7 +84,7 @@ class Header:
         self.serverInfo.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.serverInfo)
 
-        self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
+        self.usbStatus = QLabel("<b>USB:</b>  " + str(usb.status))
         self.usbStatus.setMinimumWidth(50)
         self.usbStatus.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.usbStatus)
@@ -95,11 +95,11 @@ class Header:
         self.timer.start()
 
     def updatePath(self):
-        Config.paths.scan[0] = self.textbox.text()
-        Config.save()
+        config.paths.scan[0] = self.textbox.text()
+        config.save()
 
     def tick(self):
-        self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
+        self.usbStatus.setText("<b>USB:</b> " + str(usb.status))
 
 
 class Progress:
@@ -127,7 +127,7 @@ class Progress:
         self.speed.setText('')
 
     def tick(self):
-        for i in Status.lst:
+        for i in status.lst:
             if i.isOpen():
                 try:
                     self.progress.setValue(i.i / i.size * 100)
@@ -141,7 +141,7 @@ class Progress:
                 break
             else:
                 self.resetStatus()
-        if len(Status.lst) == 0:
+        if len(status.lst) == 0:
             self.resetStatus()
 
         if self.app.needsRefresh:
@@ -221,7 +221,7 @@ class App(QWidget):
 
     @pyqtSlot()
     def on_gdrive(self):
-        if Config.getGdriveCredentialsFile() is None:
+        if config.getGdriveCredentialsFile() is None:
             webbrowser.open_new_tab(
                 'https://developers.google.com/drive/api/v3/quickstart/go',
             )
@@ -256,7 +256,7 @@ class App(QWidget):
                 except:
                     pass
 
-                Server.Controller.Api.getGdriveToken(None, None)
+                server.controller.api.getGdriveToken(None, None)
                 QMessageBox.information(
                     self,
                     'Google Drive OAuth Setup',
@@ -270,9 +270,9 @@ class App(QWidget):
     def refreshTable(self):
         try:
             self.tableWidget.setRowCount(0)
-            self.tableWidget.setRowCount(len(Nsps.files))
+            self.tableWidget.setRowCount(len(nsps.files))
             i = 0
-            for k, f in Nsps.files.items():
+            for k, f in nsps.files.items():
                 if f.path.endswith('.nsx'):
                     continue
 
@@ -312,11 +312,11 @@ threadRun = True
 
 
 def usbThread():
-    Usb.daemon()
+    usb.daemon()
 
 
 def nutThread():
-    Server.run()
+    server.run()
 
 
 def initThread(app):
