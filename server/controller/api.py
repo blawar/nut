@@ -175,7 +175,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
                     response.write(b'')
                     return
 
-            printer('ranged request for %d - %d' % (start, end))
+            printer.info('ranged request for %d - %d' % (start, end))
             f.seek(start, 0)
 
             response.setMime(path)
