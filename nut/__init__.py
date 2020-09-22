@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from nut import Nsps
-from nut import Config
+from nut import nsps
+from nut import config
 
 isInitFiles = False
 hasScanned = False
@@ -14,7 +14,7 @@ def initFiles():
 
     isInitFiles = True
 
-    Nsps.load()
+    nsps.load()
 
 
 def scan():
@@ -26,7 +26,7 @@ def scan():
 
     r = 0
 
-    for path in Config.paths.scan:
-        r += Nsps.scan(path)
-    Nsps.save()
+    for path in config.paths.scan:
+        r += nsps.scan(path)
+    nsps.save()
     return r

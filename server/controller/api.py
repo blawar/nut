@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-from nut import Status
-from nut import Nsps
-from nut import Print
-import Server
-from nut import Config
+from nut import status
+from nut import nsps
+from nut import printer
+import server
+from nut import config
 import time
 import nut
 import requests
@@ -48,8 +48,8 @@ def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
         timeout=15
     )
 
-    Print.debug('%s %s %s' % (method, str(r.status_code), url))
-    Print.debug(r.request.headers)
+    printer.debug('%s %s %s' % (method, str(r.status_code), url))
+    printer.debug(r.request.headers)
 
     if r.status_code == 403:
         raise IOError('Forbidden ' + r.text)
@@ -76,7 +76,7 @@ def getSearch(request, response):
     xci = []
     xcz = []
 
-    for path, f in Nsps.files.items():
+    for path, f in nsps.files.items():
         name = f.fileName()
         if name.endswith('.nsp'):
             nsp.append({
@@ -115,7 +115,7 @@ def getSearch(request, response):
 
 def getInfo(request, response):
     try:
-        nsp = Nsps.getByTitleId(request.bits[2])
+        nsp = nsps.getByTitleId(request.bits[2])
         t = {'id': request.bits[2]}
         t['size'] = nsp.getFileSize()
         t['mtime'] = nsp.getFileModified()
@@ -154,7 +154,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
                     start = int(start)
 
                 if start >= size or start < 0 or end <= 0:
-                    return Server.Response400(
+                    return server.Response400(
                         None,
                         response,
                         'Invalid range request %d - %d' % (start, end)
@@ -175,7 +175,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
                     response.write(b'')
                     return
 
-            print('ranged request for %d - %d' % (start, end))
+            printer('ranged request for %d - %d' % (start, end))
             f.seek(start, 0)
 
             response.setMime(path)
@@ -191,7 +191,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
                 size = end - start
 
                 i = 0
-                status = Status.create(
+                progress = status.create(
                     size,
                     'Downloading ' + os.path.basename(path)
                 )
@@ -200,16 +200,16 @@ def serveFile(response, path, filename=None, start=None, end=None):
                     chunk = f.read(min(size-i, chunkSize))
                     i += len(chunk)
 
-                    status.add(len(chunk))
+                    progress.add(len(chunk))
 
                     if chunk:
                         pass
                         response.write(chunk)
                     else:
                         break
-                status.close()
+                progress.close()
     except BaseException as e:
-        Print.error('File download exception: ' + str(e))
+        printer.error('File download exception: ' + str(e))
         traceback.print_exc(file=sys.stdout)
 
     if response.bytesSent == 0:
@@ -218,7 +218,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
 
 def getDownload(request, response, start=None, end=None):
     try:
-        nsp = Nsps.getByTitleId(request.bits[2])
+        nsp = nsps.getByTitleId(request.bits[2])
         response.attachFile(nsp.titleId + '.nsp')
 
         if len(request.bits) >= 5:
@@ -245,7 +245,7 @@ def getDownload(request, response, start=None, end=None):
                     start = int(start)
 
                 if start >= size or start < 0 or end <= 0:
-                    return Server.Response400(
+                    return server.Response400(
                         request,
                         response,
                         f'Invalid range request {start} - {end}'
@@ -266,7 +266,7 @@ def getDownload(request, response, start=None, end=None):
                     response.write(b'')
                     return
 
-            print('ranged request for %d - %d' % (start, end))
+            printer.info('ranged request for %d - %d' % (start, end))
             f.seek(start, 0)
 
             response.setMime(nsp.path)
@@ -282,7 +282,7 @@ def getDownload(request, response, start=None, end=None):
                 size = end - start
 
                 i = 0
-                status = Status.create(
+                progress = status.create(
                     size,
                     'Downloading ' + os.path.basename(nsp.path)
                 )
@@ -291,16 +291,16 @@ def getDownload(request, response, start=None, end=None):
                     chunk = f.read(min(size-i, chunkSize))
                     i += len(chunk)
 
-                    status.add(len(chunk))
+                    progress.add(len(chunk))
 
                     if chunk:
                         pass
                         response.write(chunk)
                     else:
                         break
-                status.close()
+                progress.close()
     except BaseException as e:
-        Print.error('NSP download exception: ' + str(e))
+        printer.error('NSP download exception: ' + str(e))
         traceback.print_exc(file=sys.stdout)
     if response.bytesSent == 0:
         response.write(b'')
@@ -315,7 +315,7 @@ def isWindows():
 
 def listDrives():
     drives = []
-    for label, url in Config.paths.mapping().items():
+    for label, url in config.paths.mapping().items():
         drives.append(label)
     if isWindows():
         import string
@@ -377,8 +377,8 @@ def cleanPath(path=None):
     drive = bits[0]
     bits = bits[1:]
 
-    if drive in Config.paths.mapping():
-        url = Config.paths.mapping()[drive]
+    if drive in config.paths.mapping():
+        url = config.paths.mapping()[drive]
         if isNetworkPath(url):
             path = os.path.join(url, '/'.join(bits))
         else:
@@ -670,7 +670,7 @@ def getGdriveToken(request, response):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                Config.getGdriveCredentialsFile(), SCOPES)
+                config.getGdriveCredentialsFile(), SCOPES)
             creds = flow.run_local_server(port=0)
 
         with open('token.pickle', 'wb') as token:
@@ -686,7 +686,7 @@ def getGdriveToken(request, response):
     r['access_token'] = creds.token
     r['refresh_token'] = creds.refresh_token
 
-    with open(Config.getGdriveCredentialsFile(), 'r') as f:
+    with open(config.getGdriveCredentialsFile(), 'r') as f:
         r['credentials'] = json.loads(f.read())
 
     if response is not None:
@@ -707,7 +707,7 @@ def listGdriveDir(path):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                Config.getGdriveCredentialsFile(), SCOPES)
+                config.getGdriveCredentialsFile(), SCOPES)
             creds = flow.run_local_server(port=0)
 
         with open('token.pickle', 'wb') as token:
@@ -827,7 +827,7 @@ def downloadProxyFile(url, response, start=None, end=None, headers={}):
             response.write(chunk)
             bytes += len(chunk)
 
-            if not Config.isRunning:
+            if not config.isRunning:
                 break
     else:
         response.write(r.content)
@@ -853,7 +853,7 @@ def downloadGdriveFile(response, url, start=None, end=None):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                Config.getGdriveCredentialsFile(), SCOPES)
+                config.getGdriveCredentialsFile(), SCOPES)
             creds = flow.run_local_server(port=0)
 
         with open('token.pickle', 'wb') as token:
@@ -864,7 +864,7 @@ def downloadGdriveFile(response, url, start=None, end=None):
     info = getFileInfo(service, url)
 
     if not info:
-        return Server.Response404(None, response)
+        return server.Response404(None, response)
 
     return downloadProxyFile(
         'https://www.googleapis.com/drive/v3/files/%s?alt=media' % info['id'],

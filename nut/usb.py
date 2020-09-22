@@ -21,12 +21,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import json
 import time
 import struct
-import Server
+import server
 import usb.core
 import usb.util
-from nut import Nsps
-from nut import Print
-import Server.Controller.Api
+from nut import nsps
+from nut import printer
+import server.controller.api
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
@@ -35,7 +35,7 @@ status = 'initializing'
 
 def getFiles():
     o = []
-    for k, f in Nsps.files.items():
+    for k, f in nsps.files.items():
         if f:
             o.append({
                 'id': f.id,
@@ -48,7 +48,7 @@ def getFiles():
     return json.dumps(o)
 
 
-class UsbResponse(Server.NutResponse):
+class UsbResponse(server.NutResponse):
     def __init__(self, packet):
         super(UsbResponse, self).__init__(None)
         self.packet = packet
@@ -57,7 +57,7 @@ class UsbResponse(Server.NutResponse):
         pass
 
     def _write(self, data):
-        Print.info('usbresponse write')
+        printer.info('usbresponse write')
         if self.bytesSent == 0 and not self.headersSent:
             self.sendHeader()
 
@@ -72,14 +72,14 @@ class UsbResponse(Server.NutResponse):
         self.packet.send(10 * 60 * 1000)
 
 
-class UsbRequest(Server.NutRequest):
+class UsbRequest(server.NutRequest):
     def __init__(self, url):
         self.headers = {}
         self.path = url
         self.head = False
         self.url = urlparse(self.path)
 
-        Print.info('url ' + self.path)
+        printer.info('url ' + self.path)
 
         self.bits = [x for x in self.url.path.split('/') if x]
         self.query = parse_qs(self.url.query)
@@ -106,9 +106,9 @@ class Packet:
         self.o = o
 
     def recv(self, timeout=60000):
-        Print.info('begin recv')
+        printer.info('begin recv')
         header = bytes(self.i.read(32, timeout=timeout))
-        Print.info('read complete')
+        printer.info('read complete')
         magic = header[:4]
         self.command = int.from_bytes(header[4:8], byteorder='little')
         self.size = int.from_bytes(header[8:16], byteorder='little')
@@ -118,15 +118,15 @@ class Packet:
         self.timestamp = int.from_bytes(header[24:32], byteorder='little')
 
         if magic != b'\x12\x12\x12\x12':
-            Print.error('invalid magic! ' + str(magic))
+            printer.error('invalid magic! ' + str(magic))
             return False
 
-        Print.info('receiving %d bytes' % self.size)
+        printer.info('receiving %d bytes' % self.size)
         self.payload = bytes(self.i.read(self.size, timeout=0))
         return True
 
     def send(self, timeout=60000):
-        Print.info('sending %d bytes' % len(self.payload))
+        printer.info('sending %d bytes' % len(self.payload))
         self.o.write(
             b'\x12\x12\x12\x12',
             timeout=timeout
@@ -166,14 +166,14 @@ def poll_commands(in_ep, out_ep):
     while True:
         if p.recv(0):
             if p.command == 1:
-                Print.debug('Recv command! %d' % p.command)
+                printer.debug('Recv command! %d' % p.command)
                 req = UsbRequest(p.payload.decode('utf-8'))
                 with UsbResponse(p) as resp:
-                    Server.route(req, resp)
+                    server.route(req, resp)
             else:
-                Print.error('Unknown command! %d' % p.command)
+                printer.error('Unknown command! %d' % p.command)
         else:
-            Print.error('failed to read!')
+            printer.error('failed to read!')
 
 
 def getDevice():
@@ -201,7 +201,7 @@ def daemon():
 
             dev = getDevice()
 
-            Print.info('USB Connected')
+            printer.info('USB Connected')
             status = 'connected'
 
             dev.reset()
@@ -230,5 +230,5 @@ def daemon():
 
             poll_commands(in_ep, out_ep)
         except BaseException as e:
-            Print.error('usb exception: ' + str(e))
+            printer.error('usb exception: ' + str(e))
         time.sleep(1)

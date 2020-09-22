@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 import os
 import pathlib
-from nut import Status
+from nut import status
 import time
-from nut import Print
+from nut import printer
 import threading
 import json
-from nut.Nsp import Nsp
+from nut.nsp import Nsp
 
 files = {}
 lock = threading.Lock()
@@ -41,7 +41,7 @@ def scan(base, force=False):
 
     fileList = {}
 
-    Print.info(base)
+    printer.info(base)
     for root, dirs, _files in os.walk(base, topdown=False, followlinks=True):
         for name in _files:
             suffix = pathlib.Path(name).suffix
@@ -54,15 +54,15 @@ def scan(base, force=False):
         save()
         return 0
 
-    status = Status.create(len(fileList), desc='Scanning files...')
+    progress = status.create(len(fileList), desc='Scanning files...')
 
     try:
         for path, name in fileList.items():
             try:
-                status.add(1)
+                progress.add(1)
 
                 if path not in files:
-                    Print.info('scanning ' + name)
+                    printer.info('scanning ' + name)
                     nsp = Nsp(path, None)
                     nsp.getFileSize()
 
@@ -72,16 +72,16 @@ def scan(base, force=False):
                     if i % 20 == 0:
                         save()
             except KeyboardInterrupt:
-                status.close()
+                progress.close()
                 raise
             except BaseException as e:
-                Print.info('An error occurred processing file: ' + str(e))
+                printer.info('An error occurred processing file: ' + str(e))
                 raise
 
         save()
-        status.close()
+        progress.close()
     except BaseException as e:
-        Print.info('An error occurred scanning files: ' + str(e))
+        printer.info('An error occurred scanning files: ' + str(e))
         raise
     return i
 
@@ -102,7 +102,7 @@ def removeEmptyDir(path, removeRoot=True):
     # if folder empty, delete it
     _files = os.listdir(path)
     if len(_files) == 0 and removeRoot:
-        Print.info("Removing empty folder:" + path)
+        printer.info("Removing empty folder:" + path)
         os.rmdir(path)
 
 
@@ -138,8 +138,8 @@ def load(fileName='conf/files.json'):
 
     except:
         raise
-    Print.info(f'loaded file list in {time.process_time() - timestamp} ' +
-               'seconds')
+    printer.info(f'loaded file list in {time.process_time() - timestamp} ' +
+                 'seconds')
 
 
 def save(

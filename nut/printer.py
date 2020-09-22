@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from nut import Status
+from nut import status
 
 enableInfo = True
 enableError = True
@@ -11,19 +11,19 @@ silent = False
 
 def info(s):
     if not silent and enableInfo:
-        Status.print_(s)
+        status.print_(s)
 
 
 def error(s):
     if not silent and enableError:
-        Status.print_(s)
+        status.print_(s)
 
 
 def warning(s):
     if not silent and enableWarning:
-        Status.print_(s)
+        status.print_(s)
 
 
 def debug(s):
     if not silent and enableDebug:
-        Status.print_(s)
+        status.print_(s)

@@ -9,10 +9,10 @@ import urllib3
 if not getattr(sys, 'frozen', False):
     os.chdir(Path(__file__).resolve().parent)
 
-from nut import Config
-from nut import Print
-from nut import Status
-import Server
+from nut import config
+from nut import printer
+from nut import status
+import server
 import nut
 
 if __name__ == '__main__':
@@ -42,54 +42,54 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         if args.silent:
-            Print.silent = True
+            printer.silent = True
 
         if args.hostname:
             args.server = True
-            Config.server.hostname = args.hostname
+            config.server.hostname = args.hostname
 
         if args.port:
             args.server = True
-            Config.server.port = int(args.port)
+            config.server.port = int(args.port)
 
-        Status.start()
+        status.start()
 
-        Print.info('                        ,;:;;,')
-        Print.info('                       ;;;;;')
-        Print.info('               .=\',    ;:;;:,')
-        Print.info('              /_\', "=. \';:;:;')
-        Print.info('              @=:__,  \\,;:;:\'')
-        Print.info('                _(\\.=  ;:;;\'')
-        Print.info('               `"_(  _/="`')
-        Print.info('                `"\'')
+        printer.info('                        ,;:;;,')
+        printer.info('                       ;;;;;')
+        printer.info('               .=\',    ;:;;:,')
+        printer.info('              /_\', "=. \';:;:;')
+        printer.info('              @=:__,  \\,;:;:\'')
+        printer.info('                _(\\.=  ;:;;\'')
+        printer.info('               `"_(  _/="`')
+        printer.info('                `"\'')
 
         if args.usb:
             try:
-                from nut import Usb
+                from nut import usb
             except BaseException as e:
-                Print.error('pip3 install pyusb, required for USB coms: ' +
-                            f'{str(e)}')
+                printer.error('pip3 install pyusb, required for USB coms: ' +
+                              f'{str(e)}')
             nut.scan()
-            Usb.daemon()
+            usb.daemon()
 
         if args.server:
             nut.initFiles()
             nut.scan()
-            Server.run()
+            server.run()
 
         if len(sys.argv) == 1:
             import nut_gui
             nut_gui.run()
 
-        Status.close()
+        status.close()
 
     except KeyboardInterrupt:
-        Config.isRunning = False
-        Status.close()
+        config.isRunning = False
+        status.close()
 
     except BaseException:
-        Config.isRunning = False
-        Status.close()
+        config.isRunning = False
+        status.close()
         raise
 
-    Print.info('fin')
+    printer.info('fin')
