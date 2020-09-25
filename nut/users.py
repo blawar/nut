@@ -1,127 +1,98 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import os
-import re
+import json
 from nut import printer
+from pathlib import Path
+from typing import NoReturn
 
+users_path = Path('conf/users.conf')
 users = {}
 
 
 class User:
-    def __init__(self):
-        self.id = None
-        self.password = None
-        self.isAdmin = False
-        self.remoteAddr = None
-        self.requireAuth = True
-        self.switchHost = None
-        self.switchPort = None
-        pass
+    __username = None
+    __password = None
 
-    def setId(self, id):
-        self.id = id
+    def __init__(self, username: str, password: str):
+        self.__username = username
+        self.__password = password
 
-    def getId(self):
-        return str(self.id)
+    @property
+    def username(self) -> str:
+        return self.__username
 
-    def setPassword(self, password):
-        self.password = password
-
-    def getPassword(self):
-        return self.password
-
-    def setIsAdmin(self, isAdmin):
-        try:
-            self.isAdmin = False if int(isAdmin) == 0 else True
-        except:
-            pass
-
-    def getIsAdmin(self):
-        return str(self.isAdmin)
-
-    def setRequireAuth(self, requireAuth):
-        try:
-            self.requireAuth = False if int(requireAuth) == 0 else True
-        except:
-            pass
-
-    def getRequireAuth(self):
-        return str(self.requireAuth)
-
-    def setSwitchHost(self, host):
-        self.switchHost = host
-
-    def getSwitchHost(self):
-        return self.switchHost
-
-    def setSwitchPort(self, port):
-        try:
-            self.switchPort = int(port)
-        except:
-            pass
-
-    def getSwitchPort(self):
-        return self.switchPort
+    @property
+    def password(self):
+        return self.__password
 
 
-def first():
-    global users
-    for id, user in users.items():
-        return user
-    return None
-
-
-def auth(id, password, address):
-    if id not in users:
-        return None
-
-    user = users[id]
-
-    if user.requireAuth == 0 and address == user.remoteAddr:
+def first() -> User:
+    for user in users.values():
         return user
 
-    if user.remoteAddr and user.remoteAddr != address:
-        return None
 
-    if user.password != password:
-        return None
+def auth(username: str, password: str) -> bool:
+    if username not in users:
+        return False
 
-    return user
+    return users[username].password == password
 
 
-def load(path='conf/users.conf'):
+def save() -> NoReturn:
+    users_to_save = {}
+
+    for username, user in users.items():
+        users_to_save.update({
+            username: {
+                "password": user.password,
+            }
+        })
+
+    users_path.parent.mkdir(exist_ok=True, parents=True)
+
+    with users_path.open(mode='w', encoding='utf8') as users_stream:
+        json.dump(users_to_save, users_stream)
+
+
+def load() -> NoReturn:
     global users
 
-    if not os.path.isfile(path):
-        id = 'guest'
-        users[id] = User()
-        users[id].setPassword('guest')
-        users[id].setId('guest')
-        return
+    if users_path.is_file():
+        with users_path.open(mode='r', encoding='utf8') as users_stream:
+            try:
+                for username, user in json.load(users_stream).items():
+                    user = User(username, user['password'])
+                    users[username] = user
+                    printer.info(f'loaded user {username}')
 
-    firstLine = True
-    map = ['id', 'password']
-    with open(path, encoding="utf-8-sig") as f:
-        for line in f.readlines():
-            if firstLine:
-                firstLine = False
-                continue
+            except json.JSONDecodeError:
+                # Try loading old version
+                users_stream.seek(0)
+                first_line = True
+                for line in users_stream.readlines():
+                    if first_line:
+                        first_line = False
+                        continue
 
-            line = line.strip()
+                    line = line.strip()
 
-            if len(line) == 0 or line[0] == '#':
-                continue
+                    if len(line) == 0 or line[0] == '#':
+                        continue
 
-            if re.match(r'[A-Za-z\|\s]+', line, re.I):
-                map = line.split('|')
+                    try:
+                        username, password = line.split('|')
+                    except ValueError:
+                        continue
 
-            t = User()
-            t.setPassword(map[1])
-            t.setId(map[0])
+                    user = User(username, password)
+                    users[username] = user
+                    printer.info(f'loaded user {username}')
+                save()
 
-            users[t.id] = t
-
-            printer.info('loaded user ' + str(t.id))
+    if len(users) == 0:
+        username = 'guest'
+        users[username] = User(username, username)
+        save()
 
 
 load()

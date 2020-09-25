@@ -286,11 +286,11 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
             if self.headers['Authorization'] is None:
                 return Response401(request, response)
 
-            id, password = base64.b64decode(
+            username, password = base64.b64decode(
                 self.headers['Authorization'].split(' ')[1]
             ).decode().split(':')
 
-            request.user = users.auth(id, password, self.client_address[0])
+            request.user = users.auth(username, password)
 
             if not request.user:
                 return Response401(request, response)
@@ -316,11 +316,11 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
             if self.headers['Authorization'] is None:
                 return Response401(request, response)
 
-            id, password = base64.b64decode(
+            username, password = base64.b64decode(
                 self.headers['Authorization'].split(' ')[1]
             ).decode().split(':')
 
-            request.user = users.auth(id, password, self.client_address[0])
+            request.user = users.auth(username, password)
 
             if not request.user:
                 return Response401(request, response)

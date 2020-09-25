@@ -70,12 +70,13 @@ class Header:
         self.layout.addWidget(self.gdrive)
 
         ipAddr = getIpAddress()
+        user = users.first()
 
         if ipAddr:
             self.serverInfo = QLabel(
                 f"<b>IP:</b>  {ipAddr}  <b>Port:</b>  {config.server.port}  " +
-                f"<b>User:</b>  {users.first().id}  <b>Password:</b>  " +
-                f"{users.first().password}"
+                f"<b>User:</b>  {user.username}  <b>Password:</b>  " +
+                f"{user.password}"
             )
         else:
             self.serverInfo = QLabel("<b>Offline</b>")

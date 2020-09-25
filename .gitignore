@@ -2,7 +2,7 @@ __pycache__/
 *.py[cod]
 
 conf/nut.conf
-conf/user.conf
+conf/users.conf
 conf/files.json
 
 keys.txt
