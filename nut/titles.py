@@ -11,8 +11,6 @@ from nut.title import Title
 
 titles = {}
 lock = threading.Lock()
-hasScanned = False
-hasLoaded = False
 
 
 def get(key):
@@ -30,13 +28,10 @@ def getBaseId(id):
     if not id:
         return None
     titleIdNum = int(id, 16)
-    return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
+    return '{:016X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000)
 
 
-def scan(base, force=False):
-    global hasScanned
-
-    hasScanned = True
+def scan(base):
     i = 0
 
     fileList = {}
@@ -107,13 +102,6 @@ def removeEmptyDir(path, removeRoot=True):
 
 
 def load(fileName='conf/files.json'):
-    global hasLoaded
-
-    if hasLoaded:
-        return
-
-    hasLoaded = True
-
     try:
         timestamp = time.process_time()
 

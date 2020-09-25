@@ -3,30 +3,25 @@
 from nut import titles
 from nut import config
 
-isInitFiles = False
-hasScanned = False
+titles_loaded = False
 
 
-def initFiles():
-    global isInitFiles
-    if isInitFiles:
+def load_titles():
+    global titles_loaded
+    if titles_loaded:
         return
 
-    isInitFiles = True
+    titles_loaded = True
 
     titles.load()
 
 
 def scan():
-    global hasScanned
+    load_titles()
 
-    hasScanned = True
-
-    initFiles()
-
-    r = 0
+    scan_count = 0
 
     for path in config.paths.scan:
-        r += titles.scan(path)
+        scan_count += titles.scan(path)
     titles.save()
-    return r
+    return scan_count
