@@ -6,7 +6,7 @@ import re
 from nut import printer
 
 
-class Nsp:
+class Title:
     def __init__(self, path=None, mode='rb'):
         self.path = None
         self.titleId = None

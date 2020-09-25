@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from nut import nsps
+from nut import titles
 from nut import config
 
 isInitFiles = False
@@ -14,7 +14,7 @@ def initFiles():
 
     isInitFiles = True
 
-    nsps.load()
+    titles.load()
 
 
 def scan():
@@ -27,6 +27,6 @@ def scan():
     r = 0
 
     for path in config.paths.scan:
-        r += nsps.scan(path)
-    nsps.save()
+        r += titles.scan(path)
+    titles.save()
     return r

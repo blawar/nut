@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import json
 from nut import status
-from nut import nsps
+from nut import titles
 from nut import printer
 import server
 from nut import config
@@ -76,7 +76,7 @@ def getSearch(request, response):
     xci = []
     xcz = []
 
-    for path, f in nsps.files.items():
+    for path, f in titles.titles.items():
         name = f.fileName()
         if name.endswith('.nsp'):
             nsp.append({
@@ -115,7 +115,7 @@ def getSearch(request, response):
 
 def getInfo(request, response):
     try:
-        nsp = nsps.getByTitleId(request.bits[2])
+        nsp = titles.getByTitleId(request.bits[2])
         t = {'id': request.bits[2]}
         t['size'] = nsp.getFileSize()
         t['mtime'] = nsp.getFileModified()
@@ -218,7 +218,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
 
 def getDownload(request, response, start=None, end=None):
     try:
-        nsp = nsps.getByTitleId(request.bits[2])
+        nsp = titles.getByTitleId(request.bits[2])
         response.attachFile(nsp.titleId + '.nsp')
 
         if len(request.bits) >= 5:

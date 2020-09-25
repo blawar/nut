@@ -24,7 +24,7 @@ import struct
 import server
 import usb.core
 import usb.util
-from nut import nsps
+from nut import titles
 from nut import printer
 import server.controller.api
 from urllib.parse import urlparse
@@ -35,7 +35,7 @@ status = 'initializing'
 
 def getFiles():
     o = []
-    for k, f in nsps.files.items():
+    for k, f in titles.titles.items():
         if f:
             o.append({
                 'id': f.id,

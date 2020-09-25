@@ -11,8 +11,8 @@ import webbrowser
 
 import nut
 from nut import usb
-from nut import nsps
 from nut import users
+from nut import titles
 from nut import config
 from nut import status
 
@@ -271,9 +271,9 @@ class App(QWidget):
     def refreshTable(self):
         try:
             self.tableWidget.setRowCount(0)
-            self.tableWidget.setRowCount(len(nsps.files))
+            self.tableWidget.setRowCount(len(titles.titles))
             i = 0
-            for k, f in nsps.files.items():
+            for k, f in titles.titles.items():
                 if f.path.endswith('.nsx'):
                     continue
 

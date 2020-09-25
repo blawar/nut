@@ -7,20 +7,20 @@ import time
 from nut import printer
 import threading
 import json
-from nut.nsp import Nsp
+from nut.title import Title
 
-files = {}
+titles = {}
 lock = threading.Lock()
 hasScanned = False
 hasLoaded = False
 
 
 def get(key):
-    return files[key]
+    return titles[key]
 
 
 def getByTitleId(id):
-    for k, f in files.items():
+    for k, f in titles.items():
         if f.titleId == id:
             return f
     return None
@@ -61,12 +61,12 @@ def scan(base, force=False):
             try:
                 progress.add(1)
 
-                if path not in files:
+                if path not in titles:
                     printer.info('scanning ' + name)
-                    nsp = Nsp(path, None)
+                    nsp = Title(path, None)
                     nsp.getFileSize()
 
-                    files[nsp.path] = nsp
+                    titles[nsp.path] = nsp
 
                     i = i + 1
                     if i % 20 == 0:
@@ -120,7 +120,7 @@ def load(fileName='conf/files.json'):
         if os.path.isfile(fileName):
             with open(fileName, encoding="utf-8-sig") as f:
                 for k in json.loads(f.read()):
-                    t = Nsp(None, None)
+                    t = Title(None, None)
 
                     t.path = k['path']
                     t.titleId = k['titleId']
@@ -134,11 +134,11 @@ def load(fileName='conf/files.json'):
 
                     path = os.path.abspath(t.path)
                     if os.path.isfile(path):
-                        files[path] = t  # Fs.Nsp(path, None)
+                        titles[path] = t  # Fs.Nsp(path, None)
 
     except:
         raise
-    printer.info(f'loaded file list in {time.process_time() - timestamp} ' +
+    printer.info(f'loaded title list in {time.process_time() - timestamp} ' +
                  'seconds')
 
 
@@ -151,7 +151,7 @@ def save(
 
     try:
         j = []
-        for i, k in files.items():
+        for i, k in titles.items():
             k.getFileSize()
             j.append(k.dict())
         with open(fileName, 'w') as outfile:
