@@ -20,6 +20,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QTabWidget
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QPushButton
@@ -150,7 +151,7 @@ class Progress:
             self.app.refreshTable()
 
 
-class App(QWidget):
+class App(QTabWidget):
     def __init__(self):
         super().__init__()
         self.setWindowIcon(QIcon('images/logo.jpg'))
@@ -170,6 +171,16 @@ class App(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        self.mainTab = TitleListTab(self)
+
+        self.addTab(self.mainTab, "Main Tab")
+
+        self.show()
+
+
+class TitleListTab(QWidget):
+    def __init__(self, parent):
+        super().__init__()
         self.createTable()
 
         self.layout = QVBoxLayout()
@@ -183,8 +194,10 @@ class App(QWidget):
         self.layout.addLayout(self.progress.layout)
 
         self.setLayout(self.layout)
+        self.needsRefresh = False
 
-        self.show()
+    def refresh(self):
+        self.needsRefresh = True
 
     def createTable(self):
         self.tableWidget = QTableWidget()
@@ -213,6 +226,47 @@ class App(QWidget):
         self.tableWidget.setSortingEnabled(True)
 
         self.refreshTable()
+
+    @pyqtSlot()
+    def refreshTable(self):
+        try:
+            self.tableWidget.setRowCount(0)
+            self.tableWidget.setRowCount(len(titles.titles))
+            i = 0
+            for k, f in titles.titles.items():
+                if f.path.endswith('.nsx'):
+                    continue
+
+                titleType = "UPD" if f.isUpdate() else "DLC" if f.isDLC() \
+                    else "BASE"
+
+                self.tableWidget.setItem(
+                    i,
+                    0,
+                    QTableWidgetItem(f.fileName()),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    1,
+                    QTableWidgetItem(str(f.titleId)),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    2,
+                    QTableWidgetItem(titleType),
+                )
+                self.tableWidget.setItem(
+                    i,
+                    3,
+                    QTableWidgetItem(str(f.fileSize)),
+                )
+
+                i = i + 1
+
+            self.tableWidget.setRowCount(i)
+        except BaseException as e:
+            print('exception: ' + str(e))
+            pass
 
     @pyqtSlot()
     def on_scan(self):
@@ -267,47 +321,6 @@ class App(QWidget):
                     "directories."
                 )
 
-    @pyqtSlot()
-    def refreshTable(self):
-        try:
-            self.tableWidget.setRowCount(0)
-            self.tableWidget.setRowCount(len(titles.titles))
-            i = 0
-            for k, f in titles.titles.items():
-                if f.path.endswith('.nsx'):
-                    continue
-
-                titleType = "UPD" if f.isUpdate() else "DLC" if f.isDLC() \
-                    else "BASE"
-
-                self.tableWidget.setItem(
-                    i,
-                    0,
-                    QTableWidgetItem(f.fileName()),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    1,
-                    QTableWidgetItem(str(f.titleId)),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    2,
-                    QTableWidgetItem(titleType),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    3,
-                    QTableWidgetItem(str(f.fileSize)),
-                )
-
-                i = i + 1
-
-            self.tableWidget.setRowCount(i)
-        except BaseException as e:
-            print('exception: ' + str(e))
-            pass
-
 
 threadRun = True
 
@@ -336,8 +349,6 @@ def run():
     print('                _(\\.=  ;:;;\'')
     print('               `"_(  _/="`')
     print('                `"\'')
-
-    nut.initFiles()
 
     app = QApplication(sys.argv)
     ex = App()
