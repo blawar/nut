@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-import os
+from pathlib import Path
 
 
 class Server:
@@ -14,6 +14,7 @@ class Paths:
     def __init__(self):
         self.scan = ['.']
 
+    @property
     def mapping(self):
         m = {}
 
@@ -21,10 +22,10 @@ class Paths:
             m['gdrive'] = ''
 
         unknown = 0
-        for f in self.scan:
-            bits = f.split('#', 2)
+        for scan_str in self.scan:
+            bits = scan_str.split('#', 2)
             if len(bits) == 1:
-                label = os.path.basename(f)
+                label = Path(scan_str).name
             else:
                 label = bits[1]
 
@@ -38,57 +39,54 @@ class Paths:
 def getGdriveCredentialsFile():
     files = ['credentials.json', 'conf/credentials.json']
 
-    for file in files:
-        if os.path.exists(file):
-            return file
+    for _file in files:
+        cred_path = Path(_file)
+        if cred_path.is_file():
+            return _file
 
     return None
 
 
 paths = Paths()
 server = Server()
-
 isRunning = True
-
-region = 'US'
-language = 'en'
+conf_path = Path('conf/nut.conf')
 
 
-def set(j, paths, value):
-    last = paths.pop()
-    for path in paths:
-        if path not in j:
-            j[path] = {}
-        j = j[path]
-    j[last] = value
+def save():
+    conf_path.parent.mkdir(exist_ok=True, parents=True)
+    conf = {}
+
+    if conf_path.is_file():
+        try:
+            with conf_path.open(mode='r', encoding='utf8') as conf_stream:
+                conf = json.load(conf_stream)
+        except json.JSONDecodeError:
+            pass
+
+    conf.update({
+        'paths': {
+            'scan': paths.scan,
+        },
+        'server': {
+            'hostname': server.hostname,
+            'port': server.port,
+        },
+    })
+
+    with conf_path.open(mode='w', encoding='utf8') as conf_stream:
+        json.dump(conf, conf_stream, indent=4)
 
 
-def save(confFile='conf/nut.conf'):
-    os.makedirs(os.path.dirname(confFile), exist_ok=True)
-    j = {}
-    try:
-        with open(confFile, encoding="utf8") as f:
-            j = json.load(f)
-    except json.JSONDecodeError:
-        pass
-
-    set(j, ['paths', 'scan'], paths.scan)
-    set(j, ['server', 'hostname'], server.hostname)
-    set(j, ['server', 'port'], server.port)
-
-    with open(confFile, 'w', encoding='utf-8') as f:
-        json.dump(j, f, indent=4)
-
-
-def load(confFile):
+def load():
     global paths
     global server
 
-    with open(confFile, encoding="utf8") as f:
-        j = json.load(f)
+    with conf_path.open(mode='r', encoding='utf8') as conf_stream:
+        conf = json.load(conf_stream)
 
         try:
-            paths.scan = j['paths']['scan']
+            paths.scan = conf['paths']['scan']
         except KeyError:
             pass
 
@@ -96,15 +94,15 @@ def load(confFile):
             paths.scan = [paths.scan]
 
         try:
-            server.hostname = j['server']['hostname']
+            server.hostname = conf['server']['hostname']
         except KeyError:
             pass
 
         try:
-            server.port = int(j['server']['port'])
+            server.port = int(conf['server']['port'])
         except KeyError:
             pass
 
 
-if os.path.isfile('conf/nut.conf'):
-    load('conf/nut.conf')
+if conf_path.is_file():
+    load()

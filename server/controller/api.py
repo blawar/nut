@@ -315,7 +315,7 @@ def isWindows():
 
 def listDrives():
     drives = []
-    for label, url in config.paths.mapping().items():
+    for label, url in config.paths.mapping.items():
         drives.append(label)
     if isWindows():
         import string
@@ -377,8 +377,8 @@ def cleanPath(path=None):
     drive = bits[0]
     bits = bits[1:]
 
-    if drive in config.paths.mapping():
-        url = config.paths.mapping()[drive]
+    if drive in config.paths.mapping:
+        url = config.paths.mapping[drive]
         if isNetworkPath(url):
             path = os.path.join(url, '/'.join(bits))
         else:
