@@ -66,11 +66,11 @@ if __name__ == '__main__':
         if args.usb:
             try:
                 from nut import usb
+                nut.scan()
+                usb.daemon()
             except BaseException as e:
                 printer.error('pip3 install pyusb, required for USB coms: ' +
                               f'{str(e)}')
-            nut.scan()
-            usb.daemon()
 
         if args.server:
             nut.scan()
