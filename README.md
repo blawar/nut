@@ -16,7 +16,7 @@ This is a program that acts as a USB and network server for use with [Tinfoil](h
 * Install Python 3.6+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages.
 * Clone this repository to desired directory and change your working directory to the cloned repository.
 * Install the PIP modules with the following command `pip3 install -r requirements.txt`.
-* Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
+* (Linux only) Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
 ```
