@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
-from nut import printer
+from nut_impl import printer
 
 users = {}
 
