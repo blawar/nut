@@ -83,6 +83,7 @@ def auth(id, password, address):
     if user.remoteAddr and user.remoteAddr != address:
         return None
 
+    # TODO: save password hash in config
     if user.password != password:
         return None
 
