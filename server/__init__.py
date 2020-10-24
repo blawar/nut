@@ -181,7 +181,7 @@ class NutResponse:
 
     def setMime(self, fileName):
         try:
-            name, ext = os.path.splitext(fileName)
+            _, ext = os.path.splitext(fileName)
 
             if ext in mimes:
                 self.headers['Content-type'] = mimes[ext]

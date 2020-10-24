@@ -76,7 +76,9 @@ def getSearch(request, response):
     xci = []
     xcz = []
 
-    for path, f in nsps.files.items():
+    nut.scan()
+
+    for _, f in nsps.files.items():
         name = f.fileName()
         if name.endswith('.nsp'):
             nsp.append({
@@ -315,7 +317,7 @@ def isWindows():
 
 def listDrives():
     drives = []
-    for label, url in config.paths.mapping().items():
+    for label, _ in config.paths.mapping().items():
         drives.append(label)
     if isWindows():
         import string
@@ -809,7 +811,6 @@ def getDirectoryList(request, response):
 
         response.write(json.dumps(r))
     except:
-        raise
         raise IOError('dir list access denied')
 
 
@@ -912,7 +913,6 @@ def getFile(request, response, start=None, end=None):
         else:
             return serveFile(response, path, start=start, end=end)
     except:
-        raise
         raise IOError('file read access denied')
 
 

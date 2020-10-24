@@ -1,6 +1,10 @@
 __pycache__/
 *.py[cod]
 
+.DS_Store
+
+.vscode
+
 conf/nut.conf
 conf/user.conf
 conf/files.json
