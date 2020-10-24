@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from nut import status
+from nut_impl import status
 
 enableInfo = True
 enableError = True

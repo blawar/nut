@@ -24,8 +24,8 @@ import struct
 import server
 import usb.core
 import usb.util
-from nut import nsps
-from nut import printer
+from nut_impl import nsps
+from nut_impl import printer
 import server.controller.api
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
