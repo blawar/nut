@@ -3,6 +3,7 @@
 import json
 import os
 
+from nut import nsps
 
 class Server:
     def __init__(self):
@@ -104,6 +105,35 @@ def load(confFile):
             server.port = int(j['server']['port'])
         except KeyError:
             pass
+
+def updateMainPath(newPath):
+    """Function updateMainPath is intended to update a new main path (first element
+    with 0 index in the config file).
+    NSPs will be cleared (in memory) if path has been changed.
+
+    Parameters:
+    newPath (string): a new main path (first element with 0 index in the config file)
+
+    Returns:
+    Nothing
+
+    """
+    global paths
+
+    pathChanged = False
+    oldPath = paths.scan[0]
+
+    if newPath != oldPath:
+        pathChanged = True
+
+    if not pathChanged:
+        return
+
+    paths.scan[0] = newPath
+    save()
+
+    if pathChanged:
+        nsps.files.clear()
 
 
 if os.path.isfile('conf/nut.default.conf'):
