@@ -7,3 +7,4 @@ pyusb>=1.1.0,<1.2.0
 pyqt5>=5.15.1,<5.16.0; platform_system == "Windows"
 google-api-python-client>=1.12.1,<1.13.0
 google-auth-oauthlib>=0.4.1,<0.5.0
+pytest>=5.3.3,<6.2.0
