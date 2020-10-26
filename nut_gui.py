@@ -58,8 +58,11 @@ class Header:
         self.textbox.setMinimumWidth(25)
         self.textbox.setAlignment(Qt.AlignLeft)
         self.textbox.setText(os.path.abspath(config.paths.scan[0]))
-        self.textbox.textChanged.connect(self.updatePath)
         self.layout.addWidget(self.textbox)
+
+        self.savePath = QPushButton('Save path', app)
+        self.savePath.clicked.connect(self.updatePath)
+        self.layout.addWidget(self.savePath)
 
         self.scan = QPushButton('Scan', app)
         self.scan.clicked.connect(app.on_scan)
@@ -95,8 +98,8 @@ class Header:
         self.timer.start()
 
     def updatePath(self):
-        config.paths.scan[0] = self.textbox.text()
-        config.save()
+        config.updateMainPath(self.textbox.text())
+
 
     def tick(self):
         self.usbStatus.setText("<b>USB:</b> " + str(usb.status))
@@ -272,7 +275,7 @@ class App(QWidget):
             self.tableWidget.setRowCount(0)
             self.tableWidget.setRowCount(len(nsps.files))
             i = 0
-            for k, f in nsps.files.items():
+            for _, f in nsps.files.items():
                 if f.path.endswith('.nsx'):
                     continue
 
