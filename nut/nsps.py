@@ -20,7 +20,7 @@ def get(key):
 
 
 def getByTitleId(id):
-    for k, f in files.items():
+    for _, f in files.items():
         if f.titleId == id:
             return f
     return None
@@ -42,7 +42,7 @@ def scan(base, force=False):
     fileList = {}
 
     printer.info(base)
-    for root, dirs, _files in os.walk(base, topdown=False, followlinks=True):
+    for root, _, _files in os.walk(base, topdown=False, followlinks=True):
         for name in _files:
             suffix = pathlib.Path(name).suffix
 
@@ -133,7 +133,7 @@ def load(fileName='conf/files.json'):
                         continue
 
                     path = os.path.abspath(t.path)
-                    if os.path.isfile(path):
+                    if os.path.isfile(path) and os.path.exists(path):
                         files[path] = t  # Fs.Nsp(path, None)
 
     except:
@@ -151,7 +151,7 @@ def save(
 
     try:
         j = []
-        for i, k in files.items():
+        for _, k in files.items():
             k.getFileSize()
             j.append(k.dict())
         with open(fileName, 'w') as outfile:
