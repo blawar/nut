@@ -3,6 +3,9 @@ python:
   - "3.6"      # current default Python on Travis CI
   - "3.8"
   - "nightly"  # nightly build
+os:
+  - linux
+  - osx
 # command to install dependencies
 install:
   - pip install -r requirements.txt
