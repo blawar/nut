@@ -1,4 +1,4 @@
-# NUT
+# NUT [![Build Status](https://travis-ci.com/blawar/nut.svg?branch=master)](https://travis-ci.com/blawar/nut)
 This is a program that acts as a USB and network server for use with [Tinfoil](https://tinfoil.io/Download).
 
 ## Usage guide (Windows users)
