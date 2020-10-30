@@ -3,7 +3,7 @@
 import json
 import os
 
-from nut import nsps
+from nut_impl import nsps
 
 class Server:
     def __init__(self):

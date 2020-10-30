@@ -3,7 +3,7 @@
 
 import unittest
 
-from nut import config
+from nut_impl import config
 
 class NutConfigTest(unittest.TestCase):
     def test_default_region(self):
