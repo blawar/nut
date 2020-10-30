@@ -3,7 +3,7 @@
 import tqdm
 import time
 import threading
-from nut import config
+from nut_impl import config
 
 lst = []
 jsonData = []

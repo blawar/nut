@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-from nut import status
-from nut import nsps
-from nut import printer
+from nut_impl import status
+from nut_impl import nsps
+from nut_impl import printer
 import server
-from nut import config
+from nut_impl import config
 import time
-import nut
+import nut_impl
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -66,7 +66,7 @@ def error(request, response, s):
 
 
 def getScan(request, response):
-    success(request, response, nut.scan())
+    success(request, response, nut_impl.scan())
 
 
 def getSearch(request, response):

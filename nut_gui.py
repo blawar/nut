@@ -9,12 +9,12 @@ import urllib3
 import threading
 import webbrowser
 
-import nut
-from nut import usb
-from nut import nsps
-from nut import users
-from nut import config
-from nut import status
+import nut_impl
+from nut_impl import usb
+from nut_impl import nsps
+from nut_impl import users
+from nut_impl import config
+from nut_impl import status
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel
@@ -219,7 +219,7 @@ class App(QWidget):
     @pyqtSlot()
     def on_scan(self):
         self.tableWidget.setRowCount(0)
-        nut.scan()
+        nut_impl.scan()
         self.refreshTable()
 
     @pyqtSlot()
@@ -323,7 +323,7 @@ def nutThread():
 
 
 def initThread(app):
-    nut.scan()
+    nut_impl.scan()
     app.refresh()
 
 
@@ -339,7 +339,7 @@ def run():
     print('               `"_(  _/="`')
     print('                `"\'')
 
-    nut.initFiles()
+    nut_impl.initFiles()
 
     app = QApplication(sys.argv)
     ex = App()

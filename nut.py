@@ -9,11 +9,11 @@ import urllib3
 if not getattr(sys, 'frozen', False):
     os.chdir(Path(__file__).resolve().parent)
 
-from nut import config
-from nut import printer
-from nut import status
+from nut_impl import config
+from nut_impl import printer
+from nut_impl import status
 import server
-import nut
+import nut_impl
 
 if __name__ == '__main__':
     try:
@@ -65,16 +65,16 @@ if __name__ == '__main__':
 
         if args.usb:
             try:
-                from nut import usb
+                from nut_impl import usb
             except BaseException as e:
                 printer.error('pip3 install pyusb, required for USB coms: ' +
                               f'{str(e)}')
-            nut.scan()
+            nut_impl.scan()
             usb.daemon()
 
         if args.server:
-            nut.initFiles()
-            nut.scan()
+            nut_impl.initFiles()
+            nut_impl.scan()
             server.run()
 
         if len(sys.argv) == 1:

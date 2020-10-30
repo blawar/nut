@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from nut import nsps
-from nut import config
-from nut import printer
+from nut_impl import nsps
+from nut_impl import config
+from nut_impl import printer
 
 isInitFiles = False
 hasScanned = False
