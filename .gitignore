@@ -8,7 +8,9 @@ __pycache__/
 conf/nut.conf
 conf/user.conf
 conf/files.json
+conf/credentials.json
 
+credentials.json
 keys.txt
 
 *.nsz
