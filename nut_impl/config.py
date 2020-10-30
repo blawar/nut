@@ -5,6 +5,7 @@ import os
 
 from nut_impl import nsps
 
+
 class Server:
     def __init__(self):
         self.hostname = '0.0.0.0'
@@ -116,7 +117,6 @@ def updateMainPath(newPath):
 
     Returns:
     Nothing
-
     """
     global paths
 

@@ -76,7 +76,7 @@ def getSearch(request, response):
     xci = []
     xcz = []
 
-    nut.scan()
+    nut_impl.scan()
 
     for _, f in nsps.files.items():
         name = f.fileName()
