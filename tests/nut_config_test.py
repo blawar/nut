@@ -5,6 +5,8 @@ import os
 import unittest
 
 from pyfakefs.fake_filesystem_unittest import TestCase
+
+from nut_impl import nsps
 from nut_impl import config
 
 
@@ -13,6 +15,15 @@ def _get_default_config_object():
 
 def _get_default_config_path():
     return 'conf/nut.conf'
+
+def _create_empty_config_file(fs):
+    conf_file = _get_default_config_path()
+    fs.create_file(conf_file)
+    return conf_file
+
+def _create_files(fs, folder_obj):
+    for f in folder_obj["files"]:
+        fs.create_file(os.path.join(folder_obj["path"], f))
 
 
 class NutConfigTest(TestCase):
@@ -99,8 +110,8 @@ class NutConfigTest(TestCase):
         self.__compare_config_in_file_with_object(conf_file, _get_default_config_object())
 
     def test_save_custom_config_with_explicit_config_path(self):
-        conf_file = _get_default_config_path()
-        self.fs.create_file(conf_file)
+        conf_file = _create_empty_config_file(self.fs)
+
         nsps_folder = "/Users/user1/nsps"
         server_hostname = "127.0.0.1"
         server_port = 9001
@@ -114,6 +125,28 @@ class NutConfigTest(TestCase):
 
         config.save(conf_file)
         self.__compare_config_in_file_with_object(conf_file, object_to_compare)
+
+    def test_update_main_path_for_default_config_and_empty_nsps(self):
+        _create_empty_config_file(self.fs)
+
+        self.assertEqual(config.paths.scan, ['.'])
+        path1 = '/Users/user1/path1'
+        config.update_main_path(path1)
+        self.assertEqual(config.paths.scan, [path1])
+
+    def test_update_main_path_clears_out_nsps(self):
+        _create_empty_config_file(self.fs)
+
+        folder2_path = "folder2"
+        folder1 = {"path": config.paths.scan[0], \
+            "files": ["title1 [abcdefa112345678].nsp", "title2 [abcdefa212345678].nsp"]}
+
+        _create_files(self.fs, folder1)
+        nsps.scan(folder1["path"])
+        self.assertNotEqual(nsps.files, {})
+
+        config.update_main_path(folder2_path)
+        self.assertEqual(nsps.files, {})
 
 
 class NutConfigServerTest(TestCase):

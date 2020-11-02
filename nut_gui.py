@@ -98,7 +98,7 @@ class Header:
         self.timer.start()
 
     def updatePath(self):
-        config.updateMainPath(self.textbox.text())
+        config.update_main_path(self.textbox.text())
 
 
     def tick(self):
