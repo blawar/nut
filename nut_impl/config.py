@@ -107,16 +107,16 @@ def load(confFile):
         except KeyError:
             pass
 
-def updateMainPath(newPath):
+def update_main_path(newPath):
     """Function updateMainPath is intended to update a new main path (first element
     with 0 index in the config file).
     NSPs will be cleared (in memory) if path has been changed.
 
-    Parameters:
-    newPath (string): a new main path (first element with 0 index in the config file)
+    Args:
+        newPath (string): a new main path (first element with 0 index in the config file)
 
     Returns:
-    Nothing
+        None
     """
     global paths
 
