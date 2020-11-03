@@ -1,39 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
-import sys
-import time
-import server
 import socket
-import urllib3
+import sys
 import threading
+import time
 import webbrowser
 
+import urllib3
+from PyQt5.QtCore import QSortFilterProxyModel, Qt, QTimer, pyqtSlot
+from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
+                             QHeaderView, QLabel, QLineEdit, QMessageBox,
+                             QProgressBar, QPushButton, QTableView,
+                             QVBoxLayout, QWidget)
+
 import nut_impl
-from nut_impl import usb
-from nut_impl import nsps
-from nut_impl import users
-from nut_impl import config
-from nut_impl import status
+import server
+from nut_impl import config, nsps, status, usb, users
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QProgressBar
-from PyQt5.QtWidgets import QTableWidget
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QDesktopWidget
-from PyQt5.QtWidgets import QTableWidgetItem
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QTimer
-from PyQt5.QtCore import pyqtSlot
-
+SIZE_COLUMN_INDEX = 3
 
 def getIpAddress():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -48,6 +34,13 @@ def getIpAddress():
 
 def formatSpeed(n):
     return str(round(n / 1000 / 1000, 1)) + 'MB/s'
+
+def _format_size(num, suffix='B'):
+    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+        if abs(num) < 1024.0:
+            return "%3.1f %s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f %s%s" % (num, 'Yi', suffix)
 
 
 class Header:
@@ -152,6 +145,25 @@ class Progress:
             self.app.refreshTable()
 
 
+class filtered_table_model(QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super(filtered_table_model, self).__init__(parent)
+        print("filtered_table_model")
+
+    def lessThan(self, left, right):
+        column = left.column()
+        if column == SIZE_COLUMN_INDEX: # size column
+            displayRole = Qt.UserRole
+        else:
+            displayRole = Qt.DisplayRole
+        leftData = self.sourceModel().data(left, displayRole)
+        rightData = self.sourceModel().data(right, displayRole)
+
+        if leftData is None or rightData is None:
+            return -1
+        return leftData < rightData
+
+
 class App(QWidget):
     def __init__(self):
         super().__init__()
@@ -189,36 +201,38 @@ class App(QWidget):
         self.show()
 
     def createTable(self):
-        self.tableWidget = QTableWidget()
-        self.tableWidget.setColumnCount(4)
+        self.model = QStandardItemModel()
+        self.model.setColumnCount(4)
+
+        self.tableWidget = QTableView(self)
 
         headers = [
-            QTableWidgetItem("File"),
-            QTableWidgetItem("Title ID"),
-            QTableWidgetItem("Type"),
-            QTableWidgetItem("Size")
+            "File", "Title ID", "Type", "Size"
         ]
 
-        i = 0
-        for h in headers:
-            self.tableWidget.setHorizontalHeaderItem(i, h)
-            i = i + 1
+        self.model.setHorizontalHeaderLabels(headers)
 
-        header = self.tableWidget.horizontalHeader()
+        self.proxyModel = filtered_table_model()
+        self.proxyModel.setSourceModel(self.model)
+
+        self.tableWidget.setModel(self.proxyModel)
+
         i = 0
-        for h in headers:
+        header = self.tableWidget.horizontalHeader()
+        for _ in headers:
             mode = QHeaderView.Stretch if i == 0 else \
                 QHeaderView.ResizeToContents
             header.setSectionResizeMode(i, mode)
-            i = i + 1
+            i += 1
 
         self.tableWidget.setSortingEnabled(True)
+        self.tableWidget.sortByColumn(0, Qt.AscendingOrder)
 
         self.refreshTable()
 
     @pyqtSlot()
     def on_scan(self):
-        self.tableWidget.setRowCount(0)
+        self.model.setRowCount(0)
         nut_impl.scan()
         self.refreshTable()
 
@@ -272,9 +286,9 @@ class App(QWidget):
     @pyqtSlot()
     def refreshTable(self):
         try:
-            self.tableWidget.setRowCount(0)
-            self.tableWidget.setRowCount(len(nsps.files))
-            i = 0
+            self.model.setRowCount(0)
+            self.model.setRowCount(len(nsps.files))
+            row = 0
             for _, f in nsps.files.items():
                 if f.path.endswith('.nsx'):
                     continue
@@ -282,30 +296,31 @@ class App(QWidget):
                 titleType = "UPD" if f.isUpdate() else "DLC" if f.isDLC() \
                     else "BASE"
 
-                self.tableWidget.setItem(
-                    i,
-                    0,
-                    QTableWidgetItem(f.fileName()),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    1,
-                    QTableWidgetItem(str(f.titleId)),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    2,
-                    QTableWidgetItem(titleType),
-                )
-                self.tableWidget.setItem(
-                    i,
-                    3,
-                    QTableWidgetItem(str(f.fileSize)),
-                )
+                new_values = [{"text": f.fileName()}, \
+                    {"text": str(f.titleId)},\
+                    {"text": titleType},\
+                    {"text": f.fileSize, "data": f.fileSize}]
 
-                i = i + 1
+                column = 0
+                for value in new_values:
+                    if column == SIZE_COLUMN_INDEX: # size column
+                        text = _format_size(value["text"])
+                    else:
+                        text = value["text"]
+                    item = QStandardItem(text)
+                    item.setEditable(False)
+                    if "data" in value:
+                        item.setData(value["data"], Qt.UserRole)
+                    self.model.setItem(
+                        row,
+                        column,
+                        item
+                    )
+                    column += 1
 
-            self.tableWidget.setRowCount(i)
+                row += 1
+
+            self.model.setRowCount(row)
         except BaseException as e:
             print('exception: ' + str(e))
             pass
