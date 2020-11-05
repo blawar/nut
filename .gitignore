@@ -12,6 +12,10 @@ conf/credentials.json
 
 credentials.json
 keys.txt
+gdrive.token
+token.pickle
+
+cache/
 
 *.nsz
 *.nsp

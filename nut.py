@@ -38,11 +38,19 @@ if __name__ == '__main__':
             action="store_true",
             help='Suppresses stdout',
         )
+        parser.add_argument(
+            '--debug',
+            action="store_true",
+            help='Add debug information to the stdout',
+        )
 
         args = parser.parse_args()
 
         if args.silent:
             printer.silent = True
+
+        if args.debug:
+            printer.enableDebug = True
 
         if args.hostname:
             args.server = True

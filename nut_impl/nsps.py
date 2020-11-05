@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import json
+import ntpath
 import os
 import pathlib
-from nut_impl import status
-import time
-from nut_impl import printer
 import threading
-import json
+import time
+
+from nut_impl import printer, status
 from nut_impl.nsp import Nsp
 
 files = {}
@@ -32,9 +33,16 @@ def getBaseId(id):
     titleIdNum = int(id, 16)
     return '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
 
-def __is_file_hidden(filepath):
-    name = os.path.basename(os.path.abspath(filepath))
-    return name.startswith('.')
+def _path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
+
+def is_file_hidden(filepath):
+    name = _path_leaf(filepath)
+    is_hidden = name.startswith('.')
+    if is_hidden:
+        printer.debug(f"found hidden file: {filepath}")
+    return is_hidden
 
 
 def scan(base, force=False):
@@ -48,7 +56,7 @@ def scan(base, force=False):
     printer.info(base)
     for root, _, _files in os.walk(base, topdown=False, followlinks=True):
         for name in _files:
-            if __is_file_hidden(name):
+            if is_file_hidden(name):
                 continue
             suffix = pathlib.Path(name).suffix
 
@@ -139,7 +147,7 @@ def load(fileName='conf/files.json'):
                         continue
 
                     path = os.path.abspath(t.path)
-                    if os.path.isfile(path) and os.path.exists(path) and not __is_file_hidden(path):
+                    if os.path.isfile(path) and os.path.exists(path) and not is_file_hidden(path):
                         files[path] = t  # Fs.Nsp(path, None)
 
     except:

@@ -148,7 +148,6 @@ class Progress:
 class filtered_table_model(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super(filtered_table_model, self).__init__(parent)
-        print("filtered_table_model")
 
     def lessThan(self, left, right):
         column = left.column()
@@ -273,7 +272,7 @@ class App(QWidget):
                 except:
                     pass
 
-                server.controller.api.getGdriveToken(None, None)
+                server.gdrive.get_token()
                 QMessageBox.information(
                     self,
                     'Google Drive OAuth Setup',
