@@ -1,41 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import hashlib
 import json
-from nut_impl import status
-from nut_impl import nsps
-from nut_impl import printer
-import server
-from nut_impl import config
+import os
+import pickle
+import sys
 import time
+import traceback
+
 import nut_impl
 import requests
-import sys
+import server
+
 from bs4 import BeautifulSoup
-import pickle
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import hashlib
-import traceback
-import os
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from nut_impl import config, nsps, printer, status
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 
-def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
-    if start is None:
-        reqHd = {
-            'Accept': accept,
-            'Connection': None,
-            'Accept-Encoding': None,
-        }
-    else:
-        reqHd = {
-            'Accept': accept,
-            'Connection': None,
-            'Accept-Encoding': None,
-            'Range': 'bytes=%d-%d' % (start, end-1),
-        }
+def _makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
+    reqHd = {
+        'Accept': accept,
+        'Connection': None,
+        'Accept-Encoding': None,
+    }
+    if start is not None:
+        reqHd['Range'] = 'bytes=%d-%d' % (start, end-1)
 
     reqHd.update(hdArgs)
 
@@ -48,7 +41,7 @@ def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
         timeout=15
     )
 
-    printer.debug('%s %s %s' % (method, str(r.status_code), url))
+    printer.debug(f'{method} {str(r.status_code)} {url}')
     printer.debug(r.request.headers)
 
     if r.status_code == 403:
@@ -57,16 +50,16 @@ def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
     return r
 
 
-def success(request, response, s):
+def _success(request, response, s):
     response.write(json.dumps({'success': True, 'result': s}))
 
-
-def error(request, response, s):
+# TODO: remove unused method
+def _error(request, response, s):
     response.write(json.dumps({'success': False, 'result': s}))
 
 
 def getScan(request, response):
-    success(request, response, nut_impl.scan())
+    _success(request, response, nut_impl.scan())
 
 
 def getSearch(request, response):
@@ -126,7 +119,7 @@ def getInfo(request, response):
         response.write(json.dumps({'success': False, 'message': str(e)}))
 
 
-def serveFile(response, path, filename=None, start=None, end=None):
+def _serveFile(response, path, filename=None, start=None, end=None):
     try:
         if start is not None:
             start = int(start)
@@ -218,6 +211,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
         response.write(b'')
 
 
+# TODO: very similar to _serveFile, can be refactored
 def getDownload(request, response, start=None, end=None):
     try:
         nsp = nsps.getByTitleId(request.bits[2])
@@ -308,20 +302,20 @@ def getDownload(request, response, start=None, end=None):
         response.write(b'')
 
 
-def isWindows():
+def _isWindows():
     if "win" in sys.platform[:3].lower():
         return True
     else:
         return False
 
 
-def listDrives():
+def _listDrives():
     drives = []
     for label, _ in config.paths.mapping().items():
         drives.append(label)
-    if isWindows():
-        import string
+    if _isWindows():
         import ctypes
+        import string
         kernel32 = ctypes.windll.kernel32
         bitmask = kernel32.GetLogicalDrives()
         for letter in string.ascii_uppercase:
@@ -335,7 +329,7 @@ def listDrives():
     return drives
 
 
-def isBlocked(path):
+def _isBlocked(path):
     path = path.lower()
 
     whitelist = [
@@ -367,11 +361,11 @@ def isBlocked(path):
     return True
 
 
-def isNetworkPath(url):
+def _isNetworkPath(url):
     return url.startswith('http://') or url.startswith('https://')
 
 
-def cleanPath(path=None):
+def _cleanPath(path=None):
     if not path:
         return None
 
@@ -381,7 +375,7 @@ def cleanPath(path=None):
 
     if drive in config.paths.mapping():
         url = config.paths.mapping()[drive]
-        if isNetworkPath(url):
+        if _isNetworkPath(url):
             path = os.path.join(url, '/'.join(bits))
         else:
             path = os.path.abspath(
@@ -390,7 +384,7 @@ def cleanPath(path=None):
                     '/'.join(bits)
                 )
             )
-    elif isWindows():
+    elif _isWindows():
         path = os.path.abspath(os.path.join(drive+':/', '/'.join(bits)))
     else:
         path = os.path.abspath('/'.join(bits))
@@ -398,14 +392,14 @@ def cleanPath(path=None):
     return path
 
 
-def resolveRelativeUrl(path, parent):
+def _resolveRelativeUrl(path, parent):
     if path[0] == '/':
         if len(path) > 1:
             return path[1:]
     return path
 
 
-def isValidCache(cacheFileName, expiration=10 * 60):
+def _isValidCache(cacheFileName, expiration=10 * 60):
     if not os.path.isfile(cacheFileName):
         return False
 
@@ -415,7 +409,7 @@ def isValidCache(cacheFileName, expiration=10 * 60):
     return False
 
 
-def gdriveQuery(
+def _gdriveQuery(
     service,
     q,
     fields=['id', 'name', 'size', 'mimeType'],
@@ -430,7 +424,7 @@ def gdriveQuery(
     os.makedirs('cache/gdrive/', exist_ok=True)
 
     try:
-        if isValidCache(cacheFileName, expiration=expiration):
+        if _isValidCache(cacheFileName, expiration=expiration):
             with open(cacheFileName, encoding="utf-8-sig") as f:
                 return json.loads(f.read())
     except:
@@ -474,14 +468,14 @@ def gdriveQuery(
     return items
 
 
-def gdriveDrives(service, fields=['nextPageToken', 'drives(id, name)']):
+def _gdriveDrives(service, fields=['nextPageToken', 'drives(id, name)']):
     cacheName = hashlib.md5((','.join(fields)).encode()).hexdigest()
     cacheFileName = 'cache/gdrive/' + cacheName
 
     os.makedirs('cache/gdrive/', exist_ok=True)
 
     try:
-        if isValidCache(cacheFileName):
+        if _isValidCache(cacheFileName):
             with open(cacheFileName, encoding="utf-8-sig") as f:
                 return json.loads(f.read())
     except:
@@ -512,11 +506,11 @@ def gdriveDrives(service, fields=['nextPageToken', 'drives(id, name)']):
     return items
 
 
-def gdriveSearchTree(pathBits, children, id=None, roots=None):
+def _gdriveSearchTree(pathBits, children, id=None, roots=None):
     if id is None:
         for name, id in roots.items():
             if name == pathBits[0]:
-                r = gdriveSearchTree(
+                r = _gdriveSearchTree(
                     pathBits[1:],
                     children[id] if id in children else [],
                     id,
@@ -540,7 +534,7 @@ def gdriveSearchTree(pathBits, children, id=None, roots=None):
 
         if folderId in children:
             for newChildren in children[folderId]:
-                r = gdriveSearchTree(
+                r = _gdriveSearchTree(
                     pathBits[1:],
                     newChildren,
                     folderId,
@@ -562,7 +556,7 @@ def getTeamDriveId(service, path):
     if bits[0] == 'mydrive':
         return None
     else:
-        for item in gdriveDrives(service):
+        for item in _gdriveDrives(service):
             id = item['id']
             name = item['name']
             if name == bits[0]:
@@ -571,7 +565,7 @@ def getTeamDriveId(service, path):
     return None
 
 
-def gdriveGetFolderId(service, path):
+def _gdriveGetFolderId(service, path):
     bits = [x for x in path.replace('\\', '/').split('/') if x]
 
     if len(bits) == 0:
@@ -588,7 +582,7 @@ def gdriveGetFolderId(service, path):
     if bits[0] == 'mydrive':
         rootId = 'root'
     else:
-        for item in gdriveDrives(service):
+        for item in _gdriveDrives(service):
             id = item['id']
             name = item['name']
             if name == bits[0]:
@@ -602,7 +596,7 @@ def gdriveGetFolderId(service, path):
     if len(bits) == 1:
         return rootId
 
-    for item in gdriveQuery(
+    for item in _gdriveQuery(
         service,
         f"'{rootId}' in parents and trashed=false and mimeType = " +
         "'application/vnd.google-apps.folder'",
@@ -611,14 +605,14 @@ def gdriveGetFolderId(service, path):
         roots[item['name']] = item['id']
 
     if rootId == 'root':
-        items = gdriveQuery(
+        items = _gdriveQuery(
             service,
             "mimeType = 'application/vnd.google-apps.folder' and " +
             "trashed=false",
             fields=['id', 'name', 'size', 'mimeType', 'parents']
         )
     else:
-        items = gdriveQuery(
+        items = _gdriveQuery(
             service,
             "mimeType = 'application/vnd.google-apps.folder' and " +
             "trashed=false",
@@ -635,18 +629,18 @@ def gdriveGetFolderId(service, path):
         else:
             children['root'].append(item)
 
-    return gdriveSearchTree(bits[1:], children, None, roots)
+    return _gdriveSearchTree(bits[1:], children, None, roots)
 
 
-def getFileInfo(service, path):
+def _getFileInfo(service, path):
     try:
         bits = [x for x in path.replace('\\', '/').split('/') if x]
         dirPath = '/'.join(bits[0:-1])
-        folderId = gdriveGetFolderId(service, dirPath)
+        folderId = _gdriveGetFolderId(service, dirPath)
 
         teamDriveId = getTeamDriveId(service, path)
 
-        for item in gdriveQuery(
+        for item in _gdriveQuery(
             service,
             f"'{folderId}' in parents and trashed=false and mimeType != " +
             "'application/vnd.google-apps.folder'",
@@ -695,7 +689,7 @@ def getGdriveToken(request, response):
         response.write(json.dumps(r))
 
 
-def listGdriveDir(path):
+def _listGdriveDir(path):
     r = {'dirs': [], 'files': []}
 
     creds = None
@@ -721,13 +715,13 @@ def listGdriveDir(path):
 
     if len(bits) == 0:
         r['dirs'].append({'name': 'mydrive'})
-        for item in gdriveDrives(service):
+        for item in _gdriveDrives(service):
             r['dirs'].append({'name': item['name']})
     else:
         teamDriveId = getTeamDriveId(service, path)
-        for item in gdriveQuery(
+        for item in _gdriveQuery(
             service,
-            "'%s' in parents and trashed=false" % gdriveGetFolderId(
+            "'%s' in parents and trashed=false" % _gdriveGetFolderId(
                 service,
                 path
             ),
@@ -761,25 +755,25 @@ def getDirectoryList(request, response):
         if virtualDir == 'gdrive':
             for i in request.bits[3:]:
                 path = os.path.join(path, i)
-            r = listGdriveDir(path)
+            r = _listGdriveDir(path)
             response.write(json.dumps(r))
             return
 
         for i in request.bits[2:]:
             path = os.path.join(path, i)
 
-        path = cleanPath(path)
+        path = _cleanPath(path)
 
         r = {'dirs': [], 'files': []}
 
         if not path:
-            for d in listDrives():
+            for d in _listDrives():
                 r['dirs'].append({'name': d})
             response.write(json.dumps(r))
             return
 
-        if isNetworkPath(path):
-            x = makeRequest('GET', path)
+        if _isNetworkPath(path):
+            x = _makeRequest('GET', path)
             soup = BeautifulSoup(x.text, 'html.parser')
             items = soup.select('a')
 
@@ -788,12 +782,13 @@ def getDirectoryList(request, response):
 
                 if href.endswith('/'):
                     r['dirs'].append({
-                        'name': resolveRelativeUrl(href, virtualDir)
+                        'name': _resolveRelativeUrl(href, virtualDir)
                     })
-                else:
-                    r['files'].append({
-                        'name': resolveRelativeUrl(href, virtualDir)
-                    })
+                    continue
+
+                r['files'].append({
+                    'name': _resolveRelativeUrl(href, virtualDir)
+                })
 
         else:
             for name in os.listdir(path):
@@ -802,7 +797,7 @@ def getDirectoryList(request, response):
                 if os.path.isdir(abspath):
                     r['dirs'].append({'name': name})
                 elif os.path.isfile(abspath):
-                    if not isBlocked(abspath):
+                    if not _isBlocked(abspath):
                         r['files'].append({
                             'name': name,
                             'size': os.path.getsize(abspath),
@@ -814,10 +809,10 @@ def getDirectoryList(request, response):
         raise IOError('dir list access denied')
 
 
-def downloadProxyFile(url, response, start=None, end=None, headers={}):
+def _downloadProxyFile(url, response, start=None, end=None, headers={}):
     bytes = 0
 
-    r = makeRequest('GET', url, start=start, end=end, hdArgs=headers)
+    r = _makeRequest('GET', url, start=start, end=end, hdArgs=headers)
     size = int(r.headers.get('Content-Length'))
 
     chunkSize = 0x100000
@@ -842,7 +837,7 @@ def downloadProxyFile(url, response, start=None, end=None, headers={}):
     return bytes
 
 
-def downloadGdriveFile(response, url, start=None, end=None):
+def _downloadGdriveFile(response, url, start=None, end=None):
     creds = None
 
     if os.path.exists('token.pickle'):
@@ -862,12 +857,12 @@ def downloadGdriveFile(response, url, start=None, end=None):
 
     service = build('drive', 'v3', credentials=creds)
 
-    info = getFileInfo(service, url)
+    info = _getFileInfo(service, url)
 
     if not info:
         return server.Response404(None, response)
 
-    return downloadProxyFile(
+    return _downloadProxyFile(
         'https://www.googleapis.com/drive/v3/files/%s?alt=media' % info['id'],
         response,
         start,
@@ -887,9 +882,9 @@ def getFile(request, response, start=None, end=None):
 
         for i in request.bits[2:]:
             path = os.path.join(path, i)
-        path = cleanPath(path)
+        path = _cleanPath(path)
 
-        if isBlocked(path):
+        if _isBlocked(path):
             raise IOError('access denied')
 
         if 'Range' in request.headers:
@@ -906,12 +901,12 @@ def getFile(request, response, start=None, end=None):
             path = ''
             for i in request.bits[3:]:
                 path = os.path.join(path, i)
-            return downloadGdriveFile(response, path, start=start, end=end)
+            return _downloadGdriveFile(response, path, start=start, end=end)
 
-        elif isNetworkPath(path):
-            downloadProxyFile(path, response, start=start, end=end)
+        elif _isNetworkPath(path):
+            _downloadProxyFile(path, response, start=start, end=end)
         else:
-            return serveFile(response, path, start=start, end=end)
+            return _serveFile(response, path, start=start, end=end)
     except:
         raise IOError('file read access denied')
 
@@ -921,7 +916,7 @@ def getFileSize(request, response):
     path = ''
     for i in request.bits[2:]:
         path = os.path.join(path, i)
-    path = cleanPath(path)
+    path = _cleanPath(path)
     try:
         t['size'] = os.path.getsize(path)
         t['mtime'] = os.path.getmtime(path)
