@@ -8,8 +8,8 @@ import time
 import webbrowser
 
 import urllib3
-from PyQt5.QtCore import QSortFilterProxyModel, Qt, QTimer, pyqtSlot
-from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
+from PyQt5.QtCore import Qt, QTimer, pyqtSlot
+from PyQt5.QtGui import QIcon, QStandardItem
 from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
                              QHeaderView, QLabel, QLineEdit, QMessageBox,
                              QProgressBar, QPushButton, QTableView,
@@ -17,9 +17,9 @@ from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
 
 import nut_impl
 import server
-from nut_impl import config, nsps, status, usb, users
+from nut_impl import config, nsps, status, usb, users, printer
 
-SIZE_COLUMN_INDEX = 3
+from gui.table_model import TableModel
 
 def getIpAddress():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -34,13 +34,6 @@ def getIpAddress():
 
 def formatSpeed(n):
     return str(round(n / 1000 / 1000, 1)) + 'MB/s'
-
-def _format_size(num, suffix='B'):
-    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
-        if abs(num) < 1024.0:
-            return "%3.1f %s%s" % (num, unit, suffix)
-        num /= 1024.0
-    return "%.1f %s%s" % (num, 'Yi', suffix)
 
 
 class Header:
@@ -145,25 +138,6 @@ class Progress:
             self.app.refreshTable()
 
 
-class filtered_table_model(QSortFilterProxyModel):
-    def __init__(self, parent=None):
-        super(filtered_table_model, self).__init__(parent)
-        print("filtered_table_model")
-
-    def lessThan(self, left, right):
-        column = left.column()
-        if column == SIZE_COLUMN_INDEX: # size column
-            displayRole = Qt.UserRole
-        else:
-            displayRole = Qt.DisplayRole
-        leftData = self.sourceModel().data(left, displayRole)
-        rightData = self.sourceModel().data(right, displayRole)
-
-        if leftData is None or rightData is None:
-            return -1
-        return leftData < rightData
-
-
 class App(QWidget):
     def __init__(self):
         super().__init__()
@@ -201,29 +175,13 @@ class App(QWidget):
         self.show()
 
     def createTable(self):
-        self.model = QStandardItemModel()
-        self.model.setColumnCount(4)
+        self.model = TableModel(self)
 
         self.tableWidget = QTableView(self)
+        self.tableWidget.setModel(self.model)
 
-        headers = [
-            "File", "Title ID", "Type", "Size"
-        ]
-
-        self.model.setHorizontalHeaderLabels(headers)
-
-        self.proxyModel = filtered_table_model()
-        self.proxyModel.setSourceModel(self.model)
-
-        self.tableWidget.setModel(self.proxyModel)
-
-        i = 0
         header = self.tableWidget.horizontalHeader()
-        for _ in headers:
-            mode = QHeaderView.Stretch if i == 0 else \
-                QHeaderView.ResizeToContents
-            header.setSectionResizeMode(i, mode)
-            i += 1
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
 
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.sortByColumn(0, Qt.AscendingOrder)
@@ -285,42 +243,14 @@ class App(QWidget):
 
     @pyqtSlot()
     def refreshTable(self):
+        printer.debug("refreshTable")
         try:
+            self.tableWidget.setUpdatesEnabled(False)
             self.model.setRowCount(0)
-            self.model.setRowCount(len(nsps.files))
-            row = 0
-            for _, f in nsps.files.items():
-                if f.path.endswith('.nsx'):
-                    continue
 
-                titleType = "UPD" if f.isUpdate() else "DLC" if f.isDLC() \
-                    else "BASE"
+            self.model.update(nsps.files)
+            self.tableWidget.setUpdatesEnabled(True)
 
-                new_values = [{"text": f.fileName()}, \
-                    {"text": str(f.titleId)},\
-                    {"text": titleType},\
-                    {"text": f.fileSize, "data": f.fileSize}]
-
-                column = 0
-                for value in new_values:
-                    if column == SIZE_COLUMN_INDEX: # size column
-                        text = _format_size(value["text"])
-                    else:
-                        text = value["text"]
-                    item = QStandardItem(text)
-                    item.setEditable(False)
-                    if "data" in value:
-                        item.setData(value["data"], Qt.UserRole)
-                    self.model.setItem(
-                        row,
-                        column,
-                        item
-                    )
-                    column += 1
-
-                row += 1
-
-            self.model.setRowCount(row)
         except BaseException as e:
             print('exception: ' + str(e))
             pass
