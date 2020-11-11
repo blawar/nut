@@ -93,31 +93,31 @@ def getSearch(request, response):
 		if name.endswith('.nsp'):
 			nsp.append({
 				'id': f.titleId,
-				'name': f.fileName(),
+				'name': f.baseName(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.nsz'):
 			nsz.append({
 				'id': f.titleId,
-				'name': f.fileName(),
+				'name': f.baseName(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.nsx'):
 			nsx.append({
 				'id': f.titleId,
-				'name': f.fileName(),
+				'name': f.baseName(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.xci'):
 			xci.append({
 				'id': f.titleId,
-				'name': f.fileName(),
+				'name': f.baseName(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.xcz'):
 			xcz.append({
 				'id': f.titleId,
-				'name': f.fileName(),
+				'name': f.baseName(),
 				'version': int(f.version) if f.version else None
 			})
 
@@ -1025,6 +1025,8 @@ def getFileSize(request, response):
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
 def getQueue(request, response):
+	response.write(json.dumps([]))
+	'''
 	r = Status.data().copy()
 	q = Titles.queue.get().copy()
 	i = Titles.queue.i
@@ -1032,6 +1034,7 @@ def getQueue(request, response):
 		r.append({'id': q[i], 'i': 0, 'size': 0, 'elapsed': 0, 'speed': 0 })
 		i += 1
 	response.write(json.dumps(r))
+	'''
 
 def getTitleUpdates(request, response):
 	r = {}
