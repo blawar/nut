@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6cec2e60-606b-4a77-99b1-84d78f8641a2}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>gui.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>-s</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="public_html\images\logo.jpg" />
+    <Content Include="public_html\index.html" />
+    <Content Include="public_html\script\default.js" />
+    <Content Include="public_html\script\jquery-3.3.1.min.js" />
+    <Content Include="public_html\script\title.js" />
+    <Content Include="public_html\style\default.css" />
+    <Content Include="public_html\style\reset.css" />
+    <Content Include="public_html\style\title.css" />
+    <Content Include="public_html\title.html" />
+    <Content Include="titledb\default.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cdn\Aqua.py" />
+    <Compile Include="cdn\Atum.py" />
+    <Compile Include="cdn\Atumn.py" />
+    <Compile Include="cdn\Auth.py" />
+    <Compile Include="cdn\Shogun.py" />
+    <Compile Include="cdn\Sun.py" />
+    <Compile Include="cdn\Superfly.py" />
+    <Compile Include="cdn\Tagaya.py" />
+    <Compile Include="cdn\__init__.py" />
+    <Compile Include="Fs\BaseFs.py" />
+    <Compile Include="Fs\Bktr.py" />
+    <Compile Include="Fs\Cnmt.py" />
+    <Compile Include="Fs\File.py" />
+    <Compile Include="Fs\Hfs0.py" />
+    <Compile Include="Fs\IndexedFile.py" />
+    <Compile Include="Fs\Ivfc.py" />
+    <Compile Include="Fs\Nacp.py" />
+    <Compile Include="Fs\Nca.py" />
+    <Compile Include="Fs\Nsp.py" />
+    <Compile Include="Fs\Pfs0.py" />
+    <Compile Include="Fs\Rom.py" />
+    <Compile Include="Fs\Ticket.py" />
+    <Compile Include="Fs\Type.py" />
+    <Compile Include="Fs\Xci.py" />
+    <Compile Include="Fs\__init__.py" />
+    <Compile Include="gui.py" />
+    <Compile Include="gui\panes\dirlist.py" />
+    <Compile Include="gui\panes\files.py" />
+    <Compile Include="gui\panes\filters.py" />
+    <Compile Include="gui\panes\format.py" />
+    <Compile Include="gui\panes\options.py" />
+    <Compile Include="gui\panes\__init__.py" />
+    <Compile Include="gui\tabs.py" />
+    <Compile Include="gui\__init__.py" />
+    <Compile Include="nut\aes128.py" />
+    <Compile Include="nut\blockchain.py" />
+    <Compile Include="nut\Config.py" />
+    <Compile Include="nut\Hex.py" />
+    <Compile Include="nut\Keys.py" />
+    <Compile Include="nut\Nsps.py" />
+    <Compile Include="nut\NszDecompressor.py" />
+    <Compile Include="nut\Print.py" />
+    <Compile Include="nut\Status.py" />
+    <Compile Include="nut\Title.py" />
+    <Compile Include="nut\Titles.py" />
+    <Compile Include="nut\Usb.py" />
+    <Compile Include="nut\Users.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="nut.py" />
+    <Compile Include="nut\__init__.py" />
+    <Compile Include="server.py" />
+    <Compile Include="Server\Controller\Api.py" />
+    <Compile Include="Server\Controller\__init__.py" />
+    <Compile Include="Server\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cdn\" />
+    <Folder Include="Fs\" />
+    <Folder Include="Fs\__pycache__\" />
+    <Folder Include="gui\panes\" />
+    <Folder Include="lib" />
+    <Folder Include="nut\" />
+    <Folder Include="gui\" />
+    <Folder Include="public_html\" />
+    <Folder Include="public_html\images\" />
+    <Folder Include="public_html\script\" />
+    <Folder Include="public_html\style\" />
+    <Folder Include="Server\" />
+    <Folder Include="Server\Controller\" />
+    <Folder Include="titledb" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
