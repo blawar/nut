@@ -41,8 +41,9 @@ import Fs.Type
 
 try:
 	import cdn
+	hasCdn = True
 except:
-	pass
+	hasCdn = False
 
 try:
 	from nut import blockchain
@@ -448,24 +449,26 @@ if __name__ == '__main__':
 			parser.add_argument('--update', type=int, choices=[0, 1], default=Config.download.update*1, help='download title updates')
 			parser.add_argument('--dlc', type=int, choices=[0, 1], default=Config.download.DLC*1, help='download DLC titles')
 			parser.add_argument('--nsx', type=int, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
-			parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
-			parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
-			parser.add_argument('--dry', action="store_true", help='Dry run, do not download anything')
-			parser.add_argument('--system-update', action="store_true", help='Download latest system update')
-			parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
-			parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
-			parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
-			parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
-			parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
-			parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
-			parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
-			parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
-			parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
-			parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
-			parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
-			parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
-			parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
-			parser.add_argument('--cetk', help='Pull ticket by rightsID')
+			parser.add_argument('--dry', action="store_true", help='Dry run, do not download/rename anything')
+
+			if hasCdn:
+				parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
+				parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
+				parser.add_argument('--system-update', action="store_true", help='Download latest system update')
+				parser.add_argument('-Z', action="store_true", help='update ALL title versions from nintendo')
+				parser.add_argument('-z', action="store_true", help='update newest title versions from nintendo')
+				parser.add_argument('-V', action="store_true", help='scan latest title updates from nintendo')
+				parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
+				parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
+				parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
+				parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
+				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
+				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
+				parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
+				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
+				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
+				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
+				parser.add_argument('--cetk', help='Pull ticket by rightsID')
 			
 			args = parser.parse_args()
 

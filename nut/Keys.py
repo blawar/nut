@@ -131,7 +131,10 @@ def load(fileName):
 try:			
 	load('keys.txt')
 except BaseException as e:
-	Print.error(str(e))
+	try:
+		load('keys.prod')
+	except:
+		Print.error('could not load keys.txt, all crypto operations will fail')
 
 #for k in titleKeks:
 #	Print.info('titleKek = ' + k)

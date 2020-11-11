@@ -591,6 +591,8 @@ def updateTitleDb(force = False):
 				while not nspf.eof():
 					f.write(nspf.read(8 * 1000 * 1000))
 
+		container.close()
+
 		try:
 			os.remove('titledb/db.nza')
 		except:

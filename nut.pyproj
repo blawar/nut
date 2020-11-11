@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6cec2e60-606b-4a77-99b1-84d78f8641a2}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>gui.py</StartupFile>
+    <StartupFile>nut_gui.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -57,7 +57,6 @@
     <Compile Include="Fs\Type.py" />
     <Compile Include="Fs\Xci.py" />
     <Compile Include="Fs\__init__.py" />
-    <Compile Include="gui.py" />
     <Compile Include="gui\panes\dirlist.py" />
     <Compile Include="gui\panes\files.py" />
     <Compile Include="gui\panes\filters.py" />
@@ -83,7 +82,7 @@
     </Compile>
     <Compile Include="nut.py" />
     <Compile Include="nut\__init__.py" />
-    <Compile Include="server.py" />
+    <Compile Include="nut_gui.py" />
     <Compile Include="Server\Controller\Api.py" />
     <Compile Include="Server\Controller\__init__.py" />
     <Compile Include="Server\__init__.py" />
