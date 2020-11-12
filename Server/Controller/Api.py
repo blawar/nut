@@ -414,7 +414,7 @@ def isWindows():
 
 def listDrives():
 	drives = []
-	for label, _ in config.paths.mapping().items():
+	for label, _ in Config.paths.mapping().items():
 		drives.append(label)
 	if isWindows():
 		import string
@@ -476,8 +476,8 @@ def cleanPath(path=None):
 	drive = bits[0]
 	bits = bits[1:]
 
-	if drive in config.paths.mapping():
-		url = config.paths.mapping()[drive]
+	if drive in Config.paths.mapping():
+		url = Config.paths.mapping()[drive]
 		if isNetworkPath(url):
 			path = os.path.join(url, '/'.join(bits))
 		else:
@@ -769,7 +769,7 @@ def getGdriveToken(request, response):
 			creds.refresh(Request())
 		else:
 			flow = InstalledAppFlow.from_client_secrets_file(
-				config.getGdriveCredentialsFile(), SCOPES)
+				Config.getGdriveCredentialsFile(), SCOPES)
 			creds = flow.run_local_server(port=0)
 
 		with open('token.pickle', 'wb') as token:
@@ -785,7 +785,7 @@ def getGdriveToken(request, response):
 	r['access_token'] = creds.token
 	r['refresh_token'] = creds.refresh_token
 
-	with open(config.getGdriveCredentialsFile(), 'r') as f:
+	with open(Config.getGdriveCredentialsFile(), 'r') as f:
 		r['credentials'] = json.loads(f.read())
 
 	if response is not None:
@@ -806,7 +806,7 @@ def listGdriveDir(path):
 			creds.refresh(Request())
 		else:
 			flow = InstalledAppFlow.from_client_secrets_file(
-				config.getGdriveCredentialsFile(), SCOPES)
+				Config.getGdriveCredentialsFile(), SCOPES)
 			creds = flow.run_local_server(port=0)
 
 		with open('token.pickle', 'wb') as token:
@@ -907,7 +907,7 @@ def getDirectoryList(request, response):
 						})
 
 		response.write(json.dumps(r))
-	except:
+	except BaseException as e:
 		raise IOError('dir list access denied')
 
 
@@ -925,7 +925,7 @@ def downloadProxyFile(url, response, start=None, end=None, headers={}):
 			response.write(chunk)
 			bytes += len(chunk)
 
-			if not config.isRunning:
+			if not Config.isRunning:
 				break
 	else:
 		response.write(r.content)
@@ -951,7 +951,7 @@ def downloadGdriveFile(response, url, start=None, end=None):
 			creds.refresh(Request())
 		else:
 			flow = InstalledAppFlow.from_client_secrets_file(
-				config.getGdriveCredentialsFile(), SCOPES)
+				Config.getGdriveCredentialsFile(), SCOPES)
 			creds = flow.run_local_server(port=0)
 
 		with open('token.pickle', 'wb') as token:
@@ -1158,7 +1158,7 @@ def getSwitchInstalled(request, response):
 	except BaseException as e:
 		error(request, response, str(e))
 
-def cleanPath(path = None):
+def cleanPath2(path = None):
 	if path:
 		path = os.path.abspath(os.path.join(Config.paths.scan[0], path))
 	else:

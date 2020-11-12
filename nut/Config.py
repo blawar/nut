@@ -32,6 +32,15 @@ pullUrls = []
 
 g_regionLanguages = None
 
+def getGdriveCredentialsFile():
+	files = ['credentials.json', 'conf/credentials.json']
+	
+	for file in files:
+		if os.path.exists(file):
+			return file
+			
+	return None
+
 class Server:
 	def __init__(self):
 		self.hostname = '0.0.0.0'
@@ -87,6 +96,26 @@ class Paths:
 			self.hactool = './' + self.hactool + '_mac'
 			
 		self.hactool = os.path.normpath(self.hactool)
+
+	def mapping(self):
+		m = {}
+		
+		if getGdriveCredentialsFile() is not None:
+			m['gdrive'] = ''
+
+		unknown = 0
+		for f in self.scan:
+			bits = f.split('#', 2)
+			if len(bits) == 1:
+				label = os.path.basename(f)
+			else:
+				label = bits[1]
+				
+			if not label or not len(label) or label == '':
+				label = 'L' + str(unknown)
+				unknown += 1
+			m[label] = bits[0]
+		return m
 
 	def getTitleBase(self, nsx, name):
 		if not name:
