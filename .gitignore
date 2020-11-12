@@ -10,6 +10,10 @@ conf/user.conf
 conf/files.json
 conf/credentials.json
 
+cache/
+
+gdrive.token
+token.pickle
 credentials.json
 keys.txt
 
