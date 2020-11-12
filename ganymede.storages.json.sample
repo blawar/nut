@@ -1,0 +1,24 @@
+{
+	"storages": [
+		{
+			"path": "storage/dir1",
+			"index": "storage/dir1.json",
+			"tfl": "storage/dir1.tfl",
+			"prefix": "https://localhost/",
+			"maxStorageSize": 60000000000,
+			"maxStorageFileSize": 100000000,
+			"maxFileSize": 200000000,
+			"minFileSize": 0
+		},
+		{
+			"path": "storage/dir2",
+			"index": "storage/dir2.json",
+			"tfl": "storage/dir2.tfl",
+			"prefix": "https://localhost/",
+			"maxStorageSize": 100000000000,
+			"maxStorageFileSize": 100000000,
+			"maxFileSize": 200000000,
+			"minFileSize": 0
+		}
+	]
+}
