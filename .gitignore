@@ -11,6 +11,8 @@ conf/files.json
 conf/credentials.json
 
 cache/
+titles/
+titledb/
 
 gdrive.token
 token.pickle

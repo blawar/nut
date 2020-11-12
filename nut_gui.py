@@ -184,7 +184,6 @@ class Progress:
 class App(QWidget):
 	def __init__(self):
 		super().__init__()
-		self.setWindowIcon(QIcon('images/logo.jpg'))
 		screen = QDesktopWidget().screenGeometry()
 		self.title = 'NUT 3.0'
 		self.left = int(screen.width() / 4)
@@ -371,6 +370,7 @@ def run():
 	nut.initFiles()
 
 	app = QApplication(sys.argv)
+	app.setWindowIcon(QIcon('images/logo.jpg'))
 	ex = App()
 
 	threads = []
