@@ -1,4 +1,5 @@
 import Fs.driver.registry
+import urllib.parse
 
 class DirContext:
 	def __init__(self, url, parent):
@@ -93,5 +94,16 @@ def openDir(url):
 
 def openFile(url, mode = 'rb'):
 	return Fs.driver.registry.get(getScheme(url)).openFile(url, mode)
-	
+
+customSchemes = ['gdrive:']
+def join(url1, url2):
+	for s in customSchemes:
+		if url1.startswith(s):
+			dummyScheme = 'http://localhost'
+			tempUrl = dummyScheme + url1[len(s):]
+			tempUrl = urllib.parse.urljoin(tempUrl, url2)
+			return s + tempUrl[len(dummyScheme):]
+
+	return urllib.parse.urljoin(url1, url2)
+
 
