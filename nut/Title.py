@@ -867,7 +867,7 @@ class Title:
 								self.ratingContent = esrbcontent
 
 							if "number_of_players" in infoJson:
-								self.numberOfPlayers = re.sub('[^0-9]', '', infoJson["number_of_players"])
+								self.numberOfPlayers = re.sub(r'[^0-9]', '', infoJson["number_of_players"])
 
 							if "esrb_rating_ref" in infoJson:
 								if "esrb_rating" in infoJson["esrb_rating_ref"]:
@@ -909,12 +909,12 @@ class Title:
 										details = details.decode(formatter=None)
 									except:
 										details = details.decode()
-									details = re.sub('<[^<]+?>', '', details).strip()
-									details = re.sub(' +', ' ', details)
-									details = re.sub('\n ', '\n', details)
-									details = re.sub('\n\n+', '\n\n', details)
-									details = re.sub('(?<!\n)\n(?!\n)', ' ',details)
-									details = re.sub('  ', ' ', details)
+									details = re.sub(r'<[^<]+?>', '', details).strip()
+									details = re.sub(r' +', ' ', details)
+									details = re.sub(r'\n ', '\n', details)
+									details = re.sub(r'\n\n+', '\n\n', details)
+									details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+									details = re.sub(r'  ', ' ', details)
 									self.intro = details
 								except Exception as e:
 									pass
@@ -925,12 +925,12 @@ class Title:
 									details = details.decode(formatter=None)
 								except:
 									details = details.decode()
-								details = re.sub('<[^<]+?>', '', details).strip()
-								details = re.sub(' +', ' ', details)
-								details = re.sub('\n ', '\n', details)
-								details = re.sub('\n\n+', '\n\n', details)
-								details = re.sub('(?<!\n)\n(?!\n)', ' ',details)
-								details = re.sub('  ', ' ', details)
+								details = re.sub(r'<[^<]+?>', '', details).strip()
+								details = re.sub(r' +', ' ', details)
+								details = re.sub(r'\n ', '\n', details)
+								details = re.sub(r'\n\n+', '\n\n', details)
+								details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+								details = re.sub(r'  ', ' ', details)
 								self.description = details
 				#else:
 					#f = open("missing.txt", 'a', encoding="utf8")
