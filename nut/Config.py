@@ -3,7 +3,7 @@
 import json
 import os
 import platform
-from nut import Print
+import nut.Print
 import time
 from binascii import hexlify as hx, unhexlify as uhx
 
@@ -34,11 +34,11 @@ g_regionLanguages = None
 
 def getGdriveCredentialsFile():
 	files = ['credentials.json', 'conf/credentials.json']
-	
+
 	for file in files:
 		if os.path.exists(file):
 			return file
-			
+
 	return None
 
 class Server:
@@ -88,18 +88,18 @@ class Paths:
 		self.titleImages = 'titles/images/'
 
 		self.duplicates = 'duplicates/'
-		
+
 		if platform.system() == 'Linux':
 			self.hactool = './' + self.hactool + '_linux'
 
 		if platform.system() == 'Darwin':
 			self.hactool = './' + self.hactool + '_mac'
-			
+
 		self.hactool = os.path.normpath(self.hactool)
 
 	def mapping(self):
 		m = {}
-		
+
 		if getGdriveCredentialsFile() is not None:
 			m['gdrive'] = ''
 
@@ -110,7 +110,7 @@ class Paths:
 				label = os.path.basename(f)
 			else:
 				label = bits[1]
-				
+
 			if not label or not len(label) or label == '':
 				label = 'L' + str(unknown)
 				unknown += 1
@@ -124,7 +124,7 @@ class Paths:
 		if nsx and (name.endswith('.nsp') or name.endswith('.nsx')):
 			f = self.nsxTitleBase or self.titleBase
 			return os.path.splitext(f)[0] + '.nsx'
-		
+
 		ext = name[-4:]
 		f = None
 
@@ -309,35 +309,35 @@ def load(confFile):
 			paths.titleImages = j['paths']['titleImages']
 		except:
 			pass
-	
+
 		try:
 			paths.titleBase = j['paths']['titleBase']
 		except:
 			pass
-		
+
 		try:
 			paths.titleDLC = j['paths']['titleDLC']
 		except:
 			pass
-		
+
 		try:
 			paths.titleUpdate = j['paths']['titleUpdate']
 		except:
 			pass
-		
+
 		try:
 			paths.titleDemo = j['paths']['titleDemo']
 		except:
 			pass
-		
+
 		try:
 			paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
-		except: 
+		except:
 			pass
 
 		try:
 			paths.duplicates = j['paths']['duplicates']
-		except: 
+		except:
 			pass
 
 
@@ -345,79 +345,79 @@ def load(confFile):
 			paths.nsxTitleBase = j['paths']['nsxTitleBase']
 		except:
 			pass
-		
+
 		try:
 			paths.nsxTitleDLC = j['paths']['nsxTitleDLC']
 		except:
 			pass
-		
+
 		try:
 			paths.nsxTitleUpdate = j['paths']['nsxTitleUpdate']
 		except:
 			pass
-		
+
 		try:
 			paths.nsxTitleDemo = j['paths']['nsxTitleDemo']
 		except:
 			pass
-		
+
 		try:
 			paths.nsxTitleDemoUpdate = j['paths']['nsxTitleDemoUpdate']
-		except: 
+		except:
 			pass
 
 		try:
 			paths.nszTitleBase = j['paths']['nszTitleBase']
 		except:
 			pass
-		
+
 		try:
 			paths.nszTitleDLC = j['paths']['nszTitleDLC']
 		except:
 			pass
-		
+
 		try:
 			paths.nszTitleUpdate = j['paths']['nszTitleUpdate']
 		except:
 			pass
-		
+
 		try:
 			paths.nszTitleDemo = j['paths']['nszTitleDemo']
 		except:
 			pass
-		
+
 		try:
 			paths.nszTitleDemoUpdate = j['paths']['nszTitleDemoUpdate']
-		except: 
+		except:
 			pass
 
 		try:
 			paths.xciTitleBase = j['paths']['xciTitleBase']
 		except:
 			pass
-		
+
 		try:
 			paths.xciTitleDLC = j['paths']['xciTitleDLC']
 		except:
 			pass
-		
+
 		try:
 			paths.xciTitleUpdate = j['paths']['xciTitleUpdate']
 		except:
 			pass
-		
+
 		try:
 			paths.xciTitleDemo = j['paths']['xciTitleDemo']
 		except:
 			pass
-		
+
 		try:
 			paths.xciTitleDemoUpdate = j['paths']['xciTitleDemoUpdate']
-		except: 
+		except:
 			pass
 
 
-	
+
 		try:
 			paths.scan = j['paths']['scan']
 		except:
@@ -427,7 +427,7 @@ def load(confFile):
 			paths.nspOut = j['paths']['nspOut']
 		except:
 			pass
-		
+
 		try:
 			paths.titleDatabase = j['paths']['titledb']
 		except:
@@ -493,17 +493,17 @@ def load(confFile):
 			download.regions = j['download']['regions']
 		except:
 			pass
-		
+
 		try:
 			download.demo = j['download']['demo']
 		except:
 			pass
-		
+
 		try:
 			download.DLC = j['download']['dlc']
 		except:
 			pass
-		
+
 		try:
 			download.update = j['download']['update']
 		except:
@@ -578,8 +578,8 @@ def load(confFile):
 		try:
 			autoUpdateTitleDb = j['autoUpdateTitleDb']
 		except:
-			pass		
-	
+			pass
+
 		try:
 			for url in j['titleUrls']:
 				if url not in titleUrls:
@@ -593,6 +593,34 @@ def load(confFile):
 					pullUrls.append(url)
 		except:
 			pass
+
+
+def update_main_path(newPath, nsp_files):
+    """Function updateMainPath is intended to update a new main path (first element
+    with 0 index in the config file).
+    NSPs will be cleared (in memory) if path has been changed.
+    Args:
+        newPath (string): a new main path (first element with 0 index in the config file)
+    Returns:
+        None
+    """
+    global paths
+
+    pathChanged = False
+    oldPath = paths.scan[0]
+
+    if newPath != oldPath:
+        pathChanged = True
+
+    if not pathChanged:
+        return
+
+    paths.scan[0] = newPath
+    save()
+
+    if pathChanged:
+        nsp_files.clear()
+
 
 def regionLanguages(fileName = 'titledb/languages.json'):
 	global g_regionLanguages
@@ -623,19 +651,22 @@ def loadTitleWhitelist():
 def loadTitleBlacklist():
 	global titleBlacklist
 	titleBlacklist = []
-	
+
 	confDir = 'conf'
-	
-	files = os.listdir(confDir)
-	
+
+	try:
+		files = os.listdir(confDir)
+	except FileNotFoundError:
+		return
+
 	for file in files:
 		path = os.path.abspath(os.path.join(confDir, file))
-		
+
 		if 'blacklist' not in path:
 			continue
-			
+
 		print('loading blacklist %s' % path)
-	
+
 		try:
 			with open(path, encoding='utf8') as f:
 				for line in f.readlines():
@@ -689,12 +720,14 @@ class Download:
 					return True
 
 		return False
+
+
 class DAuthToken:
 	def __init__(self, clientId):
 		self.token = None
 		self.expires = None
 		self.clientId = clientId
-		
+
 	def fileName(self):
 		return 'dauth.%s.token' % self.clientId
 
@@ -768,7 +801,7 @@ class EdgeToken:
 		self.token = None
 		self.expires = None
 		self.clientId = clientId
-		
+
 	def fileName(self):
 		return 'edge.%s.token' % self.clientId
 
@@ -815,8 +848,11 @@ if os.path.isfile('conf/nut.conf'):
 loadTitleWhitelist()
 loadTitleBlacklist()
 
-edgeToken = EdgeToken(cdn.clientIds['tagaya'])
-c1EdgeToken = EdgeToken(cdn.clientIds['atumC1'])
-dauthToken = DAuthToken(cdn.clientIds['eShop'])
-dauthTigersToken = DAuthToken(cdn.clientIds['tigers'])
-eShopEdgeToken = EdgeToken(cdn.clientIds['eShop'])
+try:
+	edgeToken = EdgeToken(cdn.clientIds['tagaya'])
+	c1EdgeToken = EdgeToken(cdn.clientIds['atumC1'])
+	dauthToken = DAuthToken(cdn.clientIds['eShop'])
+	dauthTigersToken = DAuthToken(cdn.clientIds['tigers'])
+	eShopEdgeToken = EdgeToken(cdn.clientIds['eShop'])
+except:
+	pass

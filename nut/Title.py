@@ -28,7 +28,7 @@ except:
 fileLUT = {}
 grabUrlInit = False
 urlCache = {}
-urlLock = threading.Lock()	
+urlLock = threading.Lock()
 
 if os.path.isfile('titledb/redirectCache.json'):
 	with open('titledb/redirectCache.json', encoding="utf-8-sig") as f:
@@ -107,7 +107,7 @@ class Title:
 		self.languages = None
 		self.size = 0
 		self.rank = None
-	
+
 	def __lt__(self, other):
 		if not self.name:
 			return True
@@ -129,26 +129,26 @@ class Title:
 			if i not in blacklist and (full == True or (self.__dict__[i] is not None and(i != 'size' or self.__dict__[i] > 0))):
 				r[i] = self.__dict__[i]
 		return r
-		
+
 	def loadCsv(self, line, map = ['id', 'key', 'name']):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
 				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
-			
+
 			i = str(map[i])
 			methodName = 'set' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
-			
+
 		#self.setId(split[0].strip())
 		#self.setName(split[2].strip())
 		#self.setKey(split[1].strip())
 
 	def dict(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = {}
-		for i in map:	
+		for i in map:
 			methodName = 'get' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda: methodName)
 			r[i] = method()
@@ -162,20 +162,20 @@ class Title:
 		for k,v in regionTitle.__dict__.items():
 			if k in ('id', 'version', 'regions', 'key'):
 				continue
-				
+
 			if v is not None:
 				setattr(self, k, v)
-		
+
 
 		self.setId(self.id)
 		self.setVersion(regionTitle.version)
 		self.region = region
 		self.language = language
-		
+
 	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = []
 		for i in map:
-				
+
 			methodName = 'get' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda: methodName)
 			r.append(str(method()))
@@ -327,7 +327,7 @@ class Title:
 			self.rank = int(v, 10)
 		except:
 			pass
-		
+
 	def getIsUpdate(self):
 		return self.isUpdate*1
 
@@ -340,7 +340,7 @@ class Title:
 				self.isUpdate = False
 		except:
 			pass
-		
+
 	def getIsDemo(self):
 		try:
 			return self.isDemo*1
@@ -366,10 +366,10 @@ class Title:
 	def setRightsId(self, rightsId):
 		if not id:
 			self.setId(rightsId)
-			
+
 		if rightsId and len(rightsId) == 32 and rightsId != '00000000000000000000000000000000':
 			self.rightsId = rightsId.upper()
-			
+
 	def getRightsId(self):
 		return self.rightsId or '00000000000000000000000000000000'
 
@@ -378,7 +378,7 @@ class Title:
 			return True
 		else:
 			return False
-			
+
 	def setId(self, id):
 		if not hasattr(self, 'rank'):
 			self.rank = None
@@ -387,14 +387,14 @@ class Title:
 		self.baseId = None
 		if not id:
 			return
-			
+
 		id = id.upper()
-		
+
 		try:
 			i = int(id, 16)
 		except:
 			return
-		
+
 		if len(id) == 32:
 			self.id = id[:16]
 			self.setRightsId(id)
@@ -402,16 +402,16 @@ class Title:
 			self.id = id[:16]
 		else:
 			return
-		
+
 		titleIdNum = int(self.id, 16)
-		
+
 		if self.id:
 			self.baseId = '{:02X}'.format(titleIdNum & 0xFFFFFFFFFFFFE000).zfill(16)
-		
+
 		self.isDLC = (titleIdNum & 0xFFFFFFFFFFFFE000) != (titleIdNum & 0xFFFFFFFFFFFFF000)
 		#self.isBase = self.id == titleIdNum & 0xFFFFFFFFFFFFE000
 		self.idExt = titleIdNum & 0x0000000000000FFF
-		
+
 		if self.isDLC:
 			# dlc
 			self.isUpdate = False
@@ -426,10 +426,10 @@ class Title:
 	@staticmethod
 	def baseDlcId(id):
 		titleIdNum = int(id, 16)
-		
+
 		return (titleIdNum & 0xFFFFFFFFFFFFE000) + 0x1000
 		#return hex(dlcId)
-			
+
 	def getId(self):
 		return self.id or '0000000000000000'
 
@@ -437,19 +437,19 @@ class Title:
 		return self.baseId or '0000000000000000'
 
 	def setRegion(self, region):
-		if not self.region and re.match('[A-Z]{2}', region):
+		if not self.region and re.match(r'[A-Z]{2}', region):
 			self.region = region
-		
+
 	def getRegion(self):
 		return self.region or ''
-			
+
 	def setName(self, name):
 		if not name or self.name:
 			return
 		self.name = name
-		
+
 		if self.isDemo == None:
-			if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
+			if re.match(r'.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match(r'.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
 				self.isDemo = True
 			else:
 				self.isDemo = False
@@ -458,13 +458,13 @@ class Title:
 		if not name:
 			return
 		self.name = name
-		
+
 		if self.isDemo == None:
-			if re.match('.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match('.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
+			if re.match(r'.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match(r'.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
 				self.isDemo = True
 			else:
 				self.isDemo = False
-	
+
 	def getName(self):
 		baseId = getBaseId(self.id)
 		if hasattr(self, 'isUpdate') and self.isUpdate and Titles.contains(baseId):
@@ -476,74 +476,74 @@ class Title:
 		if Titles.contains(baseId):
 			return (Titles.get(baseId).name or '').replace('\n', ' ')
 		return ''
-			
+
 	def setKey(self, key):
 		if not key:
 			return
-			
+
 		key = key.upper()
-		
+
 		if len(key) != 32:
 			return
-			
+
 		try:
 			i = int(key, 16)
-			
+
 			if i <= 0:
 				return
 		except:
 			return
-			
+
 		self.key = key
-		
+
 	def getKey(self):
 		return self.key or '00000000000000000000000000000000'
-		
+
 	def setVersion(self, version, force = False):
 		if version != None:
 			try:
 				n = int(str(version), 10)
 			except:
 				return
-				
+
 			try:
 				o = int(str(self.version), 10)
 			except:
 				o = None
-				
+
 			if not o or n > o or force:
 				self.version = n
-			
+
 	def getVersion(self):
 		if self.version is None:
 			return ''
 		return self.version
-		
+
 	def setParentId(self, titleId):
 		try:
 			self.parentId = titleId
 		except:
 			pass
-		
+
 	def lastestVersion(self, force = False, localOnly = False):
 		#if self.isDLC:
 		#	return '0'
 
 		try:
-		
+
 			if not self.id:
 				return None
-			
+
 			if (self.version is None or force) and (not localOnly):
 				self.version = cdn.version(self.id)
 				Print.info('Grabbed %s [%s] version, %s' % (str(self.name), str(self.id), str(self.version)))
-			
+
 			#Print.info('version: ' + str(self.version))
 			return self.version
 		except BaseException as e:
 			Print.error(str(e))
 			return None
-		
+
 	def isValid(self):
 		if self.id:
 			return True
@@ -553,28 +553,28 @@ class Title:
 	def isActive(self, skipKeyCheck = False):
 		if self.id[0:13] == '0100000000000':
 			return False
-			
+
 		base = self
-		
+
 		if self.isDLC or self.isUpdate:
 			baseId = getBaseId(self.id)
 			if Titles.contains(baseId):
 				base = Titles.get(baseId)
-			
+
 
 		if (self.isDLC or self.isUpdate or Config.download.base) and (not self.isDLC or Config.download.DLC) and (not base.isDemo or Config.download.demo) and (not self.isUpdate or Config.download.update) and (base.key or Config.download.sansTitleKey or self.isUpdate or skipKeyCheck) and (len(Config.titleWhitelist) == 0 or self.id in Config.titleWhitelist) and self.id not in Config.titleBlacklist:
 			if Config.shardIndex is not None and Config.shardCount is not None:
 				if (int(self.id[0:13], 16) // 2) % Config.shardCount != Config.shardIndex:
 					return False
-					
+
 			if Config.download.rankMin is not None:
 				if base.rank is None or base.rank < Config.download.rankMin:
 					return False
-					
+
 			if Config.download.rankMax is not None:
 				if base.rank is None or base.rank > Config.download.rankMax:
 					return False
-					
+
 			if Config.download.regions is not None and len(Config.download.regions) > 0:
 				if not Config.download.hasRegion(base.regions):
 					return False
@@ -586,7 +586,7 @@ class Title:
 	@staticmethod
 	def getCdnVersion(id):
 		r = cdn.version(id)
-		
+
 		#if len(r) == 0 or r[0] == 'none':
 		#	return ['0']
 
@@ -663,7 +663,7 @@ class Title:
 	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
 		if not _json:
 			return None
-			
+
 		if 'hero_banner_url' in _json:
 			self.bannerUrl = _json['hero_banner_url']
 
@@ -684,7 +684,7 @@ class Title:
 
 		if "formal_name" in _json:
 			self.name = _json["formal_name"].strip()
-					
+
 		if 'screenshots' in _json:
 			self.screenshots = []
 			for i, k in enumerate(_json["screenshots"]):
@@ -695,7 +695,7 @@ class Title:
 			self.languages = []
 			for language in _json["languages"]:
 				self.languages.append(language['iso_code'])
-					
+
 		if "genre" in _json:
 			self.category = _json["genre"].split(' / ')
 
@@ -713,11 +713,11 @@ class Title:
 					content.append(descriptor['name'])
 				self.ratingContent = content
 
-			
+
 		if "player_number" in _json:
 			if 'local_max' in _json["player_number"]:
 				self.numberOfPlayers = _json["player_number"]["local_max"]
-						
+
 			if 'offline_max' in _json["player_number"]:
 				self.numberOfPlayers = _json["player_number"]["offline_max"]
 
@@ -791,7 +791,7 @@ class Title:
 						continue
 
 					self.parseShogunJson(_json, region)
-			
+
 
 				#<img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
 				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % id, cookies=cookies)
@@ -813,7 +813,7 @@ class Title:
 							ss = []
 							for m in rem:
 								ss.append(m.group(1))
-					
+
 							if len(ss) > 0:
 								self.screenshots = ss
 
@@ -867,7 +867,7 @@ class Title:
 								self.ratingContent = esrbcontent
 
 							if "number_of_players" in infoJson:
-								self.numberOfPlayers = re.sub('[^0-9]', '', infoJson["number_of_players"])
+								self.numberOfPlayers = re.sub(r'[^0-9]', '', infoJson["number_of_players"])
 
 							if "esrb_rating_ref" in infoJson:
 								if "esrb_rating" in infoJson["esrb_rating_ref"]:
@@ -909,12 +909,12 @@ class Title:
 										details = details.decode(formatter=None)
 									except:
 										details = details.decode()
-									details = re.sub('<[^<]+?>', '', details).strip()
-									details = re.sub(' +', ' ', details)
-									details = re.sub('\n ', '\n', details)
-									details = re.sub('\n\n+', '\n\n', details)
-									details = re.sub('(?<!\n)\n(?!\n)', ' ',details)
-									details = re.sub('  ', ' ', details)
+									details = re.sub(r'<[^<]+?>', '', details).strip()
+									details = re.sub(r' +', ' ', details)
+									details = re.sub(r'\n ', '\n', details)
+									details = re.sub(r'\n\n+', '\n\n', details)
+									details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+									details = re.sub(r'  ', ' ', details)
 									self.intro = details
 								except Exception as e:
 									pass
@@ -925,12 +925,12 @@ class Title:
 									details = details.decode(formatter=None)
 								except:
 									details = details.decode()
-								details = re.sub('<[^<]+?>', '', details).strip()
-								details = re.sub(' +', ' ', details)
-								details = re.sub('\n ', '\n', details)
-								details = re.sub('\n\n+', '\n\n', details)
-								details = re.sub('(?<!\n)\n(?!\n)', ' ',details)
-								details = re.sub('  ', ' ', details)
+								details = re.sub(r'<[^<]+?>', '', details).strip()
+								details = re.sub(r' +', ' ', details)
+								details = re.sub(r'\n ', '\n', details)
+								details = re.sub(r'\n\n+', '\n\n', details)
+								details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+								details = re.sub(r'  ', ' ', details)
 								self.description = details
 				#else:
 					#f = open("missing.txt", 'a', encoding="utf8")

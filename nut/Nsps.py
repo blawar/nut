@@ -32,31 +32,31 @@ def getByTitleId(id):
 		if f.titleId == id:
 			return f
 	return None
-	
+
 def registerFile(path):
 	path = os.path.abspath(path)
-	
-	nsp = Fs.Nsp(path, None)	
+
+	nsp = Fs.Nsp(path, None)
 	files[path] = nsp
-	
+
 	if nsp.titleId:
 		Title.fileLUT[nsp.titleId].append(nsp)
-	
+
 def unregisterFile(path):
 	path = os.path.abspath(path)
 	if path not in files:
 		return False
-	
+
 	nsp = files[path]
-	
+
 	if nsp.titleId and nsp.titleId in Title.fileLUT:
 		#Title.fileLUT[nsp.titleId].remove(nsp)
 		Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId] if item.path != nsp.path]
 	del files[path]
 	return True
-		
-	
-	
+
+
+
 def scan(base, force = False):
 	global hasScanned
 	#if hasScanned and not force:
@@ -93,10 +93,11 @@ def scan(base, force = False):
 
 				if not path in files:
 					Print.info('scanning ' + name)
+
 					nsp = Fs.Nsp(path, None)
 					nsp.timestamp = time.time()
 					nsp.getFileSize() # cache file size
-						
+
 					files[nsp.path] = nsp
 
 					i = i + 1
@@ -159,7 +160,7 @@ def load(fileName = 'titledb/files.json', verify = True):
 
 					if 'fileSize' in k:
 						t.fileSize = k['fileSize']
-						
+
 					if 'cr' in k:
 						t.cr = k['cr']
 					else:
@@ -170,7 +171,7 @@ def load(fileName = 'titledb/files.json', verify = True):
 
 					path = os.path.abspath(t.path)
 					if verify and Config.isScanning:
-						if os.path.isfile(path): 
+						if os.path.isfile(path):
 							files[path] = t
 					else:
 						files[path] = t
