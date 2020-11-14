@@ -177,8 +177,8 @@ class IndexedFile:
 	def cleanFilename(self, s):
 		if s is None:
 			return ''
-		#s = re.sub('\s+\Demo\s*', ' ', s, re.I)
-		s = re.sub('\s*\[DLC\]\s*', '', s, re.I)
+		#s = re.sub(r'\s+\Demo\s*', ' ', s, re.I)
+		s = re.sub(r'\s*\[DLC\]\s*', '', s, re.I)
 		s = re.sub(r'[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
 

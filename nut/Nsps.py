@@ -7,10 +7,10 @@ import pathlib
 import re
 from nut import Status
 import time
-import nut.Print
+from nut import Print
 import threading
 import json
-import nut.Config
+from nut import Config
 from nut import Title
 
 global files
