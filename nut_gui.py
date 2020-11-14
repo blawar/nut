@@ -128,7 +128,7 @@ class Header:
 		self.layout.addLayout(bottom)
 
 	def updatePath(self):
-		Config.update_main_path(self.textbox.text())
+		Config.update_main_path(self.textbox.text(), Nsps.files)
 
 	def tick(self):
 		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
