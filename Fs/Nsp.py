@@ -35,12 +35,12 @@ class Nsp(Pfs0, IndexedFile):
 		self.extractedNcaMeta = False
 
 		super(Nsp, self).__init__(None, path, mode)
-		
+
 		if path:
 			self.setPath(path)
 			#if files:
 			#	self.pack(files)
-				
+
 		if self.titleId and self.isUnlockable():
 			Print.info('unlockable title found ' + self.path)
 		#	self.unlock()
@@ -64,7 +64,7 @@ class Nsp(Pfs0, IndexedFile):
 			if i >= len(map):
 				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
-			
+
 			i = str(map[i])
 			methodName = 'set' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda x: None)
@@ -73,7 +73,7 @@ class Nsp(Pfs0, IndexedFile):
 	def serialize(self, map = ['id', 'path', 'version', 'timestamp', 'hasValidTicket', 'extractedNcaMeta', 'fileSize']):
 		r = []
 		for i in map:
-				
+
 			methodName = 'get' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda: methodName)
 			r.append(str(method()))
@@ -81,7 +81,7 @@ class Nsp(Pfs0, IndexedFile):
 
 	def __lt__(self, other):
 		return str(self.path) < str(other.path)
-				
+
 	def __iter__(self):
 		return self.files.__iter__()
 
@@ -115,7 +115,7 @@ class Nsp(Pfs0, IndexedFile):
 				return {'id': updateTitle.id, 'baseId': title.baseId, 'currentVersion': None, 'newVersion': str(updateTitle.version)}
 
 		return None
-		
+
 	def readMeta(self):
 		self.open()
 		try:
@@ -129,7 +129,7 @@ class Nsp(Pfs0, IndexedFile):
 			self.titleId = rightsId[0:16]
 			self.title().setRightsId(rightsId)
 			Print.info('rightsId = ' + rightsId)
-			
+
 			titleKey = t.getTitleKeyBlock()
 			titleKeyStr = format(titleKey, 'X').zfill(32)
 			if titleKey != 0 and blockchain.verifyKey(self.titleId, titleKeyStr):
@@ -178,21 +178,21 @@ class Nsp(Pfs0, IndexedFile):
 		if self.title().isUpdate:
 			return 1
 		return (1 if self.hasValidTicket and self.hasValidTicket == True else 0)
-			
+
 	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		super(Nsp, self).open(path or self.path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 	def hasDeltas(self):
 		return b'DeltaFragment' in self.xml().read()
-		
+
 	def application(self):
 		for f in (f for f in self if f._path.endswith('.nca') and not f._path.endswith('.cnmt.nca')):
 			return f
 		raise IOError('no application in NSP')
-		
+
 	def isUnlockable(self, reunlock = False):
 		return (not self.hasValidTicket or reunlock) and self.titleId and Titles.contains(self.titleId) and Titles.get(self.titleId).key
-		
+
 	def unlock(self):
 		#if not self.isOpen():
 		#	self.open('r+b')
@@ -203,7 +203,7 @@ class Nsp(Pfs0, IndexedFile):
 		self.ticket().setTitleKeyBlock(int(Titles.get(self.titleId).key, 16))
 		Print.info('setting title key to ' + Titles.get(self.titleId).key)
 		self.ticket().flush()
-		
+
 		if self._path:
 			self.path = self._path
 		self.hasValidTicket = True
@@ -354,12 +354,12 @@ class Nsp(Pfs0, IndexedFile):
 
 				Print.info('writing isGameCard for %s, %d' % (str(nca._path),  targetValue))
 				nca.header.setIsGameCard(targetValue)
-			
-		
+
+
 	def pack(self, files, rights_id = None, key = None):
 		if not self.path:
 			return False
-			
+
 		Print.info('\tRepacking to NSP...')
 
 		if rights_id:
@@ -392,24 +392,24 @@ class Nsp(Pfs0, IndexedFile):
 				if tikFile not in files:
 					files.append(tikFile)
 
-			
 
 
-		
+
+
 		hd = self.generateHeader(files)
-		
+
 		totalSize = len(hd) + sum(os.path.getsize(file) for file in files)
 		if os.path.exists(self.path) and os.path.getsize(self.path) == totalSize:
 			Print.info('\t\tRepack %s is already complete!' % self.path)
 			return
-			
+
 		t = tqdm(total=totalSize, unit='B', unit_scale=True, desc=os.path.basename(self.path), leave=False)
-		
+
 		t.write('\t\tWriting header...')
 		outf = open(self.path, 'wb')
 		outf.write(hd)
 		t.update(len(hd))
-		
+
 		done = 0
 		for file in files:
 			t.write('\t\tAppending %s...' % os.path.basename(file))
@@ -422,7 +422,7 @@ class Nsp(Pfs0, IndexedFile):
 					t.update(len(buf))
 
 		t.close()
-		
+
 		Print.info('\t\tRepacked to %s!' % outf.name)
 		outf.close()
 
@@ -433,13 +433,13 @@ class Nsp(Pfs0, IndexedFile):
 		headerSize = 0x10 + (filesNb)*0x18 + len(stringTable)
 		remainder = 0x10 - headerSize%0x10
 		headerSize += remainder
-		
+
 		fileSizes = [os.path.getsize(file) for file in files]
 		fileOffsets = [sum(fileSizes[:n]) for n in range(filesNb)]
-		
+
 		fileNamesLengths = [len(os.path.basename(file))+1 for file in files] # +1 for the \x00
 		stringTableOffsets = [sum(fileNamesLengths[:n]) for n in range(filesNb)]
-		
+
 		header =  b''
 		header += b'PFS0'
 		header += pk('<I', filesNb)
@@ -452,7 +452,7 @@ class Nsp(Pfs0, IndexedFile):
 			header += b'\x00\x00\x00\x00'
 		header += stringTable.encode()
 		header += remainder * b'\x00'
-		
+
 		return header
 
 	def verify(self):

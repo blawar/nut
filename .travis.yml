@@ -19,4 +19,5 @@ install:
   - pip3 install -r requirements.txt
 # command to run tests
 script:
-  - pytest
+  - pytest -s
+  - pylint -j 4 nut/Nsps.py

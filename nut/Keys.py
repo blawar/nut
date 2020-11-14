@@ -1,12 +1,12 @@
 import re
-from nut import aes128
-from binascii import hexlify as hx, unhexlify as uhx
-from nut import Print
-from Crypto.Signature import pss
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_PSS
-from Crypto.Signature import PKCS1_v1_5
+from binascii import hexlify as hx
+from binascii import unhexlify as uhx
+
 from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_PSS, PKCS1_v1_5, pss
+
+from nut import Print, aes128
 
 keys = {}
 titleKeks = []
@@ -35,26 +35,26 @@ def keyAreaKey(cryptoType, i):
 
 def get(key):
 	return keys[key]
-	
+
 def getTitleKek(i):
 	return titleKeks[i]
-	
+
 def decryptTitleKey(key, i):
 	kek = getTitleKek(i)
-	
+
 	crypto = aes128.AESECB(uhx(kek))
 	return crypto.decrypt(key)
-	
+
 def encryptTitleKey(key, i):
 	kek = getTitleKek(i)
-	
+
 	crypto = aes128.AESECB(uhx(kek))
 	return crypto.encrypt(key)
-	
+
 def decrypt(key, i):
 	crypto = aes128.AESECB(masterKey(i))
 	return crypto.decrypt(key)
-	
+
 def changeTitleKeyMasterKey(key, currentMasterKeyIndex, newMasterKeyIndex):
 	return encryptTitleKey(decryptTitleKey(key, currentMasterKeyIndex), newMasterKeyIndex)
 
@@ -100,10 +100,10 @@ def load(fileName):
 
 	with open(fileName, encoding="utf8") as f:
 		for line in f.readlines():
-			r = re.match('\s*([a-z0-9_]+)\s*=\s*([A-F0-9]+)\s*', line, re.I)
+			r = re.match(r'\s*([a-z0-9_]+)\s*=\s*([A-F0-9]+)\s*', line, re.I)
 			if r:
 				keys[r.group(1)] = r.group(2)
-	
+
 	#crypto = aes128.AESCTR(uhx(key), uhx('00000000000000000000000000000010'))
 	aes_kek_generation_source = uhx(keys['aes_kek_generation_source'])
 	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
@@ -112,7 +112,7 @@ def load(fileName):
 	for i in range(0x10):
 		keyAreaKeys.append([None, None, None])
 
-	
+
 	for i in range(0x10):
 		masterKeyName = 'master_key_' + str(i).zfill(2)
 		if masterKeyName in keys.keys():
@@ -125,10 +125,10 @@ def load(fileName):
 			keyAreaKeys[i][2] = generateKek(uhx(keys['key_area_key_system_source']), masterKey, aes_kek_generation_source, aes_key_generation_source)
 			keyGens.append(i)
 		else:
-			titleKeks.append('0' * 32) 
+			titleKeks.append('0' * 32)
 
 
-try:			
+try:
 	load('keys.txt')
 except BaseException as e:
 	try:

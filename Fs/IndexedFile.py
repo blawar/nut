@@ -19,7 +19,7 @@ class IndexedFile:
 
 	def __lt__(self, other):
 		return str(self.path) < str(other.path)
-				
+
 	def __iter__(self):
 		return self.files.__iter__()
 
@@ -43,7 +43,7 @@ class IndexedFile:
 		return None
 
 	def setId(self, id):
-		if re.match('[A-F0-9]{16}', id, re.I):
+		if re.match(r'[A-F0-9]{16}', id, re.I):
 			self.titleId = id
 
 	def getId(self):
@@ -64,7 +64,7 @@ class IndexedFile:
 
 	def getVersion(self):
 		return self.version or ''
-		
+
 	def isUpdate(self):
 		return self.titleId is not None and self.titleId.endswith('800')
 
@@ -74,10 +74,10 @@ class IndexedFile:
 	def title(self):
 		if not self.titleId:
 			raise IOError('NSP no titleId set')
-			
+
 		if self.titleId in Titles.keys():
 			return Titles.get(self.titleId)
-			
+
 		t = Title.Title()
 		t.setId(self.titleId)
 		Titles.data()[self.titleId] = t
@@ -107,16 +107,16 @@ class IndexedFile:
 				nsp.move(forceNsp = True)
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
-			
+
 		newPath = self.fileName(forceNsp = forceNsp)
-		
+
 		if not newPath:
 			Print.error('could not get filename for ' + self.path)
 			return False
 
 		if os.path.abspath(newPath).lower().replace('\\', '/') == os.path.abspath(self.path).lower().replace('\\', '/'):
 			return False
-			
+
 		if os.path.isfile(newPath):
 			Print.info('\nduplicate title: ')
 			Print.info(os.path.abspath(self.path))
@@ -130,11 +130,11 @@ class IndexedFile:
 
 		try:
 			Print.info(self.path + ' -> ' + newPath)
-			
+
 			if not Config.dryRun:
 				os.makedirs(os.path.dirname(newPath), exist_ok=True)
 			#newPath = self.fileName(forceNsp = forceNsp)
-			
+
 			if not Config.dryRun:
 				if self.isOpen():
 					self.close()
@@ -173,18 +173,18 @@ class IndexedFile:
 		except BaseException as e:
 			Print.error('failed to move to duplicates! ' + str(e))
 		return False
-		
+
 	def cleanFilename(self, s):
 		if s is None:
 			return ''
-		#s = re.sub('\s+\Demo\s*', ' ', s, re.I)
-		s = re.sub('\s*\[DLC\]\s*', '', s, re.I)
+		#s = re.sub(r'\s+\Demo\s*', ' ', s, re.I)
+		s = re.sub(r'\s*\[DLC\]\s*', '', s, re.I)
 		s = re.sub(r'[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
 
 	def dict(self):
 		return {"titleId": self.titleId, "hasValidTicket": self.hasValidTicket, 'extractedNcaMeta': self.getExtractedNcaMeta(), 'version': self.version, 'timestamp': self.timestamp, 'path': self.path, 'fileSize': self.fileSize }
-		
+
 	def getCr(self, inverted = False):
 		if not hasattr(self, 'cr') or not self.cr:
 			self.cr = self.getCrFromPath()
@@ -194,24 +194,24 @@ class IndexedFile:
 			try:
 				container = Fs.factory(self.path)
 				container.open(self.path, 'rb')
-				
+
 				compressedSize = 0
 				uncompressedSize = 0
-				
+
 				for f in container:
 					if not isinstance(f, Fs.Nca):
 						continue
 					uncompressedSize += f.header.size
 					compressedSize += f.size
-				
+
 
 				container.close()
 				self.cr = int(compressedSize * 100.0 / uncompressedSize)
-				
+
 			except BaseException as e:
 				Print.error('getCr exception: %s' % str(e))
 				return ''
-			
+
 		if not self.cr:
 			return ''
 
@@ -240,7 +240,7 @@ class IndexedFile:
 			if not t:
 				Print.error('could not find title id ' + str(self.titleId))
 				return None
-		
+
 			try:
 				if not t.baseId in Titles.keys():
 					Print.info('could not find baseId for ' + self.path)
@@ -249,10 +249,10 @@ class IndexedFile:
 				Print.error('exception: could not find title id ' + str(self.titleId) + ' ' + str(e))
 				return None
 			bt = Titles.get(t.baseId)
-			
-			
+
+
 		isNsx = not self.hasValidTicket and not forceNsp
-		
+
 		try:
 			if t.isDLC:
 				format = Config.paths.getTitleDLC(isNsx, self.path)
@@ -283,10 +283,10 @@ class IndexedFile:
 		format = format.replace('{name}', newName)
 		format = format.replace('{version}', str(self.getVersion() or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
-		
+
 		if '{cr}' in format:
 			format = format.replace('{cr}', str(self.getCr()))
-			
+
 		if '{icr}' in format:
 			format = format.replace('{icr}', str(self.getCr(True)))
 
@@ -301,33 +301,33 @@ class IndexedFile:
 			baseName = os.path.basename(self.path)
 
 		result = format.replace('{baseName}', baseName)
-		
+
 		while(len(os.path.basename(result).encode('utf-8')) > 240 and len(baseName) > 3):
 			baseName = baseName[:-1]
 			result = format.replace('{baseName}', baseName)
-			
+
 
 		return os.path.abspath(result)
 
 	def getCrFromPath(self):
-		z = re.match('.*\[CR([0-9]{1,3})\].*', self.path, re.I)
+		z = re.match(r'.*\[CR([0-9]{1,3})\].*', self.path, re.I)
 		if z:
 			return int(z.groups()[0])
 
 		return None
-		
+
 	def baseName(self):
 		return os.path.basename(self.path)
 
-	def setPath(self, path):			
+	def setPath(self, path):
 		self.path = path
 		self.version = '0'
-		
-		z = re.match('.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
+
+		z = re.match(r'.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
 		if z:
 			self.titleId = z.groups()[0].upper()
 		else:
-			z = re.match('^([a-zA-Z0-9]{16})\..*', os.path.basename(path), re.I)
+			z = re.match(r'^([a-zA-Z0-9]{16})\..*', os.path.basename(path), re.I)
 			if z:
 				self.titleId = z.groups()[0].upper()
 			else:
@@ -337,8 +337,8 @@ class IndexedFile:
 		if not hasattr(self, 'cr') or not self.cr:
 			self.cr = self.getCrFromPath()
 
-		z = re.match('.*\[v([0-9]+)\].*', path, re.I)
-		
+		z = re.match(r'.*\[v([0-9]+)\].*', path, re.I)
+
 		if z:
 			self.version = z.groups()[0]
 

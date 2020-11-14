@@ -96,30 +96,30 @@ def hasNsuid(id, region, language):
 			return True
 
 	return False
-	
+
 def contains(key, region = None):
 	return key in titles
 
 def erase(id):
 	id = id.upper()
 	del titles[id]
-	
+
 def set(key, value):
 	titles[key] = value
-	
-	
+
+
 def keys(region = None, language = None):
 	if region:
 		return regionTitles[region][language].keys()
 
 	return titles.keys()
-	
+
 def loadTitleFile(path, silent = False):
 	timestamp = time.perf_counter()
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
 	Print.info('loaded ' + path + ' in ' + str(time.perf_counter() - timestamp) + ' seconds')
-	
+
 def loadTitleBuffer(buffer, silent = False):
 	global nsuIdMap
 	firstLine = True
@@ -130,9 +130,9 @@ def loadTitleBuffer(buffer, silent = False):
 			continue
 		if firstLine:
 			firstLine = False
-			if re.match('[A-Za-z\|\s]+', line, re.I):
+			if re.match(r'[A-Za-z\|\s]+', line, re.I):
 				map = line.split('|')
-				
+
 				i = 0
 				while i < len(map):
 					if map[i] == 'RightsID':
@@ -143,10 +143,10 @@ def loadTitleBuffer(buffer, silent = False):
 						map[i] = 'name'
 					i += 1
 				continue
-		
+
 		t = Title.Title()
 		t.loadCsv(line, map)
-		
+
 		if not isinstance(t.id, str):
 			continue
 
@@ -154,7 +154,7 @@ def loadTitleBuffer(buffer, silent = False):
 			nsuIdMap[t.nsuId] = t.id
 
 		title = get(t.id, None, None)
-			
+
 		titleKey = title.key
 		title.loadCsv(line, map)
 
@@ -178,7 +178,7 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 
 			Print.info('loaded ' + filePath + ' in ' + str(time.perf_counter() - timestamp) + ' seconds')
 	except BaseException as e:
-		print("load titles json exception: " + str(e))
+		print(f"load titles ({filePath}) json exception: {e}")
 
 	confLock.release()
 	return newTitles
@@ -212,7 +212,7 @@ def load():
 	try:
 		files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
 		files.sort()
-	
+
 		for file in files:
 			loadTitleFile(Config.paths.titleDatabase + '/' + file, False)
 	except BaseException as e:
@@ -260,7 +260,7 @@ def loadTxtDatabases():
 	try:
 		files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
 		files.sort()
-	
+
 		for file in files:
 			if file.endswith('personal_keys.txt'):
 				parsePersonalKeys(Config.paths.titleDatabase + '/' + file)
@@ -271,14 +271,14 @@ def loadTxtDatabases():
 		Print.error('title load error: ' + str(e))
 	confLock.release()
 
-	
+
 def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''
-	
+
 	buffer += '|'.join(map) + '\n'
 	for key in sorted(titles):
 		buffer += titles[key].serialize(map) + '\n'
-		
+
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
 

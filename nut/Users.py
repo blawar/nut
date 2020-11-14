@@ -2,7 +2,6 @@ import os
 import re
 from nut import Print
 
-global users
 users = {}
 
 class User:
@@ -22,7 +21,7 @@ class User:
 			if i >= len(map):
 				Print.info('invalid map index: ' + str(i) + ', ' + str(len(map)))
 				continue
-			
+
 			i = str(map[i])
 			methodName = 'set' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda x: None)
@@ -31,7 +30,7 @@ class User:
 	def serialize(self, map = ['id', 'password']):
 		r = []
 		for i in map:
-				
+
 			methodName = 'get' + i[0].capitalize() + i[1:]
 			method = getattr(self, methodName, lambda: methodName)
 			r.append(str(method()))
@@ -101,6 +100,7 @@ def auth(id, password, address):
 	if user.remoteAddr and user.remoteAddr != address:
 		return None
 
+	# TODO: save password hash in config
 	if user.password != password:
 		return None
 
@@ -125,10 +125,10 @@ def load(path = 'conf/users.conf'):
 				continue
 			if firstLine:
 				firstLine = False
-				if re.match('[A-Za-z\|\s]+', line, re.I):
+				if re.match(r'[A-Za-z\|\s]+', line, re.I):
 					map = line.split('|')
 					continue
-		
+
 			t = User()
 			t.loadCsv(line, map)
 
@@ -143,11 +143,11 @@ def export(fileName = 'conf/users.conf', map = ['id', 'password']):
 	os.makedirs(os.path.dirname(fileName), exist_ok = True)
 	global users
 	buffer = ''
-	
+
 	buffer += '|'.join(map) + '\n'
 	for k,t in users.items():
 		buffer += t.serialize(map) + '\n'
-		
+
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
 
