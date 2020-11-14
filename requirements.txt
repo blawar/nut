@@ -9,3 +9,4 @@ google-api-python-client>=1.12.1,<1.13.0
 google-auth-oauthlib>=0.4.1,<0.5.0
 pytest>=5.3.3,<6.2.0
 pyfakefs>=4.0.0,<5.0.0
+pycrypto>=2.6.0,<2.7.0
