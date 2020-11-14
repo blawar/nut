@@ -178,7 +178,7 @@ def loadTitlesJson(filePath = 'titledb/titles.json'):
 
 			Print.info('loaded ' + filePath + ' in ' + str(time.perf_counter() - timestamp) + ' seconds')
 	except BaseException as e:
-		print("load titles json exception: " + str(e))
+		print(f"load titles ({filePath}) json exception: {e}")
 
 	confLock.release()
 	return newTitles
