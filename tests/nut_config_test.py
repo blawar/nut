@@ -9,6 +9,7 @@ from pyfakefs.fake_filesystem_unittest import TestCase
 from nut import Nsps, Print
 from nut import Config
 
+Print.enableDebug = True
 
 def _get_default_config_object():
 	return {'paths': {'titleBase': 'titles/{name}[{id}][v{version}].nsp', 'titleDLC': 'titles/DLC/{name}[{id}][v{version}].nsp', \
@@ -102,6 +103,8 @@ class NutConfigTest(TestCase):
 		self.assertTrue(os.path.exists(conf_file))
 		with open(conf_file, 'r', encoding="utf8") as f:
 			obj_from_file = json.load(f)
+			Print.debug(f"obj_from_file: {obj_from_file}")
+			Print.debug(f"obj: {obj}")
 			self.assertEqual(obj_from_file, obj)
 
 	def test_save_default_config_with_explicit_config_path(self):
