@@ -1,10 +1,11 @@
-import os
+import os.path
 import Fs.driver
 from nut import Print
 
 class FileContext(Fs.driver.FileContext):
 	def __init__(self, url, sz, mode, parent):
 		super(FileContext, self).__init__(url, sz, mode, parent)
+		self.size = os.path.getsize(self.url)
 		self.handle = open(self.url, self.mode)
 
 	def close(self):
@@ -15,17 +16,24 @@ class FileContext(Fs.driver.FileContext):
 	def read(self, sz = None):
 		return self.handle.read(sz)
 
-	def chunk(self, callback):
+	def chunk(self, callback, offset=None, size=None):
 		chunkSize = 0x100000
+
+		if offset is not None:
+			self.handle.seek(int(offset), 0)
 
 		r = self.handle
 
+		i = 0
+
 		try:
 			while True:
-				chunk = r.read(chunkSize)
+				chunk = r.read(min(size-i, chunkSize))
 
 				if not chunk:
 					break
+
+				i += len(chunk)
 
 				callback(chunk)
 		except BaseException as e:
@@ -41,6 +49,8 @@ class DirContext(Fs.driver.DirContext):
 			path = os.path.join(self.url,f)
 			if os.path.isfile(path):
 				entries.append(Fs.driver.FileEntry(path, None))
+			else:
+				entries.append(Fs.driver.DirEntry(path))
 		return entries
 
 

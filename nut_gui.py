@@ -25,6 +25,7 @@ from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
 import nut
 import Server
 from nut import Config, Nsps, Status, Usb, Users
+import Fs.driver.init
 
 SIZE_COLUMN_INDEX = 3
 

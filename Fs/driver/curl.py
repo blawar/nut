@@ -11,22 +11,38 @@ class FileContext(Fs.driver.FileContext):
 	def close(self):
 		pass
 
+	def setup(self, curl, offset, size):
+		if offset or sz:
+
+			if sz:
+
+				offset = int(offset or 0)
+				sz = int(sz)
+
+				tmp = '%d-%d' % (offset, offset + size - 1)
+			else:
+				offset = int(offset or 0)
+				tmp = '%d-' % (offset)
+
+			curl.setopt(pycurl.RANGE, tmp)
+
 	def read(self, sz = None):
 		curl = pycurl.Curl()
 		curl.setopt(pycurl.URL, self.url)
 		output = io.BytesIO()
-		curl.setopt(pycurl.DIRLISTONLY, 1)
 		curl.setopt(pycurl.WRITEFUNCTION, output.write)
+		self.setup(curl, None, sz)
 		curl.perform()
 
 		return output.getvalue()
 
-	def chunk(self, callback):
+	def chunk(self, callback, offset=None, size=None):
 		try:
 			curl = pycurl.Curl()
 			curl.setopt(pycurl.URL, self.url)
 			output = io.BytesIO()
 			curl.setopt(pycurl.WRITEFUNCTION, callback)
+			self.setup(curl, offset, size)
 			curl.perform()
 		except BaseException as e:
 			Print.info('curl chunk exception: ' + str(e))

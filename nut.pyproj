@@ -44,6 +44,14 @@
     <Compile Include="Fs\BaseFs.py" />
     <Compile Include="Fs\Bktr.py" />
     <Compile Include="Fs\Cnmt.py" />
+    <Compile Include="Fs\driver\curl.py" />
+    <Compile Include="Fs\driver\gdrive.py" />
+    <Compile Include="Fs\driver\http.py" />
+    <Compile Include="Fs\driver\init.py" />
+    <Compile Include="Fs\driver\interface.py" />
+    <Compile Include="Fs\driver\native.py" />
+    <Compile Include="Fs\driver\registry.py" />
+    <Compile Include="Fs\driver\__init__.py" />
     <Compile Include="Fs\File.py" />
     <Compile Include="Fs\Hfs0.py" />
     <Compile Include="Fs\IndexedFile.py" />
@@ -86,11 +94,12 @@
     <Compile Include="Server\Controller\Api.py" />
     <Compile Include="Server\Controller\__init__.py" />
     <Compile Include="Server\__init__.py" />
+    <Compile Include="test.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cdn\" />
     <Folder Include="Fs\" />
-    <Folder Include="Fs\__pycache__\" />
+    <Folder Include="Fs\driver\" />
     <Folder Include="gui\panes\" />
     <Folder Include="lib" />
     <Folder Include="nut\" />

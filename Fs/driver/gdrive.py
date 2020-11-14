@@ -383,7 +383,7 @@ class FileContext(Fs.driver.FileContext):
 		self.chunk(output.write)
 		return output.getvalue()
 
-	def chunk(self, callback):
+	def chunk(self, callback, offset=None, size=None):
 
 		creds = None
 
@@ -412,8 +412,8 @@ class FileContext(Fs.driver.FileContext):
 			download(
 				'https://www.googleapis.com/drive/v3/files/%s?alt=media' % info['id'],
 				callback,
-				None,
-				None,
+				offset,
+				None if offset is None else (offset + size - 1),
 				headers={'Authorization': 'Bearer ' + creds.token}
 			)
 
