@@ -1,9 +1,13 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog, QDialog
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from nut import Users
+
+class GdrivePicker(QDialog):
+	def __init__(self):
+		super(GdrivePicker, self).__init__()
 
 class Edit(QLineEdit):
 	def __init__(self, parent):
@@ -23,7 +27,7 @@ class Edit(QLineEdit):
 
 class User(QWidget):
 	def __init__(self, parent):
-		super(QWidget, self).__init__()
+		super(User, self).__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
@@ -54,7 +58,7 @@ class User(QWidget):
 
 class Directory(QWidget):
 	def __init__(self, parent):
-		super(QWidget, self).__init__()
+		super(Directory, self).__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
@@ -72,7 +76,7 @@ class Directory(QWidget):
 		self.parent.save()
 
 	def on_browse(self):
-		value = QFileDialog.getExistingDirectory(self, 'Select Directory', 'c:\\', QFileDialog.ShowDirsOnly)
+		value = QFileDialog.getExistingDirectory(self, 'Select Directory', self.getValue(), QFileDialog.ShowDirsOnly)
 
 		if value:
 			self.setValue(value)
@@ -90,7 +94,7 @@ class Directory(QWidget):
 
 class Row(QWidget):
 	def __init__(self, parent, value, rowType=Directory):
-		super(QWidget, self).__init__()
+		super(Row, self).__init__()
 		self.parent = parent
 		layout = QHBoxLayout(self)
 		self.control = rowType(self)
@@ -118,7 +122,7 @@ class Row(QWidget):
 
 class DirList(QWidget):
 	def __init__(self, values=[], onChange=None, rowType=Directory):
-		super(QWidget, self).__init__()
+		super(DirList, self).__init__()
 		self.rowType = rowType
 
 		layout = QVBoxLayout(self)
