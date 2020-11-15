@@ -44,7 +44,8 @@ def loopThread():
 		for i in lst:
 			if i.isOpen():
 				try:
-					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.perf_counter() - i.timestamp, 'speed': i.a / (time.perf_counter() - i.ats), 'id': i.id })
+					jsonData.append({'description': i.desc, 'i': i.i, 'size': i.size, 'elapsed': time.perf_counter() -
+									 i.timestamp, 'speed': i.a / (time.perf_counter() - i.ats), 'id': i.id})
 					i.a = 0
 					i.ats = time.perf_counter()
 				except:
@@ -54,7 +55,7 @@ def loopThread():
 			print_(json.dumps(jsonData))
 			sys.stdout.flush()
 
-def create(size, desc = None, unit='B'):
+def create(size, desc=None, unit='B'):
 	lock.acquire()
 	position = len(lst)
 
@@ -74,7 +75,7 @@ def create(size, desc = None, unit='B'):
 	return s
 
 class Status:
-	def __init__(self, size, position = 0, desc = None, unit='B'):
+	def __init__(self, size, position=0, desc=None, unit='B'):
 		self.position = position
 		self.size = size
 		self.i = 0
@@ -85,7 +86,7 @@ class Status:
 		self.desc = desc
 
 		if not Config.jsonOutput:
-			self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position = position, desc=desc, leave=False, ascii = True)
+			self.tqdm = tqdm.tqdm(total=size, unit=unit, unit_scale=True, position=position, desc=desc, leave=False, ascii=True)
 		else:
 			self.tqdm = None
 
@@ -113,16 +114,16 @@ class Status:
 				pass
 			self.tqdm = None
 			self.size = None
-			#lock.release()
+			# lock.release()
 		else:
 			#Print.debug('status not open')
 			pass
 
-	def setDescription(self, desc, refresh = False):
+	def setDescription(self, desc, refresh=False):
 		self.desc = desc
 		if self.isOpen():
 			try:
-				self.tqdm.set_description(desc, refresh = refresh)
+				self.tqdm.set_description(desc, refresh=refresh)
 			except:
 				self.close()
 
@@ -136,7 +137,7 @@ class Status:
 def start():
 	global threadRun
 	threadRun = True
-	thread = threading.Thread(target = loopThread, args =[])
+	thread = threading.Thread(target=loopThread, args=[])
 	thread.start()
 
 def close():

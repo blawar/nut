@@ -32,7 +32,7 @@ def _sha256(buf):
 
 
 class KeyEntry:
-	def __init__(self, titleId = None, titleKey = None, ncaHeader = None, sectionHeaderBlock = None, pfs0Header = None, pfs0Offset = None, json = None, fs = None):
+	def __init__(self, titleId=None, titleKey=None, ncaHeader=None, sectionHeaderBlock=None, pfs0Header=None, pfs0Offset=None, json=None, fs=None):
 		self.titleId = titleId
 		self.titleKey = titleKey
 		self.ncaHeader = ncaHeader
@@ -56,18 +56,16 @@ class KeyEntry:
 
 		pfs0 = Fs.Pfs0(self.sectionHeaderBlock)
 
-
 		print('encKey = ' + str(self.titleKey))
 		print('decKey = ' + str(hx(decKey)))
 		print('master key = ' + str(ncaHeader.masterKey))
 		print('ctr = ' + str(hx(self.fs.cryptoCounter)))
 		print('offset = ' + str(self.pfs0Offset))
 
-
 		if self.sectionHeaderBlock[8:12] == b'IVFC':
-			#Hex.dump(self.sectionHeaderBlock)
-			#Print.info(hx(self.sectionHeaderBlock[0xc8:0xc8+0x20]).decode('utf-8'))
-			mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset = self.pfs0Offset)
+			# Hex.dump(self.sectionHeaderBlock)
+			# Print.info(hx(self.sectionHeaderBlock[0xc8:0xc8+0x20]).decode('utf-8'))
+			mem = MemoryFile(self.pfs0Header, Type.Crypto.CTR, decKey, pfs0.cryptoCounter, offset=self.pfs0Offset)
 			data = mem.read()
 			data = self.pfs0Header
 			Print.info('read %d bytes' % len(self.pfs0Header))
@@ -78,7 +76,7 @@ class KeyEntry:
 			else:
 				return False
 		else:
-			mem = MemoryFile(self.pfs0Header, offset = 0)
+			mem = MemoryFile(self.pfs0Header, offset=0)
 			magic = mem.read()[0:4]
 			if magic != b'PFS0':
 				raise LookupError('Title Key is incorrect!')
@@ -107,7 +105,7 @@ class KeyEntry:
 		return self
 
 class Block:
-	def __init__(self, index = None, timestamp = None, transactions = None, previous_hash = None, json = None):
+	def __init__(self, index=None, timestamp=None, transactions=None, previous_hash=None, json=None):
 		self.index = index
 		self.timestamp = timestamp
 		self.transactions = transactions
@@ -135,7 +133,7 @@ class Block:
 		self.timestamp = obj['timestamp']
 		self.transactions = []
 		for t in obj['transactions']:
-			self.transactions.append(KeyEntry(json = t))
+			self.transactions.append(KeyEntry(json=t))
 		self.previous_hash = obj['previous_hash']
 		return self
 
@@ -191,7 +189,6 @@ class Blockchain:
 				lst[t.titleId] = t.titleKey
 		return lst
 
-
 	def register_node(self, address):
 		"""
 		Add a new node to the list of nodes
@@ -207,7 +204,6 @@ class Blockchain:
 			self.nodes.add(parsed_url.path)
 		else:
 			raise ValueError('Invalid URL')
-
 
 	def valid_chain(self, chain):
 		"""
@@ -231,7 +227,7 @@ class Blockchain:
 				return False
 
 			# Check that the title key is correct
-			#if not self.valid_proof(last_block['proof'], block['proof'], last_block_hash):
+			# if not self.valid_proof(last_block['proof'], block['proof'], last_block_hash):
 			#	return False
 
 			last_block = block
@@ -269,7 +265,7 @@ class Blockchain:
 
 		return False
 
-	def new_block(self, previous_hash = None):
+	def new_block(self, previous_hash=None):
 		if not previous_hash:
 			previous_hash = blockchain.last_block.hash()
 
@@ -344,7 +340,7 @@ class Blockchain:
 						f.seek(offset)
 						pfs0Header = f.read(levelSize)
 
-						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset, fs = fs)
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset, fs=fs)
 
 						index = blockchain.new_transaction(entry)
 
@@ -352,7 +348,6 @@ class Blockchain:
 						return True
 
 		return False
-
 
 	@property
 	def last_block(self):
@@ -381,7 +376,6 @@ def new_transaction():
 
 		entry = KeyEntry(values['titleId'], values['titleKey'], values['ncaHeader'], values['sectionHeaderBlock'], values['pfs0Header'], values['pfs0Offset'])
 
-
 		# Create a new Transaction
 		index = blockchain.new_transaction(entry)
 
@@ -392,7 +386,7 @@ def new_transaction():
 	except BaseException as e:
 		return str(e), 400
 
-def verifyKey(titleId = None, titleKey = None):
+def verifyKey(titleId=None, titleKey=None):
 	try:
 		if not titleId:
 			titleId = request.args.get('titleId')
@@ -433,7 +427,7 @@ def verifyKey(titleId = None, titleKey = None):
 						f.seek(fs.offset)
 						pfs0Header = f.read(0x10)
 
-						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset, fs = fs)
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, fs.offset, fs=fs)
 
 						index = blockchain.new_transaction(entry)
 
@@ -457,10 +451,10 @@ def verifyKey(titleId = None, titleKey = None):
 
 						fs.seek(offset)
 						pfs0Header = fs.read(levelSize)
-						
+
 						Print.info('offset = %d' % (offset))
 
-						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset, fs = fs)
+						entry = KeyEntry(titleId, titleKey.upper(), ncaHeader, sectionHeaderBlock, pfs0Header, offset, fs=fs)
 
 						index = blockchain.new_transaction(entry)
 

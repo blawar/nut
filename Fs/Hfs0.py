@@ -23,26 +23,25 @@ MEDIA_SIZE = 0x200
 
 
 class Hfs0(Pfs0):
-	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def __init__(self, buffer, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Hfs0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
 
-	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def open(self, path=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		r = super(BaseFs, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 
-		self.magic = self.read(0x4);
+		self.magic = self.read(0x4)
 		if self.magic != b'HFS0':
 			raise IOError('Not a valid HFS0 partition ' + str(self.magic))
-			
 
 		fileCount = self.readInt32()
 		stringTableSize = self.readInt32()
-		self.readInt32() # junk data
+		self.readInt32()  # junk data
 
 		self.seek(0x10 + fileCount * 0x40)
 		stringTable = self.read(stringTableSize)
 		stringEndOffset = stringTableSize
-		
+
 		headerSize = 0x10 + 0x40 * fileCount + stringTableSize
 		self.files = []
 
@@ -52,13 +51,13 @@ class Hfs0(Pfs0):
 
 			offset = self.readInt64()
 			size = self.readInt64()
-			nameOffset = self.readInt32() # just the offset
+			nameOffset = self.readInt32()  # just the offset
 			name = stringTable[nameOffset:stringEndOffset].decode('utf-8').rstrip(' \t\r\n\0')
 			stringEndOffset = nameOffset
 
-			self.readInt32() # junk data
+			self.readInt32()  # junk data
 
-			#if name in ['update', 'secure', 'normal']:
+			# if name in ['update', 'secure', 'normal']:
 			if name == 'secure':
 				f = Hfs0(None)
 				#f = factory(name)
@@ -72,7 +71,7 @@ class Hfs0(Pfs0):
 
 		self.files.reverse()
 
-	def printInfo(self, maxDepth = 3, indent = 0):
+	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
 		Print.info('\n%sHFS0\n' % (tabs))
 		super(Pfs0, self).printInfo(maxDepth, indent)

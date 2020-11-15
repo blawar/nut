@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QBoxLayout,QVBoxLayout,QTableWidget,QTableWidgetItem,QFormLayout,QLabel,QLineEdit,QHBoxLayout,QCheckBox,QGroupBox,QGridLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QBoxLayout, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QCheckBox, QGroupBox, QGridLayout
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, QRect
@@ -55,7 +55,7 @@ class RegionEntry(QWidget):
 class Region(QWidget):
 	def __init__(self):
 		super(QWidget, self).__init__()
-		
+
 		layout = QGridLayout(self)
 
 		regions = []
@@ -104,14 +104,9 @@ class Filters(QWidget):
 
 		layout.addWidget(types)
 
-
 		region = QGroupBox('REGION')
 		regionLayout = QHBoxLayout(region)
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
 
 		layout.addStretch()
-		
-
-
-

@@ -47,7 +47,7 @@ class IndexedFile:
 			self.titleId = id
 
 	def getId(self):
-			return self.titleId or ('0' * 16)
+		return self.titleId or ('0' * 16)
 
 	def setTimestamp(self, timestamp):
 		try:
@@ -93,7 +93,7 @@ class IndexedFile:
 		except:
 			pass
 
-	def move(self, forceNsp = False):
+	def move(self, forceNsp=False):
 		if not self.path:
 			Print.error('no path set')
 			return False
@@ -103,12 +103,12 @@ class IndexedFile:
 
 			if nszFile:
 				nsp = Fs.Nsp(nszFile, None)
-				nsp.hasValidTicket =  True
-				nsp.move(forceNsp = True)
+				nsp.hasValidTicket = True
+				nsp.move(forceNsp=True)
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
 
-		newPath = self.fileName(forceNsp = forceNsp)
+		newPath = self.fileName(forceNsp=forceNsp)
 
 		if not newPath:
 			Print.error('could not get filename for ' + self.path)
@@ -160,7 +160,7 @@ class IndexedFile:
 
 		try:
 			newPath = self.fileName()
-			os.makedirs(Config.paths.duplicates, exist_ok = True)
+			os.makedirs(Config.paths.duplicates, exist_ok=True)
 			origDupePath = Config.paths.duplicates + os.path.basename(newPath)
 			dupePath = origDupePath
 			Print.info('moving duplicate ' + os.path.basename(newPath))
@@ -183,9 +183,9 @@ class IndexedFile:
 		return s.strip()
 
 	def dict(self):
-		return {"titleId": self.titleId, "hasValidTicket": self.hasValidTicket, 'extractedNcaMeta': self.getExtractedNcaMeta(), 'version': self.version, 'timestamp': self.timestamp, 'path': self.path, 'fileSize': self.fileSize }
+		return {"titleId": self.titleId, "hasValidTicket": self.hasValidTicket, 'extractedNcaMeta': self.getExtractedNcaMeta(), 'version': self.version, 'timestamp': self.timestamp, 'path': self.path, 'fileSize': self.fileSize}
 
-	def getCr(self, inverted = False):
+	def getCr(self, inverted=False):
 		if not hasattr(self, 'cr') or not self.cr:
 			self.cr = self.getCrFromPath()
 
@@ -204,7 +204,6 @@ class IndexedFile:
 					uncompressedSize += f.header.size
 					compressedSize += f.size
 
-
 				container.close()
 				self.cr = int(compressedSize * 100.0 / uncompressedSize)
 
@@ -220,8 +219,7 @@ class IndexedFile:
 		else:
 			return '%02d' % int(self.cr)
 
-
-	def fileName(self, forceNsp = False):
+	def fileName(self, forceNsp=False):
 		bt = None
 
 		if not self.titleId in Titles.keys():
@@ -250,7 +248,6 @@ class IndexedFile:
 				return None
 			bt = Titles.get(t.baseId)
 
-
 		isNsx = not self.hasValidTicket and not forceNsp
 
 		try:
@@ -276,7 +273,6 @@ class IndexedFile:
 			return None
 
 		newName = self.cleanFilename(t.getName() or '')
-
 
 		format = format.replace('{id}', self.cleanFilename(t.id))
 		format = format.replace('{region}', self.cleanFilename(t.getRegion() or bt.getRegion()))
@@ -305,7 +301,6 @@ class IndexedFile:
 		while(len(os.path.basename(result).encode('utf-8')) > 240 and len(baseName) > 3):
 			baseName = baseName[:-1]
 			result = format.replace('{baseName}', baseName)
-
 
 		return os.path.abspath(result)
 

@@ -15,7 +15,7 @@ class User:
 		self.switchPort = None
 		pass
 
-	def loadCsv(self, line, map = []):
+	def loadCsv(self, line, map=[]):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
@@ -27,7 +27,7 @@ class User:
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
 
-	def serialize(self, map = ['id', 'password']):
+	def serialize(self, map=['id', 'password']):
 		r = []
 		for i in map:
 
@@ -53,6 +53,7 @@ class User:
 			self.isAdmin = False if int(isAdmin) == 0 else True
 		except:
 			pass
+
 	def getIsAdmin(self):
 		return str(self.isAdmin)
 
@@ -106,7 +107,7 @@ def auth(id, password, address):
 
 	return user
 
-def load(path = 'conf/users.conf'):
+def load(path='conf/users.conf'):
 	global users
 
 	if not os.path.isfile(path):
@@ -139,16 +140,17 @@ def load(path = 'conf/users.conf'):
 def save():
 	pass
 
-def export(fileName = 'conf/users.conf', map = ['id', 'password']):
-	os.makedirs(os.path.dirname(fileName), exist_ok = True)
+def export(fileName='conf/users.conf', map=['id', 'password']):
+	os.makedirs(os.path.dirname(fileName), exist_ok=True)
 	global users
 	buffer = ''
 
 	buffer += '|'.join(map) + '\n'
-	for k,t in users.items():
+	for k, t in users.items():
 		buffer += t.serialize(map) + '\n'
 
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
+
 
 load()

@@ -10,7 +10,7 @@ class FileEventHandler(RegexMatchingEventHandler):
 	def on_created(self, event):
 		print('added: ' + event.src_path)
 		Nsps.registerFile(event.src_path)
-		
+
 	def on_deleted(self, event):
 		print('deleted: ' + event.src_path)
 		Nsps.unregisterFile(event.src_path)
@@ -46,6 +46,7 @@ class Watcher:
 			self.__src_path,
 			recursive=True
 		)
-		
+
+
 watcher = Watcher('.')
 watcher.run()

@@ -41,7 +41,7 @@ try:
 	import cdn.Shogun
 except:
 	pass
-	
+
 from ganymede import Ganymede
 
 
@@ -65,42 +65,42 @@ class RegionLanguage:
 		self.language = language
 		self.preferredRegion = preferredRegion
 		self.preferredLanguage = preferredLanguage
-		
+
 		if language == preferredLanguage:
 			self.score = 100
 		else:
 			self.score = 0
-			
+
 		if region == preferredRegion:
 			self.score += 10
-			
+
 		if language == 'en' and region == 'US':
 			self.score += 5
-			
+
 		if language == 'fr' and region == 'FR':
 			self.score += 5
-			
+
 		if language == 'ja' and region == 'JP':
 			self.score += 5
-			
+
 		if language == 'es' and region == 'ES':
 			self.score += 5
-			
+
 		if region == 'GB':
 			self.score += 4
 
 		if language == 'en':
 			self.score += 4
-			
+
 		if language == 'fr':
 			self.score += 3
-			
+
 		if language == 'es':
 			self.score += 1
-			
+
 		if language == 'de':
 			self.score += 1
-		
+
 	def __lt__(self, other):
 		return self.score < other.score
 
@@ -108,7 +108,7 @@ class RegionLanguage:
 		print('%s - %s' % (self.region, self.language))
 
 class NcaFile:
-	def __init__(self, obj = None):
+	def __init__(self, obj=None):
 		self.contentType = None
 		self.isGameCard = None
 		self.cryptoType = None
@@ -121,11 +121,11 @@ class NcaFile:
 		self.rightsId = None
 
 		if obj is not None:
-			for key,data in obj.items():
+			for key, data in obj.items():
 				self.__dict__[key] = data
 
 class CnmtFile:
-	def __init__(self, titleId = None, version = None, obj = None):
+	def __init__(self, titleId=None, version=None, obj=None):
 		self.titleId = titleId
 		self.version = version
 		self.titleType = None
@@ -134,7 +134,7 @@ class CnmtFile:
 		self.metaEntries = []
 
 		if obj is not None:
-			for key,data in obj.items():
+			for key, data in obj.items():
 				self.__dict__[key] = data
 
 	def content(self):
@@ -165,7 +165,7 @@ def isNcaPacked(nca):
 
 	return True
 
-def compress(filePath, compressionLevel = 19, outputDir = None):
+def compress(filePath, compressionLevel=19, outputDir=None):
 	filePath = os.path.abspath(filePath)
 
 	CHUNK_SZ = 0x1000000
@@ -174,9 +174,9 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 		nszPath = filePath[0:-1] + 'z'
 	else:
 		nszPath = os.path.join(outputDir, os.path.basename(filePath[0:-1] + 'z'))
-		
+
 	nszPath = os.path.abspath(nszPath)
-	
+
 	Print.info('compressing (level %d) %s -> %s' % (compressionLevel, filePath, nszPath))
 
 	if Config.dryRun:
@@ -185,7 +185,7 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 	container = Fs.factory(filePath)
 
 	container.open(filePath, 'rb')
-	
+
 	newNsp = Pfs0Stream(nszPath)
 
 	for nspf in container:
@@ -196,7 +196,7 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 				newFileName = nspf._path[0:-1] + 'z'
 
 				f = newNsp.add(newFileName, nspf.size)
-				
+
 				start = f.tell()
 
 				nspf.seek(0)
@@ -204,10 +204,10 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 				#crypto = aes128.AESXTS(uhx(Keys.get('header_key')))
 				#d = crypto.decrypt(h)
 
-				#if d[0x200:0x204] == b'NCA3':
+				# if d[0x200:0x204] == b'NCA3':
 				#	d = d[0:0x200] + b'NCZ3' + d[0x204:]
 				#	h = crypto.encrypt(d)
-				#else:
+				# else:
 				#	raise IOError('unknown NCA magic')
 
 				# self.partition(0x0, 0xC00, self.header, Fs.Type.Crypto.XTS, uhx(Keys.get('header_key')))
@@ -215,11 +215,11 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 				written = ncaHeaderSize
 
 				compressor = cctx.stream_writer(f)
-				
+
 				sections = []
 				for fs in sortedFs(nspf):
 					sections += fs.getEncryptionSections()
-				
+
 				header = b'NCZSECTN'
 				header += len(sections).to_bytes(8, 'little')
 
@@ -235,7 +235,7 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 
 				f.write(header)
 				written += len(header)
-					
+
 				bar = Status.create(nspf.size, desc=os.path.basename(nszPath), unit='B')
 
 				decompressedBytes = ncaHeaderSize
@@ -243,29 +243,30 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 
 				for section in sections:
 					#print('offset: %x\t\tsize: %x\t\ttype: %d\t\tiv%s' % (section.offset, section.size, section.cryptoType, str(hx(section.cryptoCounter))))
-					o = nspf.partition(offset = section.offset, size = section.size, n = None, cryptoType = section.cryptoType, cryptoKey = section.cryptoKey, cryptoCounter = bytearray(section.cryptoCounter), autoOpen = True)
-				
+					o = nspf.partition(offset=section.offset, size=section.size, n=None, cryptoType=section.cryptoType,
+									   cryptoKey=section.cryptoKey, cryptoCounter=bytearray(section.cryptoCounter), autoOpen=True)
+
 					while not o.eof():
 						buffer = o.read(CHUNK_SZ)
-					
+
 						if len(buffer) == 0:
 							raise IOError('read failed')
 
 						written += compressor.write(buffer)
-					
+
 						decompressedBytes += len(buffer)
 						bar.add(len(buffer))
-						
+
 					o.close()
-						
+
 				compressor.flush(zstandard.FLUSH_FRAME)
 				bar.close()
-				
+
 				Print.info('%d written vs %d tell' % (written, f.tell() - start))
 				written = f.tell() - start
 				Print.info('compressed %d%% %d -> %d  - %s' % (int(written * 100 / nspf.size), decompressedBytes, written, nspf._path))
 				newNsp.resize(newFileName, written)
-				
+
 				continue
 			else:
 				Print.info('not packed!')
@@ -276,22 +277,21 @@ def compress(filePath, compressionLevel = 19, outputDir = None):
 			buffer = nspf.read(CHUNK_SZ)
 			f.write(buffer)
 
-
 	newNsp.close()
 	return nszPath
 
 def compressWorker(q, level, output, totalStatus):
 	while not q.empty():
 		try:
-			path = q.get(block = False)
+			path = q.get(block=False)
 			totalStatus.add(1)
-			
+
 			nszFile = compress(path, level, output)
 
 			if nszFile:
 				nsp = Fs.Nsp(nszFile, None)
-				nsp.hasValidTicket =  True
-				nsp.move(forceNsp = True)
+				nsp.hasValidTicket = True
+				nsp.move(forceNsp=True)
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
 		except queue.Empty as e:
@@ -299,28 +299,28 @@ def compressWorker(q, level, output, totalStatus):
 		except BaseException as e:
 			Print.info('COMPRESS WORKER EXCEPTION: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
-			
+
 def ganymede(config):
 	initTitles()
 	initFiles()
-	
+
 	g = Ganymede(config)
-	for k,t in Titles.items():
+	for k, t in Titles.items():
 		try:
-			if not t.isActive(skipKeyCheck = True):
+			if not t.isActive(skipKeyCheck=True):
 				continue
-				
+
 			lastestNsz = t.getLatestNsz()
-			
+
 			if lastestNsz is None:
 				continue
-				
+
 			g.push(t.id, lastestNsz.version, lastestNsz.path, lastestNsz.size)
-				
+
 		except:
 			raise
-	
-def compressAll(level = 19):
+
+def compressAll(level=19):
 	initTitles()
 	initFiles()
 
@@ -329,16 +329,16 @@ def compressAll(level = 19):
 
 	i = 0
 	Print.info('Compressing All')
-	
+
 	if Config.reverse:
 		q = queue.LifoQueue()
 	else:
 		q = queue.Queue()
 
-	for k,t in Titles.items():
+	for k, t in Titles.items():
 		try:
 			i = i + 1
-			if not t.isActive(skipKeyCheck = True):
+			if not t.isActive(skipKeyCheck=True):
 				continue
 
 			lastestNsp = t.getLatestNsp()
@@ -356,18 +356,17 @@ def compressAll(level = 19):
 
 			if Config.download.fileSizeMin is not None and lastestNsp.getFileSize() < Config.download.fileSizeMin:
 				continue
-				
+
 			q.put(lastestNsp.path)
 
-			
 		except BaseException as e:
 			Print.info('COMPRESS ALL EXCEPTION: ' + str(e))
-			
+
 	numThreads = Config.threads
 	threads = []
 
 	s = Status.create(q.qsize(), desc="NSPs", unit='B')
-	
+
 	if numThreads > 0:
 		Print.info('creating compression threads ' + str(q.qsize()))
 
@@ -381,13 +380,13 @@ def compressAll(level = 19):
 			t.join()
 	else:
 		compressWorker(q, level, Config.paths.nspOut, s)
-		
+
 	s.close()
 
 def decompressWorker(q, output, totalStatus):
 	while not q.empty():
 		try:
-			path = q.get(block = False)
+			path = q.get(block=False)
 			totalStatus.add(1)
 
 			path = NszDecompressor.decompress(path, output)
@@ -415,16 +414,16 @@ def decompressAll():
 
 	i = 0
 	Print.info('De-compressing All')
-	
+
 	if Config.reverse:
 		q = queue.LifoQueue()
 	else:
 		q = queue.Queue()
 
-	for k,t in Titles.items():
+	for k, t in Titles.items():
 		try:
 			i = i + 1
-			if not t.isActive(skipKeyCheck = True):
+			if not t.isActive(skipKeyCheck=True):
 				continue
 
 			lastestNsz = t.getLatestNsz()
@@ -445,18 +444,17 @@ def decompressAll():
 
 			if Config.download.fileSizeMin is not None and lastestNsz.getFileSize() < Config.download.fileSizeMin:
 				continue
-				
+
 			q.put(lastestNsz.path)
 
-			
 		except BaseException as e:
 			Print.info('DECOMPRESS ALL EXCEPTION: ' + str(e))
-			
+
 	numThreads = Config.threads
 	threads = []
 
 	s = Status.create(q.qsize(), desc="NSPs", unit='B')
-	
+
 	if numThreads > 0:
 		Print.info('creating decompression threads ' + str(q.qsize()))
 
@@ -470,10 +468,10 @@ def decompressAll():
 			t.join()
 	else:
 		decompressWorker(q, Config.paths.nspOut, s)
-		
+
 	s.close()
 
-def refreshRegions(save = True):
+def refreshRegions(save=True):
 	for region in Config.regionLanguages():
 		for language in Config.regionLanguages()[region]:
 			for i in Titles.data(region, language):
@@ -496,26 +494,26 @@ def refreshRegions(save = True):
 	if save == True:
 		Titles.save()
 
-def importRegion(region = 'US', language = 'en', save = True):
+def importRegion(region='US', language='en', save=True):
 	if not region in Config.regionLanguages() or language not in Config.regionLanguages()[region]:
 		Print.info('Could not locate %s/%s !' % (region, language))
 		return False
-		
+
 	regionLanguages = []
-	
+
 	for region2 in Config.regionLanguages():
 		for language2 in Config.regionLanguages()[region2]:
 			regionLanguages.append(RegionLanguage(region2, language2, region, language))
 
 	for rl in sorted(regionLanguages):
 		data = Titles.data(rl.region, rl.language)
-		for nsuId in sorted(data.keys(), reverse = True):
+		for nsuId in sorted(data.keys(), reverse=True):
 			regionTitle = data[nsuId]
 			if not regionTitle.id:
 				continue
 
 			title = Titles.get(regionTitle.id, None, None)
-			title.importFrom(regionTitle, rl.region, rl.language, preferredRegion = region, preferredLanguage = language)
+			title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
 
 	Titles.loadTxtDatabases()
 	if save == True:
@@ -537,7 +535,7 @@ def downloadRepoFile(path):
 	tmpFile = finalFile + '.tmp'
 	try:
 		with open(tmpFile, 'wb') as f:
-			bytes = download(baseUrl + path, f, checkSize = False)
+			bytes = download(baseUrl + path, f, checkSize=False)
 			if bytes == 0:
 				raise IOError('downloaded empty file')
 		try:
@@ -567,7 +565,7 @@ def decompressZstd(src, dest):
 
 				f.write(chunk)
 
-def updateTitleDb(force = False):
+def updateTitleDb(force=False):
 	if not Config.autoUpdateTitleDb and not force:
 		return
 
@@ -580,7 +578,7 @@ def updateTitleDb(force = False):
 
 	try:
 		with open('titledb/db.bin', 'wb') as f:
-			bytes = download('http://tinfoil.media/repo/db/db.bin', f, checkSize = False)
+			bytes = download('http://tinfoil.media/repo/db/db.bin', f, checkSize=False)
 
 		decompressZstd('titledb/db.bin', 'titledb/db.nza')
 		container = Fs.Nsp('titledb/db.nza')
@@ -598,7 +596,7 @@ def updateTitleDb(force = False):
 		except:
 			pass
 
-		refreshRegions(save = False)
+		refreshRegions(save=False)
 		importRegion(Config.region, Config.language)
 		return
 
@@ -614,10 +612,10 @@ def updateTitleDb(force = False):
 	for path in fileList:
 		downloadRepoFile(path)
 
-	refreshRegions(save = False)
+	refreshRegions(save=False)
 	importRegion(Config.region, Config.language)
 
-def initTitles(verify = True):
+def initTitles(verify=True):
 	global isInitTitles
 	if isInitTitles:
 		return
@@ -629,33 +627,30 @@ def initTitles(verify = True):
 
 	Titles.load()
 
-	initFiles(verify = verify)
+	initFiles(verify=verify)
 	Titles.queue.load()
 
-def initFiles(verify = True):
+def initFiles(verify=True):
 	global isInitFiles
 	if isInitFiles:
 		return
 
 	isInitFiles = True
 
-	Nsps.load(verify = verify)
+	Nsps.load(verify=verify)
 
 def scan():
 	global hasScanned
 
-	#if hasScanned:
+	# if hasScanned:
 	#	return
 	hasScanned = True
 	initTitles()
 	initFiles()
 
-	
-	
-
 	for path in Config.paths.scan:
 		r = Nsps.scan(path)
-	
+
 	return r
 
 class Progress:
@@ -667,7 +662,7 @@ class Progress:
 	def __enter__(self):
 		return self
 
-	def __exit__(self ,type, value, traceback):
+	def __exit__(self, type, value, traceback):
 		self.close()
 
 	def close(self):
@@ -680,12 +675,11 @@ class Progress:
 		self.status.add(len(chunk))
 
 
-
-def serveFile(response, path, filename = None):
+def serveFile(response, path, filename=None):
 	with Fs.driver.openFile(path) as f:
 		try:
-			with Progress(response = response, f = f) as progress:
-				f.chunk(progress.write, offset = None, size = None)
+			with Progress(response=response, f=f) as progress:
+				f.chunk(progress.write, offset=None, size=None)
 		except BaseException as e:
 			Print.error('File download exception: ' + str(e))
 
@@ -700,15 +694,15 @@ def pullWorker(q, s):
 		if not nsp:
 			break
 
-		try:	
+		try:
 			hasValidTicket = nsp.hasValidTicket
 
-			tmpFile = getName(nsp.titleId, nsp.version, path = nsp.path)
+			tmpFile = getName(nsp.titleId, nsp.version, path=nsp.path)
 			Print.info('Downloading ' + nsp.path)
 
 			if Config.dryRun:
 				continue
-				
+
 			if Config.download.fileSizeMax is not None and nsp.getFileSize() > Config.download.fileSizeMax:
 				continue
 
@@ -719,13 +713,13 @@ def pullWorker(q, s):
 				serveFile(f, nsp.downloadPath, os.path.basename(nsp.path))
 
 			nsp = Fs.Nsp(tmpFile, None)
-			nsp.hasValidTicket =  hasValidTicket
-			nsp.move(forceNsp = hasValidTicket)
+			nsp.hasValidTicket = hasValidTicket
+			nsp.move(forceNsp=hasValidTicket)
 			Nsps.files[nsp.path] = nsp
 			Nsps.save()
 		except BaseException as e:
 			Print.error('FTP SYNC EXCEPTION: ' + str(e))
-			#raise #TODO
+			# raise #TODO
 		s.add()
 	Print.info('thread exiting')
 
@@ -751,16 +745,14 @@ def _ftpsync(url):
 			if not nsp.titleId:
 				continue
 
-			if not Titles.contains(nsp.titleId) or (not len(Titles.get(nsp.titleId).getFiles(path[-3:])) and Titles.get(nsp.titleId).isActive(skipKeyCheck = True)):
+			if not Titles.contains(nsp.titleId) or (not len(Titles.get(nsp.titleId).getFiles(path[-3:])) and Titles.get(nsp.titleId).isActive(skipKeyCheck=True)):
 				if path[-3:] == 'nsx':
 					if len(Titles.get(nsp.titleId).getFiles('nsp')) or len(Titles.get(nsp.titleId).getFiles('nsz')):
 						continue
 				q.put(nsp)
 		except BaseException as e:
 			Print.error(str(e))
-			#raise #TODO
-
-
+			# raise #TODO
 
 	numThreads = Config.threads
 	threads = []
@@ -802,7 +794,7 @@ def makeRequest(method, url, certificate='', hdArgs={}):
 
 	return r
 
-def download(url, f, titleId = None, name = None, checkSize = True):
+def download(url, f, titleId=None, name=None, checkSize=True):
 	bytes = 0
 	r = makeRequest('GET', url)
 
@@ -839,11 +831,11 @@ def organize():
 	initTitles()
 	initFiles()
 
-	#scan()
+	# scan()
 	Print.info('organizing')
-	#for k, f in Nsps.files.items():
-		#print('moving ' + f.path)
-		#Print.info(str(f.hasValidTicket) +' = ' + f.path)
+	# for k, f in Nsps.files.items():
+	#print('moving ' + f.path)
+	#Print.info(str(f.hasValidTicket) +' = ' + f.path)
 	#	f.move()
 
 	for id, t in Titles.data().items():
@@ -867,7 +859,6 @@ def organize():
 
 				hasNsp = True
 				latest.move()
-		
 
 		if '.nsz' in files and len(files['.nsz']) > 0:
 			latest = t.getLatestNsz()
@@ -887,7 +878,7 @@ def organize():
 				for f in files['.nsx']:
 					if f.path != latest.path:
 						f.moveDupe()
-				
+
 				if hasNsp:
 					latest.moveDupe()
 				else:
@@ -900,50 +891,50 @@ def organize():
 				for f in files['.xci']:
 					if f.path != latest.path:
 						f.moveDupe()
-					
+
 				latest.move()
 
 	Print.info('removing empty directories')
 	Nsps.removeEmptyDir('.', False)
 	Nsps.save()
 
-def export(file, cols = ['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'baseName', 'name', 'version', 'region']):
-#def export(file, cols = ['rightsId', 'key', 'name']):
+def export(file, cols=['id', 'rightsId', 'isUpdate', 'isDLC', 'isDemo', 'baseName', 'name', 'version', 'region']):
+	# def export(file, cols = ['rightsId', 'key', 'name']):
 	initTitles()
 	Titles.export(file, cols)
 
-def updateVersions(force = True):
+def updateVersions(force=True):
 	initTitles()
 	initFiles()
 
 	i = 0
-	for k,t in Titles.items():
+	for k, t in Titles.items():
 		if force or t.version == None:
 			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 				v = t.lastestVersion(True)
-				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)) )
-			
+				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)))
+
 				i = i + 1
 				if i % 20 == 0:
 					Titles.save()
-			
+
 	for t in list(Titles.data().values()):
 		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
 			u = Title.Title()
 			u.setId(t.updateId)
-			
+
 			if u.lastestVersion():
 				Titles.set(t.updateId, u)
-				
-				Print.info("%s[%s] FOUND" % (str(t.name), str(u.id)) )
-				
+
+				Print.info("%s[%s] FOUND" % (str(t.name), str(u.id)))
+
 				i = i + 1
 				if i % 20 == 0:
 					Titles.save()
-					
+
 	Titles.save()
 
-def scrapeThread(st, delta = True):
+def scrapeThread(st, delta=True):
 	while scrapeQueue.qsize() > 0:
 		titleId = scrapeQueue.get()
 		try:
@@ -951,19 +942,19 @@ def scrapeThread(st, delta = True):
 			st.add()
 		except BaseException as e:
 			Print.error(str(e))
-	Print.info('thread exit')	
-			
+	Print.info('thread exit')
+
 def scrape(delta):
 	initTitles()
 	initFiles()
-	
+
 	global scrapeQueue
-	
+
 	if Config.reverse:
 		scrapeQueue = queue.LifoQueue()
 	else:
 		scrapeQueue = queue.Queue()
-	
+
 	for titleId in Titles.titles.keys():
 		scrapeQueue.put(titleId)
 
@@ -982,22 +973,22 @@ def scrape(delta):
 
 def setVersionHistory(titleId, ver, date):
 	global versionHistory
-	
+
 	if ver == '' or ver is None or ver == 'none':
 		return
-		
+
 	ver = int(ver)
 	titleId = str(titleId).lower()
-	
+
 	if ver == 0:
 		return
-	
+
 	if len(titleId) > 16:
 		titleId = titleId[0:16]
-	
+
 	if not titleId in versionHistory:
 		versionHistory[titleId] = {}
-		
+
 	if not ver in versionHistory[titleId]:
 		versionHistory[titleId][ver] = date
 	else:
@@ -1036,7 +1027,7 @@ def updateDb(url, c=0):
 			Titles.loadTitleBuffer(r.text, False)
 		else:
 			Print.info('Error updating database: %s' % repr(r))
-			
+
 	except Exception as e:
 		Print.info('Error downloading:' + str(e))
 
@@ -1089,7 +1080,7 @@ def downloadFile(url, fPath):
 		f.write(r.content)
 		dlded += len(r.content)
 
-	#if fSize != 0 and dlded != fSize:
+	# if fSize != 0 and dlded != fSize:
 	#	raise ValueError('Downloaded data is not as big as expected (%s/%s)!' % (dlded, fSize))
 
 	f.close()
@@ -1104,7 +1095,7 @@ def loadNcaData():
 		with open('titledb/cnmts.json', encoding="utf-8-sig") as f:
 			tmpData = json.loads(f.read())
 
-			for titleId,j in tmpData.items():
+			for titleId, j in tmpData.items():
 				cnmtData[titleId] = {}
 				for version, data in j.items():
 					#version = str(version)
@@ -1120,34 +1111,34 @@ def loadNcaData():
 			ncaData = json.loads(f.read())
 
 			for ncaId, data in ncaData.items():
-				ncaData[ncaId] = NcaFile(obj = data)
+				ncaData[ncaId] = NcaFile(obj=data)
 	except:
 		raise
 
 def saveNcaData():
 	global cnmtData
 	global ncaData
-	
+
 	try:
 		out = {}
-		
-		for k,j in cnmtData.items():
+
+		for k, j in cnmtData.items():
 			out[k] = {}
 
-			for v,row in j.items():
+			for v, row in j.items():
 				out[k][v] = row.__dict__
-			
+
 		with open('titledb/cnmts.json', 'w') as f:
 			json.dump(out, f, indent=4, sort_keys=True)
 	except:
 		raise
-	
+
 	try:
 		out = {}
-		
-		for k,v in ncaData.items():
+
+		for k, v in ncaData.items():
 			out[k] = v.__dict__
-			
+
 		with open('titledb/ncas.json', 'w') as f:
 			json.dump(out, f, indent=4, sort_keys=True)
 	except:
@@ -1169,7 +1160,7 @@ def hasBuildId(cnmt):
 	return False
 
 
-def hasCnmt(titleId = None, version = None):
+def hasCnmt(titleId=None, version=None):
 	titleId = titleId.lower()
 	version = str(version)
 
@@ -1186,7 +1177,7 @@ def hasCnmt(titleId = None, version = None):
 	return True
 
 
-def getCnmt(titleId = None, version = None, obj = None):
+def getCnmt(titleId=None, version=None, obj=None):
 	global cnmtData
 	titleId = titleId.lower()
 	version = str(version)
@@ -1208,11 +1199,11 @@ def extractNcaMeta():
 	global ncaData
 	q = {}
 	for path, nsp in Nsps.files.items():
-		if not nsp.path.endswith('.nsp'): # and not nsp.path.endswith('.xci'):
+		if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
 			continue
 		try:
 			if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta == True or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
-				#Print.info('skipping')
+				# Print.info('skipping')
 				continue
 
 			if hasCnmt(nsp.titleId, nsp.version):
@@ -1225,14 +1216,14 @@ def extractNcaMeta():
 
 	c = 0
 	for path, nsp in tqdm(q.items()):
-		if not nsp.path.endswith('.nsp'): # and not nsp.path.endswith('.xci'):
+		if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
 			continue
-		try:				
+		try:
 			c += 1
 			if c > 50:
 				c = 0
 				saveNcaData()
-				#Nsps.save()
+				# Nsps.save()
 
 			nsp.open(path, 'rb')
 
@@ -1246,8 +1237,6 @@ def extractNcaMeta():
 			for n in nsp:
 				if not isinstance(n, Nca):
 					continue
-
-				
 
 				ncaId = n._path.split('.')[0]
 				data = getNca(ncaId)
@@ -1272,7 +1261,7 @@ def extractNcaMeta():
 
 				ncaDataMap[ncaId.upper()] = data
 
-			#print(ncaDataMap)
+			# print(ncaDataMap)
 
 			for n in nsp:
 				if not isinstance(n, Nca):
@@ -1321,9 +1310,9 @@ def extractNcaMeta():
 							for e in m.metaEntries:
 								cnmt.metaEntries.append({'titleId': e.titleId, 'version': e.version, 'type': e.type, 'install': e.install})
 
-							#print(cnmt.__dict__)
+							# print(cnmt.__dict__)
 
-				#print(str(data.__dict__))
+				# print(str(data.__dict__))
 			Print.info('processed %s' % nsp.path)
 			nsp.extractedNcaMeta = True
 			nsp.close()
@@ -1332,21 +1321,21 @@ def extractNcaMeta():
 
 	# save remaining files
 	saveNcaData()
-	#Nsps.save()
+	# Nsps.save()
 
-def getName(titleId, version, key = None, path = None):
+def getName(titleId, version, key=None, path=None):
 	nut.initTitles()
 	nut.initFiles()
 	titleId = titleId.upper()
 	nsp = Nsp()
-	
+
 	if path:
 		nsp.setPath(os.path.basename(path))
 
 	nsp.titleId = titleId
 	nsp.version = version
 	nsp.hasValidTicket = True
-	
+
 	if path:
 		filename, ext = os.path.splitext(path)
 	else:
@@ -1354,18 +1343,18 @@ def getName(titleId, version, key = None, path = None):
 
 	return os.path.join(Config.paths.nspOut, os.path.basename(nsp.fileName() or ('Untitled [%s][v%d]%s' % (titleId, int(version or 0), ext))))
 
-def scrapeShogun(force = False, region = None):
+def scrapeShogun(force=False, region=None):
 	initTitles()
 	initFiles()
 
 	if region is None:
-		for region in cdn.regions():				
-			cdn.Shogun.scrapeTitles(region, force = force)
+		for region in cdn.regions():
+			cdn.Shogun.scrapeTitles(region, force=force)
 	else:
-		cdn.Shogun.scrapeTitles(region, force = force)
+		cdn.Shogun.scrapeTitles(region, force=force)
 	Titles.saveAll()
 
-def scrapeShogunWorker(q, force = False):
+def scrapeShogunWorker(q, force=False):
 	while True:
 		region = q.get()
 
@@ -1373,14 +1362,14 @@ def scrapeShogunWorker(q, force = False):
 			break
 
 		try:
-			cdn.Shogun.scrapeTitles(region, force = force)
+			cdn.Shogun.scrapeTitles(region, force=force)
 		except BaseException as e:
 			Print.info('shogun worker exception: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
 
 		q.task_done()
 
-def scrapeShogunThreaded(force = False):
+def scrapeShogunThreaded(force=False):
 	initTitles()
 	initFiles()
 
@@ -1407,14 +1396,13 @@ def scrapeShogunThreaded(force = False):
 	for i in range(numThreads):
 		q.put(None)
 
-
 	i = 0
 	for t in scrapeThreads:
 		i += 1
 		t.join()
 		Print.info('joined thread %d of %d' % (i, len(scrapeThreads)))
-	#q.join()
-	
+	# q.join()
+
 	Print.info('saving titles')
 	Titles.saveAll()
 	Print.info('titles  saved')
@@ -1423,40 +1411,40 @@ def scanLatestTitleUpdates():
 	global versionHistory
 	initTitles()
 	initFiles()
-	
+
 	now = datetime.datetime.now()
 	today = now.strftime("%Y-%m-%d")
-	
+
 	try:
 		with open('titledb/versions.json', 'r') as f:
-			for titleId,vers in json.loads(f.read()).items():
-				for ver,date in vers.items():
+			for titleId, vers in json.loads(f.read()).items():
+				for ver, date in vers.items():
 					setVersionHistory(titleId, ver, date)
 	except:
 		pass
 
-	for k,i in cdn.hacVersionList().items():
+	for k, i in cdn.hacVersionList().items():
 		id = str(k).upper()
 		version = str(i)
-		
+
 		if not Titles.contains(id):
 			if len(id) != 16:
 				Print.info('invalid title id: ' + id)
 				continue
-			
+
 		t = Titles.get(id)
-		
+
 		if t.isUpdate:
 			setVersionHistory(Title.getBaseId(id), version, today)
 		else:
 			setVersionHistory(id, version, today)
-		
+
 		if str(t.version) != str(version) and t.isActive():
 			Print.info('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
 			t.setVersion(version, True)
-			
+
 	Titles.save()
-	
+
 	try:
 		with open('titledb/versions.json', 'w') as outfile:
 			json.dump(versionHistory, outfile, indent=4, sort_keys=True)
@@ -1514,7 +1502,7 @@ def startDownloadThreads():
 		t.start()
 		threads.append(t)
 
-def downloadAll(wait = True):
+def downloadAll(wait=True):
 	initTitles()
 	initFiles()
 
@@ -1525,7 +1513,7 @@ def downloadAll(wait = True):
 	Print.info('Downloading All')
 	try:
 
-		for k,t in Titles.items():
+		for k, t in Titles.items():
 			i = i + 1
 			if not t.isActive():
 				continue
@@ -1541,7 +1529,7 @@ def downloadAll(wait = True):
 		if Titles.queue.size() > 0:
 			Titles.save()
 			#status = Status.create(Titles.queue.size(), 'Total Download')
-		
+
 			if Config.threads <= 1:
 				activeDownloads.append(1)
 				downloadThread(0)
@@ -1557,7 +1545,7 @@ def downloadAll(wait = True):
 
 	Print.info('Downloads finished')
 
-	#if status:
+	# if status:
 	#	status.close()
 
 	Print.info('DownloadAll finished')

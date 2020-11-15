@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout,QTableWidget,QTableWidgetItem,QFormLayout,QLabel,QLineEdit,QHBoxLayout,QScrollArea,QGroupBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QScrollArea, QGroupBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, QRect
@@ -17,7 +17,7 @@ class Edit(QLineEdit):
 			self.key = 'title' + id
 
 		self.setText(getattr(Config.paths, self.key))
-		#self.textChanged.connect(self.onChange)
+		# self.textChanged.connect(self.onChange)
 
 	def focusOutEvent(self, event):
 		current = getattr(Config.paths, self.key) or ''
@@ -38,18 +38,16 @@ class Row(QGroupBox):
 		layout = QFormLayout(self)
 
 		layout.addRow(QLabel('Base'), Edit('Base', type))
-		layout.addRow(QLabel('DLC'),Edit('DLC', type))
+		layout.addRow(QLabel('DLC'), Edit('DLC', type))
 		layout.addRow(QLabel('Update'), Edit('Update', type))
 		layout.addRow(QLabel('Demo'), Edit('Demo', type))
 		layout.addRow(QLabel('Demo Update'), Edit('DemoUpdate', type))
 
-		#self.layout.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
+		# self.layout.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
 
 class Format(QWidget):
 	def __init__(self):
 		super(QWidget, self).__init__()
-
-		
 
 		layout = QVBoxLayout(self)
 
@@ -87,7 +85,5 @@ class Format(QWidget):
 		layout.addWidget(Row(''))
 		layout.addWidget(Row('nsz'))
 		layout.addWidget(Row('xci'))
-		#layout.addWidget(Row('nsx'))
+		# layout.addWidget(Row('nsx'))
 		layout.addStretch()
-
-

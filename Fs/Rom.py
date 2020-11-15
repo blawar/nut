@@ -16,24 +16,23 @@ from Fs.Ivfc import Ivfc
 from nut import Hex
 
 MEDIA_SIZE = 0x200
-		
+
 class Rom(BaseFs):
-	def __init__(self, buffer, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def __init__(self, buffer, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Rom, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
 		if buffer:
 			self.ivfc = Ivfc(MemoryFile(buffer[0x8:]), 'rb')
 			self.magic = buffer[0x8:0xC]
-			
-			#Hex.dump(buffer)
+
+			# Hex.dump(buffer)
 			#self.sectionStart = self.ivfc.levels[5].offset
 		else:
 			self.ivfc = None
 
-	def open(self, path = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def open(self, path=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		r = super(Rom, self).open(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
-
-	def printInfo(self, maxDepth = 3, indent = 0):
+	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
 		Print.info('\n%sRom' % (tabs))
 		if self.ivfc:
@@ -41,7 +40,7 @@ class Rom(BaseFs):
 			Print.info('%sLevels = %d' % (tabs, self.ivfc.numberLevels))
 			Print.info('%sHash = %s' % (tabs, hx(self.ivfc.hash).decode()))
 			if self.ivfc.numberLevels < 16:
-				for i,level in enumerate(self.ivfc.levels):
+				for i, level in enumerate(self.ivfc.levels):
 					Print.info('%sLevel%d offset = %d' % (tabs, i, level.offset))
 					Print.info('%sLevel%d size = %d' % (tabs, i, level.size))
 					Print.info('%sLevel%d blockSize = %d' % (tabs, i, level.blockSize))
@@ -53,5 +52,3 @@ class Rom(BaseFs):
 		Hex.dump(level1)
 		'''
 		super(Rom, self).printInfo(maxDepth, indent)
-
-

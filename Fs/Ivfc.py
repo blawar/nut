@@ -6,7 +6,7 @@ from binascii import hexlify as hx, unhexlify as uhx
 from struct import pack as pk, unpack as upk
 from Fs.File import File
 from hashlib import sha256
-import  Fs.Type
+import Fs.Type
 import os
 import re
 import pathlib
@@ -27,7 +27,7 @@ class IvfcLevel:
 		self.reserved = reserved
 
 class Ivfc(File):
-	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def __init__(self, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		self.magic = None
 		self.magicNumber = None
 		self.masterHashSize = None
@@ -36,7 +36,7 @@ class Ivfc(File):
 		self.hash = None
 		super(Ivfc, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
-	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def open(self, file=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Ivfc, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 		self.magic = self.read(0x4)
@@ -49,4 +49,3 @@ class Ivfc(File):
 
 		self.read(32)
 		self.hash = self.read(32)
-		

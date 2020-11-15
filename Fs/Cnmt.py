@@ -12,7 +12,7 @@ class MetaEntry:
 		self.type = f.readInt8()
 		self.install = f.readInt8()
 
-		f.readInt16() # junk
+		f.readInt16()  # junk
 
 class ContentEntry:
 	def __init__(self, f):
@@ -21,11 +21,11 @@ class ContentEntry:
 		self.size = f.readInt48()
 		self.type = f.readInt8()
 
-		f.readInt8() # junk
+		f.readInt8()  # junk
 
 
 class Cnmt(File):
-	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def __init__(self, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Cnmt, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		self.titleId = None
@@ -37,8 +37,7 @@ class Cnmt(File):
 		self.contentEntries = []
 		self.metaEntries = []
 
-
-	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def open(self, file=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Cnmt, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 
@@ -46,7 +45,7 @@ class Cnmt(File):
 		self.version = self.readInt32()
 		self.titleType = self.readInt8()
 
-		self.readInt8() # junk
+		self.readInt8()  # junk
 
 		self.headerOffset = self.readInt16()
 		self.contentEntryCount = self.readInt16()
@@ -62,11 +61,7 @@ class Cnmt(File):
 		for i in range(self.metaEntryCount):
 			self.metaEntries.append(MetaEntry(self))
 
-
-
-
-
-	def printInfo(self, maxDepth = 3, indent = 0):
+	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
 		Print.info('\n%sCnmt\n' % (tabs))
 		Print.info('%stitleId = %s' % (tabs, self.titleId))
@@ -76,5 +71,3 @@ class Cnmt(File):
 		for i in self.contentEntries:
 			Print.info('%s\tncaId: %s  type = %x' % (tabs, i.ncaId, i.type))
 		super(Cnmt, self).printInfo(maxDepth, indent)
-
-

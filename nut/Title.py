@@ -34,7 +34,7 @@ if os.path.isfile('titledb/redirectCache.json'):
 	with open('titledb/redirectCache.json', encoding="utf-8-sig") as f:
 		urlCache = json.loads(f.read())
 
-def grabCachedRedirectUrl(url, cookies = None):
+def grabCachedRedirectUrl(url, cookies=None):
 	global grabUrlInit
 	global urlCache
 	global urlLock
@@ -50,14 +50,14 @@ def grabCachedRedirectUrl(url, cookies = None):
 		urlLock.acquire()
 		# we need to slow this down so we dont get banned
 		#Print.info('hitting ' + url)
-		#time.sleep(0.1)
+		# time.sleep(0.1)
 		result = requests.get(url, cookies=cookies)
 		if result.status_code == 404:
 			urlCache[url] = None
 		elif result.status_code == 200:
 			urlCache[url] = result.url
 		else:
-			#not sure but dont cache it
+			# not sure but dont cache it
 			return result
 
 		with open('titledb/redirectCache.json', 'w') as outfile:
@@ -115,7 +115,7 @@ class Title:
 			return False
 		return str(self.name) < str(other.name)
 
-	def exportDict(self, isRegion = False, full = True):
+	def exportDict(self, isRegion=False, full=True):
 		r = {}
 
 		if isRegion:
@@ -123,14 +123,15 @@ class Title:
 		elif full == True:
 			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId')
 		else:
-			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId', 'rightsId', 'key', 'isDemo', 'regions', 'nsuId', 'category', 'ratingContent', 'numberOfPlayers', 'frontBoxArt', 'intro', 'languages', 'language', 'iconUrl', 'screenshots', 'bannerUrl')
+			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId', 'rightsId', 'key', 'isDemo', 'regions', 'nsuId', 'category',
+						 'ratingContent', 'numberOfPlayers', 'frontBoxArt', 'intro', 'languages', 'language', 'iconUrl', 'screenshots', 'bannerUrl')
 
 		for i in self.__dict__.keys():
-			if i not in blacklist and (full == True or (self.__dict__[i] is not None and(i != 'size' or self.__dict__[i] > 0))):
+			if i not in blacklist and (full == True or (self.__dict__[i] is not None and (i != 'size' or self.__dict__[i] > 0))):
 				r[i] = self.__dict__[i]
 		return r
 
-	def loadCsv(self, line, map = ['id', 'key', 'name']):
+	def loadCsv(self, line, map=['id', 'key', 'name']):
 		split = line.split('|')
 		for i, value in enumerate(split):
 			if i >= len(map):
@@ -142,11 +143,11 @@ class Title:
 			method = getattr(self, methodName, lambda x: None)
 			method(value.strip())
 
-		#self.setId(split[0].strip())
-		#self.setName(split[2].strip())
-		#self.setKey(split[1].strip())
+		# self.setId(split[0].strip())
+		# self.setName(split[2].strip())
+		# self.setKey(split[1].strip())
 
-	def dict(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+	def dict(self, map=['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = {}
 		for i in map:
 			methodName = 'get' + i[0].capitalize() + i[1:]
@@ -158,21 +159,19 @@ class Title:
 		if not regionTitle.name or not regionTitle.id:
 			return
 
-
-		for k,v in regionTitle.__dict__.items():
+		for k, v in regionTitle.__dict__.items():
 			if k in ('id', 'version', 'regions', 'key'):
 				continue
 
 			if v is not None:
 				setattr(self, k, v)
 
-
 		self.setId(self.id)
 		self.setVersion(regionTitle.version)
 		self.region = region
 		self.language = language
 
-	def serialize(self, map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
+	def serialize(self, map=['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region']):
 		r = []
 		for i in map:
 
@@ -193,7 +192,7 @@ class Title:
 
 		return n
 
-	def getFiles(self, ext = None):
+	def getFiles(self, ext=None):
 		if self.id in fileLUT:
 			return self.filterExt(fileLUT[self.id], ext)
 
@@ -221,7 +220,7 @@ class Title:
 
 		return highestNsp or highestNsx
 
-	def getLatestNsp(self, version = None):
+	def getLatestNsp(self, version=None):
 		highest = None
 
 		for nsp in self.getFiles():
@@ -237,7 +236,7 @@ class Title:
 
 		return highest
 
-	def getLatestNsz(self, version = None):
+	def getLatestNsz(self, version=None):
 		highest = None
 
 		for nsp in self.getFiles():
@@ -253,7 +252,7 @@ class Title:
 
 		return highest
 
-	def getLatestNsx(self, version = None):
+	def getLatestNsx(self, version=None):
 		highest = None
 
 		for nsp in self.getFiles():
@@ -269,7 +268,7 @@ class Title:
 
 		return highest
 
-	def getLatestXci(self, version = None):
+	def getLatestXci(self, version=None):
 		highest = None
 
 		for nsp in self.getFiles():
@@ -285,7 +284,7 @@ class Title:
 
 		return highest
 
-	def isUpdateAvailable(self, localOnly = False):
+	def isUpdateAvailable(self, localOnly=False):
 		nsp = self.getLatestFile()
 		if not nsp:
 			if not nsp:
@@ -295,7 +294,7 @@ class Title:
 					return False
 
 		try:
-			latest = self.lastestVersion(localOnly = localOnly)
+			latest = self.lastestVersion(localOnly=localOnly)
 			if latest is None:
 				return False
 			if int(nsp.version) < int(latest):
@@ -428,7 +427,7 @@ class Title:
 		titleIdNum = int(id, 16)
 
 		return (titleIdNum & 0xFFFFFFFFFFFFE000) + 0x1000
-		#return hex(dlcId)
+		# return hex(dlcId)
 
 	def getId(self):
 		return self.id or '0000000000000000'
@@ -499,7 +498,7 @@ class Title:
 	def getKey(self):
 		return self.key or '00000000000000000000000000000000'
 
-	def setVersion(self, version, force = False):
+	def setVersion(self, version, force=False):
 		if version != None:
 			try:
 				n = int(str(version), 10)
@@ -525,8 +524,8 @@ class Title:
 		except:
 			pass
 
-	def lastestVersion(self, force = False, localOnly = False):
-		#if self.isDLC:
+	def lastestVersion(self, force=False, localOnly=False):
+		# if self.isDLC:
 		#	return '0'
 
 		try:
@@ -550,7 +549,7 @@ class Title:
 		else:
 			return False
 
-	def isActive(self, skipKeyCheck = False):
+	def isActive(self, skipKeyCheck=False):
 		if self.id[0:13] == '0100000000000':
 			return False
 
@@ -560,7 +559,6 @@ class Title:
 			baseId = getBaseId(self.id)
 			if Titles.contains(baseId):
 				base = Titles.get(baseId)
-
 
 		if (self.isDLC or self.isUpdate or Config.download.base) and (not self.isDLC or Config.download.DLC) and (not base.isDemo or Config.download.demo) and (not self.isUpdate or Config.download.update) and (base.key or Config.download.sansTitleKey or self.isUpdate or skipKeyCheck) and (len(Config.titleWhitelist) == 0 or self.id in Config.titleWhitelist) and self.id not in Config.titleBlacklist:
 			if Config.shardIndex is not None and Config.shardCount is not None:
@@ -587,7 +585,7 @@ class Title:
 	def getCdnVersion(id):
 		r = cdn.version(id)
 
-		#if len(r) == 0 or r[0] == 'none':
+		# if len(r) == 0 or r[0] == 'none':
 		#	return ['0']
 
 		return r
@@ -600,7 +598,7 @@ class Title:
 		urllib.request.urlretrieve(url, path)
 		return path
 
-	def getResizedImage(self, filePath, width = None, height = None):
+	def getResizedImage(self, filePath, width=None, height=None):
 		if not width and not height:
 			return filePath
 
@@ -621,21 +619,21 @@ class Title:
 
 		return path
 
-	def bannerFile(self, width = None, height = None):
+	def bannerFile(self, width=None, height=None):
 		if not self.bannerUrl or self.bannerUrl.startswith('cocoon:/'):
 			return None
 
 		baseName, ext = os.path.splitext(self.bannerUrl)
 		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'banner' + ext, self.bannerUrl), width, height)
 
-	def frontBoxArtFile(self, width = None, height = None):
+	def frontBoxArtFile(self, width=None, height=None):
 		if not self.frontBoxArt or self.frontBoxArt.startswith('cocoon:/'):
 			return None
 
 		baseName, ext = os.path.splitext(self.frontBoxArt)
 		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt), width, height)
 
-	def iconFile(self, width = None, height = None):
+	def iconFile(self, width=None, height=None):
 		if not 'iconUrl' in self.__dict__:
 			self.iconUrl = None
 
@@ -645,7 +643,7 @@ class Title:
 		baseName, ext = os.path.splitext(self.iconUrl)
 		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'icon' + ext, self.iconUrl), width, height)
 
-	def screenshotFile(self, i, width = None, height = None):
+	def screenshotFile(self, i, width=None, height=None):
 		if not self.screenshots[i] or self.screenshots[i].startswith('cocoon:/'):
 			return None
 
@@ -656,11 +654,11 @@ class Title:
 		if not self.screenshots:
 			return []
 		r = []
-		for i,u in enumerate(self.screenshots):
+		for i, u in enumerate(self.screenshots):
 			r.append(self.screenshotFile(i))
 		return r
 
-	def parseShogunJson(self, _json, region = None, language = None, canGrabFromShogun = False):
+	def parseShogunJson(self, _json, region=None, language=None, canGrabFromShogun=False):
 		if not _json:
 			return None
 
@@ -669,7 +667,7 @@ class Title:
 
 		if "release_date_on_eshop" in _json:
 			try:
-				self.releaseDate = int(_json["release_date_on_eshop"].replace('-',''))
+				self.releaseDate = int(_json["release_date_on_eshop"].replace('-', ''))
 			except:
 				pass
 
@@ -690,7 +688,6 @@ class Title:
 			for i, k in enumerate(_json["screenshots"]):
 				self.screenshots.append(k["images"][0]["url"])
 
-
 		if "languages" in _json:
 			self.languages = []
 			for language in _json["languages"]:
@@ -709,10 +706,9 @@ class Title:
 
 			if "content_descriptors" in _json["rating_info"]:
 				content = []
-				for descriptor in  _json["rating_info"]["content_descriptors"]:
+				for descriptor in _json["rating_info"]["content_descriptors"]:
 					content.append(descriptor['name'])
 				self.ratingContent = content
-
 
 		if "player_number" in _json:
 			if 'local_max' in _json["player_number"]:
@@ -720,7 +716,6 @@ class Title:
 
 			if 'offline_max' in _json["player_number"]:
 				self.numberOfPlayers = _json["player_number"]["offline_max"]
-
 
 		if "publisher" in _json:
 			if 'name' in _json["publisher"]:
@@ -732,7 +727,7 @@ class Title:
 			for a in _json["applications"]:
 				'''
 				if "id" in a:
-					self.setId(a['id'])
+						self.setId(a['id'])
 				'''
 
 				if "image_url" in a:
@@ -762,15 +757,15 @@ class Title:
 						baseTitle = Titles.getNsuid(nsu["id"], region, language)
 						if baseTitle.id:
 							pass
-							#self.setId(baseTitle.id)
+							# self.setId(baseTitle.id)
 							#Print.info("setting appid " + str(baseTitle.id))
-						#else:
+						# else:
 						#	Print.error("Could not find title for " + str(nsu["id"]))
 		except:
 			Print.error('target titles error')
 			raise
 
-	def scrape(self, delta = True):
+	def scrape(self, delta=True):
 		if self.isUpdate or self.isDLC:
 			return
 		try:
@@ -784,7 +779,7 @@ class Title:
 					if not result or result.status_code != 200:
 						continue
 
-					_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';',''))
+					_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';', ''))
 
 					if _json == '' or _json == None:
 						Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (id, region))
@@ -792,21 +787,20 @@ class Title:
 
 					self.parseShogunJson(_json, region)
 
-
-				#<img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
+				# <img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
 				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % id, cookies=cookies)
 				if result and result.status_code == 200:
 					if result.url != 'https://www.nintendo.com/games/':
 						soup = BeautifulSoup(result.text, "html.parser")
 
 						if not self.bannerUrl:
-							m = re.search(r"#hero\s*{\s*background(-image)?:\s*url\('([^)]+)'\)", result.text, re.DOTALL | re.UNICODE | re.MULTILINE | re.IGNORECASE)
+							m = re.search(r"#hero\s*{\s*background(-image)?:\s*url\('([^)]+)'\)",
+										  result.text, re.DOTALL | re.UNICODE | re.MULTILINE | re.IGNORECASE)
 							if m:
 								banner = m.group(2)
 								if banner[0] == '/':
 									banner = 'https://www.nintendo.com' + banner
 								self.bannerUrl = banner
-
 
 						rem = re.finditer('<img aria-hidden="true" data-src="([^"]+)"', result.text)
 						if rem:
@@ -817,20 +811,18 @@ class Title:
 							if len(ss) > 0:
 								self.screenshots = ss
 
-
 						if soup.find("meta", {"property": "og:url"}) != None:
 							slug = soup.find("meta", {"property": "og:url"})["content"].split('/')[-1]
 							infoJson = json.loads(requests.get("https://www.nintendo.com/json/content/get/game/%s" % slug, cookies=cookies).text)["game"]
 
 							if "release_date" in infoJson:
-								self.releaseDate = int(datetime.datetime.strftime(datetime.datetime.strptime(infoJson["release_date"], "%b %d, %Y"),'%Y%m%d'))
+								self.releaseDate = int(datetime.datetime.strftime(datetime.datetime.strptime(infoJson["release_date"], "%b %d, %Y"), '%Y%m%d'))
 
 							if "name" in infoJson:
 								self.name = infoJson["name"].strip()
 
 							if "nsuid" in infoJson:
 								self.setNsuId(int(infoJson["nsuid"]))
-
 
 							catagories = []
 							if "game_category_ref" in infoJson:
@@ -885,7 +877,6 @@ class Title:
 									pass
 							'''
 
-
 							if "developer_ref" in infoJson:
 								if "name" in infoJson["developer_ref"]:
 									self.developer = infoJson["developer_ref"]["name"]
@@ -904,7 +895,7 @@ class Title:
 
 							if "intro" in infoJson:
 								try:
-									details = BeautifulSoup(infoJson["intro"][0],"html.parser")
+									details = BeautifulSoup(infoJson["intro"][0], "html.parser")
 									try:
 										details = details.decode(formatter=None)
 									except:
@@ -913,14 +904,14 @@ class Title:
 									details = re.sub(r' +', ' ', details)
 									details = re.sub(r'\n ', '\n', details)
 									details = re.sub(r'\n\n+', '\n\n', details)
-									details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+									details = re.sub(r'(?<!\n)\n(?!\n)', ' ', details)
 									details = re.sub(r'  ', ' ', details)
 									self.intro = details
 								except Exception as e:
 									pass
 
 							if "game_overview_description" in infoJson:
-								details = BeautifulSoup(infoJson["game_overview_description"][0],"html.parser")
+								details = BeautifulSoup(infoJson["game_overview_description"][0], "html.parser")
 								try:
 									details = details.decode(formatter=None)
 								except:
@@ -929,13 +920,13 @@ class Title:
 								details = re.sub(r' +', ' ', details)
 								details = re.sub(r'\n ', '\n', details)
 								details = re.sub(r'\n\n+', '\n\n', details)
-								details = re.sub(r'(?<!\n)\n(?!\n)', ' ',details)
+								details = re.sub(r'(?<!\n)\n(?!\n)', ' ', details)
 								details = re.sub(r'  ', ' ', details)
 								self.description = details
-				#else:
+				# else:
 					#f = open("missing.txt", 'a', encoding="utf8")
 					#f.write(rid+"|title doesn't exist at ec.nintendo.com"+'\n')
-					#f.close()
+					# f.close()
 
 		except BaseException as e:
 			pass
@@ -945,4 +936,3 @@ class Title:
 		self.frontBoxArtFile()
 		self.iconFile()
 		self.screenshotFiles()
-

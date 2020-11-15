@@ -41,9 +41,9 @@ def unregisterFile(path):
 	nsp = files[path]
 
 	if nsp.titleId and nsp.titleId in Title.fileLUT:
-		#Title.fileLUT[nsp.titleId].remove(nsp)
-		Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId] \
-			if item.path != nsp.path]
+		# Title.fileLUT[nsp.titleId].remove(nsp)
+		Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId]
+									  if item.path != nsp.path]
 	del files[path]
 	return True
 
@@ -70,7 +70,7 @@ def scan(base):
 		save()
 		return 0
 
-	status = Status.create(len(fileList), desc = 'Scanning files...')
+	status = Status.create(len(fileList), desc='Scanning files...')
 
 	try:
 		for path, name in fileList.items():
@@ -82,7 +82,7 @@ def scan(base):
 
 					nsp = Fs.Nsp(path, None)
 					nsp.timestamp = time.time()
-					nsp.getFileSize() # cache file size
+					nsp.getFileSize()  # cache file size
 
 					files[nsp.path] = nsp
 
@@ -92,12 +92,12 @@ def scan(base):
 			except KeyboardInterrupt:
 				status.close()
 				raise
-			except BaseException as e: # pylint: disable=broad-except
+			except BaseException as e:  # pylint: disable=broad-except
 				Print.info('An error occurred processing file: ' + str(e))
 
 		save()
 		status.close()
-	except BaseException as e: # pylint: disable=broad-except
+	except BaseException as e:  # pylint: disable=broad-except
 		Print.info('An error occurred scanning files: ' + str(e))
 	return i
 
@@ -120,8 +120,8 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
-def load(fileName = 'titledb/files.json', verify = True):
-	global hasLoaded # pylint: disable=global-statement
+def load(fileName='titledb/files.json', verify=True):
+	global hasLoaded  # pylint: disable=global-statement
 
 	if hasLoaded:
 		return
@@ -162,7 +162,7 @@ def load(fileName = 'titledb/files.json', verify = True):
 					files[path] = t
 	Print.info('loaded file list in ' + str(time.perf_counter() - timestamp) + ' seconds')
 
-def save(fileName = 'titledb/files.json'):
+def save(fileName='titledb/files.json'):
 	lock.acquire()
 
 	try:
@@ -175,6 +175,7 @@ def save(fileName = 'titledb/files.json'):
 		lock.release()
 		raise
 	lock.release()
+
 
 if os.path.isfile('files.json'):
 	os.rename('files.json', 'titledb/files.json')

@@ -5,7 +5,7 @@ from nut import Print
 from nut import Keys
 
 class Ticket(File):
-	def __init__(self, path = None, mode = None, cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def __init__(self, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Ticket, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		self.signatureType = None
@@ -29,7 +29,7 @@ class Ticket(File):
 		self.signatureSizes[Fs.Type.TicketSignature.RSA_2048_SHA256] = 0x100
 		self.signatureSizes[Fs.Type.TicketSignature.ECDSA_SHA256] = 0x3C
 
-	def open(self, file = None, mode = 'rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+	def open(self, file=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Ticket, self).open(file, mode, cryptoType, cryptoKey, cryptoCounter)
 		self.rewind()
 		self.signatureType = self.readInt32()
@@ -44,11 +44,11 @@ class Ticket(File):
 
 		self.issuer = self.read(0x40)
 		self.titleKeyBlock = self.read(0x100)
-		self.readInt8() # unknown
+		self.readInt8()  # unknown
 		self.keyType = self.readInt8()
-		self.read(0x4) # unknown
+		self.read(0x4)  # unknown
 		self.masterKeyRevision = self.readInt8()
-		self.read(0x9) # unknown
+		self.read(0x9)  # unknown
 		self.ticketId = hx(self.read(0x8)).decode('utf-8')
 		self.deviceId = hx(self.read(0x8)).decode('utf-8')
 		self.rightsId = hx(self.read(0x10)).decode('utf-8')
@@ -70,7 +70,6 @@ class Ticket(File):
 		self.writeInt32(value)
 		return self.signatureType
 
-
 	def getSignature(self):
 		self.seek(0x4)
 		self.signature = self.read(self.signatureSizes[self.getSignatureType()])
@@ -82,11 +81,9 @@ class Ticket(File):
 		self.write(value, self.signatureSizes[self.getSignatureType()])
 		return self.signature
 
-
 	def getSignaturePadding(self):
 		self.signaturePadding = 0x40 - ((self.signatureSizes[self.signatureType] + 4) % 0x40)
 		return self.signaturePadding
-
 
 	def getIssuer(self):
 		self.seekStart(0x0)
@@ -98,7 +95,6 @@ class Ticket(File):
 		self.issuer = value
 		self.write(value, 0x40)
 		return self.issuer
-
 
 	def getTitleKeyBlock(self):
 		self.seekStart(0x40)
@@ -117,7 +113,6 @@ class Ticket(File):
 		self.writeInt(value, 0x10, 'big')
 		return self.titleKeyBlock
 
-
 	def getKeyType(self):
 		self.seekStart(0x141)
 		self.keyType = self.readInt8()
@@ -128,7 +123,6 @@ class Ticket(File):
 		self.keyType = value
 		self.writeInt8(value)
 		return self.keyType
-
 
 	def getMasterKeyRevision(self):
 		self.seekStart(0x145)
@@ -141,7 +135,6 @@ class Ticket(File):
 		self.writeInt8(value)
 		return self.masterKeyRevision
 
-
 	def getTicketId(self):
 		self.seekStart(0x150)
 		self.ticketId = self.readInt64('big')
@@ -152,7 +145,6 @@ class Ticket(File):
 		self.ticketId = value
 		self.writeInt64(value, 'big')
 		return self.ticketId
-
 
 	def getDeviceId(self):
 		self.seekStart(0x158)
@@ -165,7 +157,6 @@ class Ticket(File):
 		self.writeInt64(value, 'big')
 		return self.deviceId
 
-
 	def getRightsId(self):
 		self.seekStart(0x160)
 		self.rightsId = self.readInt128('big')
@@ -176,7 +167,6 @@ class Ticket(File):
 		self.rightsId = value
 		self.writeInt128(value, 'big')
 		return self.rightsId
-
 
 	def getAccountId(self):
 		self.seekStart(0x170)
@@ -196,10 +186,7 @@ class Ticket(File):
 	def titleKey(self):
 		return format(self.getTitleKeyBlock(), 'X').zfill(32)
 
-
-
-
-	def printInfo(self, maxDepth = 3, indent = 0):
+	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
 
 		rightsId = format(self.getRightsId(), 'X').zfill(32)
@@ -218,7 +205,7 @@ class Ticket(File):
 		Print.info(tabs + 'titleId = ' + titleId)
 		Print.info(tabs + 'titleKey = ' + titleKey)
 		Print.info(tabs + 'titleKeyDec = ' + str(hx(Keys.decryptTitleKey((self.getTitleKey()), self.masterKeyRevision))))
-		
+
 		'''
 		try:
 			if blockchain.verifyKey(titleId, titleKey):
@@ -231,5 +218,3 @@ class Ticket(File):
 
 		Print.info(tabs + 'titleKeyStatus = ' + tkeyStatus)
 		'''
-
-

@@ -16,13 +16,13 @@ def factory(name):
 	elif name.endswith('.nsx'):
 		f = Nsp()
 	elif name.endswith('.nca') or name.endswith('.ncz'):
-		f =  Nca()
+		f = Nca()
 	elif name.endswith('.nacp'):
-		f =  Nacp()
+		f = Nacp()
 	elif name.endswith('.tik'):
-		f =  Ticket()
+		f = Ticket()
 	elif name.endswith('.cnmt'):
-		f =  Cnmt()
+		f = Cnmt()
 	else:
 		f = File()
 

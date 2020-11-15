@@ -35,14 +35,14 @@ threads = []
 mappings = {'api': Server.Controller.Api}
 
 mimes = {
-		'.css': 'text/css',
-		'.js': 'application/javascript',
-		'.html': 'text/html',
-		'.png': 'image/png',
-		'.nsx': 'application/octet-stream',
-		'.nsp': 'application/octet-stream',
-		'.jpg': 'image/jpeg'
-	}
+	'.css': 'text/css',
+	'.js': 'application/javascript',
+	'.html': 'text/html',
+	'.png': 'image/png',
+	'.nsx': 'application/octet-stream',
+	'.nsp': 'application/octet-stream',
+	'.jpg': 'image/jpeg'
+}
 
 class Thread(threading.Thread):
 	def __init__(self, i):
@@ -51,6 +51,7 @@ class Thread(threading.Thread):
 		self.i = i
 		self.daemon = True
 		self.start()
+
 	def run(self):
 		httpd = http.server.HTTPServer(addr, NutHandler, False)
 
@@ -67,7 +68,7 @@ def run():
 	Print.info(time.asctime() + ' Server Starts - %s:%s' % (Config.server.hostname, Config.server.port))
 	try:
 		addr = (Config.server.hostname, Config.server.port)
-		sock = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 		sock.bind(addr)
 		sock.listen(5)
@@ -102,8 +103,8 @@ class NutRequest:
 		self.query = parse_qs(self.url.query)
 
 		try:
-			for k,v in self.query.items():
-				self.query[k] = v[0];
+			for k, v in self.query.items():
+				self.query[k] = v[0]
 		except:
 			pass
 
@@ -134,7 +135,7 @@ class NutResponse:
 		self.q = NutQueue()
 		self.thread = None
 		self.running = False
-		
+
 	def worker(self):
 		while True:
 			try:
@@ -150,19 +151,18 @@ class NutResponse:
 				self.running = False
 				return
 
-
 	def __enter__(self):
 		if not self.running:
 			self.running = True
-			self.thread = threading.Thread(target = self.worker)
+			self.thread = threading.Thread(target=self.worker)
 			self.thread.start()
 		return self
-		
+
 	def __exit__(self, type, value, traceback):
 		if self.running:
 			self.running = False
 			self.thread.join()
-		
+
 	def close(self):
 		pass
 
@@ -194,7 +194,7 @@ class NutResponse:
 	def sendHeader(self):
 		self.handler.send_response(self.status)
 
-		for k,v in self.headers.items():
+		for k, v in self.headers.items():
 			self.handler.send_header(k, v)
 
 		self.handler.end_headers()
@@ -234,7 +234,7 @@ def Response401(request, response):
 	response.headers['WWW-Authenticate'] = 'Basic realm=\"Nut\"'
 	response.write('401')
 
-def route(request, response, verb = 'get'):
+def route(request, response, verb='get'):
 	try:
 		if len(request.bits) > 0 and request.bits[0] in mappings:
 			i = request.bits[1]
@@ -258,7 +258,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 		with NutResponse(self) as response:
 			request.setHead(True)
 			response.setHead(True)
-			
+
 			if self.headers['Authorization'] == None:
 				return Response401(request, response)
 
@@ -268,7 +268,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 			if not request.user:
 				return Response401(request, response)
-			
+
 			try:
 				if len(request.bits) > 0 and request.bits[0] in mappings:
 					i = request.bits[1]
@@ -278,9 +278,9 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 				else:
 					self.handleFile(request, response)
 			except BaseException as e:
-					self.wfile.write(Response500(request, response))
+				self.wfile.write(Response500(request, response))
 
-	def do(self, verb = 'get'):
+	def do(self, verb='get'):
 		request = NutRequest(self)
 		with NutResponse(self) as response:
 			if self.headers['Authorization'] == None:
@@ -297,15 +297,13 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 				if not route(request, response, verb):
 					self.handleFile(request, response)
 			except BaseException as e:
-					self.wfile.write(Response500(request, response))
+				self.wfile.write(Response500(request, response))
 
 	def do_GET(self):
 		self.do('get')
 
-
 	def do_POST(self):
 		self.do('post')
-
 
 	def handleFile(self, request, response):
 		path = os.path.abspath(self.basePath + '/public_html' + self.path)

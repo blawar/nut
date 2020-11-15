@@ -30,11 +30,11 @@ def isValidCache(cacheFileName, expiration=10 * 60):
 
 
 def gdriveQuery(
-	service,
-	q,
-	fields=['id', 'name', 'size', 'mimeType'],
-	expiration=10 * 60,
-	teamDriveId=None
+		service,
+		q,
+		fields=['id', 'name', 'size', 'mimeType'],
+		expiration=10 * 60,
+		teamDriveId=None
 ):
 	hashText = str(teamDriveId) + str(q) + ','.join(fields)
 	cacheFileName = 'cache/gdrive/' + hashlib.md5(
@@ -217,10 +217,10 @@ def gdriveGetFolderId(service, path):
 		return rootId
 
 	for item in gdriveQuery(
-		service,
-		f"'{rootId}' in parents and trashed=false and mimeType = " +
-		"'application/vnd.google-apps.folder'",
-		teamDriveId=teamDriveId
+			service,
+			f"'{rootId}' in parents and trashed=false and mimeType = " +
+			"'application/vnd.google-apps.folder'",
+			teamDriveId=teamDriveId
 	):
 		roots[item['name']] = item['id']
 
@@ -262,13 +262,7 @@ def getFileInfo(service, path):
 
 		teamDriveId = getTeamDriveId(service, path)
 
-		for item in gdriveQuery(
-			service,
-			f"'{folderId}' in parents and trashed=false and mimeType != " +
-			"'application/vnd.google-apps.folder'",
-			fields=['*'],
-			teamDriveId=teamDriveId
-		):
+		for item in gdriveQuery(service, f"'{folderId}' in parents and trashed=false and mimeType != " + "'application/vnd.google-apps.folder'", fields=['*'], teamDriveId=teamDriveId):
 			if item['name'] == bits[-1]:
 				return item
 	except:
@@ -378,7 +372,7 @@ class FileContext(Fs.driver.FileContext):
 	def close(self):
 		pass
 
-	def read(self, sz = None):
+	def read(self, sz=None):
 		output = io.BytesIO()
 		self.chunk(output.write)
 		return output.getvalue()
@@ -453,15 +447,8 @@ class DirContext(Fs.driver.DirContext):
 				entries.append(Fs.driver.DirEntry(Fs.driver.join(self.url, item['name'])))
 		else:
 			teamDriveId = getTeamDriveId(service, path)
-			for item in gdriveQuery(
-				service,
-				"'%s' in parents and trashed=false" % gdriveGetFolderId(
-					service,
-					path
-				),
-				teamDriveId=teamDriveId
-			):
-				o = {'name':  item['name']}
+			for item in gdriveQuery( service, "'%s' in parents and trashed=false" % gdriveGetFolderId(service, path),	teamDriveId=teamDriveId):
+				o = {'name': item['name']}
 				if 'size' in item:
 					o['size'] = int(item['size'])
 
@@ -477,15 +464,11 @@ class DirContext(Fs.driver.DirContext):
 		return entries
 
 
-
 class GoogleDrive(Fs.driver.Interface):
-	def __init__(self, url = None):
+	def __init__(self, url=None):
 		super(GoogleDrive, self).__init__(url)
 		self.dirContextType = DirContext
 		self.fileContextType = FileContext
 
-	
-
 
 Fs.driver.registry.add('gdrive', GoogleDrive)
-

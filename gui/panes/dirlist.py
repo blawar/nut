@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout,QHBoxLayout,QTableWidget,QTableWidgetItem,QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
@@ -53,7 +53,7 @@ class User(QWidget):
 		super(Edit, self).focusOutEvent(event)
 
 class Row(QWidget):
-	def __init__(self, parent, value, rowType = Edit):
+	def __init__(self, parent, value, rowType=Edit):
 		super(QWidget, self).__init__()
 		self.parent = parent
 		layout = QHBoxLayout(self)
@@ -81,7 +81,7 @@ class Row(QWidget):
 		self.parent.save()
 
 class DirList(QWidget):
-	def __init__(self, values = [], onChange = None, rowType = Edit):
+	def __init__(self, values=[], onChange=None, rowType=Edit):
 		super(QWidget, self).__init__()
 		self.rowType = rowType
 
@@ -125,4 +125,3 @@ class DirList(QWidget):
 
 	def getValue(self, i):
 		return self.itemAt(i).widget().getValue()
-

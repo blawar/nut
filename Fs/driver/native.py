@@ -13,7 +13,7 @@ class FileContext(Fs.driver.FileContext):
 			self.handle.close()
 			self.handle = None
 
-	def read(self, sz = None):
+	def read(self, sz=None):
 		return self.handle.read(sz)
 
 	def chunk(self, callback, offset=None, size=None):
@@ -46,7 +46,7 @@ class DirContext(Fs.driver.DirContext):
 	def ls(self):
 		entries = []
 		for f in os.listdir(self.url):
-			path = os.path.join(self.url,f)
+			path = os.path.join(self.url, f)
 			if os.path.isfile(path):
 				entries.append(Fs.driver.FileEntry(path, None))
 			else:
@@ -54,14 +54,11 @@ class DirContext(Fs.driver.DirContext):
 		return entries
 
 
-
 class Native(Fs.driver.Interface):
-	def __init__(self, url = None):
+	def __init__(self, url=None):
 		super(Native, self).__init__(url)
 		self.dirContextType = DirContext
 		self.fileContextType = FileContext
-
-	
 
 
 Fs.driver.registry.add('', Native)

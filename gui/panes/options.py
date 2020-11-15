@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout,QTableWidget,QTableWidgetItem,QFormLayout,QLabel,QLineEdit,QHBoxLayout,QSlider,QGroupBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QSlider, QGroupBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, QRect, Qt
@@ -63,13 +63,12 @@ class Options(QWidget):
 
 		group = QGroupBox('THREADS')
 		groupLayout = QHBoxLayout(group)
-		groupLayout.addWidget(SliderControl(type = Threads))
+		groupLayout.addWidget(SliderControl(type=Threads))
 		layout.addWidget(group)
 
 		group = QGroupBox('COMPRESSION LEVEL')
 		groupLayout = QHBoxLayout(group)
-		groupLayout.addWidget(SliderControl(type = Compress))
+		groupLayout.addWidget(SliderControl(type=Compress))
 		layout.addWidget(group)
 
 		layout.addStretch()
-

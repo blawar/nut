@@ -176,7 +176,7 @@ class Progress:
 
 		if self.app.needsRefresh:
 			self.app.needsRefresh = False
-			#self.app.refreshTable()
+			# self.app.refreshTable()
 
 
 class App(QWidget):
@@ -211,7 +211,7 @@ class App(QWidget):
 			'Save Paths': gui.panes.format.Format(),
 			'Local Scan Paths': gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths),
 			'Remote Pull Paths': gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls),
-			'Users': gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType = gui.panes.dirlist.User), #rowType
+			'Users': gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
 			'Options': gui.panes.options.Options()
 		})
 		self.layout.addWidget(self.tabs)
@@ -272,10 +272,10 @@ class App(QWidget):
 
 	@pyqtSlot()
 	def on_scan(self):
-		#self.model.setRowCount(0)
+		# self.model.setRowCount(0)
 		nut.scan()
 		self.files.refresh()
-		#self.refreshTable()
+		# self.refreshTable()
 
 	@pyqtSlot()
 	def on_pull(self):
@@ -283,7 +283,7 @@ class App(QWidget):
 
 	@pyqtSlot()
 	def on_titledb(self):
-		nut.updateTitleDb(force = True)
+		nut.updateTitleDb(force=True)
 
 	@pyqtSlot()
 	def on_gdrive(self):
@@ -331,7 +331,6 @@ class App(QWidget):
 					"sdmc:/switch/tinfoil/ and/or sdmc:/switch/sx/ " +
 					"directories."
 				)
-
 
 
 threadRun = True

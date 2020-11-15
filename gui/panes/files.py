@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout,QTableWidget,QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
@@ -33,10 +33,10 @@ class Files(QTableWidget):
 			if f.path.endswith('.nsx') or not title.isActive(True):
 				continue
 
-			self.setItem(i,0, QTableWidgetItem(os.path.basename(f.path)))
-			self.setItem(i,1, QTableWidgetItem(str(f.titleId)))
-			self.setItem(i,2, QTableWidgetItem("UPD" if title.isUpdate else ("DLC" if title.isDLC else "BASE")))
-			self.setItem(i,3, QTableWidgetItem(str(f.fileSize or title.size)))
+			self.setItem(i, 0, QTableWidgetItem(os.path.basename(f.path)))
+			self.setItem(i, 1, QTableWidgetItem(str(f.titleId)))
+			self.setItem(i, 2, QTableWidgetItem("UPD" if title.isUpdate else ("DLC" if title.isDLC else "BASE")))
+			self.setItem(i, 3, QTableWidgetItem(str(f.fileSize or title.size)))
 			i = i + 1
 
 		self.setRowCount(i)

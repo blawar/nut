@@ -20,11 +20,11 @@ titles = None
 nsuIdMap = {}
 regionTitles = {}
 
-#def reset():
+# def reset():
 #	global titles
 #	titles = None
 
-def data(region = None, language = None):
+def data(region=None, language=None):
 	global regionTitles
 	global titles
 
@@ -43,7 +43,7 @@ def data(region = None, language = None):
 					pass
 
 				url = 'https://raw.githubusercontent.com/blawar/nut/master/titledb/%s.%s.json' % (region, language)
-				#https://raw.githubusercontent.com/blawar/nut/master/titledb/HK.zh.json
+				# https://raw.githubusercontent.com/blawar/nut/master/titledb/HK.zh.json
 				nut.downloadFile(url, filePath)
 				if os.path.isfile(filePath):
 					regionTitles[region][language] = loadTitlesJson(filePath)
@@ -56,13 +56,13 @@ def data(region = None, language = None):
 		load()
 	return titles
 
-def items(region = None, language = None):
+def items(region=None, language=None):
 	if region:
 		return regionTitles[region][language].items()
 
 	return titles.items()
 
-def get(key, region = None, language = None):
+def get(key, region=None, language=None):
 	key = key.upper()
 
 	if not key in data(region, language):
@@ -97,7 +97,7 @@ def hasNsuid(id, region, language):
 
 	return False
 
-def contains(key, region = None):
+def contains(key, region=None):
 	return key in titles
 
 def erase(id):
@@ -108,19 +108,19 @@ def set(key, value):
 	titles[key] = value
 
 
-def keys(region = None, language = None):
+def keys(region=None, language=None):
 	if region:
 		return regionTitles[region][language].keys()
 
 	return titles.keys()
 
-def loadTitleFile(path, silent = False):
+def loadTitleFile(path, silent=False):
 	timestamp = time.perf_counter()
 	with open(path, encoding="utf-8-sig") as f:
 		loadTitleBuffer(f.read(), silent)
 	Print.info('loaded ' + path + ' in ' + str(time.perf_counter() - timestamp) + ' seconds')
 
-def loadTitleBuffer(buffer, silent = False):
+def loadTitleBuffer(buffer, silent=False):
 	global nsuIdMap
 	firstLine = True
 	map = ['id', 'key', 'name']
@@ -164,7 +164,7 @@ def loadTitleBuffer(buffer, silent = False):
 
 confLock = threading.Lock()
 
-def loadTitlesJson(filePath = 'titledb/titles.json'):
+def loadTitlesJson(filePath='titledb/titles.json'):
 	newTitles = {}
 	confLock.acquire()
 	try:
@@ -219,7 +219,7 @@ def load():
 		Print.error('title load error: ' + str(e))
 		'''
 	confLock.release()
-	#loadTxtDatabases()
+	# loadTxtDatabases()
 
 def parsePersonalKeys(path):
 	Print.info('loading personal keys ' + path)
@@ -272,7 +272,7 @@ def loadTxtDatabases():
 	confLock.release()
 
 
-def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
+def export(fileName='titles.txt', map=['id', 'rightsId', 'key', 'isUpdate', 'isDLC', 'isDemo', 'name', 'version', 'region', 'retailOnly']):
 	buffer = ''
 
 	buffer += '|'.join(map) + '\n'
@@ -282,7 +282,7 @@ def export(fileName = 'titles.txt', map = ['id', 'rightsId', 'key', 'isUpdate', 
 	with open(fileName, 'w', encoding='utf-8') as csv:
 		csv.write(buffer)
 
-def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
+def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 	confLock.acquire()
 	try:
 		j = {}
@@ -305,7 +305,7 @@ def saveTitlesJson(newTitles, fileName = 'titledb/titles.json'):
 
 	confLock.release()
 
-def save(fileName = 'titledb/titles.json', full = True):
+def save(fileName='titledb/titles.json', full=True):
 	confLock.acquire()
 	try:
 		j = {}
@@ -314,7 +314,7 @@ def save(fileName = 'titledb/titles.json', full = True):
 			if not k.id or k.id == '0000000000000000':
 				continue
 
-			j[k.id] = k.exportDict(full = full)
+			j[k.id] = k.exportDict(full=full)
 
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
@@ -333,7 +333,7 @@ class Queue:
 		self.lock = threading.Lock()
 		self.i = 0
 
-	def add(self, id, skipCheck = False):
+	def add(self, id, skipCheck=False):
 		self.lock.acquire()
 		id = id.upper()
 		if not id in self.queue and (skipCheck or self.isValid(id)):
@@ -348,14 +348,14 @@ class Queue:
 
 		self.i += 1
 
-		r =self.queue[self.i-1]
+		r = self.queue[self.i-1]
 		self.lock.release()
 		return r
 
 	def empty(self):
 		return bool(self.size() == 0)
 
-	def get(self, idx = None):
+	def get(self, idx=None):
 		if idx == None:
 			return self.queue
 		return self.queue[idx]
@@ -384,10 +384,11 @@ class Queue:
 			pass
 		self.lock.release()
 
+
 global queue
 queue = Queue()
 
-def saveAll(fileName = 'titledb/titles.json'):
+def saveAll(fileName='titledb/titles.json'):
 	for region in cdn.regions():
 		for language in cdn.Shogun.countryLanguages(region):
 			saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))

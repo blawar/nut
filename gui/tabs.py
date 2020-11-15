@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
@@ -9,7 +9,7 @@ class Tabs(QWidget):
 		self.layout = QVBoxLayout(self)
 		self.tabs = QTabWidget()
 
-		self.tabs.resize(300,200)
+		self.tabs.resize(300, 200)
 
 		for name, obj in tabs.items():
 			self.tabs.addTab(obj, name)

@@ -76,7 +76,7 @@ def error(request, response, s):
 
 def getUser(request, response):
 	response.write(json.dumps(request.user.__dict__))
-	
+
 def getScan(request, response):
 	success(request, response, nut.scan())
 
@@ -140,7 +140,6 @@ def getTitleImage(request, response):
 		width = int(request.bits[3])
 	except:
 		return Server.Response404(request, response)
-
 
 	if width < 32 or width > 1024:
 		return Server.Response404(request, response)
@@ -227,9 +226,9 @@ def getInstall(request, response):
 		file_list_payloadBytes = url.encode('ascii')
 
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		#sock.settimeout(1)
+		# sock.settimeout(1)
 		sock.connect((request.user.switchHost, request.user.switchPort))
-		#sock.settimeout(99999)
+		# sock.settimeout(99999)
 
 		sock.sendall(struct.pack('!L', len(file_list_payloadBytes)) + file_list_payloadBytes)
 		while len(sock.recv(1)) < 1:
@@ -249,7 +248,7 @@ def getInfo(request, response):
 	except BaseException as e:
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
-def getOffsetAndSize(start, end, size = None):
+def getOffsetAndSize(start, end, size=None):
 	if start is None and end is None:
 		return [None, size]
 
@@ -298,7 +297,7 @@ class Progress:
 	def __enter__(self):
 		return self
 
-	def __exit__(self ,type, value, traceback):
+	def __exit__(self, type, value, traceback):
 		self.close()
 
 	def close(self):
@@ -311,7 +310,7 @@ class Progress:
 		self.status.add(len(chunk))
 
 
-def serveFile(response, path, filename = None, start = None, end = None):
+def serveFile(response, path, filename=None, start=None, end=None):
 	with Fs.driver.openFile(path) as f:
 		try:
 			start, size = getOffsetAndSize(start, end, f.size)
@@ -325,21 +324,20 @@ def serveFile(response, path, filename = None, start = None, end = None):
 				response.setStatus(206)
 				response.setHeader('Accept-Ranges', 'bytes')
 				response.setHeader('Content-Range', 'bytes %s-%s/%s' % (start, end-1, size))
-		
-		
+
 			response.setHeader('Content-Length', str(size))
 			response.sendHeader()
 
 			if not response.head:
-				with Progress(response = response, f = f) as progress:
-					f.chunk(progress.write, offset = start, size = size)
+				with Progress(response=response, f=f) as progress:
+					f.chunk(progress.write, offset=start, size=size)
 		except BaseException as e:
 			Print.error('File download exception: ' + str(e))
 
 		if response.bytesSent == 0:
 			response.write(b'')
 
-def getDownload(request, response, start = None, end = None):
+def getDownload(request, response, start=None, end=None):
 	try:
 		nsp = Nsps.getByTitleId(request.bits[2])
 		response.attachFile(nsp.titleId + '.nsp')
@@ -347,7 +345,7 @@ def getDownload(request, response, start = None, end = None):
 		if len(request.bits) >= 5:
 			start = int(request.bits[-2])
 			end = int(request.bits[-1])
-	
+
 		chunkSize = 0x400000
 
 		with open(nsp.path, "rb") as f:
@@ -490,8 +488,6 @@ def getDirectoryList(request, response):
 			virtualDir = ''
 			path = ''
 
-		
-
 		path = Fs.driver.cleanPath(path)
 
 		r = {'dirs': [], 'files': []}
@@ -546,7 +542,7 @@ def downloadProxyFile(url, response, start=None, end=None, headers={}):
 
 	return bytes
 
-	
+
 def getFile(request, response, start=None, end=None):
 	try:
 		path = ''
@@ -640,7 +636,7 @@ def getUpdateDb(request, response):
 def getExport(request, response):
 	if len(request.bits) < 3:
 		return Server.Response500(request, response)
-	
+
 	if len(request.bits) == 3:
 		nut.export(request.bits[2])
 	else:
@@ -724,4 +720,3 @@ def getSwitchInstalled(request, response):
 
 	except BaseException as e:
 		error(request, response, str(e))
-

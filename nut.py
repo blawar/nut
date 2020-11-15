@@ -54,14 +54,14 @@ def logMissingTitles(file):
 	nut.initTitles()
 	nut.initFiles()
 
-	f = open(file,"w", encoding="utf-8-sig")
-	
-	for k,t in Titles.items():
+	f = open(file, "w", encoding="utf-8-sig")
+
+	for k, t in Titles.items():
 		if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 			if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
 				continue
 			f.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
-		
+
 	f.close()
 
 def expandFiles(paths):
@@ -78,7 +78,7 @@ def expandFiles(paths):
 				files.append(str(f))
 	return files
 
-def refresh(titleRightsOnly = False):
+def refresh(titleRightsOnly=False):
 	nut.initTitles()
 	nut.initFiles()
 	i = 0
@@ -114,15 +114,14 @@ def getUnlockPath(path, copy):
 	return destination
 
 
-
-def unlockAll(copy = False):
+def unlockAll(copy=False):
 	nut.initTitles()
 	nut.initFiles()
 
 	files = []
-	for k,f in Nsps.files.items():
+	for k, f in Nsps.files.items():
 		files.append(f)
-		
+
 	for f in files:
 		try:
 			if f.isUnlockable() and f.title().isActive():
@@ -133,7 +132,7 @@ def unlockAll(copy = False):
 					raise IOError('Could not verify title key! %s / %s - %s' % (f.titleId, f.title().key, f.title().name))
 					continue
 				Print.info('unlocking ' + f.path)
-				
+
 				f.unlock()
 				f.close()
 
@@ -145,16 +144,16 @@ def exportVerifiedKeys(fileName):
 	nut.initTitles()
 	with open(fileName, 'w') as f:
 		f.write('id|key|version\n')
-		for tid,key in blockchain.blockchain.export().items():
+		for tid, key in blockchain.blockchain.export().items():
 			title = Titles.get(tid)
 			if title and title.rightsId:
 				f.write(str(title.rightsId) + '|' + str(key) + '|' + str(title.version) + '\n')
-				
+
 def exportKeys(fileName):
 	nut.initTitles()
 	with open(fileName, 'w') as f:
 		f.write('id|key|version\n')
-		for tid,title in Titles.items():
+		for tid, title in Titles.items():
 			if title and title.rightsId and title.key and title.isActive():
 				f.write(str(title.rightsId) + '|' + str(title.key) + '|' + str(title.version) + '\n')
 
@@ -177,14 +176,14 @@ def submitKeys():
 				raise
 
 def genTinfoilTitles():
-	nut.initTitles(verify = False)
-	nut.initFiles(verify = False)
-	
+	nut.initTitles(verify=False)
+	nut.initFiles(verify=False)
+
 	nut.refreshRegions(False)
 
-	for region, languages in Config.regionLanguages().items():			
+	for region, languages in Config.regionLanguages().items():
 		for language in languages:
-			nut.importRegion(region, language, save = False)
+			nut.importRegion(region, language, save=False)
 			Titles.save('titledb/titles.%s.%s.json' % (region, language), False)
 			#Print.info('%s - %s' % (region, language))
 	nut.importRegion()
@@ -198,13 +197,13 @@ def matchDemos():
 	Titles.loadTxtDatabases()
 
 	for nsuId, titleId in Titles.nsuIdMap.items():
-		for region, languages in Config.regionLanguages().items():			
+		for region, languages in Config.regionLanguages().items():
 			for language in languages:
 				if nsuId:
 					title = Titles.get(str(nsuId), region, language)
 					title.id = titleId
 
-	for region, languages in Config.regionLanguages().items():			
+	for region, languages in Config.regionLanguages().items():
 		for language in languages:
 			for nsuId, rt in Titles.data(region, language).items():
 				if rt.id:
@@ -218,7 +217,7 @@ def matchDemos():
 
 def organizeNcas(dir):
 	files = [f for f in os.listdir(dir) if f.endswith('.nca')]
-	
+
 	for file in files:
 		try:
 			path = os.path.join(dir, file)
@@ -254,9 +253,9 @@ def compressionStats():
 	i = 0
 	sum = 0
 
-	for k,t in Titles.items():
+	for k, t in Titles.items():
 		try:
-			if not t.isActive(skipKeyCheck = True):
+			if not t.isActive(skipKeyCheck=True):
 				continue
 
 			lastestNsz = t.getLatestNsz()
@@ -265,7 +264,7 @@ def compressionStats():
 				continue
 
 			lastestNsp = t.getLatestNsp(lastestNsz.version)
-			
+
 			if not lastestNsp:
 				continue
 
@@ -281,7 +280,7 @@ def compressionStats():
 				else:
 					type = 'BASE'
 
-				results[k] = {'id': k, 'name': cleanCsv(t.name), 'publisher':  cleanCsv(t.publisher), 'type': type, 'nsp': nspSize, 'nsz': nszSize, 'cr': cr}
+				results[k] = {'id': k, 'name': cleanCsv(t.name), 'publisher': cleanCsv(t.publisher), 'type': type, 'nsp': nspSize, 'nsz': nszSize, 'cr': cr}
 
 				i += 1
 				sum += cr
@@ -374,6 +373,7 @@ def download(id):
 		cdn.downloadTitle(id.lower(), version, key)
 	return True
 
+
 if __name__ == '__main__':
 	try:
 		with FileLock("nut.lock") as lock:
@@ -382,7 +382,7 @@ if __name__ == '__main__':
 			#signal.signal(signal.SIGINT, handler)
 
 			parser = argparse.ArgumentParser()
-			parser.add_argument('file',nargs='*')
+			parser.add_argument('file', nargs='*')
 			parser.add_argument('-g', '--ganymede', help='ganymede config file')
 			parser.add_argument('-i', '--info', help='show info about title or file')
 			parser.add_argument('--depth', type=int, default=1, help='max depth for file info and extraction')
@@ -469,7 +469,7 @@ if __name__ == '__main__':
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
 				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
 				parser.add_argument('--cetk', help='Pull ticket by rightsID')
-			
+
 			args = parser.parse_args()
 
 			if args.hostname:
@@ -485,22 +485,22 @@ if __name__ == '__main__':
 
 			if args.file_size_max:
 				Config.download.fileSizeMax = args.file_size_max
-				
+
 			if args.file_size_min:
 				Config.download.fileSizeMin = args.file_size_min
-				
+
 			if args.region:
 				Config.download.addRegion(args.region)
-				
+
 			if args.rating_min:
 				Config.download.ratingMin = args.rating_min
 
 			if args.rating_max:
 				Config.download.ratingMax = args.rating_max
-				
+
 			if args.rank_min:
 				Config.download.rankMin = args.rank_min
-				
+
 			if args.rank_max:
 				Config.download.rankMax = args.rank_max
 
@@ -514,15 +514,14 @@ if __name__ == '__main__':
 
 			Status.start()
 
-
-			Print.info('                        ,;:;;,')
-			Print.info('                       ;;;;;')
-			Print.info('               .=\',    ;:;;:,')
-			Print.info('              /_\', "=. \';:;:;')
-			Print.info('              @=:__,  \,;:;:\'')
-			Print.info('                _(\.=  ;:;;\'')
-			Print.info('               `"_(  _/="`')
-			Print.info('                `"\'')
+			Print.info('						,;:;;,')
+			Print.info('					   ;;;;;')
+			Print.info('			   .=\',	;:;;:,')
+			Print.info('			  /_\', "=. \';:;:;')
+			Print.info('			  @=:__,  \,;:;:\'')
+			Print.info('				_(\.=  ;:;;\'')
+			Print.info('			   `"_(  _/="`')
+			Print.info('				`"\'')
 
 			if args.scan:
 				Config.isScanning = True
@@ -535,7 +534,7 @@ if __name__ == '__main__':
 			Config.download.demo = bool(args.demo)
 			Config.download.sansTitleKey = bool(args.nsx)
 			Config.download.update = bool(args.update)
-			
+
 			if args.cetk:
 				cdn.Tigers.cetk(args.cetk)
 
@@ -547,12 +546,11 @@ if __name__ == '__main__':
 
 			if args.shards is not None:
 				Config.shardCount = args.shards
-				
+
 			if args.rights_id and args.key:
 				nut.initTitles()
 				title = Titles.get(args.rights_id[0:16].upper())
 				title.key = args.key
-				
 
 			if args.extract:
 				nut.initTitles()
@@ -609,7 +607,7 @@ if __name__ == '__main__':
 			if args.update_check:
 				nut.initTitles()
 				nut.initFiles()
-				for _,game in Nsps.files.items():
+				for _, game in Nsps.files.items():
 					title = game.title()
 					if title.isUpdate or title.isDLC:
 						if game.isUpdateAvailable():
@@ -634,13 +632,13 @@ if __name__ == '__main__':
 
 				nut.importRegion(region, args.language)
 				exit(0)
-				
+
 			if args.eshop_latest:
 				print(cdn.Shogun.getLatest(args.file[0], args.file[1], args.file[2]))
-				
+
 			if args.scrape_nsuid:
 				nut.initTitles()
-				print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), force = True).__dict__))
+				print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), force=True).__dict__))
 
 			if args.usb:
 				try:
@@ -654,12 +652,12 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.scan()
-			
+
 			if args.refresh:
 				nut.initTitles()
 				nut.initFiles()
 				refresh(False)
-				
+
 			if args.read_rightsids:
 				nut.initTitles()
 				nut.initFiles()
@@ -667,12 +665,12 @@ if __name__ == '__main__':
 
 			if args.extract_nca_meta:
 				nut.extractNcaMeta()
-		
+
 			if args.organize:
 				nut.initTitles()
 				nut.initFiles()
 				nut.organize()
-				
+
 			if args.pull:
 				nut.pull()
 
@@ -706,7 +704,7 @@ if __name__ == '__main__':
 							os. remove(f._path)
 						else:
 							print('Failed to restore: %s, %s' % (str(e), path))
-							#traceback.print_exc(file=sys.stdout)
+							# traceback.print_exc(file=sys.stdout)
 
 			if args.info:
 				nut.initTitles()
@@ -748,7 +746,7 @@ if __name__ == '__main__':
 					nut.initFiles()
 					for i in args.scrape_shogun:
 						if len(i) == 16:
-							l = cdn.Shogun.ids(i, force = True)
+							l = cdn.Shogun.ids(i, force=True)
 							if not l or len(l) == 0 or len(l['id_pairs']) == 0:
 								print('no nsuId\'s found')
 							else:
@@ -758,10 +756,10 @@ if __name__ == '__main__':
 									print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
 									Titles.saveRegion('US', 'en')
 						elif len(i) == 2:
-							cdn.Shogun.scrapeTitles(i, force = True)
+							cdn.Shogun.scrapeTitles(i, force=True)
 						else:
 							print('bleh')
-								
+
 			if args.scrape_shogun_delta != None:
 				nut.scrapeShogunThreaded(False)
 
@@ -782,7 +780,7 @@ if __name__ == '__main__':
 
 			if args.V:
 				nut.scanLatestTitleUpdates()
-				nut.export('titledb/versions.txt', ['id','rightsId', 'version'])
+				nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
 			if args.scrape_title:
 				nut.initTitles()
@@ -793,7 +791,7 @@ if __name__ == '__main__':
 				else:
 					Titles.get(args.scrape_title).scrape(False)
 					Titles.save()
-					#Print.info(repr(Titles.get(args.scrape_title).__dict__))
+					# Print.info(repr(Titles.get(args.scrape_title).__dict__))
 					pprint.pprint(Titles.get(args.scrape_title).__dict__)
 
 			if args.download_all:
@@ -849,7 +847,7 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.compressAll(19 if args.level is None else args.level)
-			
+
 			if args.export:
 				nut.initTitles()
 				nut.initFiles()
@@ -859,7 +857,7 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.export(args.export_versions, ['id', 'rightsId', 'version'])
-			
+
 			if args.missing:
 				logMissingTitles(args.missing)
 
@@ -879,8 +877,8 @@ if __name__ == '__main__':
 				except:
 					pass
 				blockchain.run()
-			
-			if len(sys.argv)==1:
+
+			if len(sys.argv) == 1:
 				nut.scan()
 				nut.organize()
 				nut.downloadAll()
@@ -889,18 +887,17 @@ if __name__ == '__main__':
 
 			if args.export_verified_keys:
 				exportVerifiedKeys(args.export_verified_keys)
-				
+
 			if args.export_keys:
 				exportKeys(args.export_keys)
 
 			if args.organize_ncas:
 				organizeNcas(args.organize_ncas)
-				
+
 			if args.ganymede:
 				nut.ganymede(args.ganymede)
 
 			Status.close()
-	
 
 	except KeyboardInterrupt:
 		Print.info('Keyboard exception')

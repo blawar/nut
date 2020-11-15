@@ -24,7 +24,7 @@ class Section:
 		self.offset = f.readInt64()
 		self.size = f.readInt64()
 		self.cryptoType = f.readInt64()
-		f.readInt64() # padding
+		f.readInt64()  # padding
 		self.cryptoKey = f.read(16)
 		self.cryptoCounter = f.read(16)
 
@@ -46,7 +46,7 @@ class Block:
 		self.decompressedSize = f.readInt64()
 		self.compressedBlockSizeList = [f.readInt32() for _ in range(self.numberOfBlocks)]
 
-def decompress(filePath, outputDir, statusReportInfo = None):
+def decompress(filePath, outputDir, statusReportInfo=None):
 	if isNspNsz(filePath):
 		return __decompressNsz(filePath, outputDir, True, False, statusReportInfo)
 
@@ -110,7 +110,7 @@ def __decompressContainer(readContainer, writeContainer, fileHashes, write, rais
 					if raiseVerificationException:
 						raise Exception("Verification detected hash missmatch!")
 			elif not write:
-				Print.info('[EXISTS]     {0}'.format(nspf._path))
+				Print.info('[EXISTS]	 {0}'.format(nspf._path))
 			continue
 		newFileName = Path(nspf._path).stem + '.nca'
 		if write:
@@ -148,10 +148,10 @@ def __decompressNcz(nspf, f, statusReportInfo):
 
 	decompressor = ZstdDecompressor().stream_reader(nspf)
 	hash = sha256()
-	
+
 	bar = Status.create(nspf.size, desc=os.path.basename(nspf._path), unit='B')
 
-	#if statusReportInfo == None:
+	# if statusReportInfo == None:
 	#	BAR_FMT = u'{desc}{desc_pad}{percentage:3.0f}%|{bar}| {count:{len_total}d}/{total:d} {unit} [{elapsed}<{eta}, {rate:.2f}{unit_pad}{unit}/s]'
 	#	bar = enlighten.Counter(total=nca_size//1048576, desc='Decompress', unit="MiB", color='red', bar_format=BAR_FMT)
 	decompressedBytes = len(header)
@@ -206,14 +206,14 @@ def __decompressNcz(nspf, f, statusReportInfo):
 
 
 def __decompressNsz(filePath, outputDir, write, raiseVerificationException, statusReportInfo):
-	fileHashes = []# FileExistingChecks.ExtractHashes(filePath)
+	fileHashes = []  # FileExistingChecks.ExtractHashes(filePath)
 	container = factory(filePath)
 	container.open(str(filePath), 'rb')
 
 	for f in container:
 		if isCompressedGameFile(f._path):
 			fileHashes.append(f._path.split('.')[0])
-	
+
 	if write:
 		filename = changeExtension(filePath, '.nsp')
 		outPath = filename if outputDir == None else os.path.join(outputDir, os.path.basename(filename))
@@ -230,4 +230,3 @@ def __decompressNsz(filePath, outputDir, write, raiseVerificationException, stat
 
 	container.close()
 	return None
-

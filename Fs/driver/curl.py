@@ -26,7 +26,7 @@ class FileContext(Fs.driver.FileContext):
 
 			curl.setopt(pycurl.RANGE, tmp)
 
-	def read(self, sz = None):
+	def read(self, sz=None):
 		curl = pycurl.Curl()
 		curl.setopt(pycurl.URL, self.url)
 		output = io.BytesIO()
@@ -71,14 +71,11 @@ class DirContext(Fs.driver.DirContext):
 		return self.processLs(output.getvalue().decode('utf8'))
 
 
-
 class Curl(Fs.driver.Interface):
-	def __init__(self, url = None):
+	def __init__(self, url=None):
 		super(Curl, self).__init__(url)
 		self.dirContextType = DirContext
 		self.fileContextType = FileContext
-
-	
 
 
 Fs.driver.registry.add('ftp', Curl)

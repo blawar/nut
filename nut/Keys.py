@@ -78,7 +78,8 @@ def unwrapAesWrappedTitlekey(wrappedKey, keyGeneration):
 	aes_kek_generation_source = uhx(keys['aes_kek_generation_source'])
 	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
 
-	kek = generateKek(uhx(keys['key_area_key_application_source']), uhx(keys['master_key_' + str(keyGeneration).zfill(2)]), aes_kek_generation_source, aes_key_generation_source)
+	kek = generateKek(uhx(keys['key_area_key_application_source']), uhx(
+		keys['master_key_' + str(keyGeneration).zfill(2)]), aes_kek_generation_source, aes_key_generation_source)
 
 	crypto = aes128.AESECB(kek)
 	return crypto.decrypt(wrappedKey)
@@ -112,7 +113,6 @@ def load(fileName):
 	for i in range(0x10):
 		keyAreaKeys.append([None, None, None])
 
-
 	for i in range(0x10):
 		masterKeyName = 'master_key_' + str(i).zfill(2)
 		if masterKeyName in keys.keys():
@@ -136,8 +136,8 @@ except BaseException as e:
 	except:
 		Print.error('could not load keys.txt, all crypto operations will fail')
 
-#for k in titleKeks:
+# for k in titleKeks:
 #	Print.info('titleKek = ' + k)
 
-#for k in keyAreaKeys:
+# for k in keyAreaKeys:
 #	Print.info('%s, %s, %s' % (hex(k[0]), hex(k[1]), hex(k[2])))

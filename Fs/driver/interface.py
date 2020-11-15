@@ -6,7 +6,7 @@ class DirContext:
 	def __enter__(self):
 		return self
 
-	def __exit__(self ,type, value, traceback):
+	def __exit__(self, type, value, traceback):
 		self.close()
 
 	def isFile(self):
@@ -28,16 +28,16 @@ class FileContext:
 	def __enter__(self):
 		return self
 
-	def __exit__(self ,type, value, traceback):
+	def __exit__(self, type, value, traceback):
 		self.close()
 
-	def read(self, sz = None):
+	def read(self, sz=None):
 		return 0
 
 	def chunk(self, callback, offset=None, size=None):
 		return 0
 
-	def open(self, mode = 'rb'):
+	def open(self, mode='rb'):
 		return False
 
 	def close(self):
@@ -59,7 +59,7 @@ class FileEntry:
 		return True
 
 class Interface:
-	def __init__(self, url = None):
+	def __init__(self, url=None):
 		self.url = url
 		self.dirContextType = DirContext
 		self.fileContextType = FileContext
@@ -67,7 +67,7 @@ class Interface:
 	def __enter__(self):
 		return self
 
-	def __exit__(self ,type, value, traceback):
+	def __exit__(self, type, value, traceback):
 		self.close()
 
 	def close(self):
@@ -76,5 +76,5 @@ class Interface:
 	def openDir(self, url):
 		return self.dirContextType(url, self)
 
-	def openFile(self, url, mode = 'rb'):
+	def openFile(self, url, mode='rb'):
 		return self.fileContextType(url, None, mode, self)

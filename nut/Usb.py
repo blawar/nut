@@ -9,8 +9,8 @@ Copyright (c) 2018 Blake Warner
 # aren't very friendly :(
 # Windows Instructions:
 # 1. Download Zadig from https://zadig.akeo.ie/.
-# 2. With your switch plugged in and DZ running, 
-#	choose "List All Devices" under the options menu in Zadig, and select libnx USB comms. 
+# 2. With your switch plugged in and DZ running,
+#	choose "List All Devices" under the options menu in Zadig, and select libnx USB comms.
 # 3. Choose libusbK from the driver list and click the "Replace Driver" button.
 # 4. Run this script
 
@@ -20,7 +20,7 @@ Copyright (c) 2018 Blake Warner
 #	  sudo mkdir /usr/local/Frameworks
 #	  sudo chown $(whoami) /usr/local/Frameworks
 #	  brew install python
-# 3. Install PyUSB 
+# 3. Install PyUSB
 #	  pip3 install pyusb
 # 4. Install libusb
 #	  brew install libusb
@@ -46,7 +46,7 @@ status = 'initializing'
 def getFiles():
 	for k, f in Nsps.files.items():
 		if f and f.hasValidTicket:
-			o.append({'id': t.id, 'name': t.name, 'version': int(f.version) if f.version else None , 'size': f.getFileSize(), 'mtime': f.getFileModified() })
+			o.append({'id': t.id, 'name': t.name, 'version': int(f.version) if f.version else None, 'size': f.getFileSize(), 'mtime': f.getFileModified()})
 
 	return json.dumps(o)
 
@@ -81,14 +81,14 @@ class UsbRequest(Server.NutRequest):
 		self.head = False
 		self.url = urlparse(self.path)
 
-		Print.info('url ' + self.path);
+		Print.info('url ' + self.path)
 
 		self.bits = [x for x in self.url.path.split('/') if x]
 		self.query = parse_qs(self.url.query)
 
 		try:
-			for k,v in self.query.items():
-				self.query[k] = v[0];
+			for k, v in self.query.items():
+				self.query[k] = v[0]
 		except:
 			pass
 
@@ -105,8 +105,8 @@ class Packet:
 		self.timestamp = 0
 		self.i = i
 		self.o = o
-		
-	def recv(self, timeout = 60000):
+
+	def recv(self, timeout=60000):
 		Print.info('begin recv')
 		header = bytes(self.i.read(32, timeout=timeout))
 		Print.info('read complete')
@@ -117,24 +117,24 @@ class Packet:
 		self.packetIndex = int.from_bytes(header[20:22], byteorder='little')
 		self.packetCount = int.from_bytes(header[22:24], byteorder='little')
 		self.timestamp = int.from_bytes(header[24:32], byteorder='little')
-		
+
 		if magic != b'\x12\x12\x12\x12':
-			Print.error('invalid magic! ' + str(magic));
+			Print.error('invalid magic! ' + str(magic))
 			return False
-		
+
 		Print.info('receiving %d bytes' % self.size)
 		self.payload = bytes(self.i.read(self.size, timeout=0))
 		return True
-		
-	def send(self, timeout = 60000):
+
+	def send(self, timeout=60000):
 		Print.info('sending %d bytes' % len(self.payload))
 		self.o.write(b'\x12\x12\x12\x12', timeout=timeout)
 		self.o.write(struct.pack('<I', self.command), timeout=timeout)
-		self.o.write(struct.pack('<Q', len(self.payload)), timeout=timeout) # size
-		self.o.write(struct.pack('<I', 0), timeout=timeout) # threadId
-		self.o.write(struct.pack('<H', 0), timeout=timeout) # packetIndex
-		self.o.write(struct.pack('<H', 0), timeout=timeout) # packetCount
-		self.o.write(struct.pack('<Q', 0), timeout=timeout) # timestamp
+		self.o.write(struct.pack('<Q', len(self.payload)), timeout=timeout)  # size
+		self.o.write(struct.pack('<I', 0), timeout=timeout)  # threadId
+		self.o.write(struct.pack('<H', 0), timeout=timeout)  # packetIndex
+		self.o.write(struct.pack('<H', 0), timeout=timeout)  # packetCount
+		self.o.write(struct.pack('<Q', 0), timeout=timeout)  # timestamp
 		self.o.write(self.payload, timeout=timeout)
 
 def poll_commands(in_ep, out_ep):
@@ -160,22 +160,19 @@ def getDevice():
 				return dev
 
 		devs = usb.core.find(idVendor=0x057E, idProduct=0x3000, find_all=True)
-		
+
 		if devs is not None:
 			for dev in devs:
 				return dev
 
-
-
-
 		time.sleep(1)
-	
+
 def daemon():
 	global status
 	while True:
 		try:
 			status = 'disconnected'
-			
+
 			dev = getDevice()
 
 			Print.info('USB Connected')
@@ -185,10 +182,10 @@ def daemon():
 			dev.set_configuration()
 			cfg = dev.get_active_configuration()
 
-			is_out_ep = lambda ep: usb.util.endpoint_direction(ep.bEndpointAddress) == usb.util.ENDPOINT_OUT
-			is_in_ep = lambda ep: usb.util.endpoint_direction(ep.bEndpointAddress) == usb.util.ENDPOINT_IN
-			out_ep = usb.util.find_descriptor(cfg[(0,0)], custom_match=is_out_ep)
-			in_ep = usb.util.find_descriptor(cfg[(0,0)], custom_match=is_in_ep)
+			def is_out_ep(ep): return usb.util.endpoint_direction(ep.bEndpointAddress) == usb.util.ENDPOINT_OUT
+			def is_in_ep(ep): return usb.util.endpoint_direction(ep.bEndpointAddress) == usb.util.ENDPOINT_IN
+			out_ep = usb.util.find_descriptor(cfg[(0, 0)], custom_match=is_out_ep)
+			in_ep = usb.util.find_descriptor(cfg[(0, 0)], custom_match=is_in_ep)
 
 			assert out_ep is not None
 			assert in_ep is not None

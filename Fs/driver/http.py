@@ -30,11 +30,10 @@ class DirContext(Fs.driver.curl.DirContext):
 		return entries
 
 
-
 class Http(Fs.driver.curl.Curl):
-	def __init__(self, url = None):
+	def __init__(self, url=None):
 		super(Http, self).__init__(url)
-		self.dirContextType = DirContext	
+		self.dirContextType = DirContext
 
 
 Fs.driver.registry.add('http', Http)
