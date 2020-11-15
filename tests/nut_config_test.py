@@ -12,20 +12,24 @@ from nut import Config
 Print.enableDebug = True
 
 def _get_default_config_object():
-	return {'paths': {'titleBase': 'titles/{name}[{id}][v{version}].nsp', 'titleDLC': 'titles/DLC/{name}[{id}][v{version}].nsp', \
-		'titleUpdate': 'titles/updates/{name}[{id}][v{version}].nsp', 'titleDemo': 'titles/demos/{name}[{id}][v{version}].nsp', \
-			'titleDemoUpdate': 'titles/demos/updates/{name}[{id}][v{version}].nsp', 'nsxTitleBase': None, 'nsxTitleDLC': None, \
-			'nsxTitleUpdate': None, 'nsxTitleDemo': None, 'nsxTitleDemoUpdate': None, 'nszTitleBase': None, 'nszTitleDLC': None, \
-			'nszTitleUpdate': None, 'nszTitleDemo': None, 'nszTitleDemoUpdate': None, 'xciTitleBase': None, \
-			'xciTitleDLC': None, 'xciTitleUpdate': None, 'xciTitleDemo': None, 'xciTitleDemoUpdate': None, \
-			'scan': ['.'], 'titleDatabase': 'titledb', 'hactool': '', 'keys': 'keys.txt', \
-			'calibration': 'PRODINFO.bin', 'shopNCert': 'ShopN.pem', 'nspOut': '_NSPOUT', \
-			'titleImages': 'titles/images/', 'duplicates': 'duplicates/'}, 'compression': \
-			{'level': 19, 'auto': False}, 'pullUrls': [], 'threads': 1, 'download': \
-			{'downloadBase': True, 'demo': False, 'DLC': True, 'update': False, \
-			'sansTitleKey': False, 'deltas': False, 'regions': [], 'rankMin': None, 'rankMax': None, 'fileSizeMax': None, \
-			'fileSizeMin': None, 'ratingMin': None, 'ratingMax': None, 'releaseDateMin': None, 'releaseDateMax': None}, \
-				'server': {'hostname': '0.0.0.0', 'port': 9000}, 'autolaunchBrowser': True, 'autoUpdateTitleDb': True}
+	return {'paths': {'titleBase': 'titles/{name}[{id}][v{version}].nsp', 'titleDLC': \
+		'titles/DLC/{name}[{id}][v{version}].nsp', 'titleUpdate': \
+		'titles/updates/{name}[{id}][v{version}].nsp', 'titleDemo': \
+		'titles/demos/{name}[{id}][v{version}].nsp', 'titleDemoUpdate': \
+		'titles/demos/updates/{name}[{id}][v{version}].nsp', 'nsxTitleBase': None, \
+		'nsxTitleDLC': None, 'nsxTitleUpdate': None, 'nsxTitleDemo': None, \
+		'nsxTitleDemoUpdate': None, 'nszTitleBase': None, 'nszTitleDLC': None, \
+		'nszTitleUpdate': None, 'nszTitleDemo': None, 'nszTitleDemoUpdate': None, \
+		'xciTitleBase': None, 'xciTitleDLC': None, 'xciTitleUpdate': None, 'xciTitleDemo': None, \
+		'xciTitleDemoUpdate': None, 'scan': ['.'], 'titleDatabase': 'titledb', 'hactool': '', \
+		'keys': 'keys.txt', 'calibration': 'PRODINFO.bin', 'shopNCert': 'ShopN.pem', \
+		'nspOut': '_NSPOUT', 'titleImages': 'titles/images/', 'duplicates': 'duplicates/'}, \
+		'compression': {'level': 19, 'auto': False}, 'pullUrls': [], 'threads': 1, 'download': \
+		{'downloadBase': True, 'demo': False, 'DLC': True, 'update': False, \
+		'sansTitleKey': False, 'deltas': False, 'regions': [], 'rankMin': None, 'rankMax': None, \
+		'fileSizeMax': None, 'fileSizeMin': None, 'ratingMin': None, 'ratingMax': None, \
+		'releaseDateMin': None, 'releaseDateMax': None}, 'server': {'hostname': '0.0.0.0', \
+		'port': 9000}, 'autolaunchBrowser': True, 'autoUpdateTitleDb': True}
 
 def _get_default_config_path():
 	return 'conf/nut.conf'
@@ -41,6 +45,8 @@ def _create_files(fs, folder_obj):
 
 
 class NutConfigTest(TestCase):
+	"""Tests for nut/Config.py
+	"""
 	def setUp(self):
 		self.setUpPyfakefs(modules_to_reload=[Config])
 
@@ -140,28 +146,30 @@ class NutConfigTest(TestCase):
 		Config.save(conf_file)
 		self.__compare_config_in_file_with_object(conf_file, object_to_compare)
 
-	def test_update_main_path_for_default_config_and_empty_Nsps(self):
+	def test_update_scan_paths_for_default_config_and_empty_Nsps(self):
 		_create_empty_config_file(self.fs)
 
 		self.assertEqual(Config.paths.scan, ['.'])
-		path1 = '/Users/user1/path1'
-		Config.update_main_path(path1, Nsps.files)
-		self.assertEqual(Config.paths.scan, [path1])
+		new_paths = ['/Users/user1/path1', '/Users/user1/path2']
+		Config.update_scan_paths(new_paths, Nsps.files)
+		self.assertEqual(Config.paths.scan, new_paths)
 
 	def test_update_main_path_clears_out_Nsps(self):
 		_create_empty_config_file(self.fs)
 
-		folder2_path = "folder2"
+		new_paths = ["folder2"]
 		folder1 = {"path": Config.paths.scan[0], \
 			"files": ["title1 [abcdefa112345678].nsp", "title2 [abcdefa212345678].nsp"]}
 
 		Nsps.files = {"files": folder1["files"]}
 
-		Config.update_main_path(folder2_path, Nsps.files)
+		Config.update_scan_paths(new_paths, Nsps.files)
 		self.assertEqual(Nsps.files, {})
 
 
 class NutConfigServerTest(TestCase):
+	"""Tests for nut/Config.py Server
+	"""
 	def setUp(self):
 		self.setUpPyfakefs(modules_to_reload=[Config])
 
@@ -172,6 +180,8 @@ class NutConfigServerTest(TestCase):
 		self.assertEqual(Config.server.port, 9000)
 
 class NutConfigPathsTest(TestCase):
+	"""Tests for nut/Config.py Paths
+	"""
 	def setUp(self):
 		self.setUpPyfakefs(modules_to_reload=[Config])
 

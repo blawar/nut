@@ -3,9 +3,10 @@
 import json
 import os
 import platform
-import nut.Print
 import time
-from binascii import hexlify as hx, unhexlify as uhx
+from binascii import unhexlify as uhx
+
+import nut.Print  # pylint: disable=unused-import
 
 threads = 1
 jsonOutput = False
@@ -41,17 +42,23 @@ def getGdriveCredentialsFile():
 
 	return None
 
-class Server:
+class Server: # pylint: disable=too-few-public-methods
+	"""Server-related settings
+	"""
 	def __init__(self):
 		self.hostname = '0.0.0.0'
 		self.port = 9000
 
-class Compression:
+class Compression: # pylint: disable=too-few-public-methods
+	"""Compression-related settings
+	"""
 	def __init__(self):
 		self.level = 19
 		self.auto = False
 
-class Paths:
+class Paths: # pylint: disable=too-many-instance-attributes
+	"""Paths-related settings
+	"""
 	def __init__(self):
 		self.titleBase = 'titles/{name}[{id}][v{version}].nsp'
 		self.titleDLC = 'titles/DLC/{name}[{id}][v{version}].nsp'
@@ -111,7 +118,7 @@ class Paths:
 			else:
 				label = bits[1]
 
-			if not label or not len(label) or label == '':
+			if not label or len(label) == 0 or label == '':
 				label = 'L' + str(unknown)
 				unknown += 1
 			m[label] = bits[0]
@@ -246,13 +253,13 @@ def getPath(path, name, default):
 def forceExt(path, ext):
 	return os.path.splitext(path)[0] + ext
 
-def set(j, paths, value):
-	last = paths.pop()
-	for path in paths:
-		if not path in j:
-			j[path] = {}
-		j = j[path]
-	j[last] = value
+def set(json_, paths_, value): # pylint: disable=redefined-builtin
+	last = paths_.pop()
+	for path in paths_:
+		if not path in json_:
+			json_[path] = {}
+		json_ = json_[path]
+	json_[last] = value
 
 def save(confFile = 'conf/nut.conf'):
 	os.makedirs(os.path.dirname(confFile), exist_ok = True)
@@ -260,7 +267,7 @@ def save(confFile = 'conf/nut.conf'):
 	try:
 		with open(confFile, encoding='utf8') as f:
 			j = json.load(f)
-	except:
+	except: # pylint: disable=bare-except
 		pass
 
 	set(j, ['paths'], paths.__dict__)
@@ -277,379 +284,388 @@ def save(confFile = 'conf/nut.conf'):
 	with open(confFile, 'w', encoding='utf-8') as f:
 		json.dump(j, f, indent=4)
 
-def load(confFile):
-	global threads
-	global jsonOutput
-	global titleUrls
-	global pullUrls
-	global region
-	global language
-	global compression
-	global autolaunchBrowser
+def load(confFile): #pylint: disable=too-many-branches,too-many-statements
+	global threads # pylint: disable=global-statement
+	global jsonOutput # pylint: disable=global-statement
+	global titleUrls # pylint: disable=global-statement
+	global pullUrls # pylint: disable=global-statement
+	global region # pylint: disable=global-statement
+	global language # pylint: disable=global-statement
+	global compression # pylint: disable=global-statement
+	global autolaunchBrowser # pylint: disable=global-statement
+	global autoUpdateTitleDb # pylint: disable=global-statement
 
 	with open(confFile, encoding='utf8') as f:
 		j = json.load(f)
 
 		try:
 			region = j['region']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			language = j['language']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			autolaunchBrowser = j['autolaunchBrowser']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleImages = j['paths']['titleImages']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleBase = j['paths']['titleBase']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleDLC = j['paths']['titleDLC']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleUpdate = j['paths']['titleUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleDemo = j['paths']['titleDemo']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.duplicates = j['paths']['duplicates']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 
 		try:
 			paths.nsxTitleBase = j['paths']['nsxTitleBase']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nsxTitleDLC = j['paths']['nsxTitleDLC']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nsxTitleUpdate = j['paths']['nsxTitleUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nsxTitleDemo = j['paths']['nsxTitleDemo']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nsxTitleDemoUpdate = j['paths']['nsxTitleDemoUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nszTitleBase = j['paths']['nszTitleBase']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nszTitleDLC = j['paths']['nszTitleDLC']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nszTitleUpdate = j['paths']['nszTitleUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nszTitleDemo = j['paths']['nszTitleDemo']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nszTitleDemoUpdate = j['paths']['nszTitleDemoUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.xciTitleBase = j['paths']['xciTitleBase']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.xciTitleDLC = j['paths']['xciTitleDLC']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.xciTitleUpdate = j['paths']['xciTitleUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.xciTitleDemo = j['paths']['xciTitleDemo']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.xciTitleDemoUpdate = j['paths']['xciTitleDemoUpdate']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 
 
 		try:
 			paths.scan = j['paths']['scan']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.nspOut = j['paths']['nspOut']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			paths.titleDatabase = j['paths']['titledb']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 
 		try:
 			compression.level = int(j['compression']['level'])
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
-			compression.auto = True if int(j['compression']['auto']) != 0 else False
-		except:
+			compression.auto = int(j['compression']['auto']) != 0
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.rankMin = j['download']['rankMin']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.rankMax = j['download']['rankMax']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.ratingMin = j['download']['ratingMin']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.ratingMax = j['download']['ratingMax']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.fileSizeMin = j['download']['fileSizeMin']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.fileSizeMax = j['download']['fileSizeMax']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.releaseDateMin = j['download']['releaseDateMin']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.releaseDateMax = j['download']['releaseDateMax']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
-			download.base = j['download']['base']
-		except:
+			download.base = j['download']['base'] # pylint: disable=attribute-defined-outside-init
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.regions = j['download']['regions']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.demo = j['download']['demo']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.DLC = j['download']['dlc']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.update = j['download']['update']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.deltas = j['download']['deltas']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			cdn.deviceId = j['cdn']['deviceId']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			cdn.region = j['cdn']['region']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			cdn.environment = j['cdn']['environment']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			cdn.firmware = j['cdn']['firmware']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			cdn.clientIds = j['cdn']['clientIds']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			dauth.keyGeneration = j['cdn']['dAuth']['keyGeneration']
 			dauth.challenge = 'key_generation=' + str(dauth.keyGeneration)
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			dauth.userAgent = j['cdn']['dAuth']['userAgent']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			dauth.sysDigest = j['cdn']['dAuth']['sysDigest']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			threads = int(j['threads'])
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			download.sansTitleKey = j['download']['sansTitleKey']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			server.hostname = j['server']['hostname']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			server.port = int(j['server']['port'])
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			autoUpdateTitleDb = j['autoUpdateTitleDb']
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			for url in j['titleUrls']:
 				if url not in titleUrls:
 					titleUrls.append(url)
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
 		try:
 			for url in j['pullUrls']:
 				if url not in pullUrls:
 					pullUrls.append(url)
-		except:
+		except: # pylint: disable=bare-except
 			pass
 
+def update_scan_paths(new_scan_paths, nsp_files):
+	"""Function update_paths is intended to update paths in the configuration file.
+	NSPs will be cleared (in memory) if corresponding paths have been changed.
 
-def update_main_path(newPath, nsp_files):
-    """Function updateMainPath is intended to update a new main path (first element
-    with 0 index in the config file).
-    NSPs will be cleared (in memory) if path has been changed.
-    Args:
-        newPath (string): a new main path (first element with 0 index in the config file)
-    Returns:
-        None
-    """
-    global paths
+	Args:
+		new_scan_paths (list of strings): list of strings (paths) to scan titles in
+		nsp_files (map of strings): map of available (scanned) titles
+	Returns:
+		None
+	"""
+	path_changed = False
 
-    pathChanged = False
-    oldPath = paths.scan[0]
+	new_scan_paths_ = new_scan_paths
+	if not isinstance(new_scan_paths_, list):
+		new_scan_paths_ = [new_scan_paths]
 
-    if newPath != oldPath:
-        pathChanged = True
+	old_paths = paths.scan
 
-    if not pathChanged:
-        return
+	if new_scan_paths_ != old_paths:
+		path_changed = True
 
-    paths.scan[0] = newPath
-    save()
+	if not path_changed:
+		return
 
-    if pathChanged:
-        nsp_files.clear()
+	paths.scan = new_scan_paths_
+	save()
+
+	if path_changed:
+		nsp_files.clear()
 
 
 def regionLanguages(fileName = 'titledb/languages.json'):
-	global g_regionLanguages
+	global g_regionLanguages # pylint: disable=global-statement
 
-	if g_regionLanguages:
+	if g_regionLanguages is not None:
 		return g_regionLanguages
 
 	g_regionLanguages = []
 
 	try:
 		with open(fileName, encoding='utf-8-sig') as f:
-				g_regionLanguages = json.loads(f.read())
-	except:
-		g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
+			g_regionLanguages = json.loads(f.read())
+	except: # pylint: disable=bare-except
+		g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
+			"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
+			"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
+			"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],\
+			"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],\
+			"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
 
 	return g_regionLanguages
 
 def loadTitleWhitelist():
-	global titleWhitelist
+	global titleWhitelist # pylint: disable=global-statement
 	titleWhitelist = []
 	try:
 		with open('conf/whitelist.txt', encoding='utf8') as f:
 			for line in f.readlines():
 				titleWhitelist.append(line.strip().upper())
-	except:
+	except: # pylint: disable=bare-except
 		pass
 
 def loadTitleBlacklist():
-	global titleBlacklist
+	global titleBlacklist # pylint: disable=global-statement
 	titleBlacklist = []
 
 	confDir = 'conf'
@@ -670,17 +686,19 @@ def loadTitleBlacklist():
 		try:
 			with open(path, encoding='utf8') as f:
 				for line in f.readlines():
-					id = line.split('|')[0].strip().upper()
-					if id:
-						titleBlacklist.append(id)
-		except:
+					id_ = line.split('|')[0].strip().upper()
+					if id_:
+						titleBlacklist.append(id_)
+		except: # pylint: disable=bare-except
 			pass
 
 compression = Compression()
 paths = Paths()
 server = Server()
 
-class Download:
+class Download: # pylint: disable=too-many-instance-attributes
+	"""Download-releate settings
+	"""
 	def __init__(self):
 		self.downloadBase = True
 		self.demo = False
@@ -698,17 +716,17 @@ class Download:
 		self.releaseDateMin = None
 		self.releaseDateMax = None
 
-	def addRegion(self, region):
-		region = region.upper()
-		if region not in self.regions:
-			self.regions.append(region)
+	def addRegion(self, region_):
+		region_ = region_.upper()
+		if region_ not in self.regions:
+			self.regions.append(region_)
 
-	def removeRegion(self, region):
-		region = region.upper()
-		if region not in self.regions:
+	def removeRegion(self, region_):
+		region_ = region_.upper()
+		if region_ not in self.regions:
 			return
 
-		self.regions.remove(region)
+		self.regions.remove(region_)
 
 	def hasRegion(self, regions, default = True):
 		if not self.regions or len(self.regions) == 0 or regions is None:
@@ -723,6 +741,8 @@ class Download:
 
 
 class DAuthToken:
+	"""DAuthToken
+	"""
 	def __init__(self, clientId):
 		self.token = None
 		self.expires = None
@@ -737,13 +757,12 @@ class DAuthToken:
 				with open(self.fileName(), encoding='utf8') as f:
 					self.token = f.read().strip()
 					self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
-			except BaseException as e:
-				Print.error(str(e))
-				pass
+			except BaseException as e: # pylint: disable=broad-except
+				Print.error(str(e)) # pylint: disable=undefined-variable
 
 
 		if not self.token or not self.expires or time.time() > self.expires:
-			import cdn.Auth
+			import cdn.Auth # pylint: disable=import-outside-toplevel,redefined-outer-name,import-error
 			self.token = cdn.Auth.getDauthToken(self.clientId)
 			self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
 
@@ -753,7 +772,9 @@ class DAuthToken:
 
 		return self.token
 
-class Proxies:
+class Proxies: # pylint: disable=too-few-public-methods
+	"""Proxies-related settings
+	"""
 	def __init__(self):
 		self.http = None # 'socks5://192.169.156.211:45578'
 		self.https = None # 'socks5://192.169.156.211:45578'
@@ -771,7 +792,9 @@ class Proxies:
 
 		return m
 
-class Cdn:
+class Cdn: # pylint: disable=too-few-public-methods
+	"""Cdn
+	"""
 	def __init__(self):
 		self.region = None
 		self.firmware = None
@@ -783,20 +806,22 @@ class Cdn:
 		if not self.deviceId:
 			raise IOError('device id not set')
 
-		bytes = uhx(self.deviceId)
+		bytes_ = uhx(self.deviceId)
 
-		if len(bytes) < 7:
+		if len(bytes_) < 7:
 			raise IOError('device id too small')
 
-		if len(bytes) > 8:
+		if len(bytes_) > 8:
 			raise IOError('device id too large')
 
-		if int.from_bytes(bytes, byteorder='big') < 0x100000000000:
+		if int.from_bytes(bytes_, byteorder='big') < 0x100000000000:
 			raise IOError('device id incorrect')
 
 		return self.deviceId.lower()
 
 class EdgeToken:
+	"""EdgeToken
+	"""
 	def __init__(self, clientId):
 		self.token = None
 		self.expires = None
@@ -811,13 +836,12 @@ class EdgeToken:
 				with open(self.fileName(), encoding='utf8') as f:
 					self.token = f.read().strip()
 					self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
-			except BaseException as e:
-				Print.error(str(e))
-				pass
+			except BaseException as e: # pylint: disable=broad-except
+				Print.error(str(e)) # pylint: disable=undefined-variable
 
 
 		if not self.token or not self.expires or time.time() > self.expires:
-			import cdn.Auth
+			import cdn.Auth # pylint: disable=redefined-outer-name,import-outside-toplevel,import-error
 			self.token = cdn.Auth.getEdgeToken(self.clientId)
 			self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
 
@@ -826,7 +850,9 @@ class EdgeToken:
 
 		return self.token
 
-class DAuth:
+class DAuth: # pylint: disable=too-few-public-methods
+	"""DAuth
+	"""
 	def __init__(self):
 		self.keyGeneration = None
 		self.userAgent = None
@@ -854,11 +880,10 @@ try:
 	dauthToken = DAuthToken(cdn.clientIds['eShop'])
 	dauthTigersToken = DAuthToken(cdn.clientIds['tigers'])
 	eShopEdgeToken = EdgeToken(cdn.clientIds['eShop'])
-except:
+except: # pylint: disable=bare-except
 	pass
 
 try:
-	os.mkdir(Config.paths.nspOut)
-except:
+	os.mkdir(paths.nspOut)
+except: # pylint: disable=bare-except
 	pass
-
