@@ -856,3 +856,9 @@ try:
 	eShopEdgeToken = EdgeToken(cdn.clientIds['eShop'])
 except:
 	pass
+
+try:
+	os.mkdir(Config.paths.nspOut)
+except:
+	pass
+

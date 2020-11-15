@@ -574,14 +574,6 @@ def getFile(request, response, start=None, end=None):
 			if start != '':
 				start = int(start)
 
-		'''
-		if virtualDir == 'gdrive':
-			path = ''
-			for i in request.bits[3:]:
-				path = os.path.join(path, i)
-			return serveFile(response, 'gdrive:/' + path, start=start, end=end)
-		'''
-
 		return serveFile(response, path, start=start, end=end)
 	except:
 		raise IOError('file read access denied')

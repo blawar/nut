@@ -658,46 +658,36 @@ def scan():
 	
 	return r
 
-def downloadHttp(url, f, titleId = None, name = None):
-	return download(url, f, titleId, name)
+class Progress:
+	def __init__(self, response, f):
+		self.response = response
+		self.f = f
+		self.status = Status.create(1, 'Downloading ' + os.path.basename(f.url))
 
-def downloadFtp(url, f, titleId = None, name = None):
-	bytes = 0
+	def __enter__(self):
+		return self
 
-	if url.startswith('http'):
-		return downloadHttp(url, f, titleId, name)
+	def __exit__(self ,type, value, traceback):
+		self.close()
 
-	if url.startswith('ftp'):
-		r = urllib.request.urlopen(url)
-	else:
-		r = open(url, 'rb')
+	def close(self):
+		if self.status is not None:
+			self.status.close()
+			self.status = None
 
-	chunkSize = 0x100000
-
-	s = Status.create(1, desc=name, unit='B')
-	s.id = titleId.upper()
-
-	try:
-		while True:
-			chunk = r.read(chunkSize)
-
-			if not chunk:
-				break
-
-			f.write(chunk)
-			s.add(len(chunk))
-			bytes += len(chunk)
-
-			if not Config.isRunning:
-				break
-	except BaseException as e:
-		Print.info('downloadFtp exception: ' + str(e))
+	def write(self, chunk):
+		self.response.write(chunk)
+		self.status.add(len(chunk))
 
 
-	s.close()
-	r.close()
 
-	return bytes
+def serveFile(response, path, filename = None):
+	with Fs.driver.openFile(path) as f:
+		try:
+			with Progress(response = response, f = f) as progress:
+				f.chunk(progress.write, offset = None, size = None)
+		except BaseException as e:
+			Print.error('File download exception: ' + str(e))
 
 def pullWorker(q, s):
 
@@ -726,7 +716,7 @@ def pullWorker(q, s):
 				continue
 
 			with open(tmpFile, 'wb') as f:
-				downloadFtp(nsp.downloadPath, f, nsp.titleId, 'Downloading ' + nsp.path)
+				serveFile(f, nsp.downloadPath, os.path.basename(nsp.path))
 
 			nsp = Fs.Nsp(tmpFile, None)
 			nsp.hasValidTicket =  hasValidTicket
@@ -746,34 +736,10 @@ def _ftpsync(url):
 		q = queue.Queue()
 
 	fileList = []
-	
-	if url.startswith('http:') or url.startswith('https:'):
-		r = subprocess.Popen(['curl', '--list-only', url], stdout=subprocess.PIPE)
-		out, err = r.communicate()
-		Print.info('synced')
-		ms = re.findall(b'href="(.[^"]*)"', out)
 
-		if ms:
-			for m in ms:
-				if m[-3:] not in (b'nsx', b'nsz', b'nsp', b'xci', b'xcz'):
-					continue
-				#Print.info(urllib.parse.urljoin(url, html.unescape(m.decode('utf8'))))
-				fileList.append(urllib.parse.urljoin(url, html.unescape(m.decode('utf8'))))
-	elif url.startswith('ftp:'):
-		r = subprocess.Popen(['curl', '--list-only', url], stdout=subprocess.PIPE)
-		out, err = r.communicate()
-		Print.info('synced')
-		lines = out.decode('utf-8').split('\n')
-
-		for line in lines:
-			line = line.strip()
-			path = url + line
-			fileList.append(path)
-	else:
-		for f in os.listdir(url):
-			path = os.path.join(url,f)
-			if os.path.isfile(path):
-				fileList.append(path)
+	for f in Fs.driver.openDir(url).ls():
+		if f.isFile():
+			fileList.append(f.url)
 
 	for path in fileList:
 		try:
