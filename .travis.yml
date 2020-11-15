@@ -20,4 +20,4 @@ install:
 # command to run tests
 script:
   - pytest -s
-  - pylint -j 4 nut/Nsps.py
+  - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
