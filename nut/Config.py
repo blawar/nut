@@ -884,7 +884,6 @@ except: # pylint: disable=bare-except
 	pass
 
 try:
-	os.mkdir(Config.paths.nspOut)
-except:
+	os.mkdir(paths.nspOut)
+except: # pylint: disable=bare-except
 	pass
-
