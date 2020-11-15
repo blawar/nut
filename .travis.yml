@@ -3,6 +3,10 @@ jobs:
   include:
     - name: "Python 3.8.0 on Xenial Linux"
       python: 3.8           # this works for Linux but is ignored on macOS or Windows
+      env:
+        - USECURL=7.43.0-openssl11-gssapi-libssh2
+        - USESSL=openssl
+        - USEOPENSSL=1.1.1d
     - name: "Python 3.8 on macOS"
       os: osx
       osx_image: xcode11.4  # Python 3.8 running on macOS 10.15.4
