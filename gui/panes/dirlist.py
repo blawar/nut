@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
@@ -52,8 +52,44 @@ class User(QWidget):
 
 		super(Edit, self).focusOutEvent(event)
 
+class Directory(QWidget):
+	def __init__(self, parent):
+		super(QWidget, self).__init__()
+		self.parent = parent
+
+		layout = QHBoxLayout(self)
+		self.dirBtn = QPushButton('browse')
+		self.dirBtn.setFixedWidth(70)
+		self.dirBtn.clicked.connect(self.on_browse)
+
+		self.edit = Edit(self)
+
+		layout.addWidget(self.dirBtn)
+		layout.addWidget(self.edit)
+		self.layout = layout
+
+	def save(self):
+		self.parent.save()
+
+	def on_browse(self):
+		value = QFileDialog.getExistingDirectory(self, 'Select Directory', 'c:\\', QFileDialog.ShowDirsOnly)
+
+		if value:
+			self.setValue(value)
+
+	def getValue(self):
+		return self.edit.getValue()
+
+	def setValue(self, value):
+		self.edit.setText(value)
+
+	def focusOutEvent(self, event):
+		self.parent.save()
+
+		super(Edit, self).focusOutEvent(event)
+
 class Row(QWidget):
-	def __init__(self, parent, value, rowType=Edit):
+	def __init__(self, parent, value, rowType=Directory):
 		super(QWidget, self).__init__()
 		self.parent = parent
 		layout = QHBoxLayout(self)
@@ -81,7 +117,7 @@ class Row(QWidget):
 		self.parent.save()
 
 class DirList(QWidget):
-	def __init__(self, values=[], onChange=None, rowType=Edit):
+	def __init__(self, values=[], onChange=None, rowType=Directory):
 		super(QWidget, self).__init__()
 		self.rowType = rowType
 
