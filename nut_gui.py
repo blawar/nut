@@ -166,7 +166,7 @@ class Progress:
 						formatSpeed(i.a / (time.process_time() - i.ats))
 					)
 				# TODO: Remove bare except
-				except:
+				except BaseException:
 					self.resetStatus()
 				break
 			else:
@@ -313,13 +313,13 @@ class App(QWidget):
 				try:
 					os.unlink('gdrive.token')
 				# TODO: Remove bare except
-				except:
+				except BaseException:
 					pass
 
 				try:
 					os.unlink('token.pickle')
 				# TODO: Remove bare except
-				except:
+				except BaseException:
 					pass
 
 				server.controller.api.getGdriveToken(None, None)

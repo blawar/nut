@@ -82,7 +82,7 @@ class NcaHeader(File):
 
 		try:
 			self.contentType = Fs.Type.Content(self.contentType)
-		except:
+		except BaseException:
 			pass
 
 		self.cryptoType = self.readInt8()
@@ -388,7 +388,7 @@ class Nca(File):
 			return hx(f.read(0x20)).decode('utf8').upper()
 		except IOError as e:
 			pass
-		except:
+		except BaseException:
 			raise
 			return None
 
@@ -405,7 +405,7 @@ class Nca(File):
 
 			'''
 			print('\nTesting {} with:'.format(self))
-			print('- Keygeneration {}'.format(self.masterKey()))			
+			print('- Keygeneration {}'.format(self.masterKey()))
 			print('- Encrypted key {}'.format(str(hx(encKey))[2:-1]))
 			print('- Decrypted key {}'.format(str(hx(titleKeyDec))[2:-1]))
 			'''

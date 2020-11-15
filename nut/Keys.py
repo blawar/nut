@@ -21,7 +21,7 @@ def pssVerify(buffer, signature, modulus):
 
 	try:
 		return p.verify(SHA256.new(buffer), signature)
-	except:
+	except BaseException:
 		return False
 
 def getMasterKeyIndex(i):
@@ -68,7 +68,7 @@ def generateKek(src, masterKey, kek_seed, key_seed):
 	crypto = aes128.AESECB(kek)
 	src_kek = crypto.decrypt(src)
 
-	if key_seed != None:
+	if key_seed is not None:
 		crypto = aes128.AESECB(src_kek)
 		return crypto.decrypt(key_seed)
 	else:
@@ -133,7 +133,7 @@ try:
 except BaseException as e:
 	try:
 		load('keys.prod')
-	except:
+	except BaseException:
 		Print.error('could not load keys.txt, all crypto operations will fail')
 
 # for k in titleKeks:

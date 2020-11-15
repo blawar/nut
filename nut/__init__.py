@@ -39,7 +39,7 @@ from Fs.Nsp import Nsp
 try:
 	import cdn
 	import cdn.Shogun
-except:
+except BaseException:
 	pass
 
 from ganymede import Ganymede
@@ -317,7 +317,7 @@ def ganymede(config):
 
 			g.push(t.id, lastestNsz.version, lastestNsz.path, lastestNsz.size)
 
-		except:
+		except BaseException:
 			raise
 
 def compressAll(level=19):
@@ -486,16 +486,16 @@ def refreshRegions(save=True):
 					if not hasattr(title, 'languages') or not title.languages:
 						title.languages = []
 
-					if not region in title.regions:
+					if region not in title.regions:
 						title.regions.append(region)
 
-					if not language in title.languages:
+					if language not in title.languages:
 						title.languages.append(language)
-	if save == True:
+	if save:
 		Titles.save()
 
 def importRegion(region='US', language='en', save=True):
-	if not region in Config.regionLanguages() or language not in Config.regionLanguages()[region]:
+	if region not in Config.regionLanguages() or language not in Config.regionLanguages()[region]:
 		Print.info('Could not locate %s/%s !' % (region, language))
 		return False
 
@@ -516,7 +516,7 @@ def importRegion(region='US', language='en', save=True):
 			title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
 
 	Titles.loadTxtDatabases()
-	if save == True:
+	if save:
 		Titles.save()
 
 def isTitleDbStale():
@@ -526,7 +526,7 @@ def isTitleDbStale():
 		if age < 0 or age > 48 * 60 * 60:
 			return True
 		return False
-	except:
+	except BaseException:
 		return True
 
 def downloadRepoFile(path):
@@ -540,7 +540,7 @@ def downloadRepoFile(path):
 				raise IOError('downloaded empty file')
 		try:
 			os.remove(finalFile)
-		except:
+		except BaseException:
 			pass
 		os.rename(tmpFile, finalFile)
 		return True
@@ -549,7 +549,7 @@ def downloadRepoFile(path):
 
 	try:
 		os.remove(tmpFile)
-	except:
+	except BaseException:
 		pass
 
 def decompressZstd(src, dest):
@@ -571,7 +571,7 @@ def updateTitleDb(force=False):
 
 	try:
 		os.mkdir('titledb')
-	except:
+	except BaseException:
 		pass
 
 	Print.info('downloading titledb files')
@@ -593,7 +593,7 @@ def updateTitleDb(force=False):
 
 		try:
 			os.remove('titledb/db.nza')
-		except:
+		except BaseException:
 			pass
 
 		refreshRegions(save=False)
@@ -745,7 +745,8 @@ def _ftpsync(url):
 			if not nsp.titleId:
 				continue
 
-			if not Titles.contains(nsp.titleId) or (not len(Titles.get(nsp.titleId).getFiles(path[-3:])) and Titles.get(nsp.titleId).isActive(skipKeyCheck=True)):
+			if not Titles.contains(nsp.titleId) or (not len(Titles.get(nsp.titleId).getFiles(
+					path[-3:])) and Titles.get(nsp.titleId).isActive(skipKeyCheck=True)):
 				if path[-3:] == 'nsx':
 					if len(Titles.get(nsp.titleId).getFiles('nsp')) or len(Titles.get(nsp.titleId).getFiles('nsz')):
 						continue
@@ -842,7 +843,7 @@ def organize():
 		files = {}
 		for f in t.getFiles():
 			ext = f.path[-4:]
-			if not ext in files:
+			if ext not in files:
 				files[ext] = []
 
 			files[ext].append(f)
@@ -909,8 +910,9 @@ def updateVersions(force=True):
 
 	i = 0
 	for k, t in Titles.items():
-		if force or t.version == None:
-			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
+		if force or t.version is None:
+			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (
+					t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 				v = t.lastestVersion(True)
 				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)))
 
@@ -986,10 +988,10 @@ def setVersionHistory(titleId, ver, date):
 	if len(titleId) > 16:
 		titleId = titleId[0:16]
 
-	if not titleId in versionHistory:
+	if titleId not in versionHistory:
 		versionHistory[titleId] = {}
 
-	if not ver in versionHistory[titleId]:
+	if ver not in versionHistory[titleId]:
 		versionHistory[titleId][ver] = date
 	else:
 		if date < versionHistory[titleId][ver]:
@@ -1022,7 +1024,7 @@ def updateDb(url, c=0):
 				m = re.search(r'<a href="([^"]*)">Proceed</a>', r.text)
 				if m:
 					return updateDb(m.group(1), c)
-			except:
+			except BaseException:
 				pass
 			Titles.loadTitleBuffer(r.text, False)
 		else:
@@ -1041,7 +1043,7 @@ def downloadFile(url, fPath):
 		if r.headers.get('Server') != 'openresty/1.9.7.4':
 			Print.info('Download is already complete, skipping!')
 			return fPath
-		elif r.headers.get('Content-Range') == None:  # CDN doesn't return a range if request >= filesize
+		elif r.headers.get('Content-Range') is None:  # CDN doesn't return a range if request >= filesize
 			fSize = int(r.headers.get('Content-Length'))
 		else:
 			fSize = dlded + int(r.headers.get('Content-Length'))
@@ -1103,7 +1105,7 @@ def loadNcaData():
 					getCnmt(titleId, version, data)
 
 			#cnmtData = tmpData
-	except:
+	except BaseException:
 		raise
 
 	try:
@@ -1112,7 +1114,7 @@ def loadNcaData():
 
 			for ncaId, data in ncaData.items():
 				ncaData[ncaId] = NcaFile(obj=data)
-	except:
+	except BaseException:
 		raise
 
 def saveNcaData():
@@ -1130,7 +1132,7 @@ def saveNcaData():
 
 		with open('titledb/cnmts.json', 'w') as f:
 			json.dump(out, f, indent=4, sort_keys=True)
-	except:
+	except BaseException:
 		raise
 
 	try:
@@ -1141,14 +1143,14 @@ def saveNcaData():
 
 		with open('titledb/ncas.json', 'w') as f:
 			json.dump(out, f, indent=4, sort_keys=True)
-	except:
+	except BaseException:
 		raise
 
 def getNca(ncaId):
 	global ncaData
 	ncaId = ncaId.lower()
 
-	if not ncaId in ncaData:
+	if ncaId not in ncaData:
 		ncaData[ncaId] = NcaFile()
 
 	return ncaData[ncaId]
@@ -1164,10 +1166,10 @@ def hasCnmt(titleId=None, version=None):
 	titleId = titleId.lower()
 	version = str(version)
 
-	if not titleId in cnmtData:
+	if titleId not in cnmtData:
 		return False
 
-	if not version in cnmtData[titleId]:
+	if version not in cnmtData[titleId]:
 		return False
 
 	if titleId.endswith('000') or titleId.endswith('800'):
@@ -1182,10 +1184,10 @@ def getCnmt(titleId=None, version=None, obj=None):
 	titleId = titleId.lower()
 	version = str(version)
 
-	if not titleId in cnmtData:
+	if titleId not in cnmtData:
 		cnmtData[titleId] = {}
 
-	if not version in cnmtData[titleId]:
+	if version not in cnmtData[titleId]:
 		cnmtData[titleId][version] = CnmtFile(titleId, version, obj)
 
 	return cnmtData[titleId][version]
@@ -1202,7 +1204,7 @@ def extractNcaMeta():
 		if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
 			continue
 		try:
-			if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta == True or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
+			if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
 				# Print.info('skipping')
 				continue
 
@@ -1210,7 +1212,7 @@ def extractNcaMeta():
 				continue
 
 			q[path] = nsp
-		except:
+		except BaseException:
 			Print.info('exception: %s' % (path))
 			raise
 
@@ -1420,7 +1422,7 @@ def scanLatestTitleUpdates():
 			for titleId, vers in json.loads(f.read()).items():
 				for ver, date in vers.items():
 					setVersionHistory(titleId, ver, date)
-	except:
+	except BaseException:
 		pass
 
 	for k, i in cdn.hacVersionList().items():

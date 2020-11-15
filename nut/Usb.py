@@ -63,7 +63,7 @@ class UsbResponse(Server.NutResponse):
 		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
 
-		if type(data) == str:
+		if isinstance(data, str):
 			data = data.encode('utf-8')
 
 		if not len(data):
@@ -89,7 +89,7 @@ class UsbRequest(Server.NutRequest):
 		try:
 			for k, v in self.query.items():
 				self.query[k] = v[0]
-		except:
+		except BaseException:
 			pass
 
 		self.user = None

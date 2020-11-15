@@ -32,12 +32,12 @@ class BaseFs(File):
 			self.buffer = buffer
 			try:
 				self.fsType = Fs.Type.Fs(buffer[0x3])
-			except:
+			except BaseException:
 				self.fsType = buffer[0x3]
 
 			try:
 				self.cryptoType = Fs.Type.Crypto(buffer[0x4])
-			except:
+			except BaseException:
 				self.cryptoType = buffer[0x4]
 
 			self.cryptoCounter = bytearray((b"\x00"*8) + buffer[0x140:0x148])
@@ -105,7 +105,7 @@ class BaseFs(File):
 		'''
 		if self.bktrRelocation:
 			entry = self.bktrRelocation.getRelocationEntry(self.tell())
-		
+
 			if entry:
 				self.ctr_val = entry.ctr
 				#self.cryptoOffset = entry.virtualOffset + entry.physicalOffset
@@ -125,9 +125,9 @@ class BaseFs(File):
 	def read(self, size=None, direct=False):
 		'''
 		if self.cryptoType == Type.Crypto.BKTR or self.bktrSubsection is not None:
-				return self.bktrRead(size, True)
+						return self.bktrRead(size, True)
 		else:
-				return super(BaseFs, self).read(size, direct)
+						return super(BaseFs, self).read(size, direct)
 		'''
 		return super(BaseFs, self).read(size, direct)
 

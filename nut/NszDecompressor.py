@@ -52,7 +52,7 @@ def decompress(filePath, outputDir, statusReportInfo=None):
 
 	elif isCompressedGameFile(filePath):
 		filename = changeExtension(filePath, '.nca')
-		outPath = filename if outputDir == None else str(Path(outputDir).joinpath(filename))
+		outPath = filename if outputDir is None else str(Path(outputDir).joinpath(filename))
 		Print.info('Decompressing %s -> %s' % (filePath, outPath))
 
 		if Config.dryRun:
@@ -64,7 +64,7 @@ def decompress(filePath, outputDir, statusReportInfo=None):
 			with open(outPath, 'wb') as outFile:
 				written, hexHash = __decompressNcz(container, outFile)
 		except BaseException as ex:
-			if not ex is KeyboardInterrupt:
+			if ex is not KeyboardInterrupt:
 				Print.error(format_exc())
 			if outFile.is_file():
 				outFile.unlink()
@@ -131,7 +131,7 @@ def __decompressNcz(nspf, f, statusReportInfo):
 	blockID = 0
 	nspf.seek(0)
 	header = nspf.read(UNCOMPRESSABLE_HEADER_SIZE)
-	if f != None:
+	if f is not None:
 		start = f.tell()
 
 	magic = nspf.read(8)
@@ -155,7 +155,7 @@ def __decompressNcz(nspf, f, statusReportInfo):
 	#	BAR_FMT = u'{desc}{desc_pad}{percentage:3.0f}%|{bar}| {count:{len_total}d}/{total:d} {unit} [{elapsed}<{eta}, {rate:.2f}{unit_pad}{unit}/s]'
 	#	bar = enlighten.Counter(total=nca_size//1048576, desc='Decompress', unit="MiB", color='red', bar_format=BAR_FMT)
 	decompressedBytes = len(header)
-	if f != None:
+	if f is not None:
 		f.write(header)
 		bar.add(len(header))
 
@@ -185,7 +185,7 @@ def __decompressNcz(nspf, f, statusReportInfo):
 				break
 			if useCrypto:
 				inputChunk = crypto.encrypt(inputChunk)
-			if f != None:
+			if f is not None:
 				f.write(inputChunk)
 				bar.add(len(inputChunk))
 			hash.update(inputChunk)
@@ -198,7 +198,7 @@ def __decompressNcz(nspf, f, statusReportInfo):
 	print()
 
 	hexHash = hash.hexdigest()
-	if f != None:
+	if f is not None:
 		end = f.tell()
 		written = (end - start)
 		return (written, hexHash)
@@ -216,7 +216,7 @@ def __decompressNsz(filePath, outputDir, write, raiseVerificationException, stat
 
 	if write:
 		filename = changeExtension(filePath, '.nsp')
-		outPath = filename if outputDir == None else os.path.join(outputDir, os.path.basename(filename))
+		outPath = filename if outputDir is None else os.path.join(outputDir, os.path.basename(filename))
 		Print.info('Decompressing %s -> %s' % (filePath, outPath))
 
 		if Config.dryRun:

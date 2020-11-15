@@ -96,7 +96,7 @@ class NutRequest:
 			else:
 				self.post = handler.rfile.read(length)
 				#Print.info('reading %s bytes from post' % self.headers['Content-Length'])
-		except:
+		except BaseException:
 			self.post = None
 
 		self.bits = [urllib.parse.unquote(x) for x in self.url.path.split('/') if x]
@@ -105,7 +105,7 @@ class NutRequest:
 		try:
 			for k, v in self.query.items():
 				self.query[k] = v[0]
-		except:
+		except BaseException:
 			pass
 
 		self.user = None
@@ -183,7 +183,7 @@ class NutResponse:
 				self.headers['Content-type'] = mimes[ext]
 			else:
 				raise IOError('Mime not found')
-		except:
+		except BaseException:
 			pass
 
 	def attachFile(self, fileName):
@@ -201,7 +201,7 @@ class NutResponse:
 		self.headersSent = True
 
 	def write(self, data):
-		if self.running == False:
+		if not self.running:
 			raise IOError('no writer thread')
 
 		self.q.push(data)
@@ -210,7 +210,7 @@ class NutResponse:
 		if self.bytesSent == 0 and not self.headersSent:
 			self.sendHeader()
 
-		if type(data) == str:
+		if isinstance(data, str):
 			data = data.encode('utf-8')
 
 		self.bytesSent += len(data)
@@ -259,7 +259,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 			request.setHead(True)
 			response.setHead(True)
 
-			if self.headers['Authorization'] == None:
+			if self.headers['Authorization'] is None:
 				return Response401(request, response)
 
 			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
@@ -283,7 +283,7 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 	def do(self, verb='get'):
 		request = NutRequest(self)
 		with NutResponse(self) as response:
-			if self.headers['Authorization'] == None:
+			if self.headers['Authorization'] is None:
 				return Response401(request, response)
 
 			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')

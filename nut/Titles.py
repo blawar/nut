@@ -13,7 +13,7 @@ import threading
 
 try:
 	import cdn
-except:
+except BaseException:
 	pass
 
 titles = None
@@ -29,17 +29,17 @@ def data(region=None, language=None):
 	global titles
 
 	if region:
-		if not region in regionTitles:
+		if region not in regionTitles:
 			regionTitles[region] = {}
 
-		if not language in regionTitles[region]:
+		if language not in regionTitles[region]:
 			filePath = 'titledb/%s.%s.json' % (region, language)
 			if os.path.isfile(filePath):
 				regionTitles[region][language] = loadTitlesJson(filePath)
 			else:
 				try:
 					os.mkdir('titledb')
-				except:
+				except BaseException:
 					pass
 
 				url = 'https://raw.githubusercontent.com/blawar/nut/master/titledb/%s.%s.json' % (region, language)
@@ -52,7 +52,7 @@ def data(region=None, language=None):
 
 		return regionTitles[region][language]
 
-	if titles == None:
+	if titles is None:
 		load()
 	return titles
 
@@ -65,7 +65,7 @@ def items(region=None, language=None):
 def get(key, region=None, language=None):
 	key = key.upper()
 
-	if not key in data(region, language):
+	if key not in data(region, language):
 		t = Title.Title()
 		t.setId(key)
 		data(region, language)[key] = t
@@ -193,7 +193,7 @@ def load():
 		with open('titledb/titles.json', encoding="utf-8-sig") as f:
 			try:
 				items = json.loads(f.read()).items()
-			except:
+			except BaseException:
 				Print.error('json file is corrupted: titledb/titles.json')
 				confLock.release()
 				return False
@@ -258,8 +258,7 @@ def loadTxtDatabases():
 		loadTitleFile('titles.txt', True)
 
 	try:
-		files = [f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')]
-		files.sort()
+		files = sorted([f for f in os.listdir(Config.paths.titleDatabase) if f.endswith('.txt')])
 
 		for file in files:
 			if file.endswith('personal_keys.txt'):
@@ -299,7 +298,7 @@ def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 			j[k.nsuId] = k.exportDict(True)
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
-	except:
+	except BaseException:
 		confLock.release()
 		raise
 
@@ -318,7 +317,7 @@ def save(fileName='titledb/titles.json', full=True):
 
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4)
-	except:
+	except BaseException:
 		confLock.release()
 		raise
 
@@ -336,7 +335,7 @@ class Queue:
 	def add(self, id, skipCheck=False):
 		self.lock.acquire()
 		id = id.upper()
-		if not id in self.queue and (skipCheck or self.isValid(id)):
+		if id not in self.queue and (skipCheck or self.isValid(id)):
 			self.queue.append(id)
 		self.lock.release()
 
@@ -356,7 +355,7 @@ class Queue:
 		return bool(self.size() == 0)
 
 	def get(self, idx=None):
-		if idx == None:
+		if idx is None:
 			return self.queue
 		return self.queue[idx]
 
@@ -380,7 +379,7 @@ class Queue:
 			with open('conf/queue.txt', 'w', encoding='utf-8') as f:
 				for id in self.queue:
 					f.write(id + '\n')
-		except:
+		except BaseException:
 			pass
 		self.lock.release()
 

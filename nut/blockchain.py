@@ -153,7 +153,7 @@ class Blockchain:
 	def save(self):
 		try:
 			os.mkdir('titledb')
-		except:
+		except BaseException:
 			pass
 		try:
 			with open('titledb/blockchain.json', 'w') as outfile:
@@ -161,7 +161,7 @@ class Blockchain:
 				for i in self.chain:
 					obj.append(i.serialize())
 				json.dump(obj, outfile, indent=4)
-		except:
+		except BaseException:
 			pass
 
 	def load(self):
@@ -172,7 +172,7 @@ class Blockchain:
 
 					for j in json.loads(f.read()):
 						self.chain.append(Block(json=j))
-		except:
+		except BaseException:
 			pass
 
 	def hasTitle(self, id):
@@ -304,7 +304,7 @@ class Blockchain:
 		nsp.open()
 
 		for f in nsp:
-			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+			if isinstance(f, Fs.Nca) and f.header.contentType == Type.Content.PROGRAM:
 				for fs in f.sectionFilesystems:
 					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
 						f.seek(0)
@@ -324,7 +324,7 @@ class Blockchain:
 						return True
 
 		for f in nsp:
-			if type(f) == Fs.Nca:
+			if isinstance(f, Fs.Nca):
 				for fs in f.sectionFilesystems:
 					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
 						f.seek(0)
@@ -416,7 +416,7 @@ def verifyKey(titleId=None, titleKey=None):
 		nsp.open()
 
 		for f in nsp:
-			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+			if isinstance(f, Fs.Nca) and f.header.contentType == Type.Content.PROGRAM:
 				for fs in f.sectionFilesystems:
 					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
 						f.seek(0)
@@ -436,7 +436,7 @@ def verifyKey(titleId=None, titleKey=None):
 						return True
 
 		for f in nsp:
-			if type(f) == Fs.Nca:
+			if isinstance(f, Fs.Nca):
 				for fs in f.sectionFilesystems:
 					if fs.fsType == Type.Fs.ROMFS and fs.cryptoType == Type.Crypto.CTR:
 						f.seek(0)
@@ -489,7 +489,7 @@ def new_suggestion():
 		nsp.open()
 
 		for f in nsp:
-			if type(f) == Fs.Nca and f.header.contentType == Type.Content.PROGRAM:
+			if isinstance(f, Fs.Nca) and f.header.contentType == Type.Content.PROGRAM:
 				for fs in f.sectionFilesystems:
 					if fs.fsType == Type.Fs.PFS0 and fs.cryptoType == Type.Crypto.CTR:
 						f.seek(0)

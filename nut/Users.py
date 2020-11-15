@@ -51,7 +51,7 @@ class User:
 	def setIsAdmin(self, isAdmin):
 		try:
 			self.isAdmin = False if int(isAdmin) == 0 else True
-		except:
+		except BaseException:
 			pass
 
 	def getIsAdmin(self):
@@ -60,7 +60,7 @@ class User:
 	def setRequireAuth(self, requireAuth):
 		try:
 			self.requireAuth = False if int(requireAuth) == 0 else True
-		except:
+		except BaseException:
 			pass
 
 	def getRequireAuth(self):
@@ -75,7 +75,7 @@ class User:
 	def setSwitchPort(self, port):
 		try:
 			self.switchPort = int(port)
-		except:
+		except BaseException:
 			pass
 
 	def getSwitchPort(self):
@@ -90,7 +90,7 @@ def first():
 def auth(id, password, address):
 	#print('Authing: ' + str(id) + ' - ' + str(password) + ', ' + str(address))
 
-	if not id in users:
+	if id not in users:
 		return None
 
 	user = users[id]

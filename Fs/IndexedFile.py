@@ -26,7 +26,7 @@ class IndexedFile:
 	def isUpdateAvailable(self):
 		title = self.title()
 
-		if self.titleId and str(title.version) != None and str(self.version) < str(title.version) and str(title.version) != '0':
+		if self.titleId and str(title.version) is not None and str(self.version) < str(title.version) and str(title.version) != '0':
 			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(self.version), 'newVersion': str(title.version)}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
@@ -52,7 +52,7 @@ class IndexedFile:
 	def setTimestamp(self, timestamp):
 		try:
 			self.timestamp = int(str(timestamp), 10)
-		except:
+		except BaseException:
 			pass
 
 	def getTimestamp(self):
@@ -90,7 +90,7 @@ class IndexedFile:
 
 		try:
 			self.hasValidTicket = (True if value and int(value) != 0 else False) or self.title().isUpdate
-		except:
+		except BaseException:
 			pass
 
 	def move(self, forceNsp=False):
@@ -98,7 +98,8 @@ class IndexedFile:
 			Print.error('no path set')
 			return False
 
-		if os.path.abspath(self.path).startswith(os.path.abspath(Config.paths.nspOut)) and not self.path.endswith('.nsz') and not self.path.endswith('.xcz') and Config.compression.auto:
+		if os.path.abspath(self.path).startswith(os.path.abspath(Config.paths.nspOut)) and not self.path.endswith(
+				'.nsz') and not self.path.endswith('.xcz') and Config.compression.auto:
 			nszFile = nut.compress(self.path, Config.compression.level, os.path.abspath(Config.paths.nspOut))
 
 			if nszFile:
@@ -183,7 +184,14 @@ class IndexedFile:
 		return s.strip()
 
 	def dict(self):
-		return {"titleId": self.titleId, "hasValidTicket": self.hasValidTicket, 'extractedNcaMeta': self.getExtractedNcaMeta(), 'version': self.version, 'timestamp': self.timestamp, 'path': self.path, 'fileSize': self.fileSize}
+		return {
+			"titleId": self.titleId,
+			"hasValidTicket": self.hasValidTicket,
+			'extractedNcaMeta': self.getExtractedNcaMeta(),
+			'version': self.version,
+			'timestamp': self.timestamp,
+			'path': self.path,
+			'fileSize': self.fileSize}
 
 	def getCr(self, inverted=False):
 		if not hasattr(self, 'cr') or not self.cr:
@@ -222,7 +230,7 @@ class IndexedFile:
 	def fileName(self, forceNsp=False):
 		bt = None
 
-		if not self.titleId in Titles.keys():
+		if self.titleId not in Titles.keys():
 			if not Title.getBaseId(self.titleId) in Titles.keys():
 				Print.error('could not find base title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
 				return None
@@ -240,7 +248,7 @@ class IndexedFile:
 				return None
 
 			try:
-				if not t.baseId in Titles.keys():
+				if t.baseId not in Titles.keys():
 					Print.info('could not find baseId for ' + self.path)
 					return None
 			except BaseException as e:

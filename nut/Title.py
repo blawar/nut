@@ -17,12 +17,12 @@ import urllib.request
 from nut import Config
 try:
 	import cdn
-except:
+except BaseException:
 	pass
 
 try:
 	from PIL import Image
-except:
+except BaseException:
 	import Image
 
 fileLUT = {}
@@ -64,7 +64,7 @@ def grabCachedRedirectUrl(url, cookies=None):
 			json.dump(urlCache, outfile)
 		urlLock.release()
 		return result
-	except:
+	except BaseException:
 		urlLock.release()
 		raise
 
@@ -120,14 +120,14 @@ class Title:
 
 		if isRegion:
 			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId', 'regions', 'rank')
-		elif full == True:
+		elif full:
 			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId')
 		else:
 			blacklist = ('isDLC', 'isUpdate', 'idExt', 'updateId', 'baseId', 'rightsId', 'key', 'isDemo', 'regions', 'nsuId', 'category',
 						 'ratingContent', 'numberOfPlayers', 'frontBoxArt', 'intro', 'languages', 'language', 'iconUrl', 'screenshots', 'bannerUrl')
 
 		for i in self.__dict__.keys():
-			if i not in blacklist and (full == True or (self.__dict__[i] is not None and (i != 'size' or self.__dict__[i] > 0))):
+			if i not in blacklist and (full or (self.__dict__[i] is not None and (i != 'size' or self.__dict__[i] > 0))):
 				r[i] = self.__dict__[i]
 		return r
 
@@ -215,7 +215,7 @@ class Title:
 				else:
 					if not highestNsp or int(nsp.version) > int(highestNsp.version):
 						highestNsp = nsp
-			except:
+			except BaseException:
 				pass
 
 		return highestNsp or highestNsx
@@ -231,7 +231,7 @@ class Title:
 
 					if not highest or int(nsp.version) > int(highest.version):
 						highest = nsp
-			except:
+			except BaseException:
 				pass
 
 		return highest
@@ -247,7 +247,7 @@ class Title:
 
 					if not highest or int(nsp.version) > int(highest.version):
 						highest = nsp
-			except:
+			except BaseException:
 				pass
 
 		return highest
@@ -263,7 +263,7 @@ class Title:
 
 					if not highest or int(nsp.version) > int(highest.version):
 						highest = nsp
-			except:
+			except BaseException:
 				pass
 
 		return highest
@@ -279,7 +279,7 @@ class Title:
 
 					if not highest or int(nsp.version) > int(highest.version):
 						highest = nsp
-			except:
+			except BaseException:
 				pass
 
 		return highest
@@ -315,7 +315,7 @@ class Title:
 				self.isDLC = True
 			elif v == 0:
 				self.isDLC = False
-		except:
+		except BaseException:
 			pass
 
 	def getRank(self):
@@ -324,7 +324,7 @@ class Title:
 	def setRank(self, v):
 		try:
 			self.rank = int(v, 10)
-		except:
+		except BaseException:
 			pass
 
 	def getIsUpdate(self):
@@ -337,13 +337,13 @@ class Title:
 				self.isUpdate = True
 			elif v == 0:
 				self.isUpdate = False
-		except:
+		except BaseException:
 			pass
 
 	def getIsDemo(self):
 		try:
 			return self.isDemo*1
-		except:
+		except BaseException:
 			return 0
 
 	def setIsDemo(self, v):
@@ -353,7 +353,7 @@ class Title:
 				self.isDemo = True
 			elif v == 0:
 				self.isDemo = False
-		except:
+		except BaseException:
 			pass
 
 	def setNsuId(self, nsuId):
@@ -391,7 +391,7 @@ class Title:
 
 		try:
 			i = int(id, 16)
-		except:
+		except BaseException:
 			return
 
 		if len(id) == 32:
@@ -447,7 +447,7 @@ class Title:
 			return
 		self.name = name
 
-		if self.isDemo == None:
+		if self.isDemo is None:
 			if re.match(r'.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match(r'.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
 				self.isDemo = True
 			else:
@@ -458,7 +458,7 @@ class Title:
 			return
 		self.name = name
 
-		if self.isDemo == None:
+		if self.isDemo is None:
 			if re.match(r'.*\s[\(\[]?Demo[\)\]]?\s*$', self.name, re.I) or re.match(r'.*\s[\(\[]?Demo[\)\]]?\s+.*$', self.name, re.I):
 				self.isDemo = True
 			else:
@@ -490,7 +490,7 @@ class Title:
 
 			if i <= 0:
 				return
-		except:
+		except BaseException:
 			return
 
 		self.key = key
@@ -499,15 +499,15 @@ class Title:
 		return self.key or '00000000000000000000000000000000'
 
 	def setVersion(self, version, force=False):
-		if version != None:
+		if version is not None:
 			try:
 				n = int(str(version), 10)
-			except:
+			except BaseException:
 				return
 
 			try:
 				o = int(str(self.version), 10)
-			except:
+			except BaseException:
 				o = None
 
 			if not o or n > o or force:
@@ -521,7 +521,7 @@ class Title:
 	def setParentId(self, titleId):
 		try:
 			self.parentId = titleId
-		except:
+		except BaseException:
 			pass
 
 	def lastestVersion(self, force=False, localOnly=False):
@@ -560,7 +560,8 @@ class Title:
 			if Titles.contains(baseId):
 				base = Titles.get(baseId)
 
-		if (self.isDLC or self.isUpdate or Config.download.base) and (not self.isDLC or Config.download.DLC) and (not base.isDemo or Config.download.demo) and (not self.isUpdate or Config.download.update) and (base.key or Config.download.sansTitleKey or self.isUpdate or skipKeyCheck) and (len(Config.titleWhitelist) == 0 or self.id in Config.titleWhitelist) and self.id not in Config.titleBlacklist:
+		if (self.isDLC or self.isUpdate or Config.download.base) and (not self.isDLC or Config.download.DLC) and (not base.isDemo or Config.download.demo) and (not self.isUpdate or Config.download.update) and (
+				base.key or Config.download.sansTitleKey or self.isUpdate or skipKeyCheck) and (len(Config.titleWhitelist) == 0 or self.id in Config.titleWhitelist) and self.id not in Config.titleBlacklist:
 			if Config.shardIndex is not None and Config.shardCount is not None:
 				if (int(self.id[0:13], 16) // 2) % Config.shardCount != Config.shardIndex:
 					return False
@@ -609,9 +610,9 @@ class Title:
 			os.makedirs(base, exist_ok=True)
 			im = Image.open(filePath)
 			ar = im.size[0] / im.size[1]
-			if height == None:
+			if height is None:
 				height = int(width / ar)
-			elif width == None:
+			elif width is None:
 				width = int(height * ar)
 
 			out = im.resize((width, height), Image.ANTIALIAS)
@@ -634,7 +635,7 @@ class Title:
 		return self.getResizedImage(self.download(Config.paths.titleImages + self.id, 'frontBoxArt' + ext, self.frontBoxArt), width, height)
 
 	def iconFile(self, width=None, height=None):
-		if not 'iconUrl' in self.__dict__:
+		if 'iconUrl' not in self.__dict__:
 			self.iconUrl = None
 
 		if not self.iconUrl or self.iconUrl.startswith('cocoon:/'):
@@ -668,7 +669,7 @@ class Title:
 		if "release_date_on_eshop" in _json:
 			try:
 				self.releaseDate = int(_json["release_date_on_eshop"].replace('-', ''))
-			except:
+			except BaseException:
 				pass
 
 		'''
@@ -727,7 +728,7 @@ class Title:
 			for a in _json["applications"]:
 				'''
 				if "id" in a:
-						self.setId(a['id'])
+								self.setId(a['id'])
 				'''
 
 				if "image_url" in a:
@@ -761,7 +762,7 @@ class Title:
 							#Print.info("setting appid " + str(baseTitle.id))
 						# else:
 						#	Print.error("Could not find title for " + str(nsu["id"]))
-		except:
+		except BaseException:
 			Print.error('target titles error')
 			raise
 
@@ -781,7 +782,7 @@ class Title:
 
 					_json = json.loads(result.text.split('NXSTORE.titleDetail.jsonData = ')[1].split('NXSTORE.titleDetail')[0].replace(';', ''))
 
-					if _json == '' or _json == None:
+					if _json == '' or _json is None:
 						Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (id, region))
 						continue
 
@@ -811,7 +812,7 @@ class Title:
 							if len(ss) > 0:
 								self.screenshots = ss
 
-						if soup.find("meta", {"property": "og:url"}) != None:
+						if soup.find("meta", {"property": "og:url"}) is not None:
 							slug = soup.find("meta", {"property": "og:url"})["content"].split('/')[-1]
 							infoJson = json.loads(requests.get("https://www.nintendo.com/json/content/get/game/%s" % slug, cookies=cookies).text)["game"]
 
@@ -836,7 +837,7 @@ class Title:
 										for game_category in infoJson["game_category_ref"]:
 											catagories.append(infoJson["game_category_ref"][catindex]["name"])
 											catindex += 1
-									except:
+									except BaseException:
 										pass
 								self.category = catagories
 
@@ -854,7 +855,7 @@ class Title:
 												esrbcontent.append(descriptor["name"])
 											if 'title' in descriptor:
 												esrbcontent.append(descriptor["title"])
-									except:
+									except BaseException:
 										pass
 								self.ratingContent = esrbcontent
 
@@ -898,7 +899,7 @@ class Title:
 									details = BeautifulSoup(infoJson["intro"][0], "html.parser")
 									try:
 										details = details.decode(formatter=None)
-									except:
+									except BaseException:
 										details = details.decode()
 									details = re.sub(r'<[^<]+?>', '', details).strip()
 									details = re.sub(r' +', ' ', details)
@@ -914,7 +915,7 @@ class Title:
 								details = BeautifulSoup(infoJson["game_overview_description"][0], "html.parser")
 								try:
 									details = details.decode(formatter=None)
-								except:
+								except BaseException:
 									details = details.decode()
 								details = re.sub(r'<[^<]+?>', '', details).strip()
 								details = re.sub(r' +', ' ', details)

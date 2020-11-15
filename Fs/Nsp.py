@@ -46,15 +46,15 @@ class Nsp(Pfs0, IndexedFile):
 		#	self.unlock()
 
 	def getFileSize(self):
-		if self.fileSize == None:
+		if self.fileSize is None:
 			try:
 				self.fileSize = os.path.getsize(self.path)
-			except:
+			except BaseException:
 				pass
 		return self.fileSize
 
 	def getFileModified(self):
-		if self.fileModified == None:
+		if self.fileModified is None:
 			self.fileModified = os.path.getmtime(self.path)
 		return self.fileModified
 
@@ -100,7 +100,7 @@ class Nsp(Pfs0, IndexedFile):
 	def isUpdateAvailable(self):
 		title = self.title()
 
-		if self.titleId and str(title.version) != None and str(self.version) < str(title.version) and str(title.version) != '0':
+		if self.titleId and str(title.version) is not None and str(self.version) < str(title.version) and str(title.version) != '0':
 			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(self.version), 'newVersion': str(title.version)}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
@@ -164,12 +164,12 @@ class Nsp(Pfs0, IndexedFile):
 	# extractedNcaMeta
 
 	def getExtractedNcaMeta(self):
-		if hasattr(self, 'extractedNcaMeta') and self.extractedNcaMeta == True:
+		if hasattr(self, 'extractedNcaMeta') and self.extractedNcaMeta:
 			return 1
 		return 0
 
 	def setExtractedNcaMeta(self, val):
-		if val and (val != 0 or val == True):
+		if val and (val != 0 or val):
 			self.extractedNcaMeta = True
 		else:
 			self.extractedNcaMeta = False
@@ -177,7 +177,7 @@ class Nsp(Pfs0, IndexedFile):
 	def getHasValidTicket(self):
 		if self.title().isUpdate:
 			return 1
-		return (1 if self.hasValidTicket and self.hasValidTicket == True else 0)
+		return (1 if self.hasValidTicket and self.hasValidTicket else 0)
 
 	def open(self, path=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Nsp, self).open(path or self.path, mode, cryptoType, cryptoKey, cryptoCounter)
@@ -216,7 +216,7 @@ class Nsp(Pfs0, IndexedFile):
 				ticket = self.ticket()
 				masterKeyRev = ticket.getMasterKeyRevision()
 				userkey = ticket.getTitleKeyBlock().to_bytes(16, byteorder='big')
-			except:
+			except BaseException:
 				userkey = None
 		else:
 			userkey = uhx(userkey)
@@ -227,7 +227,7 @@ class Nsp(Pfs0, IndexedFile):
 			try:
 				if f.verifyKey(userkey):
 					return True
-			except:
+			except BaseException:
 				pass
 		return False
 
@@ -253,7 +253,7 @@ class Nsp(Pfs0, IndexedFile):
 		if rightsId != 0:
 			raise IOError('please remove titlerights first')
 
-		if (newMasterKeyRev == None and rightsId == 0) or masterKeyRev == newMasterKeyRev:
+		if (newMasterKeyRev is None and rightsId == 0) or masterKeyRev == newMasterKeyRev:
 			Print.info('Nothing to do')
 			return
 
@@ -263,7 +263,7 @@ class Nsp(Pfs0, IndexedFile):
 		Print.info('masterKeyRev =\t' + hex(masterKeyRev))
 
 		for nca in self:
-			if type(nca) == Nca:
+			if isinstance(nca, Nca):
 				if nca.header.getCryptoType2() != masterKeyRev:
 					pass
 					raise IOError('Mismatched masterKeyRevs!')
@@ -273,7 +273,7 @@ class Nsp(Pfs0, IndexedFile):
 		ticket.setTitleKeyBlock(int.from_bytes(newTitleKey, 'big'))
 
 		for nca in self:
-			if type(nca) == Nca:
+			if isinstance(nca, Nca):
 				if nca.header.getCryptoType2() != newMasterKeyRev:
 					Print.info('writing masterKeyRev for %s, %d -> %s' % (str(nca._path), nca.header.getCryptoType2(), str(newMasterKeyRev)))
 
@@ -313,7 +313,7 @@ class Nsp(Pfs0, IndexedFile):
 		Print.info('masterKeyRev =\t' + hex(masterKeyRev))
 
 		for nca in self:
-			if type(nca) == Nca:
+			if isinstance(nca, Nca):
 				if nca.header.getCryptoType2() != masterKeyRev:
 					pass
 					raise IOError('Mismatched masterKeyRevs!')
@@ -321,7 +321,7 @@ class Nsp(Pfs0, IndexedFile):
 		ticket.setRightsId(0)
 
 		for nca in self:
-			if type(nca) == Nca:
+			if isinstance(nca, Nca):
 				if nca.header.getRightsId() == 0:
 					continue
 
@@ -342,7 +342,7 @@ class Nsp(Pfs0, IndexedFile):
 			targetValue = 0
 
 		for nca in self:
-			if type(nca) == Nca:
+			if isinstance(nca, Nca):
 				if nca.header.getIsGameCard() == targetValue:
 					continue
 

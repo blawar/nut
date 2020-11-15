@@ -35,7 +35,7 @@ class Ticket(File):
 		self.signatureType = self.readInt32()
 		try:
 			self.signatureType = Fs.Type.TicketSignature(self.signatureType)
-		except:
+		except BaseException:
 			raise IOError('Invalid ticket format')
 
 		self.signaturePadding = 0x40 - ((self.signatureSizes[self.signatureType] + 4) % 0x40)

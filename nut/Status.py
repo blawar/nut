@@ -20,7 +20,7 @@ def print_(s):
 			try:
 				i.tqdm.write(s)
 				return
-			except:
+			except BaseException:
 				pass
 	print(s)
 
@@ -48,7 +48,7 @@ def loopThread():
 									 i.timestamp, 'speed': i.a / (time.perf_counter() - i.ats), 'id': i.id})
 					i.a = 0
 					i.ats = time.perf_counter()
-				except:
+				except BaseException:
 					pass
 
 		if Config.jsonOutput:
@@ -124,7 +124,7 @@ class Status:
 		if self.isOpen():
 			try:
 				self.tqdm.set_description(desc, refresh=refresh)
-			except:
+			except BaseException:
 				self.close()
 
 	def isOpen(self):
@@ -132,7 +132,7 @@ class Status:
 			return True
 		else:
 			return False
-		return True if self.size != None else False
+		return True if self.size is not None else False
 
 def start():
 	global threadRun

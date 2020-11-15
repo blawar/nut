@@ -26,7 +26,7 @@ import Fs.driver
 
 try:
 	from PIL import Image
-except:
+except BaseException:
 	import Image
 
 import Server
@@ -138,7 +138,7 @@ def getTitleImage(request, response):
 	id = request.bits[2]
 	try:
 		width = int(request.bits[3])
-	except:
+	except BaseException:
 		return Server.Response404(request, response)
 
 	if width < 32 or width > 1024:
@@ -195,7 +195,7 @@ def getScreenshotImage(request, response):
 
 	try:
 		i = int(request.bits[3])
-	except:
+	except BaseException:
 		return Server.Response404(request, response)
 
 	if not Titles.contains(id):
@@ -571,7 +571,7 @@ def getFile(request, response, start=None, end=None):
 				start = int(start)
 
 		return serveFile(response, path, start=start, end=end)
-	except:
+	except BaseException:
 		raise IOError('file read access denied')
 
 def getFileSize(request, response):
@@ -612,7 +612,7 @@ def getFiles(request, response):
 	for path, nsp in Nsps.files.items():
 		if Titles.contains(nsp.titleId):
 			title = Titles.get(nsp.titleId)
-			if not title.baseId in r:
+			if title.baseId not in r:
 				r[title.baseId] = {'base': [], 'dlc': [], 'update': []}
 			if title.isDLC:
 				r[title.baseId]['dlc'].append(nsp.dict())
@@ -673,7 +673,7 @@ def getSubmitKey(request, response):
 	titleKey = request.bits[3]
 
 	try:
-		if blockchain.blockchain.suggest(titleId, titleKey) == True:
+		if blockchain.blockchain.suggest(titleId, titleKey):
 			return success(request, response, "Key successfully added")
 		else:
 			return error(request, response, "Key validation failed")
@@ -700,7 +700,7 @@ def postTinfoilSetInstalledApps(request, response):
 			f.write(request.post)
 
 		return success(request, response, "OK")
-	except:
+	except BaseException:
 		raise
 
 

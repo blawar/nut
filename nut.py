@@ -42,12 +42,12 @@ import Fs.Type
 try:
 	import cdn
 	hasCdn = True
-except:
+except BaseException:
 	hasCdn = False
 
 try:
 	from nut import blockchain
-except:
+except BaseException:
 	raise
 
 def logMissingTitles(file):
@@ -57,7 +57,14 @@ def logMissingTitles(file):
 	f = open(file, "w", encoding="utf-8-sig")
 
 	for k, t in Titles.items():
-		if t.isUpdateAvailable() and (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
+		if t.isUpdateAvailable() and (
+			t.isDLC or t.isUpdate or Config.download.base) and (
+			not t.isDLC or Config.download.DLC) and (
+			not t.isDemo or Config.download.demo) and (
+				not t.isUpdate or Config.download.update) and (
+					t.key or Config.download.sansTitleKey) and (
+						len(
+							Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
 			if not t.id or t.id == '0' * 16 or (t.isUpdate and t.lastestVersion() in [None, '0']):
 				continue
 			f.write((t.id or ('0'*16)) + '|' + (t.key or ('0'*32)) + '|' + (t.name or '') + "\r\n")
@@ -518,8 +525,8 @@ if __name__ == '__main__':
 			Print.info('					   ;;;;;')
 			Print.info('			   .=\',	;:;;:,')
 			Print.info('			  /_\', "=. \';:;:;')
-			Print.info('			  @=:__,  \,;:;:\'')
-			Print.info('				_(\.=  ;:;;\'')
+			Print.info(r'			  @=:__,  \,;:;:\'')
+			Print.info(r'				_(\.=  ;:;;\'')
 			Print.info('			   `"_(  _/="`')
 			Print.info('				`"\'')
 
@@ -738,7 +745,7 @@ if __name__ == '__main__':
 			if args.system_update:
 				cdn.downloadSystemUpdate()
 
-			if args.scrape_shogun != None:
+			if args.scrape_shogun is not None:
 				if len(args.scrape_shogun) == 0:
 					nut.scrapeShogunThreaded(True)
 				else:
@@ -760,7 +767,7 @@ if __name__ == '__main__':
 						else:
 							print('bleh')
 
-			if args.scrape_shogun_delta != None:
+			if args.scrape_shogun_delta is not None:
 				nut.scrapeShogunThreaded(False)
 
 			if args.get_edge_token:
@@ -874,7 +881,7 @@ if __name__ == '__main__':
 				nut.initFiles()
 				try:
 					import blockchain
-				except:
+				except BaseException:
 					pass
 				blockchain.run()
 

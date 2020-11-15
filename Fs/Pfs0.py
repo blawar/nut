@@ -24,7 +24,7 @@ class Pfs0Stream():
 	def __init__(self, path):
 		try:
 			os.makedirs(os.path.dirname(path), exist_ok=True)
-		except:
+		except BaseException:
 			pass
 		self.path = path
 		self.f = open(path, 'wb')
@@ -199,7 +199,7 @@ class Pfs0(BaseFs):
 		'''
 		self.seek(0x10 + fileCount * 0x18)
 		stringTable = self.read(stringTableSize)
-		
+
 		for i in range(fileCount):
 			if i == fileCount - 1:
 				self.files[i].name = stringTable[self.files[i].nameOffset:].decode('utf-8').rstrip(' \t\r\n\0')

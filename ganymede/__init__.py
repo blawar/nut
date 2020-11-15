@@ -56,7 +56,7 @@ class Storage:
 			with open(self.index, encoding="utf-8-sig") as f:
 				try:
 					self.map = json.loads(f.read())
-				except:
+				except BaseException:
 					print('json file is corrupted: %s' % self.index)
 					raise
 
@@ -184,11 +184,11 @@ class Storage:
 			del self.map[file['tid']][file['version']]
 			storage.save()
 			self.save()
-		except:
+		except BaseException:
 			for dest, src in moveLog.items():
 				try:
 					os.rename(dest, src)
-				except:
+				except BaseException:
 					pass
 			raise
 			print('move exception')

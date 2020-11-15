@@ -77,7 +77,7 @@ def scan(base):
 			try:
 				status.add(1)
 
-				if not path in files:
+				if path not in files:
 					Print.info('scanning ' + name)
 
 					nsp = Fs.Nsp(path, None)
@@ -171,7 +171,7 @@ def save(fileName='titledb/files.json'):
 			j.append(k.dict())
 		with open(fileName, 'w') as outfile:
 			json.dump(j, outfile, indent=4, sort_keys=True)
-	except:
+	except BaseException:
 		lock.release()
 		raise
 	lock.release()
