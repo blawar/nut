@@ -594,32 +594,35 @@ def load(confFile):
 		except:
 			pass
 
+def update_scan_paths(new_scan_paths, nsp_files):
+	"""Function update_paths is intended to update paths in the configuration file.
+	NSPs will be cleared (in memory) if corresponding paths have been changed.
 
-def update_main_path(newPath, nsp_files):
-    """Function updateMainPath is intended to update a new main path (first element
-    with 0 index in the config file).
-    NSPs will be cleared (in memory) if path has been changed.
-    Args:
-        newPath (string): a new main path (first element with 0 index in the config file)
-    Returns:
-        None
-    """
-    global paths
+	Args:
+		new_scan_paths (list of strings): list of strings (paths) to scan titles in
+		nsp_files (map of strings): map of available (scanned) titles
+	Returns:
+		None
+	"""
+	path_changed = False
 
-    pathChanged = False
-    oldPath = paths.scan[0]
+	new_scan_paths_ = new_scan_paths
+	if not isinstance(new_scan_paths_, list):
+		new_scan_paths_ = [new_scan_paths]
 
-    if newPath != oldPath:
-        pathChanged = True
+	old_paths = paths.scan
 
-    if not pathChanged:
-        return
+	if new_scan_paths_ != old_paths:
+		path_changed = True
 
-    paths.scan[0] = newPath
-    save()
+	if not path_changed:
+		return
 
-    if pathChanged:
-        nsp_files.clear()
+	paths.scan = new_scan_paths_
+	save()
+
+	if path_changed:
+		nsp_files.clear()
 
 
 def regionLanguages(fileName = 'titledb/languages.json'):

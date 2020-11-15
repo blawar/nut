@@ -128,9 +128,6 @@ class Header:
 		self.layout.addLayout(top)
 		self.layout.addLayout(bottom)
 
-	def updatePath(self):
-		Config.update_main_path(self.textbox.text(), Nsps.files)
-
 	def tick(self):
 		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
 
@@ -249,8 +246,7 @@ class App(QWidget):
 				result.append(value)
 			i += 1
 
-		Config.paths.scan = result
-		Config.save()
+		Config.update_scan_paths(result, Nsps.files)
 
 	def savePullUrls(self, control):
 		result = []

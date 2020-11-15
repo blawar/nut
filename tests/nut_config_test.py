@@ -140,24 +140,24 @@ class NutConfigTest(TestCase):
 		Config.save(conf_file)
 		self.__compare_config_in_file_with_object(conf_file, object_to_compare)
 
-	def test_update_main_path_for_default_config_and_empty_Nsps(self):
+	def test_update_scan_paths_for_default_config_and_empty_Nsps(self):
 		_create_empty_config_file(self.fs)
 
 		self.assertEqual(Config.paths.scan, ['.'])
-		path1 = '/Users/user1/path1'
-		Config.update_main_path(path1, Nsps.files)
-		self.assertEqual(Config.paths.scan, [path1])
+		new_paths = ['/Users/user1/path1', '/Users/user1/path2']
+		Config.update_scan_paths(new_paths, Nsps.files)
+		self.assertEqual(Config.paths.scan, new_paths)
 
 	def test_update_main_path_clears_out_Nsps(self):
 		_create_empty_config_file(self.fs)
 
-		folder2_path = "folder2"
+		new_paths = ["folder2"]
 		folder1 = {"path": Config.paths.scan[0], \
 			"files": ["title1 [abcdefa112345678].nsp", "title2 [abcdefa212345678].nsp"]}
 
 		Nsps.files = {"files": folder1["files"]}
 
-		Config.update_main_path(folder2_path, Nsps.files)
+		Config.update_scan_paths(new_paths, Nsps.files)
 		self.assertEqual(Nsps.files, {})
 
 
