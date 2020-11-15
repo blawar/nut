@@ -13,6 +13,8 @@ def get(scheme):
 	return None
 
 def isNative(scheme):
+	if ':' in scheme:
+		scheme = scheme.split(':')[0]
 	if scheme in schemeDriverMap:
 		return False
 

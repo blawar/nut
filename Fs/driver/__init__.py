@@ -133,6 +133,8 @@ def join(url1, url2):
 		if url1.startswith(s):
 			dummyScheme = 'http://localhost'
 			tempUrl = dummyScheme + url1[len(s):]
+			if not tempUrl.endswith('/'):
+				tempUrl = tempUrl + '/'
 			tempUrl = urllib.parse.urljoin(tempUrl, url2)
 			return s + tempUrl[len(dummyScheme):]
 
