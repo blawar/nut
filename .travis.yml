@@ -1,3 +1,4 @@
+sudo: true
 language: python            # this works for Linux but is an error on macOS or Windows
 jobs:
   include:
@@ -7,6 +8,8 @@ jobs:
         - USECURL=7.43.0-openssl11-gssapi-libssh2
         - USESSL=openssl
         - USEOPENSSL=1.1.1d
+      before_install:
+        - sudo apt-get install libgnutls28-dev
     - name: "Python 3.8 on macOS"
       os: osx
       osx_image: xcode11.4  # Python 3.8 running on macOS 10.15.4
@@ -17,11 +20,18 @@ jobs:
       before_install:
         - choco install python --version 3.8.0
         - python -m pip install --upgrade pip
+        #- choco install wget
+        #- wget https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/cp34/pycurl-7.43.1-cp34-cp34m-win_amd64.whl
+        #- pip3 install pycurl-7.43.1-cp34-cp34m-win_amd64.whl
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+cache: pip
 install:
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
   - pip3 install -r requirements.txt
 # command to run tests
 script:
+  #- coverage run -m pytest
   - pytest -s
+after_success:
+  #- coveralls
   - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
