@@ -209,8 +209,8 @@ class App(QWidget):
 			'Files': self.files,
 			'Filters': gui.panes.filters.Filters(),
 			'Save Paths': gui.panes.format.Format(),
-			'Local Scan Paths': gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths),
-			'Remote Pull Paths': gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls),
+			'Local Scan Paths': gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
+			'Remote Pull Paths': gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
 			'Users': gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
 			'Options': gui.panes.options.Options()
 		})

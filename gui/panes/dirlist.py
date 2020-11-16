@@ -1,13 +1,10 @@
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog, QDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog, QDialog, QDialogButtonBox, QFormLayout, QComboBox, QLabel, QListWidget
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from nut import Users
-
-class GdrivePicker(QDialog):
-	def __init__(self):
-		super(GdrivePicker, self).__init__()
+import Fs.driver
 
 class Edit(QLineEdit):
 	def __init__(self, parent):
@@ -24,6 +21,112 @@ class Edit(QLineEdit):
 		self.parent.save()
 
 		super(Edit, self).focusOutEvent(event)
+
+class NetworkSettings(QWidget):
+	def __init__(self):
+		super(NetworkSettings, self).__init__()
+		layout.addRow(QLabel('Base'), Edit('Base', type))
+
+class FolderPicker(QDialog):
+	def __init__(self, url):
+		super(FolderPicker, self).__init__()
+		self.setWindowTitle("Directory Picker")
+		self.url = url
+
+		self.list = QListWidget(self)
+		
+		self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+		self.layout = QVBoxLayout()
+		self.layout.addWidget(self.list)
+		self.list.itemDoubleClicked.connect(self.onSelect)
+		self.buttonBox.accepted.connect(self.accept)
+		self.buttonBox.rejected.connect(self.onReject)
+
+		self.layout.addStretch()
+		self.layout.addWidget(self.buttonBox)
+		self.setLayout(self.layout)
+
+		self.refreshList()
+
+	def onReject(self):
+		self.url = None
+		self.reject()
+
+	def onSelect(self, item):
+		self.url = Fs.driver.join(self.url, item.text())
+		self.refreshList()
+
+	def refreshList(self):
+		self.list.clear()
+		for d in  Fs.driver.openDir(self.url).ls():
+			if d.isFile():
+				continue
+			self.list.addItem(d.baseName())
+
+
+	def save(self):
+		pass
+
+class GdrivePicker(QDialog):
+	def __init__(self, *args, **kwargs):
+		super(GdrivePicker, self).__init__()
+		self.setWindowTitle("Directory Picker")
+		self.url = None
+
+		settings = QFormLayout()
+
+		schemes = QComboBox(self)
+		schemes.addItem('')
+		schemes.addItem('ftp')
+		schemes.addItem('ftps')
+		schemes.addItem('gdrive')
+		schemes.addItem('http')
+		schemes.addItem('https')
+		schemes.addItem('sftp')
+		settings.addRow(QLabel('Scheme'), schemes)
+		self.schemes = schemes
+
+		self.username = Edit(self)
+		settings.addRow(QLabel('Username'), self.username)
+
+		self.password = Edit(self)
+		settings.addRow(QLabel('Password'), self.password)
+
+		self.host = Edit(self)
+		settings.addRow(QLabel('Host'), self.host)
+
+		self.path = Edit(self)
+		settings.addRow(QLabel('Path'), self.path)
+
+		self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+		self.buttonBox.accepted.connect(self.setUrl)
+		self.buttonBox.rejected.connect(self.reject)
+		self.layout = QVBoxLayout()
+		self.layout.addLayout(settings)
+		self.layout.addStretch()
+		self.layout.addWidget(self.buttonBox)
+		self.setLayout(self.layout)
+
+	def save(self):
+		pass
+
+	def setUrl(self):
+		scheme = self.schemes.currentText()
+
+		if not scheme:
+			return
+
+		if scheme == 'gdrive':
+			self.url = 'gdrive:/'
+		else:
+			if not self.host.getValue():
+				return
+			self.url = scheme + '://' + self.host.getValue() + '/'
+
+		if self.path.getValue():
+			self.url = Fs.driver.join(self.url, self.path.getValue())
+
+		self.accept()
 
 class User(QWidget):
 	def __init__(self, parent):
@@ -56,9 +159,9 @@ class User(QWidget):
 
 		super(Edit, self).focusOutEvent(event)
 
-class Directory(QWidget):
+class DirectoryLocal(QWidget):
 	def __init__(self, parent):
-		super(Directory, self).__init__()
+		super(DirectoryLocal, self).__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
@@ -92,8 +195,51 @@ class Directory(QWidget):
 
 		super(Edit, self).focusOutEvent(event)
 
+class DirectoryNetwork(QWidget):
+	def __init__(self, parent):
+		super(DirectoryNetwork, self).__init__()
+		self.parent = parent
+
+		layout = QHBoxLayout(self)
+		self.dirBtn = QPushButton('browse')
+		self.dirBtn.setFixedWidth(70)
+		self.dirBtn.clicked.connect(self.on_browse)
+
+		self.edit = Edit(self)
+
+		layout.addWidget(self.dirBtn)
+		layout.addWidget(self.edit)
+		self.layout = layout
+
+	def save(self):
+		self.parent.save()
+
+	def on_browse(self):
+		d = GdrivePicker(self)
+		if not d.exec_() or not d.url:
+			return
+
+		f = FolderPicker(d.url)
+
+		if not f.exec_() or not f.url:
+			return
+
+		self.edit.setValue(f.url)
+		self.save()
+
+	def getValue(self):
+		return self.edit.getValue()
+
+	def setValue(self, value):
+		self.edit.setText(value)
+
+	def focusOutEvent(self, event):
+		self.parent.save()
+
+		super(Edit, self).focusOutEvent(event)
+
 class Row(QWidget):
-	def __init__(self, parent, value, rowType=Directory):
+	def __init__(self, parent, value, rowType=DirectoryLocal):
 		super(Row, self).__init__()
 		self.parent = parent
 		layout = QHBoxLayout(self)
@@ -121,7 +267,7 @@ class Row(QWidget):
 		self.parent.save()
 
 class DirList(QWidget):
-	def __init__(self, values=[], onChange=None, rowType=Directory):
+	def __init__(self, values=[], onChange=None, rowType=DirectoryLocal):
 		super(DirList, self).__init__()
 		self.rowType = rowType
 
