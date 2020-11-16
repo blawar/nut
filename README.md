@@ -10,12 +10,13 @@ This is a program that acts as a USB and network server for use with [Tinfoil](h
 ### Requirements
 * Python 3.6+
 * PIP modules from `requirements.txt`
-* Few braincells & the ability to read
+* OpenSSL-backed curl (for pycurl)
 
 ### Installation guide
 * Install Python 3.6+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages.
+* Install `curl` with the openssl backend. For Mac, follow [this](https://blog.birkhoff.me/switching-to-the-openssl-version-of-curl/), and set install options: `export PYCURL_SSL_LIBRARY=openssl`
 * Clone this repository to desired directory and change your working directory to the cloned repository.
-* Install the PIP modules with the following command `pip3 install -r requirements.txt`.
+* Install the PIP modules with the following command `pip3 install -r requirements.txt`. *If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip install pycurl --no-cache-dir`*
 * (Linux only) Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
