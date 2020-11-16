@@ -21,7 +21,7 @@ jobs:
       before_install:
         - choco install python --version 3.8.0
         - python -m pip install --upgrade pip
-        - pip3 install tests/pycurl-7.43.0.4-cp38-cp38-win32.whl
+        - pip3 install tests/pycurl-7.43.0.4-cp38-cp38-win_amd64.whl
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 cache: pip
 install:
