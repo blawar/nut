@@ -5,6 +5,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from nut import Users
 import Fs.driver
+import urllib.parse
 
 class Edit(QLineEdit):
 	def __init__(self, parent):
@@ -95,6 +96,9 @@ class GdrivePicker(QDialog):
 		self.host = Edit(self)
 		settings.addRow(QLabel('Host'), self.host)
 
+		self.port = Edit(self)
+		settings.addRow(QLabel('Port'), self.port)
+
 		self.path = Edit(self)
 		settings.addRow(QLabel('Path'), self.path)
 
@@ -111,22 +115,40 @@ class GdrivePicker(QDialog):
 		pass
 
 	def setUrl(self):
-		scheme = self.schemes.currentText()
+		try:
+			scheme = self.schemes.currentText()
 
-		if not scheme:
-			return
-
-		if scheme == 'gdrive':
-			self.url = 'gdrive:/'
-		else:
-			if not self.host.getValue():
+			if not scheme:
 				return
-			self.url = scheme + '://' + self.host.getValue() + '/'
 
-		if self.path.getValue():
-			self.url = Fs.driver.join(self.url, self.path.getValue())
+			if scheme == 'gdrive':
+				self.url = 'gdrive:/'
+			else:
+				if not self.host.getValue():
+					return
+				self.url = scheme + '://'
 
-		self.accept()
+				if self.username.getValue():
+					self.url += urllib.parse.quote(self.username.getValue(), safe = '')
+
+					if self.password.getValue():
+						self.url += ':' + urllib.parse.quote(self.password.getValue(), safe = '')
+
+					self.url += '@'
+
+				self.url += self.host.getValue()
+
+				if self.port.getValue():
+					self.url += ':' + self.port.getValue()
+
+				self.url += '/'
+
+			if self.path.getValue():
+				self.url = Fs.driver.join(self.url, self.path.getValue())
+
+			self.accept()
+		except BaseException as e:
+			self.reject()
 
 class User(QWidget):
 	def __init__(self, parent):
