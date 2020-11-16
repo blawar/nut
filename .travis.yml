@@ -20,7 +20,7 @@ jobs:
       language: shell       # 'language: python' is an error on Travis CI Windows
       before_install:
         - choco install python --version 3.8.0
-        - python -m pip install --upgrade pip
+        - pip3 install --upgrade pip
         #- choco install wget
         #- wget https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/cp34/pycurl-7.43.1-cp34-cp34m-win_amd64.whl
         - pip3 install tests/pycurl-7.43.1-cp34-cp34m-win32.whl
