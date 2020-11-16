@@ -322,7 +322,7 @@ class App(QWidget):
 				except BaseException:
 					pass
 
-				server.controller.api.getGdriveToken(None, None)
+				Fs.driver.gdrive.getGdriveToken(None, None)
 				QMessageBox.information(
 					self,
 					'Google Drive OAuth Setup',
