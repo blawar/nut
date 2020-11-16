@@ -1,8 +1,9 @@
-sudo: true
 language: python            # this works for Linux but is an error on macOS or Windows
 jobs:
   include:
     - name: "Python 3.8.0 on Xenial Linux"
+      os: linux
+      dist: xenial
       python: 3.8           # this works for Linux but is ignored on macOS or Windows
       env:
         - USECURL=7.43.0-openssl11-gssapi-libssh2
@@ -20,9 +21,7 @@ jobs:
       before_install:
         - choco install python --version 3.8.0
         - python -m pip install --upgrade pip
-        #- choco install wget
-        #- wget https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/cp34/pycurl-7.43.1-cp34-cp34m-win_amd64.whl
-        #- pip3 install pycurl-7.43.1-cp34-cp34m-win_amd64.whl
+        - pip3 install tests/pycurl-7.43.0.4-cp38-cp38-win_amd64.whl
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 cache: pip
 install:
