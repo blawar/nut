@@ -22,7 +22,7 @@ jobs:
         - python -m pip install --upgrade pip
         #- choco install wget
         #- wget https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/cp34/pycurl-7.43.1-cp34-cp34m-win_amd64.whl
-        - pip3 install tests/aux/pycurl-7.43.1-cp34-cp34m-win_amd64.whl
+        - pip3 install tests/pycurl-7.43.1-cp34-cp34m-win32.whl
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 cache: pip
 install:
