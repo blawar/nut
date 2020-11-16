@@ -269,7 +269,7 @@ def save(confFile='conf/nut.conf'):
 	try:
 		with open(confFile, encoding='utf8') as f:
 			j = json.load(f)
-	except BaseException:  # pylint: disable=bare-except
+	except BaseException:  # pylint: disable=broad-except
 		pass
 
 	set(j, ['paths'], paths.__dict__)
@@ -302,302 +302,302 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 
 		try:
 			region = j['region']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			language = j['language']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			autolaunchBrowser = j['autolaunchBrowser']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleImages = j['paths']['titleImages']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleBase = j['paths']['titleBase']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleDLC = j['paths']['titleDLC']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleUpdate = j['paths']['titleUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleDemo = j['paths']['titleDemo']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleDemoUpdate = j['paths']['titleDemoUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.duplicates = j['paths']['duplicates']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nsxTitleBase = j['paths']['nsxTitleBase']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nsxTitleDLC = j['paths']['nsxTitleDLC']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nsxTitleUpdate = j['paths']['nsxTitleUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nsxTitleDemo = j['paths']['nsxTitleDemo']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nsxTitleDemoUpdate = j['paths']['nsxTitleDemoUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nszTitleBase = j['paths']['nszTitleBase']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nszTitleDLC = j['paths']['nszTitleDLC']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nszTitleUpdate = j['paths']['nszTitleUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nszTitleDemo = j['paths']['nszTitleDemo']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nszTitleDemoUpdate = j['paths']['nszTitleDemoUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.xciTitleBase = j['paths']['xciTitleBase']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.xciTitleDLC = j['paths']['xciTitleDLC']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.xciTitleUpdate = j['paths']['xciTitleUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.xciTitleDemo = j['paths']['xciTitleDemo']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.xciTitleDemoUpdate = j['paths']['xciTitleDemoUpdate']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.scan = j['paths']['scan']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.nspOut = j['paths']['nspOut']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			paths.titleDatabase = j['paths']['titledb']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			compression.level = int(j['compression']['level'])
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			compression.auto = int(j['compression']['auto']) != 0
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.rankMin = j['download']['rankMin']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.rankMax = j['download']['rankMax']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.ratingMin = j['download']['ratingMin']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.ratingMax = j['download']['ratingMax']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.fileSizeMin = j['download']['fileSizeMin']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.fileSizeMax = j['download']['fileSizeMax']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.releaseDateMin = j['download']['releaseDateMin']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.releaseDateMax = j['download']['releaseDateMax']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.base = j['download']['base']  # pylint: disable=attribute-defined-outside-init
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.regions = j['download']['regions']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.demo = j['download']['demo']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.DLC = j['download']['dlc']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.update = j['download']['update']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.deltas = j['download']['deltas']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			cdn.deviceId = j['cdn']['deviceId']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			cdn.region = j['cdn']['region']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			cdn.environment = j['cdn']['environment']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			cdn.firmware = j['cdn']['firmware']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			cdn.clientIds = j['cdn']['clientIds']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			dauth.keyGeneration = j['cdn']['dAuth']['keyGeneration']
 			dauth.challenge = 'key_generation=' + str(dauth.keyGeneration)
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			dauth.userAgent = j['cdn']['dAuth']['userAgent']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			dauth.sysDigest = j['cdn']['dAuth']['sysDigest']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			threads = int(j['threads'])
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			download.sansTitleKey = j['download']['sansTitleKey']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			server.hostname = j['server']['hostname']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			server.port = int(j['server']['port'])
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			autoUpdateTitleDb = j['autoUpdateTitleDb']
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			for url in j['titleUrls']:
 				if url not in titleUrls:
 					titleUrls.append(url)
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 		try:
 			for url in j['pullUrls']:
 				if url not in pullUrls:
 					pullUrls.append(url)
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 def update_scan_paths(new_scan_paths, nsp_files):
@@ -642,7 +642,7 @@ def regionLanguages(fileName='titledb/languages.json'):
 	try:
 		with open(fileName, encoding='utf-8-sig') as f:
 			g_regionLanguages = json.loads(f.read())
-	except BaseException:  # pylint: disable=bare-except
+	except BaseException:  # pylint: disable=broad-except
 		g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
 			"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
 			"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
@@ -659,7 +659,7 @@ def loadTitleWhitelist():
 		with open('conf/whitelist.txt', encoding='utf8') as f:
 			for line in f.readlines():
 				titleWhitelist.append(line.strip().upper())
-	except BaseException:  # pylint: disable=bare-except
+	except BaseException:  # pylint: disable=broad-except
 		pass
 
 def loadTitleBlacklist():
@@ -687,7 +687,7 @@ def loadTitleBlacklist():
 					id_ = line.split('|')[0].strip().upper()
 					if id_:
 						titleBlacklist.append(id_)
-		except BaseException:  # pylint: disable=bare-except
+		except BaseException:  # pylint: disable=broad-except
 			pass
 
 
@@ -883,10 +883,10 @@ try:
 	dauthToken = DAuthToken(cdn.clientIds['eShop'])
 	dauthTigersToken = DAuthToken(cdn.clientIds['tigers'])
 	eShopEdgeToken = EdgeToken(cdn.clientIds['eShop'])
-except BaseException:  # pylint: disable=bare-except
+except BaseException:  # pylint: disable=broad-except
 	pass
 
 try:
 	os.mkdir(paths.nspOut)
-except BaseException:  # pylint: disable=bare-except
+except BaseException:  # pylint: disable=broad-except
 	pass
