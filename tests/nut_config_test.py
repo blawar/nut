@@ -21,7 +21,7 @@ def _get_default_config_object():
 					  'nsxTitleDemoUpdate': None, 'nszTitleBase': None, 'nszTitleDLC': None,
 					  'nszTitleUpdate': None, 'nszTitleDemo': None, 'nszTitleDemoUpdate': None,
 					  'xciTitleBase': None, 'xciTitleDLC': None, 'xciTitleUpdate': None, 'xciTitleDemo': None,
-					  'xciTitleDemoUpdate': None, 'scan': ['.'], 'titleDatabase': 'titledb', 'hactool': '',
+					  'xciTitleDemoUpdate': None, 'scan': ['.'], 'titleDatabase': 'titledb',
 					  'keys': 'keys.txt', 'calibration': 'PRODINFO.bin', 'shopNCert': 'ShopN.pem',
 					  'nspOut': '_NSPOUT', 'titleImages': 'titles/images/', 'duplicates': 'duplicates/'},
 			'compression': {'level': 19, 'auto': False}, 'pullUrls': [], 'threads': 1, 'download':
@@ -109,10 +109,7 @@ class NutConfigTest(TestCase):
 	def __compare_config_in_file_with_object(self, conf_file, obj):
 		self.assertTrue(os.path.exists(conf_file))
 		with open(conf_file, 'r', encoding="utf8") as f:
-			obj_from_file = json.load(f)
-			# ignoring platform-specific config value
-			obj_from_file["paths"]['hactool'] = ''
-			obj["paths"]['hactool'] = ''
+			obj_from_file = json.load(f)'
 			self.assertEqual(obj_from_file, obj)
 
 	def test_save_default_config_with_explicit_config_path(self):
