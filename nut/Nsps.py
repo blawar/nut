@@ -47,6 +47,9 @@ def unregisterFile(path):
 	del files[path]
 	return True
 
+def _is_file_hidden(filepath):
+	name = os.path.basename(os.path.abspath(filepath))
+	return name.startswith('.')
 
 def scan(base):
 	i = 0
@@ -59,6 +62,8 @@ def scan(base):
 	Print.info('scanning %s' % base)
 	for root, _, _files in os.walk(base, topdown=False):
 		for name in _files:
+			if _is_file_hidden(name):
+				continue
 			suffix = pathlib.Path(name).suffix
 
 			if suffix in ('.nsp', '.nsx', '.xci', '.nsz'):
@@ -156,7 +161,7 @@ def load(fileName='titledb/files.json', verify=True):
 
 				path = os.path.abspath(t.path)
 				if verify and Config.isScanning:
-					if os.path.isfile(path) and os.path.exists(path):
+					if os.path.isfile(path) and os.path.exists(path) and not _is_file_hidden(path):
 						files[path] = t
 				else:
 					files[path] = t
