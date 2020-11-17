@@ -109,7 +109,7 @@ class NutConfigTest(TestCase):
 	def __compare_config_in_file_with_object(self, conf_file, obj):
 		self.assertTrue(os.path.exists(conf_file))
 		with open(conf_file, 'r', encoding="utf8") as f:
-			obj_from_file = json.load(f)'
+			obj_from_file = json.load(f)
 			self.assertEqual(obj_from_file, obj)
 
 	def test_save_default_config_with_explicit_config_path(self):
