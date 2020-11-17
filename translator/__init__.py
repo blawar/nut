@@ -25,7 +25,7 @@ def reload(file_name=DEFAULT_TRANSLATION_FILE):
 	Print.debug(f"translation file is '{_file_name}'")
 	Print.debug(f"_lang is '{_lang}'")
 	try:
-		with open(_file_name) as json_file:
+		with open(_file_name, encoding='utf-8') as json_file:
 			data = json.load(json_file)
 			_en_db = data[ENGLISH_LANG_ID]
 			if _lang != ENGLISH_LANG_ID:

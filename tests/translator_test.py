@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import unittest
 
 from pyfakefs.fake_filesystem_unittest import TestCase
@@ -14,7 +16,7 @@ TRANSLATION_FILE_CONTENT =	"""{
 	"ru": {
 		"ABOUT": "\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435"}
 }
-"""
+""".encode('utf-8')
 
 class TranslatorTest(TestCase):
 	"""TranslatorTest
@@ -28,15 +30,16 @@ class TranslatorTest(TestCase):
 
 	def test_translation_to_english(self):
 		self.fs.create_file(TRANSLATION_FILE, contents=TRANSLATION_FILE_CONTENT)
+		Config.language="en"
 		reload(TRANSLATION_FILE)
-		self.assertEqual(Config.language, "en")
-		self.assertEqual(tr(ABOUT_KEY), "About")
+		self.assertEqual(tr(ABOUT_KEY), u"About")
 
 	def test_translation_to_russian(self):
 		self.fs.create_file(TRANSLATION_FILE, contents=TRANSLATION_FILE_CONTENT)
 		Config.language="ru"
 		reload(TRANSLATION_FILE)
-		self.assertEqual(tr(ABOUT_KEY), "\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435")
+		self.assertEqual(tr(ABOUT_KEY), \
+			"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435")
 
 if __name__ == "__main__":
 	unittest.main()
