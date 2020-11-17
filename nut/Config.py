@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import json
 import os
-import platform
 import time
 from binascii import unhexlify as uhx
 
