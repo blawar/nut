@@ -29,7 +29,13 @@ install:
   - pip3 install -r requirements.txt
   - pip3 install coveralls
 script:
+<<<<<<< HEAD
   - coverage run -m pytest -s
+  - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
+=======
+  #- coverage run -m pytest
+  - pytest -s
   - pylint -j 4 nut/Nsps.py nut/Config.py tests/*.py
+>>>>>>> inititla translator commit
 after_success:
   - coveralls

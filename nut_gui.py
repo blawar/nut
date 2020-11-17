@@ -25,6 +25,7 @@ from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
 import nut
 import Server
 from nut import Config, Nsps, Status, Usb, Users
+from translator import tr
 import Fs.driver.init
 
 SIZE_COLUMN_INDEX = 3
@@ -205,14 +206,14 @@ class App(QWidget):
 		self.files = gui.panes.files.Files()
 
 		self.tabs = gui.tabs.Tabs({
-			'Home': QWidget(),
-			'Files': self.files,
-			'Filters': gui.panes.filters.Filters(),
-			'Save Paths': gui.panes.format.Format(),
-			'Local Scan Paths': gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
-			'Remote Pull Paths': gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
-			'Users': gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
-			'Options': gui.panes.options.Options()
+			tr('Home'): QWidget(),
+			tr('Files'): self.files,
+			tr('Filters'): gui.panes.filters.Filters(),
+			tr('Save Paths'): gui.panes.format.Format(),
+			tr('Local Scan Paths'): gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
+			tr('Remote Pull Paths'): gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
+			tr('Users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
+			tr('Options'): gui.panes.options.Options()
 		})
 		self.layout.addWidget(self.tabs)
 
@@ -272,10 +273,8 @@ class App(QWidget):
 
 	@pyqtSlot()
 	def on_scan(self):
-		# self.model.setRowCount(0)
 		nut.scan()
 		self.files.refresh()
-		# self.refreshTable()
 
 	@pyqtSlot()
 	def on_pull(self):
