@@ -89,7 +89,6 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 
 		self.scan = ['.']
 		self.titleDatabase = 'titledb'
-		self.hactool = 'bin/hactool'
 		self.keys = 'keys.txt'
 		self.calibration = 'PRODINFO.bin'
 		self.shopNCert = 'ShopN.pem'
@@ -97,14 +96,6 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 		self.titleImages = 'titles/images/'
 
 		self.duplicates = 'duplicates/'
-
-		if platform.system() == 'Linux':
-			self.hactool = './' + self.hactool + '_linux'
-
-		if platform.system() == 'Darwin':
-			self.hactool = './' + self.hactool + '_mac'
-
-		self.hactool = os.path.normpath(self.hactool)
 
 	def mapping(self):
 		m = {}
