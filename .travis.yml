@@ -31,6 +31,6 @@ install:
 script:
   #- coverage run -m pytest
   - pytest -s
+  - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
 after_success:
   #- coveralls
-  - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
