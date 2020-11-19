@@ -21,7 +21,7 @@ This is a program that acts as a USB and network server for use with [Tinfoil](h
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
 ```
-* Run `python3 nut.py` to launch the application.
+* Run `python3 nut_gui.py` to launch the application.
 
 ![NUT GUI Image](./images/nutserver.png)
 
