@@ -27,10 +27,9 @@ cache: pip
 install:
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
   - pip3 install -r requirements.txt
-# command to run tests
+  - pip3 install coveralls
 script:
-  #- coverage run -m pytest
-  - pytest -s
+  - coverage run -m pytest -s
   - pylint -j 4 nut/Nsps.py nut/Config.py tests/nut_config_test.py
 after_success:
-  #- coveralls
+  - coveralls
