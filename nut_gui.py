@@ -342,7 +342,6 @@ def usbThread():
 
 def nutThread():
 	Server.run()
-	pass
 
 
 def initThread(app):
@@ -353,14 +352,14 @@ def initThread(app):
 def run():
 	urllib3.disable_warnings()
 
-	print('						,;:;;,')
-	print('					   ;;;;;')
-	print('			   .=\',	;:;;:,')
-	print('			  /_\', "=. \';:;:;')
-	print('			  @=:__,  \\,;:;:\'')
-	print('				_(\\.=  ;:;;\'')
-	print('			   `"_(  _/="`')
-	print('				`"\'')
+	print(r'                        ,;:;;,')
+	print(r'                       ;;;;;')
+	print(r'               .=\',    ;:;;:,')
+	print(r'              /_\', "=. \';:;:;')
+	print(r'              @=:__,  \,;:;:\'')
+	print(r'                _(\.=  ;:;;\'')
+	print(r'               `"_(  _/="`')
+	print(r'                `"\'')
 
 	nut.initTitles()
 	nut.initFiles()
