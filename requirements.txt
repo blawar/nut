@@ -21,3 +21,4 @@ filelock~=3.0.12
 Unidecode~=1.1.1
 pylint~=2.6.0
 pycurl~=7.43.0
+invoke~=1.4.0
