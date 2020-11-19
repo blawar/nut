@@ -1,4 +1,4 @@
-# NUT [![Build Status](https://travis-ci.com/blawar/nut.svg?branch=master)](https://travis-ci.com/blawar/nut)
+# NUT [![Build Status](https://travis-ci.com/blawar/nut.svg?branch=master)](https://travis-ci.com/blawar/nut) [![Coverage Status](https://coveralls.io/repos/github/blawar/nut/badge.svg?branch=master)](https://coveralls.io/github/blawar/nut?branch=master)
 This is a program that acts as a USB and network server for use with [Tinfoil](https://tinfoil.io/Download).
 
 ## Usage guide (Windows users)
