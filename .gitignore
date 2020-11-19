@@ -6,6 +6,7 @@ __pycache__/
 .vscode
 htmlcov
 .coverage
+*.py,cover
 
 conf/nut.conf
 conf/user.conf
