@@ -3,7 +3,7 @@
 import json
 import os
 import unittest
-from pathlib import PurePosixPath
+from pathlib import Path
 
 from pyfakefs.fake_filesystem_unittest import TestCase
 
@@ -200,19 +200,19 @@ class NutConfigPathsTest(TestCase):
 
 	def test_get_title_base(self):
 		_create_empty_config_file(self.fs)
-		path = PurePosixPath('titles')
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsp'), Config.paths.titleBase)
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsz'), \
-			str(path / 'nsz' / '{name}[{id}][v{version}].nsz'))
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsx'), \
-			str(path / '{name}[{id}][v{version}].nsp'))
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].xci'), \
-			str(path / 'xci' / '{name}[{id}][v{version}].xci'))
+		path = Path('titles')
+		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].nsp')), Path(Config.paths.titleBase))
+		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].nsz')), \
+			path / 'nsz' / '{name}[{id}][v{version}].nsz')
+		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsp')
+		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].xci')), \
+			path / 'xci' / '{name}[{id}][v{version}].xci')
 
-		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsp'), \
-			str(path / '{name}[{id}][v{version}].nsx'))
-		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsx'), \
-			str(path / '{name}[{id}][v{version}].nsx'))
+		self.assertEqual(Path(Config.paths.getTitleBase(True, 'name [123][v0].nsp')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleBase(True, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
 
 
 if __name__ == "__main__":
