@@ -197,6 +197,16 @@ class NutConfigPathsTest(TestCase):
 		self.assertEqual(Config.paths.mapping()['gdrive'], '')
 		self.assertEqual(Config.paths.mapping()['.'], '.')
 
+	def test_get_title_base(self):
+		_create_empty_config_file(self.fs)
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsp'), Config.paths.titleBase)
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsz'), 'titles/nsz/{name}[{id}][v{version}].nsz')
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsx'), 'titles/{name}[{id}][v{version}].nsp')
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].xci'), 'titles/xci/{name}[{id}][v{version}].xci')
+
+		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsp'), 'titles/{name}[{id}][v{version}].nsx')
+		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsx'), 'titles/{name}[{id}][v{version}].nsx')
+
 
 if __name__ == "__main__":
 	unittest.main()
