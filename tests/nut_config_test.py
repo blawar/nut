@@ -197,15 +197,26 @@ class NutConfigPathsTest(TestCase):
 		self.assertEqual(Config.paths.mapping()['gdrive'], '')
 		self.assertEqual(Config.paths.mapping()['.'], '.')
 
+	@staticmethod
+	def _get_path(folder, subfolder, file):
+		path = folder if subfolder is None else os.path.join(folder, subfolder)
+		path = os.path.join(path, file)
+		return path
+
 	def test_get_title_base(self):
 		_create_empty_config_file(self.fs)
 		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsp'), Config.paths.titleBase)
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsz'), 'titles/nsz/{name}[{id}][v{version}].nsz')
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsx'), 'titles/{name}[{id}][v{version}].nsp')
-		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].xci'), 'titles/xci/{name}[{id}][v{version}].xci')
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsz'), \
+			self._get_path('titles','nsz', '{name}[{id}][v{version}].nsz'))
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsx'), \
+			self._get_path('titles', None, '{name}[{id}][v{version}].nsp'))
+		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].xci'), \
+			self._get_path('titles', 'xci', '{name}[{id}][v{version}].xci'))
 
-		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsp'), 'titles/{name}[{id}][v{version}].nsx')
-		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsx'), 'titles/{name}[{id}][v{version}].nsx')
+		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsp'), \
+			self._get_path('titles', None, '{name}[{id}][v{version}].nsx'))
+		self.assertEqual(Config.paths.getTitleBase(True, 'name [123][v0].nsx'), \
+			self._get_path('titles', None, '{name}[{id}][v{version}].nsx'))
 
 
 if __name__ == "__main__":
