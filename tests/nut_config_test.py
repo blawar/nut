@@ -3,7 +3,7 @@
 import json
 import os
 import unittest
-from pathlib import Path
+from pathlib import PurePosixPath
 
 from pyfakefs.fake_filesystem_unittest import TestCase
 
@@ -200,7 +200,7 @@ class NutConfigPathsTest(TestCase):
 
 	def test_get_title_base(self):
 		_create_empty_config_file(self.fs)
-		path = Path('titles')
+		path = PurePosixPath('titles')
 		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsp'), Config.paths.titleBase)
 		self.assertEqual(Config.paths.getTitleBase(False, 'name [123][v0].nsz'), \
 			str(path / 'nsz' / '{name}[{id}][v{version}].nsz'))
