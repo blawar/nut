@@ -199,8 +199,8 @@ class NutConfigPathsTest(TestCase):
 		self.assertEqual(Config.paths.mapping()['.'], '.')
 
 	def test_get_title_base(self):
-		_create_empty_config_file(self.fs)
 		path = Path('titles')
+		self.assertEqual(Config.paths.getTitleBase(False, None), None)
 		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].nsp')), Path(Config.paths.titleBase))
 		self.assertEqual(Path(Config.paths.getTitleBase(False, 'name [123][v0].nsz')), \
 			path / 'nsz' / '{name}[{id}][v{version}].nsz')
@@ -212,6 +212,71 @@ class NutConfigPathsTest(TestCase):
 		self.assertEqual(Path(Config.paths.getTitleBase(True, 'name [123][v0].nsp')), \
 			path / '{name}[{id}][v{version}].nsx')
 		self.assertEqual(Path(Config.paths.getTitleBase(True, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
+
+
+	def test_get_title_dlc(self):
+		path = Path('titles') / 'DLC'
+		self.assertEqual(Config.paths.getTitleDLC(False, None), None)
+		self.assertEqual(Path(Config.paths.getTitleDLC(False, 'name [123][v0].nsp')), Path(Config.paths.titleDLC))
+		self.assertEqual(Path(Config.paths.getTitleDLC(False, 'name [123][v0].nsz')), \
+			path / 'nsz' / '{name}[{id}][v{version}].nsz')
+		self.assertEqual(Path(Config.paths.getTitleDLC(False, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsp')
+		self.assertEqual(Path(Config.paths.getTitleDLC(False, 'name [123][v0].xci')), \
+			path / 'xci' / '{name}[{id}][v{version}].xci')
+
+		self.assertEqual(Path(Config.paths.getTitleDLC(True, 'name [123][v0].nsp')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleDLC(True, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
+
+	def test_get_title_update(self):
+		path = Path('titles') / 'updates'
+		self.assertEqual(Config.paths.getTitleUpdate(False, None), None)
+		self.assertEqual(Path(Config.paths.getTitleUpdate(False, 'name [123][v0].nsp')), Path(Config.paths.titleUpdate))
+		self.assertEqual(Path(Config.paths.getTitleUpdate(False, 'name [123][v0].nsz')), \
+			path / 'nsz' / '{name}[{id}][v{version}].nsz')
+		self.assertEqual(Path(Config.paths.getTitleUpdate(False, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleUpdate(False, 'name [123][v0].xci')), \
+			path / 'xci' / '{name}[{id}][v{version}].xci')
+
+		self.assertEqual(Path(Config.paths.getTitleUpdate(True, 'name [123][v0].nsp')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleUpdate(True, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
+
+	def test_get_title_demo(self):
+		path = Path('titles') / 'demos'
+		self.assertEqual(Config.paths.getTitleDemoUpdate(False, None), None)
+		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].nsp')), Path(Config.paths.titleDemo))
+		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].nsz')), \
+			path / 'nsz' / '{name}[{id}][v{version}].nsz')
+		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsp')
+		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].xci')), \
+			path / 'xci' / '{name}[{id}][v{version}].xci')
+
+		self.assertEqual(Path(Config.paths.getTitleDemo(True, 'name [123][v0].nsp')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleDemo(True, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsx')
+
+	def test_get_title_demo_update(self):
+		path = Path('titles') / 'demos' / 'updates'
+		self.assertEqual(Config.paths.getTitleDemoUpdate(False, None), None)
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(False, 'name [123][v0].nsp')), Path(Config.paths.titleDemoUpdate))
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(False, 'name [123][v0].nsz')), \
+			path / 'nsz' / '{name}[{id}][v{version}].nsz')
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(False, 'name [123][v0].nsx')), \
+			path / '{name}[{id}][v{version}].nsp')
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(False, 'name [123][v0].xci')), \
+			path / 'xci' / '{name}[{id}][v{version}].xci')
+
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(True, 'name [123][v0].nsp')), \
+			path / '{name}[{id}][v{version}].nsx')
+		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(True, 'name [123][v0].nsx')), \
 			path / '{name}[{id}][v{version}].nsx')
 
 

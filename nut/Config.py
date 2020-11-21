@@ -232,6 +232,8 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 		elif ext == '.xci':
 			f = getPath(self.xciTitleDemoUpdate, name, self.titleDemoUpdate)
 
+		if not f:
+			f = self.titleDemoUpdate
 		return f
 
 def getPath(path, name, default):
