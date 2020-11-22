@@ -285,7 +285,17 @@
         "WARNING_HOMEBREW_INSTALLATION": "Warning Homebrew Installation",
         "WORLD": "World",
         "XCI": "XCI",
-        "YES": "YES"
+        "YES": "YES",
+        "main.top_menu.scan": "Scan",
+        "main.top_menu.organize": "Organize Files",
+        "main.top_menu.pull": "Pull",
+        "main.top_menu.update_titledb": "Update TitleDB",
+        "main.top_menu.decompress_nsz": "Decompress NSZ",
+        "main.top_menu.compress_nsp": "Compress NSP",
+        "main.top_menu.setup_gdrive": "Setup GDrive OAuth",
+        "usb.status.initializing": "initializing",
+        "usb.status.disconnected": "disconnected",
+        "usb.status.connected": "connected"
     },
     "ar": {
         "ABOUT": "\ufedd\ufeee\ufea3",
@@ -9501,7 +9511,17 @@
         "WARNING_HOMEBREW_INSTALLATION": "\u041f\u0440\u0435\u0434\u0443\u043f\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0435",
         "WORLD": "\u041c\u0438\u0440",
         "XCI": "XCI",
-        "YES": "\u0414\u0430"
+        "YES": "\u0414\u0430",
+        "main.top_menu.scan": "Сканировать",
+        "main.top_menu.organize": "Организовать файлы",
+        "main.top_menu.pull": "Подтянуть",
+        "main.top_menu.update_titledb": "Обновить TitleDB",
+        "main.top_menu.decompress_nsz": "Распаковать NSZ",
+        "main.top_menu.compress_nsp": "Запаковать NSP",
+        "main.top_menu.setup_gdrive": "Настроить GDrive OAuth",
+        "usb.status.initializing": "инициализация",
+        "usb.status.disconnected": "отключен",
+        "usb.status.connected": "подключен"
     },
     "sv": {
         "ABOUT": "Handla om",

@@ -63,37 +63,37 @@ class Header:
 		top = QHBoxLayout()
 		bottom = QHBoxLayout()
 
-		self.scan = QPushButton('Scan', app)
+		self.scan = QPushButton(tr('main.top_menu.scan'), app)
 		self.scan.setMaximumWidth(100)
 		self.scan.clicked.connect(app.on_scan)
 		top.addWidget(self.scan)
 
-		btn = QPushButton('Organize Files', app)
+		btn = QPushButton(tr('main.top_menu.organize'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_organize)
 		top.addWidget(btn)
 
-		self.pull = QPushButton('Pull', app)
+		self.pull = QPushButton(tr('main.top_menu.pull'), app)
 		self.pull.setMaximumWidth(100)
 		self.pull.clicked.connect(app.on_pull)
 		top.addWidget(self.pull)
 
-		self.titledb = QPushButton('Update TitleDB', app)
+		self.titledb = QPushButton(tr('main.top_menu.update_titledb'), app)
 		self.titledb.setMaximumWidth(200)
 		self.titledb.clicked.connect(app.on_titledb)
 		top.addWidget(self.titledb)
 
-		btn = QPushButton('Decompress NSZ', app)
+		btn = QPushButton(tr('main.top_menu.decompress_nsz'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_decompress)
 		top.addWidget(btn)
 
-		btn = QPushButton('Compress NSP', app)
+		btn = QPushButton(tr("main.top_menu.compress_nsp"), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_compress)
 		top.addWidget(btn)
 
-		self.gdrive = QPushButton('Setup GDrive OAuth', app)
+		self.gdrive = QPushButton(tr("main.top_menu.setup_gdrive"), app)
 		self.gdrive.setMaximumWidth(200)
 		self.gdrive.clicked.connect(app.on_gdrive)
 		top.addWidget(self.gdrive)
@@ -116,7 +116,7 @@ class Header:
 		bottom.addWidget(self.serverInfo)
 		bottom.addStretch()
 
-		self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
+		self.usbStatus = QLabel("<b>USB:</b>  " + tr("usb.status." + Usb.status))
 		self.usbStatus.setMinimumWidth(50)
 		self.usbStatus.setAlignment(Qt.AlignCenter)
 		bottom.addWidget(self.usbStatus)
@@ -130,7 +130,7 @@ class Header:
 		self.layout.addLayout(bottom)
 
 	def tick(self):
-		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
+		self.usbStatus.setText("<b>USB:</b> " + tr("usb.status." + Usb.status))
 
 
 class Progress:
