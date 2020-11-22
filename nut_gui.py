@@ -25,6 +25,7 @@ from PyQt5.QtWidgets import (QApplication, QDesktopWidget, QHBoxLayout,
 import nut
 import Server
 from nut import Config, Nsps, Status, Usb, Users
+from translator import tr
 import Fs.driver.init
 
 SIZE_COLUMN_INDEX = 3
@@ -62,37 +63,37 @@ class Header:
 		top = QHBoxLayout()
 		bottom = QHBoxLayout()
 
-		self.scan = QPushButton('Scan', app)
+		self.scan = QPushButton(tr('main.top_menu.scan'), app)
 		self.scan.setMaximumWidth(100)
 		self.scan.clicked.connect(app.on_scan)
 		top.addWidget(self.scan)
 
-		btn = QPushButton('Organize Files', app)
+		btn = QPushButton(tr('main.top_menu.organize'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_organize)
 		top.addWidget(btn)
 
-		self.pull = QPushButton('Pull', app)
+		self.pull = QPushButton(tr('main.top_menu.pull'), app)
 		self.pull.setMaximumWidth(100)
 		self.pull.clicked.connect(app.on_pull)
 		top.addWidget(self.pull)
 
-		self.titledb = QPushButton('Update TitleDB', app)
+		self.titledb = QPushButton(tr('main.top_menu.update_titledb'), app)
 		self.titledb.setMaximumWidth(200)
 		self.titledb.clicked.connect(app.on_titledb)
 		top.addWidget(self.titledb)
 
-		btn = QPushButton('Decompress NSZ', app)
+		btn = QPushButton(tr('main.top_menu.decompress_nsz'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_decompress)
 		top.addWidget(btn)
 
-		btn = QPushButton('Compress NSP', app)
+		btn = QPushButton(tr("main.top_menu.compress_nsp"), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_compress)
 		top.addWidget(btn)
 
-		self.gdrive = QPushButton('Setup GDrive OAuth', app)
+		self.gdrive = QPushButton(tr("main.top_menu.setup_gdrive"), app)
 		self.gdrive.setMaximumWidth(200)
 		self.gdrive.clicked.connect(app.on_gdrive)
 		top.addWidget(self.gdrive)
@@ -115,7 +116,7 @@ class Header:
 		bottom.addWidget(self.serverInfo)
 		bottom.addStretch()
 
-		self.usbStatus = QLabel("<b>USB:</b>  " + str(Usb.status))
+		self.usbStatus = QLabel("<b>USB:</b>  " + tr("usb.status." + Usb.status))
 		self.usbStatus.setMinimumWidth(50)
 		self.usbStatus.setAlignment(Qt.AlignCenter)
 		bottom.addWidget(self.usbStatus)
@@ -129,7 +130,7 @@ class Header:
 		self.layout.addLayout(bottom)
 
 	def tick(self):
-		self.usbStatus.setText("<b>USB:</b> " + str(Usb.status))
+		self.usbStatus.setText("<b>USB:</b> " + tr("usb.status." + Usb.status))
 
 
 class Progress:
@@ -205,14 +206,14 @@ class App(QWidget):
 		self.files = gui.panes.files.Files()
 
 		self.tabs = gui.tabs.Tabs({
-			'Home': QWidget(),
-			'Files': self.files,
-			'Filters': gui.panes.filters.Filters(),
-			'Save Paths': gui.panes.format.Format(),
-			'Local Scan Paths': gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
-			'Remote Pull Paths': gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
-			'Users': gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
-			'Options': gui.panes.options.Options()
+			tr('Home'): QWidget(),
+			tr('Files'): self.files,
+			tr('Filters'): gui.panes.filters.Filters(),
+			tr('Save Paths'): gui.panes.format.Format(),
+			tr('Local Scan Paths'): gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
+			tr('Remote Pull Paths'): gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
+			tr('Users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
+			tr('Options'): gui.panes.options.Options()
 		})
 		self.layout.addWidget(self.tabs)
 
@@ -272,10 +273,8 @@ class App(QWidget):
 
 	@pyqtSlot()
 	def on_scan(self):
-		# self.model.setRowCount(0)
 		nut.scan()
 		self.files.refresh()
-		# self.refreshTable()
 
 	@pyqtSlot()
 	def on_pull(self):

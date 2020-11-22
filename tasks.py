@@ -3,13 +3,12 @@
 from invoke import task
 
 @task
-def coverage(c, details=False, clean=False):
-	if clean:
-		c.run("rm -rf ./htmlcov")
-	else:
-		c.run("coverage run -m pytest")
-		if details:
-			c.run("coverage html && coverage annotate")
+def coverage(c, details=False):
+	c.run("coverage erase")
+	c.run("coverage run -m pytest")
+	if details:
+		c.run("coverage html && coverage annotate")
+		c.run("coverage report", pty=True)
 
 @task
 def test(c):
@@ -17,9 +16,8 @@ def test(c):
 
 @task
 def lint(c):
-	c.run("python -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py")
+	c.run("python -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py", pty=True)
 
 @task
 def run(c, gui=True):
-	result = c.run("python nut_gui.py", pty=True)
-	print(result.stdout)
+	c.run("python nut_gui.py", pty=True)
