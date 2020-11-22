@@ -30,6 +30,6 @@ install:
   - pip3 install coveralls
 script:
   - coverage run -m pytest -s
-  - pylint -j 4 nut/Nsps.py nut/Config.py tests/*.py
+  - invoke lint
 after_success:
   - coveralls

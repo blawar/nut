@@ -16,7 +16,7 @@ def test(c):
 
 @task
 def lint(c):
-	c.run("python -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py", pty=True)
+	c.run("python -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py", pty=True)
 
 @task
 def run(c, gui=True):

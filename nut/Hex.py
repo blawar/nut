@@ -28,11 +28,11 @@ def dump(data, size=16):
 	print()
 	while index < bytesRead:
 
-		hex = bufferToHex(data, index, size)
-		ascii = bufferToAscii(data, index, size)
+		hex_ = bufferToHex(data, index, size)
+		ascii_ = bufferToAscii(data, index, size)
 
-		print(hexFormat.format(hex), end='')
-		print('|', asciiFormat.format(ascii), '|')
+		print(hexFormat.format(hex_), end='')
+		print('|', asciiFormat.format(ascii_), '|')
 
 		index += size
 		if bytesRead - index < size:
