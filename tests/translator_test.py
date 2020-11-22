@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import unittest
 
 from pyfakefs.fake_filesystem_unittest import TestCase
@@ -25,6 +26,9 @@ class TranslatorTest(TestCase):
 		self.setUpPyfakefs()
 
 	def test_missing_lang_file(self):
+		if os.path.exists(TRANSLATION_FILE):
+			self.fs.remove(TRANSLATION_FILE)
+		reload(TRANSLATION_FILE)
 		self.assertEqual(tr(ABOUT_KEY), ABOUT_KEY)
 		self.assertEqual(tr(""), "")
 
@@ -40,6 +44,13 @@ class TranslatorTest(TestCase):
 		reload(TRANSLATION_FILE)
 		self.assertEqual(tr(ABOUT_KEY), \
 			"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435")
+
+	def test_missing_key(self):
+		self.fs.create_file(TRANSLATION_FILE, contents=TRANSLATION_FILE_CONTENT)
+		Config.language="en"
+		reload(TRANSLATION_FILE)
+		missing_key = 'missing.key.ever'
+		self.assertEqual(tr(missing_key), missing_key)
 
 if __name__ == "__main__":
 	unittest.main()
