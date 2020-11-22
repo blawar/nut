@@ -16,8 +16,8 @@ def test(c):
 
 @task
 def lint(c):
-	c.run("python -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py", pty=True)
+	c.run("python3 -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py", pty=True)
 
 @task
 def run(c, gui=True):
-	c.run("python nut_gui.py", pty=True)
+	c.run("python3 nut_gui.py", pty=True)
