@@ -4,6 +4,11 @@ import os
 
 from invoke import task
 
+if os.name == 'nt': # Windows
+	py = "python"
+else:
+	py = "python3"
+
 @task
 def coverage(c, details=False):
 	c.run("coverage erase")
@@ -18,7 +23,7 @@ def test(c):
 
 @task
 def lint(c):
-	run_arg = "python3 -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py"
+	run_arg = "{py} -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py"
 	if os.name == 'nt': # Windows
 		c.run(run_arg)
 	else:
@@ -26,7 +31,7 @@ def lint(c):
 
 @task
 def run(c, gui=True):
-	run_arg = "python3 nut_gui.py"
+	run_arg = "{py} nut_gui.py"
 	if os.name == 'nt': # Windows
 		c.run(run_arg)
 	else:
