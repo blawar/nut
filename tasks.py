@@ -23,7 +23,7 @@ def test(c):
 
 @task
 def lint(c):
-	run_arg = "{py} -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py"
+	run_arg = f"{py} -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py"
 	if os.name == 'nt': # Windows
 		c.run(run_arg)
 	else:
@@ -31,7 +31,7 @@ def lint(c):
 
 @task
 def run(c, gui=True):
-	run_arg = "{py} nut_gui.py"
+	run_arg = f"{py} nut_gui.py"
 	if os.name == 'nt': # Windows
 		c.run(run_arg)
 	else:
