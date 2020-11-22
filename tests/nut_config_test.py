@@ -45,6 +45,15 @@ def _create_files(fs, folder_obj):
 		fs.create_file(os.path.join(folder_obj["path"], f))
 
 
+def _get_default_languages():
+	return json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
+		"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
+		"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
+		"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],\
+		"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],\
+		"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
+
+
 class NutConfigTest(TestCase):
 	"""Tests for nut/Config.py
 	"""
@@ -165,6 +174,32 @@ class NutConfigTest(TestCase):
 		Config.update_scan_paths(new_paths, Nsps.files)
 		self.assertEqual(Nsps.files, {})
 
+	def test_update_scan_paths_with_same_path(self):
+		initial_scan_paths = ['.']
+		Config.paths.scan = initial_scan_paths
+		initial_nsp_files = ["1.nsp", "2.nsp"]
+		Nsps.files = initial_nsp_files
+		Config.update_scan_paths(initial_scan_paths, Nsps.files)
+		self.assertEqual(Config.paths.scan, initial_scan_paths)
+
+	def test_update_scan_paths_with_single_path(self):
+		initial_scan_paths = ['.']
+		Config.paths.scan = initial_scan_paths
+		new_scan_path = "titles"
+		Config.update_scan_paths(new_scan_path, Nsps.files)
+		self.assertEqual(Config.paths.scan, [new_scan_path])
+
+	def test_region_languages_with_empty_file(self):
+		self.assertEqual(Config.regionLanguages(), _get_default_languages())
+		# return same object
+		self.assertEqual(Config.regionLanguages(), _get_default_languages())
+
+	def test_regional_languages_from_file(self):
+		file_ = 'titledb/languages.json'
+		languages = '{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"]}'
+		self.fs.create_file(file_, contents=languages)
+		self.assertEqual(Config.regionLanguages(), json.loads(languages))
+
 
 class NutConfigServerTest(TestCase):
 	"""Tests for nut/Config.py Server
@@ -249,7 +284,7 @@ class NutConfigPathsTest(TestCase):
 
 	def test_get_title_demo(self):
 		path = Path('titles') / 'demos'
-		self.assertEqual(Config.paths.getTitleDemoUpdate(False, None), None)
+		self.assertEqual(Config.paths.getTitleDemo(False, None), None)
 		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].nsp')), Path(Config.paths.titleDemo))
 		self.assertEqual(Path(Config.paths.getTitleDemo(False, 'name [123][v0].nsz')), \
 			path / 'nsz' / '{name}[{id}][v{version}].nsz')
