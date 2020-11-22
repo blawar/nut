@@ -1,2 +1,5 @@
 [run]
-omit = *tests*
+omit =
+    *tests*
+    */site-packages/*
+    */distutils/*
