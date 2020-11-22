@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
+
 from invoke import task
 
 @task
@@ -16,8 +18,16 @@ def test(c):
 
 @task
 def lint(c):
-	c.run("python3 -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py", pty=True)
+	run_arg = "python3 -m pylint -j 4 nut/Config.py tests/*.py nut/Nsps.py nut/Hex.py"
+	if os.name == 'nt': # Windows
+		c.run(run_arg)
+	else:
+		c.run(run_arg, pty=True)
 
 @task
 def run(c, gui=True):
-	c.run("python3 nut_gui.py", pty=True)
+	run_arg = "python3 nut_gui.py"
+	if os.name == 'nt': # Windows
+		c.run(run_arg)
+	else:
+		c.run(run_arg, pty=True)
