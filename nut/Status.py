@@ -111,7 +111,6 @@ class Status:
 				self.tqdm.close()
 			except BaseException as e:
 				Print.warning('status exception: ' + str(e))
-				pass
 			self.tqdm = None
 			self.size = None
 			# lock.release()
