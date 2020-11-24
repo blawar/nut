@@ -27,7 +27,7 @@ cache: pip
 install:
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
   - pip3 install -r requirements.txt
-  - pip3 install coveralls
+  - pip3 install -r requirements_dev.txt
 script:
   - coverage run -m pytest -s
   - invoke lint
