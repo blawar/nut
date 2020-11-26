@@ -13,7 +13,6 @@ class User:
 		self.requireAuth = True
 		self.switchHost = None
 		self.switchPort = None
-		pass
 
 	def loadCsv(self, line, map=[]):
 		split = line.split('|')
