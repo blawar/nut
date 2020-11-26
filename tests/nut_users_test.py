@@ -63,5 +63,58 @@ class NutUsersTest(TestCase):
 		self.assertIsNone(user.id)
 		self.assertIsNone(user.password)
 
+	def test_save(self):
+		Users.save()
+
+	def test_load_with_empty_file(self):
+		Users.users = {}
+		Users.load()
+
+		self.assertIsNotNone(Users.first())
+		first_user = Users.first()
+		self.assertEqual(first_user.id, _DEFAULT_USER)
+		self.assertEqual(first_user.password, _DEFAULT_PASSWORD)
+
+	def test_user_set_switch_port(self):
+		user = Users.User()
+		self.assertEqual(user.switchPort, None)
+		new_switch_port = 1234
+		user.setSwitchPort(new_switch_port)
+		self.assertEqual(user.switchPort, new_switch_port)
+
+		user.setSwitchPort('wrong_port')
+		self.assertEqual(user.switchPort, new_switch_port)
+
+	def test_user_set_switch_host(self):
+		user = Users.User()
+		self.assertEqual(user.switchHost, None)
+		new_switch_host = 'local'
+		user.setSwitchHost(new_switch_host)
+		self.assertEqual(user.switchHost, new_switch_host)
+
+	def test_user_set_require_auth(self):
+		user = Users.User()
+		self.assertTrue(user.requireAuth)
+		user.setRequireAuth(False)
+		self.assertFalse(user.requireAuth)
+		user.setRequireAuth(True)
+		user.setRequireAuth('incorrect')
+		self.assertTrue(user.requireAuth)
+		user.setRequireAuth(False)
+		user.setRequireAuth('incorrect')
+		self.assertFalse(user.requireAuth)
+
+	def test_user_set_is_admin(self):
+		user = Users.User()
+		self.assertFalse(user.isAdmin)
+		user.setIsAdmin(True)
+		self.assertTrue(user.isAdmin)
+		user.setIsAdmin(False)
+		user.setIsAdmin('incorrect')
+		self.assertFalse(user.isAdmin)
+		user.setIsAdmin(True)
+		user.setIsAdmin('incorrect')
+		self.assertTrue(user.isAdmin)
+
 if __name__ == "__main__":
 	unittest.main()
