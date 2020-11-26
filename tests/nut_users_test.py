@@ -63,7 +63,7 @@ class NutUsersTest(TestCase):
 		self.assertIsNone(user.id)
 		self.assertIsNone(user.password)
 
-	def test_save(self):
+	def test_save(self): # pylint: disable = no-self-use
 		Users.save()
 
 	def test_load_with_empty_file(self):
