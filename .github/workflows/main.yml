@@ -32,6 +32,11 @@ jobs:
       run: |
         sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
+    - name: Install Win dependencies
+      if: startsWith(matrix.os, 'windows')
+      run: |
+        pip3 install tests/pycurl-7.43.0.4-cp38-cp38-win_amd64.whl
+      shell: cmd
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
