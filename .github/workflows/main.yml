@@ -25,6 +25,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        if ["$RUNNER_OS" == "Linux"]; then
+          sudo apt install libcurl4-openssl-dev libssl-dev
+        fi
         pip3 install --upgrade pip
         pip3 install -r requirements.txt
         pip3 install -r requirements_dev.txt
