@@ -44,5 +44,7 @@ jobs:
       run: |
         invoke lint
     - name: Coveralls report
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         coveralls
