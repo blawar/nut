@@ -30,7 +30,7 @@ jobs:
         USESSL: openssl
         USEOPENSSL: 1.1.1d
       run: |
-        sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel libgnutls28-dev python3-dev
+        sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
     - name: Install python dependencies
       run: |
