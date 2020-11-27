@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         if ["$RUNNER_OS" == "Linux"]; then
-          sudo apt install libcurl4-openssl-dev libssl-dev
+          sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel
         fi
         pip3 install --upgrade pip
         pip3 install -r requirements.txt
