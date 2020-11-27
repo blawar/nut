@@ -48,4 +48,4 @@ You can contribute to:
   * [this file](https://github.com/blawar/nut/blob/master/CONTRIBUTING.md) 
   if you want to enhance the contributing guide itself
 
-Thanks for taking the time to contribute to pyfakefs!
+Thanks for taking the time to contribute to nut!
