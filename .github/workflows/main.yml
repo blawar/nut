@@ -24,10 +24,14 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install OS dependencies
+      env:
+        USECURL: 7.43.0-openssl11-gssapi-libssh2
+        USESSL: openssl
+        USEOPENSSL: 1.1.1d
       run: |
         if ["$RUNNER_OS" == "Linux"]
         then
-          sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel
+          sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel libgnutls28-dev
         fi
       shell: bash
     - name: Install python dependencies
