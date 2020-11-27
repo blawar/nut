@@ -31,7 +31,7 @@ jobs:
       run: |
         if ["$RUNNER_OS" == "Linux"]
         then
-          sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel libgnutls28-dev
+          sudo apt install libcurl4-openssl-dev libssl-dev libcurl-devel libgnutls28-dev python-dev
         fi
       shell: bash
     - name: Install python dependencies
