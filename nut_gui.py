@@ -206,7 +206,6 @@ class App(QWidget):
 		self.files = gui.panes.files.Files()
 
 		self.tabs = gui.tabs.Tabs({
-			tr('Home'): QWidget(),
 			tr('Files'): self.files,
 			tr('Filters'): gui.panes.filters.Filters(),
 			tr('Save Paths'): gui.panes.format.Format(),
