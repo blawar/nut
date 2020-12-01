@@ -330,6 +330,10 @@ class App(QWidget):
 					"directories."
 				)
 
+	def closeEvent(self, event):
+		# TODO: implement a graceful shutdown of other threads
+		os._exit(0)
+
 
 threadRun = True
 
@@ -343,8 +347,11 @@ def nutThread():
 
 
 def initThread(app):
+	print('initThread start')
 	nut.scan()
 	app.refresh()
+	print('initThread finish')
+
 
 
 def run():
