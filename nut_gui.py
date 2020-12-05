@@ -31,7 +31,7 @@ import Fs.driver.init
 SIZE_COLUMN_INDEX = 3
 
 
-def getIpAddress():
+def _get_ip_address():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	try:
 		s.connect(("8.8.8.8", 80))
@@ -42,7 +42,7 @@ def getIpAddress():
 		return None
 
 
-def formatSpeed(n):
+def _format_speed(n):
 	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
 
 
@@ -100,7 +100,7 @@ class Header:
 
 		top.addStretch()
 
-		ipAddr = getIpAddress()
+		ipAddr = _get_ip_address()
 
 		if ipAddr:
 			self.serverInfo = QLabel(
@@ -164,7 +164,7 @@ class Progress:
 					self.progress.setValue(i.i / i.size * 100)
 					self.text.setText(i.desc)
 					self.speed.setText(
-						formatSpeed(i.a / (time.process_time() - i.ats))
+						_format_speed(i.a / (time.process_time() - i.ats))
 					)
 				# TODO: Remove bare except
 				except BaseException:
