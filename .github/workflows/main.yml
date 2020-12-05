@@ -37,6 +37,10 @@ jobs:
       run: |
         pip3 install tests/pycurl-7.43.0.4-cp38-cp38-win_amd64.whl
       shell: cmd
+    - name: Install Mac dependencies
+      if: startsWith(matrix.os, 'darwin')
+      run: |
+        brew install curl-openssl
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
