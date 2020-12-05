@@ -40,7 +40,10 @@ jobs:
     - name: Install Mac dependencies
       if: startsWith(matrix.os, 'macOS')
       run: |
+        brew upgrade
+        brew uninstall curl
         brew install curl-openssl
+        echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
