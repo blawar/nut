@@ -45,7 +45,9 @@ jobs:
         brew install openssl
         brew install curl-openssl
         brew info openssl
-        echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
+        echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.bash_profile
+        export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+        export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
