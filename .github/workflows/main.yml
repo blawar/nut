@@ -44,6 +44,7 @@ jobs:
         brew uninstall --ignore-dependencies curl
         brew install openssl
         brew install curl-openssl
+        brew info openssl
         echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
     - name: Install python dependencies
       run: |
