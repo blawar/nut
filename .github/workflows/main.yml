@@ -44,10 +44,7 @@ jobs:
         brew uninstall --ignore-dependencies curl
         brew install openssl
         brew install curl-openssl
-        brew info openssl
-        echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.bash_profile
-        export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-        export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+        pip install pycurl --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
