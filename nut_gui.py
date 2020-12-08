@@ -104,8 +104,8 @@ class Header:
 
 		if ipAddr:
 			self.serverInfo = QLabel(
-				f"<b>IP:</b>  {ipAddr}  <b>Port:</b>  {Config.server.port}  " +
-				f"<b>User:</b>  {Users.first().id}  <b>Password:</b>  " +
+				f"<b>{tr('main.status.ip')}:</b>  {ipAddr}  <b>{tr('main.status.port')}:</b>  {Config.server.port}  " +
+				f"<b>{tr('main.status.user')}:</b>  {Users.first().id}  <b>{tr('main.status.password')}:</b>  " +
 				f"{Users.first().password}"
 			)
 		else:
@@ -206,13 +206,13 @@ class App(QWidget):
 		self.files = gui.panes.files.Files()
 
 		self.tabs = gui.tabs.Tabs({
-			tr('Files'): self.files,
-			tr('Filters'): gui.panes.filters.Filters(),
-			tr('Save Paths'): gui.panes.format.Format(),
-			tr('Local Scan Paths'): gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
-			tr('Remote Pull Paths'): gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
-			tr('Users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
-			tr('Options'): gui.panes.options.Options()
+			tr('main.grid.files'): self.files,
+			tr('main.grid.filters'): gui.panes.filters.Filters(),
+			tr('main.grid.save_paths'): gui.panes.format.Format(),
+			tr('main.grid.local_scan_paths'): gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
+			tr('main.grid.remote_pull_paths'): gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
+			tr('main.grid.users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
+			tr('main.grid.options'): gui.panes.options.Options()
 		})
 		self.layout.addWidget(self.tabs)
 
