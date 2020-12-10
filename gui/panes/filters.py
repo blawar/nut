@@ -18,10 +18,13 @@ class ConfCheckbox(QCheckBox):
 		Config.save()
 
 	def get(self):
-		j = Config
-		for path in self.conf.split('.'):
-			j = getattr(j, path)
-		return j
+		try:
+			j = Config
+			for path in self.conf.split('.'):
+				j = getattr(j, path)
+			return j
+		except BaseException as e:
+			return None
 
 	def set(self, value):
 		j = Config

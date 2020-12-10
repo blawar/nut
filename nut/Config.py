@@ -692,7 +692,8 @@ class Download:  # pylint: disable=too-many-instance-attributes
 	"""
 
 	def __init__(self):
-		self.downloadBase = True
+		self.base = True
+		self.downloadBase = True # likely unused, needs to be deleted
 		self.demo = False
 		self.DLC = True
 		self.update = False
