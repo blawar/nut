@@ -135,40 +135,37 @@ def load(fileName='titledb/files.json', verify=True):
 
 	timestamp = time.perf_counter()
 
-	try:
-		if os.path.isfile(fileName):
-			with open(fileName, encoding="utf-8-sig") as f:
-				for k in json.loads(f.read()):
-					t = Fs.Nsp(k['path'], None)
-					t.timestamp = k['timestamp']
-					t.titleId = k['titleId']
-					t.version = k['version']
+	if os.path.isfile(fileName):
+		with open(fileName, encoding="utf-8-sig") as f:
+			for k in json.loads(f.read()):
+				t = Fs.Nsp(k['path'], None)
+				t.timestamp = k['timestamp']
+				t.titleId = k['titleId']
+				t.version = k['version']
 
-					if 'extractedNcaMeta' in k and k['extractedNcaMeta'] == 1:
-						t.extractedNcaMeta = True
-					else:
-						t.extractedNcaMeta = False
+				if 'extractedNcaMeta' in k and k['extractedNcaMeta'] == 1:
+					t.extractedNcaMeta = True
+				else:
+					t.extractedNcaMeta = False
 
-					if 'fileSize' in k:
-						t.fileSize = k['fileSize']
+				if 'fileSize' in k:
+					t.fileSize = k['fileSize']
 
-					if 'cr' in k:
-						t.cr = k['cr']
-					else:
-						t.cr = None
+				if 'cr' in k:
+					t.cr = k['cr']
+				else:
+					t.cr = None
 
-					if not t.path:
-						continue
+				if not t.path:
+					continue
 
-					path = os.path.abspath(t.path)
-					if verify and Config.isScanning:
-						if os.path.isfile(path) and os.path.exists(path) and not _is_file_hidden(path):
-							files[path] = t
-					else:
+				path = os.path.abspath(t.path)
+				if verify and Config.isScanning:
+					if os.path.isfile(path) and os.path.exists(path) and not _is_file_hidden(path):
 						files[path] = t
-		Print.info('loaded file list in ' + str(time.perf_counter() - timestamp) + ' seconds')
-	except BaseException as e:
-		Print.error('error loading titledb/files.json: ' + str(e))
+				else:
+					files[path] = t
+	Print.info('loaded file list in ' + str(time.perf_counter() - timestamp) + ' seconds')
 
 def save(fileName='titledb/files.json'):
 	lock.acquire()
