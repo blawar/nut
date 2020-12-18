@@ -481,7 +481,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			download.releaseDateMax = j['download']['releaseDateMax']
 		except BaseException:  # pylint: disable=broad-except
 			pass
-			
+
 		try:
 			download.base = j['download']['downloadBase']  # pylint: disable=attribute-defined-outside-init
 		except BaseException:  # pylint: disable=broad-except
