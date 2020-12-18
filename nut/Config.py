@@ -481,6 +481,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			download.releaseDateMax = j['download']['releaseDateMax']
 		except BaseException:  # pylint: disable=broad-except
 			pass
+			
+		try:
+			download.base = j['download']['downloadBase']  # pylint: disable=attribute-defined-outside-init
+		except BaseException:  # pylint: disable=broad-except
+			pass
 
 		try:
 			download.base = j['download']['base']  # pylint: disable=attribute-defined-outside-init
@@ -693,7 +698,6 @@ class Download:  # pylint: disable=too-many-instance-attributes
 
 	def __init__(self):
 		self.base = True
-		self.downloadBase = True # likely unused, needs to be deleted
 		self.demo = False
 		self.DLC = True
 		self.update = False

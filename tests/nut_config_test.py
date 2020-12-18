@@ -26,7 +26,7 @@ def _get_default_config_object():
 					  'keys': 'keys.txt', 'calibration': 'PRODINFO.bin', 'shopNCert': 'ShopN.pem',
 					  'nspOut': '_NSPOUT', 'titleImages': 'titles/images/', 'duplicates': 'duplicates/'},
 			'compression': {'level': 19, 'auto': False}, 'pullUrls': [], 'threads': 1, 'download':
-			{'downloadBase': True, 'demo': False, 'DLC': True, 'update': False,
+			{'base': True, 'demo': False, 'DLC': True, 'update': False,
 			 'sansTitleKey': False, 'deltas': False, 'regions': [], 'rankMin': None, 'rankMax': None,
 			 'fileSizeMax': None, 'fileSizeMin': None, 'ratingMin': None, 'ratingMax': None,
 			 'releaseDateMin': None, 'releaseDateMax': None}, 'server': {'hostname': '0.0.0.0',
