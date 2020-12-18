@@ -2,7 +2,7 @@ import json
 
 from nut import Config, Print
 
-DEFAULT_TRANSLATION_FILE = 'translate.json'
+DEFAULT_TRANSLATION_FILE = 'public_html/translate.json'
 ENGLISH_LANG_ID = "None"
 
 _initialized = False
