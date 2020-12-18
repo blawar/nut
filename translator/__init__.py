@@ -1,8 +1,9 @@
 import json
+import os
 
 from nut import Config, Print
 
-DEFAULT_TRANSLATION_FILE = 'public_html/translate.json'
+DEFAULT_TRANSLATION_FILE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../public_html/translate.json'))
 ENGLISH_LANG_ID = "None"
 
 _initialized = False
