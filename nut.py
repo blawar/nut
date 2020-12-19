@@ -471,7 +471,6 @@ if __name__ == '__main__':
 				parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
 				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
 				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
-				parser.add_argument('--scrape-languages', action="store_true", help='Scrape languages from shogun')
 				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
 				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
@@ -541,9 +540,6 @@ if __name__ == '__main__':
 			Config.download.demo = bool(args.demo)
 			Config.download.sansTitleKey = bool(args.nsx)
 			Config.download.update = bool(args.update)
-
-			if args.cetk:
-				cdn.Tigers.cetk(args.cetk)
 
 			if args.threads:
 				Config.threads = args.threads
@@ -640,12 +636,16 @@ if __name__ == '__main__':
 				nut.importRegion(region, args.language)
 				exit(0)
 
-			if args.eshop_latest:
-				print(cdn.Shogun.getLatest(args.file[0], args.file[1], args.file[2]))
+			if hasCdn:
+				if args.cetk:
+					cdn.Tigers.cetk(args.cetk)
 
-			if args.scrape_nsuid:
-				nut.initTitles()
-				print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), force=True).__dict__))
+				if args.eshop_latest:
+					print(cdn.Shogun.getLatest(args.file[0], args.file[1], args.file[2]))
+
+				if args.scrape_nsuid:
+					nut.initTitles()
+					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), force=True).__dict__))
 
 			if args.usb:
 				try:
@@ -736,74 +736,75 @@ if __name__ == '__main__':
 					Print.error('Archive is VALID: %s' % args.verify_ncas)
 				f.close()
 
-			if args.download:
-				nut.initTitles()
-				nut.initFiles()
-				for d in args.download:
-					download(d)
-
-			if args.system_update:
-				cdn.downloadSystemUpdate()
-
-			if args.scrape_shogun is not None:
-				if len(args.scrape_shogun) == 0:
-					nut.scrapeShogunThreaded(True)
-				else:
+			if hasCdn:
+				if args.download:
 					nut.initTitles()
 					nut.initFiles()
-					for i in args.scrape_shogun:
-						if len(i) == 16:
-							l = cdn.Shogun.ids(i, force=True)
-							if not l or len(l) == 0 or len(l['id_pairs']) == 0:
-								print('no nsuId\'s found')
+					for d in args.download:
+						download(d)
+					
+				if args.system_update:
+					cdn.downloadSystemUpdate()
+
+				if args.scrape_shogun is not None:
+					if len(args.scrape_shogun) == 0:
+						nut.scrapeShogunThreaded(True)
+					else:
+						nut.initTitles()
+						nut.initFiles()
+						for i in args.scrape_shogun:
+							if len(i) == 16:
+								l = cdn.Shogun.ids(i, force=True)
+								if not l or len(l) == 0 or len(l['id_pairs']) == 0:
+									print('no nsuId\'s found')
+								else:
+									print(l)
+									for t in l['id_pairs']:
+										print('nsuId: ' + str(t['id']))
+										print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
+										Titles.saveRegion('US', 'en')
+							elif len(i) == 2:
+								cdn.Shogun.scrapeTitles(i, force=True)
 							else:
-								print(l)
-								for t in l['id_pairs']:
-									print('nsuId: ' + str(t['id']))
-									print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
-									Titles.saveRegion('US', 'en')
-						elif len(i) == 2:
-							cdn.Shogun.scrapeTitles(i, force=True)
-						else:
-							print('bleh')
+								print('bleh')
 
-			if args.scrape_shogun_delta is not None:
-				nut.scrapeShogunThreaded(False)
+				if args.scrape_shogun_delta is not None:
+					nut.scrapeShogunThreaded(False)
 
-			if args.get_edge_token:
-				Config.edgeToken.get()
+				if args.get_edge_token:
+					Config.edgeToken.get()
 
-			if args.get_dauth_token:
-				Config.dauthToken.get()
+				if args.get_dauth_token:
+					Config.dauthToken.get()
 
-			if args.scrape or args.scrape_delta:
-				nut.scrape(args.scrape_delta)
+				if args.scrape or args.scrape_delta:
+					nut.scrape(args.scrape_delta)
 
-			if args.Z:
-				nut.updateVersions(True)
+				if args.Z:
+					nut.updateVersions(True)
 
-			if args.z:
-				nut.updateVersions(False)
+				if args.z:
+					nut.updateVersions(False)
 
-			if args.V:
-				nut.scanLatestTitleUpdates()
-				nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
+				if args.V:
+					nut.scanLatestTitleUpdates()
+					nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
-			if args.scrape_title:
-				nut.initTitles()
-				nut.initFiles()
+				if args.scrape_title:
+					nut.initTitles()
+					nut.initFiles()
 
-				if not Titles.contains(args.scrape_title):
-					Print.error('Could not find title ' + args.scrape_title)
-				else:
-					Titles.get(args.scrape_title).scrape(False)
+					if not Titles.contains(args.scrape_title):
+						Print.error('Could not find title ' + args.scrape_title)
+					else:
+						Titles.get(args.scrape_title).scrape(False)
+						Titles.save()
+						# Print.info(repr(Titles.get(args.scrape_title).__dict__))
+						pprint.pprint(Titles.get(args.scrape_title).__dict__)
+
+				if args.download_all:
+					nut.downloadAll()
 					Titles.save()
-					# Print.info(repr(Titles.get(args.scrape_title).__dict__))
-					pprint.pprint(Titles.get(args.scrape_title).__dict__)
-
-			if args.download_all:
-				nut.downloadAll()
-				Titles.save()
 
 			if args.gen_tinfoil_titles:
 				genTinfoilTitles()
