@@ -91,6 +91,9 @@ def getSearch(request, response):
 
 	for _, f in Nsps.files.items():
 		name = f.fileName()
+		if name is None:
+			continue
+
 		if name.endswith('.nsp'):
 			nsp.append({
 				'id': f.titleId,
