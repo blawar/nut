@@ -4,10 +4,11 @@ from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, QRect
 from nut import Nsps, Config
+from translator import tr
 
 class ConfCheckbox(QCheckBox):
-	def __init__(self, conf):
-		super(QCheckBox, self).__init__()
+	def __init__(self, text, conf):
+		super(QCheckBox, self).__init__(text)
 		self.conf = conf
 		value = self.get()
 		self.setChecked(value)
@@ -39,8 +40,7 @@ class RegionEntry(QWidget):
 		super(QWidget, self).__init__()
 		self.region = region.upper()
 		layout = QHBoxLayout(self)
-		layout.addWidget(QLabel(region))
-		self.check = QCheckBox()
+		self.check = QCheckBox(region)
 
 		self.check.setChecked(Config.download.hasRegion([region], False))
 		self.check.stateChanged.connect(self.onStateChanged)
@@ -79,31 +79,20 @@ class Filters(QWidget):
 
 		layout = QVBoxLayout(self)
 
-		types = QGroupBox('TYPES')
+		types = QGroupBox(tr('filters.types.group'))
 
 		testGroup = QHBoxLayout(types)
 
-		'''
-		testGroup.addRow(QLabel("Base"), QCheckBox())
-		testGroup.addRow(QLabel("DLC"), QCheckBox())
-		testGroup.addRow(QLabel("Update"), QCheckBox())
-		testGroup.addRow(QLabel("Demo"), QCheckBox())
-		'''
-
-		testGroup.addWidget(QLabel("Base"))
-		testGroup.addWidget(ConfCheckbox('download.base'))
+		testGroup.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
 		testGroup.addStretch()
 
-		testGroup.addWidget(QLabel("DLC"))
-		testGroup.addWidget(ConfCheckbox('download.DLC'))
+		testGroup.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
 		testGroup.addStretch()
 
-		testGroup.addWidget(QLabel("Update"))
-		testGroup.addWidget(ConfCheckbox('download.update'))
+		testGroup.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
 		testGroup.addStretch()
 
-		testGroup.addWidget(QLabel("Demo"))
-		testGroup.addWidget(ConfCheckbox('download.demo'))
+		testGroup.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
 
 		layout.addWidget(types)
 
