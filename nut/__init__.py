@@ -1,40 +1,30 @@
-from nut import Titles
-from nut import Title
-from nut import Nsps
-from Fs import Nsp
-from Fs import Nca
-from Fs import Cnmt
-from Fs import Rom
-from Fs import Pfs0
-from Fs.Pfs0 import Pfs0Stream
-from nut import Print
-from nut import Keys
-import nut
+import datetime
+import html
+import json
+import os
+import queue
+import re
+import subprocess
+import sys
 import threading
 import time
+import traceback
+import urllib.parse
+import urllib.request
+from binascii import hexlify as hx
+from binascii import unhexlify as uhx
+from contextlib import closing
+
 import colorama
 import requests
-import queue
-import os
-from nut import NszDecompressor
-import json
-import Fs
-import Fs.Type
-import datetime
-import subprocess
-from contextlib import closing
-import urllib.request
 import zstandard
 from tqdm import tqdm
-import sys
-import traceback
-from binascii import hexlify as hx, unhexlify as uhx
-from nut import aes128
-import re
-import urllib.parse
-import html
-import traceback
-from Fs.Nsp import Nsp
+
+import Fs
+import Fs.Type
+from Fs import Cnmt, Nca, Nsp, Pfs0, Rom
+from Fs.Pfs0 import Pfs0Stream
+from nut import Config, Keys, Nsps, NszDecompressor, Print, Title, Titles, aes128
 
 try:
 	import cdn
@@ -43,7 +33,6 @@ except BaseException:
 	pass
 
 from ganymede import Ganymede
-
 
 isInitTitles = False
 isInitFiles = False
@@ -649,9 +638,7 @@ def scan():
 	initFiles()
 
 	for path in Config.paths.scan:
-		r = Nsps.scan(path)
-
-	return r
+		Nsps.scan(path)
 
 class Progress:
 	def __init__(self, response, f):
