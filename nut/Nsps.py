@@ -125,6 +125,19 @@ def removeEmptyDir(path, removeRoot=True):
 		Print.info("Removing empty folder:" + path)
 		os.rmdir(path)
 
+def _load_nsp_filesize(json_title, nsp):
+	if 'fileSize' in json_title:
+		nsp.fileSize = json_title['fileSize']
+
+	if nsp.fileSize is None:
+		_path = json_title['path']
+		Print.warning(f"Missing file size for `{_path}`. Trying to get size again...")
+		_file_size = nsp.getFileSize()
+		if _file_size is None:
+			return False
+
+	return True
+
 def load(fileName='titledb/files.json', verify=True):
 	global hasLoaded  # pylint: disable=global-statement
 
@@ -138,7 +151,8 @@ def load(fileName='titledb/files.json', verify=True):
 	if os.path.isfile(fileName):
 		with open(fileName, encoding="utf-8-sig") as f:
 			for k in json.loads(f.read()):
-				t = Fs.Nsp(k['path'], None)
+				_path = k['path']
+				t = Fs.Nsp(_path, None)
 				t.timestamp = k['timestamp']
 				t.titleId = k['titleId']
 				t.version = k['version']
@@ -148,8 +162,8 @@ def load(fileName='titledb/files.json', verify=True):
 				else:
 					t.extractedNcaMeta = False
 
-				if 'fileSize' in k:
-					t.fileSize = k['fileSize']
+				if not _load_nsp_filesize(k, t):
+					continue
 
 				if 'cr' in k:
 					t.cr = k['cr']

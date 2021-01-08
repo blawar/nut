@@ -49,8 +49,8 @@ class Nsp(Pfs0, IndexedFile):
 		if self.fileSize is None:
 			try:
 				self.fileSize = os.path.getsize(self.path)
-			except BaseException:
-				pass
+			except BaseException as e:
+				Print.error(f"getting file size of title `{self.path}`: {str(e)}")
 		return self.fileSize
 
 	def getFileModified(self):
