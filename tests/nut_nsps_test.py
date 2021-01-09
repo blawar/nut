@@ -72,6 +72,7 @@ class NutNspsTest(TestCase):
 		_nsp_hbl_name = f"hbl [{_title_id}].nsp"
 		self.__prepare_hbl_title_fixture(_nsp_hbl_name)
 		Nsps.load()
+		print(f"nsps files: {Nsps.files}")
 		_nsp = Nsps.get('/' + _nsp_hbl_name)
 		self.assertIsNotNone(_nsp)
 		self.assertGreater(_nsp.fileSize, 0)
