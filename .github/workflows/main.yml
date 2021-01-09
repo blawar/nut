@@ -32,6 +32,8 @@ jobs:
       run: |
         sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
