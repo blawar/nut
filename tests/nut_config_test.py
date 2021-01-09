@@ -175,12 +175,15 @@ class NutConfigTest(TestCase):
 		self.assertEqual(Nsps.files, {})
 
 	def test_update_scan_paths_with_same_path(self):
+		_old_nsp_files = Nsps.files
 		initial_scan_paths = ['.']
 		Config.paths.scan = initial_scan_paths
-		initial_nsp_files = ["1.nsp", "2.nsp"]
+		initial_nsp_files = {"1.nsp", "2.nsp"}
 		Nsps.files = initial_nsp_files
 		Config.update_scan_paths(initial_scan_paths, Nsps.files)
 		self.assertEqual(Config.paths.scan, initial_scan_paths)
+		self.assertEqual(Nsps.files, initial_nsp_files)
+		Nsps.files = _old_nsp_files
 
 	def test_update_scan_paths_with_single_path(self):
 		initial_scan_paths = ['.']

@@ -112,6 +112,9 @@ def keys(region=None, language=None):
 	if region:
 		return regionTitles[region][language].keys()
 
+	if titles is None:
+		return {}
+
 	return titles.keys()
 
 def loadTitleFile(path, silent=False):

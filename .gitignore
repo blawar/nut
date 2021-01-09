@@ -23,7 +23,6 @@ credentials.json
 keys.txt
 
 *.nsz
-*.nsp
 *.xci
 *.xcz
 *.nsz
