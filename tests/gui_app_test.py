@@ -1,4 +1,3 @@
-import os
 import unittest
 
 class GuiAppTest(unittest.TestCase):
