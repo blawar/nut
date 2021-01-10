@@ -55,6 +55,8 @@ jobs:
         pip3 install -r requirements.txt
         pip3 install -r requirements_dev.txt
     - name: Tests and coverage
+      env:
+        QT_QPA_PLATFORM: offscreen
       run: |
         invoke coverage
     - name: Lint
