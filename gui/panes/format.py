@@ -7,7 +7,7 @@ from nut import Nsps, Config
 
 class Edit(QLineEdit):
 	def __init__(self, id, type):
-		super(QLineEdit, self).__init__()
+		super().__init__()
 		self.id = id
 		self.type = type
 
@@ -20,6 +20,7 @@ class Edit(QLineEdit):
 		# self.textChanged.connect(self.onChange)
 
 	def focusOutEvent(self, event):
+		print(f"Edit focusOutEvent: {event}")
 		current = getattr(Config.paths, self.key) or ''
 		new = self.text()
 
@@ -34,7 +35,7 @@ class Edit(QLineEdit):
 
 class Row(QGroupBox):
 	def __init__(self, type=''):
-		super(QGroupBox, self).__init__((type or 'nsp').upper())
+		super().__init__((type or 'nsp').upper())
 		layout = QFormLayout(self)
 
 		layout.addRow(QLabel('Base'), Edit('Base', type))
@@ -47,7 +48,7 @@ class Row(QGroupBox):
 
 class Format(QWidget):
 	def __init__(self):
-		super(QWidget, self).__init__()
+		super().__init__()
 
 		layout = QVBoxLayout(self)
 

@@ -1,15 +1,20 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QFileDialog, QDialog, QDialogButtonBox, QFormLayout, QComboBox, QLabel, QListWidget
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot
-from nut import Users
-import Fs.driver
 import urllib.parse
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFileDialog,
+                             QFormLayout, QHBoxLayout, QLabel, QLineEdit,
+                             QListWidget, QPushButton, QVBoxLayout, QWidget)
+
+import Fs.driver
+from nut import Users
+from translator import tr
+
+
 class Edit(QLineEdit):
+	"""Edit UI control
+	"""
 	def __init__(self, parent):
-		super(QLineEdit, self).__init__()
+		super().__init__()
 		self.parent = parent
 
 	def getValue(self):
@@ -21,21 +26,18 @@ class Edit(QLineEdit):
 	def focusOutEvent(self, event):
 		self.parent.save()
 
-		super(Edit, self).focusOutEvent(event)
-
-class NetworkSettings(QWidget):
-	def __init__(self):
-		super(NetworkSettings, self).__init__()
-		layout.addRow(QLabel('Base'), Edit('Base', type))
+		super().focusOutEvent(event)
 
 class FolderPicker(QDialog):
+	"""FolderPicker UI control
+	"""
 	def __init__(self, url):
-		super(FolderPicker, self).__init__()
+		super().__init__()
 		self.setWindowTitle("Directory Picker")
 		self.url = url
 
 		self.list = QListWidget(self)
-		
+
 		self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
 		self.layout = QVBoxLayout()
 		self.layout.addWidget(self.list)
@@ -69,8 +71,10 @@ class FolderPicker(QDialog):
 		pass
 
 class GdrivePicker(QDialog):
-	def __init__(self, *args, **kwargs):
-		super(GdrivePicker, self).__init__()
+	"""GdrivePicker UI control
+	"""
+	def __init__(self):
+		super().__init__()
 		self.setWindowTitle("Directory Picker")
 		self.url = None
 
@@ -147,12 +151,14 @@ class GdrivePicker(QDialog):
 				self.url = Fs.driver.join(self.url, self.path.getValue())
 
 			self.accept()
-		except BaseException as e:
+		except BaseException: # pylint: disable=broad-except
 			self.reject()
 
 class User(QWidget):
+	"""User UI control
+	"""
 	def __init__(self, parent):
-		super(User, self).__init__()
+		super().__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
@@ -179,17 +185,20 @@ class User(QWidget):
 	def focusOutEvent(self, event):
 		self.parent.save()
 
-		super(Edit, self).focusOutEvent(event)
+		super().focusOutEvent(event)
 
 class DirectoryLocal(QWidget):
+	"""DirectoryLocal UI control
+	"""
 	def __init__(self, parent):
-		super(DirectoryLocal, self).__init__()
+		super().__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
-		self.dirBtn = QPushButton('browse')
+		self.dirBtn = QPushButton(tr('dirlist.browse'))
 		self.dirBtn.setFixedWidth(70)
 		self.dirBtn.clicked.connect(self.on_browse)
+		self.dirBtn.setFocusPolicy(Qt.StrongFocus)
 
 		self.edit = Edit(self)
 
@@ -201,7 +210,8 @@ class DirectoryLocal(QWidget):
 		self.parent.save()
 
 	def on_browse(self):
-		value = QFileDialog.getExistingDirectory(self, 'Select Directory', self.getValue(), QFileDialog.ShowDirsOnly)
+		value = QFileDialog.getExistingDirectory(self, tr('Select Directory'),\
+			self.getValue(), QFileDialog.ShowDirsOnly)
 
 		if value:
 			self.setValue(value)
@@ -211,15 +221,18 @@ class DirectoryLocal(QWidget):
 
 	def setValue(self, value):
 		self.edit.setText(value)
+		self.parent.save()
 
 	def focusOutEvent(self, event):
 		self.parent.save()
 
-		super(Edit, self).focusOutEvent(event)
+		super().focusOutEvent(event)
 
 class DirectoryNetwork(QWidget):
+	"""DirectoryNetwork UI control
+	"""
 	def __init__(self, parent):
-		super(DirectoryNetwork, self).__init__()
+		super().__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
@@ -258,11 +271,13 @@ class DirectoryNetwork(QWidget):
 	def focusOutEvent(self, event):
 		self.parent.save()
 
-		super(Edit, self).focusOutEvent(event)
+		super().focusOutEvent(event)
 
 class Row(QWidget):
+	"""Row UI control
+	"""
 	def __init__(self, parent, value, rowType=DirectoryLocal):
-		super(Row, self).__init__()
+		super().__init__()
 		self.parent = parent
 		layout = QHBoxLayout(self)
 		self.control = rowType(self)
@@ -270,11 +285,13 @@ class Row(QWidget):
 		if value is not None:
 			self.control.setValue(value)
 
-		self.close = QPushButton('X')
-		self.close.setFixedWidth(50)
-		self.close.clicked.connect(self.on_close)
+		self.remove = QPushButton('X')
+		self.remove.setFixedWidth(50)
+		self.remove.clicked.connect(self.on_remove)
+		self.remove.setFocusPolicy(Qt.StrongFocus)
+
 		layout.addWidget(self.control)
-		layout.addWidget(self.close)
+		layout.addWidget(self.remove)
 
 	def setValue(self, text):
 		self.control.setValue(text)
@@ -282,15 +299,17 @@ class Row(QWidget):
 	def getValue(self):
 		return self.control.getValue()
 
-	def on_close(self):
+	def on_remove(self):
 		self.parent.removeWidget(self)
 
 	def save(self):
 		self.parent.save()
 
 class DirList(QWidget):
-	def __init__(self, values=[], onChange=None, rowType=DirectoryLocal):
-		super(DirList, self).__init__()
+	"""DirList UI control
+	"""
+	def __init__(self, values, onChange=None, rowType=DirectoryLocal):
+		super().__init__()
 		self.rowType = rowType
 
 		layout = QVBoxLayout(self)

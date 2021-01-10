@@ -55,15 +55,12 @@ class TableModel(QAbstractTableModel):
 		Print.debug('TableModel update finished')
 
 	def rowCount(self, parent=QtCore.QModelIndex()):
-		Print.debug('TableModel rowCount')
 		return len(self.datatable)
 
 	def columnCount(self, parent=QtCore.QModelIndex()):
-		Print.debug('TableModel columnCount')
 		return self.column_count
 
 	def data(self, index, role=Qt.DisplayRole):
-		Print.debug('TableModel data')
 		if role == Qt.DisplayRole:
 			i = index.row()
 			j = index.column()
@@ -75,7 +72,6 @@ class TableModel(QAbstractTableModel):
 			return QtCore.QVariant()
 
 	def flags(self, index):
-		Print.debug('TableModel flags')
 		return Qt.ItemIsEnabled
 
 	def headerData(self, section, orientation, role=Qt.DisplayRole):
