@@ -17,3 +17,4 @@ class GuiAppTest(unittest.TestCase):
 
 	def test_run(self):
 		self.assertEqual(self.form.title, 'NUT 3.0')
+		self.form.header.scan.click()
