@@ -312,7 +312,8 @@
         "filters.types.update": "Update",
         "filters.types.demo": "Demo",
         "filters.types.group": "TYPES",
-        "filters.region.group": "REGION"
+        "filters.region.group": "REGION",
+        "dirlist.browse": "Browse"
     },
     "ar": {
         "ABOUT": "\ufedd\ufeee\ufea3",
@@ -9543,19 +9544,20 @@
         "main.status.port": "Порт",
         "main.status.user": "Пользователь",
         "main.status.password": "Пароль",
-        "main.grid.files": "Файлы",
-        "main.grid.filters": "Фильтры",
-        "main.grid.save_paths": "Пути сохранения",
-        "main.grid.local_scan_paths": "Локальные пути сканирования",
-        "main.grid.remote_pull_paths": "Удаленные пути для подтягивания",
-        "main.grid.users": "Пользователи",
-        "main.grid.options": "Опции",
+        "main.grid.files": "&Файлы",
+        "main.grid.filters": "Ф&ильтры",
+        "main.grid.save_paths": "Пути &сохранения",
+        "main.grid.local_scan_paths": "&Локальные пути сканирования",
+        "main.grid.remote_pull_paths": "&Удаленные пути для подтягивания",
+        "main.grid.users": "&Пользователи",
+        "main.grid.options": "&Опции",
         "filters.types.base": "База",
         "filters.types.dlc": "Дополнение",
         "filters.types.update": "Обновление",
         "filters.types.demo": "Демо",
         "filters.types.group": "Типы",
-        "filters.region.group": "Регион"
+        "filters.region.group": "Регион",
+        "dirlist.browse": "Обзор"
     },
     "sv": {
         "ABOUT": "Handla om",

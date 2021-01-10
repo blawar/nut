@@ -29,12 +29,14 @@ class App(QWidget):
 		self.width = int(screen.width() / 2)
 		self.height = int(screen.height() / 2)
 		self.needsRefresh = False
+		self.isInitialized = False
 		self.initUI()
 
 	def refresh(self):
 		self.needsRefresh = True
 
 	def initUI(self):
+		self.isInitialized = False
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.left, self.top, self.width, self.height)
 
@@ -60,6 +62,7 @@ class App(QWidget):
 
 		self.setLayout(self.layout)
 
+		self.isInitialized = True
 		self.show()
 
 	def saveUsers(self, control):
@@ -76,6 +79,9 @@ class App(QWidget):
 		Users.export()
 
 	def saveScanPaths(self, control):
+		if not self.isInitialized:
+			return
+
 		result = []
 		i = 0
 		while i < control.count():
@@ -88,6 +94,9 @@ class App(QWidget):
 		Config.update_scan_paths(result, Nsps.files)
 
 	def savePullUrls(self, control):
+		if not self.isInitialized:
+			return
+
 		result = []
 		i = 0
 		while i < control.count():

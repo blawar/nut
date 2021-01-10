@@ -8,13 +8,14 @@ from translator import tr
 
 class ConfCheckbox(QCheckBox):
 	def __init__(self, text, conf):
-		super(QCheckBox, self).__init__(text)
+		super().__init__(text)
 		self.conf = conf
 		value = self.get()
 		self.setChecked(value)
 		self.stateChanged.connect(self.onStateChanged)
 
 	def onStateChanged(self, state):
+		print(f"ConfCheckbox state changed: {state}")
 		self.set(self.isChecked())
 		Config.save()
 
@@ -37,7 +38,7 @@ class ConfCheckbox(QCheckBox):
 
 class RegionEntry(QWidget):
 	def __init__(self, region):
-		super(QWidget, self).__init__()
+		super().__init__()
 		self.region = region.upper()
 		layout = QHBoxLayout(self)
 		self.check = QCheckBox(region)
@@ -48,6 +49,7 @@ class RegionEntry(QWidget):
 		layout.addStretch()
 
 	def onStateChanged(self, state):
+		print(f"RegionEntry state changed: {state}")
 		if self.check.isChecked():
 			Config.download.addRegion(self.region)
 		else:
@@ -57,7 +59,7 @@ class RegionEntry(QWidget):
 
 class Region(QWidget):
 	def __init__(self):
-		super(QWidget, self).__init__()
+		super().__init__()
 
 		layout = QGridLayout(self)
 
@@ -75,7 +77,7 @@ class Region(QWidget):
 
 class Filters(QWidget):
 	def __init__(self):
-		super(QWidget, self).__init__()
+		super().__init__()
 
 		layout = QVBoxLayout(self)
 

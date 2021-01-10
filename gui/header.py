@@ -26,36 +26,43 @@ class Header:
 		self.scan = QPushButton(tr('main.top_menu.scan'), app)
 		self.scan.setMaximumWidth(100)
 		self.scan.clicked.connect(app.on_scan)
+		self.scan.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(self.scan)
 
 		btn = QPushButton(tr('main.top_menu.organize'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_organize)
+		btn.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(btn)
 
 		self.pull = QPushButton(tr('main.top_menu.pull'), app)
 		self.pull.setMaximumWidth(100)
 		self.pull.clicked.connect(app.on_pull)
+		self.pull.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(self.pull)
 
 		self.titledb = QPushButton(tr('main.top_menu.update_titledb'), app)
 		self.titledb.setMaximumWidth(200)
 		self.titledb.clicked.connect(app.on_titledb)
+		self.titledb.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(self.titledb)
 
 		btn = QPushButton(tr('main.top_menu.decompress_nsz'), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_decompress)
+		btn.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(btn)
 
 		btn = QPushButton(tr("main.top_menu.compress_nsp"), app)
 		btn.setMaximumWidth(200)
 		btn.clicked.connect(app.on_compress)
+		btn.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(btn)
 
 		self.gdrive = QPushButton(tr("main.top_menu.setup_gdrive"), app)
 		self.gdrive.setMaximumWidth(200)
 		self.gdrive.clicked.connect(app.on_gdrive)
+		self.gdrive.setFocusPolicy(Qt.StrongFocus)
 		top.addWidget(self.gdrive)
 
 		top.addStretch()

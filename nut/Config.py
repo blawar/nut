@@ -5,7 +5,7 @@ import os
 import time
 from binascii import unhexlify as uhx
 
-import nut.Print  # pylint: disable=unused-import
+from nut import Print
 
 threads = 1
 jsonOutput = False
@@ -256,6 +256,7 @@ def set(json_, paths_, value):  # pylint: disable=redefined-builtin
 	json_[last] = value
 
 def save(confFile='conf/nut.conf'):
+	Print.debug("saving config")
 	os.makedirs(os.path.dirname(confFile), exist_ok=True)
 	j = {}
 	try:
@@ -276,6 +277,7 @@ def save(confFile='conf/nut.conf'):
 	set(j, ['autoUpdateTitleDb'], autoUpdateTitleDb)
 
 	with open(confFile, 'w', encoding='utf-8') as f:
+		Print.debug("writing config to filesystem")
 		json.dump(j, f, indent=4)
 
 def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
