@@ -29,8 +29,9 @@ from nut import Config, Keys, Nsps, NszDecompressor, Print, Title, Titles, aes12
 try:
 	import cdn
 	import cdn.Shogun
+	hasCdn = True
 except BaseException:
-	pass
+	hasCdn = False
 
 from ganymede import Ganymede
 
@@ -1333,6 +1334,8 @@ def getName(titleId, version, key=None, path=None):
 	return os.path.join(Config.paths.nspOut, os.path.basename(nsp.fileName() or ('Untitled [%s][v%d]%s' % (titleId, int(version or 0), ext))))
 
 def scrapeShogun(force=False, region=None):
+	if not hasCdn:
+		return
 	initTitles()
 	initFiles()
 
@@ -1359,6 +1362,8 @@ def scrapeShogunWorker(q, force=False):
 		q.task_done()
 
 def scrapeShogunThreaded(force=False):
+	if not hasCdn:
+		return
 	initTitles()
 	initFiles()
 
@@ -1397,6 +1402,8 @@ def scrapeShogunThreaded(force=False):
 	Print.info('titles  saved')
 
 def scanLatestTitleUpdates():
+	if not hasCdn:
+		return
 	global versionHistory
 	initTitles()
 	initFiles()
@@ -1441,6 +1448,8 @@ def scanLatestTitleUpdates():
 		Print.info(str(e))
 
 def downloadThread(i):
+	if not hasCdn:
+		return
 	Print.info('starting thread ' + str(i))
 	global status
 	while Config.isRunning and not Titles.queue.empty():
