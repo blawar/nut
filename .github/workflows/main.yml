@@ -32,6 +32,10 @@ jobs:
       run: |
         sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        setup-python: 'false'
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
@@ -51,8 +55,10 @@ jobs:
         pip3 install -r requirements.txt
         pip3 install -r requirements_dev.txt
     - name: Tests and coverage
+      env:
+        QT_QPA_PLATFORM: offscreen
       run: |
-        coverage run -m pytest -s
+        invoke coverage
     - name: Lint
       run: |
         invoke lint
