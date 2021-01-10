@@ -34,6 +34,8 @@ jobs:
       shell: bash
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
+      with:
+        setup-python: 'false'
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
