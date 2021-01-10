@@ -153,7 +153,8 @@ def load(fileName='titledb/files.json', verify=True):
 			for k in json.loads(f.read()):
 				_path = k['path']
 				t = Fs.Nsp(_path, None)
-				t.timestamp = k['timestamp']
+				if 'timestamp' in k:
+					t.timestamp = k['timestamp']
 				t.titleId = k['titleId']
 				t.version = k['version']
 
