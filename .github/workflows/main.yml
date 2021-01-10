@@ -56,7 +56,7 @@ jobs:
         pip3 install -r requirements_dev.txt
     - name: Tests and coverage
       run: |
-        coverage run -m pytest -s
+        invoke coverage
     - name: Lint
       run: |
         invoke lint
