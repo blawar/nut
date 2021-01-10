@@ -138,6 +138,19 @@ def _load_nsp_filesize(json_title, nsp):
 
 	return True
 
+def _fill_nsp_from_json_object(nsp, json_object):
+	if 'timestamp' in json_object:
+		nsp.timestamp = json_object['timestamp']
+	nsp.titleId = json_object['titleId']
+	nsp.version = json_object['version']
+
+	if 'extractedNcaMeta' in json_object and json_object['extractedNcaMeta'] == 1:
+		nsp.extractedNcaMeta = True
+	else:
+		nsp.extractedNcaMeta = False
+
+	nsp.cr = json_object['cr'] if 'cr' in json_object else None
+
 def load(fileName='titledb/files.json', verify=True):
 	global hasLoaded  # pylint: disable=global-statement
 
@@ -151,34 +164,19 @@ def load(fileName='titledb/files.json', verify=True):
 	if os.path.isfile(fileName):
 		with open(fileName, encoding="utf-8-sig") as f:
 			for k in json.loads(f.read()):
-				_path = k['path']
-				t = Fs.Nsp(_path, None)
-				t.timestamp = k['timestamp']
-				t.titleId = k['titleId']
-				t.version = k['version']
+				_nsp = Fs.Nsp(k['path'], None)
 
-				if 'extractedNcaMeta' in k and k['extractedNcaMeta'] == 1:
-					t.extractedNcaMeta = True
-				else:
-					t.extractedNcaMeta = False
-
-				if not _load_nsp_filesize(k, t):
+				if not _load_nsp_filesize(k, _nsp) or not _nsp.path:
 					continue
 
-				if 'cr' in k:
-					t.cr = k['cr']
-				else:
-					t.cr = None
+				_fill_nsp_from_json_object(_nsp, k)
 
-				if not t.path:
-					continue
-
-				path = os.path.abspath(t.path)
+				path = os.path.abspath(_nsp.path)
 				if verify and Config.isScanning:
 					if os.path.isfile(path) and os.path.exists(path) and not _is_file_hidden(path):
-						files[path] = t
+						files[path] = _nsp
 				else:
-					files[path] = t
+					files[path] = _nsp
 	Print.info('loaded file list in ' + str(time.perf_counter() - timestamp) + ' seconds')
 
 def save(fileName='titledb/files.json'):
