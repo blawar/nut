@@ -12,7 +12,7 @@ class FileContext(Fs.driver.FileContext):
 		pass
 
 	def setup(self, curl, offset, size):
-		if offset or sz:
+		if offset or size:
 
 			if sz:
 
