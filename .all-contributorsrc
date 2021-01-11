@@ -23,6 +23,23 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "blawar",
+      "name": "Blake Warner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10227949?v=4",
+      "profile": "https://github.com/blawar",
+      "contributions": [
+        "code",
+        "bug",
+        "maintenance",
+        "doc",
+        "ideas",
+        "infra",
+        "question",
+        "review",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
