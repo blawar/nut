@@ -14,10 +14,10 @@ class FileContext(Fs.driver.FileContext):
 	def setup(self, curl, offset, size):
 		if offset or size:
 
-			if sz:
+			if size:
 
 				offset = int(offset or 0)
-				sz = int(sz)
+				size = int(size)
 
 				tmp = '%d-%d' % (offset, offset + size - 1)
 			else:
