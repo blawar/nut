@@ -1,6 +1,6 @@
 # NUT [![Build Status](https://github.com/blawar/nut/workflows/CI/badge.svg)](https://github.com/blawar/nut/actions?query=workflow%3ACI) [![Coverage Status](https://coveralls.io/repos/github/blawar/nut/badge.svg?branch=master&dummy=unused)](https://coveralls.io/github/blawar/nut?branch=master) [![GitHub license](https://img.shields.io/github/license/blawar/nut.svg)](https://github.com/blawar/nut/blob/master/LICENSE) [![Github all releases](https://img.shields.io/github/downloads/blawar/nut/total.svg)](https://GitHub.com/blawar/nut/releases/)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 This is a program that acts as a USB and network server for use with [Tinfoil](https://tinfoil.io/Download).
 
@@ -63,6 +63,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/96RadhikaJadhav"><img src="https://avatars2.githubusercontent.com/u/56536997?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Radhika</b></sub></a><br /><a href="https://github.com/blawar/nut/commits?author=96RadhikaJadhav" title="Code">💻</a></td>
+    <td align="center"><a href="https://exhumer.cc/"><img src="https://avatars2.githubusercontent.com/u/62310242?v=4?s=100" width="100px;" alt=""/><br /><sub><b>eXhumer</b></sub></a><br /><a href="https://github.com/blawar/nut/issues?q=author%3AeXhumer" title="Bug reports">🐛</a> <a href="https://github.com/blawar/nut/commits?author=eXhumer" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/blawar"><img src="https://avatars1.githubusercontent.com/u/10227949?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Blake Warner</b></sub></a><br /><a href="https://github.com/blawar/nut/commits?author=blawar" title="Code">💻</a> <a href="https://github.com/blawar/nut/issues?q=author%3Ablawar" title="Bug reports">🐛</a> <a href="#maintenance-blawar" title="Maintenance">🚧</a> <a href="https://github.com/blawar/nut/commits?author=blawar" title="Documentation">📖</a> <a href="#ideas-blawar" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-blawar" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#question-blawar" title="Answering Questions">💬</a> <a href="https://github.com/blawar/nut/pulls?q=is%3Apr+reviewed-by%3Ablawar" title="Reviewed Pull Requests">👀</a> <a href="#tool-blawar" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/throwawayay"><img src="https://avatars0.githubusercontent.com/u/17516209?v=4?s=100" width="100px;" alt=""/><br /><sub><b>throwawayay</b></sub></a><br /><a href="https://github.com/blawar/nut/issues?q=author%3Athrowawayay" title="Bug reports">🐛</a> <a href="#maintenance-throwawayay" title="Maintenance">🚧</a> <a href="https://github.com/blawar/nut/commits?author=throwawayay" title="Documentation">📖</a> <a href="#ideas-throwawayay" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>

@@ -15,6 +15,33 @@
       ]
     },
     {
+      "login": "eXhumer",
+      "name": "eXhumer",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/62310242?v=4",
+      "profile": "https://exhumer.cc/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "blawar",
+      "name": "Blake Warner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10227949?v=4",
+      "profile": "https://github.com/blawar",
+      "contributions": [
+        "code",
+        "bug",
+        "maintenance",
+        "doc",
+        "ideas",
+        "infra",
+        "question",
+        "review",
+        "tool"
+      ]
+    },
+    {
       "login": "throwawayay",
       "name": "throwawayay",
       "avatar_url": "https://avatars0.githubusercontent.com/u/17516209?v=4",
