@@ -1,15 +1,13 @@
-import pycurl
-import io
 import os
+import re
 import html
 import urllib.parse
 import Fs.driver
 import Fs.driver.curl
-from nut import Print
 
 class DirContext(Fs.driver.curl.DirContext):
-	def __init__(self, url, parent):
-		super(DirContext, self).__init__(url, parent)
+	"""DirContext class
+	"""
 
 	def processLs(self, result):
 		entries = []
@@ -19,7 +17,7 @@ class DirContext(Fs.driver.curl.DirContext):
 			if '.' in name:
 				entries.append(Fs.driver.FileEntry(path, None))
 
-		ms = re.findall(b'href="(.[^"]*)"', out)
+		ms = re.findall('href="(.[^"]*)"', result)
 
 		if ms:
 			for m in ms:
@@ -31,8 +29,10 @@ class DirContext(Fs.driver.curl.DirContext):
 
 
 class Http(Fs.driver.curl.Curl):
+	"""Http class
+	"""
 	def __init__(self, url=None):
-		super(Http, self).__init__(url)
+		super().__init__(url)
 		self.dirContextType = DirContext
 
 

@@ -250,7 +250,7 @@ class DirectoryNetwork(QWidget):
 		self.parent.save()
 
 	def on_browse(self):
-		d = GdrivePicker(self)
+		d = GdrivePicker()
 		if not d.exec_() or not d.url:
 			return
 
