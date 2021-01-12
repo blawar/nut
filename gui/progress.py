@@ -37,7 +37,7 @@ class Progress:
 		for i in Status.lst:
 			if i.isOpen():
 				try:
-					self.progress.setValue(i.i / i.size * 100)
+					self.progress.setValue(i.i * 100 // i.size)
 					self.text.setText(i.desc)
 					self.speed.setText(
 						_format_speed(i.a / (time.process_time() - i.ats))
