@@ -1,3 +1,4 @@
+import base64
 import datetime
 import html
 import json
@@ -24,7 +25,8 @@ import Fs
 import Fs.Type
 from Fs import Cnmt, Nca, Nsp, Pfs0, Rom
 from Fs.Pfs0 import Pfs0Stream
-from nut import Config, Keys, Nsps, NszDecompressor, Print, Title, Titles, aes128
+from nut import (Config, Keys, Nsps, NszDecompressor, Print, Status, Title,
+                 Titles, aes128)
 
 try:
 	import cdn
@@ -1314,8 +1316,8 @@ def extractNcaMeta():
 	# Nsps.save()
 
 def getName(titleId, version, key=None, path=None):
-	nut.initTitles()
-	nut.initFiles()
+	initTitles()
+	initFiles()
 	titleId = titleId.upper()
 	nsp = Nsp()
 
