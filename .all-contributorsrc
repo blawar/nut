@@ -52,6 +52,18 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "introkun",
+      "name": "Sergey Gradovich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/61635?v=4",
+      "profile": "https://github.com/introkun",
+      "contributions": [
+        "code",
+        "bug",
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
