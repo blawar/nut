@@ -26,3 +26,7 @@ keys.txt
 *.xci
 *.xcz
 *.nsz
+
+_NSPOUT
+
+nut.lock
