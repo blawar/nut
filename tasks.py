@@ -10,10 +10,11 @@ else:
 	py = "python3"
 
 @task
-def coverage(c, details=False):
+def coverage(c, details=False, gui=False):
 	c.run("coverage erase")
 	c.run("coverage run -m pytest --ignore tests-gui")
-	c.run("coverage run -m pytest --ignore tests")
+	if gui:
+		c.run("coverage run -m pytest --ignore tests")
 	if details:
 		c.run("coverage html && coverage annotate")
 		c.run("coverage report", pty=True)
