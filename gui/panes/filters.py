@@ -1,10 +1,16 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QBoxLayout, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QCheckBox, QGroupBox, QGridLayout
+from PyQt5.QtCore import QRect, pyqtSlot, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QRect
-from nut import Nsps, Config
+from PyQt5.QtWidgets import (QAction, QApplication, QBoxLayout, QCheckBox,
+                             QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
+                             QLabel, QLineEdit, QMainWindow, QPushButton,
+                             QTableWidget, QTableWidgetItem, QTabWidget,
+                             QVBoxLayout, QWidget, QSlider)
+
+from nut import Config
 from translator import tr
+
+from gui.bar_slider import BarSlider
+
 
 class ConfCheckbox(QCheckBox):
 	def __init__(self, text, conf):
@@ -102,5 +108,8 @@ class Filters(QWidget):
 		regionLayout = QHBoxLayout(region)
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
+
+		rankFilter = BarSlider()
+		layout.addWidget(rankFilter)
 
 		layout.addStretch()
