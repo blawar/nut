@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (QAction, QApplication, QBoxLayout, QCheckBox,
 from nut import Config
 from translator import tr
 
-from gui.bar_slider import BarSlider
+from gui.BarSlider import BarSlider
 
 
 class ConfCheckbox(QCheckBox):
@@ -109,19 +109,19 @@ class Filters(QWidget):
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
 
-		rank_group = QGroupBox('Rank filter')
-		rank_filter_layout = QHBoxLayout(rank_group)
-		filter_min_label = QLabel('0')
-		filter_min_label.setMinimumWidth(20)
-		rank_filter_layout.addWidget(filter_min_label)
-		bar_slider = BarSlider(self)
-		rank_filter_layout.addWidget(bar_slider)
-		filter_max_label = QLabel(str(bar_slider.get_right_thumb_value()))
-		filter_max_label.setMinimumWidth(20)
-		rank_filter_layout.addWidget(filter_max_label)
-		layout.addWidget(rank_group)
+		rankGroup = QGroupBox('Rank filter')
+		rankFilterLayout = QHBoxLayout(rankGroup)
+		filterMinLabel = QLabel('0')
+		filterMinLabel.setMinimumWidth(20)
+		rankFilterLayout.addWidget(filterMinLabel)
+		barSlider = BarSlider(self)
+		rankFilterLayout.addWidget(barSlider)
+		filterMaxLabel = QLabel(str(barSlider.getRightThumbValue()))
+		filterMaxLabel.setMinimumWidth(20)
+		rankFilterLayout.addWidget(filterMaxLabel)
+		layout.addWidget(rankGroup)
 
-		bar_slider.leftThumbValueChanged.connect(filter_min_label.setNum)
-		bar_slider.rightThumbValueChanged.connect(filter_max_label.setNum)
+		barSlider.leftThumbValueChanged.connect(filterMinLabel.setNum)
+		barSlider.rightThumbValueChanged.connect(filterMaxLabel.setNum)
 
 		layout.addStretch()
