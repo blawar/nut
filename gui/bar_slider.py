@@ -2,6 +2,10 @@ from PyQt5.QtCore import Qt, QRect, QSize, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QSizePolicy)
 from PyQt5.QtGui import QPainter, QBrush, QColor, QPalette
 
+
+def _get_thumb_value(x, canvas_width, right_value):
+	return round(x / canvas_width * right_value)
+
 class BarSlider(QWidget):
 	"""BarSlider is a class which implements a slider with 2 thumbs
 	"""
@@ -12,6 +16,7 @@ class BarSlider(QWidget):
 	TRACK_HEIGHT = 3
 	TRACK_COLOR = QColor(0xc7, 0xc7, 0xc7)
 	TRACK_FILL_COLOR = QColor(0x01, 0x81, 0xff)
+	TRACK_PADDING = THUMB_WIDTH // 2 + 5
 
 	leftThumbValueChanged = pyqtSignal(int)
 	rightThumbValueChanged = pyqtSignal(int)
@@ -31,6 +36,10 @@ class BarSlider(QWidget):
 
 		self._left_thumb_rect = None
 		self._right_thumb_rect = None
+		self._left_thumb_pressed = False
+		self._right_thumb_pressed = False
+
+		self._canvas_width = None
 
 		parent_palette = parent.palette()
 		self._background_color = parent_palette.color(QPalette.Window)
@@ -42,20 +51,18 @@ class BarSlider(QWidget):
 	def sizeHint(self):
 		return QSize(self.HEIGHT, self.WIDTH)
 
-	def paintEvent(self, e):
-		self._draw()
-
-	def _draw(self):
+	def paintEvent(self, unused_e):
+		del unused_e
 		painter = QPainter(self)
 		painter.setRenderHint(QPainter.Antialiasing)
 
-		canvas_width = painter.device().width()
+		self._canvas_width = painter.device().width()
 		canvas_height = painter.device().height()
 
-		self._draw_track(canvas_width, canvas_height, painter)
-		self._draw_track_fill(canvas_width, canvas_height, painter)
-		self._draw_left_thumb(canvas_width, canvas_height, painter)
-		self._draw_right_thumb(canvas_width, canvas_height, painter)
+		self._draw_track(self._canvas_width, canvas_height, painter)
+		self._draw_track_fill(self._canvas_width, canvas_height, painter)
+		self._draw_left_thumb(self._canvas_width, canvas_height, painter)
+		self._draw_right_thumb(self._canvas_width, canvas_height, painter)
 
 		# pen = painter.pen()
 		# pen.setColor(QColor('red'))
@@ -79,7 +86,8 @@ class BarSlider(QWidget):
 		brush.setColor(self.TRACK_COLOR)
 		brush.setStyle(Qt.SolidPattern)
 
-		rect = QRect(0, self._get_track_y_position(canvas_height), canvas_width, self.TRACK_HEIGHT)
+		rect = QRect(self.TRACK_PADDING, self._get_track_y_position(canvas_height), \
+			canvas_width - 2 * self.TRACK_PADDING, self.TRACK_HEIGHT)
 		painter.fillRect(rect, brush)
 
 	def _draw_track_fill(self, canvas_width, canvas_height, painter):
@@ -87,9 +95,13 @@ class BarSlider(QWidget):
 		brush.setColor(self.TRACK_FILL_COLOR)
 		brush.setStyle(Qt.SolidPattern)
 
-		x1 = self._left_thumb_value / self._right_value * canvas_width
-		x2 = self._right_thumb_value / self._right_value * canvas_width
-		rect = QRect(x1, self._get_track_y_position(canvas_height), x2 - x1, self.TRACK_HEIGHT)
+		available_width = canvas_width - 2 * self.TRACK_PADDING
+		x1 = self._left_thumb_value / self._right_value * available_width + self.TRACK_PADDING
+		x2 = self._right_thumb_value / self._right_value * available_width + self.TRACK_PADDING
+		print(f"x1 {x1} x2 {x2}")
+		print(f"available_width {available_width}")
+		rect = QRect(x1, self._get_track_y_position(canvas_height), \
+			x2 - x1, self.TRACK_HEIGHT)
 		painter.fillRect(rect, brush)
 
 	def _draw_thumb(self, x, y, painter):
@@ -103,30 +115,38 @@ class BarSlider(QWidget):
 
 		painter.setBrush(brush)
 
-		thumb_rect = QRect(x - self.THUMB_WIDTH // 2, \
+		thumb_rect = QRect(x - self.THUMB_WIDTH // 2 + self.TRACK_PADDING, \
 			y + self.TRACK_HEIGHT // 2 - self.THUMB_HEIGHT // 2, self.THUMB_WIDTH, self.THUMB_HEIGHT)
 		painter.drawEllipse(thumb_rect)
 		return thumb_rect
 
 	def _draw_right_thumb(self, canvas_width, canvas_height, painter):
-		x = self._right_thumb_value / self._right_value * canvas_width
+		available_width = canvas_width - 2 * self.TRACK_PADDING
+		x = self._right_thumb_value / self._right_value * available_width
 		y = self._get_track_y_position(canvas_height)
 		self._right_thumb_rect = self._draw_thumb(x, y, painter)
 
 	def _draw_left_thumb(self, canvas_width, canvas_height, painter):
-		x = self._left_thumb_value / self._right_value * canvas_width
+		available_width = canvas_width - 2 * self.TRACK_PADDING
+		x = round(self._left_thumb_value / self._right_value * available_width)
 		y = self._get_track_y_position(canvas_height)
 		self._left_thumb_rect = self._draw_thumb(x, y, painter)
 
 	def set_left_thumb_value(self, value):
-		if value < 0 or value > self._right_thumb_value:
+		if value < 0 or value > self._right_thumb_value - 1:
+			return
+		if value == self._left_thumb_value:
+			# nothing to update
 			return
 		self._left_thumb_value = value
 		self.leftThumbValueChanged.emit(value)
 		self.repaint()
 
 	def set_right_thumb_value(self, value):
-		if value > self._right_value:
+		if value > self._right_value or value < self._left_thumb_value + 1:
+			return
+		if value == self._right_thumb_value:
+			# nothing to update
 			return
 		self._right_thumb_value = value
 		self.rightThumbValueChanged.emit(value)
@@ -135,11 +155,26 @@ class BarSlider(QWidget):
 	def mousePressEvent(self, event):
 		print('mousePressEvent')
 		if self._left_thumb_rect.contains(event.x(), event.y()):
-			self.set_left_thumb_value(self._left_thumb_value - 1)
+			self._left_thumb_pressed = True
 		if self._right_thumb_rect.contains(event.x(), event.y()):
-			self.set_right_thumb_value(self._right_thumb_value + 1)
+			self._right_thumb_pressed = True
 		super().mousePressEvent(event)
 
 	def mouseReleaseEvent(self, event):
 		print('mouseReleaseEvent')
+		self._left_thumb_pressed = False
+		self._right_thumb_pressed = False
 		super().mousePressEvent(event)
+
+	def mouseMoveEvent(self, event):
+		if self._left_thumb_pressed:
+			new_val = _get_thumb_value(event.x(), self._canvas_width, self._right_value)
+			self.set_left_thumb_value(new_val)
+			return
+
+		if self._right_thumb_pressed:
+			new_val = _get_thumb_value(event.x(), self._canvas_width, self._right_value)
+			self.set_right_thumb_value(new_val)
+
+	def get_right_thumb_value(self):
+		return self._right_thumb_value
