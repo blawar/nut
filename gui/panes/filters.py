@@ -114,7 +114,7 @@ class Filters(QWidget):
 		filterMinLabel = QLabel('0')
 		filterMinLabel.setMinimumWidth(20)
 		rankFilterLayout.addWidget(filterMinLabel)
-		barSlider = BarSlider(self)
+		barSlider = BarSlider(self, 0, 10)
 		rankFilterLayout.addWidget(barSlider)
 		filterMaxLabel = QLabel(str(barSlider.getRightThumbValue()))
 		filterMaxLabel.setMinimumWidth(20)

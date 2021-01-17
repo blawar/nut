@@ -28,7 +28,7 @@ class BarSlider(QWidget):
 	leftThumbValueChanged = pyqtSignal(int)
 	rightThumbValueChanged = pyqtSignal(int)
 
-	def __init__(self, parent):
+	def __init__(self, parent, left_value, right_value, left_thumb_value=0, right_thumb_value=None):
 		super().__init__(parent)
 
 		self.setSizePolicy(
@@ -36,11 +36,15 @@ class BarSlider(QWidget):
 			QSizePolicy.MinimumExpanding
 		)
 
-		self._left_value = 0
-		self._right_value = 10
+		self._left_value = left_value
+		self._right_value = right_value
 
-		self._left_thumb = Thumb(3, None, False)
-		self._right_thumb = Thumb(7, None, False)
+		self._left_thumb = Thumb(left_thumb_value, None, False)
+		_right_thumb_value = right_thumb_value if right_thumb_value is not None \
+			else self._right_value
+		if _right_thumb_value < left_thumb_value + 1:
+			raise ValueError("Right thumb value is less or equal left thumb value.")
+		self._right_thumb = Thumb(_right_thumb_value, None, False)
 
 		self._canvas_width = None
 
