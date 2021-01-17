@@ -109,7 +109,17 @@ class Filters(QWidget):
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
 
-		rankFilter = BarSlider()
-		layout.addWidget(rankFilter)
+		rank_group = QGroupBox('Rank filter')
+		rank_filter_layout = QHBoxLayout(rank_group)
+		filter_min_label = QLabel('min')
+		rank_filter_layout.addWidget(filter_min_label)
+		bar_slider = BarSlider(self)
+		rank_filter_layout.addWidget(bar_slider)
+		filter_max_label = QLabel('max')
+		rank_filter_layout.addWidget(filter_max_label)
+		layout.addWidget(rank_group)
+
+		bar_slider.leftThumbValueChanged.connect(filter_min_label.setNum)
+		bar_slider.rightThumbValueChanged.connect(filter_max_label.setNum)
 
 		layout.addStretch()
