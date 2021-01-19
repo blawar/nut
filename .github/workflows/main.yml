@@ -36,6 +36,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with:
         setup-python: 'false'
+        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
