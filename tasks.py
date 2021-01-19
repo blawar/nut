@@ -26,8 +26,7 @@ def test(c):
 @task
 def lint(c):
 	run_arg = "pylint -j 4 nut/Config.py tests/ nut/Nsps.py nut/Hex.py nut_gui.py \
-		gui/panes/dirlist.py Fs/driver/http.py nut/config_impl/download.py \
-		gui/BarSlider.py"
+		gui/panes/dirlist.py Fs/driver/http.py nut/config_impl/download.py"
 	if os.name == 'nt': # Windows
 		c.run(run_arg)
 	else:

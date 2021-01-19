@@ -6,10 +6,10 @@ from PyQt5.QtWidgets import (QAction, QApplication, QBoxLayout, QCheckBox,
                              QTableWidget, QTableWidgetItem, QTabWidget,
                              QVBoxLayout, QWidget, QSlider)
 
+from qt_range_slider import QtRangeSlider
+
 from nut import Config
 from translator import tr
-
-from gui.BarSlider import BarSlider
 
 
 class ConfCheckbox(QCheckBox):
@@ -114,14 +114,14 @@ class Filters(QWidget):
 		filterMinLabel = QLabel('0')
 		filterMinLabel.setMinimumWidth(20)
 		rankFilterLayout.addWidget(filterMinLabel)
-		barSlider = BarSlider(self, 0, 10)
+		barSlider = QtRangeSlider(self, 0, 10)
 		rankFilterLayout.addWidget(barSlider)
-		filterMaxLabel = QLabel(str(barSlider.getRightThumbValue()))
+		filterMaxLabel = QLabel(str(barSlider.get_right_thumb_value()))
 		filterMaxLabel.setMinimumWidth(20)
 		rankFilterLayout.addWidget(filterMaxLabel)
 		layout.addWidget(rankGroup)
 
-		barSlider.leftThumbValueChanged.connect(filterMinLabel.setNum)
-		barSlider.rightThumbValueChanged.connect(filterMaxLabel.setNum)
+		barSlider.left_thumb_value_changed.connect(filterMinLabel.setNum)
+		barSlider.right_thumb_value_changed.connect(filterMaxLabel.setNum)
 
 		layout.addStretch()
