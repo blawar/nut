@@ -11,6 +11,15 @@ from qt_range_slider import QtRangeSlider
 from nut import Config
 from translator import tr
 
+# TODO: move to a separate module
+def _format_size(num, suffix='B'):
+	if num is None:
+		return ''
+	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
+		if abs(num) < 1024.0:
+			return "%3.1f %s%s" % (num, unit, suffix)
+		num /= 1024.0
+	return "%.1f %s%s" % (num, 'Yi', suffix)
 
 class ConfCheckbox(QCheckBox):
 	def __init__(self, text, conf):
@@ -109,19 +118,28 @@ class Filters(QWidget):
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
 
-		rankGroup = QGroupBox('Rank filter')
-		rankFilterLayout = QHBoxLayout(rankGroup)
-		filterMinLabel = QLabel('0')
-		filterMinLabel.setMinimumWidth(20)
-		rankFilterLayout.addWidget(filterMinLabel)
-		barSlider = QtRangeSlider(self, 0, 10)
-		rankFilterLayout.addWidget(barSlider)
-		filterMaxLabel = QLabel(str(barSlider.get_right_thumb_value()))
-		filterMaxLabel.setMinimumWidth(20)
-		rankFilterLayout.addWidget(filterMaxLabel)
-		layout.addWidget(rankGroup)
+		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
+		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
+		MIN_FILE_SIZE = 0
+		MAX_FILE_SIZE = 30*1024*1024*1024
+		minFileSizeFilter = 0
+		if Config.download.fileSizeMax is not None:
+			minFileSizeFilter = Config.download.fileSizeMin
+		maxFileSizeFilter = MAX_FILE_SIZE
+		if Config.download.fileSizeMax is not None:
+			maxFileSizeFilter = Config.download.fileSizeMax
+		filterMinSizeLabel = QLabel(f"{_format_size(minFileSizeFilter)}")
+		filterMinSizeLabel.setMinimumWidth(60)
+		sizeFilterLayout.addWidget(filterMinSizeLabel)
+		barSlider = QtRangeSlider(self, MIN_FILE_SIZE, MAX_FILE_SIZE, minFileSizeFilter, \
+			maxFileSizeFilter)
+		sizeFilterLayout.addWidget(barSlider)
+		filterMaxSizeLabel = QLabel(_format_size(barSlider.get_right_thumb_value()))
+		filterMaxSizeLabel.setMinimumWidth(60)
+		sizeFilterLayout.addWidget(filterMaxSizeLabel)
+		layout.addWidget(sizeFilterGroup)
 
-		barSlider.left_thumb_value_changed.connect(filterMinLabel.setNum)
-		barSlider.right_thumb_value_changed.connect(filterMaxLabel.setNum)
+		barSlider.left_thumb_value_changed.connect((lambda x: filterMinSizeLabel.setText(_format_size(x))))
+		barSlider.right_thumb_value_changed.connect((lambda x: filterMaxSizeLabel.setText(_format_size(x))))
 
 		layout.addStretch()
