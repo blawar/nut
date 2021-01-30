@@ -18,4 +18,4 @@ asn1~=2.4.1
 filelock~=3.0.12
 Unidecode~=1.1.1
 pycurl~=7.43.0
-qt-range-slider~=0.2.1
+qt-range-slider~=0.2.3

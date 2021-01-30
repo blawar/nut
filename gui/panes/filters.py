@@ -1,10 +1,10 @@
 from PyQt5.QtCore import QRect, pyqtSlot, Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QPalette
 from PyQt5.QtWidgets import (QAction, QApplication, QBoxLayout, QCheckBox,
-                             QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
-                             QLabel, QLineEdit, QMainWindow, QPushButton,
-                             QTableWidget, QTableWidgetItem, QTabWidget,
-                             QVBoxLayout, QWidget, QSlider)
+							 QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
+							 QLabel, QLineEdit, QMainWindow, QPushButton,
+							 QTableWidget, QTableWidgetItem, QTabWidget,
+							 QVBoxLayout, QWidget, QSlider, QSizePolicy)
 
 from qt_range_slider import QtRangeSlider
 
@@ -94,6 +94,9 @@ class Filters(QWidget):
 	def __init__(self):
 		super().__init__()
 
+		self.MIN_FILE_SIZE = 0
+		self.MAX_FILE_SIZE = 30 * 1024**3
+
 		layout = QVBoxLayout(self)
 
 		types = QGroupBox(tr('filters.types.group'))
@@ -120,26 +123,42 @@ class Filters(QWidget):
 
 		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
 		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
-		MIN_FILE_SIZE = 0
-		MAX_FILE_SIZE = 30*1024*1024*1024
+
 		minFileSizeFilter = 0
 		if Config.download.fileSizeMax is not None:
 			minFileSizeFilter = Config.download.fileSizeMin
-		maxFileSizeFilter = MAX_FILE_SIZE
+		maxFileSizeFilter = self.MAX_FILE_SIZE
 		if Config.download.fileSizeMax is not None:
 			maxFileSizeFilter = Config.download.fileSizeMax
-		filterMinSizeLabel = QLabel(f"{_format_size(minFileSizeFilter)}")
-		filterMinSizeLabel.setMinimumWidth(60)
-		sizeFilterLayout.addWidget(filterMinSizeLabel)
-		barSlider = QtRangeSlider(self, MIN_FILE_SIZE, MAX_FILE_SIZE, minFileSizeFilter, \
-			maxFileSizeFilter)
-		sizeFilterLayout.addWidget(barSlider)
-		filterMaxSizeLabel = QLabel(_format_size(barSlider.get_right_thumb_value()))
-		filterMaxSizeLabel.setMinimumWidth(60)
-		sizeFilterLayout.addWidget(filterMaxSizeLabel)
+
+		filterMinSizeLabel = self._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
+
+		rangeSlider = self._createRangeSlider(sizeFilterLayout, minFileSizeFilter, maxFileSizeFilter)
+
+		filterMaxSizeLabel = self._createLeftLabel(sizeFilterLayout, rangeSlider.get_right_thumb_value())
+
 		layout.addWidget(sizeFilterGroup)
 
-		barSlider.left_thumb_value_changed.connect((lambda x: filterMinSizeLabel.setText(_format_size(x))))
-		barSlider.right_thumb_value_changed.connect((lambda x: filterMaxSizeLabel.setText(_format_size(x))))
+		rangeSlider.left_thumb_value_changed.connect((lambda x: filterMinSizeLabel.setText(_format_size(x))))
+		rangeSlider.right_thumb_value_changed.connect((lambda x: filterMaxSizeLabel.setText(_format_size(x))))
 
-		layout.addStretch()
+	def _createLeftLabel(self, layout, value):
+		return self._createLabel(layout, value, Qt.AlignRight)
+
+	def _createRightLabel(self, layout, value):
+		return self._createLabel(layout, value, Qt.AlignLeft)
+
+	def _createRangeSlider(self, layout, minValue, maxValue):
+		rangeSlider = QtRangeSlider(self, self.MIN_FILE_SIZE, self.MAX_FILE_SIZE, minValue, maxValue)
+		layout.addWidget(rangeSlider)
+		return rangeSlider
+
+	@staticmethod
+	def _createLabel(layout, value, alignment):
+		label = QLabel(f"{_format_size(value)}")
+		label.setFixedWidth(80)
+		label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+		label.setAlignment(alignment)
+
+		layout.addWidget(label)
+		return label

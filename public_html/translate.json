@@ -313,6 +313,7 @@
         "filters.types.demo": "Demo",
         "filters.types.group": "TYPES",
         "filters.region.group": "REGION",
+        "filters.size.group": "File Size",
         "dirlist.browse": "Browse"
     },
     "ar": {
@@ -9557,6 +9558,7 @@
         "filters.types.demo": "Демо",
         "filters.types.group": "Типы",
         "filters.region.group": "Регион",
+        "filters.size.group": "Размер файла",
         "dirlist.browse": "Обзор"
     },
     "sv": {
