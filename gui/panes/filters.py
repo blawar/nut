@@ -1,16 +1,13 @@
-from PyQt5.QtCore import QRect, pyqtSlot, Qt
-from PyQt5.QtGui import QIcon, QPalette
-from PyQt5.QtWidgets import (QAction, QApplication, QBoxLayout, QCheckBox,
-							 QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
-							 QLabel, QLineEdit, QMainWindow, QPushButton,
-							 QTableWidget, QTableWidgetItem, QTabWidget,
-							 QVBoxLayout, QWidget, QSlider, QSizePolicy)
-
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
+                             QLabel, QSizePolicy, QVBoxLayout, QWidget)
 from qt_range_slider import QtRangeSlider
 
 from nut import Config
 from translator import tr
 
+
+# pylint: disable=fixme
 # TODO: move to a separate module
 def _format_size(num, suffix='B'):
 	if num is None:
@@ -22,6 +19,8 @@ def _format_size(num, suffix='B'):
 	return "%.1f %s%s" % (num, 'Yi', suffix)
 
 class ConfCheckbox(QCheckBox):
+	"""ConfCheckbox
+	"""
 	def __init__(self, text, conf):
 		super().__init__(text)
 		self.conf = conf
@@ -40,7 +39,7 @@ class ConfCheckbox(QCheckBox):
 			for path in self.conf.split('.'):
 				j = getattr(j, path)
 			return j
-		except BaseException as e:
+		except BaseException: # pylint: disable=broad-except
 			return None
 
 	def set(self, value):
@@ -52,6 +51,8 @@ class ConfCheckbox(QCheckBox):
 		setattr(j, last, value)
 
 class RegionEntry(QWidget):
+	"""RegionEntry
+	"""
 	def __init__(self, region):
 		super().__init__()
 		self.region = region.upper()
@@ -73,6 +74,8 @@ class RegionEntry(QWidget):
 
 
 class Region(QWidget):
+	"""Region
+	"""
 	def __init__(self):
 		super().__init__()
 
@@ -80,6 +83,7 @@ class Region(QWidget):
 
 		regions = []
 		for region, languages in Config.regionLanguages().items():
+			del languages
 			regions.append(region)
 
 		regions.sort()
@@ -91,6 +95,8 @@ class Region(QWidget):
 			i += 1
 
 class Filters(QWidget):
+	"""Filters
+	"""
 	def __init__(self):
 		super().__init__()
 
@@ -99,27 +105,11 @@ class Filters(QWidget):
 
 		layout = QVBoxLayout(self)
 
-		types = QGroupBox(tr('filters.types.group'))
+		typesGroup = QGroupBox(tr('filters.types.group'))
 
-		testGroup = QHBoxLayout(types)
+		self._createTypesGroup(layout, typesGroup)
 
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
-		testGroup.addStretch()
-
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
-		testGroup.addStretch()
-
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
-		testGroup.addStretch()
-
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
-
-		layout.addWidget(types)
-
-		region = QGroupBox('REGION')
-		regionLayout = QHBoxLayout(region)
-		regionLayout.addWidget(Region())
-		layout.addWidget(region)
+		self._createRegionGroup(layout)
 
 		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
 		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
@@ -141,6 +131,30 @@ class Filters(QWidget):
 
 		rangeSlider.left_thumb_value_changed.connect((lambda x: filterMinSizeLabel.setText(_format_size(x))))
 		rangeSlider.right_thumb_value_changed.connect((lambda x: filterMaxSizeLabel.setText(_format_size(x))))
+
+	@staticmethod
+	def _createRegionGroup(layout):
+		region = QGroupBox('REGION')
+		regionLayout = QHBoxLayout(region)
+		regionLayout.addWidget(Region())
+		layout.addWidget(region)
+
+	@staticmethod
+	def _createTypesGroup(layout, typesGroup):
+		typesLayout = QHBoxLayout(typesGroup)
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
+
+		layout.addWidget(typesGroup)
 
 	def _createLeftLabel(self, layout, value):
 		return self._createLabel(layout, value, Qt.AlignRight)
