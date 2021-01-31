@@ -30,3 +30,6 @@ keys.txt
 _NSPOUT
 
 nut.lock
+
+# config file to switch between conda environments
+environment.yml
