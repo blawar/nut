@@ -9,6 +9,7 @@ from pyfakefs.fake_filesystem_unittest import TestCase
 
 from nut import Nsps, Print
 from nut import Config
+from nut.config_impl.download import Download
 
 Print.enableDebug = True
 
@@ -317,6 +318,33 @@ class NutConfigPathsTest(TestCase):
 		self.assertEqual(Path(Config.paths.getTitleDemoUpdate(True, 'name [123][v0].nsx')), \
 			path / '{name}[{id}][v{version}].nsx')
 
+
+class NutConfigDownloadTest(TestCase):
+	"""Tests for nut/config_impl/download.py
+	"""
+
+	def test_add_region(self):
+		download_section = Download()
+		self.assertListEqual(download_section.regions, [])
+		download_section.addRegion("US")
+		self.assertListEqual(download_section.regions, ["US"])
+
+	def test_remove_region(self):
+		download_section = Download()
+		download_section.addRegion("US")
+		self.assertListEqual(download_section.regions, ["US"])
+		download_section.removeRegion("US")
+		self.assertListEqual(download_section.regions, [])
+		download_section.removeRegion("US") # no error for non-existing region
+
+	def test_has_region(self):
+		download_section = Download()
+		self.assertFalse(download_section.hasRegion(["US"], default=False))
+		self.assertTrue(download_section.hasRegion(["US"], default=True))
+		download_section.addRegion("US")
+		self.assertTrue(download_section.hasRegion(["US"], default=False))
+		self.assertFalse(download_section.hasRegion(["RU"], default=False))
+		self.assertFalse(download_section.hasRegion(["RU"]))
 
 if __name__ == "__main__":
 	unittest.main()

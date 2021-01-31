@@ -1,12 +1,26 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QBoxLayout, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QCheckBox, QGroupBox, QGridLayout
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QRect
-from nut import Nsps, Config
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
+                             QLabel, QSizePolicy, QVBoxLayout, QWidget)
+from qt_range_slider import QtRangeSlider
+
+from nut import Config
 from translator import tr
 
+
+# pylint: disable=fixme
+# TODO: move to a separate module
+def _format_size(num, suffix='B'):
+	if num is None:
+		return ''
+	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
+		if abs(num) < 1024.0:
+			return "%3.1f %s%s" % (num, unit, suffix)
+		num /= 1024.0
+	return "%.1f %s%s" % (num, 'Yi', suffix)
+
 class ConfCheckbox(QCheckBox):
+	"""ConfCheckbox
+	"""
 	def __init__(self, text, conf):
 		super().__init__(text)
 		self.conf = conf
@@ -25,7 +39,7 @@ class ConfCheckbox(QCheckBox):
 			for path in self.conf.split('.'):
 				j = getattr(j, path)
 			return j
-		except BaseException as e:
+		except BaseException: # pylint: disable=broad-except
 			return None
 
 	def set(self, value):
@@ -37,6 +51,8 @@ class ConfCheckbox(QCheckBox):
 		setattr(j, last, value)
 
 class RegionEntry(QWidget):
+	"""RegionEntry
+	"""
 	def __init__(self, region):
 		super().__init__()
 		self.region = region.upper()
@@ -58,6 +74,8 @@ class RegionEntry(QWidget):
 
 
 class Region(QWidget):
+	"""Region
+	"""
 	def __init__(self):
 		super().__init__()
 
@@ -65,6 +83,7 @@ class Region(QWidget):
 
 		regions = []
 		for region, languages in Config.regionLanguages().items():
+			del languages
 			regions.append(region)
 
 		regions.sort()
@@ -76,31 +95,100 @@ class Region(QWidget):
 			i += 1
 
 class Filters(QWidget):
+	"""Filters
+	"""
 	def __init__(self):
 		super().__init__()
 
+		self.MIN_FILE_SIZE = 0
+		self.MAX_FILE_SIZE = 30 * 1024**3
+
 		layout = QVBoxLayout(self)
 
-		types = QGroupBox(tr('filters.types.group'))
+		typesGroup = QGroupBox(tr('filters.types.group'))
 
-		testGroup = QHBoxLayout(types)
+		Filters._createTypesGroup(layout, typesGroup)
 
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
-		testGroup.addStretch()
+		Filters._createRegionGroup(layout)
 
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
-		testGroup.addStretch()
+		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
+		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
 
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
-		testGroup.addStretch()
+		minFileSizeFilter = 0
+		if Config.download.fileSizeMax is not None:
+			minFileSizeFilter = Config.download.fileSizeMin
+		maxFileSizeFilter = self.MAX_FILE_SIZE
+		if Config.download.fileSizeMax is not None:
+			maxFileSizeFilter = Config.download.fileSizeMax
 
-		testGroup.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
+		filterMinSizeLabel = Filters._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
 
-		layout.addWidget(types)
+		rangeSlider = self._createRangeSlider(sizeFilterLayout, minFileSizeFilter, maxFileSizeFilter)
 
+		filterMaxSizeLabel = Filters._createRightLabel(sizeFilterLayout, rangeSlider.get_right_thumb_value())
+
+		layout.addWidget(sizeFilterGroup)
+
+		rangeSlider.left_thumb_value_changed.connect((lambda x: \
+			Filters._on_left_thumb_value_changed(filterMinSizeLabel, x)))
+		rangeSlider.right_thumb_value_changed.connect((lambda x: \
+			Filters._on_right_thumb_value_changed(filterMaxSizeLabel, x)))
+
+	@staticmethod
+	def _on_left_thumb_value_changed(label, value):
+		label.setText(_format_size(value))
+		Config.download.fileSizeMin = value
+		Config.save()
+
+	@staticmethod
+	def _on_right_thumb_value_changed(label, value):
+		label.setText(_format_size(value))
+		Config.download.fileSizeMax = value
+		Config.save()
+
+	@staticmethod
+	def _createRegionGroup(layout):
 		region = QGroupBox('REGION')
 		regionLayout = QHBoxLayout(region)
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
 
-		layout.addStretch()
+	@staticmethod
+	def _createTypesGroup(layout, typesGroup):
+		typesLayout = QHBoxLayout(typesGroup)
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
+		typesLayout.addStretch()
+
+		typesLayout.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
+
+		layout.addWidget(typesGroup)
+
+	@staticmethod
+	def _createLeftLabel(layout, value):
+		return Filters._createLabel(layout, value, Qt.AlignRight)
+
+	@staticmethod
+	def _createRightLabel(layout, value):
+		return Filters._createLabel(layout, value, Qt.AlignLeft)
+
+	def _createRangeSlider(self, layout, minValue, maxValue):
+		rangeSlider = QtRangeSlider(self, self.MIN_FILE_SIZE, self.MAX_FILE_SIZE, minValue, maxValue)
+		layout.addWidget(rangeSlider)
+		return rangeSlider
+
+	@staticmethod
+	def _createLabel(layout, value, alignment):
+		label = QLabel(f"{_format_size(value)}")
+		label.setFixedWidth(80)
+		label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+		label.setAlignment(alignment)
+
+		layout.addWidget(label)
+		return label
