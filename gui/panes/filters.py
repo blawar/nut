@@ -107,9 +107,9 @@ class Filters(QWidget):
 
 		typesGroup = QGroupBox(tr('filters.types.group'))
 
-		self._createTypesGroup(layout, typesGroup)
+		Filters._createTypesGroup(layout, typesGroup)
 
-		self._createRegionGroup(layout)
+		Filters._createRegionGroup(layout)
 
 		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
 		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
@@ -121,16 +121,30 @@ class Filters(QWidget):
 		if Config.download.fileSizeMax is not None:
 			maxFileSizeFilter = Config.download.fileSizeMax
 
-		filterMinSizeLabel = self._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
+		filterMinSizeLabel = Filters._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
 
 		rangeSlider = self._createRangeSlider(sizeFilterLayout, minFileSizeFilter, maxFileSizeFilter)
 
-		filterMaxSizeLabel = self._createLeftLabel(sizeFilterLayout, rangeSlider.get_right_thumb_value())
+		filterMaxSizeLabel = Filters._createRightLabel(sizeFilterLayout, rangeSlider.get_right_thumb_value())
 
 		layout.addWidget(sizeFilterGroup)
 
-		rangeSlider.left_thumb_value_changed.connect((lambda x: filterMinSizeLabel.setText(_format_size(x))))
-		rangeSlider.right_thumb_value_changed.connect((lambda x: filterMaxSizeLabel.setText(_format_size(x))))
+		rangeSlider.left_thumb_value_changed.connect((lambda x: \
+			Filters._on_left_thumb_value_changed(filterMinSizeLabel, x)))
+		rangeSlider.right_thumb_value_changed.connect((lambda x: \
+			Filters._on_right_thumb_value_changed(filterMaxSizeLabel, x)))
+
+	@staticmethod
+	def _on_left_thumb_value_changed(label, value):
+		label.setText(_format_size(value))
+		Config.download.fileSizeMin = value
+		Config.save()
+
+	@staticmethod
+	def _on_right_thumb_value_changed(label, value):
+		label.setText(_format_size(value))
+		Config.download.fileSizeMax = value
+		Config.save()
 
 	@staticmethod
 	def _createRegionGroup(layout):
@@ -156,11 +170,13 @@ class Filters(QWidget):
 
 		layout.addWidget(typesGroup)
 
-	def _createLeftLabel(self, layout, value):
-		return self._createLabel(layout, value, Qt.AlignRight)
+	@staticmethod
+	def _createLeftLabel(layout, value):
+		return Filters._createLabel(layout, value, Qt.AlignRight)
 
-	def _createRightLabel(self, layout, value):
-		return self._createLabel(layout, value, Qt.AlignLeft)
+	@staticmethod
+	def _createRightLabel(layout, value):
+		return Filters._createLabel(layout, value, Qt.AlignLeft)
 
 	def _createRangeSlider(self, layout, minValue, maxValue):
 		rangeSlider = QtRangeSlider(self, self.MIN_FILE_SIZE, self.MAX_FILE_SIZE, minValue, maxValue)
