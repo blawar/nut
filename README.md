@@ -53,6 +53,18 @@ You can find a copy of the license in the [LICENSE file](./LICENSE).
 Exemptions:
 * [nsz](https://github.com/nicoboss/nsz) is exempt from the GPLv3 licensing and can license any source code from this project under MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense.
 
+## Contributing
+
+Contributions are welcome!
+
+To prevent continuous integration failures when contributing, please consider installing
+[pre-commit](https://pre-commit.com/) in your environment to run all of these checks
+prior to checking in new code.
+
+```shell
+pre-commit install
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
