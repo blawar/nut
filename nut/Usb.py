@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Copyright (c) 2018 Blake Warner
 '''
@@ -177,6 +178,9 @@ def daemon():
 
 			Print.info('USB Connected')
 			status = 'connected'
+
+			if dev.is_kernel_driver_active(0):
+				dev.detach_kernel_driver(0)
 
 			dev.reset()
 			dev.set_configuration()
