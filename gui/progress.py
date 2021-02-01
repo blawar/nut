@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 
 from PyQt5.QtCore import Qt, pyqtSlot, QTimer
@@ -40,7 +41,7 @@ class Progress:
 					self.progress.setValue(i.i * 100 // i.size)
 					self.text.setText(i.desc)
 					self.speed.setText(
-						_format_speed(i.a / (time.process_time() - i.ats))
+						_format_speed(i.a / (time.perf_counter() - i.ats))
 					)
 				# TODO: Remove bare except
 				except BaseException:
