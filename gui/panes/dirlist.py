@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import urllib.parse
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFileDialog,
                              QFormLayout, QHBoxLayout, QLabel, QLineEdit,
-                             QListWidget, QPushButton, QVBoxLayout, QWidget)
+                             QListWidget, QPushButton, QVBoxLayout, QWidget, QScrollArea, QFrame)
 
 import Fs.driver
 from nut import Users
@@ -312,7 +313,11 @@ class DirList(QWidget):
 		super().__init__()
 		self.rowType = rowType
 
-		layout = QVBoxLayout(self)
+		self.scroll = QScrollArea(self)
+		self.scroll.setWidgetResizable(True)
+		self.scroll.setFrameShape(QFrame.NoFrame)
+
+		layout = QVBoxLayout(self.scroll)
 		self.list = QVBoxLayout()
 		self.button = QPushButton('Add')
 
@@ -322,11 +327,19 @@ class DirList(QWidget):
 		layout.addWidget(self.button)
 		layout.addStretch()
 
+		widget = QWidget()
+		widget.setLayout(layout)
+		self.scroll.setWidget(widget)
+
 		self.layout = layout
 		self.onChange = onChange
 
 		for value in values:
 			self.add(value)
+
+	def resizeEvent(self, _):
+		self.scroll.setFixedWidth(self.width())
+		self.scroll.setFixedHeight(self.height())
 
 	def on_click(self):
 		self.add(None)

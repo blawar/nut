@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
+# -*- coding: utf-8 -*-
+from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QSizePolicy
 from PyQt5.QtCore import Qt
 
 class Tabs(QWidget):

@@ -1,20 +1,24 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QScrollArea, QGroupBox
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QRect
-from nut import Nsps, Config
+# -*- coding: utf-8 -*-
+from PyQt5.QtWidgets import (QFormLayout, QGroupBox,
+                             QLabel, QLineEdit,
+                             QScrollArea, QVBoxLayout,
+                             QWidget, QFrame)
+
+from nut import Config
+
 
 class Edit(QLineEdit):
-	def __init__(self, id, type):
+	"""Edit class
+	"""
+	def __init__(self, id_, type_):
 		super().__init__()
-		self.id = id
-		self.type = type
+		self.id = id_
+		self.type = type_
 
-		if type:
-			self.key = type.lower() + 'Title' + id
+		if type_:
+			self.key = type_.lower() + 'Title' + id_
 		else:
-			self.key = 'title' + id
+			self.key = 'title' + id_
 
 		self.setText(getattr(Config.paths, self.key))
 		# self.textChanged.connect(self.onChange)
@@ -28,63 +32,47 @@ class Edit(QLineEdit):
 			setattr(Config.paths, self.key, new)
 			Config.save()
 
-		super(Edit, self).focusOutEvent(event)
+		super().focusOutEvent(event)
 
 	def onChange(self):
 		print('changed: ' + self.id)
 
 class Row(QGroupBox):
-	def __init__(self, type=''):
-		super().__init__((type or 'nsp').upper())
+	"""Row class
+	"""
+	def __init__(self, type_=''):
+		super().__init__((type_ or 'nsp').upper())
 		layout = QFormLayout(self)
 
-		layout.addRow(QLabel('Base'), Edit('Base', type))
-		layout.addRow(QLabel('DLC'), Edit('DLC', type))
-		layout.addRow(QLabel('Update'), Edit('Update', type))
-		layout.addRow(QLabel('Demo'), Edit('Demo', type))
-		layout.addRow(QLabel('Demo Update'), Edit('DemoUpdate', type))
+		layout.addRow(QLabel('Base'), Edit('Base', type_))
+		layout.addRow(QLabel('DLC'), Edit('DLC', type_))
+		layout.addRow(QLabel('Update'), Edit('Update', type_))
+		layout.addRow(QLabel('Demo'), Edit('Demo', type_))
+		layout.addRow(QLabel('Demo Update'), Edit('DemoUpdate', type_))
 
 		# self.layout.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
 
 class Format(QWidget):
+	"""Format class
+	"""
 	def __init__(self):
 		super().__init__()
 
-		layout = QVBoxLayout(self)
+		self.scroll = QScrollArea(self)
+		self.scroll.setWidgetResizable(True)
+		self.scroll.setFrameShape(QFrame.NoFrame)
 
-		'''
-		self.titleBase = 'titles/{name}[{id}][v{version}].nsp'
-		self.titleDLC = 'titles/DLC/{name}[{id}][v{version}].nsp'
-		self.titleUpdate = 'titles/updates/{name}[{id}][v{version}].nsp'
-		self.titleDemo = 'titles/demos/{name}[{id}][v{version}].nsp'
-		self.titleDemoUpdate = 'titles/demos/updates/{name}[{id}][v{version}].nsp'
+		layout = QVBoxLayout(self.scroll)
 
-		self.nszTitleBase = None
-		self.nszTitleDLC = None
-		self.nszTitleUpdate = None
-		self.nszTitleDemo = None
-		self.nszTitleDemoUpdate = None
-
-		self.xciTitleBase = None
-		self.xciTitleDLC = None
-		self.xciTitleUpdate = None
-		self.xciTitleDemo = None
-		self.xciTitleDemoUpdate = None
-
-		self.nsxTitleBase = None
-		self.nsxTitleDLC = None
-		self.nsxTitleUpdate = None
-		self.nsxTitleDemo = None
-		self.nsxTitleDemoUpdate = None
-
-		testGroup = QFormLayout()
-
-		testGroup.addRow(QLabel("Name:"), QLineEdit())
-		testGroup.addRow(QLabel("Email:"), QLineEdit())
-		testGroup.addRow(QLabel("Age:"), QLineEdit())
-		'''
 		layout.addWidget(Row(''))
 		layout.addWidget(Row('nsz'))
 		layout.addWidget(Row('xci'))
 		# layout.addWidget(Row('nsx'))
-		layout.addStretch()
+
+		widget = QWidget()
+		widget.setLayout(layout)
+		self.scroll.setWidget(widget)
+
+	def resizeEvent(self, _):
+		self.scroll.setFixedWidth(self.width())
+		self.scroll.setFixedHeight(self.height())

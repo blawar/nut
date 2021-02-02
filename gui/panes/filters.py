@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
-                             QLabel, QSizePolicy, QVBoxLayout, QWidget)
+							 QLabel, QSizePolicy, QVBoxLayout, QWidget, QScrollArea, QFrame)
 from qt_range_slider import QtRangeSlider
 
 from nut import Config
@@ -82,8 +83,7 @@ class Region(QWidget):
 		layout = QGridLayout(self)
 
 		regions = []
-		for region, languages in Config.regionLanguages().items():
-			del languages
+		for region, _ in Config.regionLanguages().items():
 			regions.append(region)
 
 		regions.sort()
@@ -103,7 +103,11 @@ class Filters(QWidget):
 		self.MIN_FILE_SIZE = 0
 		self.MAX_FILE_SIZE = 30 * 1024**3
 
-		layout = QVBoxLayout(self)
+		self.scroll = QScrollArea(self)
+		self.scroll.setWidgetResizable(True)
+		self.scroll.setFrameShape(QFrame.NoFrame)
+
+		layout = QVBoxLayout(self.scroll)
 
 		typesGroup = QGroupBox(tr('filters.types.group'))
 
@@ -129,10 +133,18 @@ class Filters(QWidget):
 
 		layout.addWidget(sizeFilterGroup)
 
+		widget = QWidget()
+		widget.setLayout(layout)
+		self.scroll.setWidget(widget)
+
 		rangeSlider.left_thumb_value_changed.connect((lambda x: \
 			Filters._on_left_thumb_value_changed(filterMinSizeLabel, x)))
 		rangeSlider.right_thumb_value_changed.connect((lambda x: \
 			Filters._on_right_thumb_value_changed(filterMaxSizeLabel, x)))
+
+	def resizeEvent(self, _):
+		self.scroll.setFixedWidth(self.width())
+		self.scroll.setFixedHeight(self.height())
 
 	@staticmethod
 	def _on_left_thumb_value_changed(label, value):
