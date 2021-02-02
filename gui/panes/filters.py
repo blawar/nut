@@ -83,8 +83,7 @@ class Region(QWidget):
 		layout = QGridLayout(self)
 
 		regions = []
-		for region, languages in Config.regionLanguages().items():
-			del languages
+		for region, _ in Config.regionLanguages().items():
 			regions.append(region)
 
 		regions.sort()
@@ -143,8 +142,7 @@ class Filters(QWidget):
 		rangeSlider.right_thumb_value_changed.connect((lambda x: \
 			Filters._on_right_thumb_value_changed(filterMaxSizeLabel, x)))
 
-	def resizeEvent(self, event):
-		del event
+	def resizeEvent(self, _):
 		self.scroll.setFixedWidth(self.width())
 		self.scroll.setFixedHeight(self.height())
 

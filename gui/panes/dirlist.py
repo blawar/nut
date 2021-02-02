@@ -337,8 +337,7 @@ class DirList(QWidget):
 		for value in values:
 			self.add(value)
 
-	def resizeEvent(self, event):
-		del event
+	def resizeEvent(self, _):
 		self.scroll.setFixedWidth(self.width())
 		self.scroll.setFixedHeight(self.height())
 
