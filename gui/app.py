@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 import os
 import webbrowser
 
 from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtWidgets import (QWidget, QDesktopWidget, QVBoxLayout, QMessageBox)
+from PyQt5.QtWidgets import (QWidget, QDesktopWidget, QVBoxLayout, QMessageBox, QSizePolicy)
 
 import gui.tabs
 import gui.panes.files

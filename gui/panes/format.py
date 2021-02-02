@@ -1,9 +1,17 @@
+# -*- coding: utf-8 -*-
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QFormLayout, QLabel, QLineEdit, QHBoxLayout, QScrollArea, QGroupBox
-from PyQt5.QtGui import QIcon
+
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QRect
-from nut import Nsps, Config
+from PyQt5.QtCore import QRect, pyqtSlot
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import (QAction, QApplication, QFormLayout, QGroupBox,
+                             QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+                             QPushButton, QScrollArea, QTableWidget,
+                             QTableWidgetItem, QTabWidget, QVBoxLayout,
+                             QWidget, QFrame, QScrollArea)
+
+from nut import Config, Nsps
+
 
 class Edit(QLineEdit):
 	def __init__(self, id, type):
@@ -50,7 +58,11 @@ class Format(QWidget):
 	def __init__(self):
 		super().__init__()
 
-		layout = QVBoxLayout(self)
+		self.scroll = QScrollArea(self)
+		self.scroll.setWidgetResizable(True)
+		self.scroll.setFrameShape(QFrame.NoFrame)
+
+		layout = QVBoxLayout(self.scroll)
 
 		'''
 		self.titleBase = 'titles/{name}[{id}][v{version}].nsp'
@@ -87,4 +99,12 @@ class Format(QWidget):
 		layout.addWidget(Row('nsz'))
 		layout.addWidget(Row('xci'))
 		# layout.addWidget(Row('nsx'))
-		layout.addStretch()
+
+		widget = QWidget()
+		widget.setLayout(layout)
+		self.scroll.setWidget(widget)
+
+	def resizeEvent(self, event):
+		del event
+		self.scroll.setFixedWidth(self.width())
+		self.scroll.setFixedHeight(self.height())
