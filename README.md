@@ -15,16 +15,32 @@ This is a program that acts as a USB and network server for use with [Tinfoil](h
 * PIP modules from `requirements.txt`
 * OpenSSL-backed curl (for pycurl)
 
-### Installation guide
+### Installation guide (Linux)
 * Install Python 3.6+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages.
-* Install `curl` with the openssl backend. For Mac, follow [this](https://blog.birkhoff.me/switching-to-the-openssl-version-of-curl/), and set install options: `export PYCURL_SSL_LIBRARY=openssl`. For Linux, install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
+* Install `curl` with the openssl backend - install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
 * Clone this repository to desired directory and change your working directory to the cloned repository.
 * Install the PIP modules with the following command `pip3 install -r requirements.txt`. *If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip install pycurl --no-cache-dir`*
-* (Linux only) Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
+* Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor.
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
 ```
 * Run `python3 nut_gui.py` to launch the application.
+
+### Installation guide (macOS)
+* Install Python 3.6+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
+* Install `libusb` (`brew install libusb`)
+* Install `curl` with the openssl backend (`brew install curl-openssl`)
+* Clone this repository to desired directory and change your working directory to the cloned repository
+* (Optional, but highly recommended) Create a virtualenv and activate it (`pyenv virtualenv nut && source activate nut`)
+* Install pycurl using one of the below. Read [this](https://blog.birkhoff.me/switching-to-the-openssl-version-of-curl/) for more details
+```
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install --no-cache-dir pycurl
+or try
+pip install --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl" pycurl
+```
+* Install all other dependencies (`pip install -r requirements.txt`)
+* Run `python nut_gui.py` to launch the application
+
 
 ![NUT GUI Image](./images/nutserver.png)
 
@@ -44,6 +60,7 @@ This shows the progress information of any file that is currently being download
 NUT will authenticate with GDrive if you create a GDrive application, and place its credentials.json file either in nut's root directory, or in the conf directory. You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/python.
 
 Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or GDrive protocol.
+
 
 ## License
 This project is licensed under the terms of GPLv3, with the exemptions for specific projects noted below.
