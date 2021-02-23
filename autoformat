@@ -1,4 +1,4 @@
 #!/bin/bash
-find . -iname '*.py' -exec autopep8 --global-config .pep8 --aggressive -i "{}" \;
+find . -iname '*.py' -exec autopep8 --global-config setup.cfg --aggressive -i "{}" \;
 find . -iname '*.py' -exec autoflake --in-place --remove-all-unused-imports --remove-unused-variables "{}" \;
 find . -iname '*.py' -exec sed -i 's/    /\t/g' "{}" \;
