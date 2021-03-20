@@ -830,6 +830,9 @@ def organize():
 	#	f.move()
 
 	for id, t in Titles.data().items():
+		if not t.isActive(True):
+			continue
+
 		files = {}
 		for f in t.getFiles():
 			ext = f.path[-4:]
