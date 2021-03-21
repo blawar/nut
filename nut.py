@@ -133,12 +133,12 @@ def unlockAll(copy=False):
 		try:
 			if f.isUnlockable() and f.title().isActive():
 				if f.title().getLatestNsp() is not None or f.title().getLatestNsz() is not None:
-					Print.info('unlocked file arleady exists, skipping ' + f._path)
+					Print.info('unlocked file arleady exists, skipping ' + str(f.path))
 				f.open(getUnlockPath(f.path, copy), 'r+b')
 				if not f.verifyKey(f.titleId, f.title().key):
 					raise IOError('Could not verify title key! %s / %s - %s' % (f.titleId, f.title().key, f.title().name))
 					continue
-				Print.info('unlocking ' + f.path)
+				Print.info('unlocking ' + str(f.path))
 
 				f.unlock()
 				f.close()
