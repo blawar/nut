@@ -84,7 +84,7 @@ angular
   		titlesDict = {};
   		for (key in res.data) {
   			title = res.data[key];
-  			if (!title.isUpdate && !title.isDLC && !title.isDemo /*&& title.key != '00000000000000000000000000000000'*/) {
+  			if (!title.isUpdate && !title.isDLC && !title.isDemo) {
   				if (title.publisher == 'Nintendo') {
   					title.span = { col: 3, row: 3 };
 					title.thumbSize = 640
