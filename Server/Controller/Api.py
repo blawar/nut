@@ -87,8 +87,6 @@ def getSearch(request, response):
 	xci = []
 	xcz = []
 
-	nut.scan()
-
 	for _, f in Nsps.files.items():
 		name = f.fileName()
 		if name is None:
@@ -98,30 +96,35 @@ def getSearch(request, response):
 			nsp.append({
 				'id': f.titleId,
 				'name': f.baseName(),
+				'size': f.getFileSize(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.nsz'):
 			nsz.append({
 				'id': f.titleId,
 				'name': f.baseName(),
+				'size': f.getFileSize(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.nsx'):
 			nsx.append({
 				'id': f.titleId,
 				'name': f.baseName(),
+				'size': f.getFileSize(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.xci'):
 			xci.append({
 				'id': f.titleId,
 				'name': f.baseName(),
+				'size': f.getFileSize(),
 				'version': int(f.version) if f.version else None
 			})
 		elif name.endswith('.xcz'):
 			xcz.append({
 				'id': f.titleId,
 				'name': f.baseName(),
+				'size': f.getFileSize(),
 				'version': int(f.version) if f.version else None
 			})
 
