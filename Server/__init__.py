@@ -41,6 +41,9 @@ mimes = {
 	'.png': 'image/png',
 	'.nsx': 'application/octet-stream',
 	'.nsp': 'application/octet-stream',
+	'.nsz': 'application/octet-stream',
+	'.xci': 'application/octet-stream',
+	'.xcz': 'application/octet-stream',
 	'.jpg': 'image/jpeg'
 }
 

@@ -69,12 +69,15 @@ def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
 	return r
 
 def success(request, response, s):
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps({'success': True, 'result': s}))
 
 def error(request, response, s):
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps({'success': False, 'result': s}))
 
 def getUser(request, response):
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(request.user.__dict__))
 
 def getScan(request, response):
@@ -129,12 +132,14 @@ def getSearch(request, response):
 			})
 
 	o = nsz + nsp + xcz + xci + nsx
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(o))
 
 def getTitles(request, response):
 	o = []
 	for k, t in Titles.items():
 		o.append(t.__dict__)
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(o))
 
 def getTitleImage(request, response):
@@ -223,6 +228,7 @@ def getScreenshotImage(request, response):
 
 def getPreload(request, response):
 	Titles.queue.add(request.bits[2])
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps({'success': True}))
 
 def getInstall(request, response):
@@ -246,6 +252,7 @@ def getInstall(request, response):
 
 def getInfo(request, response):
 	try:
+		response.headers['Content-Type'] = 'application/json'
 		nsp = Nsps.getByTitleId(request.bits[2])
 		t = Titles.get(request.bits[2]).__dict__
 		t['size'] = nsp.getFileSize()
@@ -484,6 +491,7 @@ def isBlocked(path):
 
 def getDirectoryList(request, response):
 	try:
+		response.headers['Content-Type'] = 'application/json'
 
 		if len(request.bits) > 2:
 			virtualDir = request.bits[2]
@@ -581,6 +589,7 @@ def getFile(request, response, start=None, end=None):
 		raise IOError('file read access denied')
 
 def getFileSize(request, response):
+	response.headers['Content-Type'] = 'application/json'
 	t = {}
 	path = ''
 	for i in request.bits[2:]:
@@ -594,16 +603,8 @@ def getFileSize(request, response):
 		response.write(json.dumps({'success': False, 'message': str(e)}))
 
 def getQueue(request, response):
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps([]))
-	'''
-	r = Status.data().copy()
-	q = Titles.queue.get().copy()
-	i = Titles.queue.i
-	while i < len(q):
-		r.append({'id': q[i], 'i': 0, 'size': 0, 'elapsed': 0, 'speed': 0 })
-		i += 1
-	response.write(json.dumps(r))
-	'''
 
 def getTitleUpdates(request, response):
 	r = {}
@@ -611,9 +612,12 @@ def getTitleUpdates(request, response):
 		data = nsp.isUpdateAvailable()
 		if data:
 			r[data['id']] = data
+
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(r))
 
 def getFiles(request, response):
+	response.headers['Content-Type'] = 'application/json'
 	r = {}
 	for path, nsp in Nsps.files.items():
 		if Titles.contains(nsp.titleId):
@@ -656,6 +660,7 @@ def getImportRegions(request, response):
 	return success(request, response, "Fin")
 
 def getRegions(request, response):
+	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(Config.regionLanguages()))
 
 
@@ -712,6 +717,7 @@ def postTinfoilSetInstalledApps(request, response):
 
 def getSwitchList(request, response):
 	try:
+		response.headers['Content-Type'] = 'application/json'
 		dirs = [f for f in os.listdir('switch/') if os.path.isdir(os.path.join('switch/', f))]
 		response.write(json.dumps(dirs))
 	except BaseException as e:
