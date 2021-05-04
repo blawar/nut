@@ -659,6 +659,9 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.scan()
+				
+			if args.pull:
+				nut.pull()
 
 			if args.refresh:
 				nut.initTitles()
@@ -677,9 +680,6 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.organize()
-
-			if args.pull:
-				nut.pull()
 
 			if args.verify:
 				nut.initTitles()
