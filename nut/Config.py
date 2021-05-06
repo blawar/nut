@@ -847,9 +847,8 @@ try:
 	os.mkdir(paths.nspOut)
 except BaseException:  # pylint: disable=broad-except
 	pass
-	
+
 try:
 	os.mkdir(paths.titleImages)
 except BaseException:  # pylint: disable=broad-except
 	pass
-
