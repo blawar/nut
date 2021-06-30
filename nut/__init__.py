@@ -41,7 +41,7 @@ isInitTitles = False
 isInitFiles = False
 hasScanned = False
 status = None
-scrapeThreads = 16
+scrapeThreads = 4
 scrapeQueue = None
 versionHistory = {}
 activeDownloads = []
@@ -1392,7 +1392,7 @@ def scrapeShogunThreaded(force=False):
 	initFiles()
 
 	scrapeThreads = []
-	numThreads = 8
+	numThreads = 4
 
 	if Config.reverse:
 		q = queue.LifoQueue()
