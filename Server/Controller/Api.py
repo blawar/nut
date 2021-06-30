@@ -23,6 +23,7 @@ from google.auth.transport.requests import Request
 import hashlib
 import traceback
 import Fs.driver
+import Fs.driver.init
 
 try:
 	from PIL import Image
@@ -441,6 +442,10 @@ def listDrives():
 	drives = []
 	for label, _ in Config.paths.mapping().items():
 		drives.append(label)
+
+	if not Config.server.enableLocalDriveAccess:
+		return drives
+
 	if isWindows():
 		import string
 		import ctypes
@@ -456,9 +461,32 @@ def listDrives():
 
 	return drives
 
+def isInConfiguredPath(path):
+	path = path.lower().replace('\\', '/')
+
+	for label, value in Config.paths.mapping().items():
+		value = value.lower().replace('\\', '/')
+
+		if value and (path == value or path.startswith(value.lower())):
+			return True
+
+	return False
+
+def isBlockedPath(path):
+	if not Config.server.enableLocalDriveAccess:
+		if '..' in path:
+			return True
+
+		if not isInConfiguredPath(path):
+			return True
+
+	return False
 
 def isBlocked(path):
 	path = path.lower()
+
+	if isBlockedPath(path):
+		return True
 
 	whitelist = [
 		'.nro',
@@ -515,6 +543,9 @@ def getDirectoryList(request, response):
 			response.write(json.dumps(r))
 			return
 
+		if isBlockedPath(path):
+			raise IOError('forbidden')
+
 		for f in Fs.driver.openDir(path).ls():
 
 			if not f.isFile():
@@ -529,7 +560,8 @@ def getDirectoryList(request, response):
 
 		response.write(json.dumps(r))
 	except BaseException as e:
-		raise IOError('dir list access denied')
+		traceback.print_exc(file=sys.stdout)
+		raise IOError('dir list access denied: ' + str(e))
 
 
 def downloadProxyFile(url, response, start=None, end=None, headers={}):

@@ -158,10 +158,11 @@ def cleanPath(path=None):
 
 	bits = path.replace('\\', '/').split('/')
 	drive = bits[0]
+	driveKey = drive.replace(':', '')
 	bits = bits[1:]
 
-	if drive in Config.paths.mapping():
-		url = Config.paths.mapping()[drive]
+	if driveKey in Config.paths.mapping():
+		url = Config.paths.mapping()[driveKey]
 
 		path = os.path.abspath(
 			os.path.join(
@@ -175,3 +176,4 @@ def cleanPath(path=None):
 		path = os.path.abspath('/'.join(bits))
 
 	return path
+
