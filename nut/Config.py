@@ -50,6 +50,7 @@ class Server:  # pylint: disable=too-few-public-methods
 	def __init__(self):
 		self.hostname = '0.0.0.0'
 		self.port = 9000
+		self.enableLocalDriveAccess = 1
 
 class Compression:  # pylint: disable=too-few-public-methods
 	"""Compression-related settings
@@ -294,7 +295,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 
 	with open(confFile, encoding='utf8') as f:
-		j = json.load(f)
+		try:
+			j = json.load(f)
+		except BaseException as e:
+			print('Failed to load config file: %s' % confFile) # use normal print because of initialization order of Status / Print
+			raise
 
 		try:
 			region = j['region']
@@ -579,6 +584,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 
 		try:
 			server.port = int(j['server']['port'])
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			server.enableLocalDriveAccess = int(j['server']['enableLocalDriveAccess'])
 		except BaseException:  # pylint: disable=broad-except
 			pass
 
