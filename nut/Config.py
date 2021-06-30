@@ -297,7 +297,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	with open(confFile, encoding='utf8') as f:
 		try:
 			j = json.load(f)
-		except BaseException as e:
+		except BaseException: # pylint: disable=broad-except
 			print('Failed to load config file: %s' % confFile) # use normal print because of initialization order of Status / Print
 			raise
 
