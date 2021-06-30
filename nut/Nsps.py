@@ -24,14 +24,19 @@ def getByTitleId(id_):
 			return f
 	return None
 
-def registerFile(path):
+def registerFile(path, registerLUT = True):
 	path = os.path.abspath(path)
 
-	nsp = Fs.Nsp(path, None)
-	files[path] = nsp
+	if not path in files:
+		nsp = Fs.Nsp(path, None)
+		files[path] = nsp
+	else:
+		nsp = files[path]
 
-	if nsp.titleId:
+	if registerLUT and nsp.titleId:
 		Title.fileLUT[nsp.titleId].append(nsp)
+
+	return nsp
 
 def unregisterFile(path):
 	path = os.path.abspath(path)

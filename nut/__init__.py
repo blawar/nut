@@ -1088,6 +1088,9 @@ def loadNcaData():
 	global cnmtData
 	global ncaData
 
+	if not os.path.isfile('titledb/cnmts.json'):
+		return
+
 	try:
 		with open('titledb/cnmts.json', encoding="utf-8-sig") as f:
 			tmpData = json.loads(f.read())
@@ -1187,7 +1190,7 @@ def getCnmt(titleId=None, version=None, obj=None):
 
 	return cnmtData[titleId][version]
 
-def extractNcaMeta():
+def extractNcaMeta(files = []):
 	initTitles()
 	initFiles()
 
@@ -1195,21 +1198,35 @@ def extractNcaMeta():
 
 	global ncaData
 	q = {}
-	for path, nsp in Nsps.files.items():
-		if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
-			continue
-		try:
-			if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
-				# Print.info('skipping')
-				continue
 
-			if hasCnmt(nsp.titleId, nsp.version):
+	if not files or len(files) == 0:
+		for path, nsp in Nsps.files.items():
+			if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
 				continue
+			try:
+				if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
+					# Print.info('skipping')
+					continue
 
-			q[path] = nsp
-		except BaseException:
-			Print.info('exception: %s' % (path))
-			raise
+				if hasCnmt(nsp.titleId, nsp.version):
+					continue
+
+				q[path] = nsp
+			except BaseException:
+				Print.info('exception: %s' % (path))
+				raise
+	else:
+		for path in files:
+			try:
+				nsp = Nsps.registerFile(path, registerLUT = False)
+
+				if hasCnmt(nsp.titleId, nsp.version):
+					continue
+
+				q[path] = nsp
+			except BaseException:
+				Print.info('exception: %s' % (path))
+				raise
 
 	c = 0
 	for path, nsp in tqdm(q.items()):
