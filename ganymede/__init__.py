@@ -21,6 +21,7 @@ class Storage:
 		self.maxFileSize = 0
 		self.minFileSize = 0
 		self.totalSize = 0
+		self.pack = False
 
 		self.map = {}
 
@@ -149,9 +150,11 @@ class Storage:
 		entry['files'] = self.split(filePath, size)
 
 		self.map[tid][version] = entry
+		return True
+		
+	def close(self):
 		self.save()
 		self.saveTfl()
-		return True
 
 	def findFileToMove(self, free, blacklist=[]):
 		if free <= 0:
@@ -230,6 +233,13 @@ class Ganymede:
 	def __init__(self, conf):
 		self.config = Config(conf)
 		self.fix()
+		
+	def __enter__(self):
+		return self
+		
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		for storage in self.config.storages:
+			storage.close()
 
 	def print(self):
 		self.config.print()
@@ -275,7 +285,6 @@ class Ganymede:
 		print('fix fin')
 
 	def push(self, tid, version, filePath, size=0):
-		return False
 		if self.contains(tid, version):
 			return True
 

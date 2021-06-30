@@ -296,21 +296,21 @@ def ganymede(config):
 	initTitles()
 	initFiles()
 
-	g = Ganymede(config)
-	for k, t in Titles.items():
-		try:
-			if not t.isActive(skipKeyCheck=True):
-				continue
+	with Ganymede(config) as g:
+		for k, t in Titles.items():
+			try:
+				if not t.isActive(skipKeyCheck=True):
+					continue
 
-			lastestNsz = t.getLatestNsz()
+				lastestNsz = t.getLatestNsz()
 
-			if lastestNsz is None:
-				continue
+				if lastestNsz is None:
+					continue
 
-			g.push(t.id, lastestNsz.version, lastestNsz.path, lastestNsz.size)
+				g.push(t.id, lastestNsz.version, lastestNsz.path, lastestNsz.size)
 
-		except BaseException:
-			raise
+			except BaseException:
+				raise
 
 def compressAll(level=19):
 	initTitles()
@@ -727,7 +727,9 @@ def _ftpsync(url):
 
 	for path in fileList:
 		try:
-			#print('checking ' + path)
+			if path not in (b'nsx', b'nsz', b'nsp', b'xci', b'xcz'):
+				continue
+
 			nsp = Fs.Nsp()
 			nsp.setPath(urllib.parse.unquote(path))
 			nsp.downloadPath = path
