@@ -13,8 +13,14 @@ titleKeks = []
 keyAreaKeys = []
 keyGens = []
 
+hasDecimalMasterKeys = True
 ncaHdrFixedKeyModulus = int("bfbe406cf4a780e9f07d0c99611d772f96bc4b9e58381b03abb175499f2b4d5834b005a37522be1a3f0373ac7068d116b904465eb707912f078b26def60007b2b451f80d0a5e58adebbc9ad649b964efa782b5cf6d7013b00f85f6a908aa4d676687fa89ff7590181e6b3de98a68c92604d980ce3f5e92ce01ff063bf2c1a90cce026f16bc92420a4164cd52b6344daec02edea4df27683cc1a060ad43f3fc86c13e6c46f77c299ffafdf0e3ce64e735f2f656566f6df1e242b08340a5c3202bcc9aaecaed4d7030a8701c70fd1363290279ead2a7af3528321c7be62f1aaa407e328c2742fe8278ec0debe6834b6d8104401a9e9a67f67229fa04f09de4f403", 16)
 
+def ini_Key(i, prefix = 'master_key_'):
+	if hasDecimalMasterKeys:
+		return prefix + str(i).zfill(2)
+	else:
+		return prefix + ('%x' % i).zfill(2)
 
 def pssVerify(buffer, signature, modulus):
 	p = PKCS1_PSS.new(RSA.RsaKey(n=modulus, e=65537))
@@ -79,7 +85,7 @@ def unwrapAesWrappedTitlekey(wrappedKey, keyGeneration):
 	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
 
 	kek = generateKek(uhx(keys['key_area_key_application_source']), uhx(
-		keys['master_key_' + str(keyGeneration).zfill(2)]), aes_kek_generation_source, aes_key_generation_source)
+		keys[ini_Key(keyGeneration)]), aes_kek_generation_source, aes_key_generation_source)
 
 	crypto = aes128.AESECB(kek)
 	return crypto.decrypt(wrappedKey)
@@ -90,7 +96,7 @@ def getKey(key):
 	return uhx(keys[key])
 
 def masterKey(masterKeyIndex):
-	return getKey('master_key_' + str(masterKeyIndex).zfill(2))
+	return getKey(ini_Key(masterKeyIndex))
 
 def getKeyGens():
 	return keyGens
@@ -98,6 +104,7 @@ def getKeyGens():
 def load(fileName):
 	global keyAreaKeys
 	global titleKeks
+	global hasDecimalMasterKeys
 
 	with open(fileName, encoding="utf8") as f:
 		for line in f.readlines():
@@ -109,7 +116,6 @@ def load(fileName):
 	aes_kek_generation_source = uhx(keys['aes_kek_generation_source'])
 	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
 
-	hasDecimalMasterKeys = True
 	digits = ['a', 'b', 'c', 'd', 'e', 'f']
 
 	for key in keys.keys():
@@ -127,10 +133,7 @@ def load(fileName):
 		keyAreaKeys.append([None, None, None])
 
 	for i in range(0x10):
-		if hasDecimalMasterKeys:
-			masterKeyName = 'master_key_' + str(i).zfill(2)
-		else:
-			masterKeyName = 'master_key_' + ('%x' % i).zfill(2)
+		masterKeyName = ini_Key(i)
 
 		if masterKeyName in keys.keys():
 			# aes_decrypt(master_ctx, &keyset->titlekeks[i], keyset->titlekek_source, 0x10);
