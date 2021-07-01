@@ -38,7 +38,34 @@ class SectionTableEntry:
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = None
 
+class FsHeader:
+	def __init__(self, f):
+		self.version = f.readInt16()
+		self.fsType = f.readInt8()
+		self.hashType = f.readInt8()
+		self.encryptionType = f.readInt8()
+		self.padding = f.read(3)
+		self.hashInfo = f.read(0xF8)
+		self.patchInfo = f.read(0x40)
+		self.generation = f.readInt32()
+		self.secureValue = f.readInt32()
+		self.sparseInfo = f.read(0x30)
+		self.reserved = f.read(0x88)
 
+	def printInfo(self, maxDepth=3, indent=0):
+		tabs = '\t' * indent
+		Print.info(tabs + 'version: ' + str(self.version))
+		Print.info(tabs + 'fsType: ' + str(self.fsType))
+		Print.info(tabs + 'hashType: ' + str(self.hashType))
+		Print.info(tabs + 'encryptionType: ' + str(self.encryptionType))
+		Print.info(tabs + 'padding: ' + str(self.padding))
+		Print.info(tabs + 'generation: ' + str(self.generation))
+		Print.info(tabs + 'secureValue: ' + str(self.secureValue))
+
+		Print.info(tabs + 'hashInfo: ' + hx(self.hashInfo).decode())
+		Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
+		Print.info(tabs + 'sparseInfo: ' + hx(self.sparseInfo).decode())
+		Print.info(tabs + 'reserved: ' + hx(self.reserved).decode())
 
 
 def GetSectionFilesystem(buffer, cryptoKey):
@@ -146,6 +173,10 @@ class NcaHeader(File):
 	def calculateFsHeaderHash(self, index):
 		self.seek(0x400 + (index * 0x20))
 		return sha256(self.read(0x200)).hexdigest()
+
+	def getFsHeader(self, index):
+		self.seek(0x400 + (index * 0x20))
+		return FsHeader(self)
 
 	def realTitleId(self):
 		if not self.hasTitleRights():
@@ -547,6 +578,15 @@ class Nca(File):
 				continue
 
 			Print.info('\t%soffset = %X, endOffset = %X, hash = %s, actual hash = %s' % (tabs, tbl.offset, tbl.endOffset, str(self.header.sectionHashes[i]), self.header.calculateFsHeaderHash(i)))
+
+		Print.info('\n\n' + tabs + 'FsHeaders:')
+		for i in range(4):
+			tbl = self.header.sectionTables[i]
+
+			if not tbl.endOffset:
+				continue
+
+			self.header.getFsHeader(i).printInfo(maxDepth = maxDepth, indent = indent + 1)
 
 		Print.info('\n')
 
