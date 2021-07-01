@@ -147,6 +147,8 @@ def load(fileName):
 		else:
 			titleKeks.append('0' * 32)
 
+	keyGens.append(keyGens[-1]+1)
+
 
 try:
 	load('keys.txt')
