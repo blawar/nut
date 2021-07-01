@@ -266,19 +266,61 @@ class Pfs0(BaseFs):
 			elif f._path.endswith('.cert'):
 				certCount += 1
 
+		renameNcas = {}
+		renameNcaHashes = {}
+
 		for l in lst:
 			for f in l:
 				if type(f).__name__ == 'Nca':
 					if f.header.key() == b'\x04' * 16 or f.header.signature1 == b'\x00' * 0x100:
 						raise IOError('junk file')
 
+					if str(f.header.contentType) == 'Content.META':
+						continue
+
+					if f.restore():
+						oldName = os.path.basename(f._path)
+
+						hash = f.sha256()[0:32]
+
+						newName = hash + '.nca'
+
+						if newName != oldName:
+							renameNcas[oldName] = newName
+							renameNcaHashes[oldName] = hash
+
+						if f.header.hasTitleRights():
+							rightsIds[f.header.rightsId] = True
+
+		for l in lst:
+			for f in l:
+				if type(f).__name__ == 'Nca':
+					if f.header.key() == b'\x04' * 16 or f.header.signature1 == b'\x00' * 0x100:
+						raise IOError('junk file')
+
+					if str(f.header.contentType) != 'Content.META':
+						continue
+
+					flush = False
+					for pfs0 in f:
+						for cnmt in pfs0:
+							if type(cnmt).__name__ == 'Cnmt':
+								for oldName, newName in renameNcas.items():
+									if cnmt.renameNca(oldName, newName, renameNcaHashes[oldName]):
+										self.rename(oldName, newName)
+										flush = True
+
+								if flush:
+									cnmt.flush()
+
+					#if flush:
+					f.updateFsHashes()
+
 					if f.restore():
 						oldName = os.path.basename(f._path)
 
 						if str(f.header.contentType) == 'Content.META':
 							newName = f.sha256()[0:32] + '.cnmt.nca'
-						else:
-							newName = f.sha256()[0:32] + '.nca'
 
 						if f.header.hasTitleRights():
 							rightsIds[f.header.rightsId] = True

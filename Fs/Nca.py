@@ -39,6 +39,8 @@ class SectionTableEntry:
 		self.sha1 = None
 
 
+
+
 def GetSectionFilesystem(buffer, cryptoKey):
 	fsType = buffer[0x3]
 	if fsType == Fs.Type.Fs.PFS0:
@@ -106,7 +108,7 @@ class NcaHeader(File):
 			self.sectionTables.append(SectionTableEntry(self.read(0x10)))
 
 		for i in range(4):
-			self.sectionHashes.append(self.sectionTables[i])
+			self.sectionHashes.append(hx(self.read(0x20)).decode())
 
 		self.masterKey = (self.cryptoType if self.cryptoType > self.cryptoType2 else self.cryptoType2)-1
 
@@ -140,6 +142,10 @@ class NcaHeader(File):
 			self.titleKeyDec = self.key()
 
 		return True
+
+	def calculateFsHeaderHash(self, index):
+		self.seek(0x400 + (index * 0x20))
+		return sha256(self.read(0x200)).hexdigest()
 
 	def realTitleId(self):
 		if not self.hasTitleRights():
@@ -354,8 +360,7 @@ class Nca(File):
 			#Print.info('fs section start = ' + hex(fs.sectionStart))
 			#Print.info('titleKey = ' + hex(self.header.titleKeyDec))
 
-			self.partition(self.header.sectionTables[i].offset, self.header.sectionTables[i].endOffset -
-						   self.header.sectionTables[i].offset, section, cryptoKey=self.header.titleKeyDec)
+			self.partition(self.header.sectionTables[i].offset, self.header.sectionTables[i].endOffset - self.header.sectionTables[i].offset, section, cryptoKey=self.header.titleKeyDec)
 
 			try:
 				section.partition(fs.sectionStart, section.size - fs.sectionStart, fs)
@@ -391,6 +396,11 @@ class Nca(File):
 		except BaseException:
 			raise
 			return None
+
+	def updateFsHashes(self):
+		for tbl in self.header.sectionTables:
+			hash = tbl.hash(self)
+			print('x')
 
 	def verifyHeader(self):
 		return self.header.verify()
@@ -528,6 +538,17 @@ class Nca(File):
 		Print.info(tabs + 'crypto master key: ' + str(self.header.cryptoType))
 		Print.info(tabs + 'crypto master key2: ' + str(self.header.cryptoType2))
 		Print.info(tabs + 'key Index: ' + str(self.header.keyIndex))
+
+		Print.info('\n' + tabs + 'FsSections:')
+		for i in range(4):
+			tbl = self.header.sectionTables[i]
+
+			if not tbl.endOffset:
+				continue
+
+			Print.info('\t%soffset = %X, endOffset = %X, hash = %s, actual hash = %s' % (tabs, tbl.offset, tbl.endOffset, str(self.header.sectionHashes[i]), self.header.calculateFsHeaderHash(i)))
+
+		Print.info('\n')
 
 		'''
 		encTitleBlock = hx(self.header.getKeyBlock()).decode()
