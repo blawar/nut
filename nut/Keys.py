@@ -103,18 +103,35 @@ def load(fileName):
 		for line in f.readlines():
 			r = re.match(r'\s*([a-z0-9_]+)\s*=\s*([A-F0-9]+)\s*', line, re.I)
 			if r:
-				keys[r.group(1)] = r.group(2)
+				keys[r.group(1).lower()] = r.group(2)
 
 	#crypto = aes128.AESCTR(uhx(key), uhx('00000000000000000000000000000010'))
 	aes_kek_generation_source = uhx(keys['aes_kek_generation_source'])
 	aes_key_generation_source = uhx(keys['aes_key_generation_source'])
+
+	hasDecimalMasterKeys = True
+	digits = ['a', 'b', 'c', 'd', 'e', 'f']
+
+	for key in keys.keys():
+		if not key.startswith('master_key_'):
+			continue
+
+		for c in key.lower().split('_')[-1]:
+			if c in digits:
+				hasDecimalMasterKeys = False
+				break
+
 
 	keyAreaKeys = []
 	for i in range(0x10):
 		keyAreaKeys.append([None, None, None])
 
 	for i in range(0x10):
-		masterKeyName = 'master_key_' + str(i).zfill(2)
+		if hasDecimalMasterKeys:
+			masterKeyName = 'master_key_' + str(i).zfill(2)
+		else:
+			masterKeyName = 'master_key_' + ('%x' % i).zfill(2)
+
 		if masterKeyName in keys.keys():
 			# aes_decrypt(master_ctx, &keyset->titlekeks[i], keyset->titlekek_source, 0x10);
 			masterKey = uhx(keys[masterKeyName])
