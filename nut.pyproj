@@ -5,14 +5,15 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6cec2e60-606b-4a77-99b1-84d78f8641a2}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>nut_gui.py</StartupFile>
+    <StartupFile>nut.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-s</CommandLineArguments>
+    <CommandLineArguments>--server</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -77,6 +78,7 @@
     <Compile Include="nut\blockchain.py" />
     <Compile Include="nut\Config.py" />
     <Compile Include="nut\Hex.py" />
+    <Compile Include="nut\Hook.py" />
     <Compile Include="nut\Keys.py" />
     <Compile Include="nut\Nsps.py" />
     <Compile Include="nut\NszDecompressor.py" />
@@ -89,6 +91,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="nut.py" />
+    <Compile Include="nut\Watcher.py" />
     <Compile Include="nut\__init__.py" />
     <Compile Include="nut_gui.py" />
     <Compile Include="Server\Controller\Api.py" />

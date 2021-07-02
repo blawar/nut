@@ -19,8 +19,7 @@ class FileEventHandler(RegexMatchingEventHandler):
 
 	def on_moved(self, event):
 		print('moved: %s -> %s' % (event.src_path, event.dest_path))
-		Nsps.unregisterFile(event.src_path)
-		Nsps.registerFile(event.dest_path)
+		Nsps.moveFile(event.src_path, event.dest_path)
 
 	def process(self, event):
 		pass

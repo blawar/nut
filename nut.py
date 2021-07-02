@@ -24,6 +24,7 @@ import requests
 from nut import Hex
 from nut import Print
 from nut import NszDecompressor
+from nut import Hook
 import threading
 import signal
 from nut import Status
@@ -540,6 +541,8 @@ if __name__ == '__main__':
 			Config.download.demo = bool(args.demo)
 			Config.download.sansTitleKey = bool(args.nsx)
 			Config.download.update = bool(args.update)
+
+			Hook.init()
 
 			if args.threads:
 				Config.threads = args.threads

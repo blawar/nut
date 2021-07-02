@@ -7,7 +7,7 @@ import threading
 import time
 
 import Fs
-from nut import Config, Print, Status, Title
+from nut import Config, Print, Status, Title, Hook
 
 files = {}
 
@@ -30,6 +30,7 @@ def registerFile(path, registerLUT = True):
 	if not path in files:
 		nsp = Fs.Nsp(path, None)
 		files[path] = nsp
+		Hook.call("files.register", nsp)
 	else:
 		nsp = files[path]
 
@@ -39,8 +40,6 @@ def registerFile(path, registerLUT = True):
 
 		if nsp not in Title.fileLUT[nsp.titleId]:
 			Title.fileLUT[nsp.titleId].append(nsp)
-		else:
-			print('dupe')
 
 	return nsp
 
@@ -56,6 +55,22 @@ def unregisterFile(path):
 		if nsp.titleId in Title.fileLUT:
 			Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId] if item.path != nsp.path]
 	del files[path]
+
+	Hook.call("files.unregister", nsp)
+	return True
+
+def moveFile(path, newPath, registerLUT = True):
+	path = os.path.abspath(path)
+	if path not in files:
+		return False
+
+	nsp = files[path]
+
+	nsp.setPath(newPath)
+	files[newPath] = nsp
+	del files[path]
+
+	Hook.call("files.move", nsp, path)
 	return True
 
 def _is_file_hidden(filepath):
