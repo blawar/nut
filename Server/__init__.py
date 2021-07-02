@@ -11,6 +11,7 @@ import re
 from nut import Print
 import urllib
 from nut import Users
+from nut import Watcher
 import base64
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
@@ -67,6 +68,8 @@ def run():
 	global httpd
 	global sock
 	global addr
+
+	Watcher.start()
 
 	Print.info(time.asctime() + ' Server Starts - %s:%s' % (Config.server.hostname, Config.server.port))
 	try:

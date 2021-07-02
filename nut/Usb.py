@@ -35,6 +35,7 @@ from pathlib import Path
 import Server
 import Server.Controller.Api
 from nut import Print
+from nut import Watcher
 import time
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
@@ -169,6 +170,7 @@ def getDevice():
 
 def daemon():
 	global status
+	Watcher.start()
 	while True:
 		try:
 			status = 'disconnected'

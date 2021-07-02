@@ -34,7 +34,13 @@ def registerFile(path, registerLUT = True):
 		nsp = files[path]
 
 	if registerLUT and nsp.titleId:
-		Title.fileLUT[nsp.titleId].append(nsp)
+		if nsp.titleId not in Title.fileLUT:
+			Title.fileLUT[nsp.titleId] = []
+
+		if nsp not in Title.fileLUT[nsp.titleId]:
+			Title.fileLUT[nsp.titleId].append(nsp)
+		else:
+			print('dupe')
 
 	return nsp
 
@@ -47,8 +53,8 @@ def unregisterFile(path):
 
 	if nsp.titleId and nsp.titleId in Title.fileLUT:
 		# Title.fileLUT[nsp.titleId].remove(nsp)
-		Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId]
-									  if item.path != nsp.path]
+		if nsp.titleId in Title.fileLUT:
+			Title.fileLUT[nsp.titleId] = [item for item in Title.fileLUT[nsp.titleId] if item.path != nsp.path]
 	del files[path]
 	return True
 
