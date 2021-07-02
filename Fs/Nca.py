@@ -430,7 +430,7 @@ class Nca(File):
 
 	def updateFsHashes(self):
 		for tbl in self.header.sectionTables:
-			hash = tbl.hash(self)
+			#hash = tbl.hash(self)
 			print('x')
 
 	def verifyHeader(self):
