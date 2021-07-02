@@ -292,6 +292,38 @@ class Pfs0(BaseFs):
 						if f.header.hasTitleRights():
 							rightsIds[f.header.rightsId] = True
 
+		if len(rightsIds) > ticketCount:
+			raise IOError('missing tickets in NSP, expected %d got %d in %s' % (len(rightsIds), ticketCount, self._path))
+
+		if len(rightsIds) > certCount:
+			raise IOError('missing certs in NSP')
+
+		for rightsId in rightsIds:
+			rightsId = rightsId.decode()
+			title = Titles.get(rightsId[0:16].upper())
+
+			if not title.key:
+				raise IOError("could not get title key for " + rightsId)
+
+			if ticketCount == 1:
+				ticket = self.ticket()
+			else:
+				ticket = self.ticket(rightsId)
+
+			if ticketCount == 1:
+				cert = self.cert()
+			else:
+				cert = self.cert(rightsId)
+
+			ticket.setRightsId(int(rightsId, 16))
+			ticket.setTitleKeyBlock(int(title.key, 16))
+			ticket.setMasterKeyRevision(int(rightsId[16:32], 16))
+
+			self.rename(os.path.basename(ticket._path), rightsId.lower() + '.tik')
+			self.rename(os.path.basename(cert._path), rightsId.lower() + '.cert')
+
+		self.flush()
+
 		for l in lst:
 			for f in l:
 				if type(f).__name__ == 'Nca':
@@ -324,36 +356,6 @@ class Pfs0(BaseFs):
 
 						if f.header.hasTitleRights():
 							rightsIds[f.header.rightsId] = True
-
-		if len(rightsIds) > ticketCount:
-			raise IOError('missing tickets in NSP, expected %d got %d in %s' % (len(rightsIds), ticketCount, self._path))
-
-		if len(rightsIds) > certCount:
-			raise IOError('missing certs in NSP')
-
-		for rightsId in rightsIds:
-			rightsId = rightsId.decode()
-			title = Titles.get(rightsId[0:16].upper())
-
-			if not title.key:
-				raise IOError("could not get title key for " + rightsId)
-
-			if ticketCount == 1:
-				ticket = self.ticket()
-			else:
-				ticket = self.ticket(rightsId)
-
-			if ticketCount == 1:
-				cert = self.cert()
-			else:
-				cert = self.cert(rightsId)
-
-			ticket.setRightsId(int(rightsId, 16))
-			ticket.setTitleKeyBlock(int(title.key, 16))
-			ticket.setMasterKeyRevision(int(rightsId[16:32], 16))
-
-			self.rename(os.path.basename(ticket._path), rightsId.lower() + '.tik')
-			self.rename(os.path.basename(cert._path), rightsId.lower() + '.cert')
 		return True
 
 	def printInfo(self, maxDepth=3, indent=0):
