@@ -267,7 +267,7 @@ def getPath(path, name, default):
 def forceExt(path, ext):
 	return os.path.splitext(path)[0] + ext
 
-def set(json_, paths_, value):  # pylint: disable=redefined-builtin
+def jset(json_, paths_, value):  # pylint: disable=redefined-builtin
 	last = paths_.pop()
 	for path in paths_:
 		if path not in json_:
@@ -285,16 +285,16 @@ def save(confFile='conf/nut.conf'):
 	except BaseException:  # pylint: disable=broad-except
 		pass
 
-	set(j, ['paths'], paths.__dict__)
-	set(j, ['compression'], compression.__dict__)
-	set(j, ['pullUrls'], pullUrls)
-	set(j, ['threads'], threads)
-	set(j, ['download'], download.__dict__)
-	set(j, ['server', 'hostname'], server.hostname)
-	set(j, ['server', 'port'], server.port)
+	jset(j, ['paths'], paths.__dict__)
+	jset(j, ['compression'], compression.__dict__)
+	jset(j, ['pullUrls'], pullUrls)
+	jset(j, ['threads'], threads)
+	jset(j, ['download'], download.__dict__)
+	jset(j, ['server', 'hostname'], server.hostname)
+	jset(j, ['server', 'port'], server.port)
 
-	set(j, ['autolaunchBrowser'], autolaunchBrowser)
-	set(j, ['autoUpdateTitleDb'], autoUpdateTitleDb)
+	jset(j, ['autolaunchBrowser'], autolaunchBrowser)
+	jset(j, ['autoUpdateTitleDb'], autoUpdateTitleDb)
 
 	with open(confFile, 'w', encoding='utf-8') as f:
 		Print.debug("writing config to filesystem")
