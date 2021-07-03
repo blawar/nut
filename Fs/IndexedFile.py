@@ -319,6 +319,19 @@ class IndexedFile:
 
 		return None
 
+	def getFileSize(self):
+		if self.fileSize is None:
+			try:
+				self.fileSize = os.path.getsize(self.path)
+			except BaseException as e:
+				Print.error(f"getting file size of title `{self.path}`: {str(e)}")
+		return self.fileSize
+
+	def getFileModified(self):
+		if self.fileModified is None:
+			self.fileModified = os.path.getmtime(self.path)
+		return self.fileModified
+
 	def baseName(self):
 		return os.path.basename(self.path)
 

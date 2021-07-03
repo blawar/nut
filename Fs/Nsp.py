@@ -45,19 +45,6 @@ class Nsp(Pfs0, IndexedFile):
 			Print.info('unlockable title found ' + self.path)
 		#	self.unlock()
 
-	def getFileSize(self):
-		if self.fileSize is None:
-			try:
-				self.fileSize = os.path.getsize(self.path)
-			except BaseException as e:
-				Print.error(f"getting file size of title `{self.path}`: {str(e)}")
-		return self.fileSize
-
-	def getFileModified(self):
-		if self.fileModified is None:
-			self.fileModified = os.path.getmtime(self.path)
-		return self.fileModified
-
 	def loadCsv(self, line, map=['id', 'path', 'version', 'timestamp', 'hasValidTicket', 'extractedNcaMeta', 'fileSize']):
 		split = line.split('|')
 		for i, value in enumerate(split):
