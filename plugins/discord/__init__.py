@@ -85,10 +85,11 @@ def sendTitleCard(channelId, titleId, nsp = None):
 	else:
 		embed.add_field(name="Type", value='Base', inline=True)
 
-	if title.size:
-		if nsp:
+	if nsp:
+		if nsp.getFileSize():
 			embed.add_field(name="Size", value=formatSize(nsp.getFileSize()), inline=True)
-		else:
+	else:
+		if title.size:
 			embed.add_field(name="Size", value=formatSize(title.size), inline=True)
 
 	
