@@ -29,7 +29,11 @@ def registerFile(path, registerLUT = True):
 
 	if not path in files:
 		nsp = Fs.Nsp(path, None)
+		nsp.timestamp = time.time()
+		nsp.getFileSize()
+
 		files[path] = nsp
+
 		Hook.call("files.register", nsp)
 	else:
 		nsp = files[path]
@@ -107,15 +111,16 @@ def scan(base):
 		for path, name in fileList.items():
 			try:
 				status.add(1)
+				path = os.path.abspath(path)
 
 				if path not in files:
 					Print.info('scanning ' + name)
 
-					nsp = Fs.Nsp(path, None)
-					nsp.timestamp = time.time()
-					nsp.getFileSize()  # cache file size
-
-					files[nsp.path] = nsp
+					#nsp = Fs.Nsp(path, None)
+					#nsp.timestamp = time.time()
+					#nsp.getFileSize()  # cache file size					
+					#files[nsp.path] = nsp
+					registerFile(path)
 
 					i = i + 1
 					if i % 20 == 0:
