@@ -63,7 +63,7 @@ def unregisterFile(path):
 	Hook.call("files.unregister", nsp)
 	return True
 
-def moveFile(path, newPath, registerLUT = True):
+def moveFile(path, newPath):
 	path = os.path.abspath(path)
 	if path not in files:
 		return False
@@ -116,15 +116,11 @@ def scan(base):
 				if path not in files:
 					Print.info('scanning ' + name)
 
-					#nsp = Fs.Nsp(path, None)
-					#nsp.timestamp = time.time()
-					#nsp.getFileSize()  # cache file size					
-					#files[nsp.path] = nsp
 					registerFile(path)
 
 					i = i + 1
-					if i % 20 == 0:
-						save()
+					#if i % 20 == 0:
+					#	save()
 			except KeyboardInterrupt:
 				status.close()
 				raise

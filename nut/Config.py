@@ -3,10 +3,10 @@
 import json
 import os
 import time
+import collections
 from binascii import unhexlify as uhx
 from nut import Print
 from nut.config_impl.download import Download
-import collections
 
 threads = 1
 jsonOutput = False
@@ -42,7 +42,7 @@ def dict_merge(dct, merge_dct, add_keys=True):
 			for k in set(dct).intersection(set(merge_dct))
 		}
 
-	for k, v in merge_dct.items():
+	for k, _ in merge_dct.items():
 		if (k in dct and isinstance(dct[k], dict)
 				and isinstance(merge_dct[k], collections.Mapping)):
 			dct[k] = dict_merge(dct[k], merge_dct[k], add_keys=add_keys)
