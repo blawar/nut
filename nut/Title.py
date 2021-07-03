@@ -435,6 +435,13 @@ class Title:
 	def getBaseId(self):
 		return self.baseId or '0000000000000000'
 
+	def getBase(self):
+		baseId = getBaseId(self.id)
+		if Titles.contains(baseId):
+			return Titles.get(baseId)
+
+		return None
+
 	def setRegion(self, region):
 		if not self.region and re.match(r'[A-Z]{2}', region):
 			self.region = region
