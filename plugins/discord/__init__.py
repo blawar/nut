@@ -7,6 +7,7 @@ from threading import Thread
 from nut import Config, Hook, Titles
 
 client = discord.Client()
+loop = asyncio.get_event_loop()
 channels = {}
 initialized = False
 ready = False
@@ -117,7 +118,9 @@ async def on_ready():
 	ready = True
 
 def run():
-	client.run(Config.original['discord']['token'])
+	global loop
+	loop.run_until_complete(client.start(Config.original['discord']['token']))
+	print('run exited')
 
 def start():
 	global initialized
@@ -169,9 +172,16 @@ def deleteFile(nsp):
 		#send(channelId, 'deleted %s' % str(nsp.titleId))
 		sendTitleCard(channelId, nsp.titleId, nsp)
 
+def cleanup():
+	if not ready:
+		return
+
+	coro = client.close()
+	fut = asyncio.run_coroutine_threadsafe(coro, client.loop)
 
 if Config.original['discord']['token']:
 	Hook.register('files.move', moveFile)
 	Hook.register('files.register', addFile)
 	Hook.register('files.unregister', deleteFile)
+	Hook.register('exit', cleanup)
 

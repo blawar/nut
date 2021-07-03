@@ -926,3 +926,5 @@ if __name__ == '__main__':
 		raise
 
 	Print.info('fin')
+
+Hook.call("exit")
