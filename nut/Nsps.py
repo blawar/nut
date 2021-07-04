@@ -71,7 +71,7 @@ def moveFile(path, newPath):
 		return False
 
 	if path not in files:
-		return registerFile(path)
+		return registerFile(newPath)
 
 	nsp = files[path]
 
