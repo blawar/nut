@@ -4,7 +4,7 @@ import time
 import os.path
 from datetime import datetime
 from threading import Thread
-from nut import Config, Hook, Titles
+from nut import Config, Hook, Titles, Print
 
 client = discord.Client()
 loop = asyncio.get_event_loop()
@@ -30,7 +30,7 @@ def send(channelId, msg = None, embed = None):
 	try:
 		fut.result()
 	except BaseException as e:
-		print(str(e))
+		Print.error(str(e))
 		pass
 
 def formatSize(size):
@@ -114,13 +114,13 @@ def sendTitleCard(channelId, titleId, nsp = None):
 @client.event
 async def on_ready():
 	global ready
-	print(f'{client.user} has connected to Discord!')
+	Print.info(f'{client.user} has connected to Discord!')
 	ready = True
 
 def run():
 	global loop
 	loop.run_until_complete(client.start(Config.original['discord']['token']))
-	print('run exited')
+
 
 def start():
 	global initialized
