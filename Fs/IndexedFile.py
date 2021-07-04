@@ -98,8 +98,7 @@ class IndexedFile:
 			Print.error('no path set')
 			return False
 
-		if os.path.abspath(self.path).startswith(os.path.abspath(Config.paths.nspOut)) and not self.path.endswith(
-				'.nsz') and not self.path.endswith('.xcz') and Config.compression.auto:
+		if os.path.abspath(self.path).startswith(os.path.abspath(Config.paths.nspOut)) and not self.path.endswith('.nsz') and not self.path.endswith('.xcz') and Config.compression.auto:
 			nszFile = nut.compress(self.path, Config.compression.level, os.path.abspath(Config.paths.nspOut))
 
 			if nszFile:
@@ -109,19 +108,19 @@ class IndexedFile:
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
 
-		newPath = self.fileName(forceNsp=forceNsp)
+		newPath = os.path.abspath(self.fileName(forceNsp=forceNsp))
 
 		if not newPath:
 			Print.error('could not get filename for ' + self.path)
 			return False
 
-		if os.path.abspath(newPath).lower().replace('\\', '/') == os.path.abspath(self.path).lower().replace('\\', '/'):
+		if newPath.lower().replace('\\', '/') == self.path.lower().replace('\\', '/'):
 			return False
 
 		if os.path.isfile(newPath):
 			Print.info('\nduplicate title: ')
 			Print.info(os.path.abspath(self.path))
-			Print.info(os.path.abspath(newPath))
+			Print.info(newPath)
 			Print.info('\n')
 			return False
 
@@ -140,10 +139,8 @@ class IndexedFile:
 				if self.isOpen():
 					self.close()
 				shutil.move(self.path, newPath)
-
-				if self.path in Nsps.files:
-					del Nsps.files[self.path]
-				Nsps.files[newPath] = self
+				Nsps.moveFile(self.path, newPath)
+				#Nsps.files[newPath] = self
 				self.path = newPath
 		except BaseException as e:
 			Print.error('failed to rename file! %s -> %s  : %s' % (self.path, newPath, e))

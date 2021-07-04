@@ -65,8 +65,13 @@ def unregisterFile(path):
 
 def moveFile(path, newPath):
 	path = os.path.abspath(path)
-	if path not in files:
+	newPath = os.path.abspath(newPath)
+
+	if path == newPath:
 		return False
+
+	if path not in files:
+		return registerFile(path)
 
 	nsp = files[path]
 
