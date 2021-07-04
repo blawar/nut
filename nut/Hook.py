@@ -1,4 +1,4 @@
-import imp
+import importlib
 import os.path
 from nut import Print
 
@@ -18,8 +18,7 @@ def init():
 			if not os.path.isfile(os.path.join(os.path.join(path, f), '__init__.py')) or os.path.isfile(os.path.join(os.path.join(path, f), 'disabled')):
 				continue
 			name = f
-			info = imp.find_module(name, [path])
-			imp.load_module('plugins.%s' % name, *info)
+			importlib.import_module('plugins.%s' % name)
 		except BaseException as e:
 			Print.error("plugin loader exception: %s" % str(e))
 	return True

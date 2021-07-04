@@ -72,9 +72,9 @@ class NutConfigTest(TestCase):
 		paths = Config.Paths()
 		server = Config.Server()
 		j = {}
-		Config.set(j, ['paths', 'scan'], paths.scan)
-		Config.set(j, ['server', 'hostname'], server.hostname)
-		Config.set(j, ['server', 'port'], server.port)
+		Config.jset(j, ['paths', 'scan'], paths.scan)
+		Config.jset(j, ['server', 'hostname'], server.hostname)
+		Config.jset(j, ['server', 'port'], server.port)
 
 		self.assertEqual(j['paths']['scan'], paths.scan)
 		self.assertEqual(j['server']['hostname'], server.hostname)
