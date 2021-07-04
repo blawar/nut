@@ -727,7 +727,7 @@ def _ftpsync(url):
 
 	for path in fileList:
 		try:
-			if path.split('.')[-1].lower() not in ('nsx', 'nsz', 'nsp', 'xci', 'xcz'):
+			if path.split('.')[-1].lower() not in ('nsx', 'nsz', 'nsp', 'xci'):
 				continue
 
 			nsp = Fs.Nsp()
