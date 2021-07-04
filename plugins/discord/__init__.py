@@ -147,7 +147,9 @@ def moveFile(nsp, oldPath):
 def addFile(nsp):
 	start()
 
-	if nsp.isUpdate():
+	if nsp.path.lower().endswith('.xci') or nsp.path.lower().endswith('.xcz'):
+		channelIds = Config.original['discord']['channels']['files']['xci']
+	elif nsp.isUpdate():
 		channelIds = Config.original['discord']['channels']['files']['update']
 	elif nsp.isDLC():
 		channelIds = Config.original['discord']['channels']['files']['dlc']
@@ -155,13 +157,14 @@ def addFile(nsp):
 		channelIds = Config.original['discord']['channels']['files']['base']
 
 	for channelId in channelIds:
-		#send(channelId, 'added %s' % str(nsp.titleId))
 		sendTitleCard(channelId, nsp.titleId, nsp)
 
 def deleteFile(nsp):
 	start()
 
-	if nsp.isUpdate():
+	if nsp.path.lower().endswith('.xci') or nsp.path.lower().endswith('.xcz'):
+		channelIds = Config.original['discord']['channels']['files']['xci']
+	elif nsp.isUpdate():
 		channelIds = Config.original['discord']['channels']['files']['update']
 	elif nsp.isDLC():
 		channelIds = Config.original['discord']['channels']['files']['dlc']
@@ -169,7 +172,6 @@ def deleteFile(nsp):
 		channelIds = Config.original['discord']['channels']['files']['base']
 
 	for channelId in channelIds:
-		#send(channelId, 'deleted %s' % str(nsp.titleId))
 		sendTitleCard(channelId, nsp.titleId, nsp)
 
 def cleanup():
