@@ -252,12 +252,17 @@ class IndexedFile:
 
 			try:
 				if t.baseId not in Titles.keys():
-					Print.info('could not find baseId for ' + self.path)
-					return None
+					if Config.allowNoMetadata:
+						bt = Title.Title()
+					else:
+						Print.info('could not find baseId for ' + self.path)
+						return None
+				else:
+					bt = Titles.get(t.baseId)
 			except BaseException as e:
 				Print.error('exception: could not find title id ' + str(self.titleId) + ' ' + str(e))
 				return None
-			bt = Titles.get(t.baseId)
+			
 
 		isNsx = not self.hasValidTicket and not forceNsp
 
