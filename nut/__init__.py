@@ -1424,8 +1424,6 @@ def scrapeShogunThreaded(force = False, refresh = False):
 	Print.info('titles  saved')
 
 def scanLatestTitleUpdates():
-	if not hasCdn:
-		return
 	global versionHistory
 	initTitles()
 	initFiles()
@@ -1440,6 +1438,9 @@ def scanLatestTitleUpdates():
 					setVersionHistory(titleId, ver, date)
 	except BaseException:
 		pass
+
+	if not hasCdn:
+		return
 
 	for k, i in cdn.hacVersionList().items():
 		id = str(k).upper()
@@ -1485,7 +1486,6 @@ def downloadThread(i):
 				if path and os.path.isfile(path):
 					nsp = Fs.Nsp(path, None)
 					nsp.move()
-					registerFile(nsp.path)
 					Nsps.save()
 
 				if status is not None:
