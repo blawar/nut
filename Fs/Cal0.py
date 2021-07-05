@@ -7,7 +7,7 @@ import binascii
 import sys
 import random
 import asn1
-from fractions import gcd
+from math import gcd
 
 def extended_gcd(aa, bb):
 	lastremainder, remainder = abs(aa), abs(bb)
