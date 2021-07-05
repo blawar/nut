@@ -17,6 +17,7 @@ shardIndex = None
 reverse = False
 isScanning = False
 autoUpdateTitleDb = True
+allowNoMetadata = True
 
 region = None
 
@@ -155,6 +156,8 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 			f = getPath(self.nsxTitleBase, name, self.titleBase)
 		elif ext == '.xci':
 			f = getPath(self.xciTitleBase, name, self.titleBase)
+		elif ext == '.xcz':
+			f = getPath(self.xczTitleBase, name, self.titleBase)
 
 		if not f:
 			f = self.titleBase
@@ -295,6 +298,7 @@ def save(confFile='conf/nut.conf'):
 
 	jset(j, ['autolaunchBrowser'], autolaunchBrowser)
 	jset(j, ['autoUpdateTitleDb'], autoUpdateTitleDb)
+	jset(j, ['allowNoMetadata'], allowNoMetadata)
 
 	with open(confFile, 'w', encoding='utf-8') as f:
 		Print.debug("writing config to filesystem")
@@ -311,6 +315,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global autolaunchBrowser  # pylint: disable=global-statement
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 	global original  # pylint: disable=global-statement
+	global allowNoMetadata  # pylint: disable=global-statement
 
 	with open(confFile, encoding='utf8') as f:
 		try:
@@ -613,6 +618,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 
 		try:
 			autoUpdateTitleDb = j['autoUpdateTitleDb']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			allowNoMetadata = j['allowNoMetadata']
 		except BaseException:  # pylint: disable=broad-except
 			pass
 

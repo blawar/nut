@@ -108,11 +108,13 @@ class IndexedFile:
 				Nsps.files[nsp.path] = nsp
 				Nsps.save()
 
-		newPath = os.path.abspath(self.fileName(forceNsp=forceNsp))
+		newPath = self.fileName(forceNsp=forceNsp)
 
 		if not newPath:
 			Print.error('could not get filename for ' + self.path)
 			return False
+
+		newPath = os.path.abspath(newPath)
 
 		if newPath.lower().replace('\\', '/') == self.path.lower().replace('\\', '/'):
 			return False
@@ -229,9 +231,13 @@ class IndexedFile:
 
 		if self.titleId not in Titles.keys():
 			if not Title.getBaseId(self.titleId) in Titles.keys():
-				Print.error('could not find base title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
-				return None
-			bt = Titles.get(Title.getBaseId(self.titleId))
+				if Config.allowNoMetadata:
+						bt = Title.Title()
+				else:
+					Print.error('could not find base title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
+					return None
+			else:
+				bt = Titles.get(Title.getBaseId(self.titleId))
 			t = Title.Title()
 			if bt.name is not None:
 				t.loadCsv(self.titleId + '0000000000000000|0000000000000000|' + bt.name)
