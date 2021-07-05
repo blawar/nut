@@ -471,6 +471,7 @@ if __name__ == '__main__':
 				parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
 				parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
 				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
+				parser.add_argument('--scrape-shogun-missed', nargs='*', help='Scrape titles that are not advertised by shogun but in our database')
 				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
 				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
@@ -776,6 +777,11 @@ if __name__ == '__main__':
 							else:
 								print('bleh')
 
+				if args.scrape_shogun_missed != None:
+					nut.initTitles()
+					nut.initFiles()
+					nut.scrapeShogunThreaded(False, refresh = True)
+
 				if args.scrape_shogun_delta is not None:
 					nut.scrapeShogunThreaded(False)
 
@@ -895,6 +901,8 @@ if __name__ == '__main__':
 				blockchain.run()
 
 			if len(sys.argv) == 1:
+				nut.initTitles()
+				nut.initFiles()
 				nut.scan()
 				nut.organize()
 				nut.downloadAll()

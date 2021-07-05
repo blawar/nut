@@ -1370,7 +1370,7 @@ def scrapeShogun(force=False, region=None):
 		cdn.Shogun.scrapeTitles(region, force=force)
 	Titles.saveAll()
 
-def scrapeShogunWorker(q, force=False):
+def scrapeShogunWorker(q, force = False, refresh = False):
 	while True:
 		region = q.get()
 
@@ -1378,16 +1378,14 @@ def scrapeShogunWorker(q, force=False):
 			break
 
 		try:
-			cdn.Shogun.scrapeTitles(region, force=force)
+			cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh)
 		except BaseException as e:
 			Print.info('shogun worker exception: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
 
 		q.task_done()
 
-def scrapeShogunThreaded(force=False):
-	if not hasCdn:
-		return
+def scrapeShogunThreaded(force = False, refresh = False):
 	initTitles()
 	initFiles()
 
@@ -1403,7 +1401,7 @@ def scrapeShogunThreaded(force=False):
 		q.put(region)
 
 	for i in range(numThreads):
-		t = threading.Thread(target=scrapeShogunWorker, args=[q, force])
+		t = threading.Thread(target=scrapeShogunWorker, args=[q, force, refresh])
 		t.daemon = True
 		t.start()
 		scrapeThreads.append(t)
@@ -1414,12 +1412,12 @@ def scrapeShogunThreaded(force=False):
 	for i in range(numThreads):
 		q.put(None)
 
+
 	i = 0
 	for t in scrapeThreads:
 		i += 1
 		t.join()
 		Print.info('joined thread %d of %d' % (i, len(scrapeThreads)))
-	# q.join()
 
 	Print.info('saving titles')
 	Titles.saveAll()
