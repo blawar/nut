@@ -394,7 +394,8 @@ if __name__ == '__main__':
 			parser.add_argument('-g', '--ganymede', help='ganymede config file')
 			parser.add_argument('-i', '--info', help='show info about title or file')
 			parser.add_argument('--depth', type=int, default=1, help='max depth for file info and extraction')
-			parser.add_argument('-I', '--verify', nargs=2, help='verify title key TID TKEY')
+			parser.add_argument('-I', '--verify-title-key', nargs=2, help='verify title key TID TKEY')
+			parser.add_argument('--verify-all-signatures', action="store_true", help='verify nca signatures')
 			parser.add_argument('--restore', action="store_true", help='attempt to restore a NSP to original valid form')
 			parser.add_argument('-N', '--verify-ncas', help='Verify NCAs in container')
 			parser.add_argument('-u', '--unlock', action="store_true", help='install available title key into NSX / NSP')
@@ -685,7 +686,29 @@ if __name__ == '__main__':
 				nut.initFiles()
 				nut.organize()
 
-			if args.verify:
+			if args.verify_all_signatures:
+				nut.initTitles()
+				nut.initFiles()
+
+				s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
+				for path, nsp in Nsps.files.items():
+					try:
+						f = Fs.factory(str(path))
+						f.open(str(path), 'r+b')
+
+						if not f.verifyNcaHeaders():
+							raise IOError('bad file')
+
+						Print.info('good file: ' + path)
+					except:
+						Print.error('bad file: ' + path)
+					finally:
+						f.close()
+					s.add()
+				s.close()
+
+
+			if args.verify_title_key:
 				nut.initTitles()
 				nut.initFiles()
 				if blockchain.verifyKey(args.verify[0], args.verify[1]):
@@ -715,8 +738,8 @@ if __name__ == '__main__':
 							Print.info('moving %s -> %s' % (path, newPath))
 							shutil.move(f._path, newPath)
 					except BaseException as e:
+						f.close()
 						if str(e) == 'junk file':
-							f.close()
 							os. remove(f._path)
 						else:
 							print('Failed to restore: %s, %s' % (str(e), path))
