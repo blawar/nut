@@ -1458,7 +1458,7 @@ def scanLatestTitleUpdates():
 		else:
 			setVersionHistory(id, version, today)
 
-		if str(t.version) != str(version) and t.isActive():
+		if str(t.version) != str(version):
 			Print.info('new version detected for %s[%s] v%s' % (t.name or '', t.id or ('0' * 16), str(version)))
 			t.setVersion(version, True)
 
