@@ -22,6 +22,11 @@ class FileContext(Fs.driver.FileContext):
 		if offset is not None:
 			self.handle.seek(int(offset), 0)
 
+			if size is None:
+				size =  self.size - offset
+		elif size is None:
+			size = self.size
+
 		r = self.handle
 
 		i = 0
