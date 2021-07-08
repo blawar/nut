@@ -690,22 +690,25 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 
-				s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
-				for path, nsp in Nsps.files.items():
-					try:
-						f = Fs.factory(str(path))
-						f.open(str(path), 'r+b')
+				with open('file.verification.txt', 'w') as bf:
+					s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
+					for path, nsp in Nsps.files.items():
+						try:
+							f = Fs.factory(str(path))
+							f.open(str(path), 'r+b')
 
-						if not f.verifyNcaHeaders():
-							raise IOError('bad file')
+							if not f.verifyNcaHeaders():
+								raise IOError('bad file')
 
-						Print.info('good file: ' + path)
-					except:
-						Print.error('bad file: ' + path)
-					finally:
-						f.close()
-					s.add()
-				s.close()
+							Print.info('good file: ' + path)
+							bf.write('good file: %s\n' + str(path))
+						except:
+							Print.error('bad file: ' + path)
+							bf.write('bad file: %s\n' + str(path))
+						finally:
+							f.close()
+						s.add()
+					s.close()
 
 
 			if args.verify_title_key:
