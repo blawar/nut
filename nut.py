@@ -690,7 +690,7 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 
-				with open('file.verification.txt', 'w') as bf:
+				with open('file.verification.txt', 'w', encoding="utf-8") as bf:
 					s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
 					for path, nsp in Nsps.files.items():
 						try:
@@ -700,10 +700,10 @@ if __name__ == '__main__':
 							if not f.verifyNcaHeaders():
 								raise IOError('bad file')
 
-							Print.info('good file: ' + path)
+							Print.info('good file: ' + str(path))
 							bf.write('good file: %s\n' + str(path))
 						except:
-							Print.error('bad file: ' + path)
+							Print.error('bad file: ' + str(path))
 							bf.write('bad file: %s\n' + str(path))
 						finally:
 							f.close()
