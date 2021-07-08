@@ -20,9 +20,11 @@ credentials.json
 keys.txt
 *.bin
 *.token
+*.pem
 conf/nut.conf
 conf/users.conf
 conf/blacklist.txt
+conf/blacklist.*.txt
 
 # metadata
 nut.lock
