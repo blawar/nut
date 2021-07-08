@@ -694,19 +694,24 @@ if __name__ == '__main__':
 					s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
 					for path, nsp in Nsps.files.items():
 						try:
-							f = Fs.factory(str(path))
-							f.open(str(path), 'r+b')
+							f = nsp
+
+							if f.titleId and not f.title().isActive():
+								continue
+
+							f.open(str(path), 'r+b')							
 
 							if not f.verifyNcaHeaders():
 								raise IOError('bad file')
 
 							Print.info('good file: ' + str(path))
 							bf.write('good file: %s\n' % str(path))
+							f.close()
 						except:
+							f.close()
 							Print.error('bad file: ' + str(path))
 							bf.write('bad file: %s\n' % str(path))
-						finally:
-							f.close()
+
 						s.add()
 					s.close()
 
