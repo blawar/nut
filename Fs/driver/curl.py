@@ -79,3 +79,6 @@ class Curl(Fs.driver.Interface):
 
 
 Fs.driver.registry.add('ftp', Curl)
+Fs.driver.registry.add('http', Curl)
+Fs.driver.registry.add('https', Curl)
+
