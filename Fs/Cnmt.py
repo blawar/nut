@@ -71,6 +71,17 @@ class Cnmt(File):
 		for i in range(self.metaEntryCount):
 			self.metaEntries.append(MetaEntry(self))
 
+	def setHash(self, contentId, hash):
+		contentId = contentId.lower()
+
+		if '.' in contentId:
+			contentId = contentId.split('.')[0]
+
+		for entry in self.contentEntries:
+			if entry.ncaId == contentId:
+				entry.setHash(uhx(hash))
+
+
 	def renameNca(self, oldName, newName, hash = None):
 		oldName = oldName.lower()
 		newName = newName.lower()

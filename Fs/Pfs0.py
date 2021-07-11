@@ -279,18 +279,19 @@ class Pfs0(BaseFs):
 						continue
 
 					if f.restore():
-						oldName = os.path.basename(f._path)
-
-						hash = f.sha256()[0:32]
-
-						newName = hash + '.nca'
-
-						if newName != oldName:
-							renameNcas[oldName] = newName
-							renameNcaHashes[oldName] = hash
-
 						if f.header.hasTitleRights():
 							rightsIds[f.header.rightsId] = True
+
+					oldName = os.path.basename(f._path)
+
+					hash = f.sha256()
+
+					newName = hash[0:32] + '.nca'
+					renameNcaHashes[oldName] = hash
+
+					if newName != oldName:
+						renameNcas[oldName] = newName
+					
 
 		if len(rightsIds) > ticketCount:
 			raise IOError('missing tickets in NSP, expected %d got %d in %s' % (len(rightsIds), ticketCount, self._path))
@@ -342,8 +343,11 @@ class Pfs0(BaseFs):
 										self.rename(oldName, newName)
 										flush = True
 
-								if flush:
-									cnmt.flush()
+								for contentId, hash in renameNcaHashes.items():
+									cnmt.setHash(contentId, hash)
+
+								#if flush:
+								cnmt.flush()
 
 					#if flush:
 					f.updateFsHashes()
@@ -356,6 +360,7 @@ class Pfs0(BaseFs):
 
 						if f.header.hasTitleRights():
 							rightsIds[f.header.rightsId] = True
+
 		return True
 
 	def printInfo(self, maxDepth=3, indent=0):

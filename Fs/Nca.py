@@ -8,6 +8,7 @@ from hashlib import sha256
 import Fs.Type
 import os
 import re
+import math
 import pathlib
 from nut import Keys
 from nut import Config
@@ -38,19 +39,102 @@ class SectionTableEntry:
 		self.unknown2 = int.from_bytes(d[0xc:0x10], byteorder='little', signed=False)
 		self.sha1 = None
 
+class HierarchicalSha256:
+	def __init__(self, d, f, header):
+		self.f = f
+		self.data = d
+		self.hash = hx(d[0x0:0x20]).decode()
+		self.blockSize = int.from_bytes(d[0x20:0x24], byteorder='little', signed=False)
+		self.unk1 = int.from_bytes(d[0x24:0x28], byteorder='little', signed=False)
+		self.offset = int.from_bytes(d[0x28:0x30], byteorder='little', signed=False)
+		self.size = int.from_bytes(d[0x30:0x38], byteorder='little', signed=False)
+
+		self.pfs0Offset = int.from_bytes(d[0x38:0x40], byteorder='little', signed=False)
+		self.pfs0Size = int.from_bytes(d[0x40:0x48], byteorder='little', signed=False)		
+
+		self.multiplier = math.ceil(self.pfs0Size / self.blockSize)
+		self.header = header
+
+		self.verify()
+
+	def verify(self):
+		if self.unk1 != 2:
+			raise IOError('invalid HierarchicalSha256 value')
+
+		hash1 = sha256(uhx(self.getHash())).hexdigest()
+
+		if hash1 != self.hash:
+			Print.error('\n\n ********** invalid HierarchicalSha256 hash value ********** \n\n')
+
+	def getHash(self):
+		fs = self.header.fs.f
+		fs.seek(0)
+		data = fs.read(0x20*self.multiplier)
+		return hx(data).decode()
+
+	def getSuperblockHash(self):
+		self.f.seek(self.header.hashOffset)
+		return hx(self.f.read(0x20)).decode()
+
+	def setSuperblockHash(self, hash):
+		self.f.seek(self.header.hashOffset)
+		self.f.write(uhx(hash))
+
+	def calculateHash(self):
+		fs = self.header.fs
+		fs.seek(0)
+		data = fs.read(self.pfs0Size)
+		return sha256(data).hexdigest()
+
+	def setHash(self):
+		newHash = uhx(self.calculateHash())
+		fs = self.header.fs.f
+		fs.seek(0)
+		fs.write(newHash)
+
+		sbhash = sha256(newHash).hexdigest()
+		self.setSuperblockHash(sbhash)
+
+	def printInfo(self, maxDepth=3, indent=0):
+		tabs = '\t' * indent
+
+		Print.info(tabs + 'HierarchicalSha256: ')
+		Print.info(tabs + 'Block Size: ' + str(self.blockSize))
+		Print.info(tabs + 'Offset: ' + str(self.offset))
+		Print.info(tabs + 'Size: ' + str(self.size))
+		Print.info(tabs + 'PFS0 Offset: ' + str(self.pfs0Offset))
+		Print.info(tabs + 'PFS0 Size: ' + str(self.pfs0Size))
+		Print.info(tabs + 'Multiplier: ' + str(self.multiplier))
+		Print.info(tabs + 'Hash Stored: ' + str(self.getHash()))
+		try:
+			Print.info(tabs + 'Hash Clcltd: ' + str(self.calculateHash()))
+		except BaseException as e:
+			Print.info(tabs + 'Hash Clcltd: ' + str(e))
+		Print.info(tabs + 'Superblock Hash: ' + str(self.getSuperblockHash()))
+
 class FsHeader:
-	def __init__(self, f):
+	def __init__(self, f, fs = None):
 		self.version = f.readInt16()
 		self.fsType = f.readInt8()
 		self.hashType = f.readInt8()
 		self.encryptionType = f.readInt8()
 		self.padding = f.read(3)
+		self.hashOffset = f.tell()
 		self.hashInfo = f.read(0xF8)
 		self.patchInfo = f.read(0x40)
 		self.generation = f.readInt32()
 		self.secureValue = f.readInt32()
 		self.sparseInfo = f.read(0x30)
 		self.reserved = f.read(0x88)
+
+		self.hash = None
+		self.fs = fs
+
+		try:
+			if self.hashType == 2:
+				self.hash = HierarchicalSha256(self.hashInfo, f, self)
+		except BaseException as e:
+			Print.error(str(e))
 
 	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
@@ -61,6 +145,9 @@ class FsHeader:
 		Print.info(tabs + 'padding: ' + str(self.padding))
 		Print.info(tabs + 'generation: ' + str(self.generation))
 		Print.info(tabs + 'secureValue: ' + str(self.secureValue))
+
+		if self.hash:
+			self.hash.printInfo(maxDepth, indent+1)
 
 		Print.info(tabs + 'hashInfo: ' + hx(self.hashInfo).decode())
 		Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
@@ -174,9 +261,9 @@ class NcaHeader(File):
 		self.seek(0x400 + (index * 0x20))
 		return sha256(self.read(0x200)).hexdigest()
 
-	def getFsHeader(self, index):
+	def getFsHeader(self, index, fs = None):
 		self.seek(0x400 + (index * 0x20))
-		return FsHeader(self)
+		return FsHeader(self, fs = fs)
 
 	def realTitleId(self):
 		if not self.hasTitleRights():
@@ -429,9 +516,24 @@ class Nca(File):
 			return None
 
 	def updateFsHashes(self):
-		for tbl in self.header.sectionTables:
-			#hash = tbl.hash(self)
-			print('x')
+		for i in range(4):
+			tbl = self.header.sectionTables[i]
+
+			if not tbl.endOffset:
+				continue
+
+			header = self.header.getFsHeader(i, fs = self.sectionFilesystems[i])
+
+			if header.hash:
+				header.hash.setHash()
+
+			hash = self.header.calculateFsHeaderHash(i)
+			self.header.seek(0x280 + (i * 0x20))
+			hash2 = hx(self.header.read(0x20))
+			self.header.seek(0x280 + (i * 0x20))
+			self.header.write(uhx(hash))
+
+		self.flush()
 
 	def verifyHeader(self):
 		return self.header.verify()
@@ -586,7 +688,7 @@ class Nca(File):
 			if not tbl.endOffset:
 				continue
 
-			self.header.getFsHeader(i).printInfo(maxDepth = maxDepth, indent = indent + 1)
+			self.header.getFsHeader(i, fs = self.sectionFilesystems[i]).printInfo(maxDepth = maxDepth, indent = indent + 1)
 
 		Print.info('\n')
 
