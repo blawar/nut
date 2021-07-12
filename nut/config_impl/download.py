@@ -18,6 +18,8 @@ class Download: # pylint: disable=too-many-instance-attributes
 		self.ratingMax = None
 		self.releaseDateMin = None
 		self.releaseDateMax = None
+		self.mtime_min = None
+		self.mtime_max = None
 
 	def addRegion(self, region_):
 		region_ = region_.upper()

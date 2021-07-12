@@ -453,6 +453,8 @@ if __name__ == '__main__':
 			parser.add_argument('--rating-max', type=int, help='Rating maximum')
 			parser.add_argument('--rank-min', type=int, help='Rank minimum')
 			parser.add_argument('--rank-max', type=int, help='Rank maximum')
+			parser.add_argument('--mtime-min', type=int, help='mtime minimum')
+			parser.add_argument('--mtime-max', type=int, help='mtime maximum')
 			parser.add_argument('--base', type=int, choices=[0, 1], default=Config.download.base*1, help='download base titles')
 			parser.add_argument('--demo', type=int, choices=[0, 1], default=Config.download.demo*1, help='download demo titles')
 			parser.add_argument('--update', type=int, choices=[0, 1], default=Config.download.update*1, help='download title updates')
@@ -512,6 +514,12 @@ if __name__ == '__main__':
 
 			if args.rank_max:
 				Config.download.rankMax = args.rank_max
+
+			if args.mtime_min:
+				Config.download.mtime_min = args.mtime_min
+
+			if args.mtime_max:
+				Config.download.mtime_max = args.mtime_max
 
 			if args.reverse:
 				Config.reverse = True
@@ -602,9 +610,6 @@ if __name__ == '__main__':
 						i = Nsp(path)
 						i.move()
 
-			if args.decompress_all:
-				nut.decompressAll()
-
 			if args.update_titles:
 				nut.initTitles()
 				for url in Config.titleUrls:
@@ -678,31 +683,45 @@ if __name__ == '__main__':
 				nut.initFiles()
 				refresh(True)
 
-			if args.extract_nca_meta:
-				nut.extractNcaMeta(args.extract_nca_meta)
-
-			if args.organize:
-				nut.initTitles()
-				nut.initFiles()
-				nut.organize()
-
 			if args.verify_all_signatures:
 				nut.initTitles()
 				nut.initFiles()
 
+				filesToScan = {}
+
+				for path, nsp in Nsps.files.items():
+					try:
+						f = nsp
+
+						if f.verified:
+							continue
+
+						if f.titleId and not f.title().isActive():
+							continue
+
+						if Config.download.mtime_min and f.getFileModified() < Config.download.mtime_min:
+							continue
+
+						if Config.download.mtime_max and f.getFileModified() > Config.download.mtime_max:
+							continue
+
+						filesToScan[path] = nsp
+					except:
+						pass
+
 				with open('file.verification.txt', 'w+', encoding="utf-8") as bf:
-					s = Status.create(len(Nsps.files), desc='Verifying files...', unit='B')
-					for path, nsp in Nsps.files.items():
+					s = Status.create(len(filesToScan), desc='Verifying files...', unit='B')
+					for path, nsp in filesToScan.items():
 						try:
 							f = nsp
-
-							if f.titleId and not f.title().isActive():
-								continue
 
 							f.open(str(path), 'r+b')							
 
 							if not f.verifyNcaHeaders():
+								nsp.verified = False
 								raise IOError('bad file')
+
+							nsp.verified = True
 
 							Print.info('good file: ' + str(path))
 							bf.write('good file: %s\n' % str(path))
@@ -714,6 +733,7 @@ if __name__ == '__main__':
 
 						s.add()
 					s.close()
+				Nsps.save()
 
 
 			if args.verify_title_key:
@@ -900,6 +920,17 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.compressAll(19 if args.level is None else args.level)
+
+			if args.decompress_all:
+				nut.decompressAll()
+
+			if args.extract_nca_meta:
+				nut.extractNcaMeta(args.extract_nca_meta)
+
+			if args.organize:
+				nut.initTitles()
+				nut.initFiles()
+				nut.organize()
 
 			if args.export:
 				nut.initTitles()

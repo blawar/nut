@@ -13,6 +13,7 @@ class IndexedFile:
 	def __init__(self, path):
 		self.cr = None
 		self.hasValidTicket = None
+		self.verified = None
 
 		if path:
 			self.setPath(path)
@@ -190,6 +191,7 @@ class IndexedFile:
 			'version': self.version,
 			'timestamp': self.timestamp,
 			'path': self.path,
+			'verified': self.verified,
 			'fileSize': self.fileSize}
 
 	def getCr(self, inverted=False):

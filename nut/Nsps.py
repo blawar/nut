@@ -181,6 +181,11 @@ def _fill_nsp_from_json_object(nsp, json_object):
 	else:
 		nsp.extractedNcaMeta = False
 
+	if 'verified' in json_object:
+		nsp.verified = json_object['verified']
+	else:
+		nsp.verified = None
+
 	nsp.cr = json_object['cr'] if 'cr' in json_object else None
 
 def load(fileName='titledb/files.json', verify=True):
