@@ -33,6 +33,7 @@ class Nsp(Pfs0, IndexedFile):
 		self.fileSize = None
 		self.fileModified = None
 		self.extractedNcaMeta = False
+		self.verified = None
 
 		super(Nsp, self).__init__(None, path, mode)
 
