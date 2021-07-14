@@ -14,6 +14,7 @@ htmlcov
 *.py,cover
 
 # config
+file.verification.txt
 gdrive.token
 token.pickle
 credentials.json
