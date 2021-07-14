@@ -924,7 +924,7 @@ if __name__ == '__main__':
 			if args.decompress_all:
 				nut.decompressAll()
 
-			if args.extract_nca_meta:
+			if args.extract_nca_meta is not None:
 				nut.extractNcaMeta(args.extract_nca_meta)
 
 			if args.organize:
