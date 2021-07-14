@@ -24,7 +24,7 @@ class App(QWidget):
 	def __init__(self):
 		super().__init__()
 		screen = QDesktopWidget().screenGeometry()
-		self.title = 'NUT 3.1'
+		self.title = 'NUT 3.2'
 		self.left = int(screen.width() / 4)
 		self.top = int(screen.height() / 4)
 		self.width = int(screen.width() / 2)
