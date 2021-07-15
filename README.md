@@ -3,6 +3,43 @@
 Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ).
 It has the ability to act as a USB and network server for [Tinfoil](https://tinfoil.io/Download#download).
 
+------
+
+![NUT GUI Image](./images/gui_files.jpg)
+
+
+## Buttons
+ - **Scan** - populates file list
+ - **Organize Files** - moves files on disk to match the format specified in the configuration
+ - **Pull** - gets new files that match your filters from the remote locations (see configuration)
+ - **Update TitleDB** - force-reloads the latest [title database](https://github.com/blawar/titledb)
+ - **Decompress NSZ** - for any NSZ.XCZ files found, uncompresses them to NSP/XCI
+ - **Compress NSP** - for any NSP/XCI files found, compresses them to NSZ/XCZ **CPU INTENSIVE**
+ - **Setup GDrive OAuth** - see below
+
+## Configuration
+
+The GUI has the ability to set the most common configuration options, see the below images. You can also create a custom configuration by creating `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
+
+<details>
+<summary>Images</summary>
+  
+![Filters](./images/gui_filters.jpg)
+![Local Paths](./images/gui_scan1.jpg)
+![Local Scan](./images/gui_scan1.jpg)
+![Remote Scan](./images/gui_scan2.jpg)
+</details>
+
+The IP/Port/User/Password are the information needed to login to the NUT server. To the right of those, you can also see a `USB Status` indicator, indicating whether a Tinfoil client is connected via USB with the server.
+
+THe body shows a table containing a list of files that were detected by NUT from the scanned paths. It shows the title count, file name, title ID, title type and title size for each scanned file.
+
+The footer shows the progress information of any file that is currently being downloaded from the server.
+
+## Google Drive Integration
+NUT has the ability to interact with Google Drive. For this to work, you will need to download a `credentials.json`, using the guide found [here](https://developers.google.com/workspace/guides/create-credentials). Once you have this file placed either in NUT's root or conf directory, click the **Setup GDrive OAuth** button in the GUI and follow the prompts. You will be able to access your GDrive through Tinfoil via the `gdrive:/` protocol after copying `credentials.json` and `token.json` to `/switch/tinfoil` on your microSD card. (*This is automatically done if you connect Tinfoil to nut*)
+
+------
 
 ## Usage guide (Windows users)
 * Download `tinfoil_driver.exe` and `nut.exe` from [here](https://github.com/blawar/nut/releases/latest).
@@ -15,8 +52,8 @@ It has the ability to act as a USB and network server for [Tinfoil](https://tinf
 
 ### Requirements
 * Python 3.7+
-* PIP modules from `requirements.txt`
 * OpenSSL-backed curl (for pycurl)
+* Python modules as listed in [`requirements.txt`](requirements.txt)
 
 ### Installation guide (Linux)
 
@@ -56,46 +93,11 @@ pip install --install-option="--with-openssl" --install-option="--openssl-dir=/u
 * Run `python nut_gui.py` to launch the application
 </details>
 
-
-![NUT GUI Image](./images/gui_files.jpg)
-
-
-## Buttons
- - **Scan** - populates file list
- - **Organize Files** - moves files on disk to match the format specified in the configuration
- - **Pull** - gets new files that match your filters from the remote locations (see configuration)
- - **Update TitleDB** - force-reloads the latest [title database](https://github.com/blawar/titledb)
- - **Decompress NSZ** - for any NSZ.XCZ files found, uncompresses them to NSP/XCI
- - **Compress NSP** - for any NSP/XCI files found, compresses them to NSZ/XCZ **CPU INTENSIVE**
- - **Setup GDrive OAuth** - see below
-
-## Configuration
-
-The GUI has the ability to set the most common configuration options, see the below images. You can also create a custom configuration by creating `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
-
-<details>
-<summary>Images</summary>
-  
-![Filters](./images/gui_filters.jpg)
-![Local Paths](./images/gui_scan1.jpg)
-![Local Scan](./images/gui_scan1.jpg)
-![Remote Scan](./images/gui_scan2.jpg)
-</details>
-
-The IP/Port/User/Password are the information needed to login to the NUT server. To the right of those, you can also see a `USB Status` indicator, indicating whether a Tinfoil client is connected via USB with the server.
-
-THe body shows a table containing a list of files that were detected by NUT from the scanned paths. It shows the title count, file name, title ID, title type and title size for each scanned file.
-
-The footer shows the progress information of any file that is currently being downloaded from the server.
-
-## Google Drive Integration
-NUT has the ability to interact with Google Drive. For this to work, you will need to download a `credentials.json`, using the guide found [here](https://developers.google.com/workspace/guides/create-credentials). Once you have this file placed either in NUT's root or conf directory, click the **Setup GDrive OAuth** button in the GUI and follow the prompts. You will be able to access your GDrive through Tinfoil via the `gdrive:/` protocol after copying `credentials.json` and `token.json` to `/switch/tinfoil` on your microSD card. (*This is automatically done if you connect Tinfoil to nut*)
-
+------
 
 ## License
 This software is licensed under the terms of the GPLv3, with exemptions for specific projects noted below.
 You can find a copy of the license in the [LICENSE](./LICENSE) file.
-
 
 Exemptions:
 * [nsz](https://github.com/nicoboss/nsz) is exempt from GPLv3 licensing and can license any source code from this project under the MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense.
