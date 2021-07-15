@@ -306,10 +306,12 @@ def getOffsetAndSize(start, end, size=None):
 	return [start, size]
 
 class Progress:
-	def __init__(self, response, f):
+	def __init__(self, response, f, size = None):
 		self.response = response
 		self.f = f
-		self.status = Status.create(f.size, 'Downloading ' + os.path.basename(f.url))
+		self.status = Status.create(size or f.size, 'Downloading ' + os.path.basename(f.url))
+		self.buffer = b''
+		self.chunk_size = 0x100000 * 16
 
 	def __enter__(self):
 		return self
@@ -317,14 +319,30 @@ class Progress:
 	def __exit__(self, type, value, traceback):
 		self.close()
 
+	def flush(self):
+		if len(self.buffer) > 0:
+			self.response.write(self.buffer)
+			self.status.add(len(self.buffer))
+			self.buffer = b''
+
+
 	def close(self):
+		self.flush()
+
 		if self.status is not None:
 			self.status.close()
 			self.status = None
 
 	def write(self, chunk):
-		self.response.write(chunk)
-		self.status.add(len(chunk))
+		chunk_left = self.chunk_size - len(self.buffer)
+
+		if len(chunk) < chunk_left:
+			self.buffer += chunk
+		else:
+			self.buffer += chunk[0:chunk_left]
+			self.flush()
+
+			self.write(chunk[chunk_left:])
 
 
 def serveFile(response, path, filename=None, start=None, end=None):
@@ -346,7 +364,7 @@ def serveFile(response, path, filename=None, start=None, end=None):
 			response.sendHeader()
 
 			if not response.head:
-				with Progress(response=response, f=f) as progress:
+				with Progress(response=response, f=f, size = size) as progress:
 					f.chunk(progress.write, offset=start, size=size)
 		except BaseException as e:
 			Print.error('File download exception: ' + str(e))
@@ -626,10 +644,19 @@ def getFile(request, response, start=None, end=None):
 def getFileSize(request, response):
 	response.headers['Content-Type'] = 'application/json'
 	t = {}
+
 	path = ''
-	for i in request.bits[2:]:
-		path = os.path.join(path, i)
+
+	if len(request.bits) > 2:
+		virtualDir = request.bits[2]
+	else:
+		virtualDir = ''
+
+	path = virtualDir + ':/'
+	for i in request.bits[3:]:
+		path = Fs.driver.join(path, i)
 	path = Fs.driver.cleanPath(path)
+
 	try:
 		t['size'] = os.path.getsize(path)
 		t['mtime'] = os.path.getmtime(path)
