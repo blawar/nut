@@ -1,6 +1,6 @@
 # NUT [![Github all releases](https://img.shields.io/github/downloads/blawar/nut/total.svg)](https://GitHub.com/blawar/nut/releases/) 
 
-Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ).
+Nut is a multi-purpose utility to organize, manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ).
 It has the ability to act as a USB and network server for [Tinfoil](https://tinfoil.io/Download#download).
 
 ------
