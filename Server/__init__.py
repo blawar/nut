@@ -141,6 +141,7 @@ class NutResponse:
 		self.q = NutQueue()
 		self.thread = None
 		self.running = False
+		self.threaded = True
 
 	def worker(self):
 		while True:
@@ -158,14 +159,14 @@ class NutResponse:
 				return
 
 	def __enter__(self):
-		if not self.running:
+		if self.threaded and not self.running:
 			self.running = True
 			self.thread = threading.Thread(target=self.worker)
 			self.thread.start()
 		return self
 
 	def __exit__(self, type, value, traceback):
-		if self.running:
+		if self.threaded and self.running:
 			self.running = False
 			self.thread.join()
 
@@ -207,10 +208,13 @@ class NutResponse:
 		self.headersSent = True
 
 	def write(self, data):
-		if not self.running:
-			raise IOError('no writer thread')
+		if self.threaded:
+			if not self.running:
+				raise IOError('no writer thread')
 
-		self.q.push(data)
+			self.q.push(data)
+		else:
+			self._write(data)
 
 	def _write(self, data):
 		if self.bytesSent == 0 and not self.headersSent:
