@@ -15,6 +15,10 @@ Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch 
 * OpenSSL-backed curl (for pycurl)
 
 ### Installation guide (Linux)
+
+<details>
+<summary>Details</summary>
+  
 * Install Python 3.7+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages
 * Install `curl` with the openssl backend - install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
@@ -24,9 +28,14 @@ Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch 
 SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", GROUP="plugdev"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
 ```
-* Run `python3 nut_gui.py` to launch the application.
+* Run `python3 nut.py` to launch the application.
+</details>
 
 ### Installation guide (macOS)
+
+<details>
+<summary>Details</summary>
+  
 * Install Python 3.7+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew install curl`)
@@ -41,40 +50,51 @@ pip install --install-option="--with-openssl" --install-option="--openssl-dir=/u
 ```
 * Install all other dependencies (`pip install -r requirements.txt`)
 * Run `python nut_gui.py` to launch the application
+</details>
 
 
-![NUT GUI Image](./images/nutserver.png)
+![NUT GUI Image](./images/gui_files.jpg)
 
+## Buttons
+ - **Scan** - populates file list
+ - **Organize Files** - moves files on disk to match the format specified in the configuration
+ - **Pull** - gets new files that match your filters from the remote locations (see configuration)
+ - **Update TitleDB** - force-reloads latest title database
+ - **Decompress NSZ** - for any NSZ.XCZ files found, uncompresses them to NSP/XCI
+ - **Compress NSP** - for any NSP/XCI files found, compresses them to NSZ/XCZ **CPU INTENSIVE**
+ - **Setup GDrive OAuth** - see below
 
 ## Configuration
 
-You can create a custom configuration by crating a `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
+The GUI has the ability to set the most common configuration options, see the below images. You can also create a custom configuration by creating a `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
 
+<details>
+<summary>Images</summary>
+  
+![Filters](./images/gui_filters.jpg)
+![Local Paths](./images/gui_scan1.jpg)
+![Local Scan](./images/gui_scan1.jpg)
+![Remote Scan](./images/gui_scan2.jpg)
+</details>
 
-The GUI is divided into three distinct sections (header, body, footer).
+The IP/Port/User/Password are the information needed to login to the NUT server. To the right of those, you can also see a `USB Status` indicator, indicating whether a Tinfoil client is connected via USB with the server.
 
-### Application Header
-The top section has a textbox to input a folder path to scan, along with a `Save` and `Scan` buttons to update path specified in the textbox and scan it. Next to it, you should see a `GDrive Auth` button. A detailed explaination of what it does can be found below. The IP/Port/User/Password are the information needed to login to the NUT server. To the right of those, you can also see a `USB Status` indicator, indicating whether a tinfoil client is connected via USB with the server.
+THe body shows a table containing a list of files that were detected by NUT from the scanned paths. It shows the title count, file name, title ID, title type and title size for each scanned file.
 
-### Application Body
-This shows a table containing a list of NSW files that was detected by NUT from the scanned paths. It shows the title count, file name, title ID, title type and title size for each scanned file.
+The footer shows the progress information of any file that is currently being downloaded from the server.
 
-### Application Footer
-This shows the progress information of any file that is currently being downloaded from the server.
-
-### GDrive Auth
+## Google Drive Auth
 NUT will authenticate with GDrive if you create a GDrive application, and place its credentials.json file either in nut's root directory, or in the conf directory. You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/python.
 
 Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or GDrive protocol.
 
 
 ## License
-This project is licensed under the terms of GPLv3, with the exemptions for specific projects noted below.
-
-You can find a copy of the license in the [LICENSE file](./LICENSE).
+This project is licensed under the terms of GPLv3, with the exemptions for specific projects noted below. You can find a copy of the license in the [LICENSE file](./LICENSE).
 
 Exemptions:
 * [nsz](https://github.com/nicoboss/nsz) is exempt from the GPLv3 licensing and can license any source code from this project under MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense.
+
 
 ## Contributing
 
