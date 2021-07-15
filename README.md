@@ -1,6 +1,8 @@
 # NUT [![Github all releases](https://img.shields.io/github/downloads/blawar/nut/total.svg)](https://GitHub.com/blawar/nut/releases/) 
 
-Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ). It has the ability to act as a USB and network server for [Tinfoil](https://tinfoil.io/Download#download).
+Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ).
+It has the ability to act as a USB and network server for [Tinfoil](https://tinfoil.io/Download#download).
+
 
 ## Usage guide (Windows users)
 * Download `tinfoil_driver.exe` and `nut.exe` from [here](https://github.com/blawar/nut/releases/latest).
@@ -8,7 +10,9 @@ Nut is a multi-purpose utility to organizem manage, and install Nintendo Switch 
 * Run `nut.exe`. You should be presented with a GUI as shown in the picture above.
 * Install the latest version of [Tinfoil](https://tinfoil.io/Download#download) and open it.
 
+
 ## Usage guide (UNIX users)
+
 ### Requirements
 * Python 3.7+
 * PIP modules from `requirements.txt`
@@ -55,18 +59,19 @@ pip install --install-option="--with-openssl" --install-option="--openssl-dir=/u
 
 ![NUT GUI Image](./images/gui_files.jpg)
 
+
 ## Buttons
  - **Scan** - populates file list
  - **Organize Files** - moves files on disk to match the format specified in the configuration
  - **Pull** - gets new files that match your filters from the remote locations (see configuration)
- - **Update TitleDB** - force-reloads latest title database
+ - **Update TitleDB** - force-reloads the latest [title database](https://github.com/blawar/titledb)
  - **Decompress NSZ** - for any NSZ.XCZ files found, uncompresses them to NSP/XCI
  - **Compress NSP** - for any NSP/XCI files found, compresses them to NSZ/XCZ **CPU INTENSIVE**
  - **Setup GDrive OAuth** - see below
 
 ## Configuration
 
-The GUI has the ability to set the most common configuration options, see the below images. You can also create a custom configuration by creating a `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
+The GUI has the ability to set the most common configuration options, see the below images. You can also create a custom configuration by creating `conf/nut.conf`. The format should mirror [nut.default.conf](https://github.com/blawar/nut/blob/master/conf/nut.default.conf).
 
 <details>
 <summary>Images</summary>
@@ -83,27 +88,18 @@ THe body shows a table containing a list of files that were detected by NUT from
 
 The footer shows the progress information of any file that is currently being downloaded from the server.
 
-## Google Drive Auth
-NUT will authenticate with GDrive if you create a GDrive application, and place its credentials.json file either in nut's root directory, or in the conf directory. You can generate / download credentials.json from https://developers.google.com/drive/api/v3/quickstart/python.
-
-Once this is set up, you can access your gdrive through tinfoil, by using either the usbfs, nutfs, or GDrive protocol.
+## Google Drive Integration
+NUT has the ability to interact with Google Drive. For this to work, you will need to download a `credentials.json`, using the guide found [here](https://developers.google.com/workspace/guides/create-credentials). Once you have this file placed either in NUT's root or conf directory, click the **Setup GDrive OAuth** button in the GUI and follow the prompts. You will be able to access your GDrive through Tinfoil via the `gdrive:/` protocol after copying `credentials.json` and `token.json` to `/switch/tinfoil` on your microSD card. (*This is automatically done if you connect Tinfoil to nut*)
 
 
 ## License
-This project is licensed under the terms of GPLv3, with the exemptions for specific projects noted below. You can find a copy of the license in the [LICENSE file](./LICENSE).
+This software is licensed under the terms of the GPLv3, with exemptions for specific projects noted below.
+You can find a copy of the license in the [LICENSE](./LICENSE) file.
+
 
 Exemptions:
-* [nsz](https://github.com/nicoboss/nsz) is exempt from the GPLv3 licensing and can license any source code from this project under MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense.
-
+* [nsz](https://github.com/nicoboss/nsz) is exempt from GPLv3 licensing and can license any source code from this project under the MIT License instead. In doing so, they may alter, supplement, or entirely remove the copyright notice for each file they choose to relicense.
 
 ## Contributing
 
-Contributions are welcome!
-
-To prevent continuous integration failures when contributing, please consider installing
-[pre-commit](https://pre-commit.com/) in your environment to run all of these checks
-prior to checking in new code.
-
-```shell
-pre-commit install
-```
+Contributions are welcome, and there is a [pre-commit hook](https://pre-commit.com/#install) - run `python -m pip install -r requirements_dev.txt`
