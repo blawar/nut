@@ -434,7 +434,7 @@ if __name__ == '__main__':
 			parser.add_argument('--gen-tinfoil-titles', action="store_true", help='Outputs language files for Tinfoil')
 			parser.add_argument('-O', '--organize-ncas', help='Organize unsorted NCA\'s')
 			parser.add_argument('--export-nca-map', help='Export JSON map of titleid to NCA mapping')
-			parser.add_argument('--extract-nca-meta', nargs='+', help='Extract nca metadata from NSPs')
+			parser.add_argument('--extract-nca-meta', nargs='*', help='Extract nca metadata from NSPs')
 			parser.add_argument('-C', action="store_true", help='Compress NSP')
 			parser.add_argument('-l', '--level', type=int, default=19, help='Compression Level')
 			parser.add_argument('--output', help='Directory to save the output files')
