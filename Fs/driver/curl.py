@@ -1,6 +1,7 @@
 import pycurl
 import io
 import os
+import certifi
 import Fs.driver
 from nut import Print
 
@@ -29,6 +30,7 @@ class FileContext(Fs.driver.FileContext):
 	def read(self, sz=None):
 		curl = pycurl.Curl()
 		curl.setopt(pycurl.URL, self.url)
+		curl.setopt(pycurl.CAINFO, certifi.where())
 		output = io.BytesIO()
 		curl.setopt(pycurl.WRITEFUNCTION, output.write)
 		self.setup(curl, None, sz)
@@ -40,6 +42,7 @@ class FileContext(Fs.driver.FileContext):
 		try:
 			curl = pycurl.Curl()
 			curl.setopt(pycurl.URL, self.url)
+			curl.setopt(pycurl.CAINFO, certifi.where())
 			output = io.BytesIO()
 			curl.setopt(pycurl.WRITEFUNCTION, callback)
 			self.setup(curl, offset, size)
@@ -63,6 +66,7 @@ class DirContext(Fs.driver.DirContext):
 	def ls(self):
 		curl = pycurl.Curl()
 		curl.setopt(pycurl.URL, self.url)
+		curl.setopt(pycurl.CAINFO, certifi.where())
 		output = io.BytesIO()
 		curl.setopt(pycurl.DIRLISTONLY, 1)
 		curl.setopt(pycurl.WRITEFUNCTION, output.write)
