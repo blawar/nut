@@ -61,30 +61,42 @@ class HierarchicalSha256:
 		if self.unk1 != 2:
 			raise IOError('invalid HierarchicalSha256 value')
 
-		hash1 = sha256(uhx(self.getHash())).hexdigest()
+		hash1 = sha256(uhx(self.getHashTable())).hexdigest()
 
 		if hash1 != self.hash:
 			Print.error('\n\n ********** invalid HierarchicalSha256 hash value ********** \n\n')
 
-	def getHash(self):
+	def getHashTable(self):
 		fs = self.header.fs.f
 		fs.seek(0)
 		data = fs.read(0x20*self.multiplier)
 		return hx(data).decode()
 
-	def getSuperblockHash(self):
+	def calculateHashTableHash(self):
+		fs = self.header.fs.f
+		fs.seek(0)
+		data = fs.read(0x20*self.multiplier)
+		return sha256(data).hexdigest()
+
+	def getHashTableHash(self):
 		self.f.seek(self.header.hashOffset)
 		return hx(self.f.read(0x20)).decode()
 
-	def setSuperblockHash(self, hash):
+	def setHashTableHash(self, hash):
 		self.f.seek(self.header.hashOffset)
 		self.f.write(uhx(hash))
 
 	def calculateHash(self):
+		r = ''
 		fs = self.header.fs
+		remaining = self.pfs0Size
 		fs.seek(0)
-		data = fs.read(self.pfs0Size)
-		return sha256(data).hexdigest()
+
+		for i in range(self.multiplier):
+			data = fs.read(min(remaining, self.blockSize))
+			remaining -= len(data)
+			r += sha256(data).hexdigest()
+		return r
 
 	def setHash(self):
 		newHash = uhx(self.calculateHash())
@@ -93,7 +105,7 @@ class HierarchicalSha256:
 		fs.write(newHash)
 
 		sbhash = sha256(newHash).hexdigest()
-		self.setSuperblockHash(sbhash)
+		self.setHashTableHash(sbhash)
 
 	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
@@ -105,12 +117,22 @@ class HierarchicalSha256:
 		Print.info(tabs + 'PFS0 Offset: ' + str(self.pfs0Offset))
 		Print.info(tabs + 'PFS0 Size: ' + str(self.pfs0Size))
 		Print.info(tabs + 'Multiplier: ' + str(self.multiplier))
-		Print.info(tabs + 'Hash Stored: ' + str(self.getHash()))
+
+		
+		
 		try:
-			Print.info(tabs + 'Hash Clcltd: ' + str(self.calculateHash()))
+			storedHash = str(self.getHashTable()).lower()
+			calculatedHash = str(self.calculateHash()).lower()
+
+			if calculatedHash != storedHash:
+				Print.info(tabs + '** BAD CONTENT HASH **:')
+				Print.info(tabs + 'Hash Stored: ' + storedHash)
+				Print.info(tabs + 'Hash Clcltd: ' + calculatedHash)
 		except BaseException as e:
 			Print.info(tabs + 'Hash Clcltd: ' + str(e))
-		Print.info(tabs + 'Superblock Hash: ' + str(self.getSuperblockHash()))
+		Print.info(tabs + 'Hash Table Hash Stored: ' + str(self.getHashTableHash()))
+
+		Print.info(tabs + 'Hash Table Hash Actual: ' + self.calculateHashTableHash())
 
 class FsHeader:
 	def __init__(self, f, fs = None):
@@ -138,21 +160,22 @@ class FsHeader:
 
 	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
+		Print.info('\n')
 		Print.info(tabs + 'version: ' + str(self.version))
 		Print.info(tabs + 'fsType: ' + str(self.fsType))
 		Print.info(tabs + 'hashType: ' + str(self.hashType))
 		Print.info(tabs + 'encryptionType: ' + str(self.encryptionType))
-		Print.info(tabs + 'padding: ' + str(self.padding))
+		Print.info(tabs + 'padding: ' + hx(self.padding).decode())
 		Print.info(tabs + 'generation: ' + str(self.generation))
 		Print.info(tabs + 'secureValue: ' + str(self.secureValue))
 
 		if self.hash:
 			self.hash.printInfo(maxDepth, indent+1)
 
-		Print.info(tabs + 'hashInfo: ' + hx(self.hashInfo).decode())
-		Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
-		Print.info(tabs + 'sparseInfo: ' + hx(self.sparseInfo).decode())
-		Print.info(tabs + 'reserved: ' + hx(self.reserved).decode())
+		#Print.info(tabs + 'hashInfo: ' + hx(self.hashInfo).decode())
+		#Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
+		#Print.info(tabs + 'sparseInfo: ' + hx(self.sparseInfo).decode())
+		#Print.info(tabs + 'reserved: ' + hx(self.reserved).decode())
 
 
 def GetSectionFilesystem(buffer, cryptoKey):
@@ -258,11 +281,14 @@ class NcaHeader(File):
 		return True
 
 	def calculateFsHeaderHash(self, index):
-		self.seek(0x400 + (index * 0x20))
-		return sha256(self.read(0x200)).hexdigest()
+		self.seek(0x400 + (index * 0x200))
+		buffer = self.read(0x200)
+		h = sha256(buffer).hexdigest()
+
+		return h
 
 	def getFsHeader(self, index, fs = None):
-		self.seek(0x400 + (index * 0x20))
+		self.seek(0x400 + (index * 0x200))
 		return FsHeader(self, fs = fs)
 
 	def realTitleId(self):
@@ -663,7 +689,7 @@ class Nca(File):
 		Print.info(tabs + 'verified header = ' + str(self.header.verify()))
 		Print.info(tabs + 'magic = ' + str(self.header.magic))
 		Print.info(tabs + 'titleId = ' + str(self.header.titleId))
-		Print.info(tabs + 'rightsId = ' + str(self.header.rightsId))
+		Print.info(tabs + 'rightsId = ' + str(self.header.rightsId.decode()))
 		Print.info(tabs + 'isGameCard = ' + hex(self.header.isGameCard))
 		Print.info(tabs + 'contentType = ' + str(self.header.contentType))
 		Print.info(tabs + 'cryptoType = ' + str(self.cryptoType))
@@ -679,7 +705,14 @@ class Nca(File):
 			if not tbl.endOffset:
 				continue
 
-			Print.info('\t%soffset = %X, endOffset = %X, hash = %s, actual hash = %s' % (tabs, tbl.offset, tbl.endOffset, str(self.header.sectionHashes[i]), self.header.calculateFsHeaderHash(i)))
+			Print.info('\t%soffset = %X, endOffset = %X' % (tabs, tbl.offset, tbl.endOffset))
+
+			actualHash = self.header.calculateFsHeaderHash(i)
+
+			if actualHash != str(self.header.sectionHashes[i]):
+				Print.info('\t%s ** HASH MISMATCH! **' % (tabs))
+				Print.info('\t%sstored hash = %s' % (tabs, str(self.header.sectionHashes[i])))
+				Print.info('\t%sactual hash = %s' % (tabs, actualHash))
 
 		Print.info('\n\n' + tabs + 'FsHeaders:')
 		for i in range(4):
@@ -712,7 +745,7 @@ class Nca(File):
 			Print.info(tabs + 'build Id: ' + str(self.buildId()))
 
 		if self.header.signature1:
-			Print.info(tabs + 'Signature1: ' + str(self.header.signature1))
+			Print.info(tabs + 'Signature1: ' + hx(self.header.signature1).decode())
 
 		if self.header.signature2:
-			Print.info(tabs + 'Signature2: ' + str(self.header.signature2))
+			Print.info(tabs + 'Signature2: ' + hx(self.header.signature2).decode())
