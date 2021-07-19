@@ -139,25 +139,6 @@ def sortedFs(nca):
 	fs.sort(key=lambda x: x.offset)
 	return fs
 
-def isNcaPacked(nca):
-	return True
-	fs = sortedFs(nca)
-
-	if len(fs) == 0:
-		return True
-
-	next = ncaHeaderSize
-	for i in range(len(fs)):
-		if fs[i].offset != next:
-			return False
-
-		next = fs[i].offset + fs[i].size
-
-	if next != nca.size:
-		return False
-
-	return True
-
 def compress(filePath, compressionLevel=19, outputDir=None):
 	filePath = os.path.abspath(filePath)
 
@@ -182,8 +163,8 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 	newNsp = Pfs0Stream(nszPath)
 
 	for nspf in container:
-		if isinstance(nspf, Fs.Nca) and (nspf.header.contentType == Fs.Type.Content.PROGRAM or nspf.header.contentType == Fs.Type.Content.PUBLICDATA):
-			if isNcaPacked(nspf):
+		if isinstance(nspf, Fs.Nca) and ((nspf.header.contentType == Fs.Type.Content.PROGRAM or nspf.header.contentType == Fs.Type.Content.PUBLICDATA) or int(nspf.header.titleId, 16) <= 0x0100000000001000):
+			if nspf.size > ncaHeaderSize * 2:
 				cctx = zstandard.ZstdCompressor(level=compressionLevel)
 
 				newFileName = nspf._path[0:-1] + 'z'
@@ -214,10 +195,20 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 				for fs in sortedFs(nspf):
 					sectionsTmp += fs.getEncryptionSections()
 
-				currentOffset = 0
+				currentOffset = ncaHeaderSize
 				for fs in sectionsTmp:
-					if fs.offset != currentOffset:
+					if fs.offset < ncaHeaderSize:
+						if fs.offset + fs.size < ncaHeaderSize:
+							currentOffset = fs.offset + fs.size
+							continue
+						else:
+							fs.size -= ncaHeaderSize - fs.offset
+							fs.offset = ncaHeaderSize
+					elif fs.offset > currentOffset:
 						sections.append(BaseFs.EncryptedSection(currentOffset, fs.offset - currentOffset, Fs.Type.Crypto.NONE, None, None))
+					elif fs.offset < currentOffset:
+						raise IOError("misaligned nca partitions")
+
 					sections.append(fs)
 					currentOffset = fs.offset + fs.size
 
@@ -269,8 +260,6 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 				newNsp.resize(newFileName, written)
 
 				continue
-			else:
-				Print.info('not packed!')
 
 		f = newNsp.add(nspf._path, nspf.size)
 		nspf.seek(0)
