@@ -14,6 +14,12 @@ class EncryptedSection:
 		self.cryptoKey = cryptoKey
 		self.cryptoCounter = cryptoCounter
 
+		if not self.cryptoKey:
+			self.cryptoKey = b'\x00' * 16
+
+		if not self.cryptoCounter:
+			self.cryptoCounter = b'\x00' * 16
+
 class BaseFs(File):
 	def __init__(self, buffer, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		self.buffer = buffer

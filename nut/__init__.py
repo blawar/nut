@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 import Fs
 import Fs.Type
-from Fs import Cnmt, Nca, Nsp, Pfs0, Rom
+from Fs import Cnmt, Nca, Nsp, Pfs0, Rom, BaseFs
 from Fs.Pfs0 import Pfs0Stream
 from nut import (Config, Keys, Nsps, NszDecompressor, Print, Status, Title,
                  Titles, aes128)
@@ -140,6 +140,7 @@ def sortedFs(nca):
 	return fs
 
 def isNcaPacked(nca):
+	return True
 	fs = sortedFs(nca)
 
 	if len(fs) == 0:
@@ -209,8 +210,16 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 				compressor = cctx.stream_writer(f)
 
 				sections = []
+				sectionsTmp = []
 				for fs in sortedFs(nspf):
-					sections += fs.getEncryptionSections()
+					sectionsTmp += fs.getEncryptionSections()
+
+				currentOffset = 0
+				for fs in sectionsTmp:
+					if fs.offset != currentOffset:
+						sections.append(BaseFs.EncryptedSection(currentOffset, fs.offset - currentOffset, Fs.Type.Crypto.NONE, None, None))
+					sections.append(fs)
+					currentOffset = fs.offset + fs.size
 
 				header = b'NCZSECTN'
 				header += len(sections).to_bytes(8, 'little')
