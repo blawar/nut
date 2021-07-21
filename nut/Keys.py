@@ -154,9 +154,9 @@ try:
 	load('keys.txt')
 except BaseException as e:
 	try:
-		load('keys.prod')
+		load('prod.keys')
 	except BaseException:
-		Print.error('could not load keys.txt, all crypto operations will fail')
+		Print.error('could not load find or load keys.txt, all crypto operations will fail. See keys_template.txt for an example of how this file should look')
 
 # for k in titleKeks:
 #	Print.info('titleKek = ' + k)
