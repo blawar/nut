@@ -502,8 +502,13 @@ def importRegion(region='US', language='en', save=True):
 			if not regionTitle.id:
 				continue
 
-			title = Titles.get(regionTitle.id, None, None)
-			title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
+			try:
+				for tid in regionTitle.ids:
+					title = Titles.get(tid, None, None)
+					title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
+			except:
+				title = Titles.get(regionTitle.id, None, None)
+				title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
 
 	Titles.loadTxtDatabases()
 	if save:
