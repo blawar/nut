@@ -378,6 +378,12 @@ class Title:
 		else:
 			return False
 
+	def setIds(self, ids):
+		for id in ids:
+			self.setId(id)
+			break
+		self.ids = ids
+
 	def setId(self, id):
 		if not hasattr(self, 'rank'):
 			self.rank = None
