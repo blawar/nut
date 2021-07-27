@@ -391,7 +391,7 @@ class Title:
 			if id not in self.ids:
 				self.ids.append(id)
 		except:
-			self.ids = []
+			self.ids = [id]
 
 	def setId(self, id):
 		if not hasattr(self, 'rank'):

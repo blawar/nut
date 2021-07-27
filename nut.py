@@ -660,7 +660,6 @@ if __name__ == '__main__':
 
 				if args.scrape_nsuid:
 					nut.initTitles()
-					nut.initFiles()
 					region = 'US'
 					language = 'en'
 					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), region=region, language=language, force=True).__dict__))
