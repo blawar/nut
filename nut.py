@@ -480,8 +480,13 @@ if __name__ == '__main__':
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
 				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
 				parser.add_argument('--cetk', help='Pull ticket by rightsID')
+				parser.add_argument('--cdn-cache-only', action="store_true", help='Only hit cdn cache')
 
 			args = parser.parse_args()
+			
+			if hasCdn:
+				if args.cdn_cache_only:
+					Config.cdnCacheOnly = True
 
 			if args.hostname:
 				args.server = True

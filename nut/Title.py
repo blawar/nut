@@ -383,6 +383,15 @@ class Title:
 			self.setId(id)
 			break
 		self.ids = ids
+		
+	def addId(self, id):
+		id = id.upper()
+		self.setId(id)
+		try:
+			if id not in self.ids:
+				self.ids.append(id)
+		except:
+			self.ids = []
 
 	def setId(self, id):
 		if not hasattr(self, 'rank'):
