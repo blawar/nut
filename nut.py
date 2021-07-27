@@ -962,15 +962,6 @@ if __name__ == '__main__':
 					pass
 				blockchain.run()
 
-			if len(sys.argv) == 1:
-				nut.initTitles()
-				nut.initFiles()
-				nut.scan()
-				nut.organize()
-				nut.downloadAll()
-				nut.scanLatestTitleUpdates()
-				nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
-
 			if args.export_verified_keys:
 				exportVerifiedKeys(args.export_verified_keys)
 
