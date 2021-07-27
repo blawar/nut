@@ -18,6 +18,7 @@ reverse = False
 isScanning = False
 autoUpdateTitleDb = True
 allowNoMetadata = True
+cdnCacheOnly = False
 
 region = None
 
