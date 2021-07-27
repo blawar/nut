@@ -1381,7 +1381,7 @@ def scrapeShogunWorker(q, force = False, refresh = False):
 			break
 
 		try:
-			cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh)
+			cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh, save = False)
 		except BaseException as e:
 			Print.info('shogun worker exception: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
@@ -1423,7 +1423,7 @@ def scrapeShogunThreaded(force = False, refresh = False):
 		Print.info('joined thread %d of %d' % (i, len(scrapeThreads)))
 
 	Print.info('saving titles')
-	Titles.saveAll()
+	Titles.save()
 	Print.info('titles  saved')
 
 def scanLatestTitleUpdates():
