@@ -655,7 +655,11 @@ if __name__ == '__main__':
 
 				if args.scrape_nsuid:
 					nut.initTitles()
-					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), force=True).__dict__))
+					nut.initFiles()
+					region = 'US'
+					language = 'en'
+					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), region=region, language=language, force=True).__dict__))
+					Titles.saveRegion(region, language)
 
 			if args.usb:
 				try:
