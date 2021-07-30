@@ -188,6 +188,12 @@ def _fill_nsp_from_json_object(nsp, json_object):
 
 	nsp.cr = json_object['cr'] if 'cr' in json_object else None
 
+	nsp.attributes = {}
+
+	for k,v in nsp.__dict__.items():
+		if k.startswith('__'):
+			nsp.attributes[k[2:]] = v
+
 def load(fileName='titledb/files.json', verify=True):
 	global hasLoaded  # pylint: disable=global-statement
 

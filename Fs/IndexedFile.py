@@ -14,6 +14,7 @@ class IndexedFile:
 		self.cr = None
 		self.hasValidTicket = None
 		self.verified = None
+		self.attributes = {}
 
 		if path:
 			self.setPath(path)
@@ -183,8 +184,14 @@ class IndexedFile:
 		s = re.sub(r'[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
 
+	def storeValue(self, name, value):
+		self.attributes[name] = value
+
+	def getValue(self, name):
+		return self.attributes[name]
+
 	def dict(self):
-		return {
+		r = {
 			"titleId": self.titleId,
 			"hasValidTicket": self.hasValidTicket,
 			'extractedNcaMeta': self.getExtractedNcaMeta(),
@@ -192,7 +199,13 @@ class IndexedFile:
 			'timestamp': self.timestamp,
 			'path': self.path,
 			'verified': self.verified,
-			'fileSize': self.fileSize}
+			'fileSize': self.fileSize
+		}
+
+		for k,v in self.attributes.items():
+			r['__' + k] = v
+
+		return r
 
 	def getCr(self, inverted=False):
 		if not hasattr(self, 'cr') or not self.cr:

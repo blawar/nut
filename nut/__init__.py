@@ -59,39 +59,39 @@ class RegionLanguage:
 		self.preferredLanguage = preferredLanguage
 
 		if language == preferredLanguage:
-			self.score = 100
+			self.score = 1000
 		else:
 			self.score = 0
 
 		if region == preferredRegion:
-			self.score += 10
+			self.score += 100
 
 		if language == 'en' and region == 'US':
-			self.score += 5
+			self.score += 50
 
 		if language == 'fr' and region == 'FR':
-			self.score += 5
+			self.score += 50
 
 		if language == 'ja' and region == 'JP':
-			self.score += 5
+			self.score += 50
 
 		if language == 'es' and region == 'ES':
-			self.score += 5
+			self.score += 50
 
 		if region == 'GB':
-			self.score += 4
+			self.score += 40
 
 		if language == 'en':
-			self.score += 4
+			self.score += 40
 
 		if language == 'fr':
-			self.score += 3
+			self.score += 30
 
 		if language == 'es':
-			self.score += 1
+			self.score += 10
 
 		if language == 'de':
-			self.score += 1
+			self.score += 10
 
 	def __lt__(self, other):
 		return self.score < other.score
@@ -1327,7 +1327,9 @@ def extractNcaMeta(files = []):
 							for e in m.metaEntries:
 								cnmt.metaEntries.append({'titleId': e.titleId, 'version': e.version, 'type': e.type, 'install': e.install})
 
-							# print(cnmt.__dict__)
+							cnmt.requiredSystemVersion = m.requiredSystemVersion
+							cnmt.requiredApplicationVersion = m.requiredApplicationVersion
+							cnmt.applicationId = m.applicationId
 
 				# print(str(data.__dict__))
 			Print.info('processed %s' % nsp.path)

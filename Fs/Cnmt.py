@@ -64,6 +64,27 @@ class Cnmt(File):
 		self.contentEntries = []
 		self.metaEntries = []
 
+		self.seek(0x18)
+		self.requiredDownloadSystemVersion = self.readInt32()
+
+		self.seek(0x20)
+		self.requiredSystemVersion = None
+		self.requiredApplicationVersion = None
+		self.applicationId = None
+
+		if cnmt.titleType == 0x80: #base
+			self.applicationId = self.readInt64()
+			self.requiredSystemVersion = self.readInt32()
+			self.requiredApplicationVersion = self.readInt32()
+
+		if cnmt.titleType == 0x81: #patch
+			self.applicationId = self.readInt64()
+			self.requiredSystemVersion = self.readInt32()
+
+		if cnmt.titleType == 0x82: #DLC
+			self.applicationId = self.readInt64()
+			self.requiredApplicationVersion = self.readInt32()
+
 		self.seek(0x20 + self.headerOffset)
 		for i in range(self.contentEntryCount):
 			self.contentEntries.append(ContentEntry(self))
