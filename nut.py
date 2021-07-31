@@ -482,6 +482,7 @@ if __name__ == '__main__':
 				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
 				parser.add_argument('--cetk', help='Pull ticket by rightsID')
 				parser.add_argument('--cdn-cache-only', action="store_true", help='Only hit cdn cache')
+				parser.add_argument('--cdn-save-languages', action="store_true", help='store language / region data from cdn')
 
 			args = parser.parse_args()
 			
@@ -656,6 +657,10 @@ if __name__ == '__main__':
 				exit(0)
 
 			if hasCdn:
+				if args.cdn_save_languages:
+					cdn.Shogun.saveLanguages()
+					cdn.Shogun.saveRegions()
+
 				if args.cetk:
 					cdn.Tigers.cetk(args.cetk)
 
