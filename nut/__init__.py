@@ -740,8 +740,15 @@ def _ftpsync(url):
 			if not nsp.titleId:
 				continue
 
-			if not Titles.contains(nsp.titleId) or (not len(Titles.get(nsp.titleId).getFiles(
-					path[-3:])) and Titles.get(nsp.titleId).isActive(skipKeyCheck=True)):
+			title = Titles.get(nsp.titleId)
+
+			if not title.isActive(skipKeyCheck=True):
+				continue
+			# x for x in myList if x.n == 30]
+			files = title.getFiles(path[-3:])
+			files = [x for x in files if x.version >= nsp.version]
+
+			if not len(files):
 				if path[-3:] == 'nsx':
 					if len(Titles.get(nsp.titleId).getFiles('nsp')) or len(Titles.get(nsp.titleId).getFiles('nsz')):
 						continue
