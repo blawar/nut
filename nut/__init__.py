@@ -1193,6 +1193,28 @@ def getCnmt(titleId=None, version=None, obj=None):
 
 	return cnmtData[titleId][version]
 
+def extractCnmt(nsp):
+	isOpen = nsp.isOpen()
+	try:
+		if not isOpen:
+			nsp.open(nsp.path, 'rb')
+
+		for n in nsp:
+			if not isinstance(n, Nca):
+				continue
+
+			if int(n.header.contentType) == 1:
+				for p in n:
+					for m in p:
+						if isinstance(m, Cnmt):
+							return m
+	except BaseException as e:
+		Print.info('exception: %s %s' % (nsp.path, str(e)))
+	finally:
+		if not isOpen:
+			nsp.close()
+	return None
+
 def extractNcaMeta(files = []):
 	initTitles()
 	initFiles()
@@ -1237,10 +1259,6 @@ def extractNcaMeta(files = []):
 			continue
 		try:
 			c += 1
-			if c > 50:
-				c = 0
-				saveNcaData()
-				# Nsps.save()
 
 			nsp.open(path, 'rb')
 

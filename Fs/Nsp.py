@@ -34,6 +34,7 @@ class Nsp(Pfs0, IndexedFile):
 		self.fileModified = None
 		self.extractedNcaMeta = False
 		self.verified = None
+		self.attributes = {}
 
 		super(Pfs0, self).__init__(None, path, mode, cryptoType, cryptoKey, cryptoCounter)
 

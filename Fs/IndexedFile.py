@@ -133,11 +133,9 @@ class IndexedFile:
 			nszFile = nut.compress(self.path, Config.compression.level, os.path.abspath(Config.paths.nspOut))
 
 			if nszFile:
-				nsp = Fs.Nsp(nszFile, None)
+				nsp = Nsps.registerFile(nszFile)
 				nsp.hasValidTicket = True
 				nsp.move(forceNsp=True)
-				Nsps.files[nsp.path] = nsp
-				Nsps.save()
 
 		newPath = self.fileName(forceNsp=forceNsp)
 
@@ -157,9 +155,19 @@ class IndexedFile:
 			Print.info('\n')
 			return False
 
-		if not self.verifyNcaHeaders():
-			Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
-			return False
+		if self.isOpen():
+			if not self.verifyNcaHeaders():
+				Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
+				return False
+		else:
+			try:
+				self.open(self.path)
+				if not self.verifyNcaHeaders():
+					Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
+					return False
+			finally:
+				self.close()
+		
 
 		try:
 			Print.info(self.path + ' -> ' + newPath)
@@ -213,11 +221,14 @@ class IndexedFile:
 		s = re.sub(r'[\/\\\:\*\?\"\<\>\|\.\s™©®()\~]+', ' ', s)
 		return s.strip()
 
-	def storeValue(self, name, value):
+	def setValue(self, name, value):
 		self.attributes[name] = value
 
 	def getValue(self, name):
-		return self.attributes[name]
+		try:
+			return self.attributes[name]
+		except:
+			return None
 
 	def dict(self):
 		r = {
@@ -269,6 +280,20 @@ class IndexedFile:
 			return '%02d' % (100 - int(self.cr))
 		else:
 			return '%02d' % int(self.cr)
+
+	def getFileVersion(self):
+		val = self.getValue('version')
+
+		if val:
+			return val
+
+		cnmt = nut.extractCnmt(self)
+
+		if cnmt is not None:
+			self.version = cnmt.version
+			self.setValue('version', self.version)
+
+		return self.version
 
 	def fileName(self, forceNsp=False):
 		bt = None
@@ -337,7 +362,7 @@ class IndexedFile:
 		format = format.replace('{id}', self.cleanFilename(t.id))
 		format = format.replace('{region}', self.cleanFilename(t.getRegion() or bt.getRegion()))
 		format = format.replace('{name}', newName)
-		format = format.replace('{version}', str(self.getVersion() or 0))
+		format = format.replace('{version}', str(self.getFileVersion() or 0))
 		format = format.replace('{baseId}', self.cleanFilename(bt.id))
 
 		if '{cr}' in format:
