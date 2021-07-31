@@ -759,6 +759,8 @@ if __name__ == '__main__':
 			if args.restore:
 				nut.initTitles()
 				nut.initFiles()
+				prev = Config.extractVersion
+				Config.extractVersion = True
 
 				for path in expandFiles(args.file):
 					try:
@@ -786,6 +788,8 @@ if __name__ == '__main__':
 						else:
 							print('Failed to restore: %s, %s' % (str(e), path))
 							# traceback.print_exc(file=sys.stdout)
+
+				Config.extractVersion = prev
 
 			if args.info:
 				nut.initTitles()
@@ -916,6 +920,10 @@ if __name__ == '__main__':
 			if args.move:
 				nut.initTitles()
 				nut.initFiles()
+
+				prev = Config.extractVersion
+				Config.extractVersion = True
+
 				for path in expandFiles(args.file):
 					try:
 						f = Fs.Nsp()
@@ -925,6 +933,9 @@ if __name__ == '__main__':
 						Print.info('error moving: ' + str(e))
 						traceback.print_exc(file=sys.stdout)
 						raise
+
+				Config.extractVersion = prev
+
 				Nsps.save()
 
 			if args.export_nca_map:
