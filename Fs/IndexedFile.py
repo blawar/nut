@@ -10,7 +10,15 @@ import nut
 import shutil
 
 class IndexedFile:
-	def __init__(self, path):
+	def __init__(self, path, mode='rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
+		self.path = None
+		self.titleId = None
+		self.timestamp = None
+		self.version = None
+		self.fileSize = None
+		self.fileModified = None
+		self.extractedNcaMeta = False
+
 		self.cr = None
 		self.hasValidTicket = None
 		self.verified = None
@@ -19,11 +27,32 @@ class IndexedFile:
 		if path:
 			self.setPath(path)
 
+		try:
+			super(IndexedFile, self).__init__(None, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		except:
+			super(IndexedFile, self).__init__()
+
 	def __lt__(self, other):
 		return str(self.path) < str(other.path)
 
 	def __iter__(self):
 		return self.files.__iter__()
+
+	def getExtractedNcaMeta(self):
+		if hasattr(self, 'extractedNcaMeta') and self.extractedNcaMeta:
+			return 1
+		return 0
+
+	def setExtractedNcaMeta(self, val):
+		if val and (val != 0 or val):
+			self.extractedNcaMeta = True
+		else:
+			self.extractedNcaMeta = False
+
+	def getHasValidTicket(self):
+		if self.title().isUpdate:
+			return 1
+		return (1 if self.hasValidTicket and self.hasValidTicket else 0)
 
 	def isUpdateAvailable(self):
 		title = self.title()

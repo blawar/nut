@@ -24,7 +24,7 @@ from nut import blockchain
 MEDIA_SIZE = 0x200
 
 class Nsp(Pfs0, IndexedFile):
-	def __init__(self, path=None, mode='rb'):
+	def __init__(self, path=None, mode='rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		self.path = None
 		self.titleId = None
 		self.hasValidTicket = None
@@ -35,7 +35,7 @@ class Nsp(Pfs0, IndexedFile):
 		self.extractedNcaMeta = False
 		self.verified = None
 
-		super(Nsp, self).__init__(None, path, mode)
+		super(Pfs0, self).__init__(None, path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		if path:
 			self.setPath(path)
@@ -150,22 +150,6 @@ class Nsp(Pfs0, IndexedFile):
 			Print.info(filePath)
 
 	# extractedNcaMeta
-
-	def getExtractedNcaMeta(self):
-		if hasattr(self, 'extractedNcaMeta') and self.extractedNcaMeta:
-			return 1
-		return 0
-
-	def setExtractedNcaMeta(self, val):
-		if val and (val != 0 or val):
-			self.extractedNcaMeta = True
-		else:
-			self.extractedNcaMeta = False
-
-	def getHasValidTicket(self):
-		if self.title().isUpdate:
-			return 1
-		return (1 if self.hasValidTicket and self.hasValidTicket else 0)
 
 	def open(self, path=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		super(Nsp, self).open(path or self.path, mode, cryptoType, cryptoKey, cryptoCounter)

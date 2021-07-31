@@ -1329,14 +1329,15 @@ def extractNcaMeta(files = []):
 
 							cnmt.requiredSystemVersion = m.requiredSystemVersion
 							cnmt.requiredApplicationVersion = m.requiredApplicationVersion
-							cnmt.applicationId = m.applicationId
+							cnmt.otherApplicationId = m.otherApplicationId
 
 				# print(str(data.__dict__))
 			Print.info('processed %s' % nsp.path)
 			nsp.extractedNcaMeta = True
-			nsp.close()
 		except BaseException as e:
 			Print.info('exception: %s %s' % (path, str(e)))
+		finally:
+			nsp.close()
 
 	# save remaining files
 	saveNcaData()

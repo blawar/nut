@@ -34,6 +34,8 @@ class BaseFile:
 
 		self.setupCrypto(cryptoType, cryptoKey, cryptoCounter)
 
+		#super(BaseFile, self).__init__(path, mode, cryptoType, cryptoKey, cryptoCounter)
+
 	def __enter__(self):
 		return self
 

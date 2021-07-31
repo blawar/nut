@@ -70,19 +70,19 @@ class Cnmt(File):
 		self.seek(0x20)
 		self.requiredSystemVersion = None
 		self.requiredApplicationVersion = None
-		self.applicationId = None
+		self.otherApplicationId = None
 
-		if cnmt.titleType == 0x80: #base
-			self.applicationId = self.readInt64()
+		if self.titleType == 0x80: #base
+			self.otherApplicationId = hx(self.read(8)[::-1]).decode()
 			self.requiredSystemVersion = self.readInt32()
 			self.requiredApplicationVersion = self.readInt32()
 
-		if cnmt.titleType == 0x81: #patch
-			self.applicationId = self.readInt64()
+		if self.titleType == 0x81: #patch
+			self.otherApplicationId = hx(self.read(8)[::-1]).decode()
 			self.requiredSystemVersion = self.readInt32()
 
-		if cnmt.titleType == 0x82: #DLC
-			self.applicationId = self.readInt64()
+		if self.titleType == 0x82: #DLC
+			self.otherApplicationId = hx(self.read(8)[::-1]).decode()
 			self.requiredApplicationVersion = self.readInt32()
 
 		self.seek(0x20 + self.headerOffset)
