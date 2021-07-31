@@ -744,7 +744,7 @@ def _ftpsync(url):
 
 			if not title.isActive(skipKeyCheck=True):
 				continue
-			# x for x in myList if x.n == 30]
+
 			files = title.getFiles(path[-3:])
 			files = [x for x in files if x.version >= nsp.version]
 
