@@ -19,10 +19,12 @@ def get(key):
 	return files[key]
 
 def getByTitleId(id_):
+	highest = None
 	for _, f in files.items():
 		if f.titleId == id_:
-			return f
-	return None
+			if highest is None or f.version > highest.version:
+				highest = f
+	return highest
 
 def registerFile(path, registerLUT = True):
 	path = os.path.abspath(path)

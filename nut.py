@@ -760,9 +760,11 @@ if __name__ == '__main__':
 					try:
 						f = Fs.factory(str(path))
 						f.setPath(str(path))
-						if f and f.titleId and Nsps.getByTitleId(f.titleId):
-							f.moveDupe()
-							continue
+						if f and f.titleId:
+							dt = Nsps.getByTitleId(f.titleId)
+							if dt and int(dt.version) >= int(f.getFileVersion()):
+								f.moveDupe()
+								continue
 
 						f.open(str(path), 'r+b')
 						f.restore()
