@@ -404,6 +404,7 @@ if __name__ == '__main__':
 			parser.add_argument('--move', action="store_true", help='Rename and move files to their correct location')
 			parser.add_argument('-s', '--scan', action="store_true", help='scan for new NSP files')
 			parser.add_argument('-o', '--organize', action="store_true", help='rename and move all NSP files')
+			parser.add_argument('--extract-version', action="store_true", help='extract version from cnmt when organizing')
 			parser.add_argument('-U', '--update-titles', action="store_true", help='update titles db from urls')
 			parser.add_argument('--update-check', action="store_true", help='check for existing titles needing updates')
 			parser.add_argument('-r', '--refresh', action="store_true", help='reads all meta from NSP files and queries CDN for latest version information')
@@ -530,6 +531,9 @@ if __name__ == '__main__':
 				Config.reverse = True
 			else:
 				Config.reverse = False
+
+			if args.extract_version:
+				Config.extractVersion = True
 
 			if args.json:
 				Config.jsonOutput = True

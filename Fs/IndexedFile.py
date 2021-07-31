@@ -282,6 +282,9 @@ class IndexedFile:
 			return '%02d' % int(self.cr)
 
 	def getFileVersion(self):
+		if not Config.extractVersion:
+			return self.version
+
 		val = self.getValue('version')
 
 		if val:
