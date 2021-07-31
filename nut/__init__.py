@@ -746,7 +746,7 @@ def _ftpsync(url):
 				continue
 
 			files = title.getFiles(path[-3:])
-			files = [x for x in files if x.version >= nsp.version]
+			files = [x for x in files if int(x.version) >= int(nsp.version)]
 
 			if not len(files):
 				if path[-3:] == 'nsx':
