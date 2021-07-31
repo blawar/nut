@@ -57,7 +57,7 @@ class IndexedFile:
 	def isUpdateAvailable(self):
 		title = self.title()
 
-		if self.titleId and str(title.version) is not None and str(self.version) < str(title.version) and str(title.version) != '0':
+		if self.titleId and title.version is not None and int(self.version) < int(title.version) and int(title.version) != 0:
 			return {'id': title.id, 'baseId': title.baseId, 'currentVersion': str(self.version), 'newVersion': str(title.version)}
 
 		if not title.isUpdate and not title.isDLC and Titles.contains(title.updateId):
