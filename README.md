@@ -69,7 +69,7 @@ NUT has the ability to interact with Google Drive. For this to work, you will ne
 SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", GROUP="plugdev"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
 ```
-* Run `python3 nut.py` to launch the application.
+* Run `python3 nut_gui.py` to launch the application. (`python3 nut.py` for CLI)
 </details>
 
 ### Installation guide (macOS)
@@ -90,7 +90,7 @@ or
 pip install --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl" pycurl
 ```
 * Install all other dependencies (`pip install -r requirements.txt`)
-* Run `python nut_gui.py` to launch the application
+* Run `python3 nut_gui.py` to launch the application. (`python3 nut.py` for CLI)
 </details>
 
 ------
