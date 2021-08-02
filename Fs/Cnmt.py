@@ -60,6 +60,7 @@ class Cnmt(File):
 		self.headerOffset = self.readInt16()
 		self.contentEntryCount = self.readInt16()
 		self.metaEntryCount = self.readInt16()
+		self.metaAttributes = self.readInt8()
 
 		self.contentEntries = []
 		self.metaEntries = []
@@ -131,6 +132,7 @@ class Cnmt(File):
 		Print.info('%stitleId = %s' % (tabs, self.titleId))
 		Print.info('%sversion = %x' % (tabs, self.version))
 		Print.info('%stitleType = %x' % (tabs, self.titleType))
+		Print.info('%smetaAttr = %x' % (tabs, self.metaAttributes))
 
 		for i in self.contentEntries:
 			Print.info('%s\tncaId: %s  type = %x, hash = %s' % (tabs, i.ncaId, i.type, hx(i.hash).decode('utf8' )))
