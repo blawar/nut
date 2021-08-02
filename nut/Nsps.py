@@ -22,7 +22,7 @@ def getByTitleId(id_):
 	highest = None
 	for _, f in files.items():
 		if f.titleId == id_:
-			if highest is None or f.version > highest.version:
+			if highest is None or int(f.version) > int(highest.version):
 				highest = f
 	return highest
 
