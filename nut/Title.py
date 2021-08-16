@@ -193,15 +193,17 @@ class Title:
 		return n
 
 	def getFiles(self, ext=None):
+		if len(fileLUT) == 0:
+			for path, f in Nsps.files.items():
+				tid = f.titleId.upper()
+				if tid not in fileLUT:
+					fileLUT[tid] = []
+				fileLUT[tid].append(f)
+
 		if self.id in fileLUT:
 			return self.filterExt(fileLUT[self.id], ext)
 
-		fileLUT[self.id] = []
-		for path, f in Nsps.files.items():
-			if(f.titleId == self.id):
-				fileLUT[self.id].append(f)
-
-		return self.filterExt(fileLUT[self.id], ext)
+		return []
 
 	def getLatestFile(self):
 		highestNsp = None
