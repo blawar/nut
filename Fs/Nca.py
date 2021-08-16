@@ -248,14 +248,15 @@ class NcaHeader(File):
 			raise Exception('Failed to decrypt NCA header: ' + str(self.magic))
 
 		containerPath = rootFile(self)
-		tikFile = os.path.join(os.path.dirname(containerPath), self.rightsId.decode('utf-8').lower()) + '.tik'
+		if containerPath:
+			tikFile = os.path.join(os.path.dirname(containerPath), self.rightsId.decode('utf-8').lower()) + '.tik'
 
-		if os.path.isfile(tikFile):
-			tik = Fs.factory(tikFile)
-			tik.open(tikFile, 'r+b')
-			title = Titles.get(tik.titleId())
-			title.key = format(tik.getTitleKeyBlock(), 'X').zfill(32)
-			tik.close()
+			if os.path.isfile(tikFile):
+				tik = Fs.factory(tikFile)
+				tik.open(tikFile, 'r+b')
+				title = Titles.get(tik.titleId())
+				title.key = format(tik.getTitleKeyBlock(), 'X').zfill(32)
+				tik.close()
 
 		self.sectionHashes = []
 
