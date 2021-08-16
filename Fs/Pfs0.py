@@ -17,6 +17,7 @@ from nut import Nsps
 from tqdm import tqdm
 import Fs
 from Fs.BaseFs import BaseFs
+import shutil
 
 MEDIA_SIZE = 0x200
 
@@ -176,6 +177,10 @@ class Pfs0(BaseFs):
 
 			self.files.append(self.partition(offset + headerSize, f.size, f, autoOpen=False))
 
+		for f in self.files:
+			if type(f).__name__ != 'Nca':
+				continue
+
 		ticket = None
 
 		try:
@@ -207,16 +212,45 @@ class Pfs0(BaseFs):
 				self.files[i].name = stringTable[self.files[i].nameOffset:self.files[i+1].nameOffset].decode('utf-8').rstrip(' \t\r\n\0')
 		'''
 
-	def ticket(self, rightsId=None):
+	def ticket(self, rightsId=None, autoGenerate = False):
 		for f in self:
 			if type(f).__name__ == 'Ticket' and (rightsId is None or f._path == rightsId + '.tik'):
 				return f
+
+		if autoGenerate and rightsId is not None:
+			tikFile = os.path.join(os.path.dirname(self._path), rightsId.lower()) + '.tik'
+			with open('Ticket.tik', 'rb') as intik:
+				data = bytearray(intik.read())
+				data[0x180:0x190] = b'\x00' * 0x10
+				data[0x285] = int(rightsId[-2:], 16) + 1
+
+				data[0x2A0:0x2B0] = uhx(rightsId)
+
+				try:
+					with open(tikFile, 'wb') as f:
+						f.write(data)
+				except BaseException as e:
+					Print.error(str(e))
+
+			f = Fs.factory(tikFile)
+			f.open(tikFile, 'r+b')
+			return f
+
 		raise IOError('no ticket in NSP')
 
-	def cert(self, rightsId=None):
+	def cert(self, rightsId=None, autoGenerate = False):
 		for f in self:
 			if f._path.endswith('.cert') and (rightsId is None or f._path == rightsId + '.tik'):
 				return f
+
+		if autoGenerate and rightsId is not None:
+			certFile = os.path.join(os.path.dirname(self._path), rightsId.lower()) + '.cert'
+			shutil.copyfile('Certificate.cert', certFile)
+
+			f = Fs.factory(certFile)
+			f.open(certFile, 'r+b')
+			return f
+
 		raise IOError('no cert in NSP')
 
 	def cnmt(self):
@@ -294,10 +328,10 @@ class Pfs0(BaseFs):
 					
 
 		if len(rightsIds) > ticketCount:
-			raise IOError('missing tickets in NSP, expected %d got %d in %s' % (len(rightsIds), ticketCount, self._path))
+			Print.error('missing tickets in NSP, expected %d got %d in %s' % (len(rightsIds), ticketCount, self._path))
 
 		if len(rightsIds) > certCount:
-			raise IOError('missing certs in NSP')
+			Print.error('missing certs in NSP')
 
 		for rightsId in rightsIds:
 			rightsId = rightsId.decode()
@@ -309,12 +343,12 @@ class Pfs0(BaseFs):
 			if ticketCount == 1:
 				ticket = self.ticket()
 			else:
-				ticket = self.ticket(rightsId)
+				ticket = self.ticket(rightsId, autoGenerate = True)
 
 			if ticketCount == 1:
 				cert = self.cert()
 			else:
-				cert = self.cert(rightsId)
+				cert = self.cert(rightsId, autoGenerate = True)
 
 			ticket.setRightsId(int(rightsId, 16))
 			ticket.setTitleKeyBlock(int(title.key, 16))
