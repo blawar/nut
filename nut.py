@@ -853,7 +853,7 @@ if __name__ == '__main__':
 											print(l)
 											for t in l['id_pairs']:
 												print('\tnsuId: ' + str(t['id']))
-												print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
+												print(json.dumps(cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True).__dict__))
 											Titles.saveRegion(region, language)
 								Titles.save()
 							elif len(i) == 2:
