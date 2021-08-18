@@ -846,6 +846,7 @@ if __name__ == '__main__':
 										print('nsuId: ' + str(t['id']))
 										print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
 										Titles.saveRegion(args.region or 'US', args.language or 'en')
+										Titles.save()
 							elif len(i) == 2:
 								cdn.Shogun.scrapeTitles(i, force=True)
 							else:
