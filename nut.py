@@ -837,16 +837,25 @@ if __name__ == '__main__':
 						nut.initFiles()
 						for i in args.scrape_shogun:
 							if len(i) == 16:
-								l = cdn.Shogun.ids(i, region = args.region or 'US', language = args.language or 'en', force=True)
-								if not l or len(l) == 0 or len(l['id_pairs']) == 0:
-									print('no nsuId\'s found')
-								else:
-									print(l)
-									for t in l['id_pairs']:
-										print('nsuId: ' + str(t['id']))
-										print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
-										Titles.saveRegion(args.region or 'US', args.language or 'en')
-										Titles.save()
+								for region in Config.regionLanguages():
+									if args.region and region != args.region:
+										continue
+
+									for language in Config.regionLanguages()[region]:
+										if args.language and args.language != language:
+											continue
+
+										l = cdn.Shogun.ids(i, region = region, language = language or 'en', force=True)
+										print('searching %s %s' % (region, language))
+										if not l or len(l) == 0 or len(l['id_pairs']) == 0:
+											print('\tno nsuId\'s found')
+										else:
+											print(l)
+											for t in l['id_pairs']:
+												print('\tnsuId: ' + str(t['id']))
+												print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
+											Titles.saveRegion(region, language)
+								Titles.save()
 							elif len(i) == 2:
 								cdn.Shogun.scrapeTitles(i, force=True)
 							else:
