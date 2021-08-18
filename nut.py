@@ -845,7 +845,7 @@ if __name__ == '__main__':
 									for t in l['id_pairs']:
 										print('nsuId: ' + str(t['id']))
 										print(json.dumps(cdn.Shogun.scrapeTitle(t['id']).__dict__))
-										Titles.saveRegion('US', 'en')
+										Titles.saveRegion(args.region or 'US', args.language or 'en')
 							elif len(i) == 2:
 								cdn.Shogun.scrapeTitles(i, force=True)
 							else:
