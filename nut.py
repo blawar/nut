@@ -669,8 +669,8 @@ if __name__ == '__main__':
 
 				if args.scrape_nsuid:
 					nut.initTitles()
-					region = 'US'
-					language = 'en'
+					region = args.region or 'US'
+					language = args.language or 'en'
 					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), region=region, language=language, force=True).__dict__))
 					Titles.saveRegion(region, language)
 
@@ -789,10 +789,10 @@ if __name__ == '__main__':
 					except BaseException as e:
 						f.close()
 						if str(e) == 'junk file':
-							os. remove(f._path)
+							os.remove(f._path)
 						else:
 							print('Failed to restore: %s, %s' % (str(e), path))
-							# traceback.print_exc(file=sys.stdout)
+							traceback.print_exc(file=sys.stdout)
 
 				Config.extractVersion = prev
 
@@ -837,7 +837,7 @@ if __name__ == '__main__':
 						nut.initFiles()
 						for i in args.scrape_shogun:
 							if len(i) == 16:
-								l = cdn.Shogun.ids(i, force=True)
+								l = cdn.Shogun.ids(i, region = args.region or 'US', language = args.language or 'en', force=True)
 								if not l or len(l) == 0 or len(l['id_pairs']) == 0:
 									print('no nsuId\'s found')
 								else:
