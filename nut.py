@@ -484,6 +484,9 @@ if __name__ == '__main__':
 				parser.add_argument('--cdn-cache-only', action="store_true", help='Only hit cdn cache')
 				parser.add_argument('--cdn-save-languages', action="store_true", help='store language / region data from cdn')
 
+			Hook.init()
+			Hook.call("args.pre", parser)
+
 			args = parser.parse_args()
 			
 			if hasCdn:
@@ -561,8 +564,6 @@ if __name__ == '__main__':
 			Config.download.demo = bool(args.demo)
 			Config.download.sansTitleKey = bool(args.nsx)
 			Config.download.update = bool(args.update)
-
-			Hook.init()
 
 			if args.threads:
 				Config.threads = args.threads
@@ -987,6 +988,8 @@ if __name__ == '__main__':
 
 			if args.match_demos:
 				matchDemos()
+
+			Hook.call("args.post", args)
 
 			if args.server:
 				nut.initTitles()

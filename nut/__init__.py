@@ -489,6 +489,7 @@ def importRegion(region='US', language='en', save=True):
 		Print.info('Could not locate %s/%s !' % (region, language))
 		return False
 
+	Hook.call("import.pre", region, language)
 	regionLanguages = []
 
 	for region2 in Config.regionLanguages():
@@ -511,6 +512,7 @@ def importRegion(region='US', language='en', save=True):
 				title.importFrom(regionTitle, rl.region, rl.language, preferredRegion=region, preferredLanguage=language)
 
 	Titles.loadTxtDatabases()
+	Hook.call("import.post", region, language)
 	if save:
 		Titles.save()
 
