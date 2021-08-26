@@ -93,7 +93,7 @@ class Pfs0Stream():
 
 class Pfs0(BaseFs):
 	def __init__(self, buffer, path=None, mode=None, cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
-		super(Pfs0, self).__init__(buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		BaseFs.__init__(self, buffer, path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		if buffer:
 			self.size = int.from_bytes(buffer[0x48:0x50], byteorder='little', signed=False)

@@ -52,9 +52,8 @@ class GamecardCertificate(File):
 		self.unknown2 = self.read(0xA)
 		self.data = self.read(0xD6)
 
-class Xci(File):
-	def __init__(self, file=None):
-		super(Xci, self).__init__()
+class Xci(File, IndexedFile):
+	def __init__(self, file=None, mode='rb', cryptoType=-1, cryptoKey=-1, cryptoCounter=-1):
 		self.header = None
 		self.signature = None
 		self.magic = None
@@ -82,8 +81,8 @@ class Xci(File):
 		self.gamecardCert = None
 		self.hfs0 = None
 
-		if file:
-			self.open(file)
+		File.__init__(self, file, mode, cryptoType, cryptoKey, cryptoCounter)
+		IndexedFile.__init__(self, file, mode, cryptoType, cryptoKey, cryptoCounter)
 
 	def readHeader(self):
 

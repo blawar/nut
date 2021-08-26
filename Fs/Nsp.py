@@ -36,12 +36,8 @@ class Nsp(Pfs0, IndexedFile):
 		self.verified = None
 		self.attributes = {}
 
-		super(Pfs0, self).__init__(None, path, mode, cryptoType, cryptoKey, cryptoCounter)
-
-		if path:
-			self.setPath(path)
-			# if files:
-			#	self.pack(files)
+		Pfs0.__init__(self, None, path, mode, cryptoType, cryptoKey, cryptoCounter)
+		IndexedFile.__init__(self, path, mode, cryptoType, cryptoKey, cryptoCounter)
 
 		if self.titleId and self.isUnlockable():
 			Print.info('unlockable title found ' + self.path)

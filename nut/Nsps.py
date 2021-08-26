@@ -30,7 +30,7 @@ def registerFile(path, registerLUT = True):
 	path = os.path.abspath(path)
 
 	if not path in files:
-		nsp = Fs.Nsp(path, None)
+		nsp = Fs.factory(path, path, None)
 		nsp.timestamp = time.time()
 		nsp.getFileSize()
 
@@ -103,7 +103,7 @@ def scan(base):
 				continue
 			suffix = pathlib.Path(name).suffix
 
-			if suffix in ('.nsp', '.nsx', '.xci', '.nsz'):
+			if suffix in ('.nsp', '.nsx', '.xci', '.nsz', '.xcz'):
 				path = os.path.abspath(root + '/' + name)
 				if not path.startswith(nspOut) and not path.startswith(duplicatesFolder):
 					fileList[path] = name
@@ -209,7 +209,7 @@ def load(fileName='titledb/files.json', verify=True):
 	if os.path.isfile(fileName):
 		with open(fileName, encoding="utf-8-sig") as f:
 			for k in json.loads(f.read()):
-				_nsp = Fs.Nsp(k['path'], None)
+				_nsp = Fs.factory(k['path'], k['path'], None)
 
 				if not _load_nsp_filesize(k, _nsp) or not _nsp.path:
 					continue

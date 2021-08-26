@@ -735,8 +735,8 @@ def _ftpsync(url):
 			if path.split('.')[-1].lower() not in ('nsx', 'nsz', 'nsp', 'xci'):
 				continue
 
-			nsp = Fs.Nsp()
-			nsp.setPath(urllib.parse.unquote(path))
+			unq = urllib.parse.unquote(path)
+			nsp = Fs.factory(unq, unq)
 			nsp.downloadPath = path
 
 			if not nsp.titleId:

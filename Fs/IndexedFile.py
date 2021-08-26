@@ -27,11 +27,6 @@ class IndexedFile:
 		if path:
 			self.setPath(path)
 
-		try:
-			super(IndexedFile, self).__init__(None, path, mode, cryptoType, cryptoKey, cryptoCounter)
-		except:
-			super(IndexedFile, self).__init__()
-
 	def __lt__(self, other):
 		return str(self.path) < str(other.path)
 

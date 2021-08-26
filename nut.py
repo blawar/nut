@@ -1027,6 +1027,7 @@ if __name__ == '__main__':
 		Print.info('nut exception: ' + str(e))
 		Config.isRunning = False
 		Status.close()
+		traceback.print_exc(file=sys.stdout)
 		raise
 
 	Print.info('fin')
