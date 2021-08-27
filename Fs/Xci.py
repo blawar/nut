@@ -1,6 +1,7 @@
 from binascii import hexlify as hx, unhexlify as uhx
 from Fs.File import File
 from Fs.Hfs0 import Hfs0
+from Fs.Nca import Nca
 import os
 from Fs.IndexedFile import IndexedFile
 from nut import Print
@@ -158,7 +159,7 @@ class Xci(File, IndexedFile):
 		newNsp.close()
 
 	def verifyNcaHeaders(self):
-		for f in self.hfs0:
+		for f in self.hfs0['secure']:
 			if not isinstance(f, Nca):
 				continue
 			if not f.verifyHeader():
