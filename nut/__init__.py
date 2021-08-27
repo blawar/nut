@@ -707,7 +707,7 @@ def pullWorker(q, s):
 			with open(tmpFile, 'wb') as f:
 				serveFile(f, nsp.downloadPath, os.path.basename(nsp.path))
 
-			nsp = Fs.Nsp(tmpFile, None)
+			nsp = Fs.factory(tmpFile, tmpFile, None)
 			nsp.hasValidTicket = hasValidTicket
 			nsp.move(forceNsp=hasValidTicket)
 			Nsps.files[nsp.path] = nsp
