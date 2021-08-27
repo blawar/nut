@@ -9,6 +9,11 @@ import re
 import nut
 import shutil
 
+reTID = re.compile(r'.*\[([a-zA-Z0-9]{16})\].*')
+reBaseTID = re.compile(r'^([a-zA-Z0-9]{16})\..*')
+reVER = re.compile(r'.*\[v([0-9]+)\].*')
+reCOMP = re.compile(r'.*\[CR([0-9]{1,3})\].*')
+
 class IndexedFile:
 	def __init__(self, path, mode='rb', cryptoType = -1, cryptoKey = -1, cryptoCounter = -1):
 		self.path = None
@@ -414,11 +419,11 @@ class IndexedFile:
 		self.path = path
 		self.version = '0'
 
-		z = re.match(r'.*\[([a-zA-Z0-9]{16})\].*', path, re.I)
+		z = reTID.match(path, re.I)
 		if z:
 			self.titleId = z.groups()[0].upper()
 		else:
-			z = re.match(r'^([a-zA-Z0-9]{16})\..*', os.path.basename(path), re.I)
+			z = reBaseTID.match(os.path.basename(path), re.I)
 			if z:
 				self.titleId = z.groups()[0].upper()
 			else:
@@ -428,7 +433,7 @@ class IndexedFile:
 		if not hasattr(self, 'cr') or not self.cr:
 			self.cr = self.getCrFromPath()
 
-		z = re.match(r'.*\[v([0-9]+)\].*', path, re.I)
+		z = reVER.match(path, re.I)
 
 		if z:
 			self.version = z.groups()[0]
