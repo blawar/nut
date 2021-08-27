@@ -419,11 +419,11 @@ class IndexedFile:
 		self.path = path
 		self.version = '0'
 
-		z = reTID.match(path, re.I)
+		z = reTID.match(path)
 		if z:
 			self.titleId = z.groups()[0].upper()
 		else:
-			z = reBaseTID.match(os.path.basename(path), re.I)
+			z = reBaseTID.match(os.path.basename(path))
 			if z:
 				self.titleId = z.groups()[0].upper()
 			else:
