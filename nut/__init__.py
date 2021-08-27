@@ -600,7 +600,7 @@ def updateTitleDb(force=False):
 	except BaseException as e:
 		Print.error('error getting tinfoil.io titledb: ' + str(e))
 
-	fileList = ['demos.txt', 'dlcNames.txt', 'retailOnly.txt', 'ranks.txt']
+	fileList = []
 
 	for region, languages in Config.regionLanguages().items():
 		for language in languages:
