@@ -384,7 +384,7 @@ def download(id):
 
 if __name__ == '__main__':
 	try:
-		with FileLock("nut.lock") as lock:
+		with FileLock("nut2.lock") as lock:
 			urllib3.disable_warnings()
 
 			#signal.signal(signal.SIGINT, handler)
@@ -1027,7 +1027,6 @@ if __name__ == '__main__':
 		Print.info('nut exception: ' + str(e))
 		Config.isRunning = False
 		Status.close()
-		traceback.print_exc(file=sys.stdout)
 		raise
 
 	Print.info('fin')
