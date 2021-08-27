@@ -9,19 +9,18 @@ from Fs.Cnmt import Cnmt
 from Fs.File import File
 
 def factory(name, file=None, mode='rb'):
-	if name.endswith('.xci') or name.endswith('.xcz'):
+	ext = name.split('.')[-1]
+	if ext == 'xci' or ext == 'xcz':
 		f = Xci(file, mode)
-	elif name.endswith('.nsp') or name.endswith('.nsz'):
+	elif ext == 'nsp' or ext == 'nsz' or ext == 'nsx':
 		f = Nsp(file, mode)
-	elif name.endswith('.nsx'):
-		f = Nsp(file, mode)
-	elif name.endswith('.nca') or name.endswith('.ncz'):
+	elif ext == 'nca' or ext == 'ncz':
 		f = Nca(file, mode)
-	elif name.endswith('.nacp'):
+	elif ext == 'nacp':
 		f = Nacp(file, mode)
-	elif name.endswith('.tik'):
+	elif ext == 'tik':
 		f = Ticket(file, mode)
-	elif name.endswith('.cnmt'):
+	elif ext == 'cnmt':
 		f = Cnmt(file, mode)
 	else:
 		f = File(file, mode)

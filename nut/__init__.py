@@ -736,7 +736,7 @@ def _ftpsync(url):
 				continue
 
 			unq = urllib.parse.unquote(path)
-			nsp = Fs.factory(unq, unq)
+			nsp = Fs.factory(unq, unq, None)
 			nsp.downloadPath = path
 
 			if not nsp.titleId:
