@@ -196,6 +196,21 @@ def _fill_nsp_from_json_object(nsp, json_object):
 		if k.startswith('__'):
 			nsp.attributes[k[2:]] = v
 
+class FileListCache:
+	def __init__(self):
+		self.cache = {}
+
+	def isfile(self, path):
+		parent = os.path.abspath(os.path.join(path, os.pardir))
+		if parent not in self.cache:
+			tmp = {}
+			for f in os.listdir(parent):
+				tmp[f] = f
+			self.cache[parent] = tmp
+
+		return os.path.basename(path) in self.cache[parent]
+
+
 def load(fileName='titledb/files.json', verify=True):
 	global hasLoaded  # pylint: disable=global-statement
 
@@ -205,6 +220,7 @@ def load(fileName='titledb/files.json', verify=True):
 	hasLoaded = True
 
 	timestamp = time.perf_counter()
+	cache = FileListCache()
 
 	if os.path.isfile(fileName):
 		with open(fileName, encoding="utf-8-sig") as f:
@@ -218,7 +234,7 @@ def load(fileName='titledb/files.json', verify=True):
 
 				path = os.path.abspath(_nsp.path)
 				if verify and Config.isScanning:
-					if os.path.isfile(path) and os.path.exists(path) and not _is_file_hidden(path):
+					if cache.isfile(path) and not _is_file_hidden(path):
 						files[path] = _nsp
 				else:
 					files[path] = _nsp
