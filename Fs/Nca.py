@@ -22,6 +22,8 @@ from Fs.Pfs0 import Pfs0
 from Fs.BaseFs import BaseFs
 from Fs import Type
 from Fs.File import MemoryFile
+import traceback
+import sys
 
 
 MEDIA_SIZE = 0x200
@@ -181,8 +183,8 @@ class FsHeader:
 			self.hash.printInfo(maxDepth, indent+1)
 
 		#Print.info(tabs + 'hashInfo: ' + hx(self.hashInfo).decode())
-		#Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
-		#Print.info(tabs + 'sparseInfo: ' + hx(self.sparseInfo).decode())
+		Print.info(tabs + 'patchInfo: ' + hx(self.patchInfo).decode())
+		Print.info(tabs + 'sparseInfo: ' + hx(self.sparseInfo).decode())
 		#Print.info(tabs + 'reserved: ' + hx(self.reserved).decode())
 
 
@@ -536,7 +538,11 @@ class Nca(File):
 				self.sectionFilesystems.append(fs)
 				self.sections.append(section)
 
-			fs.open(None, 'rb')
+			try:
+				fs.open(None, 'rb')
+			except BaseException as e:
+				Print.error(str(e))
+				traceback.print_exc(file=sys.stdout)
 
 		self.titleKeyDec = None
 
@@ -717,32 +723,38 @@ class Nca(File):
 		Print.info(tabs + 'crypto master key2: ' + str(self.header.cryptoType2))
 		Print.info(tabs + 'key Index: ' + str(self.header.keyIndex))
 
-		Print.info('\n' + tabs + 'FsSections:')
-		for i in range(4):
-			tbl = self.header.sectionTables[i]
+		try:
+			Print.info('\n' + tabs + 'FsSections:')
+			for i in range(4):
+				tbl = self.header.sectionTables[i]
 
-			if not tbl.endOffset:
-				continue
+				if not tbl.endOffset:
+					continue
 
-			Print.info('\t%soffset = %X, endOffset = %X' % (tabs, tbl.offset, tbl.endOffset))
+				Print.info('\t%soffset = %X, endOffset = %X' % (tabs, tbl.offset, tbl.endOffset))
 
-			actualHash = self.header.calculateFsHeaderHash(i)
+				actualHash = self.header.calculateFsHeaderHash(i)
 
-			if actualHash != str(self.header.sectionHashes[i]):
-				Print.info('\t%s ** HASH MISMATCH! **' % (tabs))
-				Print.info('\t%sstored hash = %s' % (tabs, str(self.header.sectionHashes[i])))
-				Print.info('\t%sactual hash = %s' % (tabs, actualHash))
+				if actualHash != str(self.header.sectionHashes[i]):
+					Print.info('\t%s ** HASH MISMATCH! **' % (tabs))
+					Print.info('\t%sstored hash = %s' % (tabs, str(self.header.sectionHashes[i])))
+					Print.info('\t%sactual hash = %s' % (tabs, actualHash))
+		except:
+			pass
 
-		Print.info('\n\n' + tabs + 'FsHeaders:')
-		for i in range(4):
-			tbl = self.header.sectionTables[i]
+		try:
+			Print.info('\n\n' + tabs + 'FsHeaders:')
+			for i in range(4):
+				tbl = self.header.sectionTables[i]
 
-			if not tbl.endOffset:
-				continue
+				if not tbl.endOffset:
+					continue
 
-			self.header.getFsHeader(i, fs = self.sectionFilesystems[i]).printInfo(maxDepth = maxDepth, indent = indent + 1)
+				self.header.getFsHeader(i, fs = self.sectionFilesystems[i]).printInfo(maxDepth = maxDepth, indent = indent + 1)
 
-		Print.info('\n')
+			Print.info('\n')
+		except:
+			pass
 
 		'''
 		encTitleBlock = hx(self.header.getKeyBlock()).decode()
