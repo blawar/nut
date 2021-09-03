@@ -2,7 +2,7 @@ import discord
 import asyncio
 import time
 import os.path
-from datetime import datetime
+from datetime import datetime, timedelta
 from threading import Thread
 from nut import Config, Hook, Titles, Print
 
@@ -43,10 +43,10 @@ def formatSize(n):
 		return None
 
 	for i in range(len(prefixes)):
-		if n < 1000:
+		if n < 1024:
 			return str(round(n, 1)) + prefixes[i];
 
-		n /= 1000;
+		n /= 1024;
 
 	return str(round(n, 1)) + ' PB';
 
@@ -57,7 +57,7 @@ def formatDate(d):
 	if len(d) != 8:
 		return discord.Embed.Empty
 
-	return datetime(int(d[0:4]), int(d[4:6]), int(d[6:8]))
+	return datetime(int(d[0:4]), int(d[4:6]), int(d[6:8])) + timedelta(hours = 10)
 
 def sendTitleCard(channelId, titleId, nsp = None):
 	if not Titles.contains(titleId):
@@ -93,7 +93,8 @@ def sendTitleCard(channelId, titleId, nsp = None):
 		if title.size:
 			embed.add_field(name="Size", value=formatSize(title.size), inline=True)
 
-	
+	if title.releaseDate:
+		embed.set_footer(text="Released")
 
 	if title.iconUrl or titleBase.iconUrl:
 		embed.set_thumbnail(url = title.iconUrl or titleBase.iconUrl)
