@@ -163,6 +163,9 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 	newNsp = Pfs0Stream(nszPath)
 
 	for nspf in container:
+		if isinstance(nspf, Fs.Nca) and nspf.header.contentType == Fs.Type.Content.DATA:
+			Print.info('skipping delta fragment')
+			continue
 		if isinstance(nspf, Fs.Nca) and ((nspf.header.contentType == Fs.Type.Content.PROGRAM or nspf.header.contentType == Fs.Type.Content.PUBLICDATA) or int(nspf.header.titleId, 16) <= 0x0100000000001000):
 			if nspf.size > ncaHeaderSize * 2:
 				cctx = zstandard.ZstdCompressor(level=compressionLevel)
