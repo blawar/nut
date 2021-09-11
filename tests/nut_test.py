@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 import nut
 
-_REGION_LANG_TEST_DATA = [{'region': 'US', 'lang': 'en', 'expected_score': 119}, \
-	{'region': 'FR', 'lang': 'fr', 'expected_score': 118}, \
-	{'region': 'JA', 'lang': 'jp', 'expected_score': 110}, \
-	{'region': 'ES', 'lang': 'es', 'expected_score': 116}]
+_REGION_LANG_TEST_DATA = [{'region': 'US', 'lang': 'en', 'expected_score': 1190}, \
+	{'region': 'FR', 'lang': 'fr', 'expected_score': 1180}, \
+	{'region': 'JA', 'lang': 'jp', 'expected_score': 1100}, \
+	{'region': 'ES', 'lang': 'es', 'expected_score': 1160}]
 
 class NutTest(unittest.TestCase):
 	"""Tests for nut/__init__.py
@@ -31,7 +32,7 @@ class NutTest(unittest.TestCase):
 		self.assertEqual(lang.language, data['lang'])
 		self.assertEqual(lang.preferredRegion, PREFERRED_REGION)
 		self.assertEqual(lang.preferredLanguage, PREFERRED_LANGUAGE)
-		self.assertEqual(lang.score, 9)
+		self.assertEqual(lang.score, 90)
 
 	def test_region_language_less(self):
 		data = _REGION_LANG_TEST_DATA[0]

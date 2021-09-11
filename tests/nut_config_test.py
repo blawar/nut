@@ -30,8 +30,9 @@ def _get_default_config_object():
 			{'base': True, 'demo': False, 'DLC': True, 'update': False,
 			 'sansTitleKey': False, 'deltas': False, 'regions': [], 'rankMin': None, 'rankMax': None,
 			 'fileSizeMax': None, 'fileSizeMin': None, 'ratingMin': None, 'ratingMax': None,
-			 'releaseDateMin': None, 'releaseDateMax': None}, 'server': {'hostname': '0.0.0.0',
-																		 'port': 9000}, 'autolaunchBrowser': True, 'autoUpdateTitleDb': True}
+			 'releaseDateMin': None, 'releaseDateMax': None, 'mtime_min': None, 'mtime_max': None},
+			 'server': {'hostname': '0.0.0.0', 'port': 9000},
+			 'autolaunchBrowser': True, 'autoUpdateTitleDb': True, 'allowNoMetadata': True}
 
 def _get_default_config_path():
 	return 'conf/nut.conf'
@@ -121,6 +122,8 @@ class NutConfigTest(TestCase):
 		self.assertTrue(os.path.exists(conf_file))
 		with open(conf_file, 'r', encoding="utf8") as f:
 			obj_from_file = json.load(f)
+			obj_from_file_str = str(obj_from_file)
+			obj_str = str(obj)
 			self.assertEqual(obj_from_file, obj)
 
 	def test_save_default_config_with_explicit_config_path(self):
