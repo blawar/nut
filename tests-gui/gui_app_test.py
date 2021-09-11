@@ -15,7 +15,7 @@ class GuiAppTest(unittest.TestCase):
 		self.form = App()
 
 	def test_run(self):
-		self.assertEqual(self.form.title, 'NUT 3.1')
+		self.assertEqual(self.form.title, 'NUT 3.3')
 		self.form.header.scan.click()
 		self.form.tabs.tabs.setCurrentIndex(0) # files
 		self.form.tabs.tabs.setCurrentIndex(1) # filters
