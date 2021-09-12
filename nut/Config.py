@@ -159,7 +159,7 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 		elif ext == '.xci':
 			f = getPath(self.xciTitleBase, name, self.titleBase)
 		elif ext == '.xcz':
-			f = getPath(self.xczTitleBase, name, self.titleBase)
+			f = getPath(self.xczTitleBase, name, self.titleBase) # pylint: disable=E1101
 
 		if not f:
 			f = self.titleBase

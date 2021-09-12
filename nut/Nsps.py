@@ -196,7 +196,9 @@ def _fill_nsp_from_json_object(nsp, json_object):
 		if k.startswith('__'):
 			nsp.attributes[k[2:]] = v
 
-class FileListCache:
+class FileListCache: # pylint: disable=too-few-public-methods
+	""" FileListCache class
+	"""
 	def __init__(self):
 		self.cache = {}
 
