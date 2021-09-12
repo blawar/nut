@@ -46,8 +46,10 @@ jobs:
       if: startsWith(matrix.os, 'macOS')
       run: |
         brew upgrade
-        brew install curl
-        pip install --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl" pycurl
+        brew uninstall --ignore-dependencies curl
+        brew install openssl
+        brew install curl-openssl
+        pip install pycurl --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
