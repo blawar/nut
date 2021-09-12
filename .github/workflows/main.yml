@@ -55,6 +55,7 @@ jobs:
         brew install openssl
         brew info openssl
         brew install curl-openssl
+        unset PYCURL_SSL_LIBRARY
         pip3 install pycurl==7.43.0 --compile --no-cache-dir
     - name: Install python dependencies
       run: |
