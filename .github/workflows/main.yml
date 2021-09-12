@@ -52,9 +52,10 @@ jobs:
         brew upgrade
         brew uninstall --ignore-dependencies curl
         pip3 uninstall pycurl
+        brew uninstall openssl
         brew install openssl
         brew install curl-openssl
-        pip3 install pycurl==7.43.0 --compile --install-option="--with-openssl" --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
+        pip3 install pycurl==7.43.0 --no-cache-dir --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
