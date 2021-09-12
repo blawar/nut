@@ -44,12 +44,15 @@ jobs:
       shell: cmd
     - name: Install Mac dependencies
       if: startsWith(matrix.os, 'macOS')
+      env:
+          LDFLAGS: "-L/usr/local/opt/openssl/lib"
+          CPPFLAGS: "-I/usr/local/opt/openssl/include"
       run: |
         brew upgrade
         brew uninstall --ignore-dependencies curl
         brew install openssl
         brew install curl-openssl
-        pip3 install pycurl --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
+        pip3 install pycurl==7.43.0 --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
