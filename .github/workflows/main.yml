@@ -47,7 +47,7 @@ jobs:
       env:
           LDFLAGS: "-L/usr/local/opt/openssl/lib"
           CPPFLAGS: "-I/usr/local/opt/openssl/include"
-          PYCURL_SSL_LIBRARY: nss
+          PYCURL_SSL_LIBRARY: openssl
       run: |
         brew upgrade
         brew uninstall --ignore-dependencies curl
