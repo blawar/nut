@@ -52,7 +52,6 @@ jobs:
         brew upgrade
         brew uninstall --ignore-dependencies curl
         pip3 uninstall pycurl
-        brew uninstall curl
         brew install openssl
         brew info openssl
         brew install curl-openssl
