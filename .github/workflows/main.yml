@@ -58,8 +58,8 @@ jobs:
         export PYCURL_SSL_LIBRARY=openssl
         export PYCURL_CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
         export LDFLAGS='-L/usr/local/opt/openssl/lib'
-        export CPPFLAGS=-I/usr/local/opt/openssl/include
-        pip install pycurl --compile --no-cache-dir
+        export CPPFLAGS=-'I/usr/local/opt/openssl/include'
+        pip3 install pycurl --compile --no-cache-dir --global-option="-I/usr/local/opt/openssl/include" --global-option="-L/usr/local/opt/openssl/lib"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
