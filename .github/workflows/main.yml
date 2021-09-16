@@ -50,11 +50,13 @@ jobs:
           PYCURL_SSL_LIBRARY: openssl
       run: |
         brew upgrade
+        curl --version
         brew uninstall --ignore-dependencies curl
         pip3 uninstall pycurl
         brew install openssl
         brew info openssl
         brew install curl-openssl
+        curl --version
         curl -O -L https://pypi.python.org/packages/source/p/pycurl/pycurl-7.43.0.tar.gz
         pip3 install pycurl-7.43.0.tar.gz --global-option="--with-openssl"
     - name: Install python dependencies
