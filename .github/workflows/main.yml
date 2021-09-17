@@ -32,8 +32,8 @@ jobs:
       run: |
         sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+#     - name: Install Qt
+#       uses: jurplel/install-qt-action@v2
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
@@ -47,11 +47,11 @@ jobs:
         brew install curl
     - name: Install python dependencies
       env:
-        LDFLAGS: "-L/usr/local/opt/curl/lib"
-        CPPFLAGS: "-I/usr/local/opt/curl/include"
+        LDFLAGS: "-L/usr/local/opt/openssl/lib"
+        CPPFLAGS: "-I/usr/local/opt/openssl/include"
         PYCURL_SSL_LIBRARY: openssl
       run: |
-        PYCURL_SSL_LIBRARY=openssl pip install --compile pycurl
+        pip install pycurl --compile --no-cache-dir
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
     - name: Tests and coverage
