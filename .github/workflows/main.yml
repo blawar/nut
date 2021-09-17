@@ -30,7 +30,9 @@ jobs:
         USESSL: openssl
         USEOPENSSL: 1.1.1d
       run: |
-        sudo apt install libcurl4-openssl-dev
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
