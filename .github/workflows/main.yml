@@ -34,9 +34,6 @@ jobs:
       shell: bash
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
-      with:
-        setup-python: 'false'
-        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
     - name: Install Win dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
@@ -44,20 +41,19 @@ jobs:
       shell: cmd
     - name: Install Mac dependencies
       if: startsWith(matrix.os, 'macOS')
+      run: |
+        brew upgrade
+        brew uninstall --ignore-dependencies curl
+        brew install curl
+    - name: Install python dependencies
       env:
         LDFLAGS: "-L/usr/local/opt/curl/lib"
         CPPFLAGS: "-I/usr/local/opt/curl/include"
         PYCURL_SSL_LIBRARY: openssl
       run: |
-        brew upgrade
-        brew uninstall --ignore-dependencies curl
-        brew install curl
-        pip install --no-cache-dir --compile --ignore-installed --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl@1.1" pycurl
-    - name: Install python dependencies
-      run: |
-        pip3 install --upgrade pip
-        pip3 install -r requirements.txt
-        pip3 install -r requirements_dev.txt
+        pip install --install-option="--with-openssl" pycurl
+        pip install -r requirements.txt
+        pip install -r requirements_dev.txt
     - name: Tests and coverage
       env:
         QT_QPA_PLATFORM: offscreen
