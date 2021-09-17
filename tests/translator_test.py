@@ -36,7 +36,7 @@ class TranslatorTest(TestCase):
 		self.fs.create_file(TRANSLATION_FILE, contents=TRANSLATION_FILE_CONTENT)
 		Config.language="en"
 		reload(TRANSLATION_FILE)
-		self.assertEqual(tr(ABOUT_KEY), u"About")
+		self.assertEqual(tr(ABOUT_KEY), "About")
 
 	def test_translation_to_russian(self):
 		self.fs.create_file(TRANSLATION_FILE, contents=TRANSLATION_FILE_CONTENT)

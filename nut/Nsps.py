@@ -96,7 +96,7 @@ def scan(base):
 	nspOut = os.path.abspath(Config.paths.nspOut)
 	duplicatesFolder = os.path.abspath(Config.paths.duplicates)
 
-	Print.info('scanning %s' % base)
+	Print.info(f"scanning {base}")
 	for root, _, _files in os.walk(base, topdown=False):
 		for name in _files:
 			if _is_file_hidden(name):
