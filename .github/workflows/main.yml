@@ -56,7 +56,7 @@ jobs:
         brew install openssl
         brew info openssl
         brew install curl-openssl
-        pip3 install pycurl==7.43.0 --compile --no-cache-dir --install-option="--with-openssl"
+        pip3 install --compile pycurl==7.43.0 --no-cache-dir --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl@1.1"
     - name: Install python dependencies
       run: |
         pip3 install --upgrade pip
