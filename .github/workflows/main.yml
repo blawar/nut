@@ -51,7 +51,7 @@ jobs:
         CPPFLAGS: "-I/usr/local/opt/curl/include"
         PYCURL_SSL_LIBRARY: openssl
       run: |
-        pip install --install-option="--with-openssl" pycurl
+        PYCURL_SSL_LIBRARY=openssl pip install --compile pycurl
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
     - name: Tests and coverage
