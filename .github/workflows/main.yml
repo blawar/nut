@@ -57,11 +57,13 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
     - name: Tests and coverage
+      continue-on-error: true
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
         invoke coverage --gui
     - name: Lint
+      continue-on-error: true
       run: |
         invoke lint
     - name: Coveralls report
