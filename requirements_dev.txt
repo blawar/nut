@@ -3,6 +3,6 @@ pyfakefs~=4.5.1
 pylint~=2.11.1
 invoke~=1.6.0
 coverage~=5.5
-coveralls~=2.2.0
+coveralls~=3.2.0
 rope~=0.19.0
 pre-commit~=2.15.0
