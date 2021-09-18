@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # This workflow contains a single job called "build"
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -60,6 +59,7 @@ jobs:
         pip install pycurl --compile --no-cache-dir
     - name: Install python dependencies
       run: |
+        pip install --upgrade pip wheel
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
     - name: Tests and coverage
@@ -70,7 +70,7 @@ jobs:
     - name: Lint
       continue-on-error: true
       run: |
-        invoke lint
+        invoke lint || tests/pylint_exit_handler.sh $?
     - name: Coveralls report
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
