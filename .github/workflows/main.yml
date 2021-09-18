@@ -68,11 +68,10 @@ jobs:
       run: |
         invoke coverage --gui
     - name: Lint
-      continue-on-error: true
       run: |
-        invoke lint || tests/pylint_exit_handler.sh $?
+        invoke lint || python tests/pylint_exit.py $?
     - name: Coveralls report
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        coveralls --service=github-actions
+        coveralls --service=github

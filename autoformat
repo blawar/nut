@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# TODO: migrate to tasks.py (invoke autoformat)
+
+# delete python cache
+find . -type f -name "*.py[co]" -delete
+find . -type d -name "__pycache__" -delete
+# execute autoformatters
 find . -iname '*.py' -exec autopep8 --global-config setup.cfg --aggressive -i "{}" \;
 find . -iname '*.py' -exec autoflake --in-place --remove-all-unused-imports --remove-unused-variables "{}" \;
 find . -iname '*.py' -exec sed -i 's/    /\t/g' "{}" \;
