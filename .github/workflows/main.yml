@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # This workflow contains a single job called "build"
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -23,25 +22,31 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install OS dependencies
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1
+      with:
+        path: ../Qt
+        key: ${{ runner.os }}-QtCache
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+    - name: Install Linux dependencies
       if: startsWith(matrix.os, 'ubuntu')
       env:
-        USECURL: 7.68.0-openssl11-gssapi-libssh2
+        USECURL: 7.79.0-openssl11-gssapi-libssh2
         USESSL: openssl
         USEOPENSSL: 1.1.1d
       run: |
-        sudo apt update
-        sudo apt upgrade
-        sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
+        sudo apt-get install libcurl4-gnutls-dev libgnutls28-dev
       shell: bash
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
-    - name: Install Win dependencies
+    - name: Install Windows dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
-        pip3 install tests/pycurl-7.44.1-cp39-cp39-win_amd64.whl
+        python -m pip install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
       shell: cmd
-    - name: Install Mac dependencies
+    - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macOS')
       env:
         LDFLAGS: "-L/usr/local/opt/openssl/lib"
@@ -51,21 +56,25 @@ jobs:
         brew upgrade
         brew uninstall --ignore-dependencies curl
         brew install curl
-        pip install pycurl --compile --no-cache-dir
+        python -m pip install pycurl --compile --no-cache-dir
     - name: Install python dependencies
       run: |
-        pip install -r requirements.txt
-        pip install -r requirements_dev.txt
-    - name: Tests and coverage
+        python -m pip install --upgrade wheel
+        python -m pip install -r requirements.txt
+        python -m pip install -r requirements_dev.txt
+    - name: Execute tests and coverage report
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
         invoke coverage --gui
     - name: Lint
-      continue-on-error: true
+      # FIXME: replace with platform-agnostic method to check pylint exit code
+      if: matrix.os != 'windows-latest'
       run: |
-        invoke lint
-    - name: Coveralls report
+        invoke lint || python tests/pylint_exit.py $?
+    - name: Upload code coverage report to Coveralls
+      # FIXME: remove once coveralls.io is back online
+      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |

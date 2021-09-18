@@ -158,8 +158,6 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 			f = getPath(self.nsxTitleBase, name, self.titleBase)
 		elif ext == '.xci':
 			f = getPath(self.xciTitleBase, name, self.titleBase)
-		elif ext == '.xcz':
-			f = getPath(self.xczTitleBase, name, self.titleBase)
 
 		if not f:
 			f = self.titleBase
@@ -308,12 +306,12 @@ def save(confFile='conf/nut.conf'):
 
 def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global threads  # pylint: disable=global-statement
-	global jsonOutput  # pylint: disable=global-statement
-	global titleUrls  # pylint: disable=global-statement
-	global pullUrls  # pylint: disable=global-statement
+	global jsonOutput  # pylint: disable=global-statement,global-variable-not-assigned
+	global titleUrls  # pylint: disable=global-statement,global-variable-not-assigned
+	global pullUrls  # pylint: disable=global-statement,global-variable-not-assigned
 	global region  # pylint: disable=global-statement
 	global language  # pylint: disable=global-statement
-	global compression  # pylint: disable=global-statement
+	global compression  # pylint: disable=global-statement,global-variable-not-assigned
 	global autolaunchBrowser  # pylint: disable=global-statement
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 	global original  # pylint: disable=global-statement
@@ -324,7 +322,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			j = json.load(f)
 			original = dict_merge(original, j)
 		except BaseException: # pylint: disable=broad-except
-			print('Failed to load config file: %s' % confFile) # use normal print because of initialization order of Status / Print
+			print(f"Failed to load config file: {confFile}") # use normal print because of initialization order of Status / Print
 			raise
 
 		try:
@@ -721,7 +719,7 @@ def loadTitleBlacklist():
 		if 'blacklist' not in path:
 			continue
 
-		print('loading blacklist %s' % path)
+		print(f"loading blacklist {path}")
 
 		try:
 			with open(path, encoding='utf8') as f:
@@ -748,7 +746,7 @@ class DAuthToken:
 		self.clientId = clientId
 
 	def fileName(self):
-		return 'dauth.%s.token' % self.clientId
+		return f"dauth.{self.clientId}.token"
 
 	def get(self):
 		if not self.token:
@@ -828,7 +826,7 @@ class EdgeToken:
 		self.clientId = clientId
 
 	def fileName(self):
-		return 'edge.%s.token' % self.clientId
+		return f"edge.{self.clientId}.token"
 
 	def get(self):
 		if not self.token:

@@ -15,9 +15,9 @@ def _format_size(num, suffix='B'):
 		return ''
 	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
 		if abs(num) < 1024.0:
-			return "%3.1f %s%s" % (num, unit, suffix)
+			return f"{num:3.1f} {unit}{suffix}"
 		num /= 1024.0
-	return "%.1f %s%s" % (num, 'Yi', suffix)
+	return f"{num:.1f} {'Yi'}{suffix}"
 
 class ConfCheckbox(QCheckBox):
 	"""ConfCheckbox
@@ -119,7 +119,7 @@ class Filters(QWidget):
 		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
 
 		minFileSizeFilter = 0
-		if Config.download.fileSizeMax is not None:
+		if Config.download.fileSizeMin is not None:
 			minFileSizeFilter = Config.download.fileSizeMin
 		maxFileSizeFilter = self.MAX_FILE_SIZE
 		if Config.download.fileSizeMax is not None:
