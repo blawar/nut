@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.9.7]
     steps:
     - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
-    - name: Install OS dependencies
+    - name: Install Linux dependencies
       if: startsWith(matrix.os, 'ubuntu')
       env:
         USECURL: 7.68.0-openssl11-gssapi-libssh2
@@ -41,12 +41,13 @@ jobs:
       run: |
         sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
       shell: bash
-    - name: Install Win dependencies
+    - name: Install Windows dependencies
+      continue-on-error: true # FIXME: verify pycurl backend
       if: startsWith(matrix.os, 'windows')
       run: |
         pip3 install tests/pycurl-7.44.1-cp39-cp39-win_amd64.whl
       shell: cmd
-    - name: Install Mac dependencies
+    - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macOS')
       env:
         LDFLAGS: "-L/usr/local/opt/openssl/lib"
@@ -59,10 +60,10 @@ jobs:
         pip install pycurl --compile --no-cache-dir
     - name: Install python dependencies
       run: |
-        pip install --upgrade pip wheel
+        pip install --upgrade wheel
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
-    - name: Tests and coverage
+    - name: Execute tests and coverage report
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
@@ -70,7 +71,8 @@ jobs:
     - name: Lint
       run: |
         invoke lint || python tests/pylint_exit.py $?
-    - name: Coveralls report
+    - name: Upload code coverage report to Coveralls
+      continue-on-error: true # FIXME: remove once coveralls.io is back online
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
