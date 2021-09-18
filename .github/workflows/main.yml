@@ -35,17 +35,17 @@ jobs:
     - name: Install Linux dependencies
       if: startsWith(matrix.os, 'ubuntu')
       env:
-        USECURL: 7.68.0-openssl11-gssapi-libssh2
+        USECURL: 7.79.0-openssl11-gssapi-libssh2
         USESSL: openssl
         USEOPENSSL: 1.1.1d
       run: |
-        sudo apt install libcurl4-openssl-dev libssl-dev libgnutls28-dev python3-dev
+        sudo apt-get install libcurl4-gnutls-dev libgnutls28-dev
       shell: bash
     - name: Install Windows dependencies
       continue-on-error: true # FIXME: verify pycurl backend
       if: startsWith(matrix.os, 'windows')
       run: |
-        pip3 install tests/pycurl-7.44.1-cp39-cp39-win_amd64.whl
+        pip3 install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
       shell: cmd
     - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macOS')
