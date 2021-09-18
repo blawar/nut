@@ -63,7 +63,6 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
     - name: Tests and coverage
-      continue-on-error: true
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
@@ -73,8 +72,7 @@ jobs:
       run: |
         invoke lint
     - name: Coveralls report
-      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        coveralls
+        coveralls --service=github
