@@ -51,7 +51,7 @@ NUT has the ability to interact with Google Drive. For this to work, you will ne
 ## Usage guide (UNIX users)
 
 ### Requirements
-* Python 3.7+
+* Python 3.9+ (tested: `3.9.7`)
 * OpenSSL-backed curl (for pycurl)
 * Python modules as listed in [`requirements.txt`](requirements.txt)
 
@@ -60,7 +60,7 @@ NUT has the ability to interact with Google Drive. For this to work, you will ne
 <details>
 <summary>Details</summary>
   
-* Install Python 3.7+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages
+* Install Python 3.9+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages
 * Install `curl` with the openssl backend - install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * Install the PIP modules with the following command `pip3 install -r requirements.txt`. If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip install pycurl --no-cache-dir`
@@ -77,20 +77,20 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 <details>
 <summary>Details</summary>
   
-* Install Python 3.7+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
+* Install Python 3.9+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
 * Install `libusb` (`brew install libusb`)
-* Install `curl` with the openssl backend (`brew install curl`)
+* Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * (Optional, but highly recommended) Create a virtualenv and activate it (`pyenv virtualenv nut && source activate nut`)
 * Install wheel (`pip install wheel`)
-* Install pycurl using one of the below. Read [this](https://blog.birkhoff.me/switching-to-the-openssl-version-of-curl/) for more details
+* Install pycurl using the below. 
 ```
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install --no-cache-dir pycurl
-or
-pip install --install-option="--with-openssl" --install-option="--openssl-dir=/usr/local/opt/openssl" pycurl
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" python -m pip install pycurl --compile --no-cache-dir
+or on M1:
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" python -m pip install pycurl --compile --no-cache-dir
 ```
 * Install all other dependencies (`pip install -r requirements.txt`)
-* Run `python3 nut_gui.py` to launch the application. (`python3 nut.py` for CLI)
+* Run `python3 nut.py` for CLI.
 </details>
 
 ------
