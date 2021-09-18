@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 from string import ascii_letters, digits, punctuation
 
 def bufferToHex(buffer, start, count):
 	accumulator = ''
 	for item in range(count):
-		accumulator += '%02X' % buffer[start + item] + ' '
+		accumulator += f"{buffer[start + item]:02X} "
 	return accumulator
 
 def bufferToAscii(buffer, start, count):
