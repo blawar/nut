@@ -42,10 +42,9 @@ jobs:
         sudo apt-get install libcurl4-gnutls-dev libgnutls28-dev
       shell: bash
     - name: Install Windows dependencies
-      continue-on-error: true # FIXME: verify pycurl backend
       if: startsWith(matrix.os, 'windows')
       run: |
-        pip3 install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
+        python -m pip install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
       shell: cmd
     - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macOS')
@@ -57,22 +56,25 @@ jobs:
         brew upgrade
         brew uninstall --ignore-dependencies curl
         brew install curl
-        pip install pycurl --compile --no-cache-dir
+        python -m pip install pycurl --compile --no-cache-dir
     - name: Install python dependencies
       run: |
-        pip install --upgrade wheel
-        pip install -r requirements.txt
-        pip install -r requirements_dev.txt
+        python -m pip install --upgrade wheel
+        python -m pip install -r requirements.txt
+        python -m pip install -r requirements_dev.txt
     - name: Execute tests and coverage report
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
         invoke coverage --gui
     - name: Lint
+      # FIXME: replace with platform-agnostic method to check pylint exit code
+      if: matrix.os != 'windows-latest'
       run: |
         invoke lint || python tests/pylint_exit.py $?
     - name: Upload code coverage report to Coveralls
-      continue-on-error: true # FIXME: remove once coveralls.io is back online
+      # FIXME: remove once coveralls.io is back online
+      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
