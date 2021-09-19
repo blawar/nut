@@ -15,7 +15,6 @@ dryRun = False
 shardCount = None
 shardIndex = None
 reverse = False
-isScanning = False
 extractVersion = False
 autoUpdateTitleDb = True
 allowNoMetadata = True
