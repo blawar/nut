@@ -238,7 +238,8 @@ def getPreload(request, response):
 def getInstall(request, response):
 	try:
 		url = ('%s:%s@%s:%d/api/download/%s/title.nsp' % (request.user.id, request.user.password, Config.server.hostname, Config.server.port, request.bits[2]))
-		Print.info('Installing ' + url)
+		Print.info('Installing ' + str(request.bits[2]))
+		# Print.info('Installing ' + url)
 		file_list_payloadBytes = url.encode('ascii')
 
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
