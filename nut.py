@@ -488,7 +488,7 @@ if __name__ == '__main__':
 			Hook.call("args.pre", parser)
 
 			args = parser.parse_args()
-			
+
 			if hasCdn:
 				if args.cdn_cache_only:
 					Config.cdnCacheOnly = True
@@ -552,9 +552,6 @@ if __name__ == '__main__':
 			Print.info('                _(\.=  ;:;;\'')
 			Print.info('               `"_(  _/="`')
 			Print.info('                `"\'')
-
-			if args.scan:
-				Config.isScanning = True
 
 			if args.dry:
 				Config.dryRun = True
@@ -687,7 +684,7 @@ if __name__ == '__main__':
 				nut.initTitles()
 				nut.initFiles()
 				nut.scan()
-				
+
 			if args.pull:
 				nut.pull()
 
@@ -733,7 +730,7 @@ if __name__ == '__main__':
 						try:
 							f = nsp
 
-							f.open(str(path), 'r+b')							
+							f.open(str(path), 'r+b')
 
 							if not f.verifyNcaHeaders():
 								nsp.verified = False
@@ -826,7 +823,7 @@ if __name__ == '__main__':
 					nut.initFiles()
 					for d in args.download:
 						download(d)
-					
+
 				if args.system_update:
 					cdn.downloadSystemUpdate()
 

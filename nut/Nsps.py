@@ -227,13 +227,13 @@ def load(fileName='titledb/files.json', verify=True):
 			for k in json.loads(f.read()):
 				_nsp = Fs.factory(k['path'], k['path'], None)
 
-				if not _load_nsp_filesize(k, _nsp) or not _nsp.path:
+				if not _load_nsp_filesize(k, _nsp) or not hasattr(_nsp, 'path') or not _nsp.path:
 					continue
 
 				_fill_nsp_from_json_object(_nsp, k)
 
 				path = os.path.abspath(_nsp.path)
-				if verify and Config.isScanning:
+				if verify:
 					if cache.isfile(path) and not _is_file_hidden(path):
 						files[path] = _nsp
 				else:
