@@ -239,13 +239,10 @@ def getInstall(request, response):
 	try:
 		url = ('%s:%s@%s:%d/api/download/%s/title.nsp' % (request.user.id, request.user.password, Config.server.hostname, Config.server.port, request.bits[2]))
 		Print.info('Installing ' + str(request.bits[2]))
-		# Print.info('Installing ' + url)
 		file_list_payloadBytes = url.encode('ascii')
 
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		# sock.settimeout(1)
 		sock.connect((request.user.switchHost, request.user.switchPort))
-		# sock.settimeout(99999)
 
 		sock.sendall(struct.pack('!L', len(file_list_payloadBytes)) + file_list_payloadBytes)
 		while len(sock.recv(1)) < 1:
