@@ -73,8 +73,6 @@ jobs:
       run: |
         invoke lint || python tests/pylint_exit.py $?
     - name: Upload code coverage report to Coveralls
-      # FIXME: remove once coveralls.io is back online
-      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
