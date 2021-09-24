@@ -27,6 +27,7 @@ autolaunchBrowser = True
 titleBlacklist = []
 titleWhitelist = []
 
+# default to US.en for metadata
 region = 'US'
 language = 'en'
 
@@ -84,11 +85,11 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 	"""
 
 	def __init__(self):
-		self.titleBase = 'titles/{name}[{id}][v{version}].nsp'
-		self.titleDLC = 'titles/DLC/{name}[{id}][v{version}].nsp'
-		self.titleUpdate = 'titles/updates/{name}[{id}][v{version}].nsp'
-		self.titleDemo = 'titles/demos/{name}[{id}][v{version}].nsp'
-		self.titleDemoUpdate = 'titles/demos/updates/{name}[{id}][v{version}].nsp'
+		self.titleBase = 'titles/{name} [{id}][v{version}].nsp'
+		self.titleDLC = 'titles/dlc/{baseName} [{name}] [{id}][v{version}].nsp'
+		self.titleUpdate = 'titles/updates/{name} [{id}][v{version}].nsp'
+		self.titleDemo = 'titles/demo/{name} [{id}][v{version}].nsp.nsp'
+		self.titleDemoUpdate = 'titles/demo_updates/{name} [{id}][v{version}].nsp'
 
 		self.nsxTitleBase = None
 		self.nsxTitleDLC = None
@@ -587,6 +588,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 
 		try:
 			dauth.sysDigest = j['cdn']['dAuth']['sysDigest']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			dauth.baseURL = j['cdn']['dAuth']['baseURL']
 		except BaseException:  # pylint: disable=broad-except
 			pass
 
