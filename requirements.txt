@@ -18,6 +18,6 @@ asn1~=2.4.1
 filelock~=3.0.12
 Unidecode~=1.3.2
 pycurl~=7.44.1; sys_platform != 'win32'
-qt-range-slider~=0.2.3
+qt-range-slider~=0.2.7
 watchdog~=2.1.5
 certifi>=2021.5.30
