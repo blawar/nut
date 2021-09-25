@@ -1,4 +1,4 @@
-# NUT [![Github all releases](https://img.shields.io/github/downloads/blawar/nut/total.svg)](https://GitHub.com/blawar/nut/releases/) 
+# NUT [![Github all releases](https://img.shields.io/github/downloads/blawar/nut/total.svg)](https://GitHub.com/blawar/nut/releases/)
 
 Nut is a multi-purpose utility to organize, manage, and install Nintendo Switch files (NSP, NSZ, XCI, XCZ).
 It has the ability to act as a USB and network server for [Tinfoil](https://tinfoil.io/Download#download).
@@ -23,7 +23,7 @@ The GUI has the ability to set the most common configuration options, see the be
 
 <details>
 <summary>Images</summary>
-  
+
 ![Filters](./images/gui_filters.jpg)
 ![Local Paths](./images/gui_scan1.jpg)
 ![Local Scan](./images/gui_scan1.jpg)
@@ -59,12 +59,12 @@ NUT has the ability to interact with Google Drive. For this to work, you will ne
 
 <details>
 <summary>Details</summary>
-  
+
 * Install Python 3.9+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages
 * Install `curl` with the openssl backend - install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
-* Install the PIP modules with the following command `pip3 install -r requirements.txt`. If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip install pycurl --no-cache-dir`
-* Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor and reload (`udevadm control --reload`). Note: you may need to *Disable MTP* within Tinfoil and replace the group user with another that exists on your system. (based on [this comment](https://github.com/blawar/nut/issues/284#issuecomment-866059890)) 
+* Install the PIP modules with the following command `pip3 install -r requirements.txt`. If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip3 install pycurl --no-cache-dir`
+* Add the following code snippet to `/etc/udev/rules.d/99-switch.rules` using your favorite editor and reload (`udevadm control --reload`). Note: you may need to *Disable MTP* within Tinfoil and replace the group user with another that exists on your system. (based on [this comment](https://github.com/blawar/nut/issues/284#issuecomment-866059890))
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", GROUP="plugdev"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plugdev"
@@ -76,20 +76,20 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 
 <details>
 <summary>Details</summary>
-  
+
 * Install Python 3.9+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * (Optional, but highly recommended) Create a virtualenv and activate it (`pyenv virtualenv nut && source activate nut`)
-* Install wheel (`pip install wheel`)
-* Install pycurl using the below. 
+* Install wheel (`pip3 install wheel`)
+* Install pycurl using the below.
 ```
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" python -m pip install pycurl --compile --no-cache-dir
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip3 install pycurl --compile --no-cache-dir
 or on M1:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" python -m pip install pycurl --compile --no-cache-dir
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip3 install pycurl --compile --no-cache-dir
 ```
-* Install all other dependencies (`pip install -r requirements.txt`)
+* Install all other dependencies (`pip3 install -r requirements.txt`)
 * Run `python3 nut.py` for CLI.
 </details>
 
@@ -104,4 +104,4 @@ Exemptions:
 
 ## Contributing
 
-Contributions are welcome, and there is a [pre-commit hook](https://pre-commit.com/#install) - run `python -m pip install -r requirements_dev.txt`
+Contributions are welcome, and there is a [pre-commit hook](https://pre-commit.com/#install) - run `pip3 install -r requirements_dev.txt`
