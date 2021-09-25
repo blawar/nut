@@ -2,8 +2,8 @@
 import os
 import webbrowser
 
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtWidgets import (QWidget, QDesktopWidget, QVBoxLayout, QMessageBox, QSizePolicy)
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import (QWidget, QDesktopWidget, QVBoxLayout, QMessageBox)
 
 import gui.tabs
 import gui.panes.files
@@ -117,7 +117,11 @@ class App(QWidget):
 		nut.compressAll(Config.compression.level)
 
 	def on_organize(self):
-		nut.organize()
+		answer = QMessageBox.question(self, tr('main.top_menu.organize'),
+			tr('main.dialog.organize_confirmation'),
+			QMessageBox.Yes | QMessageBox.No)
+		if answer == QMessageBox.Yes:
+			nut.organize()
 
 	@pyqtSlot()
 	def on_scan(self):
