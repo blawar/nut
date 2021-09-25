@@ -85,10 +85,10 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 	"""
 
 	def __init__(self):
-		self.titleBase = 'titles/{name} [{id}][v{version}].nsp'
-		self.titleDLC = 'titles/dlc/{baseName} [{name}] [{id}][v{version}].nsp'
-		self.titleUpdate = 'titles/updates/{name} [{id}][v{version}].nsp'
-		self.titleDemo = 'titles/demo/{name} [{id}][v{version}].nsp.nsp'
+		self.titleBase = 'titles/nsp/base/{name} [{id}][v{version}].nsp'
+		self.titleDLC = 'titles/nsp/dlc/{baseName} [{name}] [{id}][v{version}].nsp'
+		self.titleUpdate = 'titles/nsp/updates/{name} [{id}][v{version}].nsp'
+		self.titleDemo = 'titles/nsp/demo/{name} [{id}][v{version}].nsp'
 		self.titleDemoUpdate = 'titles/demo_updates/{name} [{id}][v{version}].nsp'
 
 		self.nsxTitleBase = None
@@ -97,13 +97,13 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 		self.nsxTitleDemo = None
 		self.nsxTitleDemoUpdate = None
 
-		self.nszTitleBase = None
-		self.nszTitleDLC = None
-		self.nszTitleUpdate = None
-		self.nszTitleDemo = None
-		self.nszTitleDemoUpdate = None
+		self.nszTitleBase = 'titles/nsz/base/{name} [{id}][v{version}].nsz'
+		self.nszTitleDLC = 'titles/nsz/dlc/{baseName} [{name}] [{id}][v{version}].nsz'
+		self.nszTitleUpdate = 'titles/nsz/updates/{name} [{id}][v{version}].nsz'
+		self.nszTitleDemo = 'titles/nsz/demo/{name} [{id}][v{version}].nsz'
+		self.nszTitleDemoUpdate = 'titles/nsz/demo_updates/{name} [{id}][v{version}].nsz'
 
-		self.xciTitleBase = None
+		self.xciTitleBase = 'titles/xci/{name} [{id}][v{version}].xci'
 		self.xciTitleDLC = None
 		self.xciTitleUpdate = None
 		self.xciTitleDemo = None
