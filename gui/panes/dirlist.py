@@ -71,7 +71,7 @@ class FolderPicker(QDialog):
 	def save(self):
 		pass
 
-class GdrivePicker(QDialog):
+class GdrivePicker(QDialog): # pylint: disable=too-many-instance-attributes
 	"""GdrivePicker UI control
 	"""
 	def __init__(self):

@@ -196,7 +196,7 @@ def _fill_nsp_from_json_object(nsp, json_object):
 		if k.startswith('__'):
 			nsp.attributes[k[2:]] = v
 
-class FileListCache:
+class FileListCache: # pylint: disable=too-few-public-methods
 	def __init__(self):
 		self.cache = {}
 
@@ -241,18 +241,12 @@ def load(fileName='titledb/files.json', verify=True):
 	Print.info('loaded file list in ' + str(time.perf_counter() - timestamp) + ' seconds')
 
 def save(fileName='titledb/files.json'):
-	lock.acquire()
-
-	try:
+	with lock:
 		j = []
 		for _, k in files.items():
 			j.append(k.dict())
-		with open(fileName, 'w') as outfile:
+		with open(fileName, mode='w', encoding="utf-8") as outfile:
 			json.dump(j, outfile, indent=4, sort_keys=True)
-	except BaseException:
-		lock.release()
-		raise
-	lock.release()
 
 
 if os.path.isfile('files.json'):
