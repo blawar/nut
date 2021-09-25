@@ -71,7 +71,7 @@ jobs:
       # FIXME: replace with platform-agnostic method to check pylint exit code
       if: matrix.os != 'windows-latest'
       run: |
-        invoke lint || python tests/pylint_exit.py $?
+        invoke lint || pylint-exit $?
     - name: Upload code coverage report to Coveralls
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
