@@ -591,6 +591,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			dauth.baseURL = j['cdn']['dAuth']['baseURL']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			threads = int(j['threads'])
 		except BaseException:  # pylint: disable=broad-except
 			pass
@@ -793,7 +798,7 @@ class Cdn:  # pylint: disable=too-few-public-methods
 
 	def __init__(self):
 		self.region = 'US'
-		self.firmware = '12.0.2-1.0'
+		self.firmware = None
 		self.deviceId = None
 		self.environment = 'lp1'
 		self.clientIds = { "eShop": "93af0acb26258de9", "atumC1": "3117b250cab38f45", "tigers": "d5b6cac2c1514c56", "tagaya": "41f4a6491028e3c4"}
@@ -851,11 +856,11 @@ class DAuth:  # pylint: disable=too-few-public-methods
 	"""
 
 	def __init__(self):
-		self.keyGeneration = 11
-		self.userAgent = "libcurl (nnDauth; 16f4553f-9eee-4e39-9b61-59bc7c99b7c8; SDK 12.3.0.0)"
-		self.challenge = 'key_generation=' + str(self.keyGeneration)
-		self.sysDigest = "CusHY#000c0002#6tB3UVnmvT_nsNBMPSD-K1oe0IA1cYvYDyqDCjy2W_I="
-		self.baseURL = 'https://dauth-lp1.ndas.srv.nintendo.net/v6/'
+		self.keyGeneration = None
+		self.userAgent = None
+		self.challenge = None
+		self.sysDigest = None
+		self.baseURL = None
 
 
 cdn = Cdn()
