@@ -5,9 +5,9 @@ from enum import Enum
 from PyQt5 import QtCore
 from PyQt5.QtCore import QAbstractTableModel, Qt
 
-from nut import Print
-
 import humanize
+
+from nut import Print
 
 class Column(Enum):
 	FILENAME = 0
@@ -21,7 +21,8 @@ class SortDirection(Enum):
 
 class TableModel(QAbstractTableModel):
 	def __init__(self, parent=None):
-		super(TableModel, self).__init__()
+		del parent
+		super().__init__()
 		self.datatable = []
 		self.column_count = 4
 		self.headers = [
@@ -48,9 +49,11 @@ class TableModel(QAbstractTableModel):
 		Print.debug('TableModel update finished')
 
 	def rowCount(self, parent=QtCore.QModelIndex()):
+		del parent
 		return len(self.datatable)
 
 	def columnCount(self, parent=QtCore.QModelIndex()):
+		del parent
 		return self.column_count
 
 	def data(self, index, role=Qt.DisplayRole):
@@ -61,10 +64,11 @@ class TableModel(QAbstractTableModel):
 			if Column(j) == Column.FILE_SIZE:
 				return humanize.naturalsize(row[Column(j)], True)
 			return f"{row[Column(j)]}"
-		else:
-			return QtCore.QVariant()
+		return QtCore.QVariant()
 
+	# pylint: disable=no-self-use
 	def flags(self, index):
+		del index
 		return Qt.ItemIsEnabled
 
 	def headerData(self, section, orientation, role=Qt.DisplayRole):
