@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import re
 from nut import Print
@@ -136,9 +137,6 @@ def load(path='conf/users.conf'):
 
 			Print.info('loaded user ' + str(t.id))
 
-def save():
-	pass
-
 def export(fileName='conf/users.conf', map=['id', 'password', 'isAdmin']):
 	os.makedirs(os.path.dirname(fileName), exist_ok=True)
 	global users
@@ -148,7 +146,7 @@ def export(fileName='conf/users.conf', map=['id', 'password', 'isAdmin']):
 	for k, t in users.items():
 		buffer += t.serialize(map) + '\n'
 
-	with open(fileName, 'w', encoding='utf-8') as csv:
+	with open(fileName, 'w', encoding='utf-8-sig') as csv:
 		csv.write(buffer)
 
 
