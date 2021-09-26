@@ -48,12 +48,7 @@ def _create_files(fs, folder_obj):
 
 
 def _get_default_languages():
-	return json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
-		"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
-		"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
-		"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],\
-		"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],\
-		"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
+	return json.loads(Config.DEFAULT_REGION_LANGUAGES)
 
 
 class NutConfigTest(TestCase):
