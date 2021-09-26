@@ -4,20 +4,12 @@ from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
 							 QLabel, QSizePolicy, QVBoxLayout, QWidget, QScrollArea, QFrame)
 from qt_range_slider import QtRangeSlider
 
+import humanize
+
 from nut import Config
 from translator import tr
 
 
-# pylint: disable=fixme
-# TODO: move to a separate module
-def _format_size(num, suffix='B'):
-	if num is None:
-		return ''
-	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
-		if abs(num) < 1024.0:
-			return f"{num:3.1f} {unit}{suffix}"
-		num /= 1024.0
-	return f"{num:.1f} {'Yi'}{suffix}"
 
 class ConfCheckbox(QCheckBox):
 	"""ConfCheckbox
@@ -148,13 +140,13 @@ class Filters(QWidget):
 
 	@staticmethod
 	def _on_left_thumb_value_changed(label, value):
-		label.setText(_format_size(value))
+		label.setText(humanize.naturalsize(value, True))
 		Config.download.fileSizeMin = value
 		Config.save()
 
 	@staticmethod
 	def _on_right_thumb_value_changed(label, value):
-		label.setText(_format_size(value))
+		label.setText(humanize.naturalsize(value, True))
 		Config.download.fileSizeMax = value
 		Config.save()
 
@@ -197,7 +189,7 @@ class Filters(QWidget):
 
 	@staticmethod
 	def _createLabel(layout, value, alignment):
-		label = QLabel(f"{_format_size(value)}")
+		label = QLabel(f"{humanize.naturalsize(value, True)}")
 		label.setFixedWidth(80)
 		label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 		label.setAlignment(alignment)

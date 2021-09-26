@@ -23,12 +23,7 @@ from translator import tr
 class App(QWidget):
 	def __init__(self):
 		super().__init__()
-		screen = QDesktopWidget().screenGeometry()
 		self.title = 'NUT 3.3'
-		self.left = int(screen.width() / 4)
-		self.top = int(screen.height() / 4)
-		self.width = int(screen.width() / 2)
-		self.height = int(screen.height() / 2)
 		self.needsRefresh = False
 		self.isInitialized = False
 		self.initUI()
@@ -39,12 +34,17 @@ class App(QWidget):
 	def initUI(self):
 		self.isInitialized = False
 		self.setWindowTitle(self.title)
-		self.setGeometry(self.left, self.top, self.width, self.height)
+		screen = QDesktopWidget().screenGeometry()
+		left = int(screen.width() / 4)
+		top = int(screen.height() / 4)
+		width = int(screen.width() / 2)
+		height = int(screen.height() / 2)
+		self.setGeometry(left, top, width, height)
 
-		self.layout = QVBoxLayout()
+		layout = QVBoxLayout()
 
 		self.header = Header(self)
-		self.layout.addLayout(self.header.layout)
+		layout.addLayout(self.header.layout)
 		self.files = gui.panes.files.Files()
 
 		self.tabs = gui.tabs.Tabs({
@@ -56,17 +56,18 @@ class App(QWidget):
 			tr('main.grid.users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
 			tr('main.grid.options'): gui.panes.options.Options()
 		})
-		self.layout.addWidget(self.tabs)
+		layout.addWidget(self.tabs)
 
 		self.progress = Progress(self)
-		self.layout.addLayout(self.progress.layout)
+		layout.addLayout(self.progress.layout)
 
-		self.setLayout(self.layout)
+		self.setLayout(layout)
 
 		self.isInitialized = True
 		self.show()
 
-	def saveUsers(self, control):
+	@staticmethod
+	def saveUsers(control):
 		result = {}
 		i = 0
 		while i < control.count():
@@ -110,10 +111,12 @@ class App(QWidget):
 		Config.pullUrls = result
 		Config.save()
 
-	def on_decompress(self):
+	@staticmethod
+	def on_decompress():
 		nut.decompressAll()
 
-	def on_compress(self):
+	@staticmethod
+	def on_compress():
 		nut.compressAll(Config.compression.level)
 
 	def on_organize(self):
@@ -128,12 +131,14 @@ class App(QWidget):
 		nut.scan()
 		self.files.refresh()
 
+	@staticmethod
 	@pyqtSlot()
-	def on_pull(self):
+	def on_pull():
 		nut.pull()
 
+	@staticmethod
 	@pyqtSlot()
-	def on_titledb(self):
+	def on_titledb():
 		nut.updateTitleDb(force=True)
 
 	@pyqtSlot()
@@ -163,14 +168,12 @@ class App(QWidget):
 			if buttonReply == QMessageBox.Yes:
 				try:
 					os.unlink('gdrive.token')
-				# TODO: Remove bare except
-				except BaseException:
+				except OSError:
 					pass
 
 				try:
 					os.unlink('token.pickle')
-				# TODO: Remove bare except
-				except BaseException:
+				except OSError:
 					pass
 
 				Fs.driver.gdrive.getGdriveToken(None, None)
@@ -183,6 +186,8 @@ class App(QWidget):
 					"directories."
 				)
 
-	def closeEvent(self, event):
+	@staticmethod
+	def closeEvent(event):
+		del event
 		# TODO: implement a graceful shutdown of other threads
-		os._exit(0)
+		os._exit(0) # pylint: disable=protected-access

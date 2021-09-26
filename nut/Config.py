@@ -36,6 +36,13 @@ original = {}
 
 g_regionLanguages = None
 
+DEFAULT_REGION_LANGUAGES = '{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
+	"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
+	"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
+	"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],\
+	"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],\
+	"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}'
+
 def dict_merge(dct, merge_dct, add_keys=True):
 	dct = dct.copy()
 	if not add_keys:
@@ -687,12 +694,7 @@ def regionLanguages(fileName='titledb/languages.json'):
 		with open(fileName, encoding='utf-8-sig') as f:
 			g_regionLanguages = json.loads(f.read())
 	except BaseException:  # pylint: disable=broad-except
-		g_regionLanguages = json.loads('{"CO":["en","es"],"AR":["en","es"],"CL":["en","es"],\
-			"PE":["en","es"],"KR":["ko"],"HK":["zh"],"CN":["zh"],"NZ":["en"],"AT":["de"],\
-			"BE":["fr","nl"],"CZ":["en"],"DK":["en"],"ES":["es"],"FI":["en"],"GR":["en"],\
-			"HU":["en"],"NL":["nl"],"NO":["en"],"PL":["en"],"PT":["pt"],"RU":["ru"],"ZA":["en"],\
-			"SE":["en"],"MX":["en","es"],"IT":["it"],"CA":["en","fr"],"FR":["fr"],"DE":["de"],\
-			"JP":["ja"],"AU":["en"],"GB":["en"],"US":["es", "en"]}')
+		g_regionLanguages = json.loads(DEFAULT_REGION_LANGUAGES)
 
 	return g_regionLanguages
 

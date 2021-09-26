@@ -1,20 +1,13 @@
+# -*- coding: utf-8 -*-
 import os
 from enum import Enum
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QAbstractTableModel, Qt
 
+import humanize
+
 from nut import Print
-
-
-def _format_size(num, suffix='B'):
-	if num is None:
-		return ''
-	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
-		if abs(num) < 1024.0:
-			return "%3.1f %s%s" % (num, unit, suffix)
-		num /= 1024.0
-	return "%.1f %s%s" % (num, 'Yi', suffix)
 
 class Column(Enum):
 	FILENAME = 0
@@ -28,7 +21,8 @@ class SortDirection(Enum):
 
 class TableModel(QAbstractTableModel):
 	def __init__(self, parent=None):
-		super(TableModel, self).__init__()
+		del parent
+		super().__init__()
 		self.datatable = []
 		self.column_count = 4
 		self.headers = [
@@ -55,9 +49,11 @@ class TableModel(QAbstractTableModel):
 		Print.debug('TableModel update finished')
 
 	def rowCount(self, parent=QtCore.QModelIndex()):
+		del parent
 		return len(self.datatable)
 
 	def columnCount(self, parent=QtCore.QModelIndex()):
+		del parent
 		return self.column_count
 
 	def data(self, index, role=Qt.DisplayRole):
@@ -66,12 +62,13 @@ class TableModel(QAbstractTableModel):
 			j = index.column()
 			row = self.datatable[i]
 			if Column(j) == Column.FILE_SIZE:
-				return _format_size(row[Column(j)])
+				return humanize.naturalsize(row[Column(j)], True)
 			return f"{row[Column(j)]}"
-		else:
-			return QtCore.QVariant()
+		return QtCore.QVariant()
 
+	# pylint: disable=no-self-use
 	def flags(self, index):
+		del index
 		return Qt.ItemIsEnabled
 
 	def headerData(self, section, orientation, role=Qt.DisplayRole):
