@@ -12,9 +12,10 @@ else:
 @task
 def coverage(c, details=False, gui=False):
 	c.run("coverage erase")
-	c.run("coverage run -m pytest --ignore tests-gui")
 	if gui:
-		c.run("coverage run -m pytest --ignore tests")
+		c.run("coverage run -m pytest")
+	else:
+		c.run("coverage run -m pytest --ignore tests-gui")
 	if details:
 		c.run("coverage html && coverage annotate")
 		c.run("coverage report", pty=True)
