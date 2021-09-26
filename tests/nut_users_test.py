@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import os
+from importlib import reload
 import unittest
 
 from pyfakefs.fake_filesystem_unittest import TestCase
@@ -19,6 +21,8 @@ class NutUsersTest(TestCase):
 		first_user = Users.first()
 		self.assertEqual(first_user.id, _DEFAULT_USER)
 		self.assertEqual(first_user.password, _DEFAULT_PASSWORD)
+		Users.users = {}
+		self.assertIsNone(Users.first())
 
 	def test_auth_positive(self):
 		auth_result = Users.auth(_DEFAULT_USER, _DEFAULT_PASSWORD, _DEFAULT_HOST)
@@ -28,11 +32,22 @@ class NutUsersTest(TestCase):
 		self.assertEqual(Users.first().remoteAddr, None)
 		self.assertIsNotNone(Users.auth(_DEFAULT_USER, _DEFAULT_PASSWORD, 'any_adrr'))
 
+		user = Users.first()
+		user.setRequireAuth(False)
+		user.remoteAddr = _DEFAULT_HOST
+		Users.users[user.id] = user
+		self.assertTrue(Users.auth(user.id, user.password, user.remoteAddr))
+
+		user.setRequireAuth(True)
+		self.assertTrue(Users.auth(_DEFAULT_USER, _DEFAULT_PASSWORD, user.remoteAddr))
+		self.assertFalse(Users.auth(_DEFAULT_USER, _DEFAULT_PASSWORD, 'any_addr'))
+
 	def test_auth_negative(self):
 		self.assertEqual(Users.auth(_DEFAULT_USER, 'wrong_pwd', _DEFAULT_HOST), None)
 		self.assertEqual(Users.auth('wrong_user', _DEFAULT_PASSWORD, _DEFAULT_HOST), None)
 
 	def test_list_default_users(self):
+		reload(Users)
 		values = Users.users.values()
 		self.assertIsNotNone(values)
 		self.assertGreater(len(values), 0)
@@ -63,9 +78,6 @@ class NutUsersTest(TestCase):
 		self.assertIsNone(user.id)
 		self.assertIsNone(user.password)
 
-	def test_save(self): # pylint: disable = no-self-use
-		Users.save()
-
 	def test_load_with_empty_file(self):
 		Users.users = {}
 		Users.load()
@@ -74,6 +86,27 @@ class NutUsersTest(TestCase):
 		first_user = Users.first()
 		self.assertEqual(first_user.id, _DEFAULT_USER)
 		self.assertEqual(first_user.password, _DEFAULT_PASSWORD)
+
+	def test_load(self):
+		conf_file = 'conf/users.conf'
+		conf_content = """id|password
+user1|pwd1
+
+user2|pwd2
+# comment
+user3|pwd3
+"""
+		self.fs.create_file(conf_file, contents=conf_content)
+
+		Users.users = {}
+		Users.load()
+
+		self.assertIsNotNone(Users.first())
+		first_user = Users.first()
+		self.assertEqual(first_user.id, 'user1')
+		self.assertEqual(first_user.password, 'pwd1')
+
+		self.fs.remove(conf_file)
 
 	def test_user_set_switch_port(self):
 		user = Users.User()
@@ -85,12 +118,27 @@ class NutUsersTest(TestCase):
 		user.setSwitchPort('wrong_port')
 		self.assertEqual(user.switchPort, new_switch_port)
 
+	def test_user_get_switch_port(self):
+		user = Users.User()
+		new_switch_port = 1234
+		user.setSwitchPort(new_switch_port)
+		self.assertEqual(user.getSwitchPort(), new_switch_port)
+
+		user.setSwitchPort('wrong_port')
+		self.assertEqual(user.switchPort, new_switch_port)
+
 	def test_user_set_switch_host(self):
 		user = Users.User()
 		self.assertEqual(user.switchHost, None)
 		new_switch_host = 'local'
 		user.setSwitchHost(new_switch_host)
 		self.assertEqual(user.switchHost, new_switch_host)
+
+	def test_user_get_switch_host(self):
+		user = Users.User()
+		new_switch_host = 'local'
+		user.setSwitchHost(new_switch_host)
+		self.assertEqual(user.getSwitchHost(), new_switch_host)
 
 	def test_user_set_require_auth(self):
 		user = Users.User()
@@ -115,6 +163,12 @@ class NutUsersTest(TestCase):
 		user.setIsAdmin(True)
 		user.setIsAdmin('incorrect')
 		self.assertTrue(user.isAdmin)
+
+	def test_user_get_require_auth(self):
+		user = Users.User()
+		self.assertIs(user.getRequireAuth(), 'True', 'All users require Auth by default')
+		user.setRequireAuth(False)
+		self.assertIs(user.getRequireAuth(), 'False')
 
 if __name__ == "__main__":
 	unittest.main()
