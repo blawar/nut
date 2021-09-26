@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import socket
 
-from PyQt5.QtCore import (Qt, pyqtSlot, QTimer)
+from PyQt5.QtCore import (Qt, QTimer)
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QPushButton, QLabel)
 
 from nut import Config, Users, Usb
@@ -16,54 +17,28 @@ def _get_ip_address():
 	except OSError:
 		return None
 
-class Header:
+def _create_button(app, parent, text, max_width, handler):
+	widget = QPushButton(text, app)
+	widget.setMaximumWidth(max_width)
+	widget.clicked.connect(handler)
+	widget.setFocusPolicy(Qt.StrongFocus)
+	parent.addWidget(widget)
+	return widget
+
+class Header: # pylint: disable=too-many-instance-attributes,too-few-public-methods
 	def __init__(self, app):
 		self.layout = QVBoxLayout()
 
 		top = QHBoxLayout()
 		bottom = QHBoxLayout()
 
-		self.scan = QPushButton(tr('main.top_menu.scan'), app)
-		self.scan.setMaximumWidth(100)
-		self.scan.clicked.connect(app.on_scan)
-		self.scan.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(self.scan)
-
-		btn = QPushButton(tr('main.top_menu.organize'), app)
-		btn.setMaximumWidth(200)
-		btn.clicked.connect(app.on_organize)
-		btn.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(btn)
-
-		self.pull = QPushButton(tr('main.top_menu.pull'), app)
-		self.pull.setMaximumWidth(100)
-		self.pull.clicked.connect(app.on_pull)
-		self.pull.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(self.pull)
-
-		self.titledb = QPushButton(tr('main.top_menu.update_titledb'), app)
-		self.titledb.setMaximumWidth(200)
-		self.titledb.clicked.connect(app.on_titledb)
-		self.titledb.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(self.titledb)
-
-		btn = QPushButton(tr('main.top_menu.decompress_nsz'), app)
-		btn.setMaximumWidth(200)
-		btn.clicked.connect(app.on_decompress)
-		btn.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(btn)
-
-		btn = QPushButton(tr("main.top_menu.compress_nsp"), app)
-		btn.setMaximumWidth(200)
-		btn.clicked.connect(app.on_compress)
-		btn.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(btn)
-
-		self.gdrive = QPushButton(tr("main.top_menu.setup_gdrive"), app)
-		self.gdrive.setMaximumWidth(200)
-		self.gdrive.clicked.connect(app.on_gdrive)
-		self.gdrive.setFocusPolicy(Qt.StrongFocus)
-		top.addWidget(self.gdrive)
+		self.scan = _create_button(app, top, tr('main.top_menu.scan'), 100, app.on_scan)
+		_create_button(app, top, tr('main.top_menu.organize'), 200, app.on_organize)
+		self.pull = _create_button(app, top, tr('main.top_menu.pull'), 100, app.on_pull)
+		self.titledb = _create_button(app, top, tr('main.top_menu.update_titledb'), 200, app.on_titledb)
+		_create_button(app, top, tr('main.top_menu.decompress_nsz'), 200, app.on_decompress)
+		_create_button(app, top, tr('main.top_menu.compress_nsp'), 200, app.on_compress)
+		self.gdrive = _create_button(app, top, tr('main.top_menu.setup_gdrive'), 200, app.on_gdrive)
 
 		top.addStretch()
 
