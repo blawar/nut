@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from enum import Enum
 
@@ -6,15 +7,7 @@ from PyQt5.QtCore import QAbstractTableModel, Qt
 
 from nut import Print
 
-
-def _format_size(num, suffix='B'):
-	if num is None:
-		return ''
-	for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
-		if abs(num) < 1024.0:
-			return "%3.1f %s%s" % (num, unit, suffix)
-		num /= 1024.0
-	return "%.1f %s%s" % (num, 'Yi', suffix)
+import humanize
 
 class Column(Enum):
 	FILENAME = 0
@@ -66,7 +59,7 @@ class TableModel(QAbstractTableModel):
 			j = index.column()
 			row = self.datatable[i]
 			if Column(j) == Column.FILE_SIZE:
-				return _format_size(row[Column(j)])
+				return humanize.naturalsize(row[Column(j)], True)
 			return f"{row[Column(j)]}"
 		else:
 			return QtCore.QVariant()
