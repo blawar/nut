@@ -2,27 +2,22 @@
 __pycache__/
 *.py[cod]
 Pipfile.lock
+environment.yml
 
 # workspace
 .DS_Store
 .vscode
-environment.yml
 
 # coverage
-htmlcov
+htmlcov/
 .coverage
+.coverage.*
+.cache
+*.cover
 *.py,cover
+.pytest_cache/
 
 # config
-file.verification.txt
-gdrive.token
-token.pickle
-credentials.json
-keys.txt
-prod.keys
-*.bin
-*.token
-*.pem
 conf/nut.conf
 conf/nut.conf.save
 conf/users.conf
@@ -30,14 +25,25 @@ conf/blacklist.txt
 conf/blacklist.*.txt
 
 # metadata
-nut.lock
 cache/
-titles/
 titledb/
 
 # data
+titles/
 _NSPOUT/
 *.nsp
 *.nsz
 *.xci
 *.xcz
+
+keys.txt
+prod.keys
+gdrive.token
+token.pickle
+credentials.json
+file.verification.txt
+nut.lock
+nut2.lock
+*.bin
+*.token
+*.pem
