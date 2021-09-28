@@ -38,9 +38,8 @@ class Compress(QSlider):
 class SliderControl(QWidget):
 	def __init__(self, _type):
 		super().__init__()
-		self.type = _type
 		layout = QHBoxLayout(self)
-		self.slider = self.type(self)
+		self.slider = _type(self)
 		layout.addWidget(self.slider)
 		self.label = QLabel(str(self.slider.value()))
 		layout.addWidget(self.label)
