@@ -3,14 +3,17 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QFormLayout, QLabel, QHBoxLayo
 from PyQt5.QtCore import Qt
 from nut import Config
 
+def _init_slider(slider, min_value, max_value, value):
+	slider.setMinimum(min_value)
+	slider.setMaximum(max_value)
+	slider.setValue(value)
+	slider.valueChanged.connect(slider.save)
+
 class Threads(QSlider):
 	def __init__(self, parent):
 		super().__init__(Qt.Horizontal)
 		self.parent = parent
-		self.setMinimum(1)
-		self.setMaximum(8)
-		self.setValue(Config.threads)
-		self.valueChanged.connect(self.save)
+		_init_slider(self, 1, 8, Config.threads)
 
 	def save(self):
 		Config.threads = self.value()
@@ -23,10 +26,7 @@ class Compress(QSlider):
 	def __init__(self, parent):
 		super().__init__(Qt.Horizontal)
 		self.parent = parent
-		self.setMinimum(0)
-		self.setMaximum(22)
-		self.setValue(Config.compression.level)
-		self.valueChanged.connect(self.save)
+		_init_slider(self, 0, 22, Config.compression.level)
 
 	def save(self):
 		Config.compression.level = self.value()
