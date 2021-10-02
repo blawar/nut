@@ -55,6 +55,7 @@ jobs:
       run: |
         brew upgrade
         brew uninstall --ignore-dependencies curl
+        brew install openssl
         brew install curl
         pip3 install wheel
         pip3 install pycurl
