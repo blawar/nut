@@ -17,10 +17,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+  
+      - name: Install dependencies
+        run: |
+          pip3 install --upgrade pip setuptools wheel
+          pip3 install virtualenv poetry pipenv
+          echo "CODEQL_PYTHON=$(which python)" >> $GITHUB_ENV
+          
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
           languages: python
+          setup-python-dependencies: false
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
