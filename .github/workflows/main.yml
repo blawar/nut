@@ -56,7 +56,8 @@ jobs:
         brew upgrade
         brew uninstall --ignore-dependencies curl
         brew install curl
-        pip3 install wheel pycurl
+        pip3 install wheel
+        pip3 install pycurl
     - name: Install python dependencies
       run: |
         pip3 install --upgrade wheel
