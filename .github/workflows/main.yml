@@ -55,9 +55,10 @@ jobs:
       run: |
         brew upgrade
         brew uninstall --ignore-dependencies curl
+        brew instal openssl
         brew install curl
         python -m pip install --upgrade wheel
-        python -m pip install pycurl --compile --no-cache-dir
+        python -m pip install pycurl
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade wheel
