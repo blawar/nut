@@ -9,11 +9,19 @@ from PyQt5.QtCore import QEvent
 
 from gui.app import App
 from gui.panes.options import Threads, Compress
+from gui.panes.dirlist import DirectoryLocal
 
 from nut import Config, Users
 
+LOCAL_SCAN_PATHS_TAB_INDEX = 3
 USERS_TAB_INDEX = 5
 OPTIONS_TAB_INDEX = 6
+
+def _find_button_by_text(widget, text):
+	for button in widget.findChildren(QPushButton):
+		if button.text() == text:
+			return button
+	return None
 
 class GuiAppTest(unittest.TestCase):
 	"""Tests for gui/app.py
@@ -30,17 +38,10 @@ class GuiAppTest(unittest.TestCase):
 		self.form.tabs.tabs.setCurrentIndex(0) # files
 		self.form.tabs.tabs.setCurrentIndex(1) # filters
 		self.form.tabs.tabs.setCurrentIndex(2) # save paths
-		self.form.tabs.tabs.setCurrentIndex(3) # local scan paths
+		self.form.tabs.tabs.setCurrentIndex(LOCAL_SCAN_PATHS_TAB_INDEX)
 		self.form.tabs.tabs.setCurrentIndex(4) # remote scan paths
-		self.form.tabs.tabs.setCurrentIndex(5) # users
+		self.form.tabs.tabs.setCurrentIndex(USERS_TAB_INDEX)
 		self.form.tabs.tabs.setCurrentIndex(OPTIONS_TAB_INDEX)
-
-		scan_path_widget = self.form.tabs.tabs.widget(3) # local scan paths
-		logging.debug(scan_path_widget.metaObject().className())
-		scan_edit = scan_path_widget.findChildren(QLineEdit)[0]
-		add_button = scan_path_widget.findChildren(QPushButton)
-		self.assertIsNotNone(scan_edit)
-		self.assertIsNotNone(add_button)
 
 	def test_options(self):
 		tabs = self.form.tabs.tabs
@@ -62,7 +63,7 @@ class GuiAppTest(unittest.TestCase):
 		compression_slider.save()
 		self.assertEqual(Config.compression.level, compression_slider.value())
 
-	def test_dirlist(self):
+	def test_dirlist_users(self):
 		tabs = self.form.tabs.tabs
 		tabs.setCurrentIndex(USERS_TAB_INDEX)
 		current_tab = tabs.widget(USERS_TAB_INDEX)
@@ -100,3 +101,36 @@ class GuiAppTest(unittest.TestCase):
 
 		Users.users = users_before_test
 		Users.export()
+
+	def test_dirlist_scan_paths(self):
+		tabs = self.form.tabs.tabs
+		tabs.setCurrentIndex(LOCAL_SCAN_PATHS_TAB_INDEX)
+		current_tab = tabs.widget(LOCAL_SCAN_PATHS_TAB_INDEX)
+
+		paths_before_test = Config.paths.scan
+
+		edits = current_tab.findChildren(QLineEdit)
+		self.assertEqual(len(edits), 1)
+		scan_edit = edits[0]
+		self.assertIsNotNone(scan_edit)
+		logging.debug(scan_edit.text())
+
+		add_button = _find_button_by_text(current_tab, "Add")
+		self.assertIsNotNone(add_button)
+
+		edits = current_tab.findChildren(DirectoryLocal)
+		self.assertEqual(len(edits), 1)
+
+		add_button.click()
+
+		edits = current_tab.findChildren(DirectoryLocal)
+		self.assertEqual(len(edits), 2)
+
+		dir_local: DirectoryLocal = edits[1]
+		temp_path = "/tmp"
+		dir_local.setValue(temp_path)
+		self.assertEqual(dir_local.getValue(), temp_path)
+		QApplication.sendEvent(dir_local, QEvent(QEvent.FocusOut))
+
+		Config.paths.scan = paths_before_test
+		Config.save()
