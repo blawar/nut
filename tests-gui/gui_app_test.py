@@ -4,11 +4,13 @@ import unittest
 import logging
 
 from PyQt5.QtWidgets import (QApplication, QPushButton, QLineEdit, QSlider)
+from PyQt5.QtTest import QTest
+from PyQt5.QtCore import QEvent
 
 from gui.app import App
 from gui.panes.options import Threads, Compress
 
-from nut import Config
+from nut import Config, Users
 
 USERS_TAB_INDEX = 5
 OPTIONS_TAB_INDEX = 6
@@ -65,6 +67,10 @@ class GuiAppTest(unittest.TestCase):
 		tabs.setCurrentIndex(USERS_TAB_INDEX)
 		current_tab = tabs.widget(USERS_TAB_INDEX)
 
+		users_before_test = Users.users
+
+		self.assertEqual(len(Users.users), 1)
+
 		edits = current_tab.findChildren(QLineEdit)
 		self.assertEqual(len(edits), 2)
 
@@ -76,5 +82,21 @@ class GuiAppTest(unittest.TestCase):
 		edits = current_tab.findChildren(QLineEdit)
 		self.assertEqual(len(edits), 4)
 
-		edits[2].setText("test_user")
-		edits[3].setText("test_password")
+		self.assertEqual(edits[0].getValue(), "guest")
+		self.assertEqual(edits[1].getValue(), "guest")
+
+		QTest.keyClicks(edits[2], "test_user")
+		self.assertEqual(edits[2].getValue(), "test_user")
+		QApplication.sendEvent(edits[2], QEvent(QEvent.FocusOut))
+
+		QTest.keyClicks(edits[3], "test_password")
+		self.assertEqual(edits[3].getValue(), "test_password")
+		QApplication.sendEvent(edits[2], QEvent(QEvent.FocusOut))
+
+		edits[2].setValue("test_user1")
+		self.assertEqual(edits[2].getValue(), "test_user1")
+
+		self.assertEqual(len(Users.users), 2)
+
+		Users.users = users_before_test
+		Users.export()

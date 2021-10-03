@@ -183,10 +183,6 @@ class User(QWidget):
 		self.user.setText(user.id)
 		self.password.setText(user.password)
 
-	def focusOutEvent(self, event):
-		self.parent.save()
-
-		super().focusOutEvent(event)
 
 class DirectoryLocal(QWidget):
 	"""DirectoryLocal UI control
