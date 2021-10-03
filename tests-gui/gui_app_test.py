@@ -32,6 +32,20 @@ class GuiAppTest(unittest.TestCase):
 		logger = logging.getLogger()
 		logger.level = logging.DEBUG
 
+		self.paths_before_test = Config.paths.scan
+		self.threads_before_test = Config.threads
+		self.compression_level_before_test = Config.compression.level
+		self.users_before_test = Users.users
+
+	def tearDown(self):
+		Config.paths.scan = self.paths_before_test
+		Config.threads = self.threads_before_test
+		Config.compression.level = self.compression_level_before_test
+		Config.save()
+
+		Users.users = self.users_before_test
+		Users.export()
+
 	def test_run(self):
 		self.assertEqual(self.form.title, 'NUT 3.3')
 		self.form.header.scan.click()
@@ -68,8 +82,6 @@ class GuiAppTest(unittest.TestCase):
 		tabs.setCurrentIndex(USERS_TAB_INDEX)
 		current_tab = tabs.widget(USERS_TAB_INDEX)
 
-		users_before_test = Users.users
-
 		self.assertEqual(len(Users.users), 1)
 
 		edits = current_tab.findChildren(QLineEdit)
@@ -99,15 +111,10 @@ class GuiAppTest(unittest.TestCase):
 
 		self.assertEqual(len(Users.users), 2)
 
-		Users.users = users_before_test
-		Users.export()
-
 	def test_dirlist_scan_paths(self):
 		tabs = self.form.tabs.tabs
 		tabs.setCurrentIndex(LOCAL_SCAN_PATHS_TAB_INDEX)
 		current_tab = tabs.widget(LOCAL_SCAN_PATHS_TAB_INDEX)
-
-		paths_before_test = Config.paths.scan
 
 		edits = current_tab.findChildren(QLineEdit)
 		self.assertEqual(len(edits), 1)
@@ -131,6 +138,3 @@ class GuiAppTest(unittest.TestCase):
 		dir_local.setValue(temp_path)
 		self.assertEqual(dir_local.getValue(), temp_path)
 		QApplication.sendEvent(dir_local, QEvent(QEvent.FocusOut))
-
-		Config.paths.scan = paths_before_test
-		Config.save()
