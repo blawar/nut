@@ -314,7 +314,8 @@
         "filters.types.demo": "Demo",
         "filters.types.group": "TYPES",
         "filters.region.group": "REGION",
-        "filters.size.group": "File Size",
+        "filters.size.group": "FILE SIZE",
+        "filters.rank.group": "RANK",
         "dirlist.browse": "Browse"
     },
     "ar": {
@@ -9561,6 +9562,7 @@
         "filters.types.group": "Типы",
         "filters.region.group": "Регион",
         "filters.size.group": "Размер файла",
+        "filters.rank.group": "Рейтинг",
         "dirlist.browse": "Обзор"
     },
     "sv": {
