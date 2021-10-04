@@ -94,6 +94,8 @@ class Filters(QWidget):
 
 		self.MIN_FILE_SIZE = 0
 		self.MAX_FILE_SIZE = 30 * 1024**3
+		self.MIN_RANK = 1
+		self.MAX_RANK = 10000
 
 		self.scroll = QScrollArea(self)
 		self.scroll.setWidgetResizable(True)
@@ -119,9 +121,9 @@ class Filters(QWidget):
 
 		filterMinSizeLabel = Filters._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
 
-		rangeSlider = self._createRangeSlider(sizeFilterLayout, minFileSizeFilter, maxFileSizeFilter)
+		sizeFilter = self._createRangeSlider(sizeFilterLayout, minFileSizeFilter, maxFileSizeFilter)
 
-		filterMaxSizeLabel = Filters._createRightLabel(sizeFilterLayout, rangeSlider.get_right_thumb_value())
+		filterMaxSizeLabel = Filters._createRightLabel(sizeFilterLayout, sizeFilter.get_right_thumb_value())
 
 		layout.addWidget(sizeFilterGroup)
 
@@ -129,25 +131,22 @@ class Filters(QWidget):
 		widget.setLayout(layout)
 		self.scroll.setWidget(widget)
 
-		rangeSlider.left_thumb_value_changed.connect((lambda x: \
-			Filters._on_left_thumb_value_changed(filterMinSizeLabel, x)))
-		rangeSlider.right_thumb_value_changed.connect((lambda x: \
-			Filters._on_right_thumb_value_changed(filterMaxSizeLabel, x)))
+		sizeFilter.left_thumb_value_changed.connect((lambda x: \
+			Filters._on_thumb_value_changed(filterMinSizeLabel, x, "fileSizeMin")))
+		sizeFilter.right_thumb_value_changed.connect((lambda x: \
+			Filters._on_thumb_value_changed(filterMaxSizeLabel, x, "fileSizeMax")))
 
 	def resizeEvent(self, _):
 		self.scroll.setFixedWidth(self.width())
 		self.scroll.setFixedHeight(self.height())
 
 	@staticmethod
-	def _on_left_thumb_value_changed(label, value):
-		label.setText(humanize.naturalsize(value, True))
-		Config.download.fileSizeMin = value
-		Config.save()
-
-	@staticmethod
-	def _on_right_thumb_value_changed(label, value):
-		label.setText(humanize.naturalsize(value, True))
-		Config.download.fileSizeMax = value
+	def _on_thumb_value_changed(label, value, config_param, is_size=True):
+		if is_size:
+			label.setText(humanize.naturalsize(value, True))
+		else:
+			label.setText(value)
+		setattr(Config.download, config_param, value)
 		Config.save()
 
 	@staticmethod
