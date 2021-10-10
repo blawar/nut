@@ -77,20 +77,24 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 <details>
 <summary>Details</summary>
 
-* Install Python 3.9+ from your preferred package manager, for example: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
+* Install Python 3.9 and PyQt5 via Homebrew (`brew install python@3.9 pyqt@5`)
+* Install pyenv: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
+* Install Python 3.9.7 with pyenv and set it as the default (`pyenv install 3.9.7 && pyenv global 3.9.7`)
+* Load the system python's site-packages via pyenv's python. Get the system python site-packages path (via `brew info python@3.9`), and add it. For example, for M1, it would be: `cd $HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages && echo "/opt/homebrew/lib/python3.9/site-packages" >> homebrew.pth`
 * Clone this repository to desired directory and change your working directory to the cloned repository
-* (Optional, but highly recommended) Create a virtualenv and activate it (`pyenv virtualenv nut && source activate nut`)
-* Install wheel (`pip3 install wheel`)
+* Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3 nut && source activate nut`)
+* Install wheel (`pip install wheel`)
 * Install pycurl using the below.
 ```
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip3 install pycurl --compile --no-cache-dir
-or on M1:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip3 install pycurl --compile --no-cache-dir
+on M1:
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip install pycurl
+on Intel:
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install pycurl --compile --no-cache-dir
 ```
-* Install all other dependencies (`pip3 install -r requirements.txt`)
-* Run `python3 nut.py` for CLI.
+* Install all other dependencies (`pip install -r requirements.txt`)
+* Run `python nut.py` for CLI. Run `python3 nut_gui.py` to launch the application (this will *only* work if PyQT from Homebrew was succesfully installed via directions above)
 </details>
 
 ------
