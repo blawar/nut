@@ -44,7 +44,7 @@ jobs:
     - name: Install Windows dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
-        pip3 install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
+        pip3 install tests/pycurl-7.44.1-cp310-cp310-win_amd64.whl
       shell: cmd
     - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macos')
