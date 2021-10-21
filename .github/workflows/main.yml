@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-2022]
-        python-version: [3.9.7]
+        python-version: [3.10.0]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -44,7 +44,9 @@ jobs:
     - name: Install Windows dependencies
       if: startsWith(matrix.os, 'windows')
       run: |
-        pip3 install tests/pycurl-7.43.0.5-cp39-cp39-win_amd64.whl
+        pip3 install --upgrade pip wheel
+        choco install openssl
+        pip3 install pycurl
       shell: cmd
     - name: Install macOS dependencies
       if: startsWith(matrix.os, 'macos')
@@ -61,7 +63,7 @@ jobs:
         pip3 install pycurl
     - name: Install python dependencies
       run: |
-        pip3 install --upgrade wheel
+        pip3 install --upgrade pip wheel
         pip3 install -r requirements.txt
         pip3 install -r requirements_dev.txt
     - name: Execute tests and coverage report
