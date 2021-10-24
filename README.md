@@ -82,7 +82,11 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
 * Install Python 3.9.7 with pyenv and set it as the default (`pyenv install 3.9.7 && pyenv global 3.9.7`)
-* Load the system python's site-packages via pyenv's python. Get the system python site-packages path (via `brew info python@3.9`), and add it. For example, for M1, it would be: `cd $HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages && echo "/opt/homebrew/lib/python3.9/site-packages" >> homebrew.pth`
+* Load the system python's site-packages via pyenv's python. This is required to use PyQT5 from Homebrew.
+  - Get the Homebrew Python site-packages path (via `brew info python@3.9`).
+  - Add it to the load path of your pyenv's Python install (cd `pyenv root`).
+  - To do this, go to the site packages directory of your pyenv install (ie. `$HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages`) and create an file named `homebrew.pth` containing the path for Homebrew Python's site packages directory (ie. `/opt/homebrew/lib/python3.9/site-packages`)
+  - For example, for M1, it would be: `cd $HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages && echo "/opt/homebrew/lib/python3.9/site-packages" >> homebrew.pth`
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3 nut && source activate nut`)
 * Install wheel (`pip install wheel`)
