@@ -4,6 +4,6 @@ pylint~=2.11.1
 invoke~=1.6.0
 coverage~=5.5
 coveralls~=3.2.0
-rope~=0.20.1
+rope~=0.21.0
 pre-commit~=2.15.0
 pylint-exit~=1.2.0
