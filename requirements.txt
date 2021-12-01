@@ -21,4 +21,4 @@ pycurl~=7.44.1; sys_platform != 'win32'
 qt-range-slider~=0.2.7
 watchdog~=2.1.6
 certifi>=2021.5.30
-humanize~=3.11
+humanize~=3.13
