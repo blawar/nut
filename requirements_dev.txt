@@ -1,6 +1,6 @@
 pytest~=6.2.5
 pyfakefs~=4.5.1
-pylint~=2.11.1
+pylint~=2.12.1
 invoke~=1.6.0
 coverage~=5.5
 coveralls~=3.3.1
