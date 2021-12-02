@@ -1,5 +1,5 @@
 pytest~=6.2.5
-pyfakefs~=4.5.1
+pyfakefs~=4.5.3
 pylint~=2.12.1
 invoke~=1.6.0
 coverage~=5.5
