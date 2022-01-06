@@ -7,6 +7,7 @@ import collections
 from binascii import unhexlify as uhx
 from nut import Print
 from nut.config_impl.download import Download
+from collections.abc import Mapping
 
 threads = 1
 jsonOutput = False
@@ -53,7 +54,7 @@ def dict_merge(dct, merge_dct, add_keys=True):
 
 	for k, _ in merge_dct.items():
 		if (k in dct and isinstance(dct[k], dict)
-				and isinstance(merge_dct[k], collections.Mapping)):
+				and isinstance(merge_dct[k], Mapping)):
 			dct[k] = dict_merge(dct[k], merge_dct[k], add_keys=add_keys)
 		else:
 			dct[k] = merge_dct[k]
