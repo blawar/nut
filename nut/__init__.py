@@ -336,7 +336,7 @@ def compressAll(level=19):
 			if not lastestNsp:
 				continue
 
-			if latestNsp.titleId.endswith('000') and latestNsp.version > 0:
+			if lastestNsp.titleId.endswith('000') and lastestNsp.version > 0:
 				Print.info('Cannot compress sparse file: ' + str(lastestNsp.path))
 				continue
 
