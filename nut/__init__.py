@@ -1606,3 +1606,18 @@ def downloadAll(wait=True):
 	#	status.close()
 
 	Print.info('DownloadAll finished')
+
+def writeJson(data, fileName):
+	tmpName = fileName + '.tmp'
+
+	try:
+		with open(tmpName, mode='w', encoding="utf-8") as outfile:
+			json.dump(data, outfile, indent=4, sort_keys=True)
+		os.unlink(fileName)
+		os.rename(tmpName, fileName)
+	except:
+		try:
+			os.unlink(tmpName)
+		except:
+			pass
+		raise

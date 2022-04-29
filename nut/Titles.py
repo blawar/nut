@@ -299,8 +299,7 @@ def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 				if title.rightsId:
 					k.setId(title.rightsId)
 			j[k.nsuId] = k.exportDict(True)
-		with open(fileName, 'w') as outfile:
-			json.dump(j, outfile, indent=4)
+		nut.writeJson(j, fileName)
 	except BaseException:
 		confLock.release()
 		raise
@@ -318,8 +317,7 @@ def save(fileName='titledb/titles.json', full=True):
 
 			j[k.id] = k.exportDict(full=full)
 
-		with open(fileName, 'w') as outfile:
-			json.dump(j, outfile, indent=4)
+		nut.writeJson(j, fileName)
 	except BaseException:
 		confLock.release()
 		raise

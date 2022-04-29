@@ -8,6 +8,7 @@ import time
 
 import Fs
 from nut import Config, Print, Status, Title, Hook
+import nut
 
 files = {}
 
@@ -245,8 +246,7 @@ def save(fileName='titledb/files.json'):
 		j = []
 		for _, k in files.items():
 			j.append(k.dict())
-		with open(fileName, mode='w', encoding="utf-8") as outfile:
-			json.dump(j, outfile, indent=4, sort_keys=True)
+		nut.writeJson(j, fileName)
 
 
 if os.path.isfile('files.json'):
