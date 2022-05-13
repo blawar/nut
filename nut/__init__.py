@@ -922,14 +922,9 @@ def updateVersions(force=True):
 	i = 0
 	for k, t in Titles.items():
 		if force or t.version is None:
-			if (t.isDLC or t.isUpdate or Config.download.base) and (not t.isDLC or Config.download.DLC) and (not t.isDemo or Config.download.demo) and (not t.isUpdate or Config.download.update) and (
-					t.key or Config.download.sansTitleKey) and (len(Config.titleWhitelist) == 0 or t.id in Config.titleWhitelist) and t.id not in Config.titleBlacklist:
+			if t.isActive():
 				v = t.lastestVersion(True)
 				Print.info("%s[%s] v = %s" % (str(t.name), str(t.id), str(v)))
-
-				i = i + 1
-				if i % 20 == 0:
-					Titles.save()
 
 	for t in list(Titles.data().values()):
 		if not t.isUpdate and not t.isDLC and t.updateId and t.updateId and not Titles.contains(t.updateId):
@@ -940,10 +935,6 @@ def updateVersions(force=True):
 				Titles.set(t.updateId, u)
 
 				Print.info("%s[%s] FOUND" % (str(t.name), str(u.id)))
-
-				i = i + 1
-				if i % 20 == 0:
-					Titles.save()
 
 	Titles.save()
 
