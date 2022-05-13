@@ -920,7 +920,7 @@ def updateVersions(force=True):
 	initFiles()
 
 	i = 0
-	for k, t in Titles.items():
+	for k, t in tqdm(Titles.items()):
 		if force or t.version is None:
 			if t.isActive():
 				v = t.lastestVersion(True)
