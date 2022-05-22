@@ -1604,7 +1604,10 @@ def writeJson(data, fileName):
 	try:
 		with open(tmpName, mode='w', encoding="utf-8") as outfile:
 			json.dump(data, outfile, indent=4, sort_keys=True)
-		os.unlink(fileName)
+		try:
+			os.unlink(fileName)
+		except:
+			pass
 		os.rename(tmpName, fileName)
 	except:
 		try:
