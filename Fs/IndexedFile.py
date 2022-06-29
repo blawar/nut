@@ -155,18 +155,23 @@ class IndexedFile:
 			Print.info('\n')
 			return False
 
-		if self.isOpen():
-			if not self.verifyNcaHeaders():
-				Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
-				return False
-		else:
-			try:
-				self.open(self.path)
+		try:
+			if self.isOpen():
 				if not self.verifyNcaHeaders():
 					Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
 					return False
-			finally:
-				self.close()
+			else:
+				try:
+					self.open(self.path)
+					if not self.verifyNcaHeaders():
+						Print.error('verification failed: could not move title for ' + str(self.titleId) + ' or ' + str(Title.getBaseId(self.titleId)))
+						return False
+				finally:
+					self.close()
+		except BaseException as e:
+			if not str(e).startswith('too many bktr entries'):
+				raise
+			
 		
 
 		try:

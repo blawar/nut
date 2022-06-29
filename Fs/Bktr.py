@@ -110,6 +110,9 @@ class BktrSubsectionBucket(BktrBucket):
 	def __init__(self, f):
 		super(BktrSubsectionBucket, self).__init__(f)
 
+		if self.entryCount > 500000000: 
+			raise IOError('too many bktr entries: ' + str(self.entryCount))
+
 		for i in range(self.entryCount):
 			self.entries.append(BktrSubsectionEntry(f))
 
