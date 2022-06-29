@@ -45,6 +45,7 @@ try:
 	hasCdn = True
 except BaseException:
 	hasCdn = False
+	raise
 
 try:
 	from nut import blockchain
@@ -477,6 +478,7 @@ if __name__ == '__main__':
 				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
 				parser.add_argument('--scrape-shogun-missed', nargs='*', help='Scrape titles that are not advertised by shogun but in our database')
 				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
+				parser.add_argument('--scrape-shogun-unnamed', nargs='*', help='Refresh missing DLC/Base metadata')
 				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
 				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
@@ -863,6 +865,9 @@ if __name__ == '__main__':
 					nut.initTitles()
 					nut.initFiles()
 					nut.scrapeShogunThreaded(False, refresh = True)
+
+				if args.scrape_shogun_unnamed is not None:
+					nut.scrapeShogunUnnamed()
 
 				if args.scrape_shogun_delta is not None:
 					nut.scrapeShogunThreaded(False)

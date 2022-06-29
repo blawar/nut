@@ -12,6 +12,8 @@ import time
 import datetime
 import calendar
 import threading
+import traceback
+import sys
 from nut import Nsps
 import urllib.request
 from nut import Config
@@ -956,6 +958,8 @@ class Title:
 		except BaseException as e:
 			pass
 			print(repr(e) + ' ' + self.id)
+			traceback.print_exc(file=sys.stdout)
+			raise
 
 		self.bannerFile()
 		self.frontBoxArtFile()

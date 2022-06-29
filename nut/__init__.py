@@ -1451,6 +1451,40 @@ def scrapeShogunThreaded(force = False, refresh = False):
 	Titles.save()
 	Print.info('titles  saved')
 
+def scrapeShogunUnnamed():
+	initTitles()
+	initFiles()
+
+	result = {}
+
+	for k, t in Titles.data().items():
+		if not t.isDLC:
+			continue
+
+		if not t.name and t.baseId != '0100069000078000':
+			result[t.baseId] = True
+
+	if not Config.dryRun:
+		for id,j in tqdm(result.items()):
+			try:
+				for region, languages in Config.regionLanguages().items():
+					for language in languages:
+						t = Titles.getTitleId(id, region, language)
+
+						if t:
+							s = cdn.Shogun.scrapeTitle(int(t.nsuId), region=region, language=language, force=False)
+							#print(json.dumps(s.__dict__))
+			except:
+				pass
+
+		for region, languages in Config.regionLanguages().items():
+			for language in languages:
+				Titles.saveRegion(region, language)
+
+		Titles.save()
+	else:
+		print(result)
+
 def scanLatestTitleUpdates():
 	global versionHistory
 	initTitles()

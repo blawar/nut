@@ -86,6 +86,17 @@ def getNsuid(id, region, language):
 	map[str(id)] = title
 	return title
 
+def getTitleId(id, region, language):
+	id = id.upper()
+
+	map = data(region, language)
+
+	for t in map:
+		if map[t].id == id:
+			return map[t]
+
+	return None
+
 def hasNsuid(id, region, language):
 	id = int(id)
 
