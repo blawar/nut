@@ -45,7 +45,6 @@ try:
 	hasCdn = True
 except BaseException:
 	hasCdn = False
-	raise
 
 try:
 	from nut import blockchain
