@@ -22,3 +22,4 @@ qt-range-slider~=0.2.7
 watchdog~=2.1.6
 certifi>=2021.5.30
 humanize~=3.14
+markupsafe==2.0.1
