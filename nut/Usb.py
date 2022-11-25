@@ -169,6 +169,7 @@ def getDevice():
 		time.sleep(1)
 
 def daemon():
+	dev = None
 	global status
 	Watcher.start()
 	while True:
@@ -195,4 +196,9 @@ def daemon():
 			poll_commands(in_ep, out_ep)
 		except BaseException as e:
 			Print.error('usb exception: ' + str(e))
+
+			try:
+				dev.reset()
+			except:
+				pass
 		time.sleep(1)
