@@ -88,12 +88,12 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
   - To do this, go to the site packages directory of your pyenv install (ie. `$HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages`) and create an file named `homebrew.pth` containing the path for Homebrew Python's site packages directory (ie. `/opt/homebrew/lib/python3.9/site-packages`)
   - For example, for M1, it would be: `cd $HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages && echo "/opt/homebrew/lib/python3.9/site-packages" >> homebrew.pth`
 * Clone this repository to desired directory and change your working directory to the cloned repository
-* Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3 nut && source activate nut`)
+* Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3.9 nut && source activate nut`)
 * Install wheel (`pip install wheel`)
 * Install pycurl using the below.
 ```
 on M1:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip install pycurl
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip install pycurl --no-cache-dir
 on Intel:
 PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install pycurl --compile --no-cache-dir
 ```
