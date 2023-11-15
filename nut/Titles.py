@@ -42,7 +42,7 @@ def data(region=None, language=None):
 				except BaseException:
 					pass
 
-				url = 'https://raw.githubusercontent.com/blawar/nut/master/titledb/%s.%s.json' % (region, language)
+				url = 'https://raw.githubusercontent.com/blawar/titledb/master/%s.%s.json' % (region, language)
 				# https://raw.githubusercontent.com/blawar/nut/master/titledb/HK.zh.json
 				nut.downloadFile(url, filePath)
 				if os.path.isfile(filePath):
