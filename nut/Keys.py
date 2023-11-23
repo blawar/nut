@@ -129,14 +129,14 @@ def load(fileName):
 
 
 	keyAreaKeys = []
-	for i in range(0x10):
+	for i in range(0x20):
 		keyAreaKeys.append([None, None, None])
 
-	for i in range(0x10):
+	for i in range(0x20):
 		masterKeyName = ini_Key(i)
 
 		if masterKeyName in keys.keys():
-			# aes_decrypt(master_ctx, &keyset->titlekeks[i], keyset->titlekek_source, 0x10);
+			# aes_decrypt(master_ctx, &keyset->titlekeks[i], keyset->titlekek_source, 0x20);
 			masterKey = uhx(keys[masterKeyName])
 			crypto = aes128.AESECB(masterKey)
 			titleKeks.append(crypto.decrypt(uhx(keys['titlekek_source'])).hex())
