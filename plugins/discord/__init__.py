@@ -15,7 +15,7 @@ ready = False
 async def _send(channelId, msg = None, embed = None):
 	global channels
 
-	if channelId not in channels:
+	if channelId not in channels or channels[channelId] is None:
 		channels[channelId] = client.get_channel(int(channelId))
 
 	if embed is not None:
