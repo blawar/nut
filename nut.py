@@ -476,6 +476,8 @@ if __name__ == '__main__':
 				parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
 				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
 				parser.add_argument('--scrape-shogun-missed', nargs='*', help='Scrape titles that are not advertised by shogun but in our database')
+				parser.add_argument('--scrape-shogun-refresh', action="store_true", help='Full refresh already known title ids from shogun')
+				parser.add_argument('--scrape-shogun-refresh-quick', action="store_true", help='Quick refresh of already known title ids from shogun')
 				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
 				parser.add_argument('--scrape-shogun-unnamed', nargs='*', help='Refresh missing DLC/Base metadata')
 				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
@@ -606,7 +608,7 @@ if __name__ == '__main__':
 			if args.C:
 				for filePath in args.file:
 					try:
-						nut.compress(filePath, 21 if args.level is None else args.level, args.output)
+						nut.compress(filePath, 21 if args.level is None else args.level, args.output, copy = args.copy)
 
 					except BaseException as e:
 						Print.error(str(e))
@@ -828,9 +830,15 @@ if __name__ == '__main__':
 				if args.system_update:
 					cdn.downloadSystemUpdate()
 
+				if args.scrape_shogun_refresh:
+					nut.scrapeShogunThreaded(True, shogunList = False)
+
+				if args.scrape_shogun_refresh_quick:
+					nut.scrapeShogunThreaded(False, shogunList = False)
+
 				if args.scrape_shogun is not None:
 					if len(args.scrape_shogun) == 0:
-						nut.scrapeShogunThreaded(True)
+						nut.scrapeShogunThreaded(True, shogunList = True)
 					else:
 						nut.initTitles()
 						nut.initFiles()
@@ -961,7 +969,7 @@ if __name__ == '__main__':
 			if args.compress_all:
 				nut.initTitles()
 				nut.initFiles()
-				nut.compressAll(19 if args.level is None else args.level)
+				nut.compressAll(19 if args.level is None else args.level, copy = args.copy)
 
 			if args.decompress_all:
 				nut.decompressAll()

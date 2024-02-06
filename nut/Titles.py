@@ -338,6 +338,9 @@ def save(fileName='titledb/titles.json', full=True):
 def saveRegion(region, language):
 	saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
 
+def regionModified(region, language):
+	return os.path.getmtime('titledb/%s.%s.json' % (region, language))
+
 class Queue:
 	def __init__(self):
 		self.queue = []

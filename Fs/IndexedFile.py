@@ -96,11 +96,22 @@ class IndexedFile:
 	def getVersion(self):
 		return self.version or ''
 
+	def getVersionNumber(self):
+		if self.version is None:
+			return None
+		try:
+			return int(self.version)
+		except:
+			return None
+
 	def isUpdate(self):
 		return self.titleId is not None and self.titleId.endswith('800')
 
 	def isDLC(self):
 		return self.titleId is not None and not self.isUpdate() and not self.titleId.endswith('000')
+
+	def isBase(self):
+		return self.titleId is not None and self.titleId.endswith('000')
 
 	def title(self):
 		if not self.titleId:
@@ -171,7 +182,6 @@ class IndexedFile:
 		except BaseException as e:
 			if not str(e).startswith('too many bktr entries'):
 				raise
-			
 		
 
 		try:

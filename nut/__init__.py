@@ -16,6 +16,7 @@ from binascii import hexlify as hx
 from binascii import unhexlify as uhx
 from contextlib import closing
 
+import shutil
 import colorama
 import requests
 import zstandard
@@ -139,8 +140,19 @@ def sortedFs(nca):
 	fs.sort(key=lambda x: x.offset)
 	return fs
 
-def compress(filePath, compressionLevel=19, outputDir=None):
+def compress(filePath, compressionLevel=19, outputDir=None, copy = False):
 	filePath = os.path.abspath(filePath)
+	copy = True
+
+	if copy == True:
+		tmpFilePath = os.path.abspath(os.path.join(outputDir, os.path.basename(filePath)))
+
+		if filePath == tmpFilePath:
+			copy = False
+		else:
+			Print.info('copying %s -> %s' % (filePath, tmpFilePath))
+			shutil.copyfile(filePath, tmpFilePath)
+			filePath = tmpFilePath
 
 	CHUNK_SZ = 0x1000000
 
@@ -268,6 +280,10 @@ def compress(filePath, compressionLevel=19, outputDir=None):
 			f.write(buffer)
 
 	newNsp.close()
+
+	if copy:
+		os.unlink(tmpFilePath)
+
 	return nszPath
 
 def compressWorker(q, level, output, totalStatus):
@@ -310,7 +326,7 @@ def ganymede(config):
 			except BaseException:
 				raise
 
-def compressAll(level=19):
+def compressAll(level=19, copy = False):
 	initTitles()
 	initFiles()
 
@@ -718,6 +734,7 @@ def pullWorker(q, s):
 			Nsps.save()
 		except BaseException as e:
 			Print.error('FTP SYNC EXCEPTION: ' + str(e))
+			traceback.print_exc(file=sys.stdout)
 			# raise #TODO
 		s.add()
 	Print.info('thread exiting')
@@ -1232,9 +1249,21 @@ def extractNcaMeta(files = []):
 		for path, nsp in Nsps.files.items():
 			if not nsp.path.endswith('.nsp'):  # and not nsp.path.endswith('.xci'):
 				continue
+
+			if nsp.isBase() and nsp.getVersionNumber() != 0:
+				continue
+
+			if nsp.isDLC():
+				continue
+
 			try:
 				if hasattr(nsp, 'extractedNcaMeta') and (nsp.extractedNcaMeta or nsp.extractedNcaMeta == 1) or '0100000000000816' in path:
 					# Print.info('skipping')
+					continue
+
+				title = nsp.title()
+
+				if title and not title.isActive(True):
 					continue
 
 				if hasCnmt(nsp.titleId, nsp.version):
@@ -1263,6 +1292,8 @@ def extractNcaMeta(files = []):
 			continue
 		try:
 			c += 1
+
+			Print.info('processing %s' % nsp.path)
 
 			nsp.open(path, 'rb')
 
@@ -1303,58 +1334,62 @@ def extractNcaMeta(files = []):
 			# print(ncaDataMap)
 
 			for n in nsp:
-				if not isinstance(n, Nca):
+				try:
+					if not isinstance(n, Nca):
+						continue
+
+					ncaId = n._path.split('.')[0]
+					data = getNca(ncaId)
+
+					data.contentType = int(n.header.contentType)
+					data.isGameCard = n.header.isGameCard
+					data.cryptoType = n.header.cryptoType
+					data.keyIndex = n.header.keyIndex
+					data.size = n.header.size
+					data.titleId = n.header.titleId
+					data.contentIndex = n.header.contentIndex
+					data.sdkVersion = n.header.sdkVersion
+					data.cryptoType2 = n.header.cryptoType2
+					data.rightsId = n.header.rightsId
+
+					if data.rightsId == b'00000000000000000000000000000000':
+						data.rightsId = None
+					else:
+						data.rightsId = data.rightsId.decode()
+
+					if data.contentType == 1:
+						for p in n:
+							for m in p:
+								if not isinstance(m, Cnmt):
+									continue
+
+								cnmt = getCnmt(m.titleId, m.version)
+								cnmt.contentEntries = []
+								cnmt.metaEntries = []
+								cnmt.titleType = m.titleType
+								for e in m.contentEntries:
+									if not e.ncaId.upper() in ncaDataMap:
+										Print.info(ncaDataMap)
+										Print.info('nca missing: ' + e.ncaId.upper())
+										continue
+									mapData = ncaDataMap[e.ncaId.upper()]
+									if mapData is not None and (mapData.buildId is not None):
+										cnmt.contentEntries.append({'ncaId': e.ncaId, 'type': e.type, 'buildId': mapData.buildId})
+									else:
+										cnmt.contentEntries.append({'ncaId': e.ncaId, 'type': e.type})
+
+								for e in m.metaEntries:
+									cnmt.metaEntries.append({'titleId': e.titleId, 'version': e.version, 'type': e.type, 'install': e.install})
+
+								cnmt.requiredSystemVersion = m.requiredSystemVersion
+								cnmt.requiredApplicationVersion = m.requiredApplicationVersion
+								cnmt.otherApplicationId = m.otherApplicationId
+
+					# print(str(data.__dict__))
+				except BaseException as e:
+					Print.info('exception: %s %s' % (path, str(e)))
 					continue
 
-				ncaId = n._path.split('.')[0]
-				data = getNca(ncaId)
-
-				data.contentType = int(n.header.contentType)
-				data.isGameCard = n.header.isGameCard
-				data.cryptoType = n.header.cryptoType
-				data.keyIndex = n.header.keyIndex
-				data.size = n.header.size
-				data.titleId = n.header.titleId
-				data.contentIndex = n.header.contentIndex
-				data.sdkVersion = n.header.sdkVersion
-				data.cryptoType2 = n.header.cryptoType2
-				data.rightsId = n.header.rightsId
-
-				if data.rightsId == b'00000000000000000000000000000000':
-					data.rightsId = None
-				else:
-					data.rightsId = data.rightsId.decode()
-
-				if data.contentType == 1:
-					for p in n:
-						for m in p:
-							if not isinstance(m, Cnmt):
-								continue
-
-							cnmt = getCnmt(m.titleId, m.version)
-							cnmt.contentEntries = []
-							cnmt.metaEntries = []
-							cnmt.titleType = m.titleType
-							for e in m.contentEntries:
-								if not e.ncaId.upper() in ncaDataMap:
-									Print.info(ncaDataMap)
-									Print.info('nca missing: ' + e.ncaId.upper())
-									continue
-								mapData = ncaDataMap[e.ncaId.upper()]
-								if mapData is not None and (mapData.buildId is not None):
-									cnmt.contentEntries.append({'ncaId': e.ncaId, 'type': e.type, 'buildId': mapData.buildId})
-								else:
-									cnmt.contentEntries.append({'ncaId': e.ncaId, 'type': e.type})
-
-							for e in m.metaEntries:
-								cnmt.metaEntries.append({'titleId': e.titleId, 'version': e.version, 'type': e.type, 'install': e.install})
-
-							cnmt.requiredSystemVersion = m.requiredSystemVersion
-							cnmt.requiredApplicationVersion = m.requiredApplicationVersion
-							cnmt.otherApplicationId = m.otherApplicationId
-
-				# print(str(data.__dict__))
-			Print.info('processed %s' % nsp.path)
 			nsp.extractedNcaMeta = True
 		except BaseException as e:
 			Print.info('exception: %s %s' % (path, str(e)))
@@ -1398,7 +1433,7 @@ def scrapeShogun(force=False, region=None):
 		cdn.Shogun.scrapeTitles(region, force=force)
 	Titles.saveAll()
 
-def scrapeShogunWorker(q, force = False, refresh = False):
+def scrapeShogunWorker(q, bar, force = False, refresh = False, shogunList = True):
 	while True:
 		region = q.get()
 
@@ -1406,19 +1441,55 @@ def scrapeShogunWorker(q, force = False, refresh = False):
 			break
 
 		try:
-			cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh, save = False)
+			if shogunList == True:
+				cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh, save = False)
+			else:
+				for language in Config.regionLanguages()[region]:
+					#if (Titles.regionModified(region, language) > os.path.getmtime('titledb/versions.json')):
+					#	continue
+					#if ('%s.%s.json' % (region, language) ) in ['AR.en.json', 'AR.es.json', 'AT.de.json', 'BG.en.json', 'BR.en.json', 'BR.pt.json', 'CA.en.json', 'CL.en.json', 'CL.es.json', 'CN.zh.json', 'CO.en.json', 'CO.es.json', 'CY.en.json', 'CZ.en.json', 'DE.de.json', 'DK.en.json', 'EE.en.json', 'ES.es.json', 'FI.en.json', 'GR.en.json', 'HK.zh.json', 'HR.en.json', 'HU.en.json', 'IE.en.json', 'KR.ko.json', 'LT.en.json', 'LV.en.json', 'MT.en.json', 'MX.en.json', 'NL.nl.json', 'NO.en.json', 'NZ.en.json', 'PE.en.json', 'PE.es.json', 'PL.en.json', 'PT.pt.json', 'RO.en.json', 'RU.ru.json']:
+					#	continue
+					Print.info('searching %s %s' % (region, language))
+
+					keys = []
+
+					for x in Titles.keys():
+						if not x.endswith('800'):
+							keys.append(x)
+					status = Status.create(len(keys), desc='searching %s %s' % (region, language), unit='')
+					for id in keys:
+						try:
+							l = cdn.Shogun.ids(id, region = region, language = language or 'en', force=(force or shogunList == False))
+							status.add(1)
+
+							if not l or len(l) == 0 or len(l['id_pairs']) == 0:
+								#Print.info('\tno nsuId\'s found')
+								pass
+							else:
+								#print(l)
+								for t in l['id_pairs']:
+									#print('\tnsuId: ' + str(t['id']))
+									#print(json.dumps(cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True).__dict__))
+									cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True)
+
+						except BaseException as e:
+							Print.info('shogun worker inner exception: ' + str(e))
+							traceback.print_exc(file=sys.stdout)
+					status.close()
+					Titles.saveRegion(region, language)
 		except BaseException as e:
 			Print.info('shogun worker exception: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
 
 		q.task_done()
+		bar.add(1)
 
-def scrapeShogunThreaded(force = False, refresh = False):
+def scrapeShogunThreaded(force = False, refresh = False, shogunList = True):
 	initTitles()
 	initFiles()
 
 	scrapeThreads = []
-	numThreads = 4
+	numThreads = 8
 
 	if Config.reverse:
 		q = queue.LifoQueue()
@@ -1428,8 +1499,10 @@ def scrapeShogunThreaded(force = False, refresh = False):
 	for region in cdn.regions():
 		q.put(region)
 
+	bar = Status.create(q.qsize(), desc="Scanning shogun...", unit='')
+
 	for i in range(numThreads):
-		t = threading.Thread(target=scrapeShogunWorker, args=[q, force, refresh])
+		t = threading.Thread(target=scrapeShogunWorker, args=[q, bar, force, refresh, shogunList])
 		t.daemon = True
 		t.start()
 		scrapeThreads.append(t)
@@ -1446,6 +1519,8 @@ def scrapeShogunThreaded(force = False, refresh = False):
 		i += 1
 		t.join()
 		Print.info('joined thread %d of %d' % (i, len(scrapeThreads)))
+
+	bar.close()
 
 	Print.info('saving titles')
 	Titles.save()
