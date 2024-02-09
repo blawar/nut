@@ -1,0 +1,11 @@
+Dockerfile
+docker-compose.yaml
+
+titledb/
+titles/
+
+keys.txt
+prod.keys
+gdrive.token
+token.pickle
+credentials.json

@@ -101,6 +101,13 @@ PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/u
 * Run `python nut.py` for CLI. Run `python3 nut_gui.py` to launch the application (this will *only* work if PyQT from Homebrew was succesfully installed via directions above)
 </details>
 
+### Docker
+
+```console
+$ docker build --tag nut https://github.com/blawar/nut.git
+$ docker run --rm -it --network=host --env=DISPLAY --volume=/tmp/.X11-unix:/tmp/.X11-unix --volume="$PWD:$PWD" --workdir="$PWD" --user=$(id -u):$(id -g) nut
+```
+
 ------
 
 ## License
