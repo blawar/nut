@@ -60,7 +60,7 @@ NUT has the ability to interact with Google Drive. For this to work, you will ne
 <details>
 <summary>Details</summary>
 
-* Install Python 3.9+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt5` packages
+* Install Python 3.9+ from your preferred package manager, along with the `libusb`, `python3-pip` & `python3-pyqt6` packages
 * Install `curl` with the openssl backend - install `libssl-dev` (ie, `apt install libssl-dev libcurl4-openssl-dev`)
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * Install the PIP modules with the following command `pip3 install -r requirements.txt`. If you previously tried installing pycurl and get the error `libcurl link-time ssl backend (openssl) is different from compile-time ssl backend (none/other)`, uninstall it, make sure to follow step 2 again (installing curl with the openssl backend), and `pip3 install pycurl --no-cache-dir`
@@ -77,12 +77,12 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 <details>
 <summary>Details</summary>
 
-* Install Python 3.9 and PyQt5 via Homebrew (`brew install python@3.9 pyqt@5`)
+* Install Python 3.9 and PyQt6 via Homebrew (`brew install python@3.9 pyqt@6`)
 * Install pyenv: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
 * Install Python 3.9.7 with pyenv and set it as the default (`pyenv install 3.9.7 && pyenv global 3.9.7`)
-* Load the system python's site-packages via pyenv's python. This is required to use PyQT5 from Homebrew.
+* Load the system python's site-packages via pyenv's python. This is required to use PyQT6 from Homebrew.
   - Get the Homebrew Python site-packages path (via `brew info python@3.9`).
   - Add it to the load path of your pyenv's Python install (cd `pyenv root`).
   - To do this, go to the site packages directory of your pyenv install (ie. `$HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages`) and create an file named `homebrew.pth` containing the path for Homebrew Python's site packages directory (ie. `/opt/homebrew/lib/python3.9/site-packages`)
