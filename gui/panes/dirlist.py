@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
 import urllib.parse
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFileDialog,
-                             QFormLayout, QHBoxLayout, QLabel, QLineEdit,
-                             QListWidget, QPushButton, QVBoxLayout, QWidget, QScrollArea, QFrame)
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+	QComboBox,
+	QDialog,
+	QDialogButtonBox,
+	QFileDialog,
+	QFormLayout,
+	QHBoxLayout,
+	QLabel,
+	QLineEdit,
+	QListWidget,
+	QPushButton,
+	QVBoxLayout,
+	QWidget,
+	QScrollArea,
+	QFrame,
+)
 
 import Fs.driver
 from nut import Users
@@ -12,8 +25,8 @@ from translator import tr
 
 
 class Edit(QLineEdit):
-	"""Edit UI control
-	"""
+	"""Edit UI control"""
+
 	def __init__(self, parent):
 		super().__init__()
 		self.parent = parent
@@ -29,9 +42,10 @@ class Edit(QLineEdit):
 
 		super().focusOutEvent(event)
 
+
 class FolderPicker(QDialog):
-	"""FolderPicker UI control
-	"""
+	"""FolderPicker UI control"""
+
 	def __init__(self, url):
 		super().__init__()
 		self.setWindowTitle("Directory Picker")
@@ -62,18 +76,18 @@ class FolderPicker(QDialog):
 
 	def refreshList(self):
 		self.list.clear()
-		for d in  Fs.driver.openDir(self.url).ls():
+		for d in Fs.driver.openDir(self.url).ls():
 			if d.isFile():
 				continue
 			self.list.addItem(d.baseName())
 
-
 	def save(self):
 		pass
 
-class GdrivePicker(QDialog): # pylint: disable=too-many-instance-attributes
-	"""GdrivePicker UI control
-	"""
+
+class GdrivePicker(QDialog):  # pylint: disable=too-many-instance-attributes
+	"""GdrivePicker UI control"""
+
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Directory Picker")
@@ -82,30 +96,30 @@ class GdrivePicker(QDialog): # pylint: disable=too-many-instance-attributes
 		settings = QFormLayout()
 
 		schemes = QComboBox(self)
-		schemes.addItem('')
-		schemes.addItem('ftp')
-		schemes.addItem('ftps')
-		schemes.addItem('gdrive')
-		schemes.addItem('http')
-		schemes.addItem('https')
-		schemes.addItem('sftp')
-		settings.addRow(QLabel('Scheme'), schemes)
+		schemes.addItem("")
+		schemes.addItem("ftp")
+		schemes.addItem("ftps")
+		schemes.addItem("gdrive")
+		schemes.addItem("http")
+		schemes.addItem("https")
+		schemes.addItem("sftp")
+		settings.addRow(QLabel("Scheme"), schemes)
 		self.schemes = schemes
 
 		self.username = Edit(self)
-		settings.addRow(QLabel('Username'), self.username)
+		settings.addRow(QLabel("Username"), self.username)
 
 		self.password = Edit(self)
-		settings.addRow(QLabel('Password'), self.password)
+		settings.addRow(QLabel("Password"), self.password)
 
 		self.host = Edit(self)
-		settings.addRow(QLabel('Host'), self.host)
+		settings.addRow(QLabel("Host"), self.host)
 
 		self.port = Edit(self)
-		settings.addRow(QLabel('Port'), self.port)
+		settings.addRow(QLabel("Port"), self.port)
 
 		self.path = Edit(self)
-		settings.addRow(QLabel('Path'), self.path)
+		settings.addRow(QLabel("Path"), self.path)
 
 		self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
 		self.buttonBox.accepted.connect(self.setUrl)
@@ -126,38 +140,41 @@ class GdrivePicker(QDialog): # pylint: disable=too-many-instance-attributes
 			if not scheme:
 				return
 
-			if scheme == 'gdrive':
-				self.url = 'gdrive:/'
+			if scheme == "gdrive":
+				self.url = "gdrive:/"
 			else:
 				if not self.host.getValue():
 					return
-				self.url = scheme + '://'
+				self.url = scheme + "://"
 
 				if self.username.getValue():
-					self.url += urllib.parse.quote(self.username.getValue(), safe = '')
+					self.url += urllib.parse.quote(self.username.getValue(), safe="")
 
 					if self.password.getValue():
-						self.url += ':' + urllib.parse.quote(self.password.getValue(), safe = '')
+						self.url += ":" + urllib.parse.quote(
+							self.password.getValue(), safe=""
+						)
 
-					self.url += '@'
+					self.url += "@"
 
 				self.url += self.host.getValue()
 
 				if self.port.getValue():
-					self.url += ':' + self.port.getValue()
+					self.url += ":" + self.port.getValue()
 
-				self.url += '/'
+				self.url += "/"
 
 			if self.path.getValue():
 				self.url = Fs.driver.join(self.url, self.path.getValue())
 
 			self.accept()
-		except BaseException: # pylint: disable=broad-except
+		except BaseException:  # pylint: disable=broad-except
 			self.reject()
 
+
 class User(QWidget):
-	"""User UI control
-	"""
+	"""User UI control"""
+
 	def __init__(self, parent):
 		super().__init__()
 		self.parent = parent
@@ -185,17 +202,17 @@ class User(QWidget):
 
 
 class DirectoryLocal(QWidget):
-	"""DirectoryLocal UI control
-	"""
+	"""DirectoryLocal UI control"""
+
 	def __init__(self, parent):
 		super().__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
-		self.dirBtn = QPushButton(tr('dirlist.browse'))
+		self.dirBtn = QPushButton(tr("dirlist.browse"))
 		self.dirBtn.setFixedWidth(70)
 		self.dirBtn.clicked.connect(self.on_browse)
-		self.dirBtn.setFocusPolicy(Qt.StrongFocus)
+		self.dirBtn.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
 		self.edit = Edit(self)
 
@@ -207,8 +224,9 @@ class DirectoryLocal(QWidget):
 		self.parent.save()
 
 	def on_browse(self):
-		value = QFileDialog.getExistingDirectory(self, tr('Select Directory'),\
-			self.getValue(), QFileDialog.ShowDirsOnly)
+		value = QFileDialog.getExistingDirectory(
+			self, tr("Select Directory"), self.getValue(), QFileDialog.ShowDirsOnly
+		)
 
 		if value:
 			self.setValue(value)
@@ -225,15 +243,16 @@ class DirectoryLocal(QWidget):
 
 		super().focusOutEvent(event)
 
+
 class DirectoryNetwork(QWidget):
-	"""DirectoryNetwork UI control
-	"""
+	"""DirectoryNetwork UI control"""
+
 	def __init__(self, parent):
 		super().__init__()
 		self.parent = parent
 
 		layout = QHBoxLayout(self)
-		self.dirBtn = QPushButton('browse')
+		self.dirBtn = QPushButton("browse")
 		self.dirBtn.setFixedWidth(70)
 		self.dirBtn.clicked.connect(self.on_browse)
 
@@ -270,9 +289,10 @@ class DirectoryNetwork(QWidget):
 
 		super().focusOutEvent(event)
 
+
 class Row(QWidget):
-	"""Row UI control
-	"""
+	"""Row UI control"""
+
 	def __init__(self, parent, value, rowType=DirectoryLocal):
 		super().__init__()
 		self.parent = parent
@@ -282,10 +302,10 @@ class Row(QWidget):
 		if value is not None:
 			self.control.setValue(value)
 
-		self.remove = QPushButton('X')
+		self.remove = QPushButton("X")
 		self.remove.setFixedWidth(50)
 		self.remove.clicked.connect(self.on_remove)
-		self.remove.setFocusPolicy(Qt.StrongFocus)
+		self.remove.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
 		layout.addWidget(self.control)
 		layout.addWidget(self.remove)
@@ -302,20 +322,21 @@ class Row(QWidget):
 	def save(self):
 		self.parent.save()
 
+
 class DirList(QWidget):
-	"""DirList UI control
-	"""
+	"""DirList UI control"""
+
 	def __init__(self, values, onChange=None, rowType=DirectoryLocal):
 		super().__init__()
 		self.rowType = rowType
 
 		self.scroll = QScrollArea(self)
 		self.scroll.setWidgetResizable(True)
-		self.scroll.setFrameShape(QFrame.NoFrame)
+		self.scroll.setFrameShape(QFrame.Shape.NoFrame)
 
 		layout = QVBoxLayout(self.scroll)
 		self.list = QVBoxLayout()
-		self.button = QPushButton('Add')
+		self.button = QPushButton("Add")
 
 		self.button.clicked.connect(self.on_click)
 

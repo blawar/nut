@@ -1,7 +1,6 @@
-
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableView
+from PyQt6 import QtWidgets
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QTableView
 
 from nut import Nsps
 from gui.table_model import TableModel
@@ -14,10 +13,10 @@ class Files(QTableView):
 		self.setModel(self.model)
 
 		header = self.horizontalHeader()
-		header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+		header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
 		self.setSortingEnabled(True)
-		self.sortByColumn(0, Qt.AscendingOrder)
+		self.sortByColumn(0, Qt.SortOrder.AscendingOrder)
 
 		self.refresh()
 

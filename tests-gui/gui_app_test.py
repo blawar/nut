@@ -3,9 +3,9 @@ import sys
 import unittest
 import logging
 
-from PyQt5.QtWidgets import (QApplication, QPushButton, QLineEdit, QSlider)
-from PyQt5.QtTest import QTest
-from PyQt5.QtCore import QEvent
+from PyQt6.QtWidgets import QApplication, QPushButton, QLineEdit, QSlider
+from PyQt6.QtTest import QTest
+from PyQt6.QtCore import QEvent
 
 from gui.app import App
 from gui.panes.options import Threads, Compress
@@ -17,15 +17,17 @@ LOCAL_SCAN_PATHS_TAB_INDEX = 3
 USERS_TAB_INDEX = 5
 OPTIONS_TAB_INDEX = 6
 
+
 def _find_button_by_text(widget, text):
 	for button in widget.findChildren(QPushButton):
 		if button.text() == text:
 			return button
 	return None
 
+
 class GuiAppTest(unittest.TestCase):
-	"""Tests for gui/app.py
-	"""
+	"""Tests for gui/app.py"""
+
 	def setUp(self):
 		self.app = QApplication(sys.argv)
 		self.form = App()
@@ -47,13 +49,13 @@ class GuiAppTest(unittest.TestCase):
 		Users.export()
 
 	def test_run(self):
-		self.assertEqual(self.form.title, 'NUT 3.3')
+		self.assertEqual(self.form.title, "NUT 3.3")
 		self.form.header.scan.click()
-		self.form.tabs.tabs.setCurrentIndex(0) # files
-		self.form.tabs.tabs.setCurrentIndex(1) # filters
-		self.form.tabs.tabs.setCurrentIndex(2) # save paths
+		self.form.tabs.tabs.setCurrentIndex(0)  # files
+		self.form.tabs.tabs.setCurrentIndex(1)  # filters
+		self.form.tabs.tabs.setCurrentIndex(2)  # save paths
 		self.form.tabs.tabs.setCurrentIndex(LOCAL_SCAN_PATHS_TAB_INDEX)
-		self.form.tabs.tabs.setCurrentIndex(4) # remote scan paths
+		self.form.tabs.tabs.setCurrentIndex(4)  # remote scan paths
 		self.form.tabs.tabs.setCurrentIndex(USERS_TAB_INDEX)
 		self.form.tabs.tabs.setCurrentIndex(OPTIONS_TAB_INDEX)
 

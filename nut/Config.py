@@ -3,11 +3,11 @@
 import json
 import os
 import time
-import collections
+from collections.abc import Mapping
 from binascii import unhexlify as uhx
 from nut import Print
 from nut.config_impl.download import Download
-from collections.abc import Mapping
+
 
 threads = 1
 jsonOutput = False

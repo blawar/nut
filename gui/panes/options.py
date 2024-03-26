@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QFormLayout, QLabel, QHBoxLayout, QSlider, QGroupBox
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import (
+	QWidget,
+	QVBoxLayout,
+	QFormLayout,
+	QLabel,
+	QHBoxLayout,
+	QSlider,
+	QGroupBox,
+)
+from PyQt6.QtCore import Qt
 from nut import Config
+
 
 def _init_slider(slider, min_value, max_value, value):
 	slider.setMinimum(min_value)
@@ -9,9 +18,10 @@ def _init_slider(slider, min_value, max_value, value):
 	slider.setValue(value)
 	slider.valueChanged.connect(slider.save)
 
+
 class Threads(QSlider):
 	def __init__(self, parent):
-		super().__init__(Qt.Horizontal)
+		super().__init__(Qt.Orientation.Horizontal)
 		self.parent = parent
 		_init_slider(self, 1, 8, Config.threads)
 
@@ -22,9 +32,10 @@ class Threads(QSlider):
 		if self.parent:
 			self.parent.save()
 
+
 class Compress(QSlider):
 	def __init__(self, parent):
-		super().__init__(Qt.Horizontal)
+		super().__init__(Qt.Orientation.Horizontal)
 		self.parent = parent
 		_init_slider(self, 0, 22, Config.compression.level)
 
@@ -34,6 +45,7 @@ class Compress(QSlider):
 
 		if self.parent:
 			self.parent.save()
+
 
 class SliderControl(QWidget):
 	def __init__(self, _type):
@@ -58,12 +70,12 @@ class Options(QWidget):
 
 		layout.addLayout(serverGroup)
 
-		group = QGroupBox('THREADS')
+		group = QGroupBox("THREADS")
 		groupLayout = QHBoxLayout(group)
 		groupLayout.addWidget(SliderControl(_type=Threads))
 		layout.addWidget(group)
 
-		group = QGroupBox('COMPRESSION LEVEL')
+		group = QGroupBox("COMPRESSION LEVEL")
 		groupLayout = QHBoxLayout(group)
 		groupLayout.addWidget(SliderControl(_type=Compress))
 		layout.addWidget(group)

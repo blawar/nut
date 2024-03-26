@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import time
 
-from PyQt5.QtCore import Qt, pyqtSlot, QTimer
-from PyQt5.QtWidgets import (QProgressBar, QLabel, QHBoxLayout)
+from PyQt6.QtCore import Qt, pyqtSlot, QTimer
+from PyQt6.QtWidgets import QProgressBar, QLabel, QHBoxLayout
 
 from nut import Status
 
 
 def _format_speed(n):
-	return str(round(n / 1000 / 1000, 1)) + 'MB/s'
+	return str(round(n / 1000 / 1000, 1)) + "MB/s"
+
 
 class Progress:
 	def __init__(self, app):
@@ -31,8 +32,8 @@ class Progress:
 
 	def resetStatus(self):
 		self.progress.setValue(0)
-		self.text.setText('')
-		self.speed.setText('')
+		self.text.setText("")
+		self.speed.setText("")
 
 	def tick(self):
 		for i in Status.lst:

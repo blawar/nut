@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
-							 QLabel, QSizePolicy, QVBoxLayout, QWidget, QScrollArea, QFrame)
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+	QCheckBox,
+	QGridLayout,
+	QGroupBox,
+	QHBoxLayout,
+	QLabel,
+	QSizePolicy,
+	QVBoxLayout,
+	QWidget,
+	QScrollArea,
+	QFrame,
+)
 from qt_range_slider import QtRangeSlider
 
 import humanize
@@ -10,10 +20,9 @@ from nut import Config
 from translator import tr
 
 
-
 class ConfCheckbox(QCheckBox):
-	"""ConfCheckbox
-	"""
+	"""ConfCheckbox"""
+
 	def __init__(self, text, conf):
 		super().__init__(text)
 		self.conf = conf
@@ -29,23 +38,24 @@ class ConfCheckbox(QCheckBox):
 	def get(self):
 		try:
 			j = Config
-			for path in self.conf.split('.'):
+			for path in self.conf.split("."):
 				j = getattr(j, path)
 			return j
-		except BaseException: # pylint: disable=broad-except
+		except BaseException:  # pylint: disable=broad-except
 			return None
 
 	def set(self, value):
 		j = Config
-		paths = self.conf.split('.')
+		paths = self.conf.split(".")
 		last = paths.pop()
 		for path in paths:
 			j = getattr(j, path)
 		setattr(j, last, value)
 
+
 class RegionEntry(QWidget):
-	"""RegionEntry
-	"""
+	"""RegionEntry"""
+
 	def __init__(self, region):
 		super().__init__()
 		self.region = region.upper()
@@ -67,8 +77,8 @@ class RegionEntry(QWidget):
 
 
 class Region(QWidget):
-	"""Region
-	"""
+	"""Region"""
+
 	def __init__(self):
 		super().__init__()
 
@@ -86,10 +96,11 @@ class Region(QWidget):
 			layout.addWidget(RegionEntry(region), i // width, i % width)
 			i += 1
 
+
 class Filters(QWidget):
-	"""Filters
-	"""
-	def __init__(self): # pylint: disable=too-many-locals
+	"""Filters"""
+
+	def __init__(self):  # pylint: disable=too-many-locals
 		super().__init__()
 
 		self.MIN_FILE_SIZE = 0
@@ -100,17 +111,17 @@ class Filters(QWidget):
 
 		self.scroll = QScrollArea(self)
 		self.scroll.setWidgetResizable(True)
-		self.scroll.setFrameShape(QFrame.NoFrame)
+		self.scroll.setFrameShape(QFrame.Shape.NoFrame)
 
 		layout = QVBoxLayout(self.scroll)
 
-		typesGroup = QGroupBox(tr('filters.types.group'))
+		typesGroup = QGroupBox(tr("filters.types.group"))
 
 		Filters._createTypesGroup(layout, typesGroup)
 
 		Filters._createRegionGroup(layout)
 
-		sizeFilterGroup = QGroupBox(tr('filters.size.group'))
+		sizeFilterGroup = QGroupBox(tr("filters.size.group"))
 		sizeFilterLayout = QHBoxLayout(sizeFilterGroup)
 
 		minFileSizeFilter = self.MIN_FILE_SIZE
@@ -120,19 +131,38 @@ class Filters(QWidget):
 		if Config.download.fileSizeMax is not None:
 			maxFileSizeFilter = Config.download.fileSizeMax
 
-		filterMinSizeLabel = Filters._createLeftLabel(sizeFilterLayout, minFileSizeFilter)
-		sizeFilter = self._createRangeSlider(sizeFilterLayout, self.MIN_FILE_SIZE, self.MAX_FILE_SIZE,
-			minFileSizeFilter, maxFileSizeFilter)
-		filterMaxSizeLabel = Filters._createRightLabel(sizeFilterLayout, sizeFilter.get_right_thumb_value())
+		filterMinSizeLabel = Filters._createLeftLabel(
+			sizeFilterLayout, minFileSizeFilter
+		)
+		sizeFilter = self._createRangeSlider(
+			sizeFilterLayout,
+			self.MIN_FILE_SIZE,
+			self.MAX_FILE_SIZE,
+			minFileSizeFilter,
+			maxFileSizeFilter,
+		)
+		filterMaxSizeLabel = Filters._createRightLabel(
+			sizeFilterLayout, sizeFilter.get_right_thumb_value()
+		)
 
-		sizeFilter.left_thumb_value_changed.connect((lambda x: \
-			Filters._on_thumb_value_changed(filterMinSizeLabel, x, "fileSizeMin")))
-		sizeFilter.right_thumb_value_changed.connect((lambda x: \
-			Filters._on_thumb_value_changed(filterMaxSizeLabel, x, "fileSizeMax")))
+		sizeFilter.left_thumb_value_changed.connect(
+			(
+				lambda x: Filters._on_thumb_value_changed(
+					filterMinSizeLabel, x, "fileSizeMin"
+				)
+			)
+		)
+		sizeFilter.right_thumb_value_changed.connect(
+			(
+				lambda x: Filters._on_thumb_value_changed(
+					filterMaxSizeLabel, x, "fileSizeMax"
+				)
+			)
+		)
 
 		layout.addWidget(sizeFilterGroup)
 
-		rankFilterGroup = QGroupBox(tr('filters.rank.group'))
+		rankFilterGroup = QGroupBox(tr("filters.rank.group"))
 		rankFilterLayout = QHBoxLayout(rankFilterGroup)
 
 		minRankFilter = self.MIN_RANK
@@ -142,16 +172,30 @@ class Filters(QWidget):
 		if Config.download.rankMax is not None:
 			maxRankFilter = Config.download.rankMax
 
-		filterMinRankLabel = Filters._createLeftLabel(rankFilterLayout, minRankFilter, isSize=False)
-		rankFilter = self._createRangeSlider(rankFilterLayout, self.MIN_RANK, self.MAX_RANK,
-			minRankFilter, maxRankFilter)
-		filterMaxRankLabel = Filters._createRightLabel(rankFilterLayout, rankFilter.get_right_thumb_value(),
-			isSize=False)
+		filterMinRankLabel = Filters._createLeftLabel(
+			rankFilterLayout, minRankFilter, isSize=False
+		)
+		rankFilter = self._createRangeSlider(
+			rankFilterLayout, self.MIN_RANK, self.MAX_RANK, minRankFilter, maxRankFilter
+		)
+		filterMaxRankLabel = Filters._createRightLabel(
+			rankFilterLayout, rankFilter.get_right_thumb_value(), isSize=False
+		)
 
-		rankFilter.left_thumb_value_changed.connect((lambda x: \
-			Filters._on_thumb_value_changed(filterMinRankLabel, x, "rankMin", isSize=False)))
-		rankFilter.right_thumb_value_changed.connect((lambda x: \
-			Filters._on_thumb_value_changed(filterMaxRankLabel, x, "rankMax", isSize=False)))
+		rankFilter.left_thumb_value_changed.connect(
+			(
+				lambda x: Filters._on_thumb_value_changed(
+					filterMinRankLabel, x, "rankMin", isSize=False
+				)
+			)
+		)
+		rankFilter.right_thumb_value_changed.connect(
+			(
+				lambda x: Filters._on_thumb_value_changed(
+					filterMaxRankLabel, x, "rankMax", isSize=False
+				)
+			)
+		)
 
 		layout.addWidget(rankFilterGroup)
 
@@ -171,7 +215,7 @@ class Filters(QWidget):
 
 	@staticmethod
 	def _createRegionGroup(layout):
-		region = QGroupBox('REGION')
+		region = QGroupBox("REGION")
 		regionLayout = QHBoxLayout(region)
 		regionLayout.addWidget(Region())
 		layout.addWidget(region)
@@ -180,29 +224,35 @@ class Filters(QWidget):
 	def _createTypesGroup(layout, typesGroup):
 		typesLayout = QHBoxLayout(typesGroup)
 
-		typesLayout.addWidget(ConfCheckbox(tr('filters.types.base'), 'download.base'))
+		typesLayout.addWidget(ConfCheckbox(tr("filters.types.base"), "download.base"))
 		typesLayout.addStretch()
 
-		typesLayout.addWidget(ConfCheckbox(tr('filters.types.dlc'), 'download.DLC'))
+		typesLayout.addWidget(ConfCheckbox(tr("filters.types.dlc"), "download.DLC"))
 		typesLayout.addStretch()
 
-		typesLayout.addWidget(ConfCheckbox(tr('filters.types.update'), 'download.update'))
+		typesLayout.addWidget(
+			ConfCheckbox(tr("filters.types.update"), "download.update")
+		)
 		typesLayout.addStretch()
 
-		typesLayout.addWidget(ConfCheckbox(tr('filters.types.demo'), 'download.demo'))
+		typesLayout.addWidget(ConfCheckbox(tr("filters.types.demo"), "download.demo"))
 
 		layout.addWidget(typesGroup)
 
 	@staticmethod
 	def _createLeftLabel(layout, value, isSize=True):
-		return Filters._createLabel(layout, value, Qt.AlignRight, isSize)
+		return Filters._createLabel(layout, value, Qt.AlignmentFlag.AlignRight, isSize)
 
 	@staticmethod
 	def _createRightLabel(layout, value, isSize=True):
-		return Filters._createLabel(layout, value, Qt.AlignLeft, isSize)
+		return Filters._createLabel(layout, value, Qt.AlignmentFlag.AlignLeft, isSize)
 
-	def _createRangeSlider(self, layout, defaultMinValue, defaultMaxValue, minValue, maxValue): # pylint: disable=too-many-arguments
-		rangeSlider = QtRangeSlider(self, defaultMinValue, defaultMaxValue, minValue, maxValue)
+	def _createRangeSlider(
+		self, layout, defaultMinValue, defaultMaxValue, minValue, maxValue
+	):  # pylint: disable=too-many-arguments
+		rangeSlider = QtRangeSlider(
+			self, defaultMinValue, defaultMaxValue, minValue, maxValue
+		)
 		layout.addWidget(rangeSlider)
 		return rangeSlider
 
@@ -210,7 +260,7 @@ class Filters(QWidget):
 	def _createLabel(layout, value, alignment, isSize=True):
 		label = QLabel(f"{humanize.naturalsize(value, True) if isSize else value}")
 		label.setFixedWidth(80)
-		label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+		label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 		label.setAlignment(alignment)
 
 		layout.addWidget(label)

@@ -166,9 +166,9 @@ user3|pwd3
 
 	def test_user_get_require_auth(self):
 		user = Users.User()
-		self.assertIs(user.getRequireAuth(), 'True', 'All users require Auth by default')
+		self.assertIs(user.getRequireAuth(), str(True), 'All users require Auth by default')
 		user.setRequireAuth(False)
-		self.assertIs(user.getRequireAuth(), 'False')
+		self.assertIs(user.getRequireAuth(), str(False))
 
 if __name__ == "__main__":
 	unittest.main()
