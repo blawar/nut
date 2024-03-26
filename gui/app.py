@@ -209,5 +209,6 @@ class App(QWidget):
 	@staticmethod
 	def closeEvent(event):
 		del event
+		# pylint: disable=fixme
 		# TODO: implement a graceful shutdown of other threads
 		os._exit(0)  # pylint: disable=protected-access
