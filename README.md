@@ -78,7 +78,8 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 <summary>Details</summary>
 
 * Install Python 3.9 and PyQt5 via Homebrew (`brew install python@3.9 pyqt@5`)
-* Install pyenv: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv` and follow install directions)
+* Install pyenv: [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) (`brew install pyenv pyenv-virtualenv`)
+* Setup `pyenv` in your shell (follow instructions from `pyenv init`)
 * Install `libusb` (`brew install libusb`)
 * Install `curl` with the openssl backend (`brew uninstall --ignore-dependencies curl && brew install curl`)
 * Install Python 3.9.7 with pyenv and set it as the default (`pyenv install 3.9.7 && pyenv global 3.9.7`)
@@ -90,15 +91,21 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
 * Clone this repository to desired directory and change your working directory to the cloned repository
 * Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3.9 nut && source activate nut`)
 * Install wheel (`pip install wheel`)
-* Install pycurl using the below.
-```
-on M1:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip install pycurl --no-cache-dir
-on Intel:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install pycurl --compile --no-cache-dir
-```
+* Install pycurl using the below commands for respective CPU archs:
+  * on M1:
+    ```
+    env PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include" pip install --no-cache-dir --compile --ignore-installed pycurl
+    ```
+  * on Intel:
+    ```
+    PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install pycurl --compile --no-cache-dir
+    ```
 * Install all other dependencies (`pip install -r requirements.txt`)
 * Run `python nut.py` for CLI. Run `python3 nut_gui.py` to launch the application (this will *only* work if PyQT from Homebrew was succesfully installed via directions above)
+
+Troubleshooting:
+* If you get an error about `ImportError: cannot import name 'soft_unicode' from 'markupsafe'`, downgrade `markupsafe` to version 2.0.1 manually (`pip install markupsafe==2.0.1`)
+
 </details>
 
 ------
