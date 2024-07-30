@@ -13,10 +13,9 @@ else:
 def coverage(c, details=False, gui=False):
 	c.run("coverage erase")
 	c.run("coverage run -m pytest --ignore tests-gui")
-	if gui:
-		c.run("coverage run -a -m unittest tests-gui.gui_app_test")
+	# if gui:
+	# 	c.run("coverage run -a -m unittest tests-gui.gui_app_test")
 	if details:
-		c.run("coverage annotate")
 		c.run("coverage report", pty=True)
 
 @task

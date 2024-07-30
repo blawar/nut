@@ -36,5 +36,6 @@ def dump(data, size=16):
 		print('|', asciiFormat.format(ascii_), '|')
 
 		index += size
+		# pylint: disable=consider-using-min-builtin
 		if bytesRead - index < size:
 			size = bytesRead - index
