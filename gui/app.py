@@ -154,7 +154,7 @@ class App(QWidget):
 				"OAuth.  This file can be obtained from " +
 				"https://developers.google.com/drive/api/v3/quickstart/go , " +
 				"click on the blue button that says 'Enable the Drive API' " +
-				"and save the credentials.json to t his application's " +
+				"and save the credentials.json to this application's " +
 				"directory.",
 			)
 		else:
