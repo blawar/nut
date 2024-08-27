@@ -20,6 +20,8 @@ extractVersion = False
 autoUpdateTitleDb = True
 allowNoMetadata = True
 cdnCacheOnly = False
+limit = 0
+limitCount = 0
 
 region = None
 

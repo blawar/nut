@@ -280,6 +280,7 @@ def compress(filePath, compressionLevel=19, outputDir=None, copy = False):
 			f.write(buffer)
 
 	newNsp.close()
+	container.close()
 
 	if copy:
 		os.unlink(tmpFilePath)
@@ -366,6 +367,12 @@ def compressAll(level=19, copy = False):
 
 			if Config.download.fileSizeMin is not None and lastestNsp.getFileSize() < Config.download.fileSizeMin:
 				continue
+
+			if Config.limit:
+				Config.limitCount += 1
+
+				if Config.limitCount > Config.limit:
+					continue
 
 			q.put(lastestNsp.path)
 
@@ -454,6 +461,12 @@ def decompressAll():
 
 			if Config.download.fileSizeMin is not None and lastestNsz.getFileSize() < Config.download.fileSizeMin:
 				continue
+
+			if Config.limit:
+				Config.limitCount += 1
+
+				if Config.limitCount > Config.limit:
+					continue
 
 			q.put(lastestNsz.path)
 
@@ -775,6 +788,13 @@ def _ftpsync(url):
 				if path[-3:] == 'nsx':
 					if len(Titles.get(nsp.titleId).getFiles('nsp')) or len(Titles.get(nsp.titleId).getFiles('nsz')):
 						continue
+
+				if Config.limit:
+					Config.limitCount += 1
+
+					if Config.limitCount > Config.limit:
+						continue
+
 				q.put(nsp)
 		except BaseException as e:
 			Print.error(str(e))
@@ -1268,6 +1288,12 @@ def extractNcaMeta(files = []):
 
 				if hasCnmt(nsp.titleId, nsp.version):
 					continue
+
+				if Config.limit:
+					Config.limitCount += 1
+
+					if Config.limitCount > Config.limit:
+						continue
 
 				q[path] = nsp
 			except BaseException:
