@@ -1,0 +1,3 @@
+[submodule "cdn"]
+	path = cdn
+	url = https://github.com/blawar/pnut.git
