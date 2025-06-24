@@ -16,7 +16,7 @@ from gui.header import Header
 from gui.progress import Progress
 
 import nut
-from nut import Config, Users, Nsps
+from nut import Config, Nsps
 import Fs.driver.init
 from translator import tr
 
@@ -53,7 +53,6 @@ class App(QWidget):
 			tr('main.grid.save_paths'): gui.panes.format.Format(),
 			tr('main.grid.local_scan_paths'): gui.panes.dirlist.DirList(Config.paths.scan, self.saveScanPaths, rowType=gui.panes.dirlist.DirectoryLocal),
 			tr('main.grid.remote_pull_paths'): gui.panes.dirlist.DirList(Config.pullUrls, self.savePullUrls, rowType=gui.panes.dirlist.DirectoryNetwork),
-			tr('main.grid.users'): gui.panes.dirlist.DirList(list(Users.users.values()), self.saveUsers, rowType=gui.panes.dirlist.User),  # rowType
 			tr('main.grid.options'): gui.panes.options.Options()
 		})
 		layout.addWidget(self.tabs)
@@ -65,20 +64,6 @@ class App(QWidget):
 
 		self.isInitialized = True
 		self.show()
-
-	@staticmethod
-	def saveUsers(control):
-		result = {}
-		i = 0
-		while i < control.count():
-			value = control.getValue(i)
-
-			if value:
-				result[value.id] = value
-			i += 1
-
-		Users.users = result
-		Users.export()
 
 	def saveScanPaths(self, control):
 		if not self.isInitialized:

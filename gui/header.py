@@ -4,7 +4,7 @@ import socket
 from PyQt5.QtCore import (Qt, QTimer)
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QPushButton, QLabel)
 
-from nut import Config, Users, Usb
+from nut import Config, Usb
 from translator import tr
 
 def _get_ip_address():
@@ -46,9 +46,7 @@ class Header: # pylint: disable=too-many-instance-attributes,too-few-public-meth
 
 		if ipAddr:
 			self.serverInfo = QLabel(
-				f"<b>{tr('main.status.ip')}:</b>  {ipAddr}  <b>{tr('main.status.port')}:</b>  {Config.server.port}  " +
-				f"<b>{tr('main.status.user')}:</b>  {Users.first().id}  <b>{tr('main.status.password')}:</b>  " +
-				f"{Users.first().password}"
+				f"<b>{tr('main.status.ip')}:</b>  {ipAddr}  <b>{tr('main.status.port')}:</b>  {Config.server.port}"
 			)
 		else:
 			self.serverInfo = QLabel("<b>Offline</b>")

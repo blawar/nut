@@ -20,7 +20,6 @@ htmlcov/
 # config
 conf/nut.conf
 conf/nut.conf.save
-conf/users.conf
 conf/blacklist.txt
 conf/blacklist.*.txt
 

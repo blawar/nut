@@ -87,9 +87,6 @@
     <Compile Include="nut\Title.py" />
     <Compile Include="nut\Titles.py" />
     <Compile Include="nut\Usb.py" />
-    <Compile Include="nut\Users.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="nut.py" />
     <Compile Include="nut\Watcher.py" />
     <Compile Include="nut\__init__.py" />

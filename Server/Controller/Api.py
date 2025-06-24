@@ -71,14 +71,17 @@ def makeRequest(method, url, hdArgs={}, start=None, end=None, accept='*/*'):
 
 def success(request, response, s):
 	response.headers['Content-Type'] = 'application/json'
+	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.write(json.dumps({'success': True, 'result': s}))
 
 def error(request, response, s):
 	response.headers['Content-Type'] = 'application/json'
+	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.write(json.dumps({'success': False, 'result': s}))
 
 def getUser(request, response):
 	response.headers['Content-Type'] = 'application/json'
+	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.write(json.dumps(request.user.__dict__))
 
 def getScan(request, response):

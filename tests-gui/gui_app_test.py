@@ -11,11 +11,10 @@ from gui.app import App
 from gui.panes.options import Threads, Compress
 from gui.panes.dirlist import DirectoryLocal
 
-from nut import Config, Users
+from nut import Config
 
 LOCAL_SCAN_PATHS_TAB_INDEX = 3
-USERS_TAB_INDEX = 5
-OPTIONS_TAB_INDEX = 6
+OPTIONS_TAB_INDEX = 5
 
 def _find_button_by_text(widget, text):
 	for button in widget.findChildren(QPushButton):
@@ -35,16 +34,12 @@ class GuiAppTest(unittest.TestCase):
 		self.paths_before_test = Config.paths.scan
 		self.threads_before_test = Config.threads
 		self.compression_level_before_test = Config.compression.level
-		self.users_before_test = Users.users
 
 	def tearDown(self):
 		Config.paths.scan = self.paths_before_test
 		Config.threads = self.threads_before_test
 		Config.compression.level = self.compression_level_before_test
 		Config.save()
-
-		Users.users = self.users_before_test
-		Users.export()
 
 	def test_run(self):
 		self.assertEqual(self.form.title, 'NUT 3.3')
@@ -54,7 +49,6 @@ class GuiAppTest(unittest.TestCase):
 		self.form.tabs.tabs.setCurrentIndex(2) # save paths
 		self.form.tabs.tabs.setCurrentIndex(LOCAL_SCAN_PATHS_TAB_INDEX)
 		self.form.tabs.tabs.setCurrentIndex(4) # remote scan paths
-		self.form.tabs.tabs.setCurrentIndex(USERS_TAB_INDEX)
 		self.form.tabs.tabs.setCurrentIndex(OPTIONS_TAB_INDEX)
 
 	def test_options(self):
@@ -76,40 +70,6 @@ class GuiAppTest(unittest.TestCase):
 		compression_slider.setValue(10)
 		compression_slider.save()
 		self.assertEqual(Config.compression.level, compression_slider.value())
-
-	def test_dirlist_users(self):
-		tabs = self.form.tabs.tabs
-		tabs.setCurrentIndex(USERS_TAB_INDEX)
-		current_tab = tabs.widget(USERS_TAB_INDEX)
-
-		self.assertEqual(len(Users.users), 1)
-
-		edits = current_tab.findChildren(QLineEdit)
-		self.assertEqual(len(edits), 2)
-
-		add_button = current_tab.findChild(QPushButton)
-		self.assertIsNotNone(add_button)
-		self.assertEqual(add_button.text(), "Add")
-		add_button.click()
-
-		edits = current_tab.findChildren(QLineEdit)
-		self.assertEqual(len(edits), 4)
-
-		self.assertEqual(edits[0].getValue(), "guest")
-		self.assertEqual(edits[1].getValue(), "guest")
-
-		QTest.keyClicks(edits[2], "test_user")
-		self.assertEqual(edits[2].getValue(), "test_user")
-		QApplication.sendEvent(edits[2], QEvent(QEvent.FocusOut))
-
-		QTest.keyClicks(edits[3], "test_password")
-		self.assertEqual(edits[3].getValue(), "test_password")
-		QApplication.sendEvent(edits[2], QEvent(QEvent.FocusOut))
-
-		edits[2].setValue("test_user1")
-		self.assertEqual(edits[2].getValue(), "test_user1")
-
-		self.assertEqual(len(Users.users), 2)
 
 	def test_dirlist_scan_paths(self):
 		tabs = self.form.tabs.tabs

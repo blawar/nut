@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFileDialog,
                              QListWidget, QPushButton, QVBoxLayout, QWidget, QScrollArea, QFrame)
 
 import Fs.driver
-from nut import Users
 from translator import tr
 
 
@@ -154,35 +153,6 @@ class GdrivePicker(QDialog): # pylint: disable=too-many-instance-attributes
 			self.accept()
 		except BaseException: # pylint: disable=broad-except
 			self.reject()
-
-class User(QWidget):
-	"""User UI control
-	"""
-	def __init__(self, parent):
-		super().__init__()
-		self.parent = parent
-
-		layout = QHBoxLayout(self)
-		self.user = Edit(self)
-		self.password = Edit(self)
-
-		layout.addWidget(self.user)
-		layout.addWidget(self.password)
-		self.layout = layout
-
-	def save(self):
-		self.parent.save()
-
-	def getValue(self):
-		user = Users.User()
-		user.id = self.user.getValue()
-		user.password = self.password.getValue()
-		return user
-
-	def setValue(self, user):
-		self.user.setText(user.id)
-		self.password.setText(user.password)
-
 
 class DirectoryLocal(QWidget):
 	"""DirectoryLocal UI control

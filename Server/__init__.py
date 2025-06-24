@@ -10,7 +10,6 @@ from os import listdir
 import re
 from nut import Print
 import urllib
-from nut import Users
 from nut import Watcher
 import base64
 from urllib.parse import urlparse
