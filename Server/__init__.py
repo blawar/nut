@@ -269,15 +269,15 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 			request.setHead(True)
 			response.setHead(True)
 
-			if self.headers['Authorization'] is None:
-				return Response401(request, response)
+			#if self.headers['Authorization'] is None:
+			#	return Response401(request, response)
 
-			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+			#id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-			request.user = Users.auth(id, password, self.client_address[0])
+			#request.user = Users.auth(id, password, self.client_address[0])
 
-			if not request.user:
-				return Response401(request, response)
+			#if not request.user:
+			#	return Response401(request, response)
 
 			try:
 				if len(request.bits) > 0 and request.bits[0] in mappings:
@@ -293,15 +293,15 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 	def do(self, verb='get'):
 		request = NutRequest(self)
 		with NutResponse(self) as response:
-			if self.headers['Authorization'] is None:
-				return Response401(request, response)
+			#if self.headers['Authorization'] is None:
+			#	return Response401(request, response)
 
-			id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
+			#id, password = base64.b64decode(self.headers['Authorization'].split(' ')[1]).decode().split(':')
 
-			request.user = Users.auth(id, password, self.client_address[0])
+			#request.user = Users.auth(id, password, self.client_address[0])
 
-			if not request.user:
-				return Response401(request, response)
+			#if not request.user:
+			#	return Response401(request, response)
 
 			try:
 				if not route(request, response, verb):
@@ -314,6 +314,16 @@ class NutHandler(http.server.BaseHTTPRequestHandler):
 
 	def do_POST(self):
 		self.do('post')
+
+	def do_OPTIONS(self):
+		self.send_response(204)  # No Content
+		self.end_headers()
+
+	def end_headers(self):
+		self.send_header('Access-Control-Allow-Origin', self.headers['Origin'])
+		self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+		self.send_header('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+		super().end_headers()
 
 	def handleFile(self, request, response):
 		path = os.path.abspath(self.basePath + '/public_html' + self.path)
