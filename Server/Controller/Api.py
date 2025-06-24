@@ -79,14 +79,6 @@ def error(request, response, s):
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.write(json.dumps({'success': False, 'result': s}))
 
-def getUser(request, response):
-	response.headers['Content-Type'] = 'application/json'
-	response.headers['Access-Control-Allow-Origin'] = '*'
-	response.write(json.dumps(request.user.__dict__))
-
-def getScan(request, response):
-	success(request, response, nut.scan())
-
 def getSearch(request, response):
 	nsp = []
 	nsx = []
@@ -232,28 +224,6 @@ def getScreenshotImage(request, response):
 			return
 
 	return Server.Response500(request, response)
-
-def getPreload(request, response):
-	Titles.queue.add(request.bits[2])
-	response.headers['Content-Type'] = 'application/json'
-	response.write(json.dumps({'success': True}))
-
-def getInstall(request, response):
-	try:
-		url = ('%s:%s@%s:%d/api/download/%s/title.nsp' % (request.user.id, request.user.password, Config.server.hostname, Config.server.port, request.bits[2]))
-		Print.info('Installing ' + str(request.bits[2]))
-		file_list_payloadBytes = url.encode('ascii')
-
-		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		sock.connect((request.user.switchHost, request.user.switchPort))
-
-		sock.sendall(struct.pack('!L', len(file_list_payloadBytes)) + file_list_payloadBytes)
-		while len(sock.recv(1)) < 1:
-			time.sleep(0.05)
-		sock.close()
-		response.write(json.dumps({'success': True, 'message': 'install successful'}))
-	except BaseException as e:
-		response.write(json.dumps({'success': False, 'message': str(e)}))
 
 def getInfo(request, response):
 	try:
@@ -695,103 +665,3 @@ def getFiles(request, response):
 				r[title.baseId]['base'].append(nsp.dict())
 	response.write(json.dumps(r))
 
-def getOrganize(request, response):
-	nut.organize()
-	success(request, response, "fin")
-
-def getUpdateDb(request, response):
-	for url in Config.titleUrls:
-		nut.updateDb(url)
-	Titles.loadTxtDatabases()
-	Titles.save()
-	return success(request, response, "Fin")
-
-def getExport(request, response):
-	if len(request.bits) < 3:
-		return Server.Response500(request, response)
-
-	if len(request.bits) == 3:
-		nut.export(request.bits[2])
-	else:
-		nut.export(request.bits[2], request.bits[3:])
-
-	return success(request, response, "Fin")
-
-def getImportRegions(request, response):
-	nut.importRegion(request.bits[2], request.bits[3])
-
-	return success(request, response, "Fin")
-
-def getRegions(request, response):
-	response.headers['Content-Type'] = 'application/json'
-	response.write(json.dumps(Config.regionLanguages()))
-
-
-def getUpdateLatest(request, response):
-	nut.scanLatestTitleUpdates()
-	return success(request, response, "Fin")
-
-def getUpdateAllVersions(request, response):
-	if len(request.bits) >= 3 and int(request.bits[2]) > 0:
-		nut.updateVersions(True)
-	else:
-		nut.updateVersions(False)
-	return success(request, response, "Fin")
-
-def getScrapeShogun(request, response):
-	nut.scrapeShogun()
-	return success(request, response, "Fin")
-
-def getSubmitKey(request, response):
-	titleId = request.bits[2]
-	titleKey = request.bits[3]
-
-	try:
-		if blockchain.blockchain.suggest(titleId, titleKey):
-			return success(request, response, "Key successfully added")
-		else:
-			return error(request, response, "Key validation failed")
-	except LookupError as e:
-		error(request, response, str(e))
-	except OSError as e:
-		error(request, response, str(e))
-	except BaseException as e:
-		error(request, response, str(e))
-
-
-def postTinfoilSetInstalledApps(request, response):
-	try:
-		if len(request.bits) >= 3:
-			serial = request.bits[2]
-		else:
-			serial = 'incognito'
-
-		path = 'switch/' + serial + ''
-		Print.info('path: ' + path)
-		os.makedirs(path, exist_ok=True)
-
-		with open(path + '/installed.json', 'wb') as f:
-			f.write(request.post)
-
-		return success(request, response, "OK")
-	except BaseException:
-		raise
-
-
-def getSwitchList(request, response):
-	try:
-		response.headers['Content-Type'] = 'application/json'
-		dirs = [f for f in os.listdir('switch/') if os.path.isdir(os.path.join('switch/', f))]
-		response.write(json.dumps(dirs))
-	except BaseException as e:
-		error(request, response, str(e))
-
-def getSwitchInstalled(request, response):
-	try:
-		path = 'switch/' + request.bits[2] + '/installed.json'
-		with open(path, encoding="utf-8-sig") as f:
-			response.write(f.read())
-			return
-
-	except BaseException as e:
-		error(request, response, str(e))
