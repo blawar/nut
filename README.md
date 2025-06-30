@@ -87,15 +87,16 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27e2", GROUP="plug
   - Add it to the load path of your pyenv's Python install (cd `pyenv root`).
   - To do this, go to the site packages directory of your pyenv install (ie. `$HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages`) and create an file named `homebrew.pth` containing the path for Homebrew Python's site packages directory (ie. `/opt/homebrew/lib/python3.9/site-packages`)
   - For example, for M1, it would be: `cd $HOME/.pyenv/versions/3.9.7/lib/python3.9/site-packages && echo "/opt/homebrew/lib/python3.9/site-packages" >> homebrew.pth`
+* Initialize `pyenv` at shell startup: (i.e `echo 'eval "$(pyenv init -)"' >> ~/.zshrc` if you're using `zsh`, which is the default for MacOS 10 and above)
 * Clone this repository to desired directory and change your working directory to the cloned repository
-* Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3.9 nut && source activate nut`)
+* Create a virtualenv and activate it. Note that your python path will be different if not on M1. (`pyenv virtualenv --system-site-packages --python=/opt/homebrew/bin/python3.9 nut && pyenv activate nut`)
 * Install wheel (`pip install wheel`)
 * Install pycurl using the below.
 ```
 on M1:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include" pip install pycurl --no-cache-dir
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include" pip install pycurl --no-cache-dir
 on Intel:
-PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl/lib" CPPFLAGS="-I/usr/local/opt/openssl/include" pip install pycurl --compile --no-cache-dir
+PYCURL_SSL_LIBRARY=openssl LDFLAGS="-L/usr/local/opt/openssl@3/lib" CPPFLAGS="-I/usr/local/opt/openssl@3/include" pip install pycurl --compile --no-cache-dir
 ```
 * Install all other dependencies (`pip install -r requirements.txt`)
 * Run `python nut.py` for CLI. Run `python3 nut_gui.py` to launch the application (this will *only* work if PyQT from Homebrew was succesfully installed via directions above)
