@@ -164,7 +164,7 @@ def _load_nsp_filesize(json_title, nsp):
 	if 'fileSize' in json_title:
 		nsp.fileSize = json_title['fileSize']
 
-	if nsp.fileSize is None:
+	if nsp.fileSize is None or nsp.fileSize == 0:
 		_path = json_title['path']
 		Print.warning(f"Missing file size for `{_path}`. Trying to get size again...")
 		_file_size = nsp.getFileSize()
