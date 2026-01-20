@@ -1,6 +1,6 @@
 requests~=2.26.0
 tqdm~=4.62.3
-colorama~=0.4.4
+colorama~=0.4.6
 beautifulsoup4~=4.10.0
 urllib3~=1.26.7
 pyusb~=1.2.1
