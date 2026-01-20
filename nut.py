@@ -30,7 +30,6 @@ import signal
 from nut import Status
 import time
 import colorama
-import Server
 import pprint
 import random
 import shutil
@@ -1001,6 +1000,7 @@ if __name__ == '__main__':
 			Hook.call("args.post", args)
 
 			if args.server:
+				import Server
 				nut.initTitles()
 				nut.initFiles()
 				Server.run()
