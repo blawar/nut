@@ -33,12 +33,22 @@ class Header: # pylint: disable=too-many-instance-attributes,too-few-public-meth
 		bottom = QHBoxLayout()
 
 		self.scan = _create_button(app, top, tr('main.top_menu.scan'), 100, app.on_scan)
-		_create_button(app, top, tr('main.top_menu.organize'), 200, app.on_organize)
-		self.pull = _create_button(app, top, tr('main.top_menu.pull'), 100, app.on_pull)
+		if Config.allow_organize:
+			_create_button(app, top, tr('main.top_menu.organize'), 200, app.on_organize)
+
+		if Config.allow_pull:
+			self.pull = _create_button(app, top, tr('main.top_menu.pull'), 100, app.on_pull)
+
 		self.titledb = _create_button(app, top, tr('main.top_menu.update_titledb'), 200, app.on_titledb)
-		_create_button(app, top, tr('main.top_menu.decompress_nsz'), 200, app.on_decompress)
-		_create_button(app, top, tr('main.top_menu.compress_nsp'), 200, app.on_compress)
-		self.gdrive = _create_button(app, top, tr('main.top_menu.setup_gdrive'), 200, app.on_gdrive)
+
+		if Config.allow_decompress:
+			_create_button(app, top, tr('main.top_menu.decompress_nsz'), 200, app.on_decompress)
+
+		if Config.allow_compress:
+			_create_button(app, top, tr('main.top_menu.compress_nsp'), 200, app.on_compress)
+
+		if Config.allow_gdrive:
+			self.gdrive = _create_button(app, top, tr('main.top_menu.setup_gdrive'), 200, app.on_gdrive)
 
 		top.addStretch()
 

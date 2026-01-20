@@ -26,6 +26,11 @@ limitCount = 0
 region = None
 
 autolaunchBrowser = True
+allow_organize = True
+allow_pull = True
+allow_decompress = True
+allow_compress = True
+allow_gdrive = True
 
 titleBlacklist = []
 titleWhitelist = []
@@ -268,6 +273,7 @@ class Paths:  # pylint: disable=too-many-instance-attributes
 			f = self.titleDemoUpdate
 		return f
 
+
 def getPath(path, name, default):
 	if not path:
 		path = os.path.splitext(default)[0] + name[-4:]
@@ -276,8 +282,10 @@ def getPath(path, name, default):
 		path = os.path.join(path, base)
 	return path
 
+
 def forceExt(path, ext):
 	return os.path.splitext(path)[0] + ext
+
 
 def jset(json_, paths_, value):  # pylint: disable=redefined-builtin
 	last = paths_.pop()
@@ -286,6 +294,7 @@ def jset(json_, paths_, value):  # pylint: disable=redefined-builtin
 			json_[path] = {}
 		json_ = json_[path]
 	json_[last] = value
+
 
 def save(confFile='conf/nut.conf'):
 	Print.debug("saving config")
@@ -308,6 +317,11 @@ def save(confFile='conf/nut.conf'):
 	jset(j, ['autolaunchBrowser'], autolaunchBrowser)
 	jset(j, ['autoUpdateTitleDb'], autoUpdateTitleDb)
 	jset(j, ['allowNoMetadata'], allowNoMetadata)
+	jset(j, ['allow_organize'], allow_organize)
+	jset(j, ['allow_pull'], allow_pull)
+	jset(j, ['allow_decompress'], allow_decompress)
+	jset(j, ['allow_compress'], allow_compress)
+	jset(j, ['allow_gdrive'], allow_gdrive)
 
 	with open(confFile, 'w', encoding='utf-8') as f:
 		Print.debug("writing config to filesystem")
@@ -325,6 +339,12 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 	global original  # pylint: disable=global-statement
 	global allowNoMetadata  # pylint: disable=global-statement
+	global allow_organize
+	global allow_pull
+	global allow_decompress
+	global allow_compress
+	global allow_gdrive
+
 
 	with open(confFile, encoding='utf8') as f:
 		try:
@@ -334,6 +354,30 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			print(f"Failed to load config file: {confFile}") # use normal print because of initialization order of Status / Print
 			raise
 
+		try:
+			allow_organize = j['allow_organize']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			allow_pull = j['allow_pull']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			allow_decompress = j['allow_decompress']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			allow_compress = j['allow_decompress']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			allow_gdrive = j['allow_gdrive']
+		except BaseException:  # pylint: disable=broad-except
+			pass
 		try:
 			region = j['region']
 		except BaseException:  # pylint: disable=broad-except
