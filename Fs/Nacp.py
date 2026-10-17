@@ -2,6 +2,7 @@ from Fs.File import File
 import Fs.Type
 from binascii import hexlify as hx, unhexlify as uhx
 from enum import IntEnum
+import zlib
 from nut import Print
 from nut import Keys
 from nut import blockchain
@@ -23,6 +24,17 @@ class NacpLanguageType(IntEnum):
 	Korean = 12
 	TraditionalChinese = 13
 	SimplifiedChinese = 14
+	BrazilianPortuguese = 15
+	Polish = 16
+	Thai = 17
+
+class TitlesDataFormat(IntEnum):
+	Format0 = 0
+	Format1 = 1
+
+FORMAT0_LANGUAGE_COUNT = 16
+FORMAT1_LANGUAGE_COUNT = 32
+FORMAT1_DECOMPRESSED_SIZE = 0x6000
 
 class NacpLanguage:
 	def __init__(self):
@@ -33,16 +45,17 @@ class NacpLanguage:
 class OrganizationType(IntEnum):
 	CERO = 0
 	GRACGCRB = 1
-	GSRMR = 2
-	ESRB = 3
-	ClassInd = 4
-	USK = 5
-	PEGI = 6
-	PEGIPortugal = 7
-	PEGIBBFC = 8
-	Russian = 9
-	ACB = 10
-	OFLC = 11
+	ClassInd = 2
+	USK = 3
+	ESRB = 4
+	RatingAndLabelAdministrationOrganization = 5
+	Generic = 6
+	PEGI = 7
+	PEGIPortuguese = 8
+	PIDVD = 9
+	MobageAgeRating = 10
+	MediaTechnologyTainmentAssociation = 11
+	ComputerEntertainmentRatingOrganization = 12
 
 class RatingAge:
 	def __init__(self):
@@ -55,8 +68,11 @@ class Nacp(File):
 
 		self.languages = []
 
-		for i in range(15):
+		for i in range(FORMAT1_LANGUAGE_COUNT):
 			self.languages.append(NacpLanguage())
+
+		self.titlesDataFormat = None
+		self._decompressedTitles = None
 
 		self.isbn = None
 		self.startupUserAccount = None
@@ -72,7 +88,7 @@ class Nacp(File):
 
 		self.ages = []
 
-		for i in range(12):
+		for i in range(13):
 			self.ages.append(RatingAge())
 
 		self.displayVersion = None
@@ -107,21 +123,61 @@ class Nacp(File):
 		self.programIndex = None
 		self.requiredNetworkServiceLicenseOnLaunch = None
 
+		self.supportedLanguageFlag = None
+		self.runtimeParameterDelivery = None
+		self.appropriateAgeForChina = None
+		self.startupUserAccountOption = None
+		self.runtimeUpgrade = None
+		self.supportingLimitedApplicationLicenses = None
+		self.applicationErrorCodePrefix = None
+		self.acdIndex = None
+		self.apparentPlatform = None
+
+	def getLanguageCount(self):
+		if self.getTitlesDataFormat() == TitlesDataFormat.Format1:
+			return FORMAT1_LANGUAGE_COUNT
+		return FORMAT0_LANGUAGE_COUNT
+
+	def getTitlesDataFormat(self):
+		if self.titlesDataFormat is None:
+			self.seek(0x3215)
+			b = self.readInt8('little')
+			try:
+				self.titlesDataFormat = TitlesDataFormat(b)
+			except ValueError:
+				self.titlesDataFormat = TitlesDataFormat.Format0
+		return self.titlesDataFormat
+
+	def _getDecompressedTitles(self):
+		if self._decompressedTitles is None:
+			self.seek(0)
+			compressedSize = self.readInt16('little')
+			self.seek(2)
+			compressed = self.read(compressedSize)
+			self._decompressedTitles = zlib.decompress(compressed, -15)
+		return self._decompressedTitles
+
 	def getName(self, i):
-		self.seek(i * 0x300)
-		self.languages[i].name = self.read(0x200)
-		self.languages[i].name = self.languages[i].name.split(b'\0', 1)[0].decode('utf-8')
+		if self.getTitlesDataFormat() == TitlesDataFormat.Format1:
+			raw = self._getDecompressedTitles()[i * 0x300: i * 0x300 + 0x200]
+		else:
+			self.seek(i * 0x300)
+			raw = self.read(0x200)
+		self.languages[i].name = raw.split(b'\0', 1)[0].decode('utf-8')
 		return self.languages[i].name
 
 	def getPublisher(self, i):
-		self.seek(i * 0x300 + 0x200)
-		self.languages[i].publisher = self.read(0x100)
-		self.languages[i].publisher = self.languages[i].publisher.split(b'\0', 1)[0].decode('utf-8')
+		if self.getTitlesDataFormat() == TitlesDataFormat.Format1:
+			raw = self._getDecompressedTitles()[i * 0x300 + 0x200: i * 0x300 + 0x300]
+		else:
+			self.seek(i * 0x300 + 0x200)
+			raw = self.read(0x100)
+		self.languages[i].publisher = raw.split(b'\0', 1)[0].decode('utf-8')
 		return self.languages[i].publisher
 
 	def getIsbn(self):
 		self.seek(0x3000)
-		self.isbn = self.read(0x24).split(b'\0', 1)[0].decode('utf-8')
+		self.isbn = self.read(0x25).split(b'\0', 1)[0].decode('utf-8')
 		return self.isbn
 
 	def getStartupUserAccount(self):
@@ -161,26 +217,12 @@ class Nacp(File):
 
 	def getAttribute(self):
 		self.seek(0x3028)
-		b = self.readInt8('little')
-		if b == 0:
-			self.attribute = 'None'
-		elif b == 1:
-			self.attribute = 'Demo'
-		elif b == 2:
-			self.attribute = 'RetailInteractiveDisplay'
-		else:
-			self.attribute = 'Unknown'
+		self.attribute = self.readInt32('little')
 		return self.attribute
 
 	def getParentalControl(self):
 		self.seek(0x3030)
-		b = self.readInt8('little')
-		if b == 0:
-			self.parentalControl = 'None'
-		elif b == 1:
-			self.parentalControl = 'FreeCommunication'
-		else:
-			self.parentalControl = 'Unknown'
+		self.parentalControl = self.readInt32('little')
 		return self.parentalControl
 
 	def getScreenshot(self):
@@ -227,6 +269,8 @@ class Nacp(File):
 			self.playLogPolicy = 'LogOnly'
 		elif b == 2:
 			self.playLogPolicy = 'None'
+		elif b == 3:
+			self.playLogPolicy = 'Closed'
 		else:
 			self.playLogPolicy = 'Unknown'
 		return self.playLogPolicy
@@ -273,7 +317,7 @@ class Nacp(File):
 
 	def getDisplayVersion(self):
 		self.seek(0x3060)
-		self.displayVersion = self.read(0xF)
+		self.displayVersion = self.read(0x10)
 		self.displayVersion = self.displayVersion.split(b'\0', 1)[0].decode('utf-8')
 		return self.displayVersion
 
@@ -314,7 +358,7 @@ class Nacp(File):
 
 	def getApplicationErrorCodeCategory(self):
 		self.seek(0x30A8)
-		self.applicationErrorCodeCategory = self.read(0x7).split(b'\0', 1)[0].decode('utf-8')
+		self.applicationErrorCodeCategory = self.read(0x8).split(b'\0', 1)[0].decode('utf-8')
 		return self.applicationErrorCodeCategory
 
 	def getLocalCommunicationId(self):
@@ -327,6 +371,8 @@ class Nacp(File):
 		b = self.readInt8('little')
 		if b == 0:
 			self.logoType = 'LicensedByNintendo'
+		elif b == 1:
+			self.logoType = 'DistributedByNintendo'
 		elif b == 2:
 			self.logoType = 'Nintendo'
 		else:
@@ -351,6 +397,8 @@ class Nacp(File):
 			self.runtimeAddOnContentInstall = 'Deny'
 		elif b == 1:
 			self.runtimeAddOnContentInstall = 'AllowAppend'
+		elif b == 2:
+			self.runtimeAddOnContentInstall = 'AllowAppendButDontDownloadWhenUsingNetwork'
 		else:
 			self.runtimeAddOnContentInstall = 'Unknown'
 		return self.runtimeAddOnContentInstall
@@ -384,7 +432,7 @@ class Nacp(File):
 
 	def getBcatPassphrase(self):
 		self.seek(0x3100)
-		self.bcatPassphrase = self.read(0x40).split(b'\0', 1)[0].decode('utf-8')
+		self.bcatPassphrase = self.read(0x41).split(b'\0', 1)[0].decode('utf-8')
 		return self.bcatPassphrase
 
 	def getUserAccountSaveDataSizeMax(self):
@@ -477,17 +525,105 @@ class Nacp(File):
 			self.requiredNetworkServiceLicenseOnLaunch = 'Unknown'
 		return self.requiredNetworkServiceLicenseOnLaunch
 
-	def printInfo(self, indent=0):
+	def getSupportedLanguageFlag(self):
+		self.seek(0x302C)
+		self.supportedLanguageFlag = self.readInt32('little')
+		return self.supportedLanguageFlag
+
+	def getRuntimeParameterDelivery(self):
+		self.seek(0x30F3)
+		b = self.readInt8('little')
+		if b == 0:
+			self.runtimeParameterDelivery = 'Always'
+		elif b == 1:
+			self.runtimeParameterDelivery = 'AlwaysIfUserStateMatched'
+		elif b == 2:
+			self.runtimeParameterDelivery = 'OnRestart'
+		else:
+			self.runtimeParameterDelivery = 'Unknown'
+		return self.runtimeParameterDelivery
+
+	def getAppropriateAgeForChina(self):
+		self.seek(0x30F4)
+		b = self.readInt8('little')
+		if b == 0:
+			self.appropriateAgeForChina = 'None'
+		elif b == 1:
+			self.appropriateAgeForChina = 'Age8'
+		elif b == 2:
+			self.appropriateAgeForChina = 'Age12'
+		elif b == 3:
+			self.appropriateAgeForChina = 'Age16'
+		else:
+			self.appropriateAgeForChina = 'Unknown'
+		return self.appropriateAgeForChina
+
+	def getStartupUserAccountOption(self):
+		self.seek(0x3141)
+		self.startupUserAccountOption = self.readInt8('little')
+		return self.startupUserAccountOption
+
+	def getRuntimeUpgrade(self):
+		self.seek(0x318B)
+		self.runtimeUpgrade = self.readInt8('little')
+		return self.runtimeUpgrade
+
+	def getSupportingLimitedApplicationLicenses(self):
+		self.seek(0x318C)
+		self.supportingLimitedApplicationLicenses = self.readInt32('little')
+		return self.supportingLimitedApplicationLicenses
+
+	def getApplicationErrorCodePrefix(self):
+		self.seek(0x3214)
+		self.applicationErrorCodePrefix = self.readInt8('little')
+		return self.applicationErrorCodePrefix
+
+	def getAcdIndex(self):
+		self.seek(0x3216)
+		self.acdIndex = self.readInt8('little')
+		return self.acdIndex
+
+	def getApparentPlatform(self):
+		self.seek(0x3217)
+		b = self.readInt8('little')
+		if b == 0:
+			self.apparentPlatform = 'NX'
+		elif b == 1:
+			self.apparentPlatform = 'Switch2'
+		else:
+			self.apparentPlatform = 'Unknown'
+		return self.apparentPlatform
+
+	@staticmethod
+	def _decodeFlags(value, bitNames):
+		if value == 0:
+			return 'None'
+		names = []
+		for bit, name in sorted(bitNames.items()):
+			if value & (1 << bit):
+				names.append(name)
+		unknownBits = value
+		for bit in bitNames:
+			unknownBits &= ~(1 << bit)
+		if unknownBits:
+			names.append('Unknown(0x%x)' % unknownBits)
+		return ', '.join(names)
+
+	def printInfo(self, maxDepth=3, indent=0):
 		tabs = '\t' * indent
 		Print.info('\n%sNintendo Application Control Property (NACP)\n' % (tabs))
-		super(Nacp, self).printInfo(indent)
+		super(Nacp, self).printInfo(maxDepth, indent)
 
-		for i in range(15):
+		for i in range(self.getLanguageCount()):
 			if self.getName(i) == '':
 				pass
 			else:
+				if i < len(NacpLanguageType):
+					languageLabel = str(NacpLanguageType(i)).replace('NacpLanguageType.', '')
+				else:
+					languageLabel = 'Language%d' % i
 				Print.info('Title:')
-				Print.info('  Language: ' + str(NacpLanguageType(i)).replace('NacpLanguageType.', ''))
+				Print.info('  Language: ' + languageLabel)
 				Print.info('  Name: ' + self.getName(i))
 				Print.info('  Publisher: ' + self.getPublisher(i))
 
@@ -498,16 +634,29 @@ class Nacp(File):
 
 		Print.info('AddOnContentRegistrationType: ' + str(self.getAddOnContentRegistrationType()))
 		Print.info('StartupUserAccount: ' + str(self.getStartupUserAccount()))
+		Print.info('StartupUserAccountOption: ' + str(self.getStartupUserAccountOption()))
 		Print.info('UserAccountSwitchLock: ' + str(self.getUserAccountSwitchLock()))
-		Print.info('Attribute: ' + str(self.getAttribute()))
-		Print.info('ParentalControl: ' + str(self.getParentalControl()))
+		Print.info('Attribute: ' + self._decodeFlags(self.getAttribute(), {0: 'Demo', 1: 'RetailInteractiveDisplay'}))
+		Print.info('ParentalControl: ' + self._decodeFlags(self.getParentalControl(), {0: 'FreeCommunication'}))
 		Print.info('Screenshot: ' + str(self.getScreenshot()))
 		Print.info('VideoCapture: ' + str(self.getVideoCapture()))
 		Print.info('DataLossConfirmation: ' + str(self.getDataLossConfirmation()))
 		Print.info('PlayLogPolicy: ' + str(self.getPlayLogPolicy()))
 		Print.info('PresenceGroupId: ' + '0x' + hex(self.getPresenceGroupId()).replace('0x', '').zfill(16))
 
-		for i in range(12):
+		if self.getSupportedLanguageFlag() == 0:
+			pass
+		else:
+			supportedLanguages = []
+			for i in range(32):
+				if self.getSupportedLanguageFlag() & (1 << i):
+					if i < len(NacpLanguageType):
+						supportedLanguages.append(str(NacpLanguageType(i)).replace('NacpLanguageType.', ''))
+					else:
+						supportedLanguages.append('Language%d' % i)
+			Print.info('SupportedLanguages: ' + ', '.join(supportedLanguages))
+
+		for i in range(13):
 			if str(self.getRatingAge(i)) == 'Unknown':
 				pass
 			else:
@@ -537,6 +686,8 @@ class Nacp(File):
 		Print.info('LogoType: ' + str(self.getLogoType()))
 		Print.info('LogoHandling: ' + str(self.getLogoHandling()))
 		Print.info('RuntimeAddOnContentInstall: ' + str(self.getRuntimeAddOnContentInstall()))
+		Print.info('RuntimeParameterDelivery: ' + str(self.getRuntimeParameterDelivery()))
+		Print.info('AppropriateAgeForChina: ' + str(self.getAppropriateAgeForChina()))
 		Print.info('CrashReport: ' + str(self.getCrashReport()))
 		Print.info('Hdcp: ' + str(self.getHdcp()))
 		Print.info('SeedForPseudoDeviceId: ' + '0x' + hex(self.getSeedForPseudoDeviceId()).replace('0x', '').zfill(16))
@@ -557,8 +708,14 @@ class Nacp(File):
 		Print.info('CacheStorageJournalSize: ' + '0x' + hex(self.getCacheStorageJournalSize()).replace('0x', '').zfill(16))
 		Print.info('CacheStorageDataAndJournalSizeMax: ' + '0x' + hex(self.getCacheStorageDataAndJournalSizeMax()).replace('0x', '').zfill(8))
 		Print.info('CacheStorageIndexMax: ' + '0x' + hex(self.getCacheStorageIndexMax()).replace('0x', '').zfill(4))
+		Print.info('RuntimeUpgrade: ' + str(self.getRuntimeUpgrade()))
+		Print.info('SupportingLimitedApplicationLicenses: ' + '0x' + hex(self.getSupportingLimitedApplicationLicenses()).replace('0x', '').zfill(8))
 		Print.info('PlayLogQueryableApplicationId: ' + '0x' + hex(self.getPlayLogQueryableApplicationId()).replace('0x', '').zfill(16))
 		Print.info('PlayLogQueryCapability: ' + str(self.getPlayLogQueryCapability()))
 		Print.info('Repair: ' + str(self.getRepair()))
 		Print.info('ProgramIndex: ' + str(self.getProgramIndex()))
 		Print.info('RequiredNetworkServiceLicenseOnLaunch: ' + str(self.getRequiredNetworkServiceLicenseOnLaunch()))
+		Print.info('ApplicationErrorCodePrefix: ' + str(self.getApplicationErrorCodePrefix()))
+		Print.info('TitlesDataFormat: ' + str(self.getTitlesDataFormat()).replace('TitlesDataFormat.', ''))
+		Print.info('AcdIndex: ' + str(self.getAcdIndex()))
+		Print.info('ApparentPlatform: ' + str(self.getApparentPlatform()))

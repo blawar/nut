@@ -66,7 +66,6 @@ class TableModel(QAbstractTableModel):
 			return f"{row[Column(j)]}"
 		return QtCore.QVariant()
 
-	# pylint: disable=no-self-use
 	def flags(self, index):
 		del index
 		return Qt.ItemIsEnabled
