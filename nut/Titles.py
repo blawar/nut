@@ -10,6 +10,7 @@ import operator
 from nut import Config
 from nut import Print
 import threading
+from nut import Simba
 
 try:
 	import cdn
@@ -76,6 +77,11 @@ def getNsuid(id, region, language):
 
 	map = data(region, language)
 
+	# region maps are keyed by nsuId: direct hit first, the full scan only as a fallback
+	t = map.get(str(id))
+	if t is not None and t.nsuId == id:
+		return t
+
 	for t in map:
 		if map[t].nsuId == id:
 			return map[t]
@@ -101,6 +107,10 @@ def hasNsuid(id, region, language):
 	id = int(id)
 
 	map = data(region, language)
+
+	t = map.get(str(id))
+	if t is not None and t.nsuId == id:
+		return True
 
 	for t in map:
 		if map[t].nsuId == id:
@@ -310,7 +320,7 @@ def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 				if title.rightsId:
 					k.setId(title.rightsId)
 			j[k.nsuId] = k.exportDict(True)
-		nut.writeJson(j, fileName)
+		nut.writeJson(cleanJson(j), fileName)
 	except BaseException:
 		confLock.release()
 		raise
@@ -328,7 +338,7 @@ def save(fileName='titledb/titles.json', full=True):
 
 			j[k.id] = k.exportDict(full=full)
 
-		nut.writeJson(j, fileName)
+		nut.writeJson(cleanJson(j), fileName)
 	except BaseException:
 		confLock.release()
 		raise
@@ -337,6 +347,28 @@ def save(fileName='titledb/titles.json', full=True):
 
 def saveRegion(region, language):
 	saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
+
+# (attribute, multi-line) of the free text a Title carries
+TEXT_ATTRS = (('name', False), ('description', True), ('intro', True), ('publisher', False), ('developer', False))
+
+def cleanJson(value, key=None):
+	'''Simba.clean_whitespace on every string of an exported titledb value (a copy; the titles are not changed).
+	description / intro keep their line breaks; an emptied text field other than name -> None.
+	CLEAN_TEXT=0 returns the value unchanged.'''
+	if Simba.env('CLEAN_TEXT').lower() in ('0', 'off', 'false', 'no'):
+		return value
+	return _cleanJson(value, key)
+
+def _cleanJson(value, key=None):
+	if isinstance(value, str):
+		multiline = dict(TEXT_ATTRS).get(key, False)
+		new = Simba.clean_whitespace(value, multiline)
+		return None if new == '' and key in dict(TEXT_ATTRS) and key != 'name' else new
+	if isinstance(value, dict):
+		return {k: _cleanJson(v, k) for k, v in value.items()}
+	if isinstance(value, list):
+		return [_cleanJson(v) for v in value]
+	return value
 
 def regionModified(region, language):
 	return os.path.getmtime('titledb/%s.%s.json' % (region, language))
@@ -403,8 +435,8 @@ global queue
 queue = Queue()
 
 def saveAll(fileName='titledb/titles.json'):
-	for region in cdn.regions():
-		for language in cdn.Shogun.countryLanguages(region):
+	for region in Simba.REGIONS:
+		for language in Simba.countryLanguages(region):
 			saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
 
 	save(fileName)

@@ -21,6 +21,7 @@ from nut import Nsps
 import Fs
 from nut import Config
 import requests
+from nut import Eshop
 from nut import Hex
 from nut import Print
 from nut import NszDecompressor
@@ -463,6 +464,17 @@ if __name__ == '__main__':
 			parser.add_argument('--nsx', type=int, choices=[0, 1], default=Config.download.sansTitleKey*1, help='download titles without the title key')
 			parser.add_argument('--dry', action="store_true", help='Dry run, do not download/rename anything')
 
+			# eShop metadata (nut/Eshop.py on nut/Simba.py GraphQL; needs paths.shopNCert = ShopN.pem, not cdn / PRODINFO)
+			parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
+			parser.add_argument('--scrape-simba', nargs='*', help='Scrape ALL titles from Simba')
+			parser.add_argument('--scrape-simba-missed', nargs='*', help='Scrape titles that are not advertised by Simba but in our database')
+			parser.add_argument('--scrape-simba-refresh', action="store_true", help='Full refresh already known title ids from Simba')
+			parser.add_argument('--scrape-simba-refresh-quick', action="store_true", help='Quick refresh of already known title ids from Simba')
+			parser.add_argument('--scrape-simba-delta', nargs='*', help='Scrape new titles from Simba')
+			parser.add_argument('--scrape-simba-unnamed', nargs='*', help='Refresh missing DLC/Base metadata')
+			parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
+			parser.add_argument('--cdn-save-languages', action="store_true", help='store language / region data from cdn')
+
 			if hasCdn:
 				parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
 				parser.add_argument('-d', '--download', nargs='+', help='download title(s)')
@@ -473,19 +485,10 @@ if __name__ == '__main__':
 				parser.add_argument('--scrape', action="store_true", help='Scrape ALL titles from Nintendo servers')
 				parser.add_argument('--scrape-delta', action="store_true", help='Scrape ALL titles from Nintendo servers that have not been scraped yet')
 				parser.add_argument('--scrape-title', help='Scrape title from Nintendo servers')
-				parser.add_argument('--scrape-nsuid', help='Scrape eshop title by nsuid')
-				parser.add_argument('--scrape-shogun', nargs='*', help='Scrape ALL titles from shogun')
-				parser.add_argument('--scrape-shogun-missed', nargs='*', help='Scrape titles that are not advertised by shogun but in our database')
-				parser.add_argument('--scrape-shogun-refresh', action="store_true", help='Full refresh already known title ids from shogun')
-				parser.add_argument('--scrape-shogun-refresh-quick', action="store_true", help='Quick refresh of already known title ids from shogun')
-				parser.add_argument('--scrape-shogun-delta', nargs='*', help='Scrape new titles from shogun')
-				parser.add_argument('--scrape-shogun-unnamed', nargs='*', help='Refresh missing DLC/Base metadata')
 				parser.add_argument('-E', '--get-edge-token', action="store_true", help='Get edge token')
 				parser.add_argument('--get-dauth-token', action="store_true", help='Get dauth token')
-				parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
 				parser.add_argument('--cetk', help='Pull ticket by rightsID')
 				parser.add_argument('--cdn-cache-only', action="store_true", help='Only hit cdn cache')
-				parser.add_argument('--cdn-save-languages', action="store_true", help='store language / region data from cdn')
 
 			Hook.init()
 			Hook.call("args.pre", parser)
@@ -657,23 +660,26 @@ if __name__ == '__main__':
 				nut.importRegion(region, args.language)
 				exit(0)
 
-			if hasCdn:
-				if args.cdn_save_languages:
-					cdn.Shogun.saveLanguages()
-					cdn.Shogun.saveRegions()
+			if args.cdn_save_languages:
+				Eshop.saveLanguages()
+				Eshop.saveRegions()
 
+			if hasCdn:
 				if args.cetk:
 					cdn.Tigers.cetk(args.cetk)
 
-				if args.eshop_latest:
-					print(cdn.Shogun.getLatest(args.file[0], args.file[1], args.file[2]))
+			if args.eshop_latest:
+				# positional [language] [region] (legacy third arg, cont, is ignored)
+				language = args.file[0] if len(args.file) > 0 else (args.language or 'en')
+				region = args.file[1] if len(args.file) > 1 else (args.region or 'US')
+				print(json.dumps(Eshop.getLatest(language, region), ensure_ascii=False))
 
-				if args.scrape_nsuid:
-					nut.initTitles()
-					region = args.region or 'US'
-					language = args.language or 'en'
-					print(json.dumps(cdn.Shogun.scrapeTitle(int(args.scrape_nsuid), region=region, language=language, force=True).__dict__))
-					Titles.saveRegion(region, language)
+			if args.scrape_nsuid:
+				nut.initTitles()
+				region = args.region or 'US'
+				language = args.language or 'en'
+				print(json.dumps(Eshop.scrapeTitle(int(args.scrape_nsuid), region=region, language=language, force=True).__dict__))
+				Titles.saveRegion(region, language)
 
 			if args.usb:
 				try:
@@ -820,6 +826,55 @@ if __name__ == '__main__':
 					Print.error('Archive is VALID: %s' % args.verify_ncas)
 				f.close()
 
+			if args.scrape_simba_refresh:
+				nut.scrapeSimbaThreaded(True, simbaList = False)
+
+			if args.scrape_simba_refresh_quick:
+				nut.scrapeSimbaThreaded(False, simbaList = False)
+
+			if args.scrape_simba is not None:
+				if len(args.scrape_simba) == 0:
+					nut.scrapeSimbaThreaded(True, simbaList = True)
+				else:
+					nut.initTitles()
+					nut.initFiles()
+					for i in args.scrape_simba:
+						if len(i) == 16:
+							for region in Config.regionLanguages():
+								if args.region and region != args.region:
+									continue
+
+								for language in Config.regionLanguages()[region]:
+									if args.language and args.language != language:
+										continue
+
+									l = Eshop.ids(i, region = region, language = language or 'en', force=True)
+									print('searching %s %s' % (region, language))
+									if not l or len(l) == 0 or len(l['id_pairs']) == 0:
+										print('\tno nsuId\'s found')
+									else:
+										print(l)
+										for t in l['id_pairs']:
+											print('\tnsuId: ' + str(t['id']))
+											print(json.dumps(Eshop.scrapeTitle(t['id'], region=region, language=language, force=True).__dict__))
+										Titles.saveRegion(region, language)
+							Titles.save()
+						elif len(i) == 2:
+							Eshop.scrapeTitles(i, force=True)
+						else:
+							print('bleh')
+
+			if args.scrape_simba_missed != None:
+				nut.initTitles()
+				nut.initFiles()
+				nut.scrapeSimbaThreaded(False, refresh = True)
+
+			if args.scrape_simba_unnamed is not None:
+				nut.scrapeSimbaUnnamed()
+
+			if args.scrape_simba_delta is not None:
+				nut.scrapeSimbaThreaded(False)
+
 			if hasCdn:
 				if args.download:
 					nut.initTitles()
@@ -829,55 +884,6 @@ if __name__ == '__main__':
 
 				if args.system_update:
 					cdn.downloadSystemUpdate()
-
-				if args.scrape_shogun_refresh:
-					nut.scrapeShogunThreaded(True, shogunList = False)
-
-				if args.scrape_shogun_refresh_quick:
-					nut.scrapeShogunThreaded(False, shogunList = False)
-
-				if args.scrape_shogun is not None:
-					if len(args.scrape_shogun) == 0:
-						nut.scrapeShogunThreaded(True, shogunList = True)
-					else:
-						nut.initTitles()
-						nut.initFiles()
-						for i in args.scrape_shogun:
-							if len(i) == 16:
-								for region in Config.regionLanguages():
-									if args.region and region != args.region:
-										continue
-
-									for language in Config.regionLanguages()[region]:
-										if args.language and args.language != language:
-											continue
-
-										l = cdn.Shogun.ids(i, region = region, language = language or 'en', force=True)
-										print('searching %s %s' % (region, language))
-										if not l or len(l) == 0 or len(l['id_pairs']) == 0:
-											print('\tno nsuId\'s found')
-										else:
-											print(l)
-											for t in l['id_pairs']:
-												print('\tnsuId: ' + str(t['id']))
-												print(json.dumps(cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True).__dict__))
-											Titles.saveRegion(region, language)
-								Titles.save()
-							elif len(i) == 2:
-								cdn.Shogun.scrapeTitles(i, force=True)
-							else:
-								print('bleh')
-
-				if args.scrape_shogun_missed != None:
-					nut.initTitles()
-					nut.initFiles()
-					nut.scrapeShogunThreaded(False, refresh = True)
-
-				if args.scrape_shogun_unnamed is not None:
-					nut.scrapeShogunUnnamed()
-
-				if args.scrape_shogun_delta is not None:
-					nut.scrapeShogunThreaded(False)
 
 				if args.get_edge_token:
 					Config.edgeToken.get()
