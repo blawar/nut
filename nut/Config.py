@@ -355,6 +355,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			paths.shopNCert = j['paths']['shopNCert']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			paths.titleBase = j['paths']['titleBase']
 		except BaseException:  # pylint: disable=broad-except
 			pass
@@ -696,14 +701,14 @@ def regionLanguages(fileName='titledb/languages.json'):
 	if g_regionLanguages is not None:
 		return g_regionLanguages
 
-	g_regionLanguages = []
-
+	# built in a local and published once complete: the scrape worker threads call this concurrently
 	try:
 		with open(fileName, encoding='utf-8-sig') as f:
-			g_regionLanguages = json.loads(f.read())
+			result = json.loads(f.read())
 	except BaseException:  # pylint: disable=broad-except
-		g_regionLanguages = json.loads(DEFAULT_REGION_LANGUAGES)
+		result = json.loads(DEFAULT_REGION_LANGUAGES)
 
+	g_regionLanguages = result
 	return g_regionLanguages
 
 def loadTitleWhitelist():
