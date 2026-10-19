@@ -36,6 +36,11 @@ from nut.Simba import simba_json as simbaJson
 if not os.environ.get('CERT'):
 	Simba.CERT = Config.paths.shopNCert
 
+# nut.conf cdn.savanna_userAgent replaces simba's User-Agent (Simba.UA, read when its session is created); unset or
+# empty keeps simba's own.
+if Config.cdn.savanna_userAgent:
+	Simba.UA = Config.cdn.savanna_userAgent
+
 # nut keeps eShop text as Nintendo wrote it: only line terminators, control characters and stray whitespace are
 # cleaned (no ASCII / accent folding or other character replacement).
 Simba.WHITESPACE_ONLY = True
