@@ -35,6 +35,7 @@ language = 'en'
 
 titleUrls = []
 pullUrls = []
+versionsUrl = None
 original = {}
 
 g_regionLanguages = None
@@ -325,6 +326,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 	global original  # pylint: disable=global-statement
 	global allowNoMetadata  # pylint: disable=global-statement
+	global versionsUrl  # pylint: disable=global-statement
 
 	with open(confFile, encoding='utf8') as f:
 		try:
@@ -659,6 +661,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			for url in j['titleUrls']:
 				if url not in titleUrls:
 					titleUrls.append(url)
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			versionsUrl = j['versionsUrl']
 		except BaseException:  # pylint: disable=broad-except
 			pass
 

@@ -542,7 +542,7 @@ class Title:
 
 	def getVersion(self):
 		if self.version is None:
-			return ''
+			return 0
 		return self.version
 
 	def setParentId(self, titleId):

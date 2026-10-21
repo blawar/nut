@@ -474,6 +474,7 @@ if __name__ == '__main__':
 			parser.add_argument('--scrape-simba-unnamed', nargs='*', help='Refresh missing DLC/Base metadata')
 			parser.add_argument('--eshop-latest', action="store_true", help='List newest eshop titles')
 			parser.add_argument('--cdn-save-languages', action="store_true", help='store language / region data from cdn')
+			parser.add_argument('--versions-from', nargs='?', const='', metavar='FILE_OR_URL', help='update titledb/versions.json from an id|rightsId|version file or url (default: versionsUrl in config)')
 
 			if hasCdn:
 				parser.add_argument('-D', '--download-all', action="store_true", help='download ALL title(s)')
@@ -874,6 +875,9 @@ if __name__ == '__main__':
 
 			if args.scrape_simba_delta is not None:
 				nut.scrapeSimbaThreaded(False)
+
+			if args.versions_from is not None:
+				nut.scanLatestTitleUpdates(nut.loadVersionList(args.versions_from))
 
 			if hasCdn:
 				if args.download:

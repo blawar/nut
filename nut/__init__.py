@@ -1582,7 +1582,39 @@ def scrapeSimbaUnnamed():
 	else:
 		print(result)
 
-def scanLatestTitleUpdates():
+def loadVersionList(source=None):
+	# reads id|rightsId|version lines from a local file or http(s) url
+	source = source or Config.versionsUrl
+
+	if not source:
+		raise IOError('no versions source given and versionsUrl is not set in conf/nut.conf')
+
+	if source.startswith('http://') or source.startswith('https://'):
+		Print.info('downloading versions from ' + source)
+		r = requests.get(source, timeout=60)
+		r.raise_for_status()
+		lines = r.text.splitlines()
+	else:
+		with open(source, 'r', encoding='utf-8-sig') as f:
+			lines = f.read().splitlines()
+
+	versions = {}
+	for line in lines:
+		split = line.strip().split('|')
+		if len(split) < 3 or split[0].lower() == 'id':
+			continue
+
+		id = split[0].strip().upper()
+		version = split[2].strip()
+
+		if len(id) != 16 or not version.isdigit():
+			continue
+
+		versions[id] = version
+
+	return versions
+
+def scanLatestTitleUpdates(versionList=None):
 	global versionHistory
 	initTitles()
 	initFiles()
@@ -1598,10 +1630,12 @@ def scanLatestTitleUpdates():
 	except BaseException:
 		pass
 
-	if not hasCdn:
-		return
+	if versionList is None:
+		if not hasCdn:
+			return
+		versionList = cdn.hacVersionList()
 
-	for k, i in cdn.hacVersionList().items():
+	for k, i in versionList.items():
 		id = str(k).upper()
 		version = str(i)
 
