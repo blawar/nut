@@ -878,6 +878,8 @@ class EdgeToken:
 		if not self.token or not self.expires or time.time() > self.expires:
 			import cdn.Auth  # pylint: disable=redefined-outer-name,import-outside-toplevel,import-error
 			self.token = cdn.Auth.getEdgeToken(self.clientId)
+			if not self.token:
+				raise IOError('No edge token')
 			self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
 
 		if not self.token:
