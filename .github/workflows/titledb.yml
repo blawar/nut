@@ -1,0 +1,80 @@
+name: Update titledb
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # every Monday 06:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: titledb
+  cancel-in-progress: false
+
+permissions:
+  contents: read  # nut itself is only read; titledb is pushed with TITLEDB_TOKEN
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/checkout@v7
+        with:
+          repository: borntohonk/titledb
+          path: titledb
+          token: ${{ secrets.TITLEDB_TOKEN }}
+          filter: blob:none
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev
+          pip install -r requirements.txt
+
+      # conf/nut.conf is not in the repo; nut.default.conf fills in everything not set here. autoUpdateTitleDb
+      # false keeps nut from replacing the checked-out titledb with tinfoil's.
+      - name: Write nut.conf
+        run: |
+          cat > conf/nut.conf <<'EOF'
+          {
+              "autoUpdateTitleDb": false,
+              "versionsUrl": "https://github.com/masagrator/version_dump/raw/refs/heads/main/version_dump.txt",
+              "cdn": {
+                  "savanna_latestCount": 250
+              }
+          }
+          EOF
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update versions
+        run: python nut.py --versions-from
+
+      - name: Commit versions
+        working-directory: titledb
+        run: |
+          git add .
+          git diff --cached --quiet || git commit -m "versions"
+
+      - name: Scrape Simba delta
+        run: python nut.py --scrape-simba-delta
+
+      - name: Commit meta
+        working-directory: titledb
+        run: |
+          git add .
+          git diff --cached --quiet || git commit -m "meta"
+
+      - name: Push
+        if: ${{ !cancelled() }}  # still push the versions commit if the scrape failed
+        working-directory: titledb
+        run: git push

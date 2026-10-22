@@ -41,6 +41,11 @@ if not os.environ.get('CERT'):
 if Config.cdn.savanna_userAgent:
 	Simba.UA = Config.cdn.savanna_userAgent
 
+# nut.conf cdn.savanna_latestCount: how many of the newest titles scrapeLangTitles (--scrape-simba-delta) lists
+# (simba's LATEST_COUNT, read per call; at most 1000, the search maximum) unless LATEST_COUNT is set. Unset or 0 keeps 1000.
+if not os.environ.get('LATEST_COUNT') and Config.cdn.savanna_latestCount:
+	os.environ['LATEST_COUNT'] = str(Config.cdn.savanna_latestCount)
+
 # nut keeps eShop text as Nintendo wrote it: only line terminators, control characters and stray whitespace are
 # cleaned (no ASCII / accent folding or other character replacement).
 Simba.WHITESPACE_ONLY = True
