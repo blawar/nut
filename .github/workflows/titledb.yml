@@ -62,7 +62,7 @@ jobs:
       - name: Commit versions
         working-directory: titledb
         run: |
-          git add .
+          git add versions.json versions.txt
           git diff --cached --quiet || git commit -m "versions"
 
       - name: Scrape Simba delta

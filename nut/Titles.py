@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import atexit
 import time
 import json
 import nut
@@ -10,6 +11,7 @@ import operator
 from nut import Config
 from nut import Print
 import threading
+import zstandard
 from nut import Simba
 
 try:
@@ -207,6 +209,28 @@ def loadTitlesJson(filePath='titledb/titles.json'):
 	confLock.release()
 	return newTitles
 
+# titles.json is too large for github (100MB file limit): nut only reads and writes titles.json (gitignored in
+# titledb), and when a run has saved it, titles.json.zst is made from it once at exit, for pushing to titledb
+TITLES_JSON = 'titledb/titles.json'
+TITLES_ZST = TITLES_JSON + '.zst'
+TITLES_ZST_LEVEL = 10
+titlesJsonSaved = False
+
+def compressTitlesJson():
+	'''titles.json.zst from titles.json: a single standard zstd frame (checksum, content size, window well under the
+	8MB decoders must support), so the zstd cli, 7-Zip, Ark, Python's compression.zstd and the like can unpack it'''
+	tmpName = TITLES_ZST + '.tmp'
+	with open(TITLES_JSON, 'rb') as rf, open(tmpName, 'wb') as f:
+		zstandard.ZstdCompressor(level=TITLES_ZST_LEVEL, write_checksum=True, threads=-1).copy_stream(rf, f, size=os.path.getsize(TITLES_JSON))
+	os.replace(tmpName, TITLES_ZST)
+	Print.info('compressed ' + TITLES_JSON + ' to ' + TITLES_ZST)
+
+def compressTitlesJsonIfSaved():
+	if titlesJsonSaved:
+		compressTitlesJson()
+
+atexit.register(compressTitlesJsonIfSaved)
+
 def load():
 	confLock.acquire()
 	global titles
@@ -339,6 +363,9 @@ def save(fileName='titledb/titles.json', full=True):
 			j[k.id] = k.exportDict(full=full)
 
 		nut.writeJson(cleanJson(j), fileName)
+		if fileName == TITLES_JSON:
+			global titlesJsonSaved
+			titlesJsonSaved = True
 	except BaseException:
 		confLock.release()
 		raise

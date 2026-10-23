@@ -878,6 +878,7 @@ if __name__ == '__main__':
 
 			if args.versions_from is not None:
 				nut.scanLatestTitleUpdates(nut.loadVersionList(args.versions_from))
+				nut.export('titledb/versions.txt', ['id', 'rightsId', 'version'])
 
 			if hasCdn:
 				if args.download:
