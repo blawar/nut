@@ -35,6 +35,7 @@ language = 'en'
 
 titleUrls = []
 pullUrls = []
+versionsUrl = None
 original = {}
 
 g_regionLanguages = None
@@ -325,6 +326,7 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 	global autoUpdateTitleDb  # pylint: disable=global-statement
 	global original  # pylint: disable=global-statement
 	global allowNoMetadata  # pylint: disable=global-statement
+	global versionsUrl  # pylint: disable=global-statement
 
 	with open(confFile, encoding='utf8') as f:
 		try:
@@ -351,6 +353,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 
 		try:
 			paths.titleImages = j['paths']['titleImages']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			paths.shopNCert = j['paths']['shopNCert']
 		except BaseException:  # pylint: disable=broad-except
 			pass
 
@@ -585,6 +592,16 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			cdn.savanna_userAgent = j['cdn']['savanna_userAgent']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			cdn.savanna_latestCount = int(j['cdn']['savanna_latestCount'])
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			dauth.keyGeneration = j['cdn']['dAuth']['keyGeneration']
 			dauth.challenge = 'key_generation=' + str(dauth.keyGeneration)
 		except BaseException:  # pylint: disable=broad-except
@@ -653,6 +670,11 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			versionsUrl = j['versionsUrl']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			for url in j['pullUrls']:
 				if url not in pullUrls:
 					pullUrls.append(url)
@@ -696,14 +718,14 @@ def regionLanguages(fileName='titledb/languages.json'):
 	if g_regionLanguages is not None:
 		return g_regionLanguages
 
-	g_regionLanguages = []
-
+	# built in a local and published once complete: the scrape worker threads call this concurrently
 	try:
 		with open(fileName, encoding='utf-8-sig') as f:
-			g_regionLanguages = json.loads(f.read())
+			result = json.loads(f.read())
 	except BaseException:  # pylint: disable=broad-except
-		g_regionLanguages = json.loads(DEFAULT_REGION_LANGUAGES)
+		result = json.loads(DEFAULT_REGION_LANGUAGES)
 
+	g_regionLanguages = result
 	return g_regionLanguages
 
 def loadTitleWhitelist():
@@ -811,6 +833,8 @@ class Cdn:  # pylint: disable=too-few-public-methods
 		self.firmware = None
 		self.deviceId = None
 		self.environment = 'lp1'
+		self.savanna_userAgent = None  # None: keep Simba.UA
+		self.savanna_latestCount = None  # None: keep simba's LATEST_COUNT (1000)
 		self.clientIds = { "eShop": "93af0acb26258de9", "atumC1": "3117b250cab38f45", "tigers": "d5b6cac2c1514c56", "tagaya": "41f4a6491028e3c4"}
 
 	def getDeviceId(self):
@@ -854,6 +878,8 @@ class EdgeToken:
 		if not self.token or not self.expires or time.time() > self.expires:
 			import cdn.Auth  # pylint: disable=redefined-outer-name,import-outside-toplevel,import-error
 			self.token = cdn.Auth.getEdgeToken(self.clientId)
+			if not self.token:
+				raise IOError('No edge token')
 			self.expires = os.path.getmtime(self.fileName()) + (60 * 60)
 
 		if not self.token:

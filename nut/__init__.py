@@ -28,10 +28,10 @@ from Fs import Cnmt, Nca, Nsp, Pfs0, Rom, BaseFs
 from Fs.Pfs0 import Pfs0Stream
 from nut import (Config, Keys, Nsps, NszDecompressor, Print, Status, Title,
                  Titles, aes128)
+from nut import Eshop
 
 try:
 	import cdn
-	import cdn.Shogun
 	hasCdn = True
 except BaseException:
 	hasCdn = False
@@ -1172,8 +1172,8 @@ def saveNcaData():
 			for v, row in j.items():
 				out[k][v] = row.__dict__
 
-		with open('titledb/cnmts.json', 'w') as f:
-			json.dump(out, f, indent=4, sort_keys=True)
+		with open('titledb/cnmts.json', 'w', encoding='utf-8') as f:
+			json.dump(out, f, indent=4, sort_keys=True, ensure_ascii=False)
 	except BaseException:
 		raise
 
@@ -1183,8 +1183,8 @@ def saveNcaData():
 		for k, v in ncaData.items():
 			out[k] = v.__dict__
 
-		with open('titledb/ncas.json', 'w') as f:
-			json.dump(out, f, indent=4, sort_keys=True)
+		with open('titledb/ncas.json', 'w', encoding='utf-8') as f:
+			json.dump(out, f, indent=4, sort_keys=True, ensure_ascii=False)
 	except BaseException:
 		raise
 
@@ -1446,20 +1446,25 @@ def getName(titleId, version, key=None, path=None):
 
 	return os.path.join(Config.paths.nspOut, os.path.basename(nsp.fileName() or ('Untitled [%s][v%d]%s' % (titleId, int(version or 0), ext))))
 
-def scrapeShogun(force=False, region=None):
-	if not hasCdn:
-		return
+def scrapeSimba(force=False, region=None):
 	initTitles()
 	initFiles()
 
 	if region is None:
-		for region in cdn.regions():
-			cdn.Shogun.scrapeTitles(region, force=force)
+		for region in Eshop.REGIONS:
+			Eshop.scrapeTitles(region, force=force)
 	else:
-		cdn.Shogun.scrapeTitles(region, force=force)
+		Eshop.scrapeTitles(region, force=force)
 	Titles.saveAll()
 
-def scrapeShogunWorker(q, bar, force = False, refresh = False, shogunList = True):
+def isBaseTitleId(id):
+	try:
+		n = int(id, 16)
+	except (TypeError, ValueError):
+		return False
+	return len(id) == 16 and (n & 0xFFFFFFFFFFFFE000) == (n & 0xFFFFFFFFFFFFF000) and n & 0xFFF == 0
+
+def scrapeSimbaWorker(q, bar, force = False, refresh = False, simbaList = True):
 	while True:
 		region = q.get()
 
@@ -1467,50 +1472,41 @@ def scrapeShogunWorker(q, bar, force = False, refresh = False, shogunList = True
 			break
 
 		try:
-			if shogunList == True:
-				cdn.Shogun.scrapeTitles(region, force = force, refresh = refresh, save = False)
+			if simbaList == True:
+				Eshop.scrapeTitles(region, force = force, refresh = refresh, save = False)
 			else:
-				for language in Config.regionLanguages()[region]:
-					#if (Titles.regionModified(region, language) > os.path.getmtime('titledb/versions.json')):
-					#	continue
-					#if ('%s.%s.json' % (region, language) ) in ['AR.en.json', 'AR.es.json', 'AT.de.json', 'BG.en.json', 'BR.en.json', 'BR.pt.json', 'CA.en.json', 'CL.en.json', 'CL.es.json', 'CN.zh.json', 'CO.en.json', 'CO.es.json', 'CY.en.json', 'CZ.en.json', 'DE.de.json', 'DK.en.json', 'EE.en.json', 'ES.es.json', 'FI.en.json', 'GR.en.json', 'HK.zh.json', 'HR.en.json', 'HU.en.json', 'IE.en.json', 'KR.ko.json', 'LT.en.json', 'LV.en.json', 'MT.en.json', 'MX.en.json', 'NL.nl.json', 'NO.en.json', 'NZ.en.json', 'PE.en.json', 'PE.es.json', 'PL.en.json', 'PT.pt.json', 'RO.en.json', 'RU.ru.json']:
-					#	continue
-					Print.info('searching %s %s' % (region, language))
-
-					keys = []
-
-					for x in Titles.keys():
-						if not x.endswith('800'):
-							keys.append(x)
-					status = Status.create(len(keys), desc='searching %s %s' % (region, language), unit='')
-					for id in keys:
-						try:
-							l = cdn.Shogun.ids(id, region = region, language = language or 'en', force=(force or shogunList == False))
-							status.add(1)
-
-							if not l or len(l) == 0 or len(l['id_pairs']) == 0:
-								#Print.info('\tno nsuId\'s found')
-								pass
-							else:
-								#print(l)
-								for t in l['id_pairs']:
-									#print('\tnsuId: ' + str(t['id']))
-									#print(json.dumps(cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True).__dict__))
-									cdn.Shogun.scrapeTitle(t['id'], region=region, language=language, force=True)
-
-						except BaseException as e:
-							Print.info('shogun worker inner exception: ' + str(e))
-							traceback.print_exc(file=sys.stdout)
-					status.close()
+				# base title IDs only: DLC IDs never match an application lookup (their DLC are scraped through the base
+				# title), updates (...800) have no eShop entry. The id pairs do not depend on the language, so they are
+				# looked up once per store, IDS_BATCH (200) IDs per request (Eshop.idsBatched splits a rejected batch),
+				# then each language is scraped in batches (Eshop.scrapeNsuids).
+				languages = Config.regionLanguages()[region]
+				keys = [x for x in Titles.keys() if isBaseTitleId(x)]
+				Print.info('searching %s (%d title ids)' % (region, len(keys)))
+				found = []
+				try:
+					found = [t['id'] for t in Eshop.idsBatched(keys, region = region, language = languages[0] or 'en', label = region)['id_pairs']]
+				except BaseException as e:
+					Print.info('simba worker inner exception: ' + str(e))
+					traceback.print_exc(file=sys.stdout)
+				for language in languages:
+					Print.info('scraping %s %s (%d titles)' % (region, language, len(found)))
+					start = time.time()
+					try:
+						Eshop.scrapeNsuids(found, region, language, force=True)
+					except BaseException as e:
+						Print.info('simba worker inner exception: ' + str(e))
+						traceback.print_exc(file=sys.stdout)
 					Titles.saveRegion(region, language)
+					Print.info('saved %s %s (%d titles in %ds)' % (region, language, len(found), time.time() - start))
 		except BaseException as e:
-			Print.info('shogun worker exception: ' + str(e))
+			Print.info('simba worker exception: ' + str(e))
 			traceback.print_exc(file=sys.stdout)
 
+		Print.info('%s done' % region)
 		q.task_done()
 		bar.add(1)
 
-def scrapeShogunThreaded(force = False, refresh = False, shogunList = True):
+def scrapeSimbaThreaded(force = False, refresh = False, simbaList = True):
 	initTitles()
 	initFiles()
 
@@ -1522,18 +1518,18 @@ def scrapeShogunThreaded(force = False, refresh = False, shogunList = True):
 	else:
 		q = queue.Queue()
 
-	for region in cdn.regions():
+	for region in Eshop.REGIONS:
 		q.put(region)
 
-	bar = Status.create(q.qsize(), desc="Scanning shogun...", unit='')
+	bar = Status.create(q.qsize(), desc="Scanning Simba...", unit='')
 
 	for i in range(numThreads):
-		t = threading.Thread(target=scrapeShogunWorker, args=[q, bar, force, refresh, shogunList])
+		t = threading.Thread(target=scrapeSimbaWorker, args=[q, bar, force, refresh, simbaList])
 		t.daemon = True
 		t.start()
 		scrapeThreads.append(t)
 
-	Print.info('joining shogun queue')
+	Print.info('joining Simba queue')
 	q.join()
 
 	for i in range(numThreads):
@@ -1552,7 +1548,7 @@ def scrapeShogunThreaded(force = False, refresh = False, shogunList = True):
 	Titles.save()
 	Print.info('titles  saved')
 
-def scrapeShogunUnnamed():
+def scrapeSimbaUnnamed():
 	initTitles()
 	initFiles()
 
@@ -1573,7 +1569,7 @@ def scrapeShogunUnnamed():
 						t = Titles.getTitleId(id, region, language)
 
 						if t:
-							s = cdn.Shogun.scrapeTitle(int(t.nsuId), region=region, language=language, force=False)
+							s = Eshop.scrapeTitle(int(t.nsuId), region=region, language=language, force=False)
 							#print(json.dumps(s.__dict__))
 			except:
 				pass
@@ -1586,7 +1582,39 @@ def scrapeShogunUnnamed():
 	else:
 		print(result)
 
-def scanLatestTitleUpdates():
+def loadVersionList(source=None):
+	# reads id|rightsId|version lines from a local file or http(s) url
+	source = source or Config.versionsUrl
+
+	if not source:
+		raise IOError('no versions source given and versionsUrl is not set in conf/nut.conf')
+
+	if source.startswith('http://') or source.startswith('https://'):
+		Print.info('downloading versions from ' + source)
+		r = requests.get(source, timeout=60)
+		r.raise_for_status()
+		lines = r.text.splitlines()
+	else:
+		with open(source, 'r', encoding='utf-8-sig') as f:
+			lines = f.read().splitlines()
+
+	versions = {}
+	for line in lines:
+		split = line.strip().split('|')
+		if len(split) < 3 or split[0].lower() == 'id':
+			continue
+
+		id = split[0].strip().upper()
+		version = split[2].strip()
+
+		if len(id) != 16 or not version.isdigit():
+			continue
+
+		versions[id] = version
+
+	return versions
+
+def scanLatestTitleUpdates(versionList=None):
 	global versionHistory
 	initTitles()
 	initFiles()
@@ -1595,17 +1623,19 @@ def scanLatestTitleUpdates():
 	today = now.strftime("%Y-%m-%d")
 
 	try:
-		with open('titledb/versions.json', 'r') as f:
+		with open('titledb/versions.json', 'r', encoding='utf-8-sig') as f:
 			for titleId, vers in json.loads(f.read()).items():
 				for ver, date in vers.items():
 					setVersionHistory(titleId, ver, date)
 	except BaseException:
 		pass
 
-	if not hasCdn:
-		return
+	if versionList is None:
+		if not hasCdn:
+			return
+		versionList = cdn.hacVersionList()
 
-	for k, i in cdn.hacVersionList().items():
+	for k, i in versionList.items():
 		id = str(k).upper()
 		version = str(i)
 
@@ -1628,8 +1658,8 @@ def scanLatestTitleUpdates():
 	Titles.save()
 
 	try:
-		with open('titledb/versions.json', 'w') as outfile:
-			json.dump(versionHistory, outfile, indent=4, sort_keys=True)
+		with open('titledb/versions.json', 'w', encoding='utf-8') as outfile:
+			json.dump(versionHistory, outfile, indent=4, sort_keys=True, ensure_ascii=False)
 	except BaseException as e:
 		Print.info(str(e))
 

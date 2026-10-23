@@ -76,9 +76,14 @@ def get_pubk(clcert):
 	_, v = clcert_decoder.read()
 	assert(v == '1.2.840.113549.1.1.1')  # rsaEncryption(PKCS #1)
 	clcert_decoder.leave()
-	_, v = clcert_decoder.read()
+	# asn1 3.x leaves the AlgorithmIdentifier NULL unread and strips the BIT STRING unused-bits byte
+	t, v = clcert_decoder.read()
+	while t.nr != asn1.Numbers.BitString:
+		t, v = clcert_decoder.read()
+	if v[:1] == b'\x00':
+		v = v[1:]
 	rsa_decoder = asn1.Decoder()
-	rsa_decoder.start(v[1:])
+	rsa_decoder.start(v)
 	rsa_decoder.enter()
 	_, N = rsa_decoder.read()
 	_, E = rsa_decoder.read()
