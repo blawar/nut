@@ -1544,6 +1544,10 @@ def scrapeSimbaThreaded(force = False, refresh = False, simbaList = True):
 
 	bar.close()
 
+	# the scrape only fills the region files: this is what brings its metadata into titles.json
+	Print.info('importing region data')
+	importRegion(Config.region, Config.language, save=False)
+
 	Print.info('saving titles')
 	Titles.save()
 	Print.info('titles  saved')

@@ -231,7 +231,20 @@ def compressTitlesJsonIfSaved():
 
 atexit.register(compressTitlesJsonIfSaved)
 
+def decompressTitlesJson():
+	'''titles.json from titles.json.zst, on a fresh checkout of titledb (only the .zst is tracked)'''
+	tmpName = TITLES_JSON + '.tmp'
+	with open(TITLES_ZST, 'rb') as rf, open(tmpName, 'wb') as f:
+		zstandard.ZstdDecompressor().copy_stream(rf, f)
+	os.replace(tmpName, TITLES_JSON)
+	Print.info('decompressed ' + TITLES_ZST + ' to ' + TITLES_JSON)
+
 def load():
+	# outside the lock and before titles is set: an unreadable .zst has to stop the run, the next save() would
+	# otherwise replace it with an almost empty titles.json
+	if not os.path.isfile(TITLES_JSON) and os.path.isfile(TITLES_ZST):
+		decompressTitlesJson()
+
 	confLock.acquire()
 	global titles
 	titles = {}
@@ -339,9 +352,9 @@ def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 			if not k.nsuId:
 				continue
 			if k.id and not k.rightsId:
-				title = get(k.id)
-				title.setVersion(title.version)
-				if title.rightsId:
+				# a lookup only: get() would add an empty title to titles.json for every id not in it yet
+				title = titles.get(k.id) if titles else None
+				if title and title.rightsId:
 					k.setId(title.rightsId)
 			j[k.nsuId] = k.exportDict(True)
 		nut.writeJson(cleanJson(j), fileName)
