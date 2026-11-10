@@ -67,7 +67,7 @@ LANG_CODE = env("LANG_CODE", "en")
 REGION = env("REGION", "USA")
 TIMEOUT = float(env("TIMEOUT", "60"))
 
-UA = "Mozilla/5.0 (Nintendo Switch; ShopN; Nintendo Switch) AppleWebKit/613.0 (KHTML, like Gecko) NF/6.0.3.31.11 NintendoBrowser/5.1.0.55481"
+UA = "Mozilla/5.0 (Nintendo Switch; ShopN; Nintendo Switch) AppleWebKit/613.0 (KHTML, like Gecko) NF/6.0.3.31.18 NintendoBrowser/5.1.0.56238"
 
 H_CT = "Content-Type: application/json"
 H_ACCEPT = "Accept: application/graphql-response+json,application/json;q=0.9"
@@ -374,6 +374,15 @@ def _with_parent_id(rec, parent):
 
 def has_errors(r):
     return isinstance(r, dict) and r.get("errors") not in (None, False)
+
+
+def cost_exceeded(r):
+    """The server's query cost limit (YATA errorCode 1806, QUERY_COST_LIMIT_EXCEEDED): the query is valid but too
+    expensive (selection x rows); fewer rows or fields fixes it."""
+    return has_errors(r) and any(
+        isinstance(e, dict) and (str(dig(e, "extensions", "errorCode")) == "1806"
+                                 or dig(e, "extensions", "title") == "QUERY_COST_LIMIT_EXCEEDED")
+        for e in r["errors"] if isinstance(r["errors"], list))
 
 
 def _parse_pause(text):
@@ -852,7 +861,7 @@ DLC_LIMIT = 100
 def paged(query, variables, start, quiet=False):
     """Walks searchV4 pages until items is empty (offsets >= 1000 are rejected by the API)."""
     off = start
-    lim = env("LIMIT", str(SEARCH_LIMIT))
+    lim = variables.get("limit", env("LIMIT", str(SEARCH_LIMIT)))
     mx = int(env("MAX_PAGES", "1000"))
     offset_max = int(env("OFFSET_MAX", "1000"))
     page = 0
@@ -2452,6 +2461,237 @@ def item_extra(nsuid, fields=None, region=None, language=None):
 
     return _extra_run(kind, names, run_query, nsuid)
 
+_FULL_AUTH_ARGS = {"idToken", "xDeviceAuthorization", "security", "tokenId", "cardId", "creditCardTransactionId",
+                   "checkoutId", "serviceTransactionId", "eCardCode", "downloadCode", "redirectUrl"}
+_MAP_LINE = re.compile(r'^(?P<ind> *)- (?P<name>[_A-Za-z][_0-9A-Za-z]*)(?:\((?P<args>[^)]*)\))?(?:\s+\[on (?P<on>[^\]]+)\])?\s*$')
+_map_cache = {}
+_full_sel_cache = {}
+
+
+def _full_arg_values():
+    """GraphQL literals for the arguments the map shows; an argument not in here is left out."""
+    ss = "[" + env("SCRAPE_SALES_STATUSES", "ONSALE,PRE_ORDER,SALES_TERMINATION,UNRELEASED").replace(",", ", ") + "]"
+    ps = "[" + env("PUBLIC_STATUSES", "PUBLIC").replace(",", ", ") + "]"
+    return {"salesStatuses": ss, "publicStatuses": ps}
+
+
+def schema_map_path():
+    """SCHEMA_MAP, else docs/savanna_map.md of this repository. Only the *-full commands read it, and only when run,
+    so simba works as a library without it."""
+    p = env("SCHEMA_MAP") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                          "docs", "savanna_map.md")
+    if os.path.isfile(p):
+        return p
+    raise ApiError(f"no schema map at {p}: the *-full commands need docs/savanna_map.md; set SCHEMA_MAP to its path "
+                   "or write it with python scripts/savanna_schema_map.py mine")
+
+
+def map_section(heading):
+    """`### <heading>` of the schema map -> [{name, args, on, kids}] (first section with that heading)."""
+    if heading in _map_cache:
+        return _map_cache[heading]
+    lines = open(schema_map_path(), encoding="utf-8").read().splitlines()
+    try:
+        i = lines.index(f"### {heading}") + 1
+    except ValueError:
+        raise ApiError(f"schema map has no '### {heading}' section") from None
+    root, stack = [], []
+    for line in lines[i:]:
+        if line.startswith("#"):
+            break
+        m = _MAP_LINE.match(line)
+        if not m:
+            continue
+        node = {"name": m["name"], "args": [x.strip() for x in (m["args"] or "").split(",") if x.strip()],
+                "on": [x.strip() for x in (m["on"] or "").split(",") if x.strip()], "kids": []}
+        depth = len(m["ind"]) // 2
+        del stack[depth:]
+        (stack[-1]["kids"] if stack else root).append(node)
+        stack.append(node)
+    _map_cache[heading] = root
+    return root
+
+
+def _full_args(node, values):
+    """-> "(a: v, ...)" / "" or None when the field needs a signed-in user."""
+    if "raw" in node:
+        return ""
+    if any(a in _FULL_AUTH_ARGS for a in node["args"]):
+        return None
+    parts = [f"{a}: {values[a]}" for a in node["args"] if values.get(a) is not None]
+    return f"({', '.join(parts)})" if parts else ""
+
+
+def _full_frame(node, values, top_type):
+    """(open, close) around a field's sub-selection, including a `... on T` when the map marks the field as coming
+    from a fragment on another type."""
+    head = node["name"] + _full_args(node, values) + " { "
+    on = node["on"]
+    if on and top_type not in on:
+        return f"... on {on[0]} {{ {head}", " } }"
+    return head, " }"
+
+
+def _full_render(node, values, top_type=None):
+    if "raw" in node:
+        return node["raw"]
+    args = _full_args(node, values)
+    if args is None:
+        return None
+    kids = [k for k in (_full_render(k, values) for k in node["kids"]) if k]
+    if node["kids"] and not kids:
+        return None
+    body = node["name"] + args + (" { " + " ".join(kids) + " }" if kids else "")
+    on = node["on"]
+    if on and top_type not in on:
+        return " ".join(f"... on {t} {{ {body} }}" for t in on)
+    return body
+
+
+def full_resolve(nodes, run, values, top_type=None, path="", report=None):
+    """The accepted part of `nodes` as selection strings; run(selection) -> True when the server accepts it."""
+    report = report if report is not None else {"rejected": [], "skipped": []}
+    group = []
+    for n in nodes:
+        s = _full_render(n, values, top_type)
+        if s is None:
+            report["skipped"].append(path + n.get("name", n.get("raw", "?")))
+        else:
+            group.append((n, s))
+
+    def go(g):
+        if not g:
+            return []
+        if run(" ".join(s for _, s in g)):
+            return [s for _, s in g]
+        if len(g) > 1:
+            return go(g[:len(g) // 2]) + go(g[len(g) // 2:])
+        n, s = g[0]
+        name = path + n.get("name", n.get("raw", "?")[:60])
+        if "raw" not in n:
+            op, cl = _full_frame(n, values, top_type)
+            if n["kids"]:
+                sub = full_resolve(n["kids"], lambda x: run(op + x + cl), values, None, name + ".", report)
+                if sub:
+                    return [op + " ".join(sub) + cl]
+            elif run(op + "__typename" + cl):
+                return [op + "__typename" + cl]
+        report["rejected"].append(name)
+        return []
+
+    return go(group)
+
+
+def _full_report(label, report):
+    for k in ("rejected", "skipped"):
+        if report[k]:
+            why = "rejected by the server" if k == "rejected" else "need a signed-in user"
+            err(f"{label}: {len(report[k])} field(s) {why}, left out: {', '.join(report[k])}")
+
+
+FULL_KINDS = {  # kind -> (schema map section, item root, EXTRA_FIELDS kind)
+    "application": ("ApplicationItem", "applicationItem", "application"),
+    "bundle": ("BundleItem", "bundleItem", "bundle"),
+    "dlc": ("DlcItem", "dlcItem", "dlc"),
+    "demo": ("DemoItem", "demoItem", "demo"),
+}
+
+
+def _full_nodes(kind):
+    section, _, extra = FULL_KINDS[kind]
+    return map_section(section) + [{"raw": sel} for sel in EXTRA_FIELDS.get(extra, {}).values()]
+
+
+def _item_full_query(root, sel):
+    return ("query Full($shopId: Int!, $country: CountryCode!, $language: LanguageCode!, $nsUid: NsUid!) "
+            "@inContext(shopId: $shopId, country: $country, language: $language) "
+            "{ item { " + root + "(nsUid: $nsUid) { __typename nsUid " + sel + " } } }")
+
+
+def full_selection(kind, probe_nsuid):
+    """Checked selection for `kind` (probed on probe_nsuid, once per run); <KIND>_FULL_FIELDS replaces it."""
+    if kind in _full_sel_cache:
+        return _full_sel_cache[kind]
+    with _probe_lock:
+        if kind not in _full_sel_cache:
+            sel = env(f"{kind.upper()}_FULL_FIELDS")
+            if not sel:
+                section, root, _ = FULL_KINDS[kind]
+                values = _full_arg_values()
+
+                def run(x):
+                    return not has_errors(rawreq("Full", _item_full_query(root, x), {"nsUid": int(probe_nsuid)},
+                                                 store_language()))
+
+                report = {"rejected": [], "skipped": []}
+                sel = " ".join(full_resolve(_full_nodes(kind), run, values, section, "", report))
+                _full_report(f"{kind}-full", report)
+            _full_sel_cache[kind] = sel
+    return _full_sel_cache[kind]
+
+
+def item_full(kind, nsuids):
+    """item.<root>(nsUid) with every field of `kind` the schema map and EXTRA_FIELDS know, one raw row per nsUid."""
+    _, root, _ = FULL_KINDS[kind]
+    for ns in nsuids:
+        sel = full_selection(kind, ns)
+        r = rawreq("Full", _item_full_query(root, sel), {"nsUid": int(ns)}, store_language())
+        if cost_exceeded(r):
+            raise ApiError(f"{kind}-full: the full selection is over the server's query cost limit (1806) even for "
+                           f"one item; set {kind.upper()}_FULL_FIELDS to a smaller selection")
+        if has_errors(r):
+            fail_errors(r)
+        row = dig(r, "data", "item", root)
+        if row is None:
+            err(f"{kind}-full: no {root} for nsUid {ns}")
+        else:
+            yield row
+
+
+_DLC_SEARCH_DEFAULT = "... on DlcItem { name: formalName releaseDateOnEshop heroBannerUrl romRights { titleId } }"
+# Largest dlc-search-full page the server's query cost limit (1806) accepts with the full DlcItem selection (100 is
+# rejected; confirmed live). LIMIT overrides; a page that is still too expensive halves it.
+DLC_FULL_SEARCH_LIMIT = 50
+
+
+def dlc_search_full(offset=0):
+    """dlc-search with the dlc-full selection (checked on a one-row DLC search) instead of four fields;
+    same env (FREEWORD SORT LIMIT ALL), LIMIT defaulting to DLC_FULL_SEARCH_LIMIT."""
+    variables = {"region": _ctx_get("region") or REGION, "freeword": env("FREEWORD", ""), "sort": env("SORT", "RELEASE_DATE_DESC"),
+                 "itemTypes": ["DLC"], "limit": int(env("LIMIT", str(DLC_FULL_SEARCH_LIMIT)))}
+
+    def query(sel):
+        return Q_SEARCH_DLC.replace(_DLC_SEARCH_DEFAULT, "... on DlcItem { " + sel + " }", 1)
+
+    if "dlc-search" not in _full_sel_cache:
+        sel = env("DLC_FULL_FIELDS")
+        if not sel:
+            report = {"rejected": [], "skipped": []}
+            sel = " ".join(full_resolve(_full_nodes("dlc"), lambda x: not has_errors(rawreq("Search", query(x), {**variables, "limit": 1, "offset": 0})),
+                                        _full_arg_values(), "DlcItem", "", report))
+            _full_report("dlc-search-full", report)
+        _full_sel_cache["dlc-search"] = sel
+    q = query(_full_sel_cache["dlc-search"])
+    # the full selection costs far more per row than dlc-search: halve the page size until the server's query cost
+    # limit (1806) accepts a page, then page at that size
+    lim = variables["limit"]
+    while True:
+        r = rawreq("Search", q, {**variables, "limit": lim, "offset": offset})
+        if not cost_exceeded(r) or lim == 1:
+            break
+        lim = max(1, lim // 2)
+    if cost_exceeded(r):
+        raise ApiError("dlc-search-full: the full selection is over the server's query cost limit (1806) even for "
+                       "one row; set DLC_FULL_FIELDS to a smaller selection")
+    if has_errors(r):
+        fail_errors(r)
+    if lim != variables["limit"]:
+        err(f"dlc-search-full: query cost limit (1806): page size lowered from {variables['limit']} to {lim}")
+    if env("ALL"):
+        yield from paged(q, {**variables, "limit": lim}, offset, bool(env("QUIET")))
+    else:
+        yield from emit_search_items(r)
+
 
 def country_extra(fields=None, region=None, language=None):
     """The extra fields of the store (`country`: currency, price format, payment methods, tax flags ...) -> {field: value}."""
@@ -2802,6 +3042,14 @@ def usage():
   dlc-titles <titleId>...     DLC items by DLC title ID
   search [offset]             newest Switch 1 applications (searchV4); one page of LIMIT
   dlc-search [offset]         all DLC (searchV4); one page of LIMIT
+  application-full <nsUid>...  every ApplicationItem / BundleItem / DlcItem / DemoItem field the schema map
+  bundle-full <nsUid>...        (docs/savanna_map.md) and the extra fields know, as one raw row per nsUid
+  dlc-full <nsUid>...           (item.applicationItem / bundleItem / dlcItem / demoItem). Checked once against the
+  demo-full <nsUid>...          first nsUid: fields the server rejects, or that need a signed-in user, are reported
+                                and left out. <KIND>_FULL_FIELDS = own selection (no check); SCHEMA_MAP = map
+                                path
+  dlc-search-full [offset]    dlc-search with the dlc-full fields (raw rows), LIMIT (50) per page; a page over the
+                              server's query cost limit (1806) halves it until one is accepted
   scan-range <from> <to>      exact nsUid scan (batched aliases), no search depth limit; root by prefix: 7001
                               applicationItem (search-shaped rows), 7003 demoItem, 7005 dlcItem, 7007 bundleItem
                               (full-data rows; pipe into scrape-all for titledb entries); progress/ETA on stderr
@@ -3022,6 +3270,12 @@ def main(argv):
         out(search_count())
     elif cmd == "dlc-search":
         emit_all(dlc_search(int(a[0]) if a else 0))
+    elif cmd == "dlc-search-full":
+        emit_all(dlc_search_full(int(a[0]) if a else 0))
+    elif cmd in ("application-full", "bundle-full", "dlc-full", "demo-full"):
+        if not a:
+            usage()
+        emit_all(item_full(cmd.split("-")[0], a))
     elif cmd == "scan-range":
         if len(a) < 2:
             usage()
