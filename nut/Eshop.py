@@ -46,6 +46,12 @@ if Config.cdn.savanna_userAgent:
 if not os.environ.get('LATEST_COUNT') and Config.cdn.savanna_latestCount:
 	os.environ['LATEST_COUNT'] = str(Config.cdn.savanna_latestCount)
 
+if not os.environ.get('SHOP') and Config.cdn.savanna_shopId:
+	os.environ['SHOP'] = str(Config.cdn.savanna_shopId)
+
+if not os.environ.get('PLATFORM') and Config.cdn.savanna_shopPlatform:
+	os.environ['PLATFORM'] = str(Config.cdn.savanna_shopPlatform)
+
 # nut keeps eShop text as Nintendo wrote it: only line terminators, control characters and stray whitespace are
 # cleaned (no ASCII / accent folding or other character replacement).
 Simba.WHITESPACE_ONLY = True

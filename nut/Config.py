@@ -602,6 +602,16 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			cdn.savanna_shopId = int(j['cdn']['savanna_shopId'])
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			cdn.savanna_shopPlatform = int(j['cdn']['savanna_shopPlatform'])
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			dauth.keyGeneration = j['cdn']['dAuth']['keyGeneration']
 			dauth.challenge = 'key_generation=' + str(dauth.keyGeneration)
 		except BaseException:  # pylint: disable=broad-except
@@ -835,6 +845,8 @@ class Cdn:  # pylint: disable=too-few-public-methods
 		self.environment = 'lp1'
 		self.savanna_userAgent = None  # None: keep Simba.UA
 		self.savanna_latestCount = None  # None: keep simba's LATEST_COUNT (1000)
+		self.savanna_shopId = None  # None: keep simba's SHOP=3
+		self.savanna_shopPlatform = None  # None: keep simba's PLATFORM=HAC
 		self.clientIds = { "eShop": "93af0acb26258de9", "atumC1": "3117b250cab38f45", "tigers": "d5b6cac2c1514c56", "tagaya": "41f4a6491028e3c4"}
 
 	def getDeviceId(self):
