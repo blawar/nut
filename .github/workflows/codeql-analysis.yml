@@ -3,10 +3,7 @@
 name: "CodeQL"
 
 on:
-  schedule:
-   - cron: '0 8 * * 3'
-  
-  # allows you to run this workflow manually from the Actions tab
+  # disabled: weekly schedule removed, run manually from the Actions tab
   workflow_dispatch:
 
 

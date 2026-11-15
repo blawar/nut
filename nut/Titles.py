@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import atexit
 import time
 import json
 import nut
@@ -10,6 +11,8 @@ import operator
 from nut import Config
 from nut import Print
 import threading
+import zstandard
+from nut import Simba
 
 try:
 	import cdn
@@ -76,6 +79,11 @@ def getNsuid(id, region, language):
 
 	map = data(region, language)
 
+	# region maps are keyed by nsuId: direct hit first, the full scan only as a fallback
+	t = map.get(str(id))
+	if t is not None and t.nsuId == id:
+		return t
+
 	for t in map:
 		if map[t].nsuId == id:
 			return map[t]
@@ -101,6 +109,10 @@ def hasNsuid(id, region, language):
 	id = int(id)
 
 	map = data(region, language)
+
+	t = map.get(str(id))
+	if t is not None and t.nsuId == id:
+		return True
 
 	for t in map:
 		if map[t].nsuId == id:
@@ -197,7 +209,42 @@ def loadTitlesJson(filePath='titledb/titles.json'):
 	confLock.release()
 	return newTitles
 
+# titles.json is too large for github (100MB file limit): nut only reads and writes titles.json (gitignored in
+# titledb), and when a run has saved it, titles.json.zst is made from it once at exit, for pushing to titledb
+TITLES_JSON = 'titledb/titles.json'
+TITLES_ZST = TITLES_JSON + '.zst'
+TITLES_ZST_LEVEL = 10
+titlesJsonSaved = False
+
+def compressTitlesJson():
+	'''titles.json.zst from titles.json: a single standard zstd frame (checksum, content size, window well under the
+	8MB decoders must support), so the zstd cli, 7-Zip, Ark, Python's compression.zstd and the like can unpack it'''
+	tmpName = TITLES_ZST + '.tmp'
+	with open(TITLES_JSON, 'rb') as rf, open(tmpName, 'wb') as f:
+		zstandard.ZstdCompressor(level=TITLES_ZST_LEVEL, write_checksum=True, threads=-1).copy_stream(rf, f, size=os.path.getsize(TITLES_JSON))
+	os.replace(tmpName, TITLES_ZST)
+	Print.info('compressed ' + TITLES_JSON + ' to ' + TITLES_ZST)
+
+def compressTitlesJsonIfSaved():
+	if titlesJsonSaved:
+		compressTitlesJson()
+
+atexit.register(compressTitlesJsonIfSaved)
+
+def decompressTitlesJson():
+	'''titles.json from titles.json.zst, on a fresh checkout of titledb (only the .zst is tracked)'''
+	tmpName = TITLES_JSON + '.tmp'
+	with open(TITLES_ZST, 'rb') as rf, open(tmpName, 'wb') as f:
+		zstandard.ZstdDecompressor().copy_stream(rf, f)
+	os.replace(tmpName, TITLES_JSON)
+	Print.info('decompressed ' + TITLES_ZST + ' to ' + TITLES_JSON)
+
 def load():
+	# outside the lock and before titles is set: an unreadable .zst has to stop the run, the next save() would
+	# otherwise replace it with an almost empty titles.json
+	if not os.path.isfile(TITLES_JSON) and os.path.isfile(TITLES_ZST):
+		decompressTitlesJson()
+
 	confLock.acquire()
 	global titles
 	titles = {}
@@ -305,12 +352,12 @@ def saveTitlesJson(newTitles, fileName='titledb/titles.json'):
 			if not k.nsuId:
 				continue
 			if k.id and not k.rightsId:
-				title = get(k.id)
-				title.setVersion(title.version)
-				if title.rightsId:
+				# a lookup only: get() would add an empty title to titles.json for every id not in it yet
+				title = titles.get(k.id) if titles else None
+				if title and title.rightsId:
 					k.setId(title.rightsId)
 			j[k.nsuId] = k.exportDict(True)
-		nut.writeJson(j, fileName)
+		nut.writeJson(cleanJson(j), fileName)
 	except BaseException:
 		confLock.release()
 		raise
@@ -328,7 +375,10 @@ def save(fileName='titledb/titles.json', full=True):
 
 			j[k.id] = k.exportDict(full=full)
 
-		nut.writeJson(j, fileName)
+		nut.writeJson(cleanJson(j), fileName)
+		if fileName == TITLES_JSON:
+			global titlesJsonSaved
+			titlesJsonSaved = True
 	except BaseException:
 		confLock.release()
 		raise
@@ -337,6 +387,28 @@ def save(fileName='titledb/titles.json', full=True):
 
 def saveRegion(region, language):
 	saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
+
+# (attribute, multi-line) of the free text a Title carries
+TEXT_ATTRS = (('name', False), ('description', True), ('intro', True), ('publisher', False), ('developer', False))
+
+def cleanJson(value, key=None):
+	'''Simba.clean_whitespace on every string of an exported titledb value (a copy; the titles are not changed).
+	description / intro keep their line breaks; an emptied text field other than name -> None.
+	CLEAN_TEXT=0 returns the value unchanged.'''
+	if Simba.env('CLEAN_TEXT').lower() in ('0', 'off', 'false', 'no'):
+		return value
+	return _cleanJson(value, key)
+
+def _cleanJson(value, key=None):
+	if isinstance(value, str):
+		multiline = dict(TEXT_ATTRS).get(key, False)
+		new = Simba.clean_whitespace(value, multiline)
+		return None if new == '' and key in dict(TEXT_ATTRS) and key != 'name' else new
+	if isinstance(value, dict):
+		return {k: _cleanJson(v, k) for k, v in value.items()}
+	if isinstance(value, list):
+		return [_cleanJson(v) for v in value]
+	return value
 
 def regionModified(region, language):
 	return os.path.getmtime('titledb/%s.%s.json' % (region, language))
@@ -403,8 +475,8 @@ global queue
 queue = Queue()
 
 def saveAll(fileName='titledb/titles.json'):
-	for region in cdn.regions():
-		for language in cdn.Shogun.countryLanguages(region):
+	for region in Simba.REGIONS:
+		for language in Simba.countryLanguages(region):
 			saveTitlesJson(data(region, language), 'titledb/%s.%s.json' % (region, language))
 
 	save(fileName)

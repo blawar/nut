@@ -37,7 +37,6 @@
     <Compile Include="cdn\Atum.py" />
     <Compile Include="cdn\Atumn.py" />
     <Compile Include="cdn\Auth.py" />
-    <Compile Include="cdn\Shogun.py" />
     <Compile Include="cdn\Sun.py" />
     <Compile Include="cdn\Superfly.py" />
     <Compile Include="cdn\Tagaya.py" />
@@ -77,12 +76,14 @@
     <Compile Include="nut\aes128.py" />
     <Compile Include="nut\blockchain.py" />
     <Compile Include="nut\Config.py" />
+    <Compile Include="nut\Eshop.py" />
     <Compile Include="nut\Hex.py" />
     <Compile Include="nut\Hook.py" />
     <Compile Include="nut\Keys.py" />
     <Compile Include="nut\Nsps.py" />
     <Compile Include="nut\NszDecompressor.py" />
     <Compile Include="nut\Print.py" />
+    <Compile Include="nut\Simba.py" />
     <Compile Include="nut\Status.py" />
     <Compile Include="nut\Title.py" />
     <Compile Include="nut\Titles.py" />

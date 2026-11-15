@@ -156,11 +156,11 @@ class Blockchain:
 		except BaseException:
 			pass
 		try:
-			with open('titledb/blockchain.json', 'w') as outfile:
+			with open('titledb/blockchain.json', 'w', encoding='utf-8') as outfile:
 				obj = []
 				for i in self.chain:
 					obj.append(i.serialize())
-				json.dump(obj, outfile, indent=4)
+				json.dump(obj, outfile, indent=4, ensure_ascii=False)
 		except BaseException:
 			pass
 

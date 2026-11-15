@@ -17,6 +17,7 @@ import sys
 from nut import Nsps
 import urllib.request
 from nut import Config
+from nut import Simba
 try:
 	import cdn
 except BaseException:
@@ -62,8 +63,8 @@ def grabCachedRedirectUrl(url, cookies=None):
 			# not sure but dont cache it
 			return result
 
-		with open('titledb/redirectCache.json', 'w') as outfile:
-			json.dump(urlCache, outfile)
+		with open('titledb/redirectCache.json', 'w', encoding='utf-8') as outfile:
+			json.dump(urlCache, outfile, ensure_ascii=False)
 		urlLock.release()
 		return result
 	except BaseException:
@@ -541,7 +542,7 @@ class Title:
 
 	def getVersion(self):
 		if self.version is None:
-			return ''
+			return 0
 		return self.version
 
 	def setParentId(self, titleId):
@@ -685,7 +686,7 @@ class Title:
 			r.append(self.screenshotFile(i))
 		return r
 
-	def parseShogunJson(self, _json, region=None, language=None, canGrabFromShogun=False):
+	def parseSimbaJson(self, _json, region=None, language=None, canGrabFromSimba=False):
 		if not _json:
 			return None
 
@@ -717,8 +718,8 @@ class Title:
 
 		if "languages" in _json:
 			self.languages = []
-			for language in _json["languages"]:
-				self.languages.append(language['iso_code'])
+			for lang in _json["languages"]:
+				self.languages.append(lang['iso_code'])
 
 		if "genre" in _json:
 			self.category = _json["genre"].split(' / ')
@@ -776,9 +777,9 @@ class Title:
 			if "target_titles" in _json:
 				for nsu in _json["target_titles"]:
 					if not Titles.hasNsuid(nsu["id"], region, language):
-						if canGrabFromShogun:
+						if canGrabFromSimba:
 							baseTitle = Titles.getNsuid(nsu["id"], region, language)
-							baseTitle.parseShogunJson(cdn.Shogun.getTitleByNsuid(nsu["id"], region, language), region, language, True)
+							baseTitle.parseSimbaJson(Simba.getTitleByNsuid(nsu["id"], region, language), region, language, True)
 							#Titles.saveRegion(region, language)
 					else:
 						baseTitle = Titles.getNsuid(nsu["id"], region, language)
@@ -812,7 +813,7 @@ class Title:
 						Print.error('Failed to parse json for ' + "https://ec.nintendo.com/apps/%s/%s" % (id, region))
 						continue
 
-					self.parseShogunJson(_json, region)
+					self.parseSimbaJson(_json, region)
 
 				# <img aria-hidden="true" data-src="https://media.nintendo.com/nintendo/bin/ZppwWK6BnjH5twBNvE5wEEI9aeMGR0XX/hQGr97SGMnlXBWoqOBtgtGX5noK3tNtD.jpg"/>
 				result = grabCachedRedirectUrl("https://ec.nintendo.com/apps/%s/US" % id, cookies=cookies)
