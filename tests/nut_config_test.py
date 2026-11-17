@@ -113,6 +113,74 @@ class NutConfigTest(TestCase):
 		self.assertEqual(Config.server.hostname, '127.0.0.1')
 		self.assertEqual(Config.server.port, 9005)
 
+	def test_load_title_database_and_keys_paths(self):
+		conf_file = 'conf/nut.conf'
+		conf_content = """
+{
+	"paths": {
+		"titleDatabase": "/data/titledb/",
+		"keys": "/config/keys.txt"
+	}
+}
+"""
+		self.fs.create_file(conf_file, contents=conf_content)
+		Config.load(conf_file)
+		self.assertEqual(Config.paths.titleDatabase, '/data/titledb/')
+		self.assertEqual(Config.paths.keys, '/config/keys.txt')
+
+	def test_save_load_round_trip_title_database_and_keys_paths(self):
+		conf_file = _get_default_config_path()
+		Config.paths.titleDatabase = '/data/titledb/'
+		Config.paths.keys = '/config/keys.txt'
+		Config.save(conf_file)
+
+		Config.paths.titleDatabase = 'titledb'
+		Config.paths.keys = 'keys.txt'
+		Config.load(conf_file)
+		self.assertEqual(Config.paths.titleDatabase, '/data/titledb/')
+		self.assertEqual(Config.paths.keys, '/config/keys.txt')
+
+	def test_load_without_title_database_and_keys_keeps_defaults(self):
+		conf_file = 'conf/nut.conf'
+		conf_content = """
+{
+	"paths": {
+		"scan": ["./"]
+	}
+}
+"""
+		self.fs.create_file(conf_file, contents=conf_content)
+		Config.load(conf_file)
+		self.assertEqual(Config.paths.titleDatabase, 'titledb')
+		self.assertEqual(Config.paths.keys, 'keys.txt')
+
+	def test_load_legacy_titledb_path(self):
+		conf_file = 'conf/nut.conf'
+		conf_content = """
+{
+	"paths": {
+		"titledb": "/legacy/titledb/"
+	}
+}
+"""
+		self.fs.create_file(conf_file, contents=conf_content)
+		Config.load(conf_file)
+		self.assertEqual(Config.paths.titleDatabase, '/legacy/titledb/')
+
+	def test_load_title_database_takes_precedence_over_legacy_titledb(self):
+		conf_file = 'conf/nut.conf'
+		conf_content = """
+{
+	"paths": {
+		"titledb": "/legacy/titledb/",
+		"titleDatabase": "/data/titledb/"
+	}
+}
+"""
+		self.fs.create_file(conf_file, contents=conf_content)
+		Config.load(conf_file)
+		self.assertEqual(Config.paths.titleDatabase, '/data/titledb/')
+
 	def __compare_config_in_file_with_object(self, conf_file, obj):
 		self.assertTrue(os.path.exists(conf_file))
 		with open(conf_file, 'r', encoding="utf8") as f:

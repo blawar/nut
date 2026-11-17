@@ -475,6 +475,16 @@ def load(confFile):  # pylint: disable=too-many-branches,too-many-statements
 			pass
 
 		try:
+			paths.titleDatabase = j['paths']['titleDatabase']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
+			paths.keys = j['paths']['keys']
+		except BaseException:  # pylint: disable=broad-except
+			pass
+
+		try:
 			compression.level = int(j['compression']['level'])
 		except BaseException:  # pylint: disable=broad-except
 			pass
