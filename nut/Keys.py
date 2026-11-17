@@ -6,7 +6,7 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_PSS, PKCS1_v1_5, pss
 
-from nut import Print, aes128
+from nut import Config, Print, aes128
 
 keys = {}
 titleKeks = []
@@ -151,12 +151,12 @@ def load(fileName):
 
 
 try:
-	load('keys.txt')
+	load(Config.paths.keys)
 except BaseException as e:
 	try:
 		load('prod.keys')
 	except BaseException:
-		Print.error('could not load find or load keys.txt, all crypto operations will fail. See keys_template.txt for an example of how this file should look')
+		Print.error('could not load find or load %s, all crypto operations will fail. See keys_template.txt for an example of how this file should look' % Config.paths.keys)
 
 # for k in titleKeks:
 #	Print.info('titleKek = ' + k)
